@@ -1,0 +1,39 @@
+{
+  "articles": [
+    {
+      "name": "great-stuff",
+      "author": {
+        "id": "1",
+        "name": "Paul"
+      },
+      "title": "My awesome blog post",
+      "comments": [
+        {
+          "id": "324",
+          "commenter": {
+            "id": "2",
+            "name": "Nicole"
+          }
+        }
+      ]
+    },
+    {
+      "name": "strange",
+      "author": {
+        "id": "3",
+        "name": "Oma"
+      },
+      "title": "Oma geht in die Konditorei",
+      "comments": [
+        {
+          "id": "3435",
+          "commenter": {
+            "id": "1",
+            "name": "Paul"
+          }
+        }
+      ]
+    }
+
+  ]
+}

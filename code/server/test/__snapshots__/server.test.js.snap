@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GET GET /greetings should return all greetings 1`] = `
+Array [
+  Object {
+    "greeting": "Moin",
+    "id": 1,
+    "name": "Klaus",
+  },
+  Object {
+    "greeting": "Hello!",
+    "id": 2,
+    "name": "Susi",
+  },
+  Object {
+    "greeting": "Bonjour",
+    "id": 3,
+    "name": "Max",
+  },
+  Object {
+    "greeting": "How are you?",
+    "id": 4,
+    "name": "Susi",
+  },
+  Object {
+    "greeting": "Bon soir",
+    "id": 5,
+    "name": "Max",
+  },
+  Object {
+    "greeting": "Hola, ¿qué tal?",
+    "id": 6,
+    "name": "Felipe",
+  },
+  Object {
+    "greeting": "Happy Birthday",
+    "id": 7,
+    "name": "Alex",
+  },
+  Object {
+    "greeting": "¡buenos días",
+    "id": 8,
+    "name": "Felipe",
+  },
+  Object {
+    "greeting": "Wie gehts?",
+    "id": 9,
+    "name": "Paul",
+  },
+  Object {
+    "greeting": "Have a nice day",
+    "id": 10,
+    "name": "Susi",
+  },
+]
+`;
+
+exports[`GET GET /greetings/id should return a single greeting by id 1`] = `
+Object {
+  "greeting": "Hello!",
+  "id": 2,
+  "name": "Susi",
+}
+`;
+
+exports[`GET POST POST /greetings with new greeting should save it and return new id 1`] = `
+Object {
+  "id": 11,
+}
+`;

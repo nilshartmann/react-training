@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>React State Management</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="reveal.js/css/reveal.css">
+    <!--<link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">-->
+    <!--<link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">-->
+    <!--<link rel="stylesheet" href="reveal.js/css/theme/night.css" id="theme">-->
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+    <style>
+        /*pre code {*/
+            /*display: block;*/
+            /*padding: 0.5em;*/
+            /*background: #FFFFFF !important;*/
+            /*color: #000000 !important;*/
+        /*}*/
+
+        .right-img {
+            margin-left: 10px !important;
+            float: right;
+            height: 500px;
+        }
+        .todo:before {
+            content: 'TODO: ';
+        }
+        .todo {
+            color: red !important;
+        }
+        code span.line-number {
+            color: lightcoral;
+        }
+        .reveal pre code {
+            max-height: 1000px !important;
+        }
+        img {
+            border: 0 !important;
+            box-shadow:0 0 0 0 !important;
+        }
+
+    </style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+        <section>
+            <h1>Bibliotheken für Zustands-Management</h1>
+        </section>
+
+        <section>
+            <h2>Über Komponenten verteilter Zustand</h2>
+            <img src="ai/distributed-state.png" />
+        </section>
+
+        <section>
+            <h2>Render Cycle in Pure React</h2>
+            <img src="images/redux-01-react-cycle-no-redux.png" style="border:0;box-shadow:0 0 0 0"/>
+        </section>
+
+        <section>
+            <h2>Motivation für Zustandsmanagement</h2>
+            <p class="fragment">Zustand, der über viele Komponenten verteilt ist, macht Programme kompliziert</p>
+            <p class="fragment">Gemeinsame Nutzung von State in unterschiedlichen Komponenten-Hierarchien ist schwierig</p>
+            <p class="fragment">Zustandmanagement und UI-Handler werden aus React-Komponenten extrahiert</p>
+            <p class="fragment">Besseres SoC</p>
+        </section>
+
+        <section>
+            <h1>Option 1: Flux</h1>
+            <p>Die klassische Idee</p>
+        </section>
+
+        <section>
+            <img src="ai/flux.png">
+        </section>
+
+        <section>
+            <h1>Option 2: MobX</h1>
+        </section>
+
+        <section>
+            <h2>Referenz</h2>
+            <p><a href="https://mobx.js.org/" target="_blank">
+                https://mobx.js.org/
+            </a>
+            </p>
+
+        </section>
+
+        <section>
+            <h2>Prinzipien</h2>
+            <p><a href="https://mobx.js.org/intro/concepts.html" target="_blank">
+                https://mobx.js.org/intro/concepts.html
+            </a>
+            </p>
+            <img src="images/mobx-action-state-view.png">
+            <ol>
+                <li>Zustand wird extern in einer Klasse gehalten
+                <li>Abgeleitete Darstellungen des Zustands werden automatisch berechnet, sind getter einer Klasse
+                <li>Aktionen, die den Zustand ändern, sind Methoden des Klasse
+                <li>Komponenten werden bei Bedarf automatisch neu gerendert
+            </ol>
+        </section>
+
+        <section>
+            <h2>Beispiel-Zustand</h2>
+            <pre><code class="javascript" contenteditable data-trim>
+class Store {
+    @observable greetings = [];
+    @observable filter = null;
+
+    @computed get filteredGreetings() {
+        return filterGreetings(this.greetings, this.filter);
+    }
+
+    @action.bound
+    setFilter(filter) {
+        if (this.filter === filter) {
+            // reset filter when clicking again
+            this.filter = null;
+        } else {
+            this.filter = filter;
+        }
+    }
+}
+
+export default new Store();
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Komponenten reagieren</h2>
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+import store from './store';
+
+ReactDOM.render(&lt;GreetingController store={store}/>, mountNode);
+            </code></pre>
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+import {observer} from 'mobx-react';
+
+@observer
+export default class GreetingController extends React.Component {
+    render() {
+        const {store} = this.props;
+        const {filteredGreetings} = store;
+        const {setFilter} = store;
+
+        // ...
+    }
+
+    // ...
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Zusammenfassung</h3>
+            <img src="ai/mobx.png" height="600px">
+        </section>
+
+        <section>
+            <section>
+                <h2>Übung: Stelle deine Anwendung auf MobX um</h2>
+                <h3>Nutze die vorbereitete Implementierung</h3>
+            </section>
+            <section>
+                <h3>Schritte</h3>
+                <ul>
+                    <li>mache dich mit der vorbereiteten und lauffähigen Implementierung in <code>code/experiment/mobx</code> vertraut
+                    <li>integriere sie in deine bestehende Lösung inklusive des Routings
+                    <li>füge in eine neue Komponente hinzu, die zählt, wie viele Grüße es insgesamt gibt und wie viele davon nach der Filterung noch angezeigt werden
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <h2>Wie kann man Stores noch an Komponenten übergeben?</h2>
+            <a href="https://github.com/mobxjs/mobx/issues/300#issuecomment-223704275" target="_blank">
+                https://github.com/mobxjs/mobx/issues/300#issuecomment-223704275</a>
+            <ol>
+                <li>Explizit durch props
+                <li>Direkter Zugriff aus importierten Stores
+                <li>Implizit über einen Provider (wie bei Redux),
+                    <a target="_blank" href="https://github.com/mobxjs/mobx-react#provider-and-inject">
+                        https://github.com/mobxjs/mobx-react#provider-and-inject
+                    </a>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Wie funktioniert MobX?</h2>
+            <a href="https://www.youtube.com/watch?v=TfxfRkNCnmk" target="_blank">
+                RuhrJS 2016 - Michel Weststrate - MAGIC MOBX BECOME A REACTIVE WIZARD IN 30 MINUTES
+            </a>
+        </section>
+
+        <section>
+            <h1>Option 3: Redux</h1>
+        </section>
+
+        <section>
+            <h2>Render-Zyklus in purem React</h2>
+            <img src="images/redux-01-react-cycle-no-redux.png" style="border:0;box-shadow:0 0 0 0"/>
+        </section>
+
+        <section>
+            <h2>Redux extrahiert die Verantwortlichkeiten</h2>
+            <img src="images/redux-02-extracting-responsibility.png" style="border:0;box-shadow:0 0 0 0"/>
+        </section>
+
+        <section>
+            <h2>Resultierende Redux-Architektur</h2>
+            <img src="images/redux-03-resulting-redux-architecture.png" style="border:0;box-shadow:0 0 0 0"/>
+        </section>
+
+        <section>
+            <h2>Redux vs MobX</h2>
+            <p><a href="http://redux.js.org/" target="_blank">
+                http://redux.js.org/
+            </a>
+            </p>
+            <ul>
+                <li>Redux ist die Mainstream-Lösung
+                <li>Lässt sich sehr gut testen
+                <li>Fehlersuche und Debugging erstaunlich einfach
+                <li>Funktioniert auch in großen Anwendungen sehr gut
+                <li>Dev-Tools erlauben Magisches
+            </ul>
+            <p>Allerdings: Lernkurve steil, gerade am Anfang wirklich viel Code</p>
+            <p><strong>Redux ist für kleinere Anwendungen meistens Overkill</strong></p>
+            <p>MobX erlaubt einen sehr einfachen Einstieg</p>
+        </section>
+
+        <section>
+            <h3>Event-Handlers werden Action-Creators</h3>
+           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+export function setFilter(filter) {
+    return {
+        type: SET_FILTER,
+        filter
+    };
+}
+</code></pre>
+            <ul>
+                <li class="fragment">Action-Creators erzeugen Action-Objekte</li>
+                <li class="fragment">Actions sind Kommando-artige Strukturen von Dingen, die die Applikation tun soll
+                <li class="fragment">Über die dispatch-Methode des Stores werden sie an <em>alle</em> Reducer weiter gegeben
+                <li class="fragment">Actions bestehen aus einem Typen und einer belibiegen Nutzlast (payload)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Action-Creators machen Server-Calls</h3>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+export const loadGreetings = dispatch => {
+    return fetch(BACKEND_URL)
+        .then(response => response.json())
+        .then(greetings => dispatch({
+            type: SET_GREETINGS,
+            greetings
+        });
+    );
+};
+</code></pre>
+            <ul>
+                <li class="fragment">Da der Server-Call asynchron ist, bekommen wir die dispatch Methode als Parameter, mit der wir später
+                    die Action dispatchen</li>
+            </ul>
+            <p  class="fragment"><strong>Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone Operationen
+                ausführen dürfen, wie z.B. eben Server-Calls</strong></p>
+        </section>
+
+        <section>
+            <h3>Ein <em>einziger</em> Store hält den <em>kompletten</em> Zustand</h3>
+           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { rootReducer } from './reducers';
+
+// http://redux.js.org/docs/api/createStore.html
+const store = createStore(
+    rootReducer // reducer
+);
+ReactDOM.render(
+    &lt;Provider store={store}>
+        &lt;GreetingController />
+    &lt;/Provider>,
+    mountNode
+);
+        </code></pre>
+            <ul>
+                <li class="fragment">Zentraler Teil der Anwendung
+                <li class="fragment">Liefert die bereits bekannte dispatch-Methode
+                <li class="fragment">Der Store wird allen Componenten über die Wrapper-Komponenten <em>Provider</em>
+                zur Verfügung gestellt
+            </ul>
+        </section>
+
+        <section>
+            <h3>Middleware sitzt zwischen Dispatch und Store</h3>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+import { applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+
+const store = createStore(
+    rootReducer, // reducer
+    applyMiddleware(thunk) // middleware as enhancer
+);
+        </code></pre>
+            <ul>
+                <li class="fragment">Die Thunk Middleware dient als de-facto-Standard</li>
+                <li class="fragment">Gibt die dispatch-Methode and (asynchrone) Action Creators weiter
+                <li class="fragment"><a href="https://github.com/gaearon/redux-thunk#whats-a-thunk" target="_blank">
+                    'A thunk is a function that wraps an expression to delay its evaluation'
+                </a></li>
+                <li class="fragment">Middleware ist ein fortgeschrittenes Feature und meistens genügt die Thunk Middleware</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Reducers enthalten die Kern-(Business)-Logik</h3>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+import {combineReducers} from 'redux';
+
+// http://redux.js.org/docs/api/combineReducers.html
+export const rootReducer = combineReducers({
+    greetings, // updates greeting partial state
+    filter,
+    mode
+});
+        </code></pre>
+            <ul>
+                <li class="fragment">Reducer sind pure Funtionen, die den alten Zustand und eine Action bekommen und einen neuen Zustand erzeugen
+                <li class="fragment">Oft bearbeitet ein Reducer nur einen Teil des Zustands
+            </ul>
+        </section>
+
+        <section>
+            <h3>Teil-Reducer</h3>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+const mode = (state = MODE_MASTER, action) => {
+    switch (action.type) {
+        case SET_MODE:
+            return action.mode;
+        default:
+            return state;
+    }
+};
+        </code></pre>
+            <ul>
+                <li class="fragment">Initialisiert seinen Teilzustand (oft mit einem Default-Parameter)</li>
+                <li class="fragment">Ändert niemals zustand direkt</li>
+                <li class="fragment">Sondern liefert einen neuen Zustand (manchmal teilweise als Kopie)
+            </ul>
+        </section>
+
+        <section>
+            <h3>Zustand mit Komponenten verbinden</h3>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+import { connect } from 'react-redux';
+
+import * as actions from './actions';
+
+export default connect(
+    state => ({
+        mode: state.mode
+        // ...
+    }),
+    actions
+)(GreetingController);
+            </code></pre>
+            <ul>
+                <li class="fragment">der Provider gibt den Store in alle Komponenten</li>
+                <li class="fragment">Die Connect-Funktion extrahiert daraus Zustand, der als Property an Komponenten übergeben wird
+                <li class="fragment">Action-Creators können ebenso in Komponent gegeben werden</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Verwendung von Zustand und Action-Creators in verbundenen Komponenten</h3>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+class GreetingController extends React.Component {
+    render() {
+        // state from store
+        const {aggregatedGreetings, greetings, mode} = this.props;
+        // action creators bound to dispatch from store
+        const {setMode, saveGreeting, setFilter} = this.props;
+
+        // ...
+    }
+}
+            </code></pre>
+            <ul>
+                <li class="fragment">Action-Creators und Zustand werden in Properties hinein gemerged
+                <li class="fragment">Diese werden mit ES6-Destructuring an den Stellen aufgelöst wo wir sie brauchen
+                <li class="fragment">Die Komponenten wird nur neu gerendert wenn sich der benutzte Zustand verändert</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Selektoren</h3>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+export const filterGreetings = (greetings, filter) =>
+        filter ? greetings.filter(greeting => greeting.name === filter)
+                : greetings;
+
+export default connect(
+    state => ({
+        greetings: filterGreetings(state.greetings, state.filter),
+        // ...
+    }),
+    // ...
+)(GreetingController);        </code></pre>
+            <ul>
+                <li class="fragment">Berechnen abgeleiteten Zustand</li>
+                <li class="fragment">Oft in einer eigener Datei</li>
+                <li class="fragment">Erlauben Wiederbenutzung und Caching (normalerweise
+                <a href="http://redux.js.org/docs/recipes/ComputingDerivedData.html" target="_blank">reselect</a>)</li>
+            </ul>
+        </section>
+
+            <section>
+                <h2>Übung: eine Redux Anwendung fertig stellen</h2>
+                <h3>Es gibt bereits eine vorgebaute Redux-Anwendung, aber wir die Filterung über das Chart muss noch implementiert werden</h3>
+            </section>
+            <section>
+                <h3>Schritte</h3>
+                <ul>
+                    <li>Alles Material von <code>code/material/6-redux</code> in deinem Source-Ordner kopieren
+                    <li>TODOs leiten dich, die bereits in den Actions, den Reducers und dem GreetingController eingefügt sind
+                    <li>Nutzen den bereits existierenden Filer-Coder als dem vorherigen Schritt
+                    <li>Erzeuge einen neuen Action-Typ und einen Action-Creator für das setzen des Filters
+                    <li>Füge einen passenden Reducer zur Behandlung einer solchen Action hinzu und füge ihn als Teil-Reducer in
+                    <code>combineReducers</code> hinzu
+                    <li>Reiche den Action-Creator von <code>GreetingController</code> in die Chart-Komponente in der du auf das
+                    Filter-Event reagierst
+                </ul>
+            </section>
+
+
+    </div>
+
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.js"></script>
+<script src="lib/jquery-2.2.4.js"></script>
+<script>
+    Reveal.addEventListener( 'ready', function( event ) {
+        if (window.location.hostname.indexOf('localhost') !== -1) {
+            // only applies to presentation version
+            Reveal.configure({ controls: false });
+        } else {
+            // only applies to public version
+            $('.fragment').removeClass('fragment');
+        }
+        // applies to all versions
+        $('code').addClass('line-numbers');
+    } );
+</script>
+
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: 'reveal.js/lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'reveal.js/plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'reveal.js/plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'reveal.js/plugin/highlight/highlight.js', async: true, condition: function () {
+                return !!document.querySelector('pre code');
+            }, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: 'reveal.js/plugin/zoom-js/zoom.js', async: true},
+            {src: 'reveal.js/plugin/notes/notes.js', async: true},
+            {src: 'lib/js/line-numbers.js'}
+        ]
+    });
+
+</script>
+
+</body>
+</html>

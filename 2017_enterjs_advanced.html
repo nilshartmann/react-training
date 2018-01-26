@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Advanced React Patterns</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="reveal.js/css/reveal.css">
+    <!--<link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">-->
+    <!--<link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">-->
+    <!--<link rel="stylesheet" href="reveal.js/css/theme/night.css" id="theme">-->
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+    <style>
+        /*pre code {*/
+            /*display: block;*/
+            /*padding: 0.5em;*/
+            /*background: #FFFFFF !important;*/
+            /*color: #000000 !important;*/
+        /*}*/
+
+        .right-img {
+            margin-left: 10px !important;
+            float: right;
+            height: 500px;
+        }
+        .todo:before {
+            content: 'TODO: ';
+        }
+        .todo {
+            color: red !important;
+        }
+        code span.line-number {
+            color: lightcoral;
+        }
+        .reveal pre code {
+            max-height: 1000px !important;
+        }
+        img {
+            border: 0 !important;
+            box-shadow:0 0 0 0 !important;
+        }
+        .reveal {
+            -ms-touch-action: auto !important;
+            touch-action: auto !important;
+        }
+
+
+    </style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+<!--
+Zeiten:
+Teil 1: 10 Minuten
+-->
+        <section data-markdown class="preparation">
+            <script type="text/template">
+# Vorbereitung
+- Server Starten (Demos brauchen den)
+- Für Redux Demo App und Redux Dev Tools öffnen
+            </script>
+        </section>
+
+
+        <section>
+            <h1>Fortgeschrittene React-Patterns</h1>
+            <h2><a href="https://www.enterjs.de/abstracts#fortgeschrittene-patterns-fur-react-anwendungen" target="_blank">enterjs 2017</a></h2>
+            <p>
+                <a href="http://nilshartmann.net">Nils Hartmann</a> / <a href="http://twitter.com/nilshartmann">@nilshartmann</a>
+            </p>
+            <p>
+                <a href="http://zeigermann.eu">Oliver Zeigermann</a> / <a href="http://twitter.com/djcordhose">@DJCordhose</a>
+            </p>
+            <p><small>Folien: <a href="http://bit.ly/enterjs-advanced-react">http://bit.ly/enterjs-advanced-react</a></small></p>
+        </section>
+
+        <!--<section class="todo">-->
+            <!--<pre>-->
+            <!--</pre>-->
+        <!--</section>-->
+
+        <section>
+            <h1>Themen</h1>
+            <ol>
+                <li><a href="#optimizeruntime">Optimierungen (I): Rendering</a>
+                <li><a href="#state">Zustands-Management</a>
+                <!--<li><a href="#types">Typen-Systeme für React-Anwendungen</a>-->
+                <li><a href="#third">Integration mit 3rd-Party Bibliotheken</a>
+                <li><a href="#optimize-build">Optimierungen (II): Build</a>
+            </ol>
+        </section>
+
+      <section id="optimizeruntime">
+        <h2>Optimierungen (I): Rendering</h2>
+      </section>
+
+      <section>
+        <h2>Problem: React rendert oft <b>zu viel</b></h2>
+      </section>
+
+      <!--<section>-->
+        <!--<h3>Komponentenhierarchie</h3>-->
+        <!--<img src="ai/optimize-01-initial.png" />-->
+      <!--</section>-->
+      <!--<section>-->
+        <!--<h3>Rendering <b>aller</b> Komponenten</h3>-->
+        <!--<img src="ai/optimize-02-after-event.png" />-->
+      <!--</section>-->
+
+
+      <section>
+        <h3>Beispiel: SVG Boxes</h3>
+        <a href="code/sandbox/optimize/public" target="_blank">
+          <img src="images/screenshot_svg.png" height="500px">
+        </a>
+        <p>Eine einzelne Box mit D'n'D verschieben</p>
+      </section>
+
+      <section>
+        <h3>SVG Boxes</h3>
+        <img src="ai/box-app-01-initial.png" />
+      </section>
+      <section>
+        <h3>Rendering <b>aller</b> Komponenten</h3>
+        <img src="ai/box-app-02-after-mouse-event.png" />
+      </section>
+
+      <section>
+        <h2>Change Detection auf der Ebene des Virtual DOM</h2>
+        <p>bei jeder Bewegung der Maus werden alle Boxen neu gerendert</p>
+        <p>Nicht direkt im DOM, sondern in einer leichtgewichtigen Datenstruktur (Virtual DOM)</p>
+        <p>Änderungen im echten DOM werden aus Änderungen im Virtual DOM errechnet</p>
+      </section>
+
+      <section>
+        <h2>Change Detection auf der Ebene des Models</h2>
+        <p><strong>shouldComponentUpdate</strong> ist eine Lifecycle-Methode einer Komponente
+          die diese Prozedur abkürzen kann</p>
+        <p>das alte Modell kann mit dem neuen verglichen werden</p>
+          <p>Das reduziert das Neu-Rendering auf genau die <strong>notwendigen Elemente</strong></p>
+          <p>Macht nur Sinn, wenn der Check auf Modell-Änderung sehr billig ist, typischerweise <em><strong>===</strong></em></p>
+      </section>
+
+      <section>
+        <h3>Die Box Component</h3>
+        <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+class Box extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    // simple check: every change to a box creates a new object
+    const changed = this.props.box !== nextProps.box;
+    return changed;
+  }
+
+  render() {
+    const {box} = this.props;
+    return &lt;rect data-id={box.id} x={box.x} y={box.y}
+                 width="10" height="10"
+                 stroke="black" fill="transparent" strokeWidth="1"/>;
+  }
+}
+               </code></pre>
+      </section>
+
+      <section>
+        <h3>Naiver Code für Modifikation einer Box</h3>
+        <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+updateBox(id, x, y) {
+    const {boxes} = this.state;
+    const modifiedBox = {
+        id,
+        x,
+        y
+    };
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/
+    //            Reference/Global_Objects/Array/slice
+    const boxesBefore = boxes.slice(0, id);
+    const boxesAfter = boxes.slice(id + 1);
+    const modifiedBoxes = [...boxesBefore, modifiedBox, ...boxesAfter];
+    this.setState({
+        boxes: modifiedBoxes
+    });
+}
+               </code></pre>
+        <p><a href="code/sandbox/optimize/src/App.js" target="_blank">Kompletter Code</a></p>
+      </section>
+
+      <section>
+        <h3>Immutable.js</h3>
+        <p>Immutable persistent data collections for Javascript which increase efficiency and simplicity.</p>
+        <p><a href="http://facebook.github.io/immutable-js/" target="_blank">http://facebook.github.io/immutable-js/</a></p>
+        <ul>
+          <li>Bietet List, Set, Map, etc.
+          <li>Jede Modifikaton einer Collection erzeugt ein neues Collection Objekt
+          <li>Kopiert nicht die komplette Collection, sondern effiziente Erzeugung mittels
+            <a href="https://en.wikipedia.org/wiki/Persistent_data_structure" target="_blank">Persistent Data Structures</a>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Mit immutable.js</h3>
+        <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+import {List} from 'immutable';
+
+this.state = {
+    boxes: List(boxes)
+};
+   </code></pre>
+
+        <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+updateBox(id, x, y) {
+    const {boxes} = this.state;
+    const modifiedBox = {
+        id,
+        x,
+        y
+    };
+    const modifiedBoxes = boxes.set(id, modifiedBox);
+    this.setState({
+        boxes: modifiedBoxes
+    });
+}
+               </code></pre>
+        <p><a href="code/sandbox/optimize/src/AppImmutable.js" target="_blank">Kompletter Code</a></p>
+      </section>
+
+        <section id="state">
+            <h2>Bibliotheken für Zustands-Management</h2>
+        </section>
+
+        <section>
+            <h2>Motivation</h2>
+            <p>Komplexe Anwendung mit vielen interaktiven Abhängigkeit</p>
+            <a href="code/schritte/redux/7-redux-complete-app/public" target="_blank">
+                <img src="images/greeting-app.png" height="500px">
+            </a>
+        </section>
+
+        <section>
+            <h2>Über Komponenten verteilter Zustand</h2>
+            <img src="ai/distributed-state.png" />
+        </section>
+
+        <section>
+            <h2>Render Cycle in Pure React</h2>
+            <img src="images/redux-01-react-cycle-no-redux.png" style="border:0;box-shadow:0 0 0 0"/>
+        </section>
+
+        <!--<section>-->
+            <!--<h2>Motivation für Zustandsmanagement</h2>-->
+            <!--<p class="fragment">Zustand, der über viele Komponenten verteilt ist, macht Programme kompliziert</p>-->
+            <!--<p class="fragment">Gemeinsame Nutzung von State in unterschiedlichen Komponenten-Hierarchien ist schwierig</p>-->
+            <!--<p class="fragment">Zustandmanagement und UI-Handler werden aus React-Komponenten extrahiert</p>-->
+            <!--<p class="fragment">Besseres SoC</p>-->
+        <!--</section>-->
+
+        <!--<section>-->
+            <!--<h1>Option 1: Flux</h1>-->
+            <!--<p>Die klassische Idee</p>-->
+        <!--</section>-->
+
+        <!--<section>-->
+            <!--<img src="ai/flux.png">-->
+        <!--</section>-->
+
+        <section>
+            <h1>Option: Redux</h1>
+            <h3><a href="http://redux.js.org/" target="_blank">http://redux.js.org/</a></h3>
+        </section>
+
+        <section>
+            <img src="images/redux-04-react-to-redux-resulting-architecture.png" style="border:0;box-shadow:0 0 0 0"/>
+        </section>
+
+        <section>
+            <h1>Option: MobX</h1>
+            <h3><a href="https://mobx.js.org/" target="_blank">https://mobx.js.org/</a></h3>
+
+        </section>
+
+        <section>
+            <img src="ai/mobx.png" height="500px">
+        </section>
+
+        <section>
+            <h2>Redux vs MobX</h2>
+            <p><strong>Redux</strong></p>
+            <ul>
+                <li>ist die Mainstream-Lösung
+                <li>Lässt sich sehr gut testen
+                <li>Fehlersuche und Debugging erstaunlich einfach
+                <li>Funktioniert auch in großen Anwendungen sehr gut
+                <li>Dev-Tools erlauben Magisches
+            </ul>
+            <p>Allerdings: Lernkurve steil, gerade am Anfang wirklich viel Code</p>
+            <p><strong>Redux ist für kleinere Anwendungen meistens Overkill</strong></p>
+            <p>MobX erlaubt einen sehr einfachen Einstieg</p>
+        </section>
+
+        <section>
+            <h3>Demo: Magische Redux Dev-Tools</h3>
+            <a href="code/schritte/redux/7-redux-complete-app/public" target="_blank">
+                <img src="images/redux-dev-tools.png" height="500px">
+            </a>
+        </section>
+
+        <!--<section id="types">-->
+            <!--<h3>Thema 2</h3>-->
+            <!--<h2>Typen-Systeme für React-Anwendungen</h2>-->
+        <!--</section>-->
+
+        <!--<section>-->
+            <!--<h2>Typen-Systeme???</h2>-->
+            <!--<p class="fragment">Flow und TypeScript erweitern JavaScript um ein Typen-System</p>-->
+            <!--<p class="fragment">Ein Typen-System ist Vorraussetzung für wartbare Projekte</p>-->
+            <!--<p class="fragment">Die Typen-Systeme von Flow und TypeScript sind sehr ähnlich</p>-->
+        <!--</section>-->
+
+        <!--<section>-->
+        <!--<h3>Grundlagen mit Flow</h3>-->
+           <!--<pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>-->
+<!--// variables can have type information-->
+<!--let foo: string;-->
+<!--foo = 'yo';-->
+<!--// Error: number: This type is incompatible with string-->
+<!--foo = 10;-->
+
+<!--</code></pre>-->
+           <!--<pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>-->
+<!--// types can be explicit (parameter) or inferred (return type)-->
+<!--function sayIt(what: string) {-->
+    <!--return `Saying: ${what}`;-->
+<!--}-->
+<!--const said: string = sayIt(obj);-->
+
+<!--</code></pre>-->
+           <!--<pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>-->
+<!--class Sayer {-->
+    <!--what: string; // type also mandatory-->
+
+    <!--constructor(what: string) {-->
+        <!--this.what = what;-->
+    <!--}-->
+
+    <!--// return type if you want to-->
+    <!--sayIt(): string {-->
+        <!--return `Saying: ${this.what}`;-->
+    <!--}-->
+<!--}-->
+
+<!--</code></pre>-->
+      <!--</section>-->
+        <!--<section>-->
+            <!--<h3>TypeScript mit React</h3>-->
+            <!--<pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>-->
+<!--class HelloMessage extends React.Component&lt;Props, State> {-->
+  <!--// ...-->
+<!--}-->
+            <!--</code></pre>-->
+            <!--<pre class="fragment"><code data-trim contenteditable class="line-numbers typescript" data-leftpad>-->
+<!--type Props = {-->
+    <!--greeting: string;-->
+    <!--repeat?: boolean;-->
+<!--};-->
+
+<!--type State = {-->
+    <!--greeting: string;-->
+<!--}-->
+            <!--</code></pre>-->
+
+            <!--<pre class="fragment"><code data-trim contenteditable class="line-numbers typescript" data-leftpad>-->
+<!--constructor(props) {-->
+    <!--super(props);-->
+    <!--// ERROR: Object literal may only specify known properties,-->
+    <!--// and 'aha' does not exist in type 'Readonly&lt;State>'-->
+    <!--this.state = {greeting: this.props.greeting, aha: 10};-->
+
+    <!--// ERROR: Cannot assign to 'greeting' because-->
+    <!--// it is a constant or a read-only property.-->
+    <!--this.state.greeting = 'no way';-->
+<!--}-->
+               <!--</code></pre>-->
+        <!--</section>-->
+
+        <!--<section>-->
+            <!--<h3>Was soll man nehmen?</h3>-->
+            <!--<p>Flow und TypeScript funktionieren beide sehr gut mit React</p>-->
+            <!--<ul>-->
+                <!--<li class="fragment">Flow: <strong>Kann man leicht in existierende Projekte einführen</strong>-->
+                    <!--<ul>-->
+                        <!--<li class="fragment">Check kann nach und nach angeschaltet werden-->
+                        <!--<li class="fragment">Check-Level (weak/full) wählbar-->
+                        <!--<li class="fragment">Hat immer noch die bessere Typ-Inferenz-->
+                        <!--<li class="fragment">Kann auch ohne Checker, nur in der IDE betrieben werden-->
+                        <!--<li class="fragment">Basiert auf Babel React Preset-->
+                        <!--<li class="fragment">Babel Plugin kann propTypes aus Flow-Typen erzeugen-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <!--<li class="fragment">TypeScript: <strong>Beste Tool-Unterstützung</strong>-->
+                    <!--<ul>-->
+                        <!--<li class="fragment">Language Server ist Teil des Compilers-->
+                        <!--<li class="fragment">Ermöglicht jeder IDE/Editor besten Support-->
+                        <!--<li class="fragment">WebStorm / IDEA Support nah an Java-->
+                    <!--</ul>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</section>-->
+
+        <!--<section>-->
+            <!--<h2>Komplette Beispielprojekte</h2>-->
+            <!--<p><a href="code/sandbox/flow" target="_blank">Flow-->
+            <!--</a></p>-->
+            <!--<p><a href="code/sandbox/typescript" target="_blank">TypeScript-->
+            <!--</a></p>-->
+        <!--</section>-->
+
+
+        <section id="third">
+            <h2>Integration mit 3rd-Party Bibliotheken</h2>
+        </section>
+
+        <section>
+            <h2>3rd Party Libs?</h2>
+            <div class="fragment">
+                <p>Es gibt eine große Anzahl von sehr praktischen JavaScript-Bibliotheken</p>
+                <p>Viele davon sind aber nicht als React-Komponenten entwickelt worden</p>
+            </div>
+            <div class="fragment">
+                <p><b>Beispiele</b></p>
+                <p><em>jQuery</em> und <em>jQuery</em> Plugins wie z.B. <em>Bootstrap</em></p>
+                <p><em>d3</em> für interaktive SVGs und Chart Bibliotheken wie <em>nvd3</em></p>
+            </div>
+        </section>
+
+        <section>
+            <h3>Unser Beispiel: Verteilung der Grüße</h3>
+            <a href="code/schritte/5-third-party/public/index.html" target="_blank">
+                <img src="images/screenshot-nvd3.png" height="400px">
+            </a>
+            <p><em>nvd3</em> Pie Chart mit <em>d3</em></p>
+        </section>
+
+        <section>
+            <h3>Aufgabe: Einbetten des d3/nvd3 Pie Charts in eine React-Komponente</h3>
+        </section>
+
+        <!--<section>-->
+            <!--<h3>Herausforderungen?</h3>-->
+            <!--<ol>-->
+                <!--<li>Wie kommen wir an den DOM Knoten der React-Komponente?-->
+                <!--<li>Wie sagen wir React, dass nun NVD3 den Rest macht? Also, dass React nicht mehr neu rendern soll.-->
+                <!--<li>Änderungen des Zustands sollen nach wie vor richtig dargestellt werden-->
+                <!--<li>Ab welchem Zeitpunkt soll NVD3 das Rendern übernehmen?-->
+                <!--<li>Wie können wir aus NVD3 heraus auch wieder andere React-Komponenten beeinflussen?-->
+                <!--<li>Wie räumen wir wieder auf?-->
+            <!--</ol>-->
+        <!--</section>-->
+        <!--<section>-->
+            <!--<h3>Hintergrund: Charts mit NVD3</h3>-->
+            <!--<p>Basiert auf D3.js</p>-->
+            <!--<p>Benötigt svg DOM-Element um sich zu rendern</p>-->
+            <!--<p class="fragment">Stark vereinfachtes Beispiel:</p>-->
+            <!--<pre class="fragment"><code class="javascript" contenteditable data-trim>import d3 from 'd3';-->
+<!--import nv from 'nvd3';-->
+
+<!--// Chart erzeugen-->
+<!--const chart = nv.models.pieChart();-->
+<!--// ...Chart Config ausgelassen ...-->
+
+<!--// mit d3 rendern und mit Daten versorgen-->
+<!--const element = document.getElementById('chart');-->
+<!--d3.select(element)-->
+  <!--.datum(data)-->
+  <!--.call(chart);-->
+
+<!--// Callbacks registrieren (z.B. bei Klick auf ein Element)-->
+<!--chart.pie.dispatch.on("elementClick",-->
+                       <!--e => console.log(e.data.label));-->
+            <!--</code></pre>-->
+
+        <!--</section>-->
+
+        <!--<section>-->
+            <!--<h3>Übersicht über den Komponenten-Lifecycle</h3>-->
+            <!--<a href="https://facebook.github.io/react/docs/react-component.html#the-component-lifecycle" target="_blank">-->
+                <!--https://facebook.github.io/react/docs/react-component.html#the-component-lifecycle-->
+            <!--</a>-->
+        <!--</section>-->
+        <!--<section>-->
+            <!--<img src="ai/lifecycle-methods-1.png" height="600px"/>-->
+        <!--</section>-->
+        <!--<section>-->
+            <!--<img src="ai/lifecycle-methods-2.png" height="600px" />-->
+        <!--</section>-->
+        <!--<section>-->
+            <!--<h3>React Lifecycle Methoden</h3>-->
+            <!--<ul>-->
+                <!--<li class="fragment"><code><b>componentDidMount()</b></code>: Komponente wurde gerendert, Elemente sind im DOM (einmalig)</li>-->
+                <!--<li class="fragment"><code><b>componentWillReceiveProps(nextProps)</b></code>: An die Komponente wurden neue Properties übergeben. Die neuen Properties-->
+                    <!--werden als Parameter übergeben</li>-->
+                <!--<li class="fragment"><code><b>shouldComponentUpdate()</b></code>: Entscheidet, ob Komponente erneut gerendert werden soll (default: <code>true</code>)</li>-->
+                <!--<li class="fragment"><code><b>componentWillUnmount()</b></code>: Wird aufgerufen, bevor Komponente aus dem DOM entfernt wird (einmalig)</li>-->
+            <!--</ul>-->
+
+        <!--</section>-->
+
+        <section>
+            <h3>React Chart Komponente #1</h3>
+            <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+class Chart extends React.Component {
+    render() {
+        //  we render an empty svg and
+        //  remember the reference to the DOM node
+        return &lt;svg ref={c => this._chart = c}>&lt;/svg>
+    }
+
+    // called directly after first render
+    componentDidMount() {
+        // once rendered by react we create the nvd3 chart
+        const chart = createNvd3Chart(this._chart, this.props.data);
+
+        // we delegate the label of clicked segment
+        // back to parent component
+        chart.pie.dispatch.on("elementClick",
+                              e => this.props.onSegmentSelected(e.data.label));
+    }
+
+    // ...
+}
+       </code></pre>
+        </section>
+
+        <section>
+            <h3>React Chart Komponent #2</h3>
+            <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+class Chart extends React.Component {
+    // ...
+
+    // if it returns false, component will not be rendered
+    shouldComponentUpdate() {
+        // once rendered react never renders again
+        return false;
+    }
+
+    // called when properties update
+    componentWillReceiveProps(nextProps) {
+        const {data} = nextProps;
+        // we still get updates of properties making it reactive
+        updateNvd3Chart(this._chart, data);
+    }
+
+    // called just before destroying component
+    componentWillUnmount() {
+        this._d3selection.remove();
+    }
+}
+       </code></pre>
+        </section>
+
+        <section id="optimize-build">
+            <h2>Optimierungen (II): Build</h2>
+        </section>
+
+        <section>
+            <h3>Kudos an Webpack</h3>
+            <p>Jeder kann ein Sponsor werden</p>
+            <a href="https://opencollective.com/webpack#contributors" target="_blank"><img src="images/olli-webpack-sponsor.png"></a>
+            <p><small><a href="https://opencollective.com/webpack#contributors" target="_blank">
+                https://opencollective.com/webpack#contributors
+            </a></small></p>
+        </section>
+
+      <section>
+        <h3>Produktionsbuild</h3>
+            <p>Minifizieren, Optimieren und alle React-Warnungen herauskompilieren:</p>
+            <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+webpack --optimize-minimize --define process.env.NODE_ENV=\"'production'\"
+            </code></pre>
+        <p style="font-size:80%">Oder als Kurzform:</p>
+        <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+webpack -p
+            </code></pre>
+            <p style="font-size:80%">(<a href="http://lisperator.net/uglifyjs/" target="_blank">Nutzt Uglify</a>)</p>
+            <p><a href="https://webpack.js.org/guides/production-build/" target="_blank">https://webpack.js.org/guides/production-build/</a></p>
+        <p>SourceMaps in eigene Datei schreiben (Webpack Konfiguration):</p>
+        <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+          devtool: 'source-map'
+        </code></pre>
+
+        </section>
+
+        <section>
+            <h2>Build-Optimierungen</h2>
+            <em>"Tree Shaking": Entfernt toten Code aus dem generierten JavaScript File</em>
+            <ul>
+                <li class="fragment">Reduziert die Größe der Ausgabedatei</li>
+                <li class="fragment">Verfügbar in Webpack 2.x</li>
+                <li class="fragment">Automatisch eingeschaltet, wenn mit <code>-p</code> aufgerufen</li>
+                <li class="fragment">Arbeitet auf Basis statischer Code-Analyse der ES6 Imports und Exports</li>
+                <li class="fragment">Anpassung in <code>.babelrc</code>: <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+"presets": [["es2015", { "modules": false }]
+            </code></pre>
+                </li>
+              <li><a href="https://webpack.js.org/guides/tree-shaking/" target="_blank">https://webpack.js.org/guides/tree-shaking/</a> </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Code Splitting</h2>
+            <em>Asynchrones Nachladen von Modulen</em>
+            <p><a href="https://webpack.js.org/guides/code-splitting-async/" target="_blank">https://webpack.js.org/guides/code-splitting-async/</a></p>
+            <ul>
+                <li>Erlaubt das dynamische Nachladen von Code-Teilen
+                <li>So kann am Anfang für eine schnelle Ladezeit nur eine Minimalversion ausgespielt werden
+                <li>Basiert auf <a href="https://github.com/tc39/proposal-dynamic-import">dynamic import</a>, der bereits in Stage 3 ist
+                <li>Weitere Teile können unmittelbar oder erst nach Nutzerinteraktion nachgeladen werden
+            </ul>
+        </section>
+
+        <!--<section>-->
+        <!--<h2>Beispiel Code</h2>-->
+        <!--<pre><code data-trim>npm install babel-plugin-syntax-dynamic-import &#45;&#45;save</code></pre>-->
+        <!--<pre><code data-trim>-->
+        <!--// .babelrc-->
+        <!--"plugins": ["syntax-dynamic-import", ...]-->
+        <!--</code></pre>-->
+        <!--<pre><code data-trim>-->
+        <!--// calculator.js-->
+        <!--export default function calculator(a, b) {-->
+        <!--return a+b;-->
+        <!--}-->
+        <!--</code></pre>-->
+        <!--<pre><code class="javascript" data-trim>-->
+        <!--import('./calculator')-->
+        <!--.then(calculatorModule => {-->
+        <!--// import calculator from './calculator';-->
+        <!--const calculator => calculatorModule.default-->
+        <!--console.log(calculator(7, 8));-->
+        <!--});-->
+        <!--</code></pre>-->
+        <!--<p><a href="code/sandbox/code-splitting/src/GreetingController.js">Kompletter Code</a></p>-->
+        <!--</section>-->
+
+        <section>
+            <h3>Nachladen von React-Komponenten</h3>
+            <span style="font-size: 80%">
+            <ul>
+                <li>Erfordert die Darstellung von Platzhaltern, bis die eigentliche Komponente da ist
+                <li>Wenn die Komponente da ist, muss die umschließende Komponente neu dargestellt werden
+                <li><em>forceUpdate</em> erzwingt ein Neuladen
+            </ul>
+             </span>
+            <pre><code class="javascript" data-trim>
+class AsyncComponent extends React.Component {
+  componentDidMount() {
+    import(/* webpackChunkName: "component" */ './Component')
+      .then(ComponentModule => {
+        this.Component = ComponentModule.default;
+        this.forceUpdate();
+      });
+  }
+
+  render() {
+    return this.Component ?
+      &lt;this.Component /> : &lt;span>Loading...&lt;/span>;
+  }
+}
+            </code></pre>
+          <p>Fertige Lösung: <a href="https://github.com/thejameskyle/react-loadable" target="_blank">React Loadable</a></p>
+        </section>
+
+        <section>
+            <h3>Externals</h3>
+            <p>Allgemeine Bibliotheken können von CDNs geladen werden und landen nicht im Webpack build</p>
+            <p>Vorteil: Caching (sowohl im Browser als auch in mittleren Schichten), mehrere parallele Requests</p>
+            <pre><code class="javascript" data-trim>
+externals: {
+    "react": "React",
+    "react-dom": "ReactDOM",
+    "prop-types": "PropTypes",
+    "d3": "d3",
+    "nvd3": "nv"
+}
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Dev-Build Größe: Ohne Optimierungen</h3>
+            <img src="images/screenshot-dist-dev.png">
+        </section>
+
+        <section>
+            <h3>Prod-Build Größe #1: Mit allen Abhängigkeiten</h3>
+            <img src="images/screenshot-dist-prod.png">
+        </section>
+
+        <section>
+            <h3>Prod-Build Größe #2: Ohne React</h3>
+            <img src="images/screenshot-dist-no-react.png">
+        </section>
+
+        <section>
+            <h3>Prod-Build Größe #3: Ohne externe Abhängigkeiten (D3, NVD3)</h3>
+            <img src="images/screenshot-dist-minimal.png">
+        </section>
+
+        <section>
+            <h2>Geschafft ;-)</h2>
+            <h3>Vielen Dank für Eure Aufmerksamkeit!</h3>
+          <h3><b><em>Fragen ?</em></b></h3>
+            <p>
+                <a href="http://nilshartmann.net">Nils Hartmann</a> / <a href="http://twitter.com/nilshartmann">@nilshartmann</a>
+            </p>
+            <p>
+                <a href="http://zeigermann.eu">Oliver Zeigermann</a> / <a href="http://twitter.com/djcordhose">@DJCordhose</a>
+            </p>
+
+        </section>
+
+    </div>
+
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.js"></script>
+<script src="lib/jquery-2.2.4.js"></script>
+<script>
+    if (window.location.hostname.indexOf('localhost') !== -1) {
+    } else {
+        // only applies to public version
+        $('.preparation').remove();
+    }
+    Reveal.addEventListener( 'ready', function( event ) {
+        if (window.location.hostname.indexOf('localhost') !== -1) {
+            // only applies to presentation version
+            Reveal.configure({ controls: false });
+        } else {
+            // only applies to public version
+            $('.fragment').removeClass('fragment');
+        }
+        // applies to all versions
+        $('code').addClass('line-numbers');
+        $('.fragment').removeClass('fragment');
+    } );
+</script>
+
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: 'reveal.js/lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'reveal.js/plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'reveal.js/plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'reveal.js/plugin/highlight/highlight.js', async: true, condition: function () {
+                return !!document.querySelector('pre code');
+            }, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: 'reveal.js/plugin/zoom-js/zoom.js', async: true},
+            {src: 'reveal.js/plugin/notes/notes.js', async: true},
+            {src: 'lib/js/line-numbers.js'}
+        ]
+    });
+
+</script>
+
+</body>
+</html>

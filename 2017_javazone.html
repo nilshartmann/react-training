@@ -1,0 +1,965 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Frontend Architecture</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport"
+					content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="reveal.js/css/reveal.css">
+    <!--<link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">-->
+    <!--<link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">-->
+    <!--<link rel="stylesheet" href="reveal.js/css/theme/night.css" id="theme">-->
+    <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
+
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+    <style>
+        /*pre code {*/
+            /*display: block;*/
+            /*padding: 0.5em;*/
+            /*background: #FFFFFF !important;*/
+            /*color: #000000 !important;*/
+        /*}*/
+
+        .right-img {
+            margin-left: 10px !important;
+            float: right;
+            height: 500px;
+        }
+        .todo:before {
+            content: 'TODO: ';
+        }
+        .todo {
+            color: red !important;
+        }
+        code span.line-number {
+            color: lightcoral;
+        }
+        .reveal pre code {
+            max-height: 1000px !important;
+        }
+
+        img {
+            border: 0 !important;
+            box-shadow:0 0 0 0 !important;
+        }
+
+        .reveal {
+            -ms-touch-action: auto !important;
+            touch-action: auto !important;
+				}
+
+				.reveal h2,
+				.reveal h3 {
+					letter-spacing: 2px;
+				}
+
+				.reveal h2 {
+				font-family: 'Amiri', serif;
+				/* font-family: 'Times New Roman', Times, serif; */
+				font-weight: bold;
+				font-style: italic;
+				letter-spacing: -2px;
+				text-transform: none !important;
+			}
+
+			.reveal em {
+				font-weight: bold;
+			}
+
+				.reveal .step-subtitle h1 {
+					letter-spacing: 1px;
+				}
+				.reveal .step-subtitle h2,
+				.reveal .step-subtitle h3 {
+					text-transform: none;
+					font-style: italic;
+					font-weight: normal;
+					/* font-weight: 400; */
+					/* font-family: 'Amiri', serif; */
+					font-family: 'Lobster', serif;
+					letter-spacing: 1px;
+					color: #2aa198;
+					text-decoration: underline;
+				}
+
+				.reveal .front-page h1,
+				.reveal .front-page h2 {
+					font-family: "League Gothic";
+					font-style: normal;
+					text-transform: uppercase !important;
+					letter-spacing: 1px;
+				}
+
+				.reveal .front-page h1 {
+					font-size: 2.5em !important;
+				}
+
+				.reveal .highlight {
+					background-color: #D3337B;
+					color: white;
+				}
+
+				.reveal img.with-border {
+					border: 1px solid #586e75 !important;
+					box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15) !important;
+				}
+
+				.reveal li {
+					margin-bottom: 8px;
+				}
+
+				/* For li's that use FontAwesome icons as bullet-point */
+			.reveal ul.fa-ul li {
+				list-style-type: none;
+			}
+    </style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+<!--ALWAYS finish your talk on a slide that's easily photographed and tells people where to get more info. Leave it up while you take Qs-->
+<!--https://twitter.com/hadleywickham/status/888367562190409728?s=03-->
+
+<!--https://2017.javazone.no/program/5ddf7fcd3cdd41d78091f0677eb4eec0-->
+
+<!--
+        60 Minutes
+
+        React, Angular 2, and lately also Vue govern the realm of modern frontend frameworks.
+        Largely independent of which framework you choose there is a variety of architectural
+        approaches you can use. The challenges you face in frontend architecture are very different from
+        backend architectures in that the control and data flow rather goes in cycles than traversing through layers.
+        Additionally, decoupling of parts of the application must not impact the user experience,
+        so that the user has the impression of one consistent and coherent system.
+        These challenges are often underestimated and most attention goes to the backend.
+
+        We will shed some light into the matter and talk about MVC, Transparent Reactive Programming, State Management, Reactive Streams. We will also cover the main architectural challenges including
+
+        * where to maintain state
+        * how to change relevant parts of the UI when state changes
+        * how to structure your application when it grows
+        * there is no ideal solution, but you can still choose which compromise you are willing to take
+
+
+        If you are not interested in JavaScript or the browser,
+        this session can still be interesting as all these patterns are applicable to any other
+        language and any other runtime environment.
+-->
+
+<!--
+Plan
+- 10 Minuten Intro, bis Ende Klassische Web App
+- 5 Minuten App zeigen
+- 10 SPA und Smart / Dump Components
+- 10 Redux / MobX
+- 5 Minuten Universal
+- 15 Minuten the doctor is in
+-->
+
+<!--Das hier auf Englisch-->
+
+<!--Based on:-->
+<!--* 2017_herbstcampus.html-->
+
+<!--
+Wer macht was?
+- Intro: Folie 1 - 4 (Nils)
+- Klassische Web App: 5 - 9, inkl. Demo App (Nils)
+- SPA: 10-17 (Nils)
+- Redux: 18-28 (Olli)
+- Universal: 29-Ende (Olli)
+-->
+
+        <section data-markdown class="preparation">
+            <script type="text/template">
+### Preparation
+
+Komplex SPA
+
+- cd ~/Development/js/react-workshop
+- npm install
+- npm start
+- cd code/schritte/redux/redux-complete-app-typescript
+- npm start
+- Checken, dass localhost:7000 läuft (API)
+- Checken, dass localhost:8080 im Browser läuft (Frontend)
+
+Universal
+
+- cd code/architecture/universal
+- npm install
+- npm start
+- Checken, dass localhost:3001 im Browser läuft
+            </script>
+        </section>
+
+        <section class="front-page">
+						<h1>Overview of current (JavaScript) frontend architectures</h1>
+            <p><a href="https://2017.javazone.no/program/5ddf7fcd3cdd41d78091f0677eb4eec0" target="_blank">
+                JavaZone, Oslo 2017</a></p>
+            <p><small>
+                <a href="http://nilshartmann.net">Nils Hartmann</a> / <a href="http://twitter.com/nilshartmann">@nilshartmann</a>
+						</small><br><small>
+                <a href="http://zeigermann.eu">Oliver Zeigermann</a> / <a href="http://twitter.com/djcordhose">@DJCordhose</a>
+            </small></p>
+
+            <p>Slides: <a href="http://bit.ly/ui-architecture-javazone">
+                http://bit.ly/ui-architecture-javazone</a></p>
+        </section>
+
+<!--
+        <section>
+            <img src="internet-is-for-end-users.png">
+
+            <p><small><a href="https://twitter.com/igrigorik" target="_blank">
+                @igrigorik
+            </a>: <a href="https://twitter.com/igrigorik/status/891901115045785600" target="_blank">
+                https://twitter.com/igrigorik/status/891901115045785600
+            </a></small></p>
+        </section>
+
+-->
+        <section>
+            <h3 style="font-size: 1.5em; color: #2aa198">Central challenge with a complex Web Application</h3>
+            <h2 style="font-size: 2.2em;line-height:140%">best ui/ux <span style="text-transform: uppercase;letter-spacing:2px;color: #D3337B;text-decoration: underline;font-family: 'League Gothic', Impact, sans-serif;font-size:0.9em">opposes</span> requirement for maintainability</h2>
+        </section>
+
+        <section>
+            <h2>What makes Frontend Architecture so hard?</h2>
+            <h3 class="fragment" style="color: #2aa198">The "problem" sits in front of the keyboard!</h3>
+
+            <ul class="fragment">
+                <li>everything should be <span class="highlight">consistent</span>
+                    <ul>
+                        <li>consistent layout (UI)
+                        <li>consistent behavior and interaction (UX)
+                        <li>consistent display of all data in all components
+                    </ul>
+                </li>
+                <li><span class="highlight">responsive</span> UI even under load
+                <li>everything should load <span class="highlight">without delay</span>
+            </ul>
+				</section>
+
+        <section>
+						<h2 style="font-size: 1.5em; text-decoration: underline;line-height: 0.5em">The Flipside</h2>
+            <h3 style="color: #2aa198;font-size: 2.2em">Maintainability</h3>
+          <div  class="fragment">
+            <p>Of course&#8482; the application shall also be</p>
+            <ul>
+                <li>fast and <span class="highlight">cheap</span> to develop
+                <li><span class="highlight">maintainable</span> for decades
+                <li>developed in autonomous teams
+                <li>developed having a <span class="highlight">consistent architecture</span>
+                <li>matched with <span class="highlight">skill</span> set of existing developers
+            </ul>
+          </div>
+				</section>
+
+				<section class="step-subtitle">
+					<h2>In the beginning...</h2>
+					<h1>Classic Web Apps</h1>
+				</section>
+
+        <section>
+						<h2>Classic Web Applications</h2>
+						<img src="images/webapp-architecture-classic.png" style="max-width: 40%; float: left">
+            <ol style="max-width: 50%; float: right">
+                <li class="fragment"  >Browser sends HTTP Request
+              <li class="fragment"  >Content is <span class="highlight">rendered on the Server</span>
+								<li class="fragment"  >HTML is sent back to the Browser
+              <li class="fragment"  ><span class="highlight">Browser only shows the page</span> to the user
+                <li class="fragment"  >Each interaction repeats this round-trip
+            </ol>
+        </section>
+
+        <section>
+						<h3>Classic Web Apps</h3>
+						<h2>Many times an obvious approach...</h2>
+						<span  style="font-size: 80%">
+							<p>In enterprise projects, Classic Web Apps are often the "natural" beginning:</p>
+	            <ul class="fragment">
+                <li>Java/C# is the language of choice in the <span class="highlight">backend</span> anyway</li>
+                <li>Java/C# and HTTP/HTML are <span class="highlight">very well known</span> and understood
+	                <li>UI improvements (like simple validations, animations) can be implemented on the client with JavaScript snippets (jQuery)
+	                <li>in many cases this might be sufficient
+							</ul>
+						</span>
+        </section>
+
+        <section>
+						<h3>Classic Web Apps</h3>
+						<h2>...but: UI/UX capabilities are limited</h2>
+            <ul class="fragment fa-ul">
+                <li><i class="fa-li fa fa-hand-o-right"></i>Even Classic Web Apps often contain "SPA-like" parts<br/>(for example when using JSF components)
+								<li><i class="fa-li fa fa-hand-o-right"></i>Mixing client- and server-side rendering leads to confusing architecture and programming model</li>
+								<li><i class="fa-li fa fa-hand-o-right"></i>Real costs of this "mixed" approach getting visible during development (when it's too late...)</li>
+            </ul>
+        </section>
+
+        <section>
+						<h3>Classic Web Apps</h3>
+            <h2>Limitations? An Example...</h2>
+                <div>
+                    <a href="http://localhost:8080/" target="_blank">
+                        <img class="with-border" src="images/greeting-app-complex.png" style="height: 350px;">
+                    </a>
+                </div>
+            <p><small><span class="highlight">And our example is not even <em>that</em> complex... 🤔</span></small></p>
+        </section>
+
+        <section class="step-subtitle">
+            <h2>Next Step</h2>
+            <h1>Single-Page Applications</h1>
+        </section>
+
+        <section>
+						<h3>Single-Page Applications</h3>
+						<h2 style="font-size: 1.8em;color: #2aa198">The app runs completely in the browser</h2>
+						<img src="images/webapp-architecture-spa.png" style="max-width: 40%; float: left">
+            <ul style="width: 50%; float: right; font-size: 80%">
+                <li class="fragment">only one (single) HTML page that mainly loads JavaScript and CSS
+              <li class="fragment">runs without <span class="highlight">significant server part</span> for the UI
+								<li class="fragment">server only receives and sends data (JSON/REST API)</li>
+                <li class="fragment">could even work offline
+                <li class="fragment">can have same UI/UX experience as a desktop app
+            </ul>
+        </section>
+
+        <section>
+						<h3 style="line-height: 1em">Single-Page Applications</h3>
+						<h2>Components with Templates</h2>
+						<p style="color: #2aa198">A SPA is composed of (business) components:</p>
+            <ul class="fragment">
+								<li>Templates describe the UI of the component
+								<li>But now:
+									<ul>
+										<li>Logic is part of the component</li>
+										<li>Logic is a "first-class" citizen and no longer a "loose" snippet (like in jQuery)
+										<li><span class="highlight" >Logic is fully executed on the client</span></li>
+									</ul>
+									<li class="fragment">Prominent Frameworks: React, Angular and Vue</li>
+            </ul>
+        </section>
+
+        <section class="step-subtitle">
+						<h3>Architecture Pattern</h3>
+            <h1>Smart and Dumb Components<span style="color:#D3337B">*</span></h1>
+            <h3 style='color:#586e75;font-family: "Amiri", serif;letter-spacing:-2px;text-decoration:none;font-weight:bold'><span style="color:#D3337B">*</span>also known as <em style='font-family: "League Gothic", Impact, sans-serif;letter-spacing:1px;font-style:normal;text-transform:uppercase'>Mediator Pattern</em> with Web Components / Polymer</h3>
+        </section>
+
+        <section>
+          <h3><span class="highlight">Smart</span> Components</h3>
+            <ul>
+              <li>Managing (part of) the application <span class="highlight">state</span>
+              <li>Contain UI <span class="highlight">logic</span></li>
+								<li>Pass parts of the state as immutable data to subcomponents</li>
+								<li>Pass callbacks to subcomponents for interaction</li>
+                <li>Mostly domain-specific, not intended to be reusable
+            </ul>
+        </section>
+
+        <section>
+            <h3><span class="highlight">Dumb</span> Components</h3>
+            <ul>
+              <li>only for <span class="highlight">presentation</span>, no logic
+              <ul>
+                <li>but might contain own ("transient") state
+                </li>
+              </ul>
+              <li>have <span class="highlight">no knowledge or dependencies</span> to their surrounding components
+								<li>children of Dumb Components are usually other Dumb Components
+								(but there are
+                    <a target="_blank" href="https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.z8xy5zvhs">
+											exceptions</a>)
+                <li>reusable
+            </ul>
+        </section>
+
+        <section>
+            <img src="images/smart-dumb-properties.png">
+        </section>
+
+<!--
+        <section>
+            <h2>Code Sample Angular</h2>
+            <p>Using rxjs for communication between Smart and Dumb Component</p>
+        </section>
+
+        <section>
+            <h2>Smart Component</h2>
+            <pre><code data-trim>
+@Component({
+  template: `&lt;sub greeting={{greeting}} (onSend)="sent($event)"></sub>`
+})
+export class AppComponent {
+  // component state
+  private greeting: string = 'Hiho';
+
+  constructor(private greetingService: GreetingService) {
+  }
+
+  // "Business Logic" delegated to service
+  sent(greeting) {
+    this.greeting = this.greetingService.greetBack(greeting);
+  }
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Dumb Component</h2>
+            <pre><code data-trim>
+@Component({
+  selector: 'sub',
+  template: `
+<input [(ngModel)]="greeting">
+<p>{{greeting}}, World</p>
+<button (click)="send()">Send</button>
+`,
+})
+export class SubComponent {
+  @Input() greeting: string;
+
+   // rxjs observer
+  @Output() onSend = new EventEmitter();
+
+  // no business logic, just event emitting
+  send() {
+    this.onSend.emit(this.greeting);
+  }
+}
+            </code></pre>
+        </section>
+-->
+
+        <section class="next-step">
+					<h3>Smart and Dumb Components</h3>
+            <h2>Limitations</h2>
+            <p style="color: #2aa198">Mainly with growing and long-living applications</p>
+            <ul>
+              <li class="fragment" style="font-size: 80%">"God-like" components: State and logic tend to slowly move up to a few really fat components
+              <li class="fragment" style="font-size: 80%">Distributed, mutatable state makes maintainable and understanding hard
+                <ul>
+                  <li>Where does the state belong to?</li>
+                  <li>In which state is the application?
+                </ul>
+              </li>
+              <li class="fragment" style="font-size: 80%">Mash up of framework and UI code (hardens switching the framework)
+                <li class="fragment" style="font-size: 80%">Still open questions regarding the architecture
+                    <ul>
+                        <li>How to handle asynchronous code?
+                        <li>How to do proper initialization of the application?
+                        <li>How to test the business logic?
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!--<section>-->
+            <!--<a href="https://youtu.be/I7IdS-PbEgI" target="_blank"><img style="height: 600px" src="alan_kay.jpg"></a>-->
+            <!--<p><small><a href="https://facebook.github.io/immutable-js/" target="_blank">-->
+                <!--https://facebook.github.io/immutable-js/-->
+            <!--</a></small></p>-->
+        <!--</section>-->
+
+        <section class="step-subtitle">
+            <h2>Next Step</h2>
+            <h1>Redux as an Architecture Pattern</h1>
+        </section>
+
+        <section>
+						<h1>Redux</h1>
+						<ul>
+							<li><span class="highlight">Central</span> state management: one store for whole app, like a database</li>
+							<li><span class="highlight">External</span> state management: extract logic from the (UI-)components</li>
+						</ul>
+            <em>It's not only a framework, it's also a pattern (like MVC)</em>
+        </section>
+
+        <section>
+            <h2>Redux is independent of UI framework</h2>
+						<p style="color: #2aa198">Bindings exist for popular UI frameworks</p>
+            <ul style="font-size: 80%">
+                <li>React: <a href="http://redux.js.org/docs/basics/UsageWithReact.html" target="_blank">
+                    http://redux.js.org/docs/basics/UsageWithReact.html
+                </a>
+                <li>Angular: <a href="https://github.com/ngrx/store" target="_blank">https://github.com/ngrx/store</a></li>
+                <li>Vue:
+                    <a href="https://github.com/vuejs/vuex" target="_blank">https://github.com/vuejs/vuex</a> /
+
+                    <a href="https://github.com/revue/revue" target="_blank">https://github.com/revue/revue</a>
+                <li>Web Components (Polymer): Redux is recommended implementation of <em>Global Mediator Pattern</em>,
+                    <a href="https://twitter.com/DJCordhose/status/899943415353311232" target="_blank">https://twitter.com/DJCordhose/status/899943415353311232</a>
+                    <a href="https://tur-nr.github.io/polymer-redux/" target="_blank">https://tur-nr.github.io/polymer-redux/</a>
+            </ul>
+
+        </section>
+
+        <section>
+						<h3>Redux extracts responsibility out of the UI framework</h3>
+            <img src="images/redux-02-extracting-responsibility.png" style="max-height: 500px; border:0;box-shadow:0 0 0 0"/>
+        </section>
+
+        <section>
+						<h3>Redux Pattern</h3>
+						<h2>Resulting Architecture</h2>
+            <img src="images/redux-03-resulting-redux-architecture.png" style="max-height: 500px; border:0;box-shadow:0 0 0 0"/>
+        </section>
+
+        <section>
+            <h2>Code Sample: Reducer</h2>
+            <p>Just a function, thus independent of UI Framework</p>
+            <pre class="fragment"><code data-trim data-num-start="1">
+type Greeting = {
+	greeting: string;
+	name: string;
+}
+            </code></pre>
+            <pre class="fragment"><code data-trim data-num-start="5">
+type AddGreetingAction = {
+	type: 'ADD_GREETING',
+	greeting: Greeting
+}
+            </code></pre>
+            <pre><code data-trim data-num-start="9">
+function greetingsReducer(state: Greeting[] = [], action: AddGreetingAction) {
+    switch (action.type) {
+        case 'ADD_GREETING':
+            // immutable operation, creating new state
+            return [...state, action.greeting];
+        default:
+            return state;
+    }
+}
+            </code></pre>
+            <p>The only part <span  class="highlight">that is allowed to update state</span></p>
+        </section>
+
+        <section>
+            <h2>Different Types of State</h2>
+            <img src="images/three-kinds-of-state.png">
+        </section>
+
+        <section>
+            <h2>Code Sample: Action Creator</h2>
+            <p>Again, just a function independent of UI Framework</p>
+            <pre><code data-trim>
+async function loadGreetings(dispatch) {
+    try {
+        const response = await fetch(BACKEND_URL);
+        const json = await response.json();
+        dispatch({
+            type: SET_GREETINGS,
+            greetings: json
+        });
+    } catch (err) {
+        console.error('LOADING GREETINGS FAILED:', err)
+    }
+}
+            </code></pre>
+            <p>The only place where <span  class="highlight">asynchronous operations are allowed</span></p>
+        </section>
+
+        <!--
+                <section>
+                    <h3>Demo: Magic Redux Dev-Tools</h3>
+                    <a href="code/schritte/redux/7-redux-complete-app/public" target="_blank">
+                        <img src="redux-dev-tools.png" class="with-border" height="500px">
+                    </a>
+                        </section>
+
+                        <section>
+                            <h2>Redux</h2>
+                            <h3>Architectural guidance</h3>
+                            <ul>
+                                    <li>Uni-directional data flow
+                                    <li>Central and immutable state: store
+                                            <li>Only reducers are allowed to modify state
+                                                    <li>State moves from Smart Components to store
+                                    <li>UI logic moves from Smart Components in Action-Creators and Reducer
+                                    <li>Asynchronous code only in Action-Creators
+                                    <li>Initializing of the app with central action
+                            </ul>
+                        </section>
+
+        -->
+        <section>
+						<h3>Wrap Up Redux</h3>
+						<p  style="color: #2aa198">A UI pattern for User Interfaces</span>
+            <ul class="fragment" style="font-size:80%">
+                <li>Mainstream solution
+                <li>Independent of framework
+                <li>Easy testing of business logic as logic is implemented only in pure functions ("Reducer")
+                <li>Great debugging because of dev tools
+                <li>Works great in large applications with many dependencies between parts / components
+								</ul>
+
+        </section>
+
+<!--
+        <section>
+            <h1>MobX</h1>
+            <h2>Simple Alternative for State Management</h2>
+            <h3><a href="https://mobx.js.org/" target="_blank">https://mobx.js.org/</a></h3>
+
+        </section>
+
+        <section>
+            <img src="mobx.png" height="500px">
+        </section>
+
+        <section>
+            <h2>Redux vs MobX</h2>
+            <p><strong>MobX</strong></p>
+            <ul style="font-size:80%">
+                <li>Fully embraces idea of transparent reactive programming
+                <li>Embraces mutability
+                <li>Allows for more than one store, also supports nested stores
+                <li>Probably closer to what OO programmers are comfortable with
+                <li>Easy to get started
+                <li>Works with React only
+            </ul>
+            <p><strong>Redux</strong></p>
+            <ul style="font-size:80%">
+                <li>Often overkill for small applications
+								<li>Initially requires a lot of boiler plate code
+								<li>Idea of central state at its core
+                <li>Might be overwhelming for people not familiar with functional ideas
+            </ul>
+        </section>
+
+-->
+        <section>
+					<h3>
+						Single-Page Apps
+					</h3>
+            <h2>Limitations</h2>
+        <!--</section>-->
+
+        <!--<section>-->
+            <ul class="fragment">
+                <li>SEO
+                <li>First-Page-Impressions
+                <li>Previewing content, for example:
+                    <ul>
+                        <li>Preview in search result lists
+                        <li>Sharing of links in social media apps
+                    </ul>
+
+                </li>
+                <!--<li>Progressive Enhancement-->
+            </ul>
+        </section>
+
+        <section>
+					<h3>Single-Page Apps</h3>
+					<h2>First-Page-Impression</h2>
+          <div>
+          	<a href="code/architecture/spa/public/index.html" target="_blank">
+            	<img src="images/spa-first-page-impression.png" class="with-border" style="height: 280px;">
+            </a>
+          </div>
+          <p>Even for a simple Application it can <span class="highlight">take a while to load and bootstrap</span>
+              until the app is responsive</p>
+            <p>What comes from Server is an <span class="highlight">empty page</span> </p>
+        </section>
+
+        <section class="step-subtitle">
+					<h2>Next Step</h2>
+            <h1>Universal Web Apps</h1>
+        </section>
+        <section>
+						<h3>Universal Rendering</h3>
+            <ul class="fragment">
+                <li>First-Page-Impression is rendered on the server
+                <li>Not only the markup but also the state is returned from the server
+                <li>(following pages can be rendered on server as well)</li>
+                <li>Links have to be "real" HTML links (no click handlers)
+                <li>Runs without JavaScript on the client (at least partial) after rendered
+                <li>Code shared almost 100% between client and server
+                <li>Supported by React, Angular and Vue
+            </ul>
+        </section>
+				<section>
+            <h3>Universal Rendering: First-Page-Impression</h3>
+            <div>
+                <a href="http://localhost:3001/" target="_blank">
+                    <img src="images/universal-first-page-impression.png" class="with-border" style="height: 500px;">
+                </a>
+						</div>
+        </section>
+
+
+        <!--<section>-->
+            <!--<h3>Universal Rendering am Beispiel von React</h3>-->
+            <!--<div class="fragment">-->
+                <!--<img src="universal.png" style="height: 500px;">-->
+                <!--<p><small><a target="_blank" href="http://reactbuch.de/">Copyright 2016, D-Punkt, http://reactbuch.de/</a></small></p>-->
+            <!--</div>-->
+        <!--</section>-->
+
+<!--
+        <section>
+            <a target="_blank"
+               href="https://twitter.com/mxstbr/status/776812185276284928">
+                <img src="twitter_universal.png" class="with-border">
+            </a>
+        </section>
+-->
+
+        <section>
+					<h3>Universal Web Apps</h3>
+            <h2>Challenges</h2>
+            <ul class="fragment">
+                <li>Complete <span class="highlight">state must be available</span> on the server
+									<ul><li>Need to wait until all async code has been processed!</ul>
+									</li>
+                <li>If returned page is invalid: <span class="highlight">flickering</span> due to re-rendering on the client
+                    <ul>
+                        <li>Different locales on server and client
+                        <li>(Rapidly) changing data (timestamps, market rates)
+                    </ul>
+                </li>
+                <li>The <span class="highlight">server must run JavaScript</span> (typically it will be <a href="https://nodejs.org" target="_blank">Node.js</a>)
+                <li>
+                    <a href="https://twitter.com/DJCordhose/status/900328374601740288" target="_blank">
+                        How to do with Web Components? (headless chrome?)</a>
+                <li>Only helps with "Time to first Meaningful Paint", not with "Time to Interactive"
+
+            </ul>
+				</section>
+<!--
+
+				<section class="step-subtitle">
+					<h2>Next Step</h2>
+					<h1>Modularizing</h1>
+
+				</section>
+				<section>
+						<h3>Modular development</h3>
+						<h2>Integration at build time</h2>
+						<ul>
+								<li>Split parts of the application into own npm modules</li>
+								<li>Different teams can provide npm modules</li>
+								<li>Other teams can consume the modules</li>
+								<li>Modules can be lazy-loaded at runtime to increase performance</li>
+					</ul>
+			</section>
+
+			<section>
+					<h3>Modular development</h3>
+					<h2>Integration in the browser</h2>
+            <ul>
+                <li>Teams can build their own components matching their business needs
+									<li>Can be embedded via an iframe into another application</li>
+									<li>therefore they need to "real" apps (but probably small ones)</li>
+									<li>State/communication between apps by using a global EventBus</li>
+						</ul>
+					</section>
+
+					<section>
+							<h3>Modular development</h3>
+							<h2>Independent applications</h2>
+              <ul>
+									<li>Can be used for (strictly) separated parts of the app (e.g. user settings)</li>
+									<li>one team can build a whole app containing backend and frontend</li>
+									<li>an app can match a Microservice at the backend (but don't have to; can talk to multiple Microservices)</li></p>
+									<li>Link opens a new, own SPA (Microapps 😜)</li>
+									<li>State is not shared between apps</li>
+								</ul>
+				</section>
+
+				<section>
+						<h3 style="font-size: 1em; line-height:0">Wrap up</h3>
+					<h3>Modular development</h3>
+					<ul>
+						<li>Integration at <span class="highlight">build</span> time
+							<ul>
+								<li>New build of the consumer is required for each new version of a module</li>
+								<li><span class="highlight">"Real" SPAs</span> including all their advantages (components, state manangement, universal rendering)</li>
+							</ul>
+							<li>Integration in the <span class="highlight">browser</span>
+								<ul><li>
+										Higher decoupling (team can independently release their apps)</ul>
+									</li>
+									<li>Integration harder, as you deal with a lot of <span class="highlight">"small" SPAs</span> </li>
+									</li>
+							</li>
+					</ul>
+					<p style="color: #2aa198">Remember: it's all about the User (Experience!):
+					<br/>It should feel as <span class="highlight">one</span> app!</p>
+
+				</section>
+
+
+-->
+        <section>
+						<h2>Who uses modern SPAs?</h2>
+						<h3>Is someone really doing this?</h3>
+            <ul>
+                <li>Twitter Mobile Client: React with Redux
+                <li>Facebook: React
+                <li>Spotify Web Player: React with Redux
+								<li>New York Times: React</li>
+								<li>JavaZone: React with Redux
+            </ul>
+        </section>
+
+        <section>
+            <h3>The Doctor is In</h3>
+            <small>
+            <table>
+                <tr>
+                    <th></th><th>UI / UX</th><th>Myths</th><th>Architecture</th>
+                </tr>
+                <tr>
+                    <th>20</th>
+                    <td>
+                        Can I use links in SPAs? And the back button?
+                    </td>
+                    <td>Isn't the life time of a JavaScript Frontend Framework measured in weeks?
+                    </td>
+                    <td>Why should I use frontend logic in the first place?</td>
+                </tr>
+                <tr>
+                    <th>40</th>
+                    <td>Should I write every SPA as a Universal Application?</td>
+                    <td>Can I refactor and analyze JavaScript code?
+                    </td>
+                    <td>Isn't all my investment lost if I have to change the UI framework?</td>
+                </tr>
+                <tr>
+                    <th>60</th>
+                    <td><b>Choose your question</b></td>
+                    <td><b>Choose your question</b></td>
+                    <td><b>Choose your question</b></td>
+                </tr>
+                <tr>
+                    <th>80</th>
+                    <td>When should I use a classic Web Application rather than an SPA?
+                    </td>
+                    <td>Can I reuse JavaScript Code?
+                    </td>
+                    <td>Why is there no established layer model in SPAs?
+                    </td>
+                </tr>
+                <tr>
+                    <th>100</th>
+                    <td>
+                        Why care about server roundtrips, isn't the internet fast enough by now?
+                    </td>
+                    <td>Isn't JavaScript unmaintainable anyway?</td>
+                    <td>How does all this work with Microservices?</td>
+                </tr>
+            </table></small>
+            <p><small>
+                <a href="http://nilshartmann.net">Nils Hartmann</a> / <a href="http://twitter.com/nilshartmann">@nilshartmann</a>
+                <br>
+                <a href="http://zeigermann.eu">Oliver Zeigermann</a> / <a href="http://twitter.com/djcordhose">@DJCordhose</a>
+                <br>
+                <a href="http://bit.ly/ui-architecture-javazone">
+                    http://bit.ly/ui-architecture-javazone</a></small></p>
+        </section>
+
+    </div>
+
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.js"></script>
+<script src="lib/jquery-2.2.4.js"></script>
+<script>
+    if (window.location.hostname.indexOf('localhost') !== -1) {
+    } else {
+        // only applies to public version
+        $('.preparation').remove();
+    }
+    Reveal.addEventListener( 'ready', function( event ) {
+        if (window.location.hostname.indexOf('localhost') !== -1) {
+            // only applies to presentation version
+            Reveal.configure({ controls: false });
+        } else {
+            // only applies to public version
+            $('.fragment').removeClass('fragment');
+        }
+        // applies to all versions
+        $('code').addClass('line-numbers');
+    } );
+</script>
+
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: 'reveal.js/lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'reveal.js/plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'reveal.js/plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'reveal.js/plugin/highlight/highlight.js', async: true, condition: function () {
+                return !!document.querySelector('pre code');
+            }, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: 'reveal.js/plugin/zoom-js/zoom.js', async: true},
+            {src: 'reveal.js/plugin/notes/notes.js', async: true},
+            {src: 'lib/js/line-numbers.js'}
+        ]
+    });
+
+</script>
+
+</body>
+</html>

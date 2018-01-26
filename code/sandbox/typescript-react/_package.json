@@ -1,0 +1,16 @@
+{
+  "name": "react-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "npm run devserver",
+    "clean": "../../../node_modules/.bin/rimraf -rf public/dist/",
+    "dist": "../../../node_modules/.bin/webpack",
+    "devserver": "../../../node_modules/.bin/webpack-dev-server --content-base public/",
+    "test:typescript": "../../../node_modules/.bin/mocha ./test -r jsdom-global/register --compilers ts:ts-node/register --recursive",
+    "test:typescript:watch": "npm run test:typescript -- --watch",
+    "test:karma": "../../../node_modules/.bin/karma start --single-run",
+    "test:karma:watch": "../../../node_modules/.bin/karma start"
+
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "strict": true,
+    "allowJs": true,
+    // to check js
+//    "checkJs": true,
+    // to check js you might want to make this less strict
+//    "noImplicitAny": false,
+    "jsx": "react"
+  },
+  "include": [
+    "./src/**/*",
+    "./test/**/*.tsx"
+  ]
+}

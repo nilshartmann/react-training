@@ -1,0 +1,4 @@
+dist/
+dist-dev/
+lib/
+*.min.js

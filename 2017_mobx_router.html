@@ -1,0 +1,1521 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>React Workshop</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="reveal.js/css/reveal.css">
+    <!--<link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">-->
+    <!--<link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">-->
+    <!--<link rel="stylesheet" href="reveal.js/css/theme/night.css" id="theme">-->
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+    <style>
+        /*pre code {*/
+            /*display: block;*/
+            /*padding: 0.5em;*/
+            /*background: #FFFFFF !important;*/
+            /*color: #000000 !important;*/
+        /*}*/
+
+        .right-img {
+            margin-left: 10px !important;
+            float: right;
+            height: 500px;
+        }
+        .todo:before {
+            content: 'TODO: ';
+        }
+        .todo {
+            color: red !important;
+        }
+        code span.line-number {
+            color: lightcoral;
+        }
+        .reveal pre code {
+            max-height: 1000px !important;
+        }
+
+    </style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <h3>React Workshop - Vorbereitung</h3>
+            <p>Falls noch nicht gemacht:</p>
+            <ol>
+                <li><code>git clone https://github.com/DJCordhose/react-workshop.git</code></li>
+                <li>Im geklonten Verzeichnis: <code>npm install</code></li>
+                <li>Im geklonten Verzeichnis: <code>npm run setup</code></li>
+                <li>In <code>code/workspace</code> wechseln</li>
+                <li>Ausführen: <code>npm start</code></li>
+                <li>Browser öffnen: <a href="http://localhost:8080" target="_blank">http://localhost:8080</a></li>
+                <li>Wenn dort ein Hello-World-Text erscheint ist alles gut
+            </ol>
+            <p>Folien: Im geklonten Verzeichnis <code>2017_mobx_router.html</code>
+            </p>
+        </section>
+        <section>
+            <h1>React Workshop</h1>
+            <p>
+                <small><a href="http://nilshartmann.net">Nils Hartmann</a> / <a href="http://twitter.com/nilshartmann">@nilshartmann</a>
+                </small>
+            </p>
+            <p>
+                <small><a href="http://zeigermann.eu">Oliver Zeigermann</a> / <a href="http://twitter.com/djcordhose">@DJCordhose</a>
+                </small>
+            </p>
+            <p><small><a href="http://djcordhose.github.io/react-workshop/2017_mobx_router.html">http://djcordhose.github.io/react-workshop/2017_mobx_router.html</a></small></p>
+        </section>
+
+        <section>
+            <h2>Inhalt</h2>
+            <ul>
+                <li><a href="#/t0">Teil 0: React-Einführung und Build-Prozess</a>
+                <li><a href="#/t1">Teil I: React-Komponenten und ES6 Grundlagen</a>
+                <li><a href="#/t2">Teil II: Komponentenhierarchien</a>
+                <li><a href="#/t3">Teil III: Remote-Calls gegen Server</a>
+                <li><a href="#/t4">Teil IV: Integration mit 3rd-Party Libs</a>
+                <li><a href="#/t5">Teil V: React Router</a>
+                <li><a href="#/t6">Teil VI: MobX</a>
+            </ul>
+        </section>
+
+        <section id="t0">
+            <h1>Teil 0</h1>
+            <h2>React-Einführung und Build-Prozess</h2>
+        </section>
+
+        <section id="react">
+            <h2>React</h2>
+            <ul>
+                <li class="fragment">Framework für Facebook und viele andere
+                <li class="fragment">Komponenten kapseln Template und Logik
+                  <li class="fragment">Deklarativ
+                <li class="fragment">Abstraktion vom DOM: <em>f(model) -> UI</em>
+                <li class="fragment">Minimales API
+                <li class="fragment">Ein-Weg-Data-Binding: Zustandsänderungen stellen Komponente <b>komplett</b> neu dar
+                <li class="fragment">Kann im Browser und auf dem Server rendern
+                <!--<li class="fragment">wird für komplette Anwendung typischerweise mit React Router und einem Flux-Framework gekoppelt-->
+                <!--<li class="fragment">viel Inspiration aus der funktionalen Ecke (Immutable, pure functions, stateless)-->
+            </ul>
+        </section>
+
+        <section>
+            <h3>React Komponenten</h3>
+            <ul>
+                <li class="fragment">Werden als ES6 Klasse oder Funktion implementiert
+                <li class="fragment">Keine Templatesprache (stattdessen JavaScript)
+                <li class="fragment">Templates können HTML-artige Syntax enthalten (JSX)
+            </ul>
+            <pre class="fragment"><code data-trim contenteditable>class HelloMessage extends React.Component {
+  render() {
+    return &lt;h1 className='title'>Hello, World!&lt;/h1>
+  }
+}
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Hello World React</h3>
+                <a target="_blank" href="code/hello_world/public/index.html">Demo</a>
+        </section>
+
+                <section>
+                    <h3>Hello World React</h3>
+<pre><code data-trim contenteditable>class HelloMessage extends React.Component {
+  render() {
+    return (&lt;div>
+            &lt;input ref={input => this.input = input}
+                   onChange={event => this.updateModel(event)}
+                   value={this.state.greeting} />
+            &lt;p>{this.state.greeting}, World&lt;/p>
+            &lt;button
+                onClick={() => this.reset()}>
+                Clear
+            &lt;/button>
+        &lt;/div>);
+  }</code></pre>
+<pre class="fragment"><code contenteditable class="javascript">  constructor(props) {
+    super(props);
+    this.state = {greeting: this.props.greeting};
+  }
+  updateModel(event) {
+    this.setState({greeting: event.target.value});
+  }
+  reset() {
+    this.setState({greeting: ""});
+    this.input.focus();
+  }
+}</code></pre>
+                </section>
+
+            <section>
+                <h3>ES6: Klassen</h3>
+                <pre class="fragment"><code class="javascript" contenteditable>class Person {
+    constructor(name) {
+        this._name = name;
+    }
+    get name() {
+        return this._name;
+    }
+}
+class Programmer extends Person {
+    constructor(name, language) {
+        super(name);
+        this.language = language;
+    }
+    code() {
+        return this.name + " codes in " + this.language;
+    }
+}</code></pre>
+                <pre><code class="javascript" contenteditable>const programmer = new Programmer('Erna', 'JavaScript');
+console.log(programmer.code());
+console.log(programmer instanceof Programmer); // true
+console.log(programmer instanceof Person); // true</code></pre>
+            </section>
+
+
+
+            <section>
+            <h3>ES6: Arrow Functions</h3>
+            <pre><code class="javascript" contenteditable>const displayInPage = (text) => {
+   return document.body.innerHTML +=
+       `${text}<br>`;
+};</code></pre>
+            <pre class="fragment"><code class="javascript" contenteditable>const displayInPage = text => document.body.innerHTML += `${text}<br>`;
+</code></pre>
+        </section>
+        <section>
+                    <h3>Aufruf</h3>
+<pre><code data-trim contenteditable>
+// index.html
+&lt;html>
+  &lt;body>
+    <div id="mount"></div>
+  &lt;/body>
+  &lt;script src="dist/main.js">&lt;/script>
+&lt;/html>
+</code></pre>
+<pre class="fragment"><code data-trim contenteditable class="javascript">
+// main.js
+import HelloMessage from './HelloMessage';
+
+const mountNode = document.getElementById('mount');
+ReactDOM.render(&lt;HelloMessage greeting="Hello"/>, mountNode);
+</code></pre>
+                    <a target="_blank" href="code/hello_world/public/index.html">Run</a>
+                </section>
+
+
+    <section>
+        <h2>Buildprozess</h2>
+        <ul>
+            <li>ES6- und JSX-Code muss nach ECMAScript 5 übersetzt werden
+            <li>Typische Werkzeuge
+                <ul><li>Babel (Compiler)
+                    <li>Webpack (Bundler)
+                    <li>Webpack Dev Sever (HTTP Server mit Hot Reload)
+                    </ul>
+        </ul>
+    </section>
+     <section>
+        <h2>Webpack und Babel</h2>
+        <img src="images/webpack-und-babel.png" style="border:0;box-shadow:0 0 0 0"/>
+    </section>
+
+    </section>
+    <section>
+      <section>
+          <h2>Übung: React Hello-World</h2>
+          <h3>Mach dich mit den Werkzeugen vertraut und schreib deine erste React-Komponente</h3>
+      </section>
+      <section>
+          <h3>Schritt #1: Tool-Chain starten</h3>
+          <p>Nutze das <code>workspace</code>-Verzeichnis in diesem Repository</p>
+          <p>Hier ist eine Tool-Chain mit Webpack und Babel vorbereitet</p>
+          <ul>
+              <li>Evtl. dafür einen Proxy konfigurieren <a target="_blank" href="http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/">http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/</a></li>
+              <li><code>npm install</code> (auf oberster Ebene)
+              <li><code>npm run setup</code> (auf oberster Ebene)
+              <li><code>cd code/workspace</code>
+              <li><code>npm run devserver</code>
+              <li>Öffne <a href="http://localhost:8080" target="_blank">http://localhost:8080</a> im Browser
+              <li>Wenn auf der Seite 'Hello, World' steht, ist alles gut
+          </ul>
+      </section>
+      <section>
+          <h3>Schritt #2: Deine erste React-Komponente</h3>
+          <ul>
+              <li>Ersetze die "statische" Komponente (HelloMessage) mit der React-Komponente aus dem vorherigen Beispiel aus den Folien
+              <li>Experimentiere mit der Anwendung, mache einige Änderungen, wie z.B.
+                  <ul>
+                      <li>Alle Eingaben sollen in Großbuchstaben auftauchen
+                      <li>Gib irgendeine Rückmeldung wenn die Eingabe erfolgreich gelöscht wurde
+                  </ul>
+          </li>
+          </ul>
+      </section>
+    </section>
+
+        <section id="t1">
+            <h1>Teil I</h1>
+            <h2>React-Komponenten und ES6 Grundlagen</h2>
+            <a href="code/schritte/1-detail/public/index.html" target="_blank">Ziel-Anwendung</a>
+        </section>
+
+        <section>
+            <h3>Themen</h3>
+            <ul>
+                <li>Rendering
+                <li>Properties und Zustand
+                <li>Refs
+            </ul>
+        </section>
+
+        <section>
+            <h2>ES6-Referenz</h2>
+            <p><a href="http://exploringjs.com/es6/" target="_blank">
+                http://exploringjs.com/es6/
+            </a>
+        </section>
+
+            <section>
+                <h3>React: Rendering</h3>
+                <ul class="fragment">
+                    <li>Jede React-Komponente braucht eine <code>render</code>-Methode:</li>
+                    <li>wird aufgerufen beim ersten Rendering und wenn sich der Zustand ändert</li>
+                    <li>kann HTML-artige JSX-Syntax nutzen</li>
+                    <li>JSX kann pures JavaScript in geschweiften Klammern enthalten (<code>{}</code>)
+                </ul>
+<pre class="fragment"><code class="xml" contenteditable data-trim>
+class GreetingDetail extends React.Component {
+  render() {
+    return (
+      <div>
+        &lt;input ref={input => this.input = input}
+           onChange={event => this.updateModel(event.target.value)}
+           value={this.state.greeting} />
+        <p>{this.state.greeting}, World</p>
+      </div>
+    );
+  }
+  // ...
+}
+</code></pre>
+        </section>
+           <section>
+                <h3>React: Rendering #2</h3>
+                <ul class="fragment">
+                    <li>DOM-Events werden in React-Events verpackt
+                    <li>React-Events haben weitgehend selbe API wie DOM-Events
+                    <li>Es gibt keine automatische Bindung an Modelle
+                </ul>
+<pre class="fragment"><code class="xml" contenteditable data-trim>
+class GreetingDetail extends React.Component {
+  render() {
+    return (
+      <div>
+        &lt;input ref={input => this.input = input}
+               onChange={event => this.updateModel(event.target.value)}
+               value={this.state.greeting} />
+        <p>{this.state.greeting}, World</p>
+      </div>
+    );
+  }
+  updateModel(greeting) {
+    this.setState({greeting});
+  }
+  // ...
+}
+</code></pre>
+        </section>
+        <section>
+            <h3>ES6: Erweiterte Objekt-Literale</h3>
+   <pre><code class="javascript" contenteditable>const name = 'Oma';
+const person = {
+    // ES5: name: name
+    name
+};
+console.log(person.name); // Oma
+   </code></pre>
+        </section>
+
+
+                    <section>
+                        <h2>ES6: Module, Importe und Exporte</h2>
+                    </section>
+                    <section>
+                        <h3>ES6: Export einer einzigen Klasse</h3>
+   <pre><code class="javascript" contenteditable>// Person.js
+class Person {
+  // ...
+}
+export default Person;
+   </code></pre>
+                    </section>
+                    <section>
+                        <h3>ES6: Import</h3>
+   <pre><code class="javascript" contenteditable>// Programmer.js
+import Person from './Person';
+
+export default class Programmer extends Person {
+  // ...
+}
+   </code></pre>
+                    </section>
+                    <section>
+                        <h3>ES6: Benannte Exporte</h3>
+   <pre><code class="javascript" contenteditable data-trim>// util.js
+export function displayInPage(text) {
+    document.body.innerHTML +=
+        `${text}<br>` ;
+}
+// or
+export { displayInPage };
+   </code></pre>
+   <pre class="fragment"><code class="javascript" contenteditable data-trim>import {displayInPage} from "./util";
+displayInPage('Hello, World');
+   </code></pre>
+   <!--<pre class="fragment"><code class="javascript" contenteditable data-trim>import {displayInPage as display} from "./util";-->
+<!--display('Hello, World');-->
+   <!--</code></pre>-->
+   <!--<pre class="fragment"><code class="javascript" contenteditable data-trim>import * as util from "./util";-->
+<!--util.displayInPage('Hello, World');-->
+   <!--</code></pre>-->
+                    </section>
+        <!--<section>-->
+                        <!--<h2>Neuerungen und Verbesserungen in ES6</h2>-->
+                    <!--</section>-->
+
+                    <!--<section>-->
+                      <!--<h3>Tagged Template Literals</h3>-->
+          <!--<p><a target="_blank" href="http://exploringjs.com/es6/ch_template-literals.html#_tagged-templates">-->
+         <!--Mini-DSLs: Template-Literals mit tag-->
+    <!--</a>-->
+    <!--</p>-->
+
+   <!--<pre class="fragment"><code class="javascript" contenteditable>function tag(strings, ...values) {-->
+  <!--console.log(strings);-->
+  <!--//[ '', ' codes in ', '.' ]-->
+  <!--console.log(values);-->
+  <!--//[ 'Oma', 'Haskell' ]-->
+  <!--return 'whatever you want';-->
+<!--}-->
+<!--</code></pre>-->
+
+   <!--<pre><code class="javascript" contenteditable>const expanded = tag`${person} codes in ${language}.`;-->
+<!--console.log(expanded);-->
+<!--//whatever you want-->
+<!--</code></pre>-->
+
+                    <!--</section>-->
+
+                    <section>
+                        <h3>ES6: Destructuring von Objekten</h3>
+   <pre><code class="javascript" contenteditable>const person = {
+  name: 'Olli',
+  email: 'oliver.zeigermann@gmail.com'
+};</code></pre>
+   <pre class="fragment"><code class="javascript" contenteditable>const {name, notThere} = person;
+console.log(`name=${name}`);
+// name=Olli
+console.log(`notThere=${notThere}`);
+// notThere=undefined
+</code></pre>
+   <!--<pre class="fragment"><code class="javascript" contenteditable>const {address: {city}} = person;-->
+<!--console.log(`city=${city}`);-->
+<!--//city=Hamburg-->
+<!--</code></pre>-->
+                    </section>
+
+    <section>
+                        <h3>ES6: Template Literals</h3>
+          <p><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings">
+         String-Literale mit Lücken
+    </a>
+    </p>
+
+   <pre><code class="javascript" contenteditable>const person = 'Oma';
+const language = 'Haskell';
+
+console.log(`${person} programs
+${10 * 1024 * 1024} lines of code
+in ${language}.`);
+// Output:
+// Oma programs
+// 10485760 lines of code
+// in Haskell.
+</code></pre>
+                    </section>
+
+
+                    <!--<section>-->
+                        <!--<h3>Destructuring bei Parametern</h3>-->
+   <!--<pre><code class="javascript" contenteditable>const person = {-->
+  <!--name: 'Olli',-->
+  <!--address: {-->
+    <!--city: 'Hamburg'-->
+  <!--},-->
+  <!--email: 'oliver.zeigermann@gmail.com'-->
+<!--};</code></pre>-->
+   <!--<pre class="fragment"><code class="javascript" contenteditable data-trim>-->
+<!--function print({email: contact}) {-->
+    <!--console.log(`contact=${contact}`);-->
+<!--}-->
+<!--print(person);-->
+<!--// contact=oliver.zeigermann@gmail.com-->
+<!--</code></pre>-->
+   <!--<pre class="fragment"><code class="javascript" contenteditable data-trim>-->
+<!--function g({name: x, y, z=10}) {-->
+  <!--console.log(`x=${x}`); // x=olli-->
+  <!--console.log(`y=${y}`); // y=undefined-->
+  <!--console.log(`z=${z}`); // z=10-->
+<!--}-->
+<!--g({ name: 'olli' });-->
+<!--</code></pre>-->
+                    <!--</section>-->
+                    <!--<section>-->
+                        <!--<h3>Destructuring bei Arrays</h3>-->
+   <!--<pre><code class="javascript" contenteditable>const [a, b] = [1, 2];-->
+<!--console.log(`a=${a}`);-->
+<!--// a=1-->
+<!--console.log(`b=${b}`);-->
+<!--// b=2-->
+<!--</code></pre>-->
+   <!--<pre class="fragment"><code class="javascript" contenteditable data-trim>-->
+<!--const [, b] = [1, 2];-->
+<!--console.log(`b=${b}`);-->
+<!--//b=2-->
+<!--</code></pre>-->
+                    <!--</section>-->
+                    <!--<section>-->
+                        <!--<h3>Erweiterte Objekt-Literale</h3>-->
+   <!--<pre><code class="javascript" contenteditable>const name = 'Oma';-->
+<!--const person = {-->
+    <!--// ES5: name: name-->
+    <!--name,-->
+    <!--// ES5: toString: function()-->
+    <!--toString() {-->
+        <!--return this.name;-->
+    <!--}-->
+<!--};-->
+<!--console.log(person.name); // Oma-->
+<!--console.log(person.toString()); // Oma-->
+   <!--</code></pre>-->
+                    <!--</section>-->
+                    <!--<section>-->
+                        <!--<h3>for..of</h3>-->
+          <!--<p><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of">-->
+         <!--Iterieren über alles was 'iterable' ist-->
+    <!--</a>-->
+    <!--</p>-->
+
+   <!--<pre><code class="javascript" contenteditable>for (const e of array2) {-->
+    <!--console.log(e);-->
+<!--}-->
+<!--// Hi-->
+<!--// Olli-->
+<!--// how are you-->
+<!--// ?-->
+<!--</code></pre>-->
+                    <!--</section>-->
+
+    <!--<section>-->
+                        <!--<h3>Spread-Operator</h3>-->
+          <!--<p><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator">-->
+          <!--Alles was 'iterable' ist kann in einzelne Parameter transformiert werden-->
+    <!--</a>-->
+    <!--</p>-->
+   <!--<pre><code class="javascript" contenteditable>const array1 = ['Olli', 'how are you'];-->
+<!--const array2 = ['Hi', ...array1, '?'];-->
+<!--console.log(array2);-->
+<!--// => ["Hi", "Olli", "how are you", "?"]-->
+<!--</code></pre>-->
+   <!--<pre class="fragment"><code class="javascript" contenteditable>console.log(...array1);-->
+<!--</code></pre>-->
+                    <!--</section>-->
+
+                <!--<section>-->
+                    <!--<h2>Verbesserungen bei Funktionen in ES6</h2>-->
+                <!--</section>-->
+
+
+        <section>
+            <h3>React: Properties und Zustand</h3>
+            <ul class="fragment">
+                <li><b>Properties</b> werden der Komponente von <b>außen</b> übergeben (und nicht verändert)</li>
+                <li><b>Zustand (State)</b> ist eine <b>innere</b> Eigenschaft der Komponente (die verändert werden kann)</li>
+                <li>Beides sind Objekte mit Key-Value-Paaren</li>
+                <li>Beide können an Unterkomponenten übergeben werden</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Properties einer Komponente</h3>
+            <ul class="fragment">
+                <li>Properties werden von außen über den Konstruktor übergeben</li>
+                <li>Properties dürfen nicht verändert werden</li>
+                <li>Zugriff über <code>this.props</code></li>
+            </ul>
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+class TitleComponent extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+      return &lt;h1>{this.props.title}&lt;/h1>
+    }
+   // ...
+}
+</code></pre>
+<pre class="fragment"><code class="javascript" contenteditable data-trim>
+  &lt;TitleComponent title='Hello World' />
+</code></pre>
+
+        </section>
+
+        <section>
+            <h3>Zustand einer Komponente</h3>
+            <ul class="fragment">
+                <li>Beispiel: Inhalt eines Eingabefelds, Daten vom Server</li>
+                <li>Werte üblicherweise immutable</li>
+                <li>Initialisieren im Konstruktor mit <code>this.state={}</code>
+                <li>Zustand <b>lesen</b> über <code>this.state</code>
+                <li>Zustand <b>setzen</b> über <code>this.setState()</code>
+                <ul><li>kein "reiner" Setter</li>
+                    <li>Führt alten und neuen Zustand zusammen</li>
+                    <li><b>Löst erneutes rendern der <i>gesamten</i> Komponente aus</b></li>
+                </ul>
+            </ul>
+            </section>
+
+            <section>
+                <h3>Beispiel: Zustand einer Komponente</h3>
+<pre><code class="javascript" contenteditable data-trim>
+class GreetingDetail extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { name: 'Klaus' };
+    }
+
+    updateModel(event) {
+        // Zustand ändern: Komponente wird neu gerendert
+        this.setState({name: event.target.value});
+    }
+
+    render() {
+        return &lt;input value={this.state.name}
+            onChange={e => this.updateModel(e)} />
+    }
+   // ...
+}
+</code></pre>
+        </section>
+        <section>
+            <h3>Render Zyklus</h3>
+            <img src="images/event-zustand-render.png" height="550" style="border:0;box-shadow:0 0 0 0">
+        </section>
+
+        <section>
+            <h3>Virtual DOM</h3>
+            <img src="images/virtual-dom.png" style="border:0;box-shadow:0 0 0 0">
+        </section>
+
+        <section>
+            <h3>React: Refs</h3>
+            <ul class="fragment">
+                <li>Beim rendern kann man an eine Referenz des unterliegenden DOMs kommen
+                <li>die DOM-Referenz kann einer Funktion übergeben werden
+                <li>Diese Referenz kann man z.B. als Member-Variable speichern
+            </ul>
+<pre class="fragment"><code class="javascript" contenteditable data-trim>
+class HelloMessage extends React.Component {
+    render() {
+        return (
+            <div>
+                &lt;input ref={input => this.input = input} />
+                &lt;button
+                    onClick={() => this.input.focus()}>
+                    Focus
+                &lt;/button>
+            </div>);
+    }
+}
+</code></pre>
+        </section>
+
+        <section>
+      <section>
+          <h2>Übung: Detail-Ansicht für unsere Gruß-Anwendung</h2>
+          <h3>Erzeuge eine Komponenten mit der man einen Namen und eine Grußformel eingeben kann</h3>
+      </section>
+      <section>
+          <h3>Schritte</h3>
+          <h4>Erweitere deine erste React-Komponente im workspace-Ordner</h4>
+          <ul>
+              <li>benenne deine Komponente in <code>GreetingDetail</code> um
+              <li>du brauchst zwei Eingabefelder, die <code>name</code> und <code>greeting</code> im Zustand der Komponente setzen
+              <li>für etwas Styling kopiere das Material in <code>code/material/1-detail</code> in deinen <code>public</code>-Ordner
+              <li><em>Zusatzaufgabe: Erweitere deine Komponente so, dass man von außen Properties übergeben kann, die den Zustand initialisieren</em>
+          </ul>
+      </section>
+    </section>
+
+
+        <section id="t2">
+            <h1>Teil II</h1>
+            <h2>Komponentenhierarchien</h2>
+            <h3>Komplette Anwendung aus Komponenten bauen</h3>
+            <a href="code/schritte/2-hierarchy/public/index.html" target="_blank">Ziel-Anwendung</a>
+        </section>
+
+        <section>
+            <h2>Referenz</h2>
+            <p><a href="https://facebook.github.io/react/docs" target="_blank">
+                https://facebook.github.io/react/docs
+            </a>
+            </p>
+        </section>
+
+        <section>
+            <h3>Themen</h3>
+            <ul>
+                <li>Komponenten als Funktion
+                <li>Darstellung von Listen und Keys
+                <li>Architektur-Idee: Controller-Komponente und View-Komponente
+                <li>Durchreichen von Zustand und Callbacks
+                <li>PropTypes
+            </ul>
+        </section>
+
+            <section>
+                <h3>Komponenten als Funktion</h3>
+                <ul class="fragment">
+                    <li>Komponente ist eine einfache Funktion</li>
+                    <li>entspricht der <code>render</code>-Methode</li>
+                    <li>Properties werden als Parameter übergeben</li>
+                    <li>Zurzeit nur ohne Zustand und ohne Lifecycle-Methoden</li>
+                </ul>
+<pre class="fragment"><code class="xml" contenteditable data-trim>
+function Layout(props) {
+  return (
+      <div className="Main">
+        <div className="Container">
+          {props.children}
+        </div>
+      </div>
+  );
+}
+</code></pre>
+        </section>
+
+            <section>
+                <h3>Listen und Keys</h3>
+                <ul class="fragment">
+                    <li>JSX bietet nichts für Listen
+                    <li>Ausgabe typischerweise über <code>Array.map</code>
+                    <li>Elemente einer Liste brauchen einen eindeutigen key
+                </ul>
+<pre class="fragment"><code class="javascript" contenteditable data-trim>
+const greetings = [{
+    id: 0,
+    name: 'Olli',
+    greeting: 'Huhu'
+},
+{
+    id: 1,
+    name: 'Oma',
+    greeting: 'Hallo'
+}
+];
+const body = greetings.map(greeting =>
+    &lt;tr key={greeting.id}>
+        &lt;td>{greeting.name}</td>
+        &lt;td>{greeting.greeting}</td>
+    &lt;/tr>);
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Controller und Child-Views</h3>
+            <!--<img src="smart-dumb.jpg">-->
+            <!--<img src="smart-dumb.png">-->
+            <img src="images/smart-dumb-w-label.png">
+        </section>
+
+        <section>
+            <h3>Durchreichen vom Zustand und Callbacks</h3>
+            <ul class="fragment">
+                <li>Funktioniert beides über Properties
+            </ul>
+<pre class="fragment"><code class="javascript" contenteditable data-trim>
+class GreetingController extends React.Component {
+    render() {
+        const {greetings} = this.state;
+        return (
+            <div>
+                &lt;GreetingMaster greetings={greetings}
+                    onAdd={() => this.setState({mode: MODE_DETAIL})}
+            </div>);
+    }
+    // ...
+}
+    </code></pre>
+    </section>
+    <section>
+        <h3>Properties übergeben mit Object-Spread</h3>
+        <ul class="fragment">
+                <li>Übergibt <b>alle</b> Eigenschaften eines Objektes als individuelle Properties</li>
+        </ul>
+        <pre class="fragment"><code class="javascript" contenteditable data-trim>
+class GreetingController extends React.Component {
+
+    const greeting = { name: 'Klaus', greeting: 'Hello' };
+
+    render() {
+        return &lt;GreetingDetail {...greeting} />
+
+        // entspricht:
+        // &lt;GreetingDetail name='Klaus' greeting='Hello' />
+    }
+}
+        </code></pre>
+    </section>
+
+        <section>
+            <h3>PropTypes</h3>
+                <ul class="fragment">
+                    <li>Eine Komponente kann deklarieren, welche Properties sie erwartet
+                    <li>Auch der Typ kann angegeben werden
+                    <li>Fehlende / falsche Properties führen zu Laufzeitfehlern
+                    <li><a href="https://facebook.github.io/react/docs/typechecking-with-proptypes.html" target="_blank">Mögliche Typen</a>
+                </ul>
+<pre class="fragment"><code class="javascript" contenteditable data-trim>
+GreetingDetail.propTypes = {
+    greeting: PropTypes.shape({
+      name: React.PropTypes.string.isRequired,
+      greeting: React.PropTypes.string.isRequired
+    }),
+    onAdd: PropTypes.func.isRequired
+};
+</code></pre>
+        </section>
+
+        <section>
+            <section>
+                <h2>Übung: Eine komplette Anwendung zusammen setzen</h2>
+                <h3>Füge deinen Detail-View und einen Master-View über eine Controller-Komponente zusammen</h3>
+            </section>
+            <section>
+                <h3>Schritte</h3>
+                <ul>
+                    <li>kopiere das Material aus <code>code/material/2-hierarchy</code> in deinen src-Ordner
+                    <li>erweitere im <code>GreetingController</code> die render-Methode, so dass dein Detail-View angezeigt wird, wenn der Benutzer den Add-Button klickt
+                    <li>dort gibt es bereits einen Kommentar, der dir die richtige Stelle anzeigt und weitere Details enthält
+                    <li>übergib einen Callback der <code>addGreeting</code> nutzt
+                    <li>im deinem <code>GreetingDetail</code> brauchst du einen neuen Knopf, der mit dem neuen Gruß den Callback aufruft
+                </ul>
+            </section>
+            <section>
+                <h3>Architektur Beispiel-Anwendung</h3>
+                <img src="ai/greeting-hierarchy.png" style="border:0;box-shadow:0 0 0 0"/>
+            </section>
+            <section>
+                <h3>GreetingMaster</h3>
+                <img src="images/greeting-master.png" style="border:0;box-shadow:0 0 0 0"/>
+            </section>
+            <section>
+                <h3>GreetingDetail</h3>
+                <img src="images/greeting-detail.png" style="border:0;box-shadow:0 0 0 0"/>
+            </section>
+        </section>
+
+        <section id="t3">
+            <h1>Teil III</h1>
+            <h2>Remote-Calls gegen Server</h2>
+            <a href="code/schritte/3-remote/public/index.html" target="_blank">Ziel-Anwendung</a>
+        </section>
+
+        <section>
+            <h3>Herausforderungen</h3>
+            <ul>
+                <li>Wo speichern wir?
+                <li>Wie machen wir das Laden und Speichern technisch?
+                <li>Wie funktioniert asynchrone Verarbeitung in React?
+                <li>Wo steht der Code zum initialen Laden der Grüße?
+            </ul>
+        </section>
+
+            <section>
+                <h3>fetch</h3>
+                <p>Browser-API zum Laden und Speichern von Daten</p>
+<pre><code class="javascript" contenteditable data-trim>
+fetch(url, {
+    method: 'PUT',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+})
+.then(response => response.json())
+.then(json => /* ... */)
+.catch(ex => console.error('request failed', ex));
+</code></pre>
+            </section>
+
+
+        <section>
+            <h2>Promises</h2>
+        </section>
+                <section>
+                        <h3>fetch</h3>
+<pre><code class="javascript" contenteditable>const url = `${BACKEND_URL}${path}`;
+
+return fetch(url)
+    .then(response => response.json())
+    .then(json => /* ... */)
+    .catch(ex => console.error('request failed', ex));
+</code></pre>
+                </section>
+                    <section>
+                        <h3>Ein Promise ist ein Versprechen auf einen Wert</h3>
+                        <h4 class="fragment">Wird evtl. erst in der Zukunft eingelöst</h4>
+                    </section>
+
+                <section>
+                        <h3>Erzeugen und asynchron reagieren</h3>
+   <pre class="fragment"><code class="javascript" contenteditable>const promise = new Promise(resolve =>
+    setTimeout(
+        () => resolve('Result from promise'),
+        1000)
+);
+</code></pre>
+    <pre><code class="javascript" contenteditable>promise.then(value => console.log(value));
+// Output after 1 second: Result from promise
+</code></pre>
+                    </section>
+                    <section>
+                        <h3>Verkettete Ausführung</h3>
+   <pre><code class="javascript" contenteditable>const promise = new Promise(resolve =>
+    setTimeout(
+        () => resolve('Result from promise'),
+        1000)
+);
+</code></pre>
+    <pre class="fragment"><code class="javascript" contenteditable>// then returns a new promise
+const promise2 = promise.then(value => `${value} plus stuff`);</code></pre>
+    <pre class="fragment"><code class="javascript" contenteditable>promise2.then(value => console.log(value));
+// Output after 1 second: Result from promise plus stuff
+</code></pre>
+                    </section>
+            <section>
+                <h3>Fehler führen zum Abbruch der Chain</h3>
+                <h4 class="fragment">Allerdings muss man etwas tun, um das mitzubekommen</h4>
+            </section>
+
+                    <section>
+                        <h3>Catch-Klausel</h3>
+   <pre><code class="javascript" contenteditable>Promise
+    // creates and directly resolves promise
+    .resolve('Result from promise')
+    .then(x => {
+        // this will be printed
+        console.log(x);
+    })
+    .then(() => {
+        console.log('This will be printed');
+    })
+    // this will NOT be printed as no error occured
+    .catch(e => console.log('error: ', e))
+
+// Output:
+// Result from promise
+// This will be printed</code></pre>
+                    </section>
+                    <section>
+                        <h3>Catch-Klausel im Fehlerfall</h3>
+   <pre><code class="javascript" contenteditable>Promise
+    // creates and directly resolves promise
+    .resolve('Result from promise')
+    .then(x => {
+        // this will be printed
+        console.log(x);
+        throw new Error('Something went wrong');
+    })
+    .then(() => {
+        console.log('This will NOT be printed');
+    })
+    // this will be printed
+    .catch(e => console.log('error: ', e))
+
+// Output:
+// Result from promise
+// error:  [Error: Something went wrong]</code></pre>
+                    </section>
+                    <section>
+                        <h3>Catch-Klausel bei Ablehnung</h3>
+   <pre><code class="javascript" contenteditable>Promise
+    // creates and directly rejects promise
+    .reject('Promise rejected')
+    .then(x => {
+        // this will NOT be printed
+        console.log(x);
+    })
+    .then(() => {
+        console.log('This will NOT be printed');
+    })
+    // this will be printed
+    .catch(e => console.log('error: ', e))
+
+// Output:
+// error:  Promise rejected</code></pre>
+                </section>
+        <section>
+            <section>
+                <h2>Übung: Laden und Speichern der Daten von/auf einem Server</h2>
+                <p>Entwickle auf Basis von fetch eine Version, die die Daten auf dem Server laden und dort wieder speichern kann</p>
+                <p>Der Server ist bereits vorgegeben und kann mit <code>npm start</code> im Root-Verzeichnis gestartet werden. Er ist dann unter Port 7000 erreichbar</p>
+                <p>Weitere Details findest du unter:
+                    <a href="code/material/3-remote/AUFGABEN.md" target="_blank">
+                        code/material/3-remote/AUFGABEN.md</a>
+                    </p>
+            </section>
+
+        </section>
+
+        <section id="t4">
+            <h1>Teil IV</h1>
+            <h2>Integration mit 3rd-Party Bibliotheken</h2>
+            <a href="code/schritte/5-third-party/public/index.html" target="_blank">Ziel-Anwendung</a>
+        </section>
+
+        <section>
+            <h2>3rd Party Libs?</h2>
+            <div class="fragment">
+                <p>Es gibt eine große Anzahl von sehr praktischen JavaScript-Bibliotheken</p>
+                <p>Viele davon sind aber nicht als React-Komponenten entwickelt worden</p>
+            </div>
+            <div class="fragment">
+                <p>Beispiels</p>
+                <p><em>jQuery</em> und <em>jQuery</em> Plugins wie z.B. <em>Bootstrap</em></p>
+                <p><em>d3</em> für interaktive SVGs und Chart Bibliotheken wie <em>nvd3</em></p>
+            </div>
+        </section>
+
+        <section>
+            <h3>Unser Beispiel: Verteilung der Grüße</h3>
+            <a href="code/schritte/5-third-party/public/index.html" target="_blank">
+                <img src="images/screenshot-nvd3.png" height="400px">
+            </a>
+            <p><em>nvd3</em> Pie Chart mit <em>d3</em></p>
+        </section>
+
+        <section>
+            <h3>Aufgabe: Einbetten des Pie Charts in eine React-Komponente</h3>
+        </section>
+
+        <section>
+            <h3>Herausforderungen?</h3>
+            <ol>
+                <li>Wie kommen wir an den DOM Knoten der React-Komponente?
+                <li>Wie sagen wir React, dass nun NVD3 den Rest macht? Also, dass React nicht mehr neu rendern soll.
+                <li>Änderungen des Zustands sollen nach wie vor richtig dargestellt werden
+                <li>Ab welchem Zeitpunkt soll NVD3 das Rendern übernehmen?
+                <li>Wie können wir aus NVD3 heraus auch wieder andere React-Komponenten beeinflussen?
+            </ol>
+        </section>
+        <section>
+            <h3>React Chart Komponente #1</h3>
+            <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+class Chart extends React.Component {
+    render() {
+        // (1) we render an empty svg and
+        //     remember the reference to the DOM node
+        return &lt;svg ref={c => this._chart = c}>&lt;/svg>
+    }
+
+    shouldComponentUpdate() {
+        // (2) once rendered react never renders again
+        return false;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const {data} = nextProps;
+        // (3) we still get updates of properties making it reactive
+        updateNvd3Chart(this._chart, data);
+    }
+
+    // ...
+}
+       </code></pre>
+        </section>
+
+        <section>
+            <h3>React Chart Komponent #2</h3>
+            <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+class Chart extends React.Component {
+    // ...
+
+    componentDidMount() {
+        const {data, onSegmentSelected} = this.props;
+
+        // (4) once rendered by react we create the nvd3 chart
+        const chart = createNvd3Chart(this._chart, data);
+
+        // (5) we delegate the label of clicked segment
+        //     back to parent component
+        if (onSegmentSelected) {
+            chart.pie.dispatch.on("elementClick",
+                                  e => onSegmentSelected(e.data.label));
+        }
+    }
+}
+       </code></pre>
+        </section>
+
+        <section>
+            <section>
+                <h2>Übung: Ein Pie-Chart integrieren</h2>
+                <h3>Das Pie Chart soll eine Übersicht aller Grüße anzeigen</h3>
+                <h3>Ein Klick auf ein Segment des Pie Charts soll die Liste der Grüße filtern</h3>
+            </section>
+            <section>
+                <h3>Schritte</h3>
+                <ul>
+                    <li>kopiere das Material aus <code>code/material/4-3rd-party</code> in deinen src-Ordner
+                    <li>binde die Chart-Komponente in die render-Methode des <code>GreetingController</code> ein
+                    <li>alle Stellen die du ändern musst sind dort bereits mit einem Kommentar versehen
+                </ul>
+                <p>Zusatzaufgabe: Ein zweites Mal klicken auf das Segment soll den Filter wieder löschen</p>
+            </section>
+        </section>
+
+        <section id="t5">
+            <h1>Teil V</h1>
+            <h2>React Router</h2>
+            <a href="code/schritte/router/public/index.html" target="_blank">Ziel-Anwendung</a>
+        </section>
+
+        <section>
+            <h2>API-Reference</h2>
+            <p><a href="https://github.com/reactjs/react-router/blob/master/docs/API.md" target="_blank">
+                https://github.com/reactjs/react-router/blob/master/docs/API.md
+            </a>
+            </p>
+        </section>
+
+        <section>
+            <h3>Themen</h3>
+            <ul>
+                <li><code>Route</code> und <code>IndexRoute</code>
+                <li>history
+                <li>Nested routes und das <code>children</code>-Property
+                <li>Links
+                <li><code>location</code> und <code>param</code> Property und <code>componentWillReceiveProps</code>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Router, Route, IndexRoute, Redirect</h3>
+<pre class="fragment"><code class="xml" contenteditable data-trim>
+import { Router, Route, Redirect, IndexRoute, hashHistory }
+    from 'react-router';
+
+const routes = &lt;Router history={hashHistory}>
+  &lt;Redirect from="/vote" to="/votes"/>
+  &lt;Route path="/" component={Layout}>
+    &lt;IndexRoute component={VotePage}/>
+    &lt;Route path="votes/:id" component={SingleVotePage}/>
+    &lt;Route path="login(/:redirect)" component={LoginPage}/>
+    &lt;Route path="compose" component={VoteComposerPage} onEnter={requireAuth}/>
+    &lt;Route path="*" component={NoMatchPage}/>
+  &lt;/Route>
+&lt;/Router>;
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Router</h3>
+            <ul class="fragment">
+                <li>Echte React-Komponente</li>
+                <li>Top-Level-Komponente, entscheidet anhand der <b>history</b>, was dargestellt wird</li>
+                <li>hat Routen als Kinder</li>
+            </ul>
+<pre class="fragment"><code class="xml" contenteditable data-trim>
+const routes = &lt;Router history={hashHistory}>
+...
+&lt;/Router>;
+</code></pre>
+        </section>
+
+        <section>
+            <h3>History</h3>
+            <ul class="fragment">
+                <li>kommt aus dem <a target="_blank" href="https://github.com/mjackson/history">history</a>-Projekt</li>
+                <li>Abstraktion der History des Browsers</li>
+                <li>kann zur Navigation genutzt werden</li>
+                <li>liefert aktuelle URL mundgerecht an den Router</li>
+                <li><code>hashHistory</code> codiert Pfad in angehängten Hash (#/vote)
+                <li><code>browserHistory</code> codiert Pfad direkt in URL (/vote)
+            </ul>
+<pre class="fragment"><code class="javascript" contenteditable data-trim>
+// Push a new entry onto the history stack.
+history.push('/home')
+
+// Replace the current entry on the history stack.
+history.replace('/profile')
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Route</h3>
+            <ul class="fragment">
+                <li>Konfigurations-Komponente</li>
+                <li>welche Komponente soll bei welcher URL darstellt werden</li>
+                <li>können verschachtelt werden (nested)</li>
+                <li>Matching der URL mit Konfiguration ergibt einen Pfad</li>
+                <li>Alle Komponenten des Pfads werden dargestellt</li>
+            </ul>
+<pre class="fragment"><code class="xml" contenteditable data-trim>
+// plain match (containing nested routes)
+&lt;Route path="/" component={Layout}>
+    // id is passed as parameter to component
+    &lt;Route path="votes/:id" component={SingleVotePage}/> /
+    // redirect is optional
+    &lt;Route path="login(/:redirect)" component={LoginPage}/>
+    // onEnter and onExit possible as hooks
+    &lt;Route path="compose" component={VoteComposerPage}
+        onEnter={requireAuth}/>
+    // wildcard
+    &lt;Route path="*" component={NoMatchPage}/>
+&lt;/Route>
+</code></pre>
+        </section>
+
+        <section>
+            <h3>IndexRoute und Redirect</h3>
+<pre class="fragment"><code class="xml" contenteditable data-trim>
+  // /vote redirects to /votes
+&lt;Redirect from="/vote" to="/votes"/>
+&lt;Route path="/" component={Layout}>
+  // will be rendered additionally when path is just /
+  &lt;IndexRoute component={VotePage}/>
+  // ...
+&lt;/Route>
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Nested Routes und children</h3>
+            <ul class="fragment">
+                <li>Router rendert den gematchten Komponenten-Pfad als seine Unterkomponenten
+                <li>Unterkomponenten werden als <code>children</code> in den <code>props</code> übergeben
+                <li><code>children</code> kann grundsätzlich eine oder mehrere Komponenten sein
+                <li>beim Router ist es immer nur eine Komponente
+            </ul>
+<pre class="fragment"><code class="xml" contenteditable data-trim>
+export default function Layout(props) {
+    return <div>
+        <h1>Greetings</h1>
+        {props.children}
+    </div>;
+}
+</code></pre>
+        </section>
+
+            <section>
+                <h3>Link</h3>
+                <ul class="fragment">
+                    <li>Echte React-Komponente</li>
+                    <li>Ein Link auf eine Route</li>
+                    <li>wird als <code>a</code>-Element gerendert</li>
+                    <li>hat zudem einen Click-Handler, der den Default verhindert und das history-Objekt updated</li>
+                    <li>weiß, ob die Route auf die sie verweist, aktiv ist</li>
+                </ul>
+<pre class="fragment"><code class="xml" contenteditable data-trim>
+&lt;Link to={`/votes/${vote.id}`} activeClassName='active'>
+  <h1 className="Title">{vote.title}</h1>
+&lt;/Link>
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Datenübergabe an Routen</h3>
+            <p>Der Router übergibt den zu rendernden Routen Daten als Properties</p>
+            <ul class="fragment">
+                <li>Property <code>location</code>: enthält <code>pathname</code> und <code>query</code></li>
+                <li>Property <code>params</code>: die dynamischen Segmente der Route (z.B. <code>id</code>)</li>
+                <li>Lifecycle-Methode <code>componentWillReceiveProps</code>: wird mit neuen Properties aufgerufen, wenn sich die Route geändert hat
+            </ul>
+        </section>
+
+        <section>
+            <section>
+                <h2>Übung: Die Anwendung und Admin- und Nutzer-Ansicht unterteilen</h2>
+                <h3>Erstelle eine Route für den bestehenden Admin-Teil und binde eine Nutzer-Ansicht ein, die den Gruß darstellt</h3>
+            </section>
+            <section>
+                <h3>Schritte</h3>
+                <ul>
+                    <li>kopiere das Material aus <code>code/material/router-3</code> in deinen src-Ordner
+                    <li><code>GreetingMaster</code> enthält Links auf darzustellende Grüße
+                    <li>füge in <code>main.js</code> eine Route auf <code>GreetingDisplay</code> hinzu
+                    <li>fülle <code>GreetingDisplay</code> so dass sie einen solchen Gruß darstellt mit den vom Router übergebenen Parametern ausgibt
+                </ul>
+            </section>
+        </section>
+
+        <section id="t6">
+            <h1>Teil VI</h1>
+            <h2>State Management mit MobX</h2>
+            <a href="code/experiment/mobx/public/index.html" target="_blank">Ziel-Anwendung</a>
+        </section>
+
+        <section>
+            <h2>Referenz</h2>
+            <p><a href="https://mobx.js.org/" target="_blank">
+                https://mobx.js.org/
+            </a>
+            </p>
+
+        </section>
+
+        <section>
+            <h2>Motivation</h2>
+            <p>Zustand, der über viele Komponenten verteilt ist, macht Programme kompliziert</p>
+            <p>Gemeinsame Nutzung von State in unterschiedlichen Komponenten-Hierarchien ist schwierig</p>
+            <p><strong>MobX zieht State-Management und Handler aus den React-Komponenten heraus</strong></p>
+        </section>
+
+        <!--<section>-->
+            <!--<h2>Überblick</h2>-->
+            <!--<p><a href="https://mobx.js.org/intro/concepts.html" target="_blank">-->
+                <!--https://mobx.js.org/intro/concepts.html-->
+            <!--</a>-->
+            <!--</p>-->
+            <!--<img src="mobx-flow.png">-->
+        <!--</section>-->
+
+        <section>
+            <h2>Prinzipien</h2>
+            <p><a href="https://mobx.js.org/intro/concepts.html" target="_blank">
+                https://mobx.js.org/intro/concepts.html
+            </a>
+            </p>
+            <img src="images/mobx-action-state-view.png">
+            <ol>
+                <li>Zustand wird extern in einer Klasse gehalten
+                <li>Abgeleitete Darstellungen des Zustands werden automatisch berechnet, sind getter einer Klasse
+                <li>Aktionen, die den Zustand ändern, sind Methoden des Klasse
+                <li>Komponenten werden bei Bedarf automatisch neu gerendert
+            </ol>
+        </section>
+
+        <section>
+            <h2>Beispiel-Zustand</h2>
+            <pre><code class="javascript" contenteditable data-trim>
+class Store {
+    @observable greetings = [];
+    @observable filter = null;
+
+    @computed get filteredGreetings() {
+        return filterGreetings(this.greetings, this.filter);
+    }
+
+    @action.bound
+    setFilter(filter) {
+        if (this.filter === filter) {
+            // reset filter when clicking again
+            this.filter = null;
+        } else {
+            this.filter = filter;
+        }
+    }
+}
+
+export default new Store();
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Komponenten reagieren</h2>
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+import store from './store';
+
+ReactDOM.render(&lt;GreetingController store={store}/>, mountNode);
+            </code></pre>
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+import {observer} from 'mobx-react';
+
+@observer
+export default class GreetingController extends React.Component {
+    render() {
+        const {store} = this.props;
+        const {filteredGreetings} = store;
+        const {setFilter} = store;
+
+        // ...
+    }
+
+    // ...
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Zusammenfassung</h3>
+            <img src="ai/mobx.png" height="600px">
+            <!--<img src="mobX-Overview.jpg" height="600px">-->
+        </section>
+
+        <section>
+            <section>
+                <h2>Übung: Stelle deine Anwendung auf MobX um</h2>
+                <h3>Nutze die vorbereitete Implementierung</h3>
+            </section>
+            <section>
+                <h3>Schritte</h3>
+                <ul>
+                    <li>mache dich mit der vorbereiteten und lauffähigen Implementierung in <code>code/experiment/mobx</code> vertraut
+                    <li>integriere sie in deine bestehende Lösung inklusive des Routings
+                    <li>füge in eine neue Komponente hinzu, die zählt, wie viele Grüße es insgesamt gibt und wie viele davon nach der Filterung noch angezeigt werden
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <h2>Wie kann man Stores noch an Komponenten übergeben?</h2>
+            <a href="https://github.com/mobxjs/mobx/issues/300#issuecomment-223704275" target="_blank">
+                https://github.com/mobxjs/mobx/issues/300#issuecomment-223704275</a>
+            <ol>
+                <li>Explizit durch props
+                <li>Direkter Zugriff aus importierten Stores
+                <li>Implizit über einen Provider (wie bei Redux),
+                    <a target="_blank" href="https://github.com/mobxjs/mobx-react#provider-and-inject">
+                        https://github.com/mobxjs/mobx-react#provider-and-inject
+                    </a>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Und Redux?</h2>
+            <p><a href="http://redux.js.org/" target="_blank">
+                http://redux.js.org/
+            </a>
+            </p>
+            <ul>
+                <li>Redux ist die Mainstream-Lösung
+                <li>Lässt sich sehr gut testen
+                <li>Fehlersuche und Debugging erstaunlich einfach
+                <li>Funktioniert auch in großen Anwendungen sehr gut
+                <li>Dev-Tools erlauben Magisches
+            </ul>
+            <p>Allerdings: Lernkurve steil, gerade am Anfang wirklich viel Code</p>
+            <p><strong>Redux ist für kleinere Anwendungen meistens Overkill</strong></p>
+            <p>MobX erlaubt einen sehr einfachen Einstieg</p>
+        </section>
+
+        <section>
+            <h2>Wie funktioniert MobX?</h2>
+            <a href="https://www.youtube.com/watch?v=TfxfRkNCnmk" target="_blank">
+                RuhrJS 2016 - Michel Weststrate - MAGIC MOBX BECOME A REACTIVE WIZARD IN 30 MINUTES
+            </a>
+        </section>
+    </div>
+
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.js"></script>
+<script src="lib/jquery-2.2.4.js"></script>
+<script>
+    Reveal.addEventListener( 'ready', function( event ) {
+        if (window.location.hostname.indexOf('localhost') !== -1) {
+            // only applies to presentation version
+            Reveal.configure({ controls: false });
+        } else {
+            // only applies to public version
+            $('.fragment').removeClass('fragment');
+        }
+        // applies to all versions
+        $('code').addClass('line-numbers');
+    } );
+</script>
+
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: 'reveal.js/lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'reveal.js/plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'reveal.js/plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'reveal.js/plugin/highlight/highlight.js', async: true, condition: function () {
+                return !!document.querySelector('pre code');
+            }, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: 'reveal.js/plugin/zoom-js/zoom.js', async: true},
+            {src: 'reveal.js/plugin/notes/notes.js', async: true},
+            {src: 'lib/js/line-numbers.js'}
+        ]
+    });
+
+</script>
+
+</body>
+</html>
