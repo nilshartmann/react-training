@@ -12,15 +12,11 @@
   },
   "jest": {
     "testResultsProcessor": "../../../node_modules/jest-html-reporter",
-    "setupFiles": ["./test/setup-shim.js", "./test/setup-jest.js"],
+    "setupFiles": ["./test/setup-jest.js"],
     "transform": {
       ".(js|ts|tsx)": "../../../node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js"]
   }
 }

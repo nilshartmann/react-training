@@ -1,5 +1,4 @@
 import React from "react";
-
 import GreetingMaster from "./GreetingMaster";
 import GreetingDetail from "./GreetingDetail";
 
@@ -33,47 +32,48 @@ export default class GreetingController extends React.Component {
     this.loadGreetings();
   }
 
-  loadGreetings() {
-    return fetch(BACKEND_URL)
-      .then(response => response.json())
-      .then(json => this.setState({ greetings: json }))
-      .catch(err => console.error("LOADING GREETINGS FAILED:", err));
+  async loadGreetings() {
+    let greetings = null;
+    try {
+      const response = await fetch(BACKEND_URL);
+      greetings = await response.json();
+    } catch (err) {
+      console.error("LOADING GREETINGS FAILED:", err);
+      return;
+    }
+
+    this.setState({ greetings });
   }
 
-  saveGreeting(greetingToBeAdded) {
-    fetch(BACKEND_URL, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(greetingToBeAdded)
-    })
-      .then(response => {
-        if (response.status === 201) {
-          return response.json();
-        }
-        throw new Error("Invalid status code: " + response.status);
-      })
-      .then(json => {
-        // the server responded with the id of the new Greeting
-        const newGreetingId = json.id;
-        // create a new Greeting object that contains the received id
-        // (create a new object for immutability)
-        const newGreeting = { ...greetingToBeAdded, id: newGreetingId };
-        // add the new greetings to the list of all greetings
-        // (create a new array for immutability)
-        const newGreetings = [...this.state.greetings, newGreeting];
-
-        // set the new list of greetings as our new state
-        // also set 'MODE_MASTER' to make sure the master-View is
-        // displayed now
-        this.setState({
-          greetings: newGreetings,
-          mode: MODE_MASTER
-        });
-
-        return newGreeting;
+  async saveGreeting(greetingToBeAdded) {
+    let newGreeting;
+    try {
+      const response = await fetch(BACKEND_URL, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(greetingToBeAdded)
       });
+      if (response.status !== 201) {
+        throw new Error("Invalid status code: " + response.status);
+      }
+      newGreeting = await response.json();
+    } catch (err) {
+      console.error("LOADING GREETINGS FAILED:", err);
+    }
+    // add the new greetings to the list of all greetings
+    // (create a new array for immutability)
+
+    const newGreetings = [...this.state.greetings, newGreeting];
+
+    // set the new list of greetings as our new state
+    // also set 'MODE_MASTER' to make sure the master-View is
+    // displayed now
+    this.setState({
+      greetings: newGreetings,
+      mode: MODE_MASTER
+    });
   }
 }

@@ -12,6 +12,6 @@
   },
   "jest": {
     "testResultsProcessor": "../../../node_modules/jest-html-reporter",
-    "setupFiles": ["./test/setup-shim.js", "./test/setup-jest.js"]
+    "setupFiles": ["./test/setup-jest.js"]
   }
 }

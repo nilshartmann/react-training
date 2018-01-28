@@ -33,7 +33,7 @@ exports[`it should render table with all greetings 1`] = `
     </tbody>
   </table>
   <button
-    onClick={[Function]}
+    onClick={[MockFunction]}
   >
     Add
   </button>

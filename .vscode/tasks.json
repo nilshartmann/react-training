@@ -4,9 +4,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-			"label": "Start Greeting Server",
+			"label": "Start Greeting Backend Server",
       "type": "npm",
-      "script": "start",
+      "script": "start-backend",
       "problemMatcher": []
     }
   ]

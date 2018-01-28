@@ -106,14 +106,7 @@
 61
 62
 63
-64
-65
-66
-67
-68
-69
-70</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+64</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,23 +123,18 @@
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,74 +169,68 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import PropTypes from 'prop-types';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
+import PropTypes from "prop-types";
 &nbsp;
 export default class GreetingDetail extends React.Component {
+  static propTypes = {
+    greeting: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      greeting: PropTypes.string.isRequired
+    }),
+    onSave: PropTypes.func.isRequired
+  };
 &nbsp;
-    static propTypes = {
-        greeting: PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            greeting: PropTypes.string.isRequired
-        }),
-        onSave: PropTypes.func.isRequired
+  render() {
+    const { name, greeting } = this.state;
+    const saveDisabled = !(name &amp;&amp; greeting);
+&nbsp;
+    return (
+      &lt;div&gt;
+        &lt;input
+          ref={input =&gt; (this.input = input)}
+          onChange={event =&gt; this.updateModel(event)}
+          name="name"
+          value={name}
+          placeholder="Name"
+        /&gt;
+        &lt;input onChange={event =&gt; this.updateModel(event)} name="greeting" value={greeting} placeholder="Greeting" /&gt;
+        &lt;button onClick={() =&gt; this.reset()}&gt;Clear&lt;/button&gt;
+        &lt;button disabled={saveDisabled} onClick={() =&gt; this.save()}&gt;
+          Save
+        &lt;/button&gt;
+      &lt;/div&gt;
+    );
+  }
+&nbsp;
+  constructor(props) {
+    super(props);
+    const { name, greeting } = this.props.greeting || { name: "", greeting: "" };
+    this.state = {
+      name,
+      greeting
     };
+  }
 &nbsp;
-    render() {
-        const {name, greeting} = this.state;
-        const saveDisabled = !(name &amp;&amp; greeting);
-&nbsp;
-        return (
-            &lt;div&gt;
-                &lt;input ref={input =&gt; this.input = input}
-                       onChange={event =&gt; this.updateModel(event)}
-                       name="name"
-                       value={name}
-                       placeholder="Name"/&gt;
-                &lt;input onChange={event =&gt; this.updateModel(event)}
-                       name="greeting"
-                       value={greeting}
-                       placeholder="Greeting"/&gt;
-                &lt;button
-                    onClick={() =&gt; this.reset()}&gt;
-                    Clear
-                &lt;/button&gt;
-                &lt;button
-                    disabled={saveDisabled}
-                    onClick={() =&gt; this.save()}&gt;
-                    Save
-                &lt;/button&gt;
-            &lt;/div&gt;);
+  reset() {
+    this.setState({ name: "", greeting: "" });
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.input) {
+<span class="cstat-no" title="statement not covered" >      this.input.focus();</span>
     }
+  }
 &nbsp;
-    constructor(props) {
-        super(props);
-        const {name, greeting} = this.props.greeting || {name: '', greeting: ''};
-        this.state = {
-            name,
-            greeting
-        };
-    }
+  save() {
+    const { onSave } = this.props;
+    const { name, greeting } = this.state;
+    onSave({
+      name,
+      greeting
+    });
+  }
 &nbsp;
-    reset() {
-        this.setState({name: '', greeting: ''});
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (this.input) {
-<span class="cstat-no" title="statement not covered" >            this.input.focus();</span>
-        }
-    }
-&nbsp;
-    save() {
-        const {onSave} = this.props;
-        const {name, greeting} = this.state;
-        onSave({
-            name,
-            greeting
-        });
-    }
-&nbsp;
-    updateModel(event) {
-        this.setState({[event.target.name]: event.target.value});
-    }
+  updateModel(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
 }
 &nbsp;</pre></td></tr>
 </table></pre>
@@ -256,7 +238,7 @@ export default class GreetingDetail extends React.Component {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jun 03 2017 18:45:48 GMT+0200 (CEST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Jan 28 2018 23:08:58 GMT+0100 (CET)
 </div>
 </div>
 <script src="../prettify.js"></script>
