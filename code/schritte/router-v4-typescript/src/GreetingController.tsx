@@ -1,19 +1,23 @@
-import React from "react";
-import { HashRouter as Router, Route } from "react-router-dom";
+import * as React from "react";
 
 import GreetingMaster from "./GreetingMaster";
 import GreetingDetail from "./GreetingDetail";
-import Chart from "./Chart";
-import { aggregateGreetings } from "./util";
+import { Greeting, NewGreeting } from "./types";
 
 const BACKEND_URL = "http://localhost:7000/greetings";
+const MODE_MASTER = "MODE_MASTER";
+const MODE_DETAIL = "MODE_DETAIL";
 
-export default class GreetingController extends React.Component {
+type GreetingControllerProps = {};
+
+type GreetingControllerState = {
+  mode: typeof MODE_MASTER | typeof MODE_DETAIL;
+  greetings: Greeting[];
+};
+
+export default class GreetingController extends React.Component<GreetingControllerProps, GreetingControllerState> {
   render() {
-    const { greetings, filter } = this.state;
-    const aggregatedGreetings = aggregateGreetings(greetings);
-    const filtered = filter ? greetings.filter(greeting => greeting.name === filter) : greetings;
-
+    const { greetings } = this.state;
     return (
       <Router>
         <div className="Main">
@@ -39,11 +43,10 @@ export default class GreetingController extends React.Component {
     );
   }
 
-  constructor(props) {
+  constructor(props: GreetingControllerProps) {
     super(props);
     this.state = {
-      greetings: [],
-      filter: null
+      greetings: []
     };
   }
 
@@ -64,7 +67,7 @@ export default class GreetingController extends React.Component {
     this.setState({ greetings });
   }
 
-  async saveGreeting(greetingToBeAdded) {
+  async saveGreeting(greetingToBeAdded: NewGreeting) {
     let newGreeting;
     try {
       const response = await fetch(BACKEND_URL, {

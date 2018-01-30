@@ -1825,20 +1825,24 @@ test('it should open detail view on button click', () => {
         </code></pre>
       </section>
 
-
-
-
-
-
       <section id="t5">
         <h1>Teil V</h1>
         <h2>React mit TypeScript entwickeln</h2>
         <p>
-          <a href="code/schritte/5-third-party-jquery-typescript/public/index.html" target="_blank">Ziel-Anwendung</a>
+          <a href="code/schritte/5-typescript/public/index.html" target="_blank">Ziel-Anwendung</a>
         </p>
+        <h3>Themen</h3>
+        <ul>
+          <li>
+            <a href="#/t5a">TypeScript Grundlagen</a>
+          </li>
+          <li>
+            <a href="#/t5b"></a>React-Anwendungen mit TypeScript entwickeln</a>
+          </li>
+        </ul>
       </section>
 
-      <section>
+      <section id="t5a">
         <h2>Hintergrund: TypeScript</h2>
         <p>
           <em>TypeScript is a superset of JavaScript that compiles to plain JavaScript </em>(
@@ -2183,8 +2187,8 @@ declare module 'module-with-default-export' {
         </ul>
       </section>
 
-      <section>
-        <h2>React-Komponenten mit TypeScript</h2>
+      <section id="t5a">
+        <h2>React Anwendungen mit TypeScript</h2>
         <em>State und Properties von Komponenten werden mit Typen beschrieben</em>
       </section>
       <section>
@@ -2334,7 +2338,7 @@ const GreetingMaster: React.SFC&lt;GreetingMasterProps> = props => {
         <div style="font-size: 80%">
           <p>
             <b>Hinweis: </b> Bitte arbeite dazu in dem neuen Workspace
-            <code>code/workspace-jquery-typescript</code>:</p>
+            <code>code/workspace-typescript</code>:</p>
           <ul>
             <li>Dieses Verzeichnis enthält die Anwendung aus unserem letzten Schritt, aber in TypeScript implementiert</li>
             <li>Lediglich das
@@ -2599,8 +2603,64 @@ import {Link, NavLink} from "react-router-dom";
 
       <section>
         <h2>TODO: Hintergrund: Higher-Order Components</h2>
+        <p>https://reactjs.org/docs/higher-order-components.html</p>
 
 
+      </section>
+      <section>
+        <h2>Alternative PropTypes</h2>
+        <p>https://reactjs.org/docs/render-props.html</p>
+        <p>https://www.youtube.com/watch?v=BcVAq3YFiuc</p>
+
+        <!-- class Cat extends React.Component {
+          render() {
+            const mouse = this.props.mouse;
+            return (
+              <img src="/cat.jpg" style={{ position: 'absolute', left: mouse.x, top: mouse.y }} />
+            );
+          }
+        }
+        
+        class Mouse extends React.Component {
+          constructor(props) {
+            super(props);
+            this.handleMouseMove = this.handleMouseMove.bind(this);
+            this.state = { x: 0, y: 0 };
+          }
+        
+          handleMouseMove(event) {
+            this.setState({
+              x: event.clientX,
+              y: event.clientY
+            });
+          }
+        
+          render() {
+            return (
+              <div style={{ height: '100%' }} onMouseMove={this.handleMouseMove}>
+        
+                {/*
+                  Instead of providing a static representation of what <Mouse> renders,
+                  use the `render` prop to dynamically determine what to render.
+                */}
+                {this.props.render(this.state)}
+              </div>
+            );
+          }
+        }
+        
+        class MouseTracker extends React.Component {
+          render() {
+            return (
+              <div>
+                <h1>Move the mouse around!</h1>
+                <Mouse render={mouse => (
+                  <Cat mouse={mouse} />
+                )}/>
+              </div>
+            );
+          }
+        } -->
       </section>
 
       <section>

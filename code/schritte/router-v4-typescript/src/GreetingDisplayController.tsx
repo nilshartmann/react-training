@@ -1,18 +1,33 @@
-import React from "react";
+import * as React from "react";
 import LinkButtonBar from "./LinkButtonBar";
+import { RouteComponentProps } from "react-router";
+import { Greeting } from "./types";
 
 const BACKEND_URL = "http://localhost:7000/greetings";
 
-export default class GreetingDisplayController extends React.Component {
+interface GreetingDisplayControllerParams {
+  greetingId: string;
+}
+
+interface GreetingDisplayControllerProps extends RouteComponentProps<GreetingDisplayControllerParams> {}
+
+interface GreetingDisplayControllerState {
+  greeting?: Greeting;
+}
+
+export default class GreetingDisplayController extends React.Component<
+  GreetingDisplayControllerProps,
+  GreetingDisplayControllerState
+> {
   componentDidMount() {
     this.loadGreeting(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: GreetingDisplayControllerProps) {
     this.loadGreeting(nextProps);
   }
 
-  async loadGreeting(props) {
+  async loadGreeting(props: GreetingDisplayControllerProps) {
     const { match } = props;
 
     let greeting = null;
@@ -28,7 +43,7 @@ export default class GreetingDisplayController extends React.Component {
   }
 
   render() {
-    if (!this.state) {
+    if (!this.state || !this.state.greeting) {
       return <h1>No Greeting loaded</h1>;
     }
 
