@@ -3060,12 +3060,369 @@ class GreetingController extends React.Component&lt;GreetingControllerProps> {
         <h2>Ausblick / Diskussion / Offene Punkte</h2>
         <ul style="font-size: 85%">
           <li>Architekturpattern: Flux / Redux</li>
-          <li>Internationalisierung, Modularisierung von React Anwendungen</li>
-          <li>UI Komponentenbibliotheken</li>
-          <li>Einbinden von 3rd-Party-Libs</li>
+          <li>Modularisierung von React Anwendungen</li>
+          <li>
+            <a href="#/t7a">Komponentenbibliotheken und Formularframeworks</a>
+          </li>
+          <li>
+            <a href="#/t7b">Bibliotheken für Internationalisierung</a>
+          </li>
+          <li>
+            <a href="#/t7c">Projektstruktur</a>
+          </li>
+          <li>
+            <a href="#/t7d">Einbinden von 3rd-Party-Libs (am Beispiel jQuery)</a>
+          </li>
         </ul>
       </section>
 
+      <section id="t7a">
+        <h3>Komponentenbibliotheken und Formularframeworks</h3>
+        <ul>
+          <li>
+            <a href="https://gist.github.com/nilshartmann/decb10d37a76ae3ab58f0c7755beb038" _target="blank">Meine Auswahl</a>
+          </li>
+          <li>
+            <a href="https://reactjs.org/community/ui-components.html" _target="blank">Liste von reactjs.org</a>
+          </li>
+        </ul>
+      </section>
+
+      <section id="t7b">
+        <h3>Internationalisierung</h3>
+        <ul>
+          <li>
+            <a href="https://github.com/yahoo/react-intl" _target="blank">react-intl von Yahoo</a>
+          </li>
+          <li>
+            <a href="https://react.i18next.com/" target="_blank">i18next</a>
+          </li>
+          <li>
+            <a href="https://github.com/lingui/js-lingui" _target="blank">Einfachere(?) Lösung: js-lingui</a>
+          </li>
+        </ul>
+      </section>
+
+      <section id="t7c">
+        <h3>Projektstruktur</h3>
+        <ul>
+          <li>
+            <a href="https://medium.freecodecamp.org/8-key-react-component-decisions-cc965db11594" target="_blank">8 Key React Component Decisions (mit vielen Links!)</a>
+          </li>
+          <li>
+            <a href="https://hackernoon.com/the-100-correct-way-to-structure-a-react-app-or-why-theres-no-such-thing-3ede534ef1ed" target="_blank">The 100% correct way to structure a React app (or why there’s no such thing)</a>
+          </li>
+          <li>
+            <a href="*  https://medium.com/styled-components/component-folder-pattern-ee42df37ec68" target="_blank">Writing Scalable React Apps with the Component Folder Pattern</a>
+          </li>
+        </ul>
+      </section>
+
+      <section id="t7d">
+        <h2>Arbeiten mit 3rd-Party-Libs (Beispiel: jquery)</h2>
+        <p>
+          <a href="code/schritte/5-third-party-jquery/public/index.html" target="_blank">Ziel-Anwendung mit jquery Spinner</a>
+        </p>
+      </section>
+
+      <section>
+        <h2>3rd Party Libs?</h2>
+        <div class="fragment">
+          <p>Es gibt eine große Anzahl von sehr praktischen JavaScript-Bibliotheken</p>
+          <p>Viele davon sind aber nicht als React-Komponenten entwickelt worden</p>
+        </div>
+        <div class="fragment">
+          <p>
+            <b>Beispiele</b>
+          </p>
+          <p>
+            <em>jQuery</em> und
+            <em>jQuery</em> Plugins wie z.B.
+            <em>Bootstrap</em>
+          </p>
+          <p>
+            <em>d3</em> für interaktive SVGs und Chart Bibliotheken wie
+            <em>nvd3</em>
+          </p>
+        </div>
+      </section>
+
+
+      <section>
+        <h3>Wo kommen die Libs her</h3>
+        <ul>
+          <li>Einbinden als JS Datei in index.html (wie in "herkömmlicher" Web Anwendung)</li>
+          <li>Installieren als npm Modul (mittlerweile sehr hohe Verbreitung)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>Unser Beispiel: Limitieren der Einträge in der Tabelle</h4>
+        <a href="code/schritte/5-third-party-jquery/public/index.html" target="_blank">
+          <img src="images/master-with-jquery-spinner.png" height="400px">
+        </a>
+        <h4>Aufgabe: Einbetten des jQuery UI Spinner Widgets in eine React-Komponente</h4>
+      </section>
+      <section>
+        <h3>Ziel: React Spinner Komponente</h3>
+
+        <ul>
+          <li class="fragment">Eine React-Komponent, die das jquery UI Spinner Widget kapselt</li>
+          <li class="fragment">Für den Verwender soll es transparent sein, dass jQuery verwendet wird (Implementierungsdetail)</li>
+          <li class="fragment">Soll sich wie eine "normale" React-Komponente für Verwender verhalten (Properties, Callbacks etc)</li>
+        </ul>
+        <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+  
+  // Beispielhafte Verwendung:          
+  &lt;Spinner
+    label="Number of Greetings to show"
+    value={limitValue}
+    onValueChange={newValue => doSomething(newValue)}
+  />
+        </code></pre>
+      </section>
+
+      <section>
+        <h3>Hintergrund: jQuery (UI)</h3>
+        <ul>
+          <li>jQuery ist als globale Funktion
+            <code>$</code> definiert</li>
+          <li>jQuery benötigt ein DOM Element, auf dem es arbeitet</li>
+          <li>Die Funktion erwartet als Parameter u.a. ein DOM Element, auf dem jQuery dann arbeitet</li>
+          <li>Der Spinner wird mit
+            <code>$(element).spinner()</code> erzeugt
+            <ul>
+              <li>
+                <code>element</code> muss dabei ein HTML
+                <code>input</code> Element sein</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Beispiel: jQuery UI Spinner</h3>
+        <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+    &lt;!-- Im HTML Code --&gt;
+    &lt;input placeholder="..." id="mySpinner" /&gt;
+    
+    &lt;!-- JavaScript Code --&gt;
+    // Spinner erzeugen
+    $("#mySpinner")
+      .spinner({
+        stop() {
+          const newValue = $(this).spinner("value");
+          console.log("new sprinner value: ", newValue)
+        }
+      });
+      
+    // Einen Wert setzen  
+    $("#mySpinner").val(10);
+    
+                        </code></pre>
+      </section>
+
+      <section>
+        <h3>Herausforderungen</h3>
+        <ol>
+          <li class="fragment">Wie kommen wir an den DOM Knoten der React-Komponente?</li>
+          <li class="fragment">Wie sagen wir React, dass ab dieses Knotens jQuery für das Rendering zuständig ist? (So dass React nicht mehr neu
+            rendert)
+          </li>
+          </li>
+          <li class="fragment">Änderungen des Zustands an der React-Komponente sollen aber nach wie vor richtig dargestellt werden
+            <ul>
+              <li>
+                <code>&lt;Spinner value={newValue} /&gt;</code>
+              </li>
+            </ul>
+          </li>
+          <li class="fragment">Wie können wir aus jQuery heraus auch wieder andere React-Komponenten beeinflussen?
+            <ul>
+              <li>Wert im Spinner ändert sich, also Tabelle neu filtern</li>
+            </ul>
+          </li>
+          <li class="fragment">Wie räumen wir wieder auf?
+        </ol>
+      </section>
+
+      <section>
+        <h3>Erinnerung: React Komponenten Lifecycle</h3>
+        <img src="ai/lifecycle-methods-1.png" height="600px" />
+      </section>
+      <!-- <section>
+          <h3>React Lifecycle Methoden</h3>
+          <ul>
+            <li class="fragment">
+              <code><b>componentDidMount()</b></code>: Komponente wurde gerendert, Elemente sind im DOM (einmalig)</li>
+            <li class="fragment">
+              <code><b>componentWillReceiveProps(nextProps)</b></code>: An die Komponente wurden neue Properties übergeben. Die neuen Properties werden als Parameter übergeben</li>
+            <li class="fragment">
+              <code><b>shouldComponentUpdate()</b></code>: Entscheidet, ob Komponente erneut gerendert werden soll (default:
+              <code>true</code>)</li>
+            <li class="fragment">
+              <code><b>componentWillUnmount()</b></code>: Wird aufgerufen, bevor Komponente aus dem DOM entfernt wird (einmalig)</li>
+          </ul>
+  
+        </section> -->
+      <section>
+        <h3>Spinner Komponente #1</h3>
+        <p>Erzeugen der jquery Komponente</p>
+        <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+  class Spinner extends React.Component {
+      render() {
+          // render the input and remember the reference to the DOM node
+          return &lt;input ref={el => this.spinnerElement = el}>&lt;/input>
+      }
+  
+      // called directly after first render
+      componentDidMount() {
+        // create the jquery wrapper using the reference saved in render()
+        const jquerySpinner = $(this.spinnerElement);
+  
+        jquerySpinner
+          .spinner( /* configuration here */) 
+          .val(this.props.value); // set initial value
+      }
+  
+      // ...
+  }
+         </code></pre>
+      </section>
+      <section>
+        <h3>Spinner Komponente #2</h3>
+        <p>Zustandsänderungen nach außen propagieren</p>
+        <p>Callback wird per Property an React-Komponente übergeben</p>
+        <p>Nach jQuery Event wird Callback aufgerufen</p>
+        <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+    class Spinner extends React.Component {
+        componentDidMount() {
+          // . . .
+    
+          jquerySpinner
+            .spinner({
+              stop: () => {
+                // "stop" event is fired by jquery after 
+                // the spinner value has changed
+                const newValue = jquerySpinner.spinner("value");
+  
+                // run callback function with new value from spinner
+                this.props.onValueChange(newValue);
+              }
+            })
+            .val(this.props.value); 
+        }
+    
+        // ...
+    }
+           </code></pre>
+      </section>
+      <section>
+        <h3>Aktualisieren und Aufräumen</h3>
+      </section>
+
+      <section>
+        <h3>Lifecycle-Methoden #2</h3>
+        <img src="ai/lifecycle-methods-2.png" height="600px" />
+      </section>
+      <section>
+        <h3>Spinner Komponente #3</h3>
+        <p>Neu rendern durch React unterbinden</p>
+        <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+  class Spinner extends React.Component {
+      // ...
+  
+      // if it returns false, component will not be rendered
+      shouldComponentUpdate() {
+          // once rendered, React never renders again
+          return false;
+      }
+  
+      // ...
+  }
+         </code></pre>
+      </section>
+
+      <section>
+        <h3>Spinner Komponente #4</h3>
+        <p>Auf Änderungen von außen reagieren</p>
+        <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+    class Spinner extends React.Component {
+        // ...
+    
+        // called when React props update 
+        // (even when shouldComponentUpdate returned false)
+        componentWillReceiveProps(nextProps) {
+            // set new value from React props to the spinner 
+            $(this.spinnerElement).val(nextProps.value)
+        }
+    }
+           </code></pre>
+      </section>
+
+      <section>
+        <h3>Spinner Komponente #5</h3>
+        <p>Aufräumen sobald Komponente aus dem DOM entfernt wird</p>
+        <pre><code data-trim contenteditable class="line-numbers" data-leftpad>
+      class Spinner extends React.Component {
+          // ...
+  
+          // called just before destroying component
+          componentWillUnmount() {
+              $(this.spinnerElement).spinner("destroy")
+          }
+      }
+             </code></pre>
+      </section>
+
+      <section>
+        <h3>Zusammenfassung #1</h3>
+        <ol>
+          <li>Wie kommen wir an den DOM Knoten der React-Komponente?
+            <ul style="list-style-type: none">
+              <li style="margin:0">Über den
+                <code>ref</code>-Callback beim rendern der Komponente</code>
+              </li>
+            </ul>
+          </li>
+          <li>Wie sagen wir React, dass ab diesem Knoten jQuery für das Rendering zuständig ist? (So dass React nicht mehr neu
+            rendert)
+            <ul style="list-style-type: none">
+              <li style="margin:0">Lifecycle-Methode
+                <code>shouldComponentUpdate</code> implementieren</code>
+              </li>
+            </ul>
+          </li>
+          <li>Änderungen des Zustands an der React-Komponente sollen aber nach wie vor richtig dargestellt werden
+            <ul style="list-style-type: none">
+              <li>
+                In
+                <code>componentWillReceiveProps(nextProps)</code> neue Properties an jQuery Komponente weitergeben
+              </li>
+            </ul>
+          </li>
+
+        </ol>
+      </section>
+
+      <section>
+        <h3>Zusammenfassung #2</h3>
+        <ol start="4">
+          <li>Wie können wir aus jQuery heraus auch wieder andere React-Komponenten beeinflussen?
+            <ul style="list-style-type: none">
+              <li>Auf jQuery Events horchen und dann entsprechende Callback-Funktion aufrufen, die der React Komponente als Property
+                übergeben wurde
+              </li>
+            </ul>
+          </li>
+          <li>Wie räumen wir wieder auf?
+            <ul style="list-style-type: none">
+              <li>In der Lifecycle-Methode
+                <code>componentWillUnmount</code> kann entsprechender Code ausgeführt werden.
+              </li>
+            </ul>
+        </ol>
+      </section>
 
       <section>
         <h2>Geschafft ;-)</h2>
