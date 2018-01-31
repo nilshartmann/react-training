@@ -186,7 +186,7 @@
 
       <section id="example-app">
         <h2>Beispiel-Anwendung</h2>
-        <a target="_blank" href="code/schritte/5-third-party-typescript/public/index.html">
+        <a target="_blank" href="code/schritte/router-v4-typescript/public/index.html">
           <img src="images/greeting-master-and-detail.png" style="border:0;box-shadow:0 0 0 0" />
         </a>
       </section>
@@ -244,15 +244,20 @@
       <section>
         <h3>React Komponenten</h3>
         <ul class="fragment">
-          <li>Werden als ES6 Klasse oder Funktion implementiert
+          <li>Werden als ES6 Klasse (oder Funktion) implementiert
             <li>Keine Templatesprache (stattdessen JavaScript)
               <li>Templates können HTML-artige Syntax enthalten (JSX)
         </ul>
-        <pre class="fragment"><code data-trim contenteditable>class HelloMessage extends React.Component {
+        <pre class="fragment"><code data-trim contenteditable>
+import React from "react";
+
+class HelloMessage extends React.Component {
   render() {
     return &lt;h1 className='title'>Hello, World!&lt;/h1>
   }
 }
+
+export default HelloMessage;
 </code></pre>
       </section>
 
@@ -264,33 +269,39 @@
       <section>
         <h3>Hello World React</h3>
         <pre><code data-trim contenteditable>
-class HelloMessage extends React.Component {
+import React from "react";
+
+export default class HelloMessage extends React.Component {
+
   constructor(props) {
     super(props);
+
     this.state = {greeting: props.initialGreeting};
   }
 
   render() {
     return (
       &lt;div>
-        &lt;input onChange={event => this.updateModel(event)}
-               value={this.state.greeting} />
+        &lt;input 
+              value={this.state.greeting} 
+              onChange={event => this.setState({greeting: event.target.value})}
+        />
 
         &lt;p>{this.state.greeting}, World&lt;/p>
+
       &lt;/div>
     );
-  }
-
-  updateModel(event) {
-    this.setState({greeting: event.target.value});
   }
 }</code></pre>
       </section>
 
       <section>
         <h3>Aufruf</h3>
-        <pre><code data-trim contenteditable>
-// index.html
+        <div class="fragment">
+          <p>
+            <code>index.html</code>
+          </p>
+          <pre><code data-trim contenteditable>
 &lt;html>
   &lt;body>
     <div id="mount"></div>
@@ -298,8 +309,12 @@ class HelloMessage extends React.Component {
   &lt;script src="dist/main.js">&lt;/script>
 &lt;/html>
 </code></pre>
-        <pre class="fragment"><code data-trim contenteditable class="javascript">
-// main.js
+        </div>
+        <div class="fragment">
+          <p>
+            <code>main.js</code>
+          </p>
+          <pre><code data-trim contenteditable class="javascript">
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -308,6 +323,10 @@ import HelloMessage from './HelloMessage';
 const mountNode = document.getElementById('mount');
 ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
 </code></pre>
+        </div>
+        <p class="fragment">
+          <a target="_blank" href="code/schritte/0-hello_world/public/index.html">Run</a>
+        </p>
       </section>
 
       <section>
@@ -351,9 +370,32 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
               <li>...Hot Reloading: Automatische Aktualisierung nach Code Änderung</li>
               <li>...React Hot Loader: Zustand bleibt nach Aktualisierung erhalten (Beta)</li>
             </ul>
-            <li class="fragment">
-              <code>npm start</code> in unserem Beispiel-Projekt</li>
         </ul>
+      </section>
+      <section>
+        <h3>Das Beispiel-Project</h3>
+        <p>Workspace</p>
+        <ul>
+          <li>
+            <code>2018_react-typescript-router.html</code> Slides im Rootverzeichnis</li>
+          <li>
+            <code>code/workspace</code>: Verzeichnis für Eure Übungen</li>
+          <li>
+            <code>code/workspace-typescript</code>: Verzeichnis für Eure TypeScript-Übungen</li>
+          <li>
+            <code>code/schritte</code>: Fertige Stände nach den einzelnen Teilen</li>
+          <li>
+            <code>code/material</code>: Code als Ausgangspunkt für Übungen</li>
+        </ul>
+        <p>Starten</p>
+        <ol>
+          <li>Im
+            <b>Root-Verzeichnis</b>:
+            <code>npm run start-backend</code>, um den REST-Server zustarten (einmal starten, dann einfach durchlaufen lassen)</li>
+          <li>In
+            <b>code/workspace</b>:
+            <code>npm start</code>, um Webpack DevServer zu starten. Kann durchlaufen, falls Reload nicht klappt, neu starten</li>
+        </ol>
       </section>
       <section>
         <h2>Übung 0: React Hello-World</h2>
@@ -575,22 +617,23 @@ class NavBar extends React.Component {
         <h3>Zustand einer Komponente</h3>
         <ul class="fragment">
           <li>Beispiel: Inhalt eines Eingabefelds, Daten vom Server</li>
-          <li>Werte üblicherweise immutable</li>
           <li>
+            <b>Werte</b> üblicherweise immutable</li>
+          <li class="fragment">
             <b>Initialisieren</b> im Konstruktor mit
             <code>this.state={}</code>
-            <li>Zustand
+            <li class="fragment">Zustand
               <b>lesen</b> über
               <code>this.state</code>
-              <li>Zustand
+              <li class="fragment">Zustand
                 <b>setzen</b> über
                 <code>this.setState()</code>
-                <ul>
+                <ul class="fragment">
                   <li>
                     <b>Achtung:</b> kein "reiner" Setter</li>
-                  <li>Führt alten und neuen Zustand zusammen</li>
-                  <li>Wird asynchron ausgeführt!</li>
-                  <li>
+                  <li class="fragment">Führt alten und neuen Zustand zusammen</li>
+                  <li class="fragment">Wird asynchron ausgeführt!</li>
+                  <li class="fragment">
                     <b>Löst erneutes rendern der
                       <i>gesamten</i> Komponente aus</b>
                   </li>
@@ -698,6 +741,21 @@ class HelloMessage extends React.Component {
       </section>
 
       <section>
+        <h3>Properties, State und Instanz-Variablen</h3>
+        <ul>
+          <li class="fragment">
+            <b>Properties</b>: Konfiguration von außen übergeben. Unveränderlich innerhalb der Komponente</li>
+          <li class="fragment">
+            <b>State:
+            </b>: Interner und veränderlicher Zustand der Komponente. State-Änderung führt zu re-rendering
+          </li>
+          <li class="fragment">
+            <b>Instanz-Variablen</b>: Nicht render-relevante Informationen, zB Refernzen auf DOM-Elemente, Callbacks zum Beenden
+            von Timern</li>
+        </ul>
+      </section>
+
+      <section>
         <h2>Übung 1: Detail-Ansicht für unsere Gruß-Anwendung</h2>
         <h3>Erzeuge eine Komponente mit der man einen Namen und eine Grußformel eingeben kann</h3>
       </section>
@@ -740,10 +798,10 @@ class HelloMessage extends React.Component {
           <li>Alternative zu Klassen</li>
           <li>Komponente ist eine einfache Funktion</li>
           <li>entspricht der
-            <code>render</code>-Methode</li> einer
-          <code>React.Component</code>
-          <li>Properties werden per Parameter übergeben (als Objekt)</li>
-          <li>Zurzeit nur ohne Zustand und ohne Lifecycle-Methoden</li>
+            <code>render</code>-Methode einer
+            <code>React.Component</code>
+            <li>Properties werden per Parameter übergeben (als Objekt)</li>
+            <li>Zurzeit nur ohne Zustand und ohne Lifecycle-Methoden</li>
         </ul>
         <pre class="fragment"><code class="javascript" contenteditable data-trim>
 import React from 'react';
@@ -918,6 +976,32 @@ const GreetingRows = ({greetings}) => {
   ;
 )
 </code></pre>
+      </section>
+      <section>
+        <h3>Fragmente</h3>
+        <ul>
+          <li class="fragment">Eine React-Komponente liefert immer genau
+            <b>ein</b> (Top-Level)-Element zurück</li>
+          <li class="fragment">Alternative 1: Arrays (wie gesehen)</li>
+          <li class="fragment">Alternative 2: Fragments</li>
+          <li class="fragment">Ein Fragment ist ein Top-Level-Element, für das kein DOM-Element erzeugt wird (ab React 16.2)</li>
+        </ul>
+        <pre class="fragment"><code class="javascript" contenteditable data-trim>
+// geht nicht:          
+const Choices = () => ( 
+  &lt;td key="yes">Yes&lt;/td>
+  &lt;td key="no">No&lt;/td>
+);
+
+// geht:          
+const Choices = () => ( 
+  &lt;React.Fragment>
+    &lt;td key="yes">Yes&lt;/td>
+    &lt;td key="no">No&lt;/td>
+  &lt;/React.Fragment>  
+);
+
+            </code></pre>
       </section>
       <section>
         <h2>Anwendungen und Komponentenhierarchien</h2>
