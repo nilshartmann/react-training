@@ -1279,12 +1279,12 @@ class GreetingController extends React.Component {
 
       <section>
         <h3>Herausforderungen</h3>
-        <ul>
+        <ol>
           <li>Wie machen wir das Laden und Speichern technisch?
             <li>Wo steht der Code zum initialen Laden der Grüße? (beim Start der Anwendung)
               <li>Wo speichern wir?
                 <li>Wie funktioniert asynchrone Verarbeitung in React?
-        </ul>
+        </ol>
       </section>
 
       <section>
@@ -1766,7 +1766,7 @@ async function loadData(userId) {
             <a href="http://facebook.github.io/jest/" target="_blank">http://facebook.github.io/jest/</a>)</em>
         </p>
         <p class="fragment">Vollständige Test-Lösung, wird von Facebook für Testen von React verwendet:</p>
-        <ul class="fragment">
+        <ul>
           <li class="fragment">Test Runner</li>
           <li class="fragment">Specs, Assertions, Mocks</li>
           <li class="fragment">Code Coverage</li>
@@ -1790,6 +1790,75 @@ test('sum of 2 and 2 is not 3', () => {
 });
         </code></pre>
       </section>
+      <section>
+        <h2>Testcases</h2>
+        <p>
+          <code>test</code> oder
+          <code>it</code>
+        </p>
+        <pre><code data-trim contenteditable>test('it should work', () => {
+  expect(...).toBe(...);
+});</code></pre>
+        <pre><code data-trim contenteditable>it('it should also work', () => {
+  expect(...).toBe(...);
+});</code></pre>
+      </section>
+      <section>
+        <h2>Testsuites</h2>
+        <ul>
+          <li>Testsuites (optional, müssen nicht verwendet werden)
+            <pre><code data-trim contenteditable>describe('some feature', () => {
+  test(() => {...});
+  test(() => {...});
+  test(() => {...});
+});</code></pre>
+          </li>
+          <li class="fragment">Überspringen (
+            <code>skip</code>) / Auswählen (
+            <code>only</code>) einzelner Tests:
+            <pre><code data-trim contenteditable>describe.only('some feature', () => { } );
+describe.skip('another feature', () => { });
+
+test.only('should work', () => { });
+test.skip('does not work, skip for now', () => { });
+
+</code></pre>
+
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>Expectations und Matcher</h2>
+        <div class="fragment">
+          <p>
+            <code>expect()</code> liefert eine Expectation zurück, auf der Matcher definiert sind:</p>
+          <pre><code data-trim contenteditable>expect(actual).toXyz(expected);
+// for example:
+expect("Hello Jest").toBe("Hello Jest"); // => ok
+</code></pre>
+        </div>
+        <div class="fragment">
+          <p>Einige Matcher</p>
+
+          <pre><code data-trim contenteditable>// Vergleich auf Identität
+expect(actual).toBe(expected);
+// Inhaltsvergleich:
+expect(actual).toEqual(expected);
+// true / false / null:
+expect(actual).toBeTruthy();
+expect(actual).toBeFalsy();
+expect(actual).toBeNull();
+// Länge (Array oder String)
+expect(actual).toHaveLength(123);
+</code></pre>
+        </div>
+        <p class="fragment">
+          <a href="https://facebook.github.io/jest/docs/expect.html#content">https://facebook.github.io/jest/docs/expect.html#content</a>
+        </p>
+
+      </section>
+
+
       <section>
         <h3>React Test Renderer</h3>
         <p>
@@ -1909,6 +1978,30 @@ test('it should open detail view on button click', () => {
         </code></pre>
       </section>
 
+      <section>
+        <h2>Übung: Eine Komponente mit Jest testen</h2>
+        <h3>
+          <em>Schreibe ein paar Testfälle für den GreetingMaster</em>
+        </h3>
+      </section>
+      <section>
+        <h3>Schritte</h3>
+        <ol>
+          <li>Kopiere
+            <code>code/material/4-test/test/</code> in deinen Arbeitsbereich (also muss das Verzeichnis
+            <code>code/workspace/test</code> entstehen)</li>
+          <li>In
+            <code>GreetingMaster.test.js</code> sind zwei Tests angelegt, die implementiert werden müssen
+            <ul>
+              <li>Die entsprechenden TODOs sind dort eingetragen</li>
+            </ul>
+          </li>
+          <li>Du kannst im Workspace mit
+            <code>npm test</code> den Test Runner im Watch-Modus starten (Konsolenausgabe beachten)</li>
+        </ol>
+      </section>
+
+
       <section id="t5">
         <h1>Teil V</h1>
         <h2>React mit TypeScript entwickeln</h2>
@@ -1921,7 +2014,7 @@ test('it should open detail view on button click', () => {
             <a href="#/t5a">TypeScript Grundlagen</a>
           </li>
           <li>
-            <a href="#/t5b"></a>React-Anwendungen mit TypeScript entwickeln</a>
+            <a href="#/t5b">React-Anwendungen mit TypeScript entwickeln</a>
           </li>
         </ul>
       </section>
@@ -2271,7 +2364,7 @@ declare module 'module-with-default-export' {
         </ul>
       </section>
 
-      <section id="t5a">
+      <section id="t5b">
         <h2>React Anwendungen mit TypeScript</h2>
         <em>State und Properties von Komponenten werden mit Typen beschrieben</em>
       </section>

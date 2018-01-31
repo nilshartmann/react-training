@@ -7,6 +7,11 @@
     "clean": "../../node_modules/.bin/rimraf -rf public/dist/",
     "dist": "../../node_modules/.bin/webpack",
     "devserver": "../../node_modules/.bin/webpack-dev-server --content-base public/",
-    "test": "../../node_modules/.bin/jest \"(/test/.*\\.test.js)$\" --setupTestFrameworkScriptFile=test/setup-jest.js --verbose --watchAll"
+    "test": "../../node_modules/.bin/jest --no-watchman --watchAll",
+    "testreport": "../../node_modules/.bin/jest --no-watchman --coverage"
+  },
+  "jest": {
+    "testResultsProcessor": "../../node_modules/jest-html-reporter",
+    "setupFiles": ["./test/setup-jest.js"]
   }
 }
