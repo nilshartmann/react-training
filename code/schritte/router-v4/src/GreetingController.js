@@ -15,27 +15,25 @@ export default class GreetingController extends React.Component {
     const filtered = filter ? greetings.filter(greeting => greeting.name === filter) : greetings;
 
     return (
-      <Router>
-        <div className="Main">
-          <div className="Left">
-            <Route exact path="/" render={() => <GreetingMaster greetings={filtered} onAdd={() => this.redirectTo("/add")} />} />
-            <Route path="/add" render={() => <GreetingDetail onSave={greeting => this.saveGreeting(greeting)} />} />
-          </div>
-          <div className="Right">
-            <Chart
-              data={aggregatedGreetings}
-              onSegmentSelected={filter => {
-                if (this.state.filter === filter) {
-                  // reset filter when clicking again
-                  this.setState({ filter: null });
-                } else {
-                  this.setState({ filter });
-                }
-              }}
-            />
-          </div>
+      <div className="Main">
+        <div className="Left">
+          <Route exact path="/" render={() => <GreetingMaster greetings={filtered} onAdd={() => this.redirectTo("/add")} />} />
+          <Route path="/add" render={() => <GreetingDetail onSave={greeting => this.saveGreeting(greeting)} />} />
         </div>
-      </Router>
+        <div className="Right">
+          <Chart
+            data={aggregatedGreetings}
+            onSegmentSelected={filter => {
+              if (this.state.filter === filter) {
+                // reset filter when clicking again
+                this.setState({ filter: null });
+              } else {
+                this.setState({ filter });
+              }
+            }}
+          />
+        </div>
+      </div>
     );
   }
 

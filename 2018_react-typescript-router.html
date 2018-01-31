@@ -2377,7 +2377,7 @@ const GreetingMaster: React.SFC&lt;GreetingMasterProps> = props => {
       <section id="t6">
         <h1>Teil VI</h1>
         <h2>Client-seitiges Routing (Überblick)</h2>
-        <a href="code/schritte/router-v4/public/index.html" target="_blank">Ziel-Anwendung</a>
+        <a href="code/schritte/router-v4-typescript/public/index.html" target="_blank">Ziel-Anwendung</a>
       </section>
       <section>
         <h2>Warum Routing?</h2>
@@ -2440,9 +2440,19 @@ ReactDOM.render(app, document.getElementById(...));
       </section>
 
       <section>
-        <h3>Route #1</h3>
+        <h3>Welche Komponente soll für einen Pfad gerendert werden</h3>
+        <p class="fragment">Das
+          <code>Route</code>-Objekt mappt Pfade auf Komponenten</p>
         <ul>
-          <li class="fragment">Kann überall in der Anwendung verwendet werden, wo Pfad-abhängig Komponenten ausgewählt werden sollen</li>
+          <li class="fragment">
+            Wird verwendet, wo Pfad-abhängig Komponenten ausgewählt werden sollen
+            <ul>
+              <li>vergleichbar mit intelligentem
+                <code>if</code>/
+                <code>switch</code> statement</li>
+              <li>Kann überall in der Anwendung</b> verwendet werden (auf allen Hierarchie-Ebenenen) </li>
+            </ul>
+          </li>
           <li class="fragment">Mit
             <code>path</code> wird der Pfad übergeben, für den die Route matchen soll</li>
           <li class="fragment">Mit
@@ -2478,7 +2488,7 @@ ReactDOM.render(app, document.getElementById(...));
         </ul>
       </section>
       <section>
-        <h3>Pfade</h3>
+        <h3>Hintergrund: Pfade</h3>
         <p>In Routen werden
           <b>Pfade</b> angegeben, die mit der aktuellen URL verglichen werden</b>
           <ul>
@@ -2496,7 +2506,7 @@ ReactDOM.render(app, document.getElementById(...));
 &lt;Route path="/" exact component={GreetingController}/>
 
 // passt auf jede URL:
-&lt;Route path="/" exact component={GreetingController}/>
+&lt;Route component={GreetingController}/>
 
         </code></pre>
           <ul>
@@ -2542,7 +2552,7 @@ ReactDOM.render(app, document.getElementById(...));
 
       <section>
         <h3>Router Properties für Komponente</h3>
-        <p>Der Router übergibt drei Properties an die gerenderte Komponente:</p>
+        <p>Der Router übergibt automatisch drei Properties an die gerenderte Komponente:</p>
         <ul>
           <li class="fragment">
             <code>match</code>: Enthält u.a. die Parameter aus dem Pfad (
@@ -2568,6 +2578,16 @@ const HelloComponent = ({match, history, location}) => (
 &lt;Route path="/greet/:name" component={HelloComponent}/>
 
         </code></pre>
+        <ul>
+          <li class="fragment">Die Properties werden auch an die
+            <code>render</code>-Funktion einer
+            <code>Route</code> als Parameter übergeben
+          </li>
+        </ul>
+        <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+ &lt;Route path="/somewhere" render={({match, history, location}) => . . . }/>
+          
+                  </code></pre>
       </section>
 
       <section>
@@ -2598,73 +2618,253 @@ import {Link, NavLink} from "react-router-dom";
       </section>
 
       <section>
-        <h2>TODO: die withRouter Funktion</h2>
+        <h3>Das history-Objekt</h3>
+        <p class="fragment">Mit dem
+          <code>history</code>-Objekt kann mit der Browser History interagiert werden</p>
+        <p class="fragment">Es gibt verschiende Implementierungen (insb BrowserHistory und HashHistory sowie "memory history" für Testen)</p>
+        <p class="fragment">Mit der History kann auf andere URLs gesprungen werden oder die Location abgefragt werden</p>
+        <p class="fragment">Route-Komponenten erhalten die history automatisch per Property</p>
+        <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+function GreetingController({history}) {
+  // gehe zu neuer URL
+  history.push("/..."); 
+
+  // gehe zu neuer URL, lösche aber aktuelle aus History im Browser
+  history.replace("/...") 
+
+  // aktuelle URL
+  const currentPath = history.location.pathname; 
+}
+        </code></pre>
+      </section>
+
       </section>
 
       <section>
-        <h2>TODO: Hintergrund: Higher-Order Components</h2>
+        <h3>Zugriff auf die history außerhalb von "Route Components"</h3>
+        <ul>
+          <li class="fragment">Komponenten, die von
+            <code>Route</code> gerendert werden, erhalten automatisch Zugriff auf
+            <code>history</code> etc</li>
+          <li class="fragment">Für alle anderen Komponenten, brauchen wir eine andere Lösung</li>
+          <li class="fragment">
+            <code>withRouter</code> HOC "erweitert" Komponenten und Router Properties</li>
+        </ul>
+        <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+import {withRouter} from "react-router-dom";
+
+function GreetLink(props) {
+  const greeting = this.props.greeting; // übergeben vom ursprünglichen Aufrufer
+  const history = this.props.history; // übergeben von withRouter
+  return &lt;div>
+    &lt;button onClick={() =&gt; history.push(`/${greeting.id}`)}>Show Greeting&lt;/button>
+  &lt;/div>;
+}
+
+// 
+export default withRouter(GreetingLink);
+                  </code></pre>
+      </section>
+      <section>
+        <h3>withRouter zur Laufzeit</h3>
+        <img src="./images/screenshot-withRouter.png" />
+      </section>
+
+      <section>
+        <h3>Hintergrund</h3>
+        <h2>Higher-Order Components (HOC)</h2>
         <p>https://reactjs.org/docs/higher-order-components.html</p>
+        <p>Eine Higher-Order Komponente ist eine Funktion, die
+          <b>eine Komponente entgegennimmt und eine neue Komponente zurückliefert</b>
+        </p>
+        <p class="fragment">Die Higher-Order-Kommponente ist für das
+          <b>rendern</b> der ursprünglichen Komonente verantwortlich
+          <ul class="fragment">
+            <li>Sie kann das Rendern bei Bedarf auch unterdrücken oder verzögern</li>
+            <li>Sie hat Zugriff auf alle ursprünglichen Properties</li>
+            <li>Sie kann der Ziel-Komponente zusätzliche Properties übergeben oder welche entfernen</li>
+          </ul>
+        </p>
 
+      </section>
+      <section>
+        <h3>Beispiel: Higher-Order Components (HOC)</h3>
+        <p>Ziel:
+          <em>Eine HOC, die ein Greeting lädt das geladene Greeting an die ursprüngliche Komponente weitergibt</em>
+        </p>
+        <div style="font-size:85%">
+          <p>Vorteile:
+            <ul>
+              <li>"Komplexe" Logik zum Laden der Daten, Fehlerbehandlung etc, liegt zentral in der HOC</li>
+              <li>Die gewrappte Komponente muss sich nicht um das (technische) Laden kümmern</li>
+              <li>Die gewrappte Komponente benötigt keinen Lifecycle, sie wird nur dargestellt, wenn ein Greeting vorhanden ist</li>
+            </ul>
+          </p>
+        </div>
+        <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+  
+// GreetingDisplayController.js          
+// GreetingDisplayController (stellt einen Gruß dar):
+function GreetingDisplayController({greeting}) {
+  return &lt;h1>&lt;{greeting.name}, {greeting.greeting}&lt;/h1>;
+}
+  
+// umschliessen mit der HOC
+export default withGreeting(GreetingDisplayContainer);
+</code></pre>
+        <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+// Verwender
+import GreetingDisplayController from "...";
+// dass es sich um eine HOC handelt, ist für den Verwender transparent:
+&lt;GreetingDisplayController greetingId={3} />
+                                  </code></pre>
+      </section>
+      <section>
+        <h3>Beispiel: Higher-Order Components (HOC)</h2>
+          <p>Schritt 1: HOC definieren</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+  
+  // Schritt 1: stumpfes Wrappen einer Komponente.
+  function withGreeting(RawComponent) {
+    return class extends React.Component {
+      render() {
+        // mit {...this.props} werden alle Properties, die der HOC übergeben
+        // wurden,  an die Ziel-Komponente übergeben
+        return &lt;RawComponent {...this.props} />
+      }
+    }
+                                  </code></pre>
+      </section>
+      <section>
+        <h3>Beispiel: Higher-Order Components (HOC)</h2>
+          <p>Schritt 2: Lifecycle-Methoden ("fachliche" Logik der HOC) implementieren</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+function withGreeting(RawComponent) {
+  return class extends React.Component {
+  
+    // HOC ist "normale" Komponente, dh wir habe Lifecycle-Methoden etc
+    componentDidMount() {
+      // GreetingId kommt aus den Props, mit dem die HOC aufgerufen wurde
+      const greeting = loadGreeting(this.props.greetingId);
+      this.setState({greeting});
+    }
 
+    componentWillReceiveProps(nextProps) {
+      // analog: greeting lesen und State setzen
+    }
+  
+    render() { . . . }
+  }
+}
+                                    </code></pre>
+      </section>
+      <section>
+        <h3>Beispiel: Higher-Order Components (HOC)</h2>
+          <p>Schritt 3: Implementieren der render-Methode</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+  function withGreeting(RawComponent) {
+    return class extends React.Component {
+    
+      componentDidMount() { ... }
+  
+      componentWillReceiveProps(nextProps) { ... }
+        // analog: greeting lesen und State setzen
+      }
+    
+      render() { 
+        if (!this.state.greeting) {
+          // Greeting noch nicht geladen
+          return null;  
+          // alternativ: Loading Spinner zeigen, Fehlerbehandlung o.ä.
+        }
+
+        // Ziel-Komponente erhält geladenes Greeting als
+        // 'greeting' Property
+        return &lt;RawComponent greeting={this.state.greeting} />
+      }
+    }
+  }
+                                      </code></pre>
+      </section>
+      <section>
+        <h3>Beispiel: Higher-Order Components (HOC)</h2>
+          <p>Schritt 4: Verwenden der HOC</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+import withGreeting from ". . .";
+
+// GreetingDisplayController kennt kein greetingId-Property, 
+// nur das geladene Greeting
+function GreetingDisplayController({greeting}) { . . .};
+
+export default withGreeting(GreetingDisplayController);
+                                        </code></pre>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+import GreetingDisplayController from ". . .";
+
+// Verwender übergibt nur das greetingId-Property, 
+// nicht das geladene Greeting
+&lt;GreetingDisplayController greetingId={7} />
+                                        </code></pre>
       </section>
       <section>
         <h2>Alternative PropTypes</h2>
         <p>https://reactjs.org/docs/render-props.html</p>
         <p>https://www.youtube.com/watch?v=BcVAq3YFiuc</p>
-
-        <!-- class Cat extends React.Component {
-          render() {
-            const mouse = this.props.mouse;
-            return (
-              <img src="/cat.jpg" style={{ position: 'absolute', left: mouse.x, top: mouse.y }} />
-            );
-          }
-        }
-        
-        class Mouse extends React.Component {
-          constructor(props) {
-            super(props);
-            this.handleMouseMove = this.handleMouseMove.bind(this);
-            this.state = { x: 0, y: 0 };
-          }
-        
-          handleMouseMove(event) {
-            this.setState({
-              x: event.clientX,
-              y: event.clientY
-            });
-          }
-        
-          render() {
-            return (
-              <div style={{ height: '100%' }} onMouseMove={this.handleMouseMove}>
-        
-                {/*
-                  Instead of providing a static representation of what <Mouse> renders,
-                  use the `render` prop to dynamically determine what to render.
-                */}
-                {this.props.render(this.state)}
-              </div>
-            );
-          }
-        }
-        
-        class MouseTracker extends React.Component {
-          render() {
-            return (
-              <div>
-                <h1>Move the mouse around!</h1>
-                <Mouse render={mouse => (
-                  <Cat mouse={mouse} />
-                )}/>
-              </div>
-            );
-          }
-        } -->
       </section>
 
       <section>
-        <h2>TODO: Der Router mit TypeScript</h2>
+        <h2>Der Router mit TypeScript</h2>
+      </section>
+
+      <section>
+        <h3>RouteComponentProps</h3>
+        <p>Der Router übergibt Properties an eine Route-Komponente</p>
+        <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+// GreetingController erhält history etc als Property          
+&lt;Route component={GreetingController} />
+                                                    </code></pre>
+        <p class="fragment">Die Route-Properties sind im Interface
+          <code>RouteComponentProps</code> definiert</p>
+        <p class="fragment">Die Komponente kann für ihre Properties das Interface erweitern:</p>
+        <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+import { RouteComponentProps } from "react-router";
+interface GreetingControllerProps extends RouteComponentProps&lt;void&gt { 
+  // ggf. eigene Properties des GreetingControllers
+}
+class GreetingController extends React.Component&lt;GreetingControllerProps> {
+  render() {
+    const history = this.props.history; // ok, kein Compile-Fehler
+  }
+}
+</code></pre>
+      </section>
+      <section>
+        <h3>RouteComponentProps #2</h3>
+        <p>Der Router übergibt die Parameter aus der URL an die Route-Komponente</p>
+        <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+  // GreetingController erhält "greetingId" als Property
+  &lt;Route path="/greeting/:greetingId" component={GreetingController} />
+                                                      </code></pre>
+        <p class="fragment">RouteComponentProps ist mit den erwarteten Parametern aus der URL generifiziert
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+import { RouteComponentProps } from "react-router";
+
+// Die im Path definierten Parameter
+interface GreetingControllerParams { greetingId: string };
+
+// Als Type-Argument werden die Parameter angegeben
+interface GreetingControllerProps extends 
+  RouteComponentProps&lt;GreetingControllerParams&gt {   }
+
+class GreetingController extends React.Component&lt;GreetingControllerProps> {
+  render() {
+    const params = this.props.match;
+
+    const greetingId = params.greetingId; // ok, kein Compile-Fehler
+    const userId = params.userId; // Fehler: userId nicht bekannt
+  }
+}
+  </code></pre>
       </section>
 
       <section id="t7">

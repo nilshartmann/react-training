@@ -1,45 +1,28 @@
 import * as React from "react";
-
+import { Router, Route } from "react-router-dom";
 import GreetingMaster from "./GreetingMaster";
 import GreetingDetail from "./GreetingDetail";
 import { Greeting, NewGreeting } from "./types";
+import { RouteComponentProps } from "react-router";
 
 const BACKEND_URL = "http://localhost:7000/greetings";
 const MODE_MASTER = "MODE_MASTER";
 const MODE_DETAIL = "MODE_DETAIL";
 
-type GreetingControllerProps = {};
+interface GreetingControllerProps extends RouteComponentProps<void> {}
 
-type GreetingControllerState = {
-  mode: typeof MODE_MASTER | typeof MODE_DETAIL;
+interface GreetingControllerState {
   greetings: Greeting[];
-};
+}
 
 export default class GreetingController extends React.Component<GreetingControllerProps, GreetingControllerState> {
   render() {
     const { greetings } = this.state;
     return (
-      <Router>
-        <div className="Main">
-          <div className="Left">
-            <Route exact path="/" render={() => <GreetingMaster greetings={filtered} onAdd={() => this.redirectTo("/add")} />} />
-            <Route path="/add" render={() => <GreetingDetail onSave={greeting => this.saveGreeting(greeting)} />} />
-          </div>
-          <div className="Right">
-            <Chart
-              data={aggregatedGreetings}
-              onSegmentSelected={filter => {
-                if (this.state.filter === filter) {
-                  // reset filter when clicking again
-                  this.setState({ filter: null });
-                } else {
-                  this.setState({ filter });
-                }
-              }}
-            />
-          </div>
-        </div>
-      </Router>
+      <div className="Main">
+        <Route exact path="/" render={() => <GreetingMaster greetings={greetings} onAdd={() => this.redirectTo("/add")} />} />
+        <Route path="/add" render={() => <GreetingDetail onSave={greeting => this.saveGreeting(greeting)} />} />
+      </div>
     );
   }
 
@@ -101,7 +84,7 @@ export default class GreetingController extends React.Component<GreetingControll
     this.redirectTo("/");
   }
 
-  redirectTo(path) {
+  redirectTo(path: string) {
     const { history } = this.props;
     history.push(path);
   }
