@@ -329,6 +329,118 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
         </p>
       </section>
 
+      <section data-state="exkurs">
+        <h3>Hintergrund</h3>
+        <h2>ES6 Features</h2>
+      </section>
+
+      <section data-state="exkurs">
+        <h3>ES6: Klassen</h3>
+        <pre><code class="javascript" contenteditable>class Person {
+    constructor(name) {
+        this._name = name;
+    }
+    getName() {
+        return this._name;
+    }
+}
+class Programmer extends Person {
+    constructor(name, language) {
+        super(name);
+        this.language = language;
+    }
+    code() {
+        return `${this.getName()} codes in ${this.language}`;
+    }
+}</code></pre>
+        <pre class="fragment"><code class="javascript" contenteditable>const programmer = new Programmer('Erna', 'JavaScript');
+console.log(programmer.code());
+console.log(programmer instanceof Programmer); // true
+console.log(programmer instanceof Person); // true</code></pre>
+      </section>
+      <section data-state="exkurs">
+        <h2>ES6: Module, Importe und Exporte</h2>
+      </section>
+      <section data-state="exkurs">
+        <h3>ES6: Export einer einzigen Klasse</h3>
+        <pre><code class="javascript" contenteditable>// Person.js
+  class Person {
+    // ...
+  }
+  export default Person;
+     </code></pre>
+        <pre><code class="javascript" contenteditable>// Person.js
+  
+  // in einer Zeile zusammengefasst
+  export default class Person {
+    // ...
+  }
+     </code></pre>
+      </section>
+      <section data-state="exkurs">
+        <h3>ES6: Import</h3>
+        <pre><code class="javascript" contenteditable>// Programmer.js
+  import Person from './Person';
+  
+  export default class Programmer extends Person {
+    // ...
+  }
+     </code></pre>
+      </section>
+      <section data-state="exkurs">
+        <h3>ES6: Benannte Exporte</h3>
+        <pre><code class="javascript" contenteditable data-trim>// util.js
+  export function displayInPage(text) {
+      document.body.innerHTML +=
+          `${text}<br>` ;
+  }
+  
+  export showInfo = msg => window.alert(`Wichtige Info: ${msg}`);
+  
+  // or
+  function displayInPage(text) { . . . }
+  
+  const showInfo = ...;
+  
+  // specify exports
+  export { displayInPage, showInfo };
+     </code></pre>
+        <pre class="fragment"><code class="javascript" contenteditable data-trim>import {displayInPage} from "./util";
+  displayInPage('Hello, World');
+     </code></pre>
+        <!--<pre class="fragment"><code class="javascript" contenteditable data-trim>import {displayInPage as display} from "./util";-->
+        <!--display('Hello, World');-->
+        <!--</code></pre>-->
+        <!--<pre class="fragment"><code class="javascript" contenteditable data-trim>import * as util from "./util";-->
+        <!--util.displayInPage('Hello, World');-->
+        <!--</code></pre>-->
+      </section>
+      <section data-state="exkurs">
+        <h3>ES6: Arrow Functions</h3>
+        <pre><code class="javascript" contenteditable>const displayInPage = (text) => {
+   return document.body.innerHTML +=
+       `${text}<br>`;
+};</code></pre>
+        <pre class="fragment"><code class="javascript" contenteditable>// Klammern können weggelassen werden, genau ein Parameter
+// ebenso die geschweiften Klassen, wenn nur ein Statement:
+const displayInPage = text => document.body.innerHTML += `${text}<br>`;
+</code></pre>
+      </section>
+      <section data-state="exkurs">
+        <h3>ES6: Template Strings</h3>
+        <p>Template Strings werden in Backticks (``) geschrieben und können Ausdrücke (in
+          <code>${}</code>) enthalten:</p>
+
+        <pre><code class="javascript" contenteditable>const name = "Susi";
+const greeting = `Hello, ${name}`; // Hello, Susi
+
+const four = `Two and two is: ${2+2}` // Two and two is: 4
+
+const time = `The time is: ${new Date()}`); // The time is: ...
+            </code></pre>
+      </section>
+
+
       <section>
         <h2>Hintergrund</h2>
         <h1>Buildprozess</h1>
@@ -588,7 +700,77 @@ render() {
 
         </ul>
       </section>
+      <section data-state="exkurs">
+        <h3>ES6: Erweiterte Objekt-Literale</h3>
+        <pre><code class="javascript" contenteditable>
 
+// ES5:
+const firstName = 'Klaus';
+const person = {
+    firstName: firstName
+};
+console.log(person.firstName); // Klaus
+
+// ES6:
+const firstName = 'Klaus';
+const person = {
+    firstName
+};
+console.log(person.firstName); // Klaus
+   </code></pre>
+      </section>
+
+
+
+      <!--<section>-->
+      <!--<h2>Neuerungen und Verbesserungen in ES6</h2>-->
+      <!--</section>-->
+
+      <!--<section>-->
+      <!--<h3>Tagged Template Literals</h3>-->
+      <!--<p><a target="_blank" href="http://exploringjs.com/es6/ch_template-literals.html#_tagged-templates">-->
+      <!--Mini-DSLs: Template-Literals mit tag-->
+      <!--</a>-->
+      <!--</p>-->
+
+      <!--<pre class="fragment"><code class="javascript" contenteditable>function tag(strings, ...values) {-->
+      <!--console.log(strings);-->
+      <!--//[ '', ' codes in ', '.' ]-->
+      <!--console.log(values);-->
+      <!--//[ 'Oma', 'Haskell' ]-->
+      <!--return 'whatever you want';-->
+      <!--}-->
+      <!--</code></pre>-->
+
+      <!--<pre><code class="javascript" contenteditable>const expanded = tag`${person} codes in ${language}.`;-->
+      <!--console.log(expanded);-->
+      <!--//whatever you want-->
+      <!--</code></pre>-->
+
+      <!--</section>-->
+
+      <section data-state="exkurs">
+        <h3>ES6: Destructuring von Objekten</h3>
+        <pre><code class="javascript" contenteditable>const person = {
+  fistName: 'Klaus',
+  lastName: 'Mueller',
+  age: 42
+};</code></pre>
+        <pre class="fragment"><code class="javascript" contenteditable>const {firstName, age, notThere} = person;
+
+console.log(firstName); // Klaus
+console.log(age); // 42
+console.log(notThere); // undefined
+</code></pre>
+        <pre class="fragment"><code class="javascript" contenteditable>function someFunction({firstName, age, notThere}) {
+  console.log(firstName); // Klaus
+  console.log(age); // 42
+  console.log(notThere); // undefined
+}
+
+someFunction(person);
+</code></pre>
+      </section>
       <section>
         <h3>React: Properties und Zustand</h3>
         <ul class="fragment">
