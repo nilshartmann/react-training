@@ -128,7 +128,7 @@
         <p>Folien: Im geklonten Verzeichnis
           <code>2018_react-es6-jest-router.html</code> (
 
-          <a href="https://reactbuch.github.io/react-workshop/2018_react-typescript-router.html#/">https://reactbuch.github.io/react-workshop/2018_react-typescript-router.html</a>)
+          <a href="https://reactbuch.github.io/react-workshop/2018_react-es6-jest-router.html#/">https://reactbuch.github.io/react-workshop/2018_react-es6-jest-router.html</a>)
         </p>
       </section>
 
@@ -753,11 +753,19 @@ console.log(person.firstName); // Klaus
       <section data-state="exkurs">
         <h3>ES6: Destructuring von Objekten</h3>
         <pre><code class="javascript" contenteditable>const person = {
-  fistName: 'Klaus',
+  firstName: 'Klaus',
   lastName: 'Mueller',
   age: 42
-};</code></pre>
-        <pre class="fragment"><code class="javascript" contenteditable>const {firstName, age, notThere} = person;
+};
+
+// bisher
+const firstName = person.firstName;
+const age = person.age;
+
+</code></pre>
+        <pre class="fragment"><code class="javascript" contenteditable>
+// ES6          
+const {firstName, age, notThere} = person;
 
 console.log(firstName); // Klaus
 console.log(age); // 42
@@ -843,6 +851,7 @@ class NavBar extends React.Component {
                     <b>Löst erneutes rendern der
                       <i>gesamten</i> Komponente aus</b>
                   </li>
+                  <li class="fragment">Nicht im Konstruktor oder render verwenden!</li>
                 </ul>
         </ul>
       </section>
