@@ -1204,15 +1204,15 @@ const GreetingRows = ({greetings}) => {
         <pre class="fragment"><code class="javascript" contenteditable data-trim>
 // geht nicht:          
 const Choices = () => ( 
-  &lt;td key="yes">Yes&lt;/td>
-  &lt;td key="no">No&lt;/td>
+  &lt;td>Yes&lt;/td>
+  &lt;td>No&lt;/td>
 );
 
 // geht:          
 const Choices = () => ( 
   &lt;React.Fragment>
-    &lt;td key="yes">Yes&lt;/td>
-    &lt;td key="no">No&lt;/td>
+    &lt;td>Yes&lt;/td>
+    &lt;td>No&lt;/td>
   &lt;/React.Fragment>  
 );
 
@@ -1246,7 +1246,8 @@ const Choices = () => (
         <p>Rendering der Children</p>
         <pre><code class="javascript" contenteditable data-trim>
 class GreetingController extends React.Component {
-  constructor() {
+  constructor(props) {
+    super(props);
     this.state = { mode: 'MASTER' }
   }
 
@@ -1312,7 +1313,8 @@ class GreetingController extends React.Component {
         <p>State wird als Property an Children übergeben #2</p>
         <pre><code class="javascript" contenteditable data-trim>
 class GreetingController extends React.Component {
-  constructor() { 
+  constructor(props) {
+    super(props); 
     this.state = {
       mode: 'MASTER',
       greetings: . . .
@@ -1357,7 +1359,7 @@ class GreetingMaster extends React.Component {
         <p>Neues Greeting wird per Callback-Funktion übergeben #2</p>
         <pre><code class="javascript" contenteditable data-trim>
   class GreetingController extends React.Component {
-    constructor() { . . . }
+    constructor(props) { . . . }
       
     render() {
       if (this.state.mode === 'MASTER') {
