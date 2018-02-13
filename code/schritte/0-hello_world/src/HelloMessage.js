@@ -4,7 +4,10 @@ export default class HelloMessage extends React.Component {
   render() {
     return (
       <div>
-        <input ref={input => (this.input = input)} onChange={event => this.updateModel(event)} value={this.state.greeting} />
+        <input ref={input => (this.input = input)}
+          onChange={event => this.updateModel(event)} value={this.state.greeting} />
+
+
         <p>{this.state.greeting}, World</p>
         <button onClick={() => this.reset()}>Clear</button>
       </div>

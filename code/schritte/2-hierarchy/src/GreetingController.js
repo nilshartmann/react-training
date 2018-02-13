@@ -2,6 +2,7 @@ import React from "react";
 
 import GreetingMaster from "./GreetingMaster";
 import GreetingDetail from "./GreetingDetail";
+import Status from "./Status";
 
 let currentId = 0;
 
@@ -27,25 +28,32 @@ export default class GreetingController extends React.Component {
     return (
       <div>
         {mode === MODE_MASTER ? (
-          <GreetingMaster greetings={greetings} onAdd={() => this.setState({ mode: MODE_DETAIL })} />
+          <GreetingMaster greetings={greetings} onAdd={() => { this.setState({ mode: MODE_DETAIL }) }} />
         ) : (
-          <GreetingDetail onSave={greeting => this.addGreeting(greeting)} />
-        )}
+            <GreetingDetail onSave={this.addGreeting} />
+          )}
+
+        <Status greetings={greetings} />
       </div>
     );
   }
 
   constructor(props) {
     super(props);
+    console.log("GreetingController - constructor");
     this.state = {
       greetings: sampleGreetings,
       mode: MODE_MASTER
     };
+
   }
 
-  addGreeting(greetingToBeAdded) {
+  addGreeting = (greetingToBeAdded) => {
     const { greetings } = this.state;
     greetingToBeAdded.id = currentId++;
+
+    // const newArray = this.state.greetings.concat(greetingToBeAdded);
+
     const newGreetings = [...greetings, greetingToBeAdded];
     this.setState({
       greetings: newGreetings,

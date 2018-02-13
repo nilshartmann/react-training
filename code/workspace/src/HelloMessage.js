@@ -1,7 +1,17 @@
 import React from "react";
 
 export default class HelloMessage extends React.Component {
+  constructor(props) {
+    super(props);
+    const person = {
+      name: "",
+      age: 3
+    }
+  }
   render() {
-    return <p>Hello, World</p>;
+    return <React.Fragment>
+      <p>Yes</p>
+      <p>No</p>
+    </React.Fragment>
   }
 }

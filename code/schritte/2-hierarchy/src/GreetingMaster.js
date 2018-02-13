@@ -1,6 +1,6 @@
 import React from "react";
 
-const GreetingMaster = props => {
+function GreetingMaster(props) {
   const { greetings, onAdd } = props;
   const body = greetings.map(greeting => (
     <tr key={greeting.id}>

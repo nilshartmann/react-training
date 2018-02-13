@@ -12,6 +12,7 @@ export default class GreetingDetail extends React.Component {
 
   render() {
     const { name, greeting } = this.state;
+
     const saveDisabled = !(name && greeting);
 
     return (
@@ -34,6 +35,8 @@ export default class GreetingDetail extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log("GreetingDetail - constructor");
+
     const { name, greeting } = this.props.greeting || { name: "", greeting: "" };
     this.state = {
       name,
@@ -46,6 +49,10 @@ export default class GreetingDetail extends React.Component {
     if (this.input) {
       this.input.focus();
     }
+  }
+
+  componentWillReceiveProps(newProps) {
+    console.log("GreetingDetail - componentWillReceiveProps", newProps);
   }
 
   save() {

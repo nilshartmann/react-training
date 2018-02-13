@@ -1663,7 +1663,7 @@ const promise2 = promise.then(value => `${value} plus stuff`);</code></pre>
 // 1. fetch returns a promise, that will be resolved
 // with a Response object when response is received
 // from server
-fetch('http://localhost:7000/api/greetings')
+fetch('http://localhost:7000/greetings')
 
 // 2. the Response object contains a json() function,
 // that returns the parsed JSON from the Response body
@@ -1689,7 +1689,7 @@ fetch('http://localhost:7000/api/greetings')
         <pre class="fragment"><code class="javascript" contenteditable data-trim>
 async function loadGreetings() {          
   try {
-    const response = await fetch('http://localhost:7000/api/greetings');
+    const response = await fetch('http://localhost:7000/greetings');
     const json = await response.json();
     this.setState({greetings: json});
   } catch (err) {
@@ -1879,7 +1879,7 @@ async function loadData(userId) {
   // 'async' wegen 'await' notwendig (sonst ohne 'async' hinschreiben)
   async componentDidMount() {
     try {
-      const response = await fetch('/api/greetings');
+      const response = await fetch('/greetings');
       const json = await response.json();
       this.setState({ greetings: json});
     } catch (error) { . . .}
@@ -1901,7 +1901,7 @@ async function loadData(userId) {
   }
   async saveGreeting(greetingToBeSaved) {
     try {
-      const response = await fetch('/api/greetings', {
+      const response = await fetch('/greetings', {
         method: 'POST',
         headers: ...,
         body: JSON.stringify(greetingToBeSaved)
