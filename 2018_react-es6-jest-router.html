@@ -830,14 +830,18 @@ class NavBar extends React.Component {
       <section>
         <h3>Zustand einer Komponente</h3>
         <ul class="fragment">
-          <li>Beispiel: Inhalt eines Eingabefelds, Daten vom Server</li>
+          <li>Beispiel: Inhalt eines Eingabefelds, Daten vom Server
+            <ul>
+              <li>Auch UI-Zustand (z.B. Dropdown ausgeklappt oder nicht)</li>
+            </ul>
+          </li>
           <li>
             <b>Werte</b> üblicherweise immutable</li>
           <li class="fragment">
             <b>Initialisieren</b> im Konstruktor mit
             <code>this.state={}</code>
             <li class="fragment">Zustand
-              <b>lesen</b> über
+              <b>lesen</b> nur über
               <code>this.state</code>
               <li class="fragment">Zustand
                 <b>setzen</b> über
@@ -851,7 +855,8 @@ class NavBar extends React.Component {
                     <b>Löst erneutes rendern der
                       <i>gesamten</i> Komponente aus</b>
                   </li>
-                  <li class="fragment">Nicht im Konstruktor oder render verwenden!</li>
+                  <li class="fragment">Nicht im Konstruktor oder
+                    <code>render</code> verwenden!</li>
                 </ul>
         </ul>
       </section>
@@ -1539,6 +1544,17 @@ fetch('http://localhost:7000/api/greetings')
       <section>
         <h3>Beispiel #2: fetch</h3>
         <p>Daten lesen per POST</p>
+        <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            fetch(url, {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(payload)
+            })
+              .then(...)
+                </code></pre>
         <div class="fragment">
           <p>
             <code>fetch</code> erwartet als zweiten Parameter ein Objekt mit Konfigurationsparametern, u.a:
@@ -1555,17 +1571,7 @@ fetch('http://localhost:7000/api/greetings')
             </ul>
           </p>
         </div>
-        <pre class="fragment"><code class="javascript" contenteditable data-trim>
-fetch(url, {
-  method: 'POST',
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(payload)
-})
-  .then(...)
-    </code></pre>
+
       </section>
 
 
@@ -1576,10 +1582,25 @@ fetch(url, {
         <h3>Ein Promise ist ein Versprechen auf einen Wert</h3>
         <h4 class="fragment">Wird evtl. erst in der Zukunft eingelöst</h4>
       </section>
-
+      <section data-state="exkurs">
+        <h3>Erzeugen und asynchron reagieren</h3>
+        <pre class="fragment"><code class="javascript" contenteditable>const promise = new Promise(resolve =>
+    setTimeout(
+        () => resolve('Result from promise'),
+        1000)
+);
+</code></pre>
+        <pre class="fragment"><code class="javascript" contenteditable>promise.then(value => console.log(value));
+// Output after 1 second: Result from promise
+</code></pre>
+      </section>
       <section data-state="exkurs">
         <h3>Verkettete Ausführung</h3>
-        <pre><code class="javascript" contenteditable>const promise = . . .;
+        <pre><code class="javascript" contenteditable>const promise = new Promise(resolve =>
+    setTimeout(
+        () => resolve('Result from promise'),
+        1000)
+);
 </code></pre>
         <pre class="fragment"><code class="javascript" contenteditable>// then returns a new promise
 const promise2 = promise.then(value => `${value} plus stuff`);</code></pre>
@@ -1593,25 +1614,7 @@ const promise2 = promise.then(value => `${value} plus stuff`);</code></pre>
           <b>muss</b> man etwas tun, um das mitzubekommen: catch()</h4>
       </section>
 
-      <section data-state="exkurs">
-        <h3>Catch-Klausel im Erfolgsfall</h3>
-        <pre><code class="javascript" contenteditable>Promise
-    // creates and directly resolves promise
-    .resolve('Result from promise')
-    .then(x => {
-        // this will be printed
-        console.log(x);
-    })
-    .then(() => {
-        console.log('This will be printed');
-    })
-    // this will NOT be printed as no error occured
-    .catch(e => console.log('error: ', e))
 
-// Output:
-// Result from promise
-// This will be printed</code></pre>
-      </section>
       <section data-state="exkurs">
         <h3>Catch-Klausel im Fehlerfall</h3>
         <pre><code class="javascript" contenteditable>Promise
@@ -1632,7 +1635,27 @@ const promise2 = promise.then(value => `${value} plus stuff`);</code></pre>
 // Result from promise
 // error:  [Error: Something went wrong]</code></pre>
       </section>
-
+      <section data-state="exkurs">
+        <h3>Catch-Klausel im
+          <b>Erfolgsfall</b>
+        </h3>
+        <pre><code class="javascript" contenteditable>Promise
+      // creates and directly resolves promise
+      .resolve('Result from promise')
+      .then(x => {
+          // this will be printed
+          console.log(x);
+      })
+      .then(() => {
+          console.log('This will be printed');
+      })
+      // this will NOT be printed as no error occured
+      .catch(e => console.log('error: ', e))
+  
+  // Output:
+  // Result from promise
+  // This will be printed</code></pre>
+      </section>
       <section>
         <h3>fetch im Detail</h3>
 
