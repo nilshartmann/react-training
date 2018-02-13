@@ -2043,35 +2043,14 @@ test('sum of 2 and 2 is not 3', () => {
   expect(...).toBe(...);
 });</code></pre>
       </section>
-      <section>
-        <h2>Testsuites</h2>
-        <ul>
-          <li>Testsuites (optional, müssen nicht verwendet werden)
-            <pre><code data-trim contenteditable>describe('some feature', () => {
-  test(() => {...});
-  test(() => {...});
-  test(() => {...});
-});</code></pre>
-          </li>
-          <li class="fragment">Überspringen (
-            <code>skip</code>) / Auswählen (
-            <code>only</code>) einzelner Tests:
-            <pre><code data-trim contenteditable>describe.only('some feature', () => { } );
-describe.skip('another feature', () => { });
 
-test.only('should work', () => { });
-test.skip('does not work, skip for now', () => { });
-
-</code></pre>
-
-          </li>
-        </ul>
-      </section>
       <section>
         <h2>Expectations und Matcher</h2>
         <div class="fragment">
           <p>
-            <code>expect()</code> liefert eine Expectation zurück, auf der Matcher definiert sind:</p>
+            <code>expect()</code> liefert eine
+            <b>Expectation</b> zurück, auf der
+            <b>Matcher</b> definiert sind:</p>
           <pre><code data-trim contenteditable>expect(actual).toXyz(expected);
 // for example:
 expect("Hello Jest").toBe("Hello Jest"); // => ok
@@ -2096,6 +2075,10 @@ expect(actual).toHaveLength(123);
           <a href="https://facebook.github.io/jest/docs/expect.html#content">https://facebook.github.io/jest/docs/expect.html#content</a>
         </p>
 
+      </section>
+
+      <section>
+        <h2>Testen von React Komponenten</h2>
       </section>
 
 
@@ -3147,11 +3130,11 @@ import * as React from 'react';
         <p>
           <code>React.Component</code> ist eine generische Klasse, die einen Typ für Properties und State erwartet</p>
         <pre class="fragment"><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-interface Greeting = {name: string; greeting: string};
+interface NewGreeting = {name: string; greeting: string};
 
 interface GreetingDetailProps {
-    greeting?: Greeting;
-    onSave: (newGreeting: NewGreeting) => void;
+    greeting?: NewGreeting;
+    onSave(newGreeting: NewGreeting): void;
 }
 
 interface GreetingDetailState {
@@ -3229,7 +3212,7 @@ class GreetingDetail extends React.Component&lt;Props, State> {
         <pre class="fragment"><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
 type GreetingMasterProps = {
     greetings: Greeting[]
-    onAdd: () => void
+    onAdd(): void
 };
         </code></pre>
         <pre class="fragment"><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
@@ -3264,12 +3247,14 @@ const GreetingMaster: React.SFC&lt;GreetingMasterProps> = props => {
             <b>Hinweis: </b> Bitte arbeite dazu in dem neuen Workspace
             <code>code/workspace-typescript</code>:</p>
           <ul>
+            <li>Beende deinen laufenden Webpack Server vorher!</li>
+            <li>Starte in
+              <code>code/workspace-typescript</code> Webpack mit
+              <code>npm start</code>
+            </li>
             <li>Dieses Verzeichnis enthält die Anwendung aus unserem letzten Schritt, aber in TypeScript implementiert</li>
             <li>Lediglich das
               <code>GreetingDetail</code> ist noch in JavaScript implementiert</li>
-            <li>Du kannst den Webpack Server in diesem Verzeichnis ebenfalls mit
-              <code>npm start</code> starten</li>
-            <li>Denk dran, deinen laufenden Webpack Server vorher zu beenden</li>
           </ul>
         </div>
       </section>
