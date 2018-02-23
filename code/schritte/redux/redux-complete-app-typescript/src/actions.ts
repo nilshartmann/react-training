@@ -29,8 +29,8 @@ export type SetModeAction = {
 };
 
 // Thunk actions: https://github.com/gaearon/redux-thunk/issues/103#issuecomment-298533925
-export const loadGreetings = (): ThunkAction<Promise<SetGreetingsAction | void>, AppState, null> => (dispatch, getState) => {
-  loadGreetingsFromServer()
+export const loadGreetings = (): ThunkAction<Promise<SetGreetingsAction | void>, AppState> => (dispatch, getState) => {
+  return loadGreetingsFromServer()
     .then(greetings =>
       dispatch({
         type: SET_GREETINGS,
