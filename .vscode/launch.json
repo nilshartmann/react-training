@@ -7,19 +7,9 @@
     {
       "type": "chrome",
       "request": "launch",
-      "name": "Debug with CANARY",
+      "name": "Debug LIVE CODING with CHROME",
       "url": "http://localhost:8080",
-      "webRoot": "${workspaceRoot}/schritte/5-typescript/public",
-      "sourceMaps": true,
-      "runtimeExecutable":
-        "/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary"
-    },
-    {
-      "type": "chrome",
-      "request": "launch",
-      "name": "Debug with CHROME",
-      "url": "http://localhost:8080",
-      "webRoot": "${workspaceRoot}/schritte/5-typescript/public",
+      "webRoot": "${workspaceRoot}/code/workspace-live-coding",
       "sourceMaps": true
     }
   ]

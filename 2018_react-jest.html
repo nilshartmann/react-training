@@ -162,6 +162,9 @@
           <li>
             <a href="#/t4">Teil IV: Testen von React Anwendungen</a>
           </li>
+          <li>
+            (<a href="#/aus-3rd-party">Ausblick: Einbinden von 3rd-Party-Libs</a>)
+          </li>
         </ul>
         <div style="font-size:80%">
           <p>
@@ -234,22 +237,15 @@
           <li>Keine Templatesprache (stattdessen JavaScript)
           <li>Templates können HTML-artige Syntax enthalten (JSX)
         </ul>
-        <pre class="fragment"><code data-trim contenteditable>
-import React from "react";
-
-class HelloMessage extends React.Component {
-  render() {
-    return &lt;h1 className='title'>Hello, World!&lt;/h1>
-  }
-}
-
-export default HelloMessage;
-</code></pre>
       </section>
 
       <section>
         <h3>Eine erste Komponente: Hello, World!</h3>
-        <a target="_blank" href="code/schritte/0-hello_world/public/index.html">Demo</a>
+        <p><a target="_blank" href="code/schritte/0-hello_world/public/index.html">Demo</a></p>
+        <ul class="fragment">
+          <li>Beispiel Schritt-für-Schritt (<code>code/workspace-live-coding</code>)</li>
+        </ul>
+
       </section>
 
       <section>
@@ -470,6 +466,13 @@ const time = `The time is: ${new Date()}`); // The time is: ...
               <li>...React Hot Loader: Zustand bleibt nach Aktualisierung erhalten (Beta)</li>
             </ul>
         </ul>
+      </section>
+      <section>
+        <h3>create-react-app</h3>
+        <a href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
+          target="_blank">User Guide</a>
+        <p>Bootstrap von React Anwendung</p>
+        <p>Fertige Konfiguration von Webpack, React, ...</p>
       </section>
       <section>
         <h3>Der yarn Package Manager</h3>
