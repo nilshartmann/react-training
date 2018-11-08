@@ -2,12 +2,13 @@
 
 ## Voraussetzungen
 
-Auf den Teilnehmer Laptops sollte installiert sein:
+Auf den Teilnehmer Laptops/PCs sollte installiert sein:
 
 * git (zum installieren des Workspaces)
 * nodejs (mind. v8.12.0) und npm 6.4
 * Browser (am besten Chrome)
 * Eine IDE oder ein Texteditor (Empfehlung: [Webstorm](https://www.jetbrains.com/webstorm/download/) (Evaluationsversion reicht) und/oder [Visual Studio Code](https://code.visualstudio.com/))
+* Die Laptops sollten Internet-Zugang haben
 
 ## Schritt 1: Repository klonen und Pakete installieren
 
