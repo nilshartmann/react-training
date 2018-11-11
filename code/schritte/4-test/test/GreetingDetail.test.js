@@ -1,7 +1,10 @@
 import React from "react";
 import GreetingDetail from "../src/GreetingDetail";
 import renderer from "react-test-renderer";
-import { shallow } from "enzyme";
+
+// use "enzyme" as "prefix" in code below to make it more
+// obvious where shallow comes from
+import * as enzyme from "enzyme";
 
 const exactlyOne = component => {
   expect(component).toHaveLength(1);
@@ -11,7 +14,7 @@ const exactlyOne = component => {
 const setup = () => {
   const onSaveMock = jest.fn();
 
-  const component = shallow(<GreetingDetail onSave={onSaveMock} />);
+  const component = enzyme.shallow(<GreetingDetail onSave={onSaveMock} />);
 
   const nameInput = () => exactlyOne(component.find('input[name="name"]'));
   const greetingInput = () => exactlyOne(component.find('input[name="greeting"]'));
@@ -43,6 +46,22 @@ test("it should render fine", () => {
   // make sure the json matches the last stored snapshot
   // (saved on the filesystem in __snapshots__)
   expect(tree).toMatchSnapshot();
+});
+
+const changeEvent = (name, value) => ({
+  target: { name, value }
+});
+
+test("enablement should work", () => {
+  const onSaveMock = jest.fn();
+  const greetingDetail = enzyme.shallow(<GreetingDetail onSave={onSaveMock} />);
+
+  expect(greetingDetail.find('button[children="Save"]').prop("disabled")).toBe(true);
+
+  greetingDetail.find('input[name="name"]').simulate("change", changeEvent("name", "Susi"));
+  greetingDetail.find('input[name="greeting"]').simulate("change", changeEvent("greeting", "Hello"));
+
+  expect(greetingDetail.find('button[children="Save"]').prop("disabled")).toBe(false);
 });
 
 test("onSave should be called with values from form", () => {
