@@ -149,7 +149,6 @@ Dieses Seminar richtet sich an Entwickler und Architekten, die Single-Page-Anwen
               </li>
             </ul>
           </li>
-          </li>
           <li>Browser öffnen:
             <a href="http://localhost:8080" target="_blank">http://localhost:8080</a>
           </li>
@@ -215,6 +214,59 @@ Dieses Seminar richtet sich an Entwickler und Architekten, die Single-Page-Anwen
         <h2>React-Einführung und Build-Prozess</h2>
       </section>
 
+      <section>
+        <h2>Moderne Webanwendungen</h2>
+        <div class="fragment">
+        <h3 style="font-weight: bold">Aus Benutzersicht: bestes UI/UX</h3>
+        <ul>
+          <li>Einheitliches Layout und Design</li>
+          <li>Konsistenes Verhalten in der ganzen Anwendung</li>
+          <li>Konsistente Darstellung der Daten</li>
+          <li>Gewohntes Verhalten von Desktop Anwendungen</li>
+          <li>Kurze Reaktionszeiten</li>
+        </ul>
+      </div>
+
+        <div class="fragment">
+        <h3 style="font-weight: bold">Aus Entwicklersicht</h3>
+        <ul>
+          <li>Einfach und schnell</li>
+          <li>Saubere und verständliche Architektur</li>
+          <li>Wartbar auch bei großer und langlebiger Code-Basis
+            </li>
+        </ul></div>
+
+      </section>
+
+      <section>
+          <h3>Single-Page-Anwendungen</h3>
+          <ul>
+            <li>Technisch auf einer (index.html)-Seite</li>
+            <li>JavaScript ist für Logik und Darstellung alleinverantwortlich</li>
+            <li>Back-Button, Deep Links etc trotzdem möglich</li>
+            </ul>
+        </section>
+
+      <section>
+        <h3>Single-Page-Anwendungen</h3>
+        <p>Beispiele</p>
+        <ul>
+          <li><a href="https://outlook.live.com" target="_blank">Microsoft Outlook</a></li>
+          <li><a href="https://www.figma.com/" target="_blank">Figma</a></li>
+          <li><a href="https://open.spotify.com/browse/featured" target="_blank">Spotify</a></li>
+          </ul>
+      </section>
+
+      <section>
+        <h3>"Klassische" Web Anwendungen</h3>
+        <img src="images/abb-02a-classic-webapp-architecture.png" style="border:0;box-shadow:0 0 0 0;height:650px" />
+      </section>
+
+      <section>
+          <h3>Single-Page-Anwendungen</h3>
+          <img src="images/abb-02c-spa-webapp-architecture.png" style="border:0;box-shadow:0 0 0 0;height:650px" />
+        </section>
+
       <section id="react">
         <h2>React</h2>
         <p>
@@ -229,7 +281,7 @@ Dieses Seminar richtet sich an Entwickler und Architekten, die Single-Page-Anwen
               <li>Ihr könnt/müsst viele Entscheidungen selber treffen</li>
             </ul>
           <li class="fragment">Bewusste Verstöße gegen Best-Practices
-          <li class="fragment">Zentrales Konzept: Komponenten
+          <li class="fragment">Zentrales Konzept: <b>Komponenten</b>
         </ul>
       </section>
 
@@ -472,7 +524,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
                 </a>
               </li>
             </ul>
-          <li>Typische Werkzeuge
+          <li class="fragment">Typische Werkzeuge
             <ul>
               <li>Babel oder TypeScript (Compiler)
               <li>Webpack (Bundler)
@@ -533,7 +585,7 @@ yarn SCRIPT_NAME
         <p>Workspace</p>
         <ul>
           <li>
-            <code>2018_react-jest.html</code> Slides im Root-Verzeichnis</li>
+            <code>2018_react-oose-hh.html</code> Slides im Root-Verzeichnis</li>
           <li>
             <code>code/workspace</code>: Verzeichnis für Eure Übungen</li>
           <li>
@@ -818,33 +870,35 @@ someFunction(person);
           <li>Zugriff über
             <code>this.props</code>
           </li>
-          <li>
-            <code>this.props.children</code> enthält Kind-Elemente</li>
         </ul>
-        <pre class="fragment"><code class="javascript" contenteditable data-trim>
-class NavBar extends React.Component {
-  // (hier Constructor optional)
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      &lt;div className="NavBar">
-        <h1>{this.props.title}</h1>
-       
-        {this.props.children}
-      &lt;/div>
-    );
-  }
-}
-</code></pre>
-        <pre class="fragment"><code class="javascript" contenteditable data-trim>
-	&lt;NavBar title="Navigation">&lt;a href=""> ... &lt;/a>&lt;/NavBar>
-</code></pre>
-
       </section>
-
+      <section>
+          <h3>Children einer Komponente</h3>
+          <ul class="fragment">
+              <code>this.props.children</code> enthält Kind-Elemente</li>
+          </ul>
+          <div class="fragment">Beispiel:
+          <pre><code class="javascript" contenteditable data-trim>
+  class NavBar extends React.Component {
+    render() {
+      return (
+        &lt;div className="NavBar">
+          <h1>{this.props.title}</h1>
+         
+          {this.props.children}
+        &lt;/div>
+      );
+    }
+  }
+  </code></pre></div><div class="fragment">Verwendung:
+          <pre><code class="javascript" contenteditable data-trim>
+    &lt;NavBar title="Navigation">
+      &lt;a href="/home">Home&lt;/a&gt;
+      &lt;a href="/shop">Shop&lt;/a&gt;
+    &lt;/NavBar>
+  </code></pre>
+</div>
+        </section>
       <section>
         <h3>Zustand einer Komponente</h3>
         <ul class="fragment">
@@ -1382,7 +1436,7 @@ class GreetingMaster extends React.Component {
         <h3>Controller Komponente</h3>
         <p class="fragment">Verwaltet den "globalen" State</p>
         <div class="fragment">
-          <span style="color: #9D4493">Neues Greeting</span> wird per Callback-Funktion zurück gegeben</p>
+          <span style="color: #9D4493">Neues Greeting</span> wird per Callback-Funktion zurück gegeben
           <img src="ai/greeting-hierarchy-onsave.png" style="height:550px" />
         </div>
       </section>
@@ -1586,7 +1640,6 @@ fetch('http://localhost:7000/api/greetings')
               <li>
                 <code>body</code>: Der Request-Payload (als String)</li>
             </ul>
-          </p>
         </div>
         <pre class="fragment"><code class="javascript" contenteditable data-trim>
 fetch(url, {
@@ -1968,7 +2021,7 @@ async function loadData() {
           </li>
           <li>Es wird auch JavaScript-Code erzeugt, selbst wenn es einen Compile-Fehler gibt</li>
           <li>Im Gegensatz zu Java/C# sind bei TypeScript zwei Typen kompatibel, sofern sie
-            <b>dieselbe Struktur</b> haben</em>
+            <b>dieselbe Struktur</b> haben
           </li>
         </ul>
       </section>
@@ -2465,7 +2518,7 @@ const GreetingMaster: React.SFC&lt;GreetingMasterProps> = props => {
                 <code>GreetingDetail</code> auf ein nicht bekanntes Property zugreifst?</li>
               <li>Was passiert, wenn Du im
                 <code>GreetingDetail</code> den State mit
-                <code>this.state = { . . .}</code> neu setzt?</code>
+                <code>this.state = { . . .}</code> neu setzt?
               </li>
               <li>Was passiert, wenn Du beim Aufrufen des
                 <code>GreetingDetail</code> (
