@@ -1,9 +1,8 @@
 import * as React from "react";
-import * as PropTypes from "prop-types";
 import * as d3 from "d3";
 import * as nv from "nvd3";
 
-import { GreetingChartData } from "../types";
+import { GreetingChartData, AppState } from "../types";
 
 import { connect } from "react-redux";
 
@@ -19,7 +18,7 @@ class Chart extends React.Component<ChartProps, {}> {
   _d3selection: any; // ??? d3.Selection<any,any,any,any>;
   _nvd3chart: nv.PieChart;
   // _chart: SVGElement | null;
-    _chart: any;
+  _chart: any;
 
   shouldComponentUpdate() {
     return false;
@@ -64,7 +63,7 @@ class Chart extends React.Component<ChartProps, {}> {
 }
 
 export default connect(
-  state => ({
+  (state: AppState) => ({
     data: aggregateGreetings(state.greetings)
   }),
   dispatch => ({

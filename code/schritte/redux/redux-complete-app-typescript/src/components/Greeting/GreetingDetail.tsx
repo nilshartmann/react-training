@@ -1,10 +1,11 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
 
-import { NewGreeting } from "../../types";
+import { NewGreeting, AppState } from "../../types";
 
 import * as actions from "../../actions";
 import { connect } from "react-redux";
+import { ThunkDispatch } from "redux-thunk";
 
 type DispatchProps = {
   onSave: (newGreeting: NewGreeting) => void;
@@ -76,6 +77,9 @@ class GreetingDetail extends React.Component<DispatchProps, State> {
   }
 }
 
-export default connect<{}, DispatchProps, {}>(null, dispatch => ({
-  onSave: (greeting: NewGreeting) => console.log(dispatch) || dispatch(actions.saveGreeting(greeting))
-}))(GreetingDetail);
+export default connect<{}, DispatchProps, {}, AppState>(
+  null,
+  (dispatch: ThunkDispatch<AppState, null, any>) => ({
+    onSave: (greeting: NewGreeting) => dispatch(actions.saveGreeting(greeting))
+  })
+)(GreetingDetail);

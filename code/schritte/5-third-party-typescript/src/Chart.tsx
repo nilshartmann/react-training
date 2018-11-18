@@ -11,8 +11,8 @@ interface ChartProps {
 
 export default class Chart extends React.Component<ChartProps> {
   _d3selection: any; // ??? d3.Selection<any,any,any,any>;
-  _nvd3chart: nv.PieChart;
-  _chart: SVGElement | null;
+  _nvd3chart: nv.PieChart | null = null;
+  _chart: SVGElement | null = null;
 
   shouldComponentUpdate() {
     return false;

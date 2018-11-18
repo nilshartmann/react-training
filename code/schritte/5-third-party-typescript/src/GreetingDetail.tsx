@@ -62,6 +62,8 @@ export default class GreetingDetail extends React.Component<GreetingDetailProps,
   }
 
   updateModel(event: React.SyntheticEvent<HTMLInputElement>) {
-    this.setState({ [event.currentTarget.name as any]: event.currentTarget.value });
+
+    // @ts-ignore
+    this.setState({ [event.currentTarget.name]: event.currentTarget.value });
   }
 }

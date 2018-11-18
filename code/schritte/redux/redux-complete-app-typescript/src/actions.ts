@@ -1,4 +1,4 @@
-import { AppState, Greetings, Greeting, NewGreeting, GreetingId, Mode, MODE_MASTER } from "./types";
+import { AppState, Greetings, Greeting, NewGreeting, Mode, MODE_MASTER } from "./types";
 import { loadGreetingsFromServer, saveGreetingToServer } from "./greeting-backend";
 
 import { ThunkAction } from "redux-thunk";
@@ -29,7 +29,12 @@ export type SetModeAction = {
 };
 
 // Thunk actions: https://github.com/gaearon/redux-thunk/issues/103#issuecomment-298533925
-export const loadGreetings = (): ThunkAction<Promise<SetGreetingsAction | void>, AppState> => (dispatch, getState) => {
+export const loadGreetings = (): ThunkAction<
+  Promise<SetGreetingsAction | void>,
+  AppState,
+  void,
+  SetGreetingsAction
+> => dispatch => {
   return loadGreetingsFromServer()
     .then(greetings =>
       dispatch({
@@ -41,7 +46,7 @@ export const loadGreetings = (): ThunkAction<Promise<SetGreetingsAction | void>,
 };
 export const saveGreeting = (
   newGreeting: NewGreeting
-): ThunkAction<Promise<SaveGreetingAction | void>, AppState, null> => dispatch =>
+): ThunkAction<Promise<SaveGreetingAction | void>, AppState, null, SaveGreetingAction | SetModeAction> => dispatch =>
   saveGreetingToServer(newGreeting)
     .then(id => {
       const newGreetingWithId: SaveGreetingAction = {

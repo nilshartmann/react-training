@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { Greeting, Greetings, GreetingFilter, Mode, MODE_DETAIL } from "../../types";
+import { Greeting, Greetings, GreetingFilter, Mode, MODE_DETAIL, AppState } from "../../types";
 import { filterGreetings } from "../../selectors";
 
 import { setFilter, setMode } from "../../actions";
@@ -58,7 +58,7 @@ const GreetingMaster = (props: StateProps & DispatchProps) => {
 };
 // GreetingMaster.displayName = 'GreetingMaster';
 
-export default connect<StateProps, DispatchProps, {}>(
+export default connect<StateProps, DispatchProps, {}, AppState>(
   state => ({
     greetings: filterGreetings(state.greetings, state.filter),
     filter: state.filter

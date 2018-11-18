@@ -8,7 +8,7 @@ interface SpinnerProps {
 }
 
 export default class OverflowSpinner extends React.Component<SpinnerProps> {
-	spinnerElement: HTMLInputElement | null;
+	spinnerElement: HTMLInputElement | null = null;
 
 	componentDidMount() {
 		if (!this.spinnerElement) {
