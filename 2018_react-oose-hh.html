@@ -2599,13 +2599,14 @@ const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props =>
         <img src="images/redux-02-extracting-responsibility.png" style="border:0;box-shadow:0 0 0 0;width: 900px"/>
     </section>
     <section>
-        <h2>Redux innerhalb einer Anwendung</h2>
-        <img src="images/redux-03-resulting-redux-architecture.png" style="border:0;box-shadow:0 0 0 0;max-height:650px"/>
+        <h2>Demo: Redux & Redux Devtools</h2>
+        <a href="code/schritte/redux/7-redux-complete-app/public/index.html" target="_blank">Ziel-Anwendung</a>
     </section>
 
     <section>
         <h2>Redux Schritt-für-Schritt</h2>
         <p>Wir stellen eine Komponente auf Redux um</p>
+        <p>(Verzeichnis: <code>workspace-redux</code>)</p>
     </section>
 
     <section>
@@ -2646,7 +2647,6 @@ fetch(BACKEND_URL+'/'+greetingId)
             <li class="fragment">Die Action wird nicht direkt zurück geliefert, sondern erst später dispatched</li>
             <li class="fragment">wir bekommen die dispatch Methode als Parameter, mit der wir später
                 die Action dispatchen</li>
-            <li class="fragment"><em>getState</em> als zweiter Parameter, um den kompletten State abzufragen</li>
         </ul>
         <p  class="fragment"><strong>Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone Operationen
             ausführen dürfen</strong></p>
