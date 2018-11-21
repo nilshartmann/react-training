@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>React Workshop</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+
+    <link rel="stylesheet" href="reveal.js/css/reveal.css" />
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme" />
+
+    <!-- Code syntax highlighting -->
+    <!-- <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css"> -->
+    <link rel="stylesheet" href="reveal.js/lib/css/github.css" />
+    <style>
+      /*pre code {*/
+
+      /*display: block;*/
+
+      /*padding: 0.5em;*/
+
+      /*background: #FFFFFF !important;*/
+
+      /*color: #000000 !important;*/
+
+      /*}*/
+
+      .right-img {
+        margin-left: 10px !important;
+        float: right;
+        height: 500px;
+      }
+
+      .todo:before {
+        content: "TODO: ";
+      }
+
+      .todo {
+        color: red !important;
+      }
+
+      code span.line-number {
+        color: lightcoral;
+      }
+
+      .reveal pre {
+        max-width: 1100px;
+      }
+
+      .reveal pre code {
+        max-height: 1000px !important;
+      }
+
+      .reveal section img {
+        border: 0;
+        box-shadow: 0 0 0 0;
+      }
+
+      /*rgb(196, 215, 240)*/
+
+      html.exkurs body {
+        background: rgb(252, 220, 185) url("ai/es6-icon.png") no-repeat right bottom;
+      }
+    </style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      link.href = window.location.search.match(/print-pdf/gi) ? "reveal.js/css/print/pdf.css" : "reveal.js/css/print/paper.css";
+      document.getElementsByTagName("head")[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]> <script src="reveal.js/lib/js/html5shiv.js"></script> <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-state="exkurs">
+          <h3>Hintergrund</h3>
+          <h2>ES6 Features</h2>
+        </section>
+
+        <section data-state="exkurs">
+          <h3>ES6: Klassen</h3>
+          <pre><code class="javascript" contenteditable>class Person {
+    constructor(name) {
+        this._name = name;
+    }
+    getName() {
+        return this._name;
+    }
+}
+class Programmer extends Person {
+    constructor(name, language) {
+        super(name);
+        this.language = language;
+    }
+    code() {
+        return `${this.getName()} codes in ${this.language}`;
+    }
+}</code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable>const programmer = new Programmer('Erna', 'JavaScript');
+console.log(programmer.code());
+console.log(programmer instanceof Programmer); // true
+console.log(programmer instanceof Person); // true</code></pre>
+        </section>
+        <section data-state="exkurs"><h2>ES6: Module, Importe und Exporte</h2></section>
+        <section data-state="exkurs">
+          <h3>ES6: Export einer einzigen Klasse</h3>
+          <pre><code class="javascript" contenteditable>// Person.js
+  class Person {
+    // ...
+  }
+  export default Person;
+     </code></pre>
+          <pre><code class="javascript" contenteditable>// Person.js
+  
+  // in einer Zeile zusammengefasst
+  export default class Person {
+    // ...
+  }
+     </code></pre>
+        </section>
+        <section data-state="exkurs">
+          <h3>ES6: Import</h3>
+          <pre><code class="javascript" contenteditable>// Programmer.js
+  import Person from './Person';
+  
+  export default class Programmer extends Person {
+    // ...
+  }
+     </code></pre>
+        </section>
+        <section data-state="exkurs">
+          <h3>ES6: Benannte Exporte</h3>
+          <pre><code class="javascript" contenteditable data-trim>// util.js
+  export function displayInPage(text) {
+      document.body.innerHTML +=
+          `${text}<br>` ;
+  }
+  
+  export showInfo = msg => window.alert(`Wichtige Info: ${msg}`);
+  
+  // or
+  function displayInPage(text) { . . . }
+  
+  const showInfo = ...;
+  
+  // specify exports
+  export { displayInPage, showInfo };
+     </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>import {displayInPage} from "./util";
+  displayInPage('Hello, World');
+     </code></pre>
+          <!--
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>import {displayInPage as display} from "./util";
+          -->
+          <!-- display('Hello, World'); -->
+          <!-- </code></pre> -->
+          <!-- <pre class="fragment"><code class="javascript" contenteditable data-trim>import * as util from "./util"; -->
+          <!-- util.displayInPage('Hello, World'); -->
+          <!-- </code></pre> -->
+        </section>
+        <section data-state="exkurs">
+          <h3>ES6: Arrow Functions</h3>
+          <pre><code class="javascript" contenteditable>const displayInPage = (text) => {
+   return document.body.innerHTML +=
+       `${text}<br>`;
+};</code></pre>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable>// Klammern können weggelassen werden, genau ein Parameter
+// ebenso die geschweiften Klassen, wenn nur ein Statement:
+const displayInPage = text => document.body.innerHTML += `${text}<br>`;
+</code></pre>
+        </section>
+        <section data-state="exkurs">
+          <h3>ES6: Template Strings</h3>
+          <p>Template Strings werden in Backticks (``) geschrieben und können Ausdrücke (in <code>${}</code>) enthalten:</p>
+
+          <pre><code class="javascript" contenteditable>const name = "Susi";
+const greeting = `Hello, ${name}`; // Hello, Susi
+
+const four = `Two and two is: ${2+2}` // Two and two is: 4
+
+const time = `The time is: ${new Date()}`); // The time is: ...
+            </code></pre>
+        </section>
+
+        <section data-state="exkurs">
+          <h3>ES6: Erweiterte Objekt-Literale</h3>
+          <pre><code class="javascript" contenteditable>
+
+// ES5:
+const firstName = 'Klaus';
+const person = {
+    firstName: firstName
+};
+console.log(person.firstName); // Klaus
+
+// ES6:
+const firstName = 'Klaus';
+const person = {
+    firstName
+};
+console.log(person.firstName); // Klaus
+   </code></pre>
+        </section>
+
+        <!-- <section> -->
+        <!-- <h2>Neuerungen und Verbesserungen in ES6</h2> -->
+        <!-- </section> -->
+
+        <!-- <section> -->
+        <!-- <h3>Tagged Template Literals</h3> -->
+        <!-- <p><a target="_blank" href="http://exploringjs.com/es6/ch_template-literals.html#_tagged-templates"> -->
+        <!-- Mini-DSLs: Template-Literals mit tag -->
+        <!-- </a> -->
+        <!-- </p> -->
+
+        <!-- <pre class="fragment"><code class="javascript" contenteditable>function tag(strings, ...values) { -->
+        <!-- console.log(strings); -->
+        <!-- //[ '', ' codes in ', '.' ] -->
+        <!-- console.log(values); -->
+        <!-- //[ 'Oma', 'Haskell' ] -->
+        <!-- return 'whatever you want'; -->
+        <!-- } -->
+        <!-- </code></pre> -->
+
+        <!-- <pre><code class="javascript" contenteditable>const expanded = tag`${person} codes in ${language}.`; -->
+        <!-- console.log(expanded); -->
+        <!-- //whatever you want -->
+        <!-- </code></pre> -->
+
+        <!-- </section> -->
+
+        <section data-state="exkurs">
+          <h3>ES6: Destructuring von Objekten</h3>
+          <pre><code class="javascript" contenteditable>const person = {
+  fistName: 'Klaus',
+  lastName: 'Mueller',
+  age: 42
+};</code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable>const {firstName, age, notThere} = person;
+
+console.log(firstName); // Klaus
+console.log(age); // 42
+console.log(notThere); // undefined
+</code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable>function someFunction({firstName, age, notThere}) {
+  console.log(firstName); // Klaus
+  console.log(age); // 42
+  console.log(notThere); // undefined
+}
+
+someFunction(person);
+</code></pre>
+        </section>
+
+        <section data-state="exkurs"><h2>ES6: Promises</h2></section>
+        <section data-state="exkurs">
+          <h3>Ein Promise ist ein Versprechen auf einen Wert</h3>
+          <h4 class="fragment">Wird evtl. erst in der Zukunft eingelöst</h4>
+        </section>
+
+        <section data-state="exkurs">
+          <h3>Verkettete Ausführung</h3>
+          <pre><code class="javascript" contenteditable>const promise = . . .;
+</code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable>// then returns a new promise
+const promise2 = promise.then(value => `${value} plus stuff`);</code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable>promise2.then(value => console.log(value));
+// Output after 1 second: Result from promise plus stuff
+</code></pre>
+        </section>
+        <section data-state="exkurs">
+          <h3>Fehler führen zum Abbruch der Chain</h3>
+          <h4>Allerdings <b>muss</b> man etwas tun, um das mitzubekommen: catch()</h4>
+        </section>
+
+        <section data-state="exkurs">
+          <h3>Catch-Klausel im Erfolgsfall</h3>
+          <pre><code class="javascript" contenteditable>Promise
+    // creates and directly resolves promise
+    .resolve('Result from promise')
+    .then(x => {
+        // this will be printed
+        console.log(x);
+    })
+    .then(() => {
+        console.log('This will be printed');
+    })
+    // this will NOT be printed as no error occured
+    .catch(e => console.log('error: ', e))
+
+// Output:
+// Result from promise
+// This will be printed</code></pre>
+        </section>
+        <section data-state="exkurs">
+          <h3>Catch-Klausel im Fehlerfall</h3>
+          <pre><code class="javascript" contenteditable>Promise
+    // creates and directly resolves promise
+    .resolve('Result from promise')
+    .then(x => {
+        // this will be printed
+        console.log(x);
+        throw new Error('Something went wrong');
+    })
+    .then(() => {
+        console.log('This will NOT be printed');
+    })
+    // this will be printed
+    .catch(e => console.log('error: ', e))
+
+// Output:
+// Result from promise
+// error:  [Error: Something went wrong]</code></pre>
+        </section>
+
+        <section data-state="exkurs">
+          <h3>Alternative zu Promises</h3>
+          <h2>async / await</h2>
+          <p>Erlauben es, asynchronen Code "linear" hinzuschreiben</p>
+          <ul class="fragment">
+            <li>Seit ECMASCript 2017 Standard</li>
+            <li>Babel und TypeScript können nach ES5 compilieren</li>
+            <li>Promise Polyfill für ältere Browser verwenden</li>
+          </ul>
+        </section>
+
+        <section data-state="exkurs">
+          <h3>async / await</h3>
+          <ul>
+            <li class="fragment"><code>aync</code> definiert "async functions"</li>
+            <li class="fragment">
+              <code>aync</code> functions liefern&nbsp; <b>immer</b> ein Promise zurück:
+              <pre><code class="javascript" contenteditable data-trim>
+async function greet(name) {
+  return `Hello, ${name}`;
+}
+
+const greeting = greet('Klaus');
+
+// greeting ist ein Promise!
+console.log(greeting instanceof Promise); // => true
+console.log(greeting) // => Promise {&lt;resolved>: "Hello, Klaus"}
+                </code></pre>
+            </li>
+            <li class="fragment">
+              <code>aync</code> function als Fat Arrow function:
+              <pre><code class="javascript" contenteditable data-trim>
+const greet = async (name) => `Hello, ${name}`;                
+  
+const greeting = greet('Klaus');
+  
+// greeting ist ein Promise!
+console.log(greeting instanceof Promise); // => true
+console.log(greeting) // => Promise {&lt;resolved>: "Hello, Klaus"}
+                  </code></pre>
+            </li>
+            <li class="fragment">Nur in <b>async functions</b> kann <code>await</code> verwendet werden!</li>
+          </ul>
+        </section>
+
+        <section data-state="exkurs">
+          <h3>async / await</h3>
+          <p><code>await</code> wartet auf erfüllte Promises</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+async function greet(name) {
+  return `Hello, ${name}`;
+}
+
+// oder:
+function greet(name) { return new Promise(...); }
+
+async function sayWhat(name) {
+  const greeting = await greet(name);
+
+  // ...Achtung! Hier zwischen kann Zeit vergehen...
+
+  // greeting ist ein String!
+  console.log(greeting); // => Hello, ...
+}
+                  </code></pre>
+        </section>
+        <section data-state="exkurs">
+          <h3>async / await</h3>
+          <p>
+            Statt <code>then</code> bzw <code>catch</code> werden mehrere <code>await</code> Statements bzw Exception Handling
+            verwendet:
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+// Liefert ein Promise zurück
+async function loadUser(username) { . . . };
+async function loadProfileDate(userId) { . . .};
+
+async function loadData() {
+  try {
+    const user = loadUser('klaus');
+    const profile = loadProfileData(user.userId);
+  } catch (e) {
+    console.error("Something failed")
+  }
+}
+                    </code></pre>
+        </section>
+
+        <section data-state="exkurs">
+          <h3>async / await</h3>
+          <p>Auf mehrere Promises parallel warten #2</p>
+          <p>Mit <em>Array Destructuring</em></p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+  // Liefert ein Promise zurück
+  async function loadUser(userId) { . . . };
+  async function loadProfileDate(userId) { . . .};
+    
+  async function loadData(userId) {
+    try {
+      const [user, profileData] = await Promise.all([
+        loadUser(userId),
+        loadProfileData(userId)
+      ]);
+
+      . . .
+    } catch (e) {
+  
+      // wenn mind einer Aufrufe schief geht
+      console.error("Something failed")
+    }
+  }
+                        </code></pre>
+        </section>
+
+        <section id="t4a">
+          <h2>Hintergrund: TypeScript</h2>
+          <p>
+            <em>TypeScript is a superset of JavaScript that compiles to plain JavaScript </em>(
+            <a href="http://www.typescriptlang.org/" target="_blank">http://www.typescriptlang.org/</a>)
+          </p>
+          <ul>
+            <li>Erweitert JavaScript um ein Typen System</li>
+            <li>Jeder gültige JavaScript Code ist auch gültiger TypeScript Code</li>
+            <li>Mittels des TypeScript Compilers wird aus TS Code JavaScript Code</li>
+            <li>Entwickelt von Microsoft</li>
+            <li>Unterstützung in vielen IDEs (z.B. Anzeige von Fehlern, Refactoring, ...)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Wichtige Unterschiede zu Java/C#</h3>
+          <ul>
+            <li>
+              Typ-Informationen sind nach dem compilieren weg (keine Reflection API etc)
+              <ul>
+                <li>Das gilt auch für Sichtbarkeiten und readonly Felder</li>
+              </ul>
+            </li>
+            <li>Es wird auch JavaScript-Code erzeugt, selbst wenn es einen Compile-Fehler gibt</li>
+            <li>Im Gegensatz zu Java/C# sind bei TypeScript zwei Typen kompatibel, sofern sie <b>dieselbe Struktur</b> haben</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>TypeScript Grundlagen</h3>
+          <p>Typ-Angaben werden hinter einen Bezeichner geschrieben</p>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+// Variablen können Typ-Informationen bekommen
+let foo: string;
+foo = 'yo';
+// Error: number: This type is incompatible with string
+foo = 10;
+               </code></pre>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+// Funktionen
+function sayIt(what: string): string {
+  return `Saying: ${what}`;
+}
+
+sayIt('Klaus'); // ok
+sayIt(10); // error
+</code></pre>
+
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+// Arrow Funktionen
+const sayIt = (what: string): string => `Saying: ${what}`;
+
+sayIt('Moin');
+sayIt(123); // Error: Argument of type '123' is not assignable
+            // to parameter of type 'string'.
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Eingebaute Typen</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+// string
+let city: string = 'Hamburg';
+
+// boolean
+let isDone: boolean = false;
+
+// number
+let theAnswer: number = 42;
+
+// array (note the [])
+let cities: string[] = ['Hamburg', 'Barcelona'];
+// alternative:
+let languages: Array&lt;string> = ['JavaScript', 'TypeScript'];
+
+// any
+let theUnknown: any = 'Who cares';
+theUnknown = 666; // ok
+theUnknown = true; // ok
+let a: number = theUnknown; // ok
+
+// void
+function log(s: string): void { /* ... */ }
+            </code></pre>
+        </section>
+        <section>
+          <h2>Typen können abgeleitet (inferred) werden</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+let city = 'Hamburg'; // city ist ein String
+
+city = 42;
+// Fehler: [ts] Type '42' is not assignable to type 'string'.
+</code></pre>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+// Explizite Angabe eines Types (parameter)
+// und abgeleiteter Typ (Return Type der Funktion)
+
+function sayIt(what: string) {
+  return `Saying: ${what}`;
+}
+
+const said: string = sayIt('Hello TypeScript'); // ok
+const saidItWrong: number = sayIt('Hello TypeScript'); // error!
+
+
+</code></pre>
+        </section>
+        <section>
+          <h2>Strict Mode</h2>
+          <ul>
+            <li><b>strict</b>: seit TypeScript 2.3</li>
+            <li>
+              Shortcut u.a. für:
+              <ul>
+                <li><b>noImplicitAny</b>: <code>any</code> muss explizit hingeschrieben werden</li>
+                <li><b>strictNullChecks</b>: Null muss explizit erlaubt werden (z.B. bei Rückgabewerten)</li>
+              </ul>
+            </li>
+            <li>Empfehlung: für neue Projekte einschalten, sonst Schrittweise</li>
+          </ul>
+          <p>
+            <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank"
+              >https://www.typescriptlang.org/docs/handbook/compiler-options.html</a
+            >
+          </p>
+        </section>
+        <section>
+          <h2>Type Check ausschalten</h2>
+          <p>Mit <code>@ts-ignore</code> (als Kommentar) kann wird die Überprüfung der nächsten Zeile ausgeschaltet:</p>
+          <pre><code class="typescript line-numbers" contenteditable data-trim>
+let city:string = "Hamburg";
+
+city = 20259; // error: [ts] Type '20259' is not assignable to type 'string'.
+
+// @ts-ignore
+city = 20259; // ok                
+</code></pre>
+          <p class="fragment">Nützlich in corner cases, die nur schwer mit TypeScript abbildbar sind oder bei Migration</p>
+        </section>
+        <section>
+          <h2>null und undefined</h2>
+          <div class="fragment">
+            <p><code>null</code> muss explizit zugelassen werden <em>(strictNullChecks</em>):</p>
+            <pre><code class="typescript line-numbers" contenteditable data-trim>
+let city:string = null; //Type 'null' is not assignable to type 'string'.
+
+let optionalCity:string|null = null; // OK
+            </code></pre>
+          </div>
+          <div class="fragment">
+            <p>Optionale Parameter können mit ? gekennzeichnet werden (erlauben dann auch <code>undefined</code>)</p>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+function greet(name: string, greeting?: string) {
+  console.log(`${greeting || 'Hello'}, {name}`);
+}
+
+greet('Susi', 'Moin')// Moin, Susi
+
+// 2. Parameter ist optional:
+greet('Klaus'); // Hello, Klaus
+
+greet('Peter', null); // Argument of type 'null' is not assignable
+                      // to parameter of type 'string | undefined'.
+            </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h2>Klassen</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+class Sayer {
+  what: string; // Typ-Angabe für Felder ist erforderlich
+
+  constructor(what: string) { // Typ-Angabe für Parameter ist erforderlich
+    this.what = what;
+  }
+
+  // Angabe des Return-Types optional
+  sayIt(): string {
+    return `Saying: ${this.what}`;
+  }
+}
+
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Klassen (Sichtbarkeiten)</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+class Sayer {
+  // Erlaubte Sichtbarkeiten: private | protected | public
+  private what: string; 
+
+  constructor(what: string) { 
+    this.what = what;
+  }
+
+  sayIt(): string {
+    return `Saying: ${this.what}`;
+  }
+}
+
+const sayer = new Sayer("Susi");
+sayer.what = ""; // ERROR: Property 'greeting' is private
+
+</code></pre>
+        </section>
+        <section>
+          <h2>Klassen (Parameter Properties)</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+class Sayer {
+  // identisch zu vorherigem Beispiel
+  constructor(private what: string) {
+  }
+
+  sayIt(): string {
+    return `Saying: ${this.what}`;
+  }
+}
+</code></pre>
+        </section>
+        <section>
+          <h2>Klassen (readonly Felder)</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+class Sayer {
+
+  readonly what: string; 
+
+  // Alternativ:
+  constructor(readonly public what: string) {
+  }
+
+  setWhat(newWhat: string) {
+    this.what = newWhat; // ERR Cannot assign to 'what' 
+                         // because it is a read-only property.
+  }
+}
+</code></pre>
+        </section>
+        <section>
+          <h2>Eigene Typen</h2>
+          <p>Mit <code>interface</code> können eigene Typen defniert werden:</p>
+
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+// Komplexer Typ
+interface Person {
+	name: string; // Pflicht
+	livesIn?: string; // Optional
+}
+
+const susi: Person = { // OK
+	name: 'Klaus',
+	livesIn: 'Hamburg'
+};
+const klaus: Person = { // OK (livesIn ist optional)
+	name: 'Klaus'
+}
+
+const helmut: Person = {} // Error: Property 'name' is missing
+
+const lukas: Person = {
+	name: 'Lukas',
+	profession: 'Lokführer'
+} // Error: 'profession' does not exist in type 'Person'.
+               </code></pre>
+        </section>
+
+        <section>
+          <h2>Typ Kompatibilität</h2>
+          <em
+            >Im Gegensatz zu Java/C# ("nominal typing") sind bei TypeScript zwei Typen kompatibel, sofern sie
+            <b>dieselbe Struktur</b> haben ("structural typing")</em
+          >
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+interface Book {
+	title: string
+}
+
+interface Movie {
+	title: string
+}
+
+const book:Book = { title: "Das Kapital" };
+const movie:Movie = book; // OK, obwohl Book !== Movie
+               </code></pre>
+        </section>
+        <section>
+          <h2>Generics</h2>
+          <p>Generische Typen verwenden</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+interface Person { name: string };
+interface Movie { title: string };
+
+let persons:Array&lt;Person&gt; = [];
+let movies:Array&lt;Movie&gt; = [];
+
+persons.push({name: 'Klaus'});
+movies.push({title: 'Batman'});
+
+persons.push({title: 'Casablanca'}) // error ('title' not in Person)
+
+persons = movies; // error
+
+      </code></pre>
+        </section>
+      </div>
+    </div>
+
+    <script src="reveal.js/lib/js/head.min.js"></script>
+    <script src="reveal.js/js/reveal.js"></script>
+    <script src="lib/jquery-2.2.4.js"></script>
+
+    <script>
+      Reveal.addEventListener("ready", function(event) {
+        if (window.location.hostname.indexOf("localhost") !== -1) {
+          // only applies to presentation version
+          Reveal.configure({ controls: false });
+        } else {
+          // only applies to public version
+          //            $('.fragment').removeClass('fragment');
+        }
+        // applies to all versions
+        // $('code').removeClass('line-numbers');
+        //        $('.fragment').removeClass('fragment');
+      });
+    </script>
+
+    <script>
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        width: "100%",
+        height: "100%",
+
+        transition: "slide", // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          {
+            src: "reveal.js/lib/js/classList.js",
+            condition: function() {
+              return !document.body.classList;
+            }
+          },
+          {
+            src: "reveal.js/plugin/markdown/marked.js",
+            condition: function() {
+              return !!document.querySelector("[data-markdown]");
+            }
+          },
+          {
+            src: "reveal.js/plugin/markdown/markdown.js",
+            condition: function() {
+              return !!document.querySelector("[data-markdown]");
+            }
+          },
+          {
+            src: "reveal.js/plugin/highlight/highlight.js",
+            async: true,
+            condition: function() {
+              return !!document.querySelector("pre code");
+            },
+            callback: function() {
+              hljs.initHighlightingOnLoad();
+            }
+          },
+          { src: "reveal.js/plugin/zoom-js/zoom.js", async: true },
+          { src: "reveal.js/plugin/notes/notes.js", async: true },
+          { src: "lib/js/line-numbers.js" }
+        ]
+      });
+    </script>
+  </body>
+</html>

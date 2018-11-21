@@ -2437,10 +2437,7 @@ class GreetingDetail extends React.Component&lt;Props, State> {
     // Compile error! 
     this.setState({[name]}: value);
 
-    // typechecking ausschalten
-    this.setState({[name as any]: value});
-
-    // @ts-ignore (alternative, seit TS 2.6)
+    // @ts-ignore 
     this.setState({[name]}: value);
   }
 }
@@ -2479,7 +2476,7 @@ const GreetingMaster = ({greetings, onAdd}: GreetingMasterProps) => {
         </code></pre>
         <pre class="fragment"><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
 // or
-const GreetingMaster: React.SFC&lt;GreetingMasterProps> = props => {
+const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props => {
     const {greetings, onAdd} = props;
     // . . .
 }
@@ -2533,35 +2530,82 @@ const GreetingMaster: React.SFC&lt;GreetingMasterProps> = props => {
     </section>
 
     <section>
-        <h2>Über Komponenten verteilter Zustand</h2>
-        <img src="ai/distributed-state.png" />
+      <h2>Eine typische React-Anwendung in Komponenten</h2>
+      <h3>Frage an Euch: was könnte es für Probleme geben?</h3>
+      <img src="images/typische-react-komponenten-hierarchie.png"  style="border:0;box-shadow:0 0 0 0;height:650px"  />
     </section>
 
     <section>
-        <h2>Render Cycle in Pure React</h2>
-        <img src="images/redux-01-react-cycle-no-redux.png" style="border:0;box-shadow:0 0 0 0"/>
+        <h3>Problem 1: Über Komponenten verteilter Zustand</h2>
+        <img src="images/verteilter-zustand.png"  style="border:0;box-shadow:0 0 0 0;height:650px" />
+        <p>Wo muss ich nach Fehlern suchen? Wo ist die Logik?</p>
     </section>
 
     <section>
-        <h2>Motivation für Zustandsmanagement</h2>
-        <p class="fragment">Zustand, der über viele Komponenten verteilt ist, macht Programme kompliziert</p>
-        <p class="fragment">Gemeinsame Nutzung von State in unterschiedlichen Komponenten-Hierarchien ist schwierig</p>
-        <p class="fragment">Zustandmanagement und UI-Handler werden aus React-Komponenten extrahiert</p>
-        <p class="fragment">Besseres SoC</p>
-    </section>
+      <h3>Problem 2: Getrennte Komponentenhierarchien</h2>
+      <img src="images/zwei-komponenten-hierarchien.png" style="border:0;box-shadow:0 0 0 0;height:650px"  />
+      <p>Geht entweder nicht oder "Gott-Komponente" entsteht</p>
+  </section>
+
+  <section>
+    <h3>Problem 3: Gemeinsamer ("globaler") Zustand</h2>
+    <img src="images/gemeinsam-genutzter-state.png"  style="border:0;box-shadow:0 0 0 0;height:650px" />
+    <p>Wie kommt Zustand von ganz oben nach ganz unten?</p>
+</section>
+
+<section>
+  <h3>Problem 4: UI und Logik vermischt</h2>
+  <img src="images/ui-und-logic-vermischt.png"  style="border:0;box-shadow:0 0 0 0;height:650px" />
+  <p>Wiederverwendung? React-unabhängigkeit? Testbarkeit?</p>
+</section>
+
+<section>
+  <h2>Lösung ?!</h2>
+  <h3>External Statemanagement</h3>
+  <div  class="fragment">
+  <p>Habt ihr Ideen?</p>
+  <p>Wie können wir Zustand und/oder Logik aus den Komponenten befreien?</p></div>
+</section>
+
+
+<section>
+  <h3>Wiederholung</h3>
+    <h2>Render Cycle in Pure React</h2>
+    <img src="images/redux-01-react-cycle-no-redux.png"  style="border:0;box-shadow:0 0 0 0;height:650px"/>
+</section>
+
+<section>
+  <h3>Hintergrund</h3>
+  <h2>Flux-Architektur</h2>
+  <img src="images/flux-simple.png"  style="border:0;box-shadow:0 0 0 0;height:550px" />
+  <p>Idee: Uni-directional dataflow</p>
+</section>
+
+
+
+<section>
+    <h3>External Statemanagement</h3>
+  <h2>Redux</h2>
+  <div class="fragment">
+    <ul>
+      <li class="fragment">inspiriert von Flux-Idee</li>
+      <li class="fragment">viele funktionale Paradigmen</li>
+      <li class="fragment">React unabhängig (mittlerweile auch für Angular und Vue)</li>
+    </ul>
+</section>
 
     <section>
         <h2>Redux extrahiert die Verantwortlichkeiten</h2>
         <img src="images/redux-02-extracting-responsibility.png" style="border:0;box-shadow:0 0 0 0;width: 900px"/>
     </section>
+    <section>
+        <h2>Redux innerhalb einer Anwendung</h2>
+        <img src="images/redux-03-resulting-redux-architecture.png" style="border:0;box-shadow:0 0 0 0;max-height:650px"/>
+    </section>
 
     <section>
-        <h2>Zwischenübung</h2>
-        <p>Schreibe die erste Hello-World Anwendung auf Redux um</p>
-        <p>Im ersten Schritt tust du dies im Plenum mit den Workshop-Leitern</p>
-        <p>Dabei lernst du anhand des Live-Codings alle Bestandteile der Redux-Architektur kennen</p>
-        <p>Dazu erstellen wir zusammen eine Übersicht über alle notwendigen Teile spezifisch für die Hello-World Anwendung</p>
-        <p>Im zweiten Schritt baust du die Anwendung unter <code>code/material/hello-world</code> selbst noch einmal um</p>
+        <h2>Redux Schritt-für-Schritt</h2>
+        <p>Wir stellen eine Komponente auf Redux um</p>
     </section>
 
     <section>
@@ -2652,7 +2696,6 @@ applyMiddleware(thunk) // middleware as enhancer
                 'A thunk is a function that wraps an expression to delay its evaluation'
             </a></li>
             <li class="fragment">Middleware ist ein fortgeschrittenes Feature und meistens genügt die Thunk Middleware</li>
-            <li class="fragment">Redux Dev Tools klinken sich über denselben Mechanismus ein</li>
         </ul>
     </section>
 
@@ -2758,33 +2801,21 @@ state => ({
 
     <section>
         <h2>Zusammenfassung Redux-Architektur</h2>
-        <img src="images/redux-03-resulting-redux-architecture.png" style="border:0;box-shadow:0 0 0 0"/>
+        <img src="images/redux-03-resulting-redux-architecture.png" style="border:0;box-shadow:0 0 0 0;max-height:650px" />
     </section>
 
     <section>
-    <section>
-        <h2>Übung: eine Redux Anwendung fertig stellen</h2>
-        <h3>Es gibt bereits eine vorgebaute Redux-Anwendung, aber die Filterung über das Chart muss noch implementiert werden</h3>
-    </section>
-    <section>
-        <h3>Schritte</h3>
-        <ul>
-            <li>Alles Material von <code>code/material/6-redux</code> in deinem Source-Ordner kopieren
-            <li>TODOs leiten dich, die bereits in den Actions, den Reducers und dem GreetingController eingefügt sind
-            <li>Erzeuge einen neuen Action-Typ und einen Action-Creator für das Setzen des Filters
-            <li>Füge einen passenden Reducer zur Behandlung einer solchen Action hinzu und füge ihn als Teil-Reducer in
-                <code>combineReducers</code> hinzu
-            <li>Reiche den Action-Creator von <code>GreetingController</code> in die Chart-Komponente in der du auf das
-                Filter-Event reagierst
-        </ul>
-    </section>
-    </section>
+        <h3>Lokaler State ist weiterhin erlaubt!</h3>
+        <p>Es gibt unterschiedliche Arten von "State"</p>
 
+        <img src="images/three-kinds-of-state.png"  style="border:0;box-shadow:0 0 0 0;max-height:650px" />
+        
+      </section>
     
       <section>
         <h2>Geschafft ;-)</h2>
         <h3>Vielen Dank für Eure Teilnahme!</h3>
-        <p>Kontakt: nils@nilshartmann.net</p>
+        <p>Kontakt: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a> | <a href="https://xing.to/nilshartmann" target="_blank">Xing</a> | <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a></p>
       </section>
 
 

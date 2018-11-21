@@ -6,7 +6,7 @@ type GreetingMasterProps = {
   onAdd: () => void;
 };
 
-const GreetingMaster = (props: GreetingMasterProps) => {
+const GreetingMaster: React.FunctionComponent<GreetingMasterProps> = props => {
   const { greetings, onAdd } = props;
   const body = greetings.map(greeting => (
     <tr key={greeting.id}>
