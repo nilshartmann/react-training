@@ -11,6 +11,8 @@ export default class GreetingMaster extends React.Component {
   //   console.log("Greeting Master Updated with " + this.props.greetings.length + "  Greetings");
   // }
 
+  // 1A: Einfach React.PureComponent verwenden
+
   render() {
     const { greetings } = this.props;
 
@@ -32,22 +34,15 @@ export default class GreetingMaster extends React.Component {
   }
 }
 
-class GreetingRow extends React.Component {
-  // 2. OPTIMIERUNG: NUR NEU RENDERN, WENN SICH EINE ZEILE GEÄNDERT HAT
-  // shouldComponentUpdate(nextProps) {
-  //   const scu = nextProps.greeting !== this.props.greeting;
-  //   return scu;
-  // }
+// 2. OPTIMIERUNG:
+// GreetingRow mit React.memo wrappen, damit GreetingRow PureComponent wird
 
-  render() {
-    const { greeting } = this.props;
-
-    return (
-      <tr key={greeting.id}>
-        <td>{greeting.id}</td>
-        <td>{greeting.name}</td>
-        <td>{greeting.greeting}</td>
-      </tr>
-    );
-  }
-}
+const GreetingRow = ({ greeting }) => {
+  return (
+    <tr key={greeting.id}>
+      <td>{greeting.id}</td>
+      <td>{greeting.name}</td>
+      <td>{greeting.greeting}</td>
+    </tr>
+  );
+};

@@ -69,9 +69,12 @@ export default class GreetingController extends React.Component {
   }
 
   async loadGreetings() {
-    let greetings = null;
+    let greetings = [];
+    console.log("START LOADING " + BACKEND_URL);
     try {
+      console.log("START LOADING " + BACKEND_URL);
       const response = await fetch(BACKEND_URL);
+      console.log("RESPONSE");
       greetings = await response.json();
       console.log(`Finished loading of ${greetings.length} greetings`);
     } catch (err) {

@@ -12,7 +12,7 @@ const largeDataSet = [];
 
 let n = 0;
 let g = 0;
-const CREATE_GREETINGS = 20000;
+const CREATE_GREETINGS = 100;
 for (let i = 0; i < CREATE_GREETINGS; i++) {
   largeDataSet.push({
     name: NAMES[n],
