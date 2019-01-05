@@ -16,6 +16,10 @@ const createApp = (db, largedata) => {
   // Return all greetings
   app.get("/greetings", (req, res) => res.json(db.findAll()));
 
+  app.get("/greetingsslow", (req, res) => {
+    setTimeout(() => res.json(db.findAll()), 1000);
+  });
+
   // Return greeting with specified id (or 404)
   app.get("/greetings/:id", (req, res) => {
     const id = parseInt(req.params.id);
