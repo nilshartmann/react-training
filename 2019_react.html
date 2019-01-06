@@ -1993,28 +1993,7 @@ persons = movies; // error
         <h2>React Anwendungen mit TypeScript</h2>
         <em>State und Properties von Komponenten werden mit Typen beschrieben</em>
       </section>
-      <section>
-        <h2>Voraussetzungen</h2>
-        <ul>
-          <li class="fragment">(Externe) Module, die kein Default-Export haben, müssen mit
-            <code>import *</code> importiert werden:
-            <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-// JavaScript/Babel:
-import React from 'react';
-
-// TypeScript
-import * as React from 'react';
-        </code></pre>
-          </li>
-          <li class="fragment">Dateien, die JSX-Code enthalten, müssen mit
-            <code>.tsx</code> enden</li>
-          <li class="fragment">Compiliert wird mit TypeScript (statt Babel). Integration in Webpack mit
-            <a href="https://github.com/s-panferov/awesome-typescript-loader" target="_blank">
-              <code>awesome-typescript-loader</code>
-            </a>
-          </li>
-        </ul>
-      </section>
+      
       <section>
         <h2>Getypte React Komponenten</h2>
         <p>
@@ -2223,8 +2202,9 @@ const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props =>
             <li class="fragment">Gerenderte Komponenten/HTML-Elemente müssen gefunden und validiert werden</li>
             <li class="fragment">Zustand und Properties der Komponenten müssen veränderbar sein</li>
             <div class="fragment">
-            <li >Events müssen getriggert oder simuliert werden können</li>
-            <li >(Interaktion mit DOM muss evtl möglich sein)</li>
+            <li>Interaktion mit DOM muss möglich sein
+              <ul>
+            <li>Events müssen getriggert oder simuliert werden können</ul></li>
           </div>
           </ul>
         </section>
@@ -2236,11 +2216,11 @@ const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props =>
               <a href="http://facebook.github.io/jest/" target="_blank">http://facebook.github.io/jest/</a>)</em>
           </p>
           <p class="fragment">Vollständige Test-Lösung, wird von Facebook für Testen von React verwendet:
-          <ul>
+          <ul class="fragment">
             <li>Test Runner</li>
             <li>Specs, Assertions, Mocks</li>
             <li>Code Coverage</li>
-            <li>Snapshot testing</li>
+            <li>"Snapshot testing"</li>
           </ul>
         </p>
         </section>
@@ -2302,7 +2282,7 @@ const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props =>
           <h2>Expectations und Matcher</h2>
           <div class="fragment">
             <p>
-              <code>expect()</code> liefert eine Expectation zurück, auf der Matcher definiert sind:</p>
+              <code>expect()</code> liefert eine <em>Expectation</em> zurück, auf der <em>Matcher</em> definiert sind:</p>
             <pre><code data-trim contenteditable>expect(actual).toXyz(expected);
   // for example:
   expect("Hello Jest").toBe("Hello Jest"); // => ok
@@ -2425,11 +2405,11 @@ expect(myDataService).toHaveBeenCalled();
           <p>Rendert React Komponenten in JSON Objekte (ohne DOM):</p>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
   
-  const component = renderer.create(
-    &lt;GreetingMaster greetings={someGreetings} />
-  );
+const component = renderer.create(
+  &lt;GreetingMaster greetings={someGreetings} />
+);
   
-  console.log(component.toJSON());
+console.log(component.toJSON());
           </code></pre>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
   { type: 'div',
@@ -2473,16 +2453,16 @@ expect(myDataService).toHaveBeenCalled();
           <h3>Snapshot Testing mit Jest und React</h3>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
   
-  test('it should render correctly', () => {
+test('it should render correctly', () => {
   
-    const someGreetings = [ . . . ];
+  const someGreetings = [ . . . ];
   
-    const component = renderer.create(
-      &lt;GreetingMaster greetings={someGreetings} />
-    );
+  const component = renderer.create(
+    &lt;GreetingMaster greetings={someGreetings} />
+  );
   
-    expect(component.toJSON()).toMatchSnapshot();
-  });
+  expect(component.toJSON()).toMatchSnapshot();
+});
           </code></pre>
           <p class="fragment">
             <em>Snapshot sagt nicht, ob UI richtig oder falsch gerendert wird, sondern nur, ob sie verändert wurde!</em>
