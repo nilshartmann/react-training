@@ -65,8 +65,6 @@ export default class GreetingController extends React.Component {
         body: JSON.stringify(greetingToBeAdded)
       });
 
-      // (1b Optional: wirf einen Error wenn der Resonse Status nicht 201 ist)
-
       // 2. Lies aus der Antwort das JSON Objekt aus (zuweisen an 'newGreeting')
       //    (Die Antwort entspricht dem neuen Greeting + einer Id, die auf dem
       //     Server erzeugt wurde)

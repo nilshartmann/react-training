@@ -469,14 +469,6 @@ const time = `The time is: ${new Date()}`); // The time is: ...
             </ul>
         </ul>
       </section>
-      <section>
-        <h3>create-react-app</h3>
-        <a href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
-          target="_blank">User Guide</a>
-        <p>Bootstrap von React Anwendung</p>
-        <p>Fertige Konfiguration von Webpack, React, ...</p>
-        <p>Beispiel: npx create-react-app PROJEKTNAME --typescript</p>
-      </section>
      
       <section>
         <h3>Das Beispiel-Projekt</h3>
@@ -509,15 +501,8 @@ const time = `The time is: ${new Date()}`); // The time is: ...
       </section>
       <section>
         <h3>Schritt #1: Tool-Chain starten (falls noch nicht gemacht)</h3>
-        <p>Nutze für die Übungen das
-          <code>workspace</code>-Verzeichnis in diesem Repository. Hier ist eine Tool-Chain mit Webpack und Babel
-          vorbereitet</p>
+        
         <ol style="font-size: 85%">
-          <li>
-            <code>npm install</code> (auf oberster Ebene)
-            <br>
-            <span style="font-size: 85%">(Dafür evtl. einen Proxy konfigurieren
-              <a target="_blank" href="http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/">http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/</a>)</span>
           <li>
             <code>cd code/workspace</code>
           <li>
@@ -526,6 +511,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
             <a href="http://localhost:8080" target="_blank">http://localhost:8080</a> im Browser
           <li>Wenn auf der Seite 'Hello, World' steht, ist alles gut
         </ol>
+        <img src="images/screenshot-npm-start.png" />
       </section>
       <section>
         <h3>Schritt #2: Deine erste React-Komponente</h3>
@@ -723,10 +709,10 @@ someFunction(person);
           <li>
             <b>Properties</b> werden der Komponente von
             <b>außen</b> übergeben (und nicht verändert)</li>
-          <li>
+          <li class="fragment">
             <b>Zustand (State)</b> ist eine
             <b>innere</b> Eigenschaft der Komponente (die verändert werden kann)</li>
-          <li>Beides sind Objekte mit Key-Value-Paaren</li>
+          <li class="fragment">Beides sind Objekte mit Key-Value-Paaren</li>
         </ul>
       </section>
 
@@ -739,6 +725,19 @@ someFunction(person);
             <code>this.props</code>
           </li>
         </ul>
+        <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            class Header extends React.Component {
+              constructor(props) {
+                super(props);
+              }
+
+              render() {
+                return (
+                  &lt;h1 style={{color: this.props.titleColor}}>{this.props.title}&lt;/h1>
+                );
+              }
+            }
+            </code></pre>        
       </section>
       <section>
           <h3>Children einer Komponente</h3>
@@ -902,10 +901,10 @@ class HelloMessage extends React.Component {
             <b>Properties</b>: Konfiguration von außen übergeben. Unveränderlich innerhalb der Komponente</li>
           <li class="fragment">
             <b>State:
-            </b>: Interner und veränderlicher Zustand der Komponente. State-Änderung führt zu re-rendering
+            </b> Interner und veränderlicher Zustand der Komponente. State-Änderung führt zu re-rendering
           </li>
           <li class="fragment">
-            <b>Instanz-Variablen</b>: Nicht render-relevante Informationen, zB Refernzen auf DOM-Elemente, Callbacks
+            <b>Instanz-Variablen</b>: Nicht render-relevante Informationen, zB Referenzen auf DOM-Elemente, Callbacks
             zum Beenden
             von Timern</li>
         </ul>
@@ -942,7 +941,6 @@ class HelloMessage extends React.Component {
         <h3>Themen</h3>
         <ul>
           <li>Komponenten als Funktionen</li>
-          <li>PropTypes</li>
           <li>Darstellung von Listen</li>
           <li>Architektur-Idee: Controller-Komponente und View-Komponente</li>
           <li>Durchreichen von Zustand und Callbacks</li>
@@ -977,96 +975,6 @@ export default function Greet(props) {
 &lt;Greet name="Susi" greeting="Hello" /&gt;
 
 </code></pre>
-      </section>
-      <section>
-        <h3>Komponenten als Funktion</h3>
-        <pre class="fragment"><code class="javascript" contenteditable data-trim>
-// Mit Destructuring
-export default function Greet({greeting, name}) {
-  return (
-      &lt;div>
-          &lt;h1>{greeting}&lt;/h1>
-          &lt;h2>{name}&lt;/h2>
-      &lt;/div>
-  );
-}
-</code></pre>
-        <pre class="fragment"><code class="javascript" contenteditable data-trim>
-// Als Arrow Function
-const Greet = ({greeting, name}) => (
-  &lt;div>
-    &lt;h1>{greeting}&lt;/h1>
-    &lt;h2>{name}&lt;/h2>
-  &lt;/div>
-);
-
-export default Greet;
-</code></pre>
-
-      </section>
-      <section>
-        <h3>PropTypes</h3>
-        <ul class="fragment">
-          <li>Eine Komponente kann deklarieren, welche Properties sie erwartet
-          <li>Auch der Typ kann angegeben werden (
-            <a href="https://facebook.github.io/react/docs/typechecking-with-proptypes.html" target="_blank">Mögliche
-              Typen</a>)
-          <li>Fehlende / falsche Properties führen zu Laufzeitfehlern
-          <li>Ab React 15.5 eigenes npm modul:
-            <a href="https://www.npmjs.com/package/prop-types" target="_blank">
-              <code>prop-types</code>
-            </a>
-          </li>
-          <li>Alternative: Typsystem (
-            <a href="https://flow.org" target="_blank">Flow</a> oder
-            <a href="https://typescriptlang.org" target="_blank">TypeScript</a>)
-        </ul>
-        <pre class="fragment"><code class="javascript" contenteditable data-trim>
-  import PropTypes from 'prop-types';
-  
-  class GreetingDetail extends React.Component { . . . };
-  
-  GreetingDetail.propTypes = {
-      greeting: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        greeting: PropTypes.string.isRequired
-      }),
-      onAdd: PropTypes.func.isRequired
-  };
-  </code></pre>
-      </section>
-      <section>
-        <h3>PropTypes</h3>
-        <p>Mit statischen Properties (
-          <code>static</code> noch kein JS Standard!)</p>
-        <pre><code class="javascript" contenteditable data-trim>
-  import PropTypes from 'prop-types';
-  
-  class GreetingDetail extends React.Component {
-    static propTypes = {
-      greeting: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        greeting: PropTypes.string.isRequired
-      }),
-      onAdd: PropTypes.func.isRequired
-    };
-  
-    render() { . . . }
-  };
-              </code></pre>
-      </section>
-      <section>
-        <h3>PropTypes</h3>
-        <p>Für Komponenten als Funktionen</p>
-        <pre><code class="javascript" contenteditable data-trim>
-  import PropTypes from 'prop-types';
-  
-  function HelloMessage(text) { . . . }
-  
-  HelloMessage.propTypes = {
-    text: PropTypes.string.isRequired
-  }
-              </code></pre>
       </section>
 
       <section>
@@ -1108,27 +1016,27 @@ const MyTable(props) => (
       <section>
         <h3>Listen und Keys</h3>
         <ul class="fragment">
-          <li>Ab React 16 können Arrays in
+          <li>Arrays können in
             <code>render</code> zurückgegeben werden (anstatt
             <b>eines</b> Root Elements)
           <li>Elemente brauchen trotzdem einen eindeutigen Key
         </ul>
         <pre class="fragment"><code class="javascript" contenteditable data-trim>
 // Beispiel: statische Elemente          
-const Choices = () => { 
+function Choices(props) { 
   return [
     &lt;td key="yes">Yes&lt;/td>,
     &lt;td key="no">No&lt;/td>
   ]
-};
+}
           </code></pre>
 
         <pre class="fragment"><code class="javascript" contenteditable data-trim>
 // Beispiel: dynamisches Array          
-const GreetingRows = ({greetings}) => {
+function GreetingRows(props) {
 
   // map liefert ein Array zurück!
-  return greetings.map(greeting =>
+  return props.greetings.map(greeting =>
     &lt;tr key={greeting.id}>
       &lt;td>{greeting.name}&lt;/td>
       &lt;td>{greeting.greeting}&lt;/td>
@@ -1146,21 +1054,22 @@ const GreetingRows = ({greetings}) => {
         </ul>
         <pre class="fragment"><code class="javascript" contenteditable data-trim style="font-size:70%">
 // geht nicht:          
-const Choices = () => ( 
+function Choices(props) { 
   &lt;td key="yes">Yes&lt;/td>
   &lt;td key="no">No&lt;/td>
-);
+}  
 
 // geht:          
-const Choices = () => ( 
-  &lt;React.Fragment>
+function Choices(props) { 
+  return &lt;React.Fragment>
     &lt;td key="yes">Yes&lt;/td>
     &lt;td key="no">No&lt;/td>
   &lt;/React.Fragment>  
-);
+}
             </code></pre>
       </section>
       <section>
+        <h3>Teil II (b)</h3>
         <h2>Anwendungen und Komponentenhierarchien</h2>
       </section>
       <section>
@@ -1178,6 +1087,7 @@ const Choices = () => (
         <h2>Welche Komponente soll angezeigt werden?</h2>
         <p>Master oder Detail?</p>
         <p>Schritt-für-Schritt in <code>code/workspace-live-coding</code></p>
+        <p class="todo">Material vorbereiten (eine Datei, wo schon der Master und die Detail Komponente drin ist)</p>
       </section>
       <section>
         <h3>Controller Komponente #1</h3>
@@ -1292,8 +1202,8 @@ class GreetingMaster extends React.Component {
         <h3>Controller Komponente</h3>
         <p class="fragment">Verwaltet den "globalen" State</p>
         <div class="fragment">
-          <span style="color: #9D4493">Neues Greeting</span> wird per Callback-Funktion zurück gegeben
           <img src="ai/greeting-hierarchy-onsave.png" style="height:550px" />
+          <p><span style="color: #9D4493">Neues Greeting</span> wird per Callback-Funktion zurück gegeben</p>
         </div>
       </section>
       <section>
@@ -1356,6 +1266,7 @@ class GreetingMaster extends React.Component {
       </section>
       <section>
         <h3>Schritte</h3>
+        <p class="todo">Material komplett fertig machen? Teilnehmer arbeiten dann mit "neuem" Code und nicht ihrem? (Umdrehen: kopiere bitte, oder verwede deinen Stand wenn...)</p>
         <ol>
           <li>kopiere das Material aus
             <code>code/material/2-hierarchy</code> in deinen src-Ordner
@@ -1432,6 +1343,17 @@ fetch('http://localhost:7000/api/greetings')
   .then(json => /* ... */)
   .catch(ex => console.error('request failed', ex));
 </code></pre>
+<pre class="fragment"><code class="javascript" contenteditable data-trim>
+    // Alternative mit async/await:
+    
+    try {
+      const response = await fetch('http://localhost:7000/api/greetings')
+      const json = await response.json();
+      // ...
+    } (catch ex) {
+      console.error('request failed', ex)
+    }
+    </code></pre>
       </section>
       <section>
         <h3>Beispiel #2: fetch</h3>
@@ -1452,7 +1374,7 @@ fetch('http://localhost:7000/api/greetings')
             </ul>
         </div>
         <pre class="fragment"><code class="javascript" contenteditable data-trim>
-fetch(url, {
+const response = await fetch(url, {
   method: 'POST',
   headers: {
     'Accept': 'application/json',
@@ -1460,7 +1382,7 @@ fetch(url, {
   },
   body: JSON.stringify(payload)
 })
-  .then(...)
+// ... 
     </code></pre>
       </section>
 
@@ -1533,54 +1455,33 @@ const promise2 = promise.then(value => `${value} plus stuff`);</code></pre>
         <h3>fetch im Detail</h3>
 
         <pre><code class="javascript" contenteditable data-trim>
-// 1. fetch returns a promise, that will be resolved
-// with a Response object when response is received
-// from server
-fetch('http://localhost:7000/api/greetings')
+try {
+  // 1. fetch returns a promise, that will be resolved
+  // with a Response object when response is received
+  // from server
+  const response = await fetch('http://localhost:7000/api/greetings');
 
-// 2. the Response object contains a json() function,
-// that returns the parsed JSON from the Response body
-  .then(response => response.json())
+  // 2. the Response object contains a json() function,
+  // that returns the parsed JSON from the Response body
+  const json = await response.json();
 
-// 3. with the resolved JSON object we set the
-// component state (=&gt; leads to re-rendering)
-  .then(json => this.setState({greetings: json})
+  // 3. with the resolved JSON object we set the
+  // component state (=&gt; leads to re-rendering)
+  this.setState({greetings: json});
+} catch (ex) {
+  // 4. in case something goes wrong (during request,
+  // request processing or rendering)
+  console.error('request failed', ex);
+  // as an alternative we could set and render an error msg:
+  this.setState({error: ex})
+}
 
-// 4. in case something goes wrong (during request,
-// request processing or rendering)
-  .catch(ex => console.error('request failed', ex));
-// as an alternative we could set and render an error msg:
-//  .catch(ex => this.setState({error: ex})
 </code></pre>
         <p>
           <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API Doku</a>
         </p>
       </section>
-      <section>
-        <h3>fetch mit async/await</h3>
-
-        <pre class="fragment"><code class="javascript" contenteditable data-trim>
-async function loadGreetings() {          
-  try {
-    const response = await fetch('http://localhost:7000/api/greetings');
-    const json = await response.json();
-    this.setState({greetings: json});
-  } catch (err) {
-    console.error("Loading failed: ", ex);
-    // Alternative (set error message as state):
-    // this.setState({error: err})
-  }
-}
-  </code></pre>
-        <span class="fragment">
-        <p class="TODO">MIT ASYNC AWAIT STARTEN</p>          
-          <ul>
-            <li>Empfehlung: async/await statt Promise-Ansatz verwenden</li>
-            <li>Insbesondere bei komplexen Abläufen oder mehreren fetch-Aufrufen viel einfacher</li>
-          </ul>
-        </span>
-
-      </section>
+     
 
       <section data-state="exkurs">
         <h3>Alternative zu Promises</h3>
@@ -1708,6 +1609,7 @@ async function loadData() {
       </section>
       <section>
         <h3>Initiales Laden von Daten</h3>
+        <p class="todo">neue lifecycle folie</p>
         <p style="font-size:80%">Komponenten können optionale
           <a href="https://reactjs.org/docs/react-component.html#the-component-lifecycle" target="_blank">Lifecycle-Methoden</a>
           haben</p>
@@ -2094,11 +1996,6 @@ persons = movies; // error
       <section>
         <h2>Voraussetzungen</h2>
         <ul>
-          <li class="fragment">React Type Deklarationen installieren:
-            <pre><code data-trim contenteditable class="line-numbers bash" data-leftpad>
-npm install --save @types/react @types/react-dom
-        </code></pre>
-          </li>
           <li class="fragment">(Externe) Module, die kein Default-Export haben, müssen mit
             <code>import *</code> importiert werden:
             <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
