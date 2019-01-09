@@ -2777,26 +2777,6 @@ render() {
     </section>
 
     <section>
-        <h3>Selektoren</h3>
-        <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-export const selectGreetings = ({greetings}) => greetings;
-
-export default connect(
-state => ({
-    greetings: selectGreetings(state),
-    // ...
-}),
-// ...
-)(GreetingController);        </code></pre>
-        <ul>
-            <li class="fragment">Berechnen abgeleiteten Zustand</li>
-            <li class="fragment">Oft in einer eigener Datei</li>
-            <li class="fragment">Erlauben Wiederbenutzung und Caching (normalerweise
-                <a href="http://redux.js.org/docs/recipes/ComputingDerivedData.html" target="_blank">reselect</a>)</li>
-        </ul>
-    </section>
-
-    <section>
         <h2>Zusammenfassung Redux-Architektur</h2>
         <img src="images/redux-03-resulting-redux-architecture.png" style="border:0;box-shadow:0 0 0 0;max-height:650px" />
     </section>

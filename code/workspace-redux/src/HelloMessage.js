@@ -29,5 +29,7 @@ class HelloMessage extends React.Component {
 // TODO: Verbinde die Komponente mit Redux
 //  - lese 'greeting' aus dem Store
 //  - uebergebe die beiden Action Creator updateGreeting und resetGreeting
+// connect(mapStateToProps, { actions });
+// TODO: Zeigen => wie sieht Komponentehierarchie aus?
 
 export default HelloMessage;
