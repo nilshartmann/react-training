@@ -1,15 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 export default class GreetingDetail extends React.Component {
-  static propTypes = {
-    greeting: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      greeting: PropTypes.string.isRequired
-    }),
-    onSave: PropTypes.func.isRequired
-  };
-
   render() {
     const { name, greeting } = this.state;
     const saveDisabled = !(name && greeting);
