@@ -1,5 +1,8 @@
 import React from "react";
 
+import { sampleGreetings } from "./_sample-greetings";
+
+// ---------------------------------------------------------------------------------------------------
 export default class GreetingDetail extends React.Component {
   render() {
     const { name = "", greeting } = this.state;
@@ -39,4 +42,28 @@ export default class GreetingDetail extends React.Component {
   updateModel = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+}
+
+// ---------------------------------------------------------------------------------------------------
+function GreetingMaster(props) {
+  const body = props.greetings.map(greeting => (
+    <tr key={greeting.id}>
+      <td>{greeting.name}</td>
+      <td>{greeting.greeting}</td>
+    </tr>
+  ));
+  return (
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Greeting</th>
+          </tr>
+        </thead>
+        <tbody>{body}</tbody>
+      </table>
+      <button>Add</button>
+    </div>
+  );
 }

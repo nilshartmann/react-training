@@ -3,5 +3,6 @@
   // When opening a file, `editor.tabSize` and `editor.insertSpaces` will be detected based on the file contents.
   "editor.detectIndentation": false,
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "editor.fontLigatures": false
+  "editor.fontLigatures": false,
+  "editor.parameterHints.enabled": false
 }
