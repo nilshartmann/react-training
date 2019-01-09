@@ -2,15 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
 
 import Layout from "./components/Layout";
 import { rootReducer } from "./reducers";
 import { loadGreetings } from "./actions";
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 // init
 store.dispatch(loadGreetings);

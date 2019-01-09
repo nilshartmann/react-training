@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as PropTypes from "prop-types";
 
 // This component is written in JavaScript but is used from components
 // written in TypeScript, thus the following jsdoc is required
@@ -58,12 +57,12 @@ export default class GreetingDetail extends React.Component {
     });
   }
 
-	updateModel(event) {
-		// Hier ist ein Beispiel, warum currentTarget "richtiger" als target ist
-		// (und wir in TypeScript auch currentTarget verwenden muessen):
-		// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682
+  updateModel(event) {
+    // Hier ist ein Beispiel, warum currentTarget "richtiger" als target ist
+    // (und wir in TypeScript auch currentTarget verwenden muessen):
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682
 
-		// in TypeScript: this.setState({ [event.currentTarget.name as any]: event.currentTarget.value });
-		this.setState({ [event.target.name]: event.target.value });
-	}
+    // in TypeScript: this.setState({ [event.currentTarget.name as any]: event.currentTarget.value });
+    this.setState({ [event.target.name]: event.target.value });
+  }
 }

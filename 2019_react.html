@@ -478,10 +478,10 @@ const time = `The time is: ${new Date()}`); // The time is: ...
             <code>2019_react.html</code> Slides im Root-Verzeichnis</li>
           <li>
             <code>code/workspace</code>: Verzeichnis für Eure Übungen</li>
-          <li>
+            <li>
+              <code>code/material</code>: Code als Ausgangspunkt für Übungen</li>
+            <li>
             <code>code/schritte</code>: Fertige Stände nach den einzelnen Teilen</li>
-          <li>
-            <code>code/material</code>: Code als Ausgangspunkt für Übungen</li>
         </ul>
         <p>Starten</p>
         <ol>
@@ -496,7 +496,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
         </ol>
       </section>
       <section>
-        <h2>Übung 0: React Hello-World</h2>
+        <h2>Übung 1: React Hello-World</h2>
         <h3>Mach dich mit den Werkzeugen vertraut und schreib deine erste React-Komponente</h3>
       </section>
       <section>
@@ -518,7 +518,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
         <ul>
           <li>Ersetze die "statische" Komponente (HelloMessage) mit der React-Komponente aus dem vorherigen Beispiel
             aus den
-            Folien
+            Folien ("Hello World React")
           <li>
             <em>Zusatzaufgabe: Experimentiere mit der Anwendung, mache einige Änderungen, wie z.B.</em>
             <ul>
@@ -911,7 +911,7 @@ class HelloMessage extends React.Component {
       </section>
 
       <section>
-        <h2>Übung 1: Detail-Ansicht für unsere Gruß-Anwendung</h2>
+        <h2>Übung 2: Detail-Ansicht für unsere Gruß-Anwendung</h2>
         <h3>Erzeuge eine Komponente mit der man einen Namen und eine Grußformel eingeben kann</h3>
       </section>
       <section>
@@ -1087,7 +1087,6 @@ function Choices(props) {
         <h2>Welche Komponente soll angezeigt werden?</h2>
         <p>Master oder Detail?</p>
         <p>Schritt-für-Schritt in <code>code/workspace-live-coding</code></p>
-        <p class="todo">Material vorbereiten (eine Datei, wo schon der Master und die Detail Komponente drin ist)</p>
       </section>
       <section>
         <h3>Controller Komponente #1</h3>
@@ -1260,16 +1259,18 @@ class GreetingMaster extends React.Component {
       </section>
 
       <section>
-        <h2>Übung 2: Eine komplette Anwendung zusammen setzen</h2>
+        <h2>Übung 3: Eine komplette Anwendung zusammen setzen</h2>
         <h3>Füge deinen bestehenden Detail-View (
           <code>GreetingDetail</code>) und einen Master-View über eine Controller-Komponente zusammen</h3>
       </section>
       <section>
         <h3>Schritte</h3>
-        <p class="todo">Material komplett fertig machen? Teilnehmer arbeiten dann mit "neuem" Code und nicht ihrem? (Umdrehen: kopiere bitte, oder verwede deinen Stand wenn...)</p>
         <ol>
           <li>kopiere das Material aus
             <code>code/material/2-hierarchy</code> in deinen src-Ordner
+            <span style="font-size:85%">(oder dein fertiges
+              <code>GreetingDetail</code> verwenden)</span>
+
           <li>erweitere im
             <code>GreetingController</code> die render-Methode, so dass dein
             <code>GreetingDetail</code> angezeigt wird, wenn der Benutzer den Add-Button klickt:
@@ -1281,10 +1282,7 @@ class GreetingMaster extends React.Component {
           <li>im deinem
             <code>GreetingDetail</code> brauchst du einen neuen Knopf, der mit dem neuen Gruß den Callback aufruft
             <br>
-            <span style="font-size:85%">(Du kannst dein
-              <code>GreetingDetail</code> verwenden, oder die Vorlage code/material/2-hierarchy/src/_GreetingDetail.js
-              verwenden)</span>
-
+           
         </ol>
       </section>
       <section>
@@ -1334,26 +1332,26 @@ class GreetingMaster extends React.Component {
       </section>
       <section>
         <h3>Beispiel: fetch</h3>
-        <p> Daten lesen per GET</p>
+        <p>Daten lesen per GET</p>
         <pre><code class="javascript" contenteditable data-trim>
-// Für GET Zugriff reicht es, die URL anzugeben:
+          // Für GET Zugriff reicht es, die URL anzugeben:
+          try {
+            const response = await fetch('http://localhost:7000/api/greetings')
+            const json = await response.json();
+            // ...
+          } (catch ex) {
+            console.error('request failed', ex)
+          }
+          </code></pre>        
+        <pre class="fragment"><code class="javascript" contenteditable data-trim>
+// Alternative mit Promise:
 
 fetch('http://localhost:7000/api/greetings')
   .then(response => response.json())
   .then(json => /* ... */)
   .catch(ex => console.error('request failed', ex));
 </code></pre>
-<pre class="fragment"><code class="javascript" contenteditable data-trim>
-    // Alternative mit async/await:
-    
-    try {
-      const response = await fetch('http://localhost:7000/api/greetings')
-      const json = await response.json();
-      // ...
-    } (catch ex) {
-      console.error('request failed', ex)
-    }
-    </code></pre>
+
       </section>
       <section>
         <h3>Beispiel #2: fetch</h3>
@@ -1577,33 +1575,6 @@ async function loadData() {
                     </code></pre>
       </section>
     
-      <section data-state="exkurs">
-        <h3>async / await</h3>
-        <p>Auf mehrere Promises parallel warten #2</p>
-        <p>Mit
-          <em>Array Destructuring</em>
-        </p>
-        <pre class="fragment"><code class="javascript" contenteditable data-trim>
-  // Liefert ein Promise zurück
-  async function loadUser(userId) { . . . };
-  async function loadProfileDate(userId) { . . .};
-    
-  async function loadData(userId) {
-    try {
-      const [user, profileData] = await Promise.all([
-        loadUser(userId),
-        loadProfileData(userId)
-      ]);
-
-      . . .
-    } catch (e) {
-  
-      // wenn mind einer Aufrufe schief geht
-      console.error("Something failed")
-    }
-  }
-                        </code></pre>
-      </section>
       <section>
         <h3>Wann werden Daten gelesen und geschrieben?</h3>
       </section>
@@ -1642,6 +1613,29 @@ async function loadData() {
             <em>Empfehlung:</em> Zugriffe auf Server in externes Modul auslagern (besser test- bzw mockbar)</p>
         </div>
       </section>
+      <section>
+        <h3>Laden von Daten mit Props</h3>
+        <div class="fragment">
+          <p>
+            <code>componentDidMount</code> und <code>componentDidUpdate</code> müssen implementiert werden</p>
+          <pre><code class="javascript" contenteditable data-trim>class GreetingController extends React.Component {
+  constructor(props) { . . . }
+
+  async componentDidMount() {
+      const response = await fetch(`/api/greetings/${this.props.greetingId}`);
+      . . .
+  }
+
+  async componentDidUpdate(prevProps) {
+    if (prevProps.greetingId !== this.props.greetingId) {
+        const response = await fetch(`/api/greetings/${this.props.greetingId}`);
+        ...
+    }
+  }
+}
+                </code></pre>
+        </div>
+      </section>      
       <section>
         <h3>Speichern von Daten</h3>
         <p>Zum Beispiel als Folge einer Benutzerinteraktion:</p>
@@ -2199,8 +2193,11 @@ const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props =>
           <h2>Anforderungen</h2>
           <ul>
             <li class="fragment">Komponenten müssen im Test gerendert werden können</li>
-            <li class="fragment">Gerenderte Komponenten/HTML-Elemente müssen gefunden und validiert werden</li>
-            <li class="fragment">Zustand und Properties der Komponenten müssen veränderbar sein</li>
+            <div class="fragment">
+            <li>Gerenderte Komponenten/HTML-Elemente müssen gefunden und validiert werden</li>
+            <ul>
+              <li>Beispiel: CSS-Klasse korrekt gesetzt, 'value' korrekt gesetzt</li></ul></li>
+          </div>
             <div class="fragment">
             <li>Interaktion mit DOM muss möglich sein
               <ul>
@@ -2226,7 +2223,7 @@ const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props =>
         </section>
         <section>
           <h3>Beispiel: Ein einfacher Test</h3>
-          <pre><code class="javascript" contenteditable data-trim>// sum.js
+          <pre><code class="javascript" contenteditable data-trim>// sum.js (oder sum.ts)
   export const sum = (a,b) => a+b;
   </code></pre>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>// sum.test.js
@@ -2259,19 +2256,19 @@ const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props =>
           <ul>
             <li>Testsuites (optional, müssen nicht verwendet werden)
               <pre><code data-trim contenteditable>describe('some feature', () => {
-    test(() => {...});
-    test(() => {...});
-    test(() => {...});
+    test('test 1', () => {...});
+    test('test 2', () => {...});
+    test('test 3', () => {...});
   });</code></pre>
             </li>
             <li class="fragment">Überspringen (
               <code>skip</code>) / Auswählen (
               <code>only</code>) einzelner Tests:
               <pre><code data-trim contenteditable>describe.only('some feature', () => { } );
-  describe.skip('another feature', () => { });
+describe.skip('another feature', () => { });
   
-  test.only('should work', () => { });
-  test.skip('does not work, skip for now', () => { });
+test.only('should work', () => { });
+test.skip('does not work, skip for now', () => { });
   
   </code></pre>
   
@@ -2395,6 +2392,10 @@ expect(myDataService).toHaveBeenCalled();
             </li>
         </section>
 
+        <section>
+          <h3>Testen von React Komponenten, Teil 1</h3>
+          <h2>Rendering</h2>
+        </section>
        
   
         <section>
@@ -2470,6 +2471,11 @@ console.log(component.toJSON());
         </section>
   
         <section>
+          <h3>Testen von React Komponenten, Teil 2</h3>
+          <h2>Interaktion</h2>
+        </section>
+
+        <section>
           <h3>Enzyme</h3>
           <p>
             <em>JavaScript Testing utilities for React (
@@ -2517,7 +2523,7 @@ console.log(component.toJSON());
         </section>
   
         <section>
-            <h3>Testen von asynchronem (React) Code</h3>
+            <h3>Ausblick: Testen von asynchronem (React) Code</h3>
             <p><a href="https://github.com/nilshartmann/jest-playground" target="_blank">Beispiel mit mehreren möglichen Strategien</a></p>
           </section>
 
@@ -2584,7 +2590,8 @@ console.log(component.toJSON());
     </section>
     <section>
         <h2>Demo: Redux & Redux Devtools</h2>
-        <a href="code/schritte/redux/7-redux-complete-app/public/index.html" target="_blank">Ziel-Anwendung</a>
+        <a href="http://localhost:8080/" target="_blank">Ziel-Anwendung</a>
+        <p>(npm start in code/schritte/redux/7-redux-complete-app)</p>
     </section>
 
     <section>
