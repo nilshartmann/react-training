@@ -929,6 +929,7 @@ class HelloMessage extends React.Component {
             Felder
             im Zustand updaten kannst?
         </ul>
+        <img src="images/screenshot-name-greeting.png" />
       </section>
 
       <section id="t2">
@@ -1496,9 +1497,9 @@ try {
         <h3>async / await</h3>
         <ul>
           <li class="fragment">
-            <code>aync</code> definiert "async functions"</li>
+            <code>async</code> definiert "async functions"</li>
           <li class="fragment">
-            <code>aync</code> functions liefern&nbsp;
+            <code>async</code> functions liefern&nbsp;
             <b>immer</b> ein Promise zurück:
             <pre><code class="javascript" contenteditable data-trim>
 async function greet(name) {
@@ -1566,8 +1567,8 @@ async function loadProfileDate(userId) { . . .};
 
 async function loadData() {
   try {
-    const user = loadUser('klaus');
-    const profile = loadProfileData(user.userId);
+    const user = await loadUser('klaus');
+    const profile = await loadProfileData(user.userId);
   } catch (e) {
     console.error("Something failed")
   }
