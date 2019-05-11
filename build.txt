@@ -10,7 +10,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 1.092s
+up to date in 0.515s
 found 0 vulnerabilities
 
 
@@ -19,7 +19,7 @@ found 0 vulnerabilities
 
 Hash: 0f89db7770823d5d854b
 Version: webpack 3.10.0
-Time: 1226ms
+Time: 1235ms
   Asset     Size  Chunks                    Chunk Names
 main.js  2.64 MB       0  [emitted]  [big]  main
    [5] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -37,7 +37,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.809s
+up to date in 0.596s
 found 0 vulnerabilities
 
 
@@ -46,7 +46,7 @@ found 0 vulnerabilities
 
 Hash: 1704ef2fd11e721a782e
 Version: webpack 3.10.0
-Time: 1266ms
+Time: 1309ms
   Asset     Size  Chunks                    Chunk Names
 main.js  2.64 MB       0  [emitted]  [big]  main
    [5] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -64,7 +64,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.489s
+up to date in 0.491s
 found 0 vulnerabilities
 
 
@@ -73,7 +73,7 @@ found 0 vulnerabilities
 
 Hash: 16bbc9f8e14574a76f3c
 Version: webpack 3.10.0
-Time: 1386ms
+Time: 1383ms
   Asset     Size  Chunks                    Chunk Names
 main.js  2.71 MB       0  [emitted]  [big]  main
    [6] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -94,7 +94,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 3.508s
+up to date in 0.523s
 found 0 vulnerabilities
 
 
@@ -103,7 +103,7 @@ found 0 vulnerabilities
 
 Hash: 59509f6c9a2bbe8ea037
 Version: webpack 3.10.0
-Time: 1405ms
+Time: 1406ms
   Asset     Size  Chunks                    Chunk Names
 main.js  2.82 MB       0  [emitted]  [big]  main
    [5] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -123,7 +123,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.643s
+up to date in 0.518s
 found 0 vulnerabilities
 
 
@@ -132,7 +132,7 @@ found 0 vulnerabilities
 
 Hash: 1c226e93f6308248a753
 Version: webpack 3.10.0
-Time: 2049ms
+Time: 2112ms
   Asset    Size  Chunks                    Chunk Names
 main.js  3.6 MB       0  [emitted]  [big]  main
   [48] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -153,7 +153,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.97s
+up to date in 0.508s
 found 0 vulnerabilities
 
 
@@ -162,7 +162,7 @@ found 0 vulnerabilities
 
 Hash: 1c226e93f6308248a753
 Version: webpack 3.10.0
-Time: 2074ms
+Time: 2118ms
   Asset    Size  Chunks                    Chunk Names
 main.js  3.6 MB       0  [emitted]  [big]  main
   [48] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -183,7 +183,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.502s
+up to date in 0.505s
 found 0 vulnerabilities
 
 
@@ -192,7 +192,7 @@ found 0 vulnerabilities
 
 Hash: f54b460e45e492fec524
 Version: webpack 3.10.0
-Time: 2899ms
+Time: 2900ms
   Asset     Size  Chunks                    Chunk Names
 main.js  6.16 MB       0  [emitted]  [big]  main
   [48] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -215,7 +215,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.577s
+up to date in 0.473s
 found 0 vulnerabilities
 
 
@@ -224,7 +224,7 @@ found 0 vulnerabilities
 
 Hash: 6088acc05fe622991d21
 Version: webpack 3.10.0
-Time: 2120ms
+Time: 2158ms
   Asset     Size  Chunks                    Chunk Names
 main.js  3.61 MB       0  [emitted]  [big]  main
   [48] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -246,7 +246,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.617s
+up to date in 0.498s
 found 0 vulnerabilities
 
 
@@ -254,15 +254,15 @@ found 0 vulnerabilities
 > ../../../node_modules/.bin/webpack
 
 
-[at-loader] Using typescript@3.1.6 from typescript and "tsconfig.json" from /Users/nils/develop/javascript/react-workshop/code/schritte/5-third-party-jquery-typescript/tsconfig.json.
+[at-loader] Using typescript@3.4.5 from typescript and "tsconfig.json" from /Users/nils/develop/javascript/react-workshop/code/schritte/5-third-party-jquery-typescript/tsconfig.json.
 
 
 [at-loader] Checking started in a separate process...
 
-[at-loader] Ok, 2.971 sec.
-Hash: ba91768d388b592b0410
+[at-loader] Ok, 3.92 sec.
+Hash: 65e9bbb8ef58cda51c9a
 Version: webpack 3.10.0
-Time: 6690ms
+Time: 7867ms
   Asset     Size  Chunks                    Chunk Names
 main.js  3.56 MB       0  [emitted]  [big]  main
   [48] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -284,7 +284,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.474s
+up to date in 0.467s
 found 0 vulnerabilities
 
 
@@ -292,15 +292,15 @@ found 0 vulnerabilities
 > ../../../node_modules/.bin/webpack
 
 
-[at-loader] Using typescript@3.1.6 from typescript and "tsconfig.json" from /Users/nils/develop/javascript/react-workshop/code/schritte/5-third-party-typescript/tsconfig.json.
+[at-loader] Using typescript@3.4.5 from typescript and "tsconfig.json" from /Users/nils/develop/javascript/react-workshop/code/schritte/5-third-party-typescript/tsconfig.json.
 
 
 [at-loader] Checking started in a separate process...
 
-[at-loader] Ok, 2.856 sec.
-Hash: d8f9145523b79a443c58
+[at-loader] Ok, 3.99 sec.
+Hash: 7fe7003f8a4dfb728d94
 Version: webpack 3.10.0
-Time: 8245ms
+Time: 9937ms
   Asset     Size  Chunks                    Chunk Names
 main.js  7.26 MB       0  [emitted]  [big]  main
   [48] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -309,7 +309,7 @@ main.js  7.26 MB       0  [emitted]  [big]  main
  [349] ./src/GreetingController.tsx 8.57 kB {0} [built]
  [350] ./src/GreetingMaster.tsx 923 bytes {0} [built]
  [351] ./src/GreetingDetail.tsx 2.75 kB {0} [built]
- [352] ./src/Chart.tsx 2.96 kB {0} [built]
+ [352] ./src/Chart.tsx 2.97 kB {0} [built]
  [354] ./src/util.ts 651 bytes {0} [built]
     + 347 hidden modules
 =====================================================================================================
@@ -323,7 +323,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.57s
+up to date in 0.512s
 found 0 vulnerabilities
 
 
@@ -331,22 +331,22 @@ found 0 vulnerabilities
 > ../../../node_modules/.bin/webpack
 
 
-[at-loader] Using typescript@3.1.6 from typescript and "tsconfig.json" from /Users/nils/develop/javascript/react-workshop/code/schritte/5-typescript/tsconfig.json.
+[at-loader] Using typescript@3.4.5 from typescript and "tsconfig.json" from /Users/nils/develop/javascript/react-workshop/code/schritte/5-typescript/tsconfig.json.
 
 
 [at-loader] Checking started in a separate process...
 
-[at-loader] Ok, 2.837 sec.
-Hash: ca56f088f8971f2e1807
+[at-loader] Ok, 4.178 sec.
+Hash: 05829f20a5f1e7c80aee
 Version: webpack 3.10.0
-Time: 5614ms
+Time: 7648ms
   Asset     Size  Chunks                    Chunk Names
 main.js  2.78 MB       0  [emitted]  [big]  main
    [3] (webpack)/buildin/global.js 509 bytes {0} [built]
    [6] ./src/main.tsx 428 bytes {0} [built]
   [21] ./src/GreetingController.tsx 7.63 kB {0} [built]
   [22] ./src/GreetingMaster.tsx 923 bytes {0} [built]
-  [23] ./src/GreetingDetail.tsx 2.77 kB {0} [built]
+  [23] ./src/GreetingDetail.tsx 2.78 kB {0} [built]
     + 19 hidden modules
 =====================================================================================================
 ========================= BUILDING ./code/schritte/mobx/6-mobx ...
@@ -359,7 +359,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.955s
+up to date in 0.469s
 found 0 vulnerabilities
 
 
@@ -368,7 +368,7 @@ found 0 vulnerabilities
 
 Hash: 7bd90933c411608b98e4
 Version: webpack 3.10.0
-Time: 2388ms
+Time: 2420ms
   Asset     Size  Chunks                    Chunk Names
 main.js  5.88 MB       0  [emitted]  [big]  main
    [5] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -391,7 +391,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.513s
+up to date in 0.463s
 found 0 vulnerabilities
 
 
@@ -400,7 +400,7 @@ found 0 vulnerabilities
 
 Hash: bb9487c44238e6256bb0
 Version: webpack 3.10.0
-Time: 2406ms
+Time: 2431ms
   Asset     Size  Chunks                    Chunk Names
 main.js  5.89 MB       0  [emitted]  [big]  main
    [6] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -418,7 +418,7 @@ main.js  5.89 MB       0  [emitted]  [big]  main
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-audited 1136 packages in 1.967s
+audited 1136 packages in 1.916s
 found 21 vulnerabilities (6 low, 11 moderate, 4 high)
   run `npm audit fix` to fix them, or `npm audit` for details
 
@@ -435,7 +435,7 @@ found 21 vulnerabilities (6 low, 11 moderate, 4 high)
 
 Hash: 6ddbc9244a18154193ed
 Version: webpack 3.10.0
-Time: 1759ms
+Time: 1793ms
       Asset     Size  Chunks                    Chunk Names
 greeting.js  10.3 kB       0  [emitted]         greeting
     main.js  2.92 MB       1  [emitted]  [big]  main
@@ -452,7 +452,7 @@ greeting.js  10.3 kB       0  [emitted]         greeting
 
 Hash: 60c4f2e275f2af9393ba
 Version: webpack 3.10.0
-Time: 1399ms
+Time: 1403ms
           Asset     Size  Chunks             Chunk Names
     greeting.js  2.32 kB       0  [emitted]  greeting
         main.js  30.5 kB       1  [emitted]  main
@@ -475,7 +475,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.505s
+up to date in 0.496s
 found 0 vulnerabilities
 
 
@@ -484,7 +484,7 @@ found 0 vulnerabilities
 
 Hash: ff4bf941454f11ba299c
 Version: webpack 3.10.0
-Time: 2326ms
+Time: 2361ms
   Asset     Size  Chunks                    Chunk Names
 main.js  5.51 MB       0  [emitted]  [big]  main
    [7] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -509,7 +509,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.487s
+up to date in 0.527s
 found 0 vulnerabilities
 
 
@@ -518,7 +518,7 @@ found 0 vulnerabilities
 
 Hash: ba18fddaa972e9a51172
 Version: webpack 3.10.0
-Time: 2384ms
+Time: 2412ms
   Asset     Size  Chunks                    Chunk Names
 main.js  5.51 MB       0  [emitted]  [big]  main
    [3] ./src/actions.js 2.13 kB {0} [built]
@@ -538,7 +538,7 @@ main.js  5.51 MB       0  [emitted]  [big]  main
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.477s
+up to date in 0.517s
 found 0 vulnerabilities
 
 
@@ -555,7 +555,7 @@ found 0 vulnerabilities
 
 Hash: da4c8c9b0d8cf7f87275
 Version: webpack 3.10.0
-Time: 2374ms
+Time: 2328ms
   Asset     Size  Chunks                    Chunk Names
 main.js  5.52 MB       0  [emitted]  [big]  main
    [2] ./src/actions.js 1.9 kB {0} [built]
@@ -571,7 +571,7 @@ main.js  5.52 MB       0  [emitted]  [big]  main
 
 Hash: abbea9f9e868ee715bed
 Version: webpack 3.10.0
-Time: 8745ms
+Time: 8772ms
       Asset     Size  Chunks                    Chunk Names
     main.js   557 kB       0  [emitted]  [big]  main
 main.js.map  3.29 MB       0  [emitted]         main
@@ -592,7 +592,7 @@ main.js.map  3.29 MB       0  [emitted]         main
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-audited 1136 packages in 1.997s
+audited 1136 packages in 1.998s
 found 21 vulnerabilities (6 low, 11 moderate, 4 high)
   run `npm audit fix` to fix them, or `npm audit` for details
 
@@ -609,7 +609,7 @@ found 21 vulnerabilities (6 low, 11 moderate, 4 high)
 
 Hash: 563e9be46d3b52bf9112
 Version: webpack 3.10.0
-Time: 2349ms
+Time: 2411ms
       Asset     Size  Chunks                    Chunk Names
 greeting.js  10.3 kB       0  [emitted]         greeting
     main.js  5.51 MB       1  [emitted]  [big]  main
@@ -626,7 +626,7 @@ greeting.js  10.3 kB       0  [emitted]         greeting
 
 Hash: defe92469225f6d1143c
 Version: webpack 3.10.0
-Time: 8879ms
+Time: 8820ms
           Asset     Size  Chunks                    Chunk Names
     greeting.js  2.32 kB       0  [emitted]         greeting
         main.js   557 kB       1  [emitted]  [big]  main
@@ -650,7 +650,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.489s
+up to date in 0.463s
 found 0 vulnerabilities
 
 
@@ -658,15 +658,15 @@ found 0 vulnerabilities
 > ../../../../node_modules/.bin/webpack
 
 
-[at-loader] Using typescript@3.1.6 from typescript and "tsconfig.json" from /Users/nils/develop/javascript/react-workshop/code/schritte/redux/redux-complete-app-typescript/tsconfig.json.
+[at-loader] Using typescript@3.4.5 from typescript and "tsconfig.json" from /Users/nils/develop/javascript/react-workshop/code/schritte/redux/redux-complete-app-typescript/tsconfig.json.
 
 
 [at-loader] Checking started in a separate process...
 
 [at-loader] Checking finished with 1 errors
-Hash: fd7b50a61556f1b12b03
+Hash: c416ee518ccf8912194f
 Version: webpack 3.10.0
-Time: 7546ms
+Time: 9476ms
   Asset     Size  Chunks                    Chunk Names
 main.js  6.66 MB       0  [emitted]  [big]  main
    [4] ./src/actions.ts 1.96 kB {0} [built]
@@ -691,7 +691,7 @@ npm ERR! This is probably not a problem with npm. There is likely additional log
 npm WARN Local package.json exists, but node_modules missing, did you mean to install?
 
 npm ERR! A complete log of this run can be found in:
-npm ERR!     /Users/nils/.npm/_logs/2019-05-11T16_41_30_445Z-debug.log
+npm ERR!     /Users/nils/.npm/_logs/2019-05-11T16_56_13_694Z-debug.log
 =====================================================================================================
 ========================= BUILDING ./code/schritte/router-v3 ...
 =====================================================================================================
@@ -703,7 +703,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.511s
+up to date in 0.483s
 found 0 vulnerabilities
 
 
@@ -712,7 +712,7 @@ found 0 vulnerabilities
 
 Hash: 0640d4c81cb9e6c9af58
 Version: webpack 3.10.0
-Time: 2349ms
+Time: 2378ms
   Asset     Size  Chunks                    Chunk Names
 main.js  5.55 MB       0  [emitted]  [big]  main
   [16] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -736,7 +736,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.663s
+up to date in 0.497s
 found 0 vulnerabilities
 
 
@@ -745,7 +745,7 @@ found 0 vulnerabilities
 
 Hash: 6be8c9956148f4e1fa09
 Version: webpack 3.10.0
-Time: 3006ms
+Time: 3066ms
   Asset    Size  Chunks                    Chunk Names
 main.js  6.5 MB       0  [emitted]  [big]  main
   [52] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -771,7 +771,7 @@ npm WARN react-workshop@1.0.0 No description
 npm WARN react-workshop@1.0.0 No repository field.
 npm WARN react-workshop@1.0.0 No license field.
 
-up to date in 0.49s
+up to date in 1.006s
 found 0 vulnerabilities
 
 
@@ -779,15 +779,15 @@ found 0 vulnerabilities
 > ../../../node_modules/.bin/webpack
 
 
-[at-loader] Using typescript@3.1.6 from typescript and "tsconfig.json" from /Users/nils/develop/javascript/react-workshop/code/schritte/router-v4-typescript/tsconfig.json.
+[at-loader] Using typescript@3.4.5 from typescript and "tsconfig.json" from /Users/nils/develop/javascript/react-workshop/code/schritte/router-v4-typescript/tsconfig.json.
 
 
 [at-loader] Checking started in a separate process...
 
-[at-loader] Ok, 2.853 sec.
-Hash: 87ca74c0569203474b80
+[at-loader] Ok, 3.795 sec.
+Hash: 7f81182f91c1428e06aa
 Version: webpack 3.10.0
-Time: 6051ms
+Time: 7590ms
   Asset     Size  Chunks                    Chunk Names
 main.js  3.18 MB       0  [emitted]  [big]  main
   [11] (webpack)/buildin/global.js 509 bytes {0} [built]
@@ -795,7 +795,7 @@ main.js  3.18 MB       0  [emitted]  [big]  main
   [40] ./src/Layout.tsx 927 bytes {0} [built]
   [41] ./src/GreetingController.tsx 8.03 kB {0} [built]
   [69] ./src/GreetingMaster.tsx 1.18 kB {0} [built]
-  [70] ./src/GreetingDetail.tsx 2.77 kB {0} [built]
+  [70] ./src/GreetingDetail.tsx 2.78 kB {0} [built]
   [71] ./src/GreetingDisplayController.tsx 5.95 kB {0} [built]
   [72] ./src/LinkButtonBar.tsx 938 bytes {0} [built]
     + 65 hidden modules
