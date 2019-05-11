@@ -8,7 +8,7 @@ interface LinkDescription {
 }
 
 interface LinkButtonBarProps extends RouteComponentProps<void> {
-  links: [LinkDescription];
+  links: LinkDescription[];
 }
 
 // This is a very poor example for withRouter HOC...
