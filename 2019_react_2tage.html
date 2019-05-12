@@ -166,7 +166,7 @@
               <a href="#/t7">Ausblick/Diskussion</a>
               <ul style="font-size: 85%">
                 <li><a href="#/t-redux">Architekturpattern: Flux / Redux</a></li>
-                <li>Context API</li>
+                <li><a href="#/t-context">Context API</a></li>
                 <li><a href="#/t-router">Client-seitiges Routing mit React Router</a></li>
                 <li><a href="#/t-typescript">React Anwendungen mit TypeScript entwickeln</a></li>
                 <li>Einbinden von 3rd-Party-Libs</li>
@@ -1797,8 +1797,12 @@ async function loadData() {
             <li class="fragment">Komponenten müssen im Test gerendert werden können</li>
             <div class="fragment">
             <li>Gerenderte Komponenten/HTML-Elemente müssen gefunden und validiert werden</li>
-            <ul>
-              <li>Beispiel: CSS-Klasse korrekt gesetzt, 'value' korrekt gesetzt</li></ul></li>
+            <li>
+              <ul>
+                <li>Beispiel: CSS-Klasse korrekt gesetzt, 'value' korrekt gesetzt</li>
+              </ul>
+            </li>
+              
           </div>
             <div class="fragment">
             <li>Interaktion mit DOM muss möglich sein
@@ -1814,14 +1818,13 @@ async function loadData() {
             <em>"Delightful JavaScript Testing" (
               <a href="http://facebook.github.io/jest/" target="_blank">http://facebook.github.io/jest/</a>)</em>
           </p>
-          <p class="fragment">Vollständige Test-Lösung, wird von Facebook für Testen von React verwendet:
+          <p class="fragment">Vollständige Test-Lösung, wird von Facebook für Testen von React verwendet:</p>
           <ul class="fragment">
             <li>Test Runner</li>
             <li>Specs, Assertions, Mocks</li>
             <li>Code Coverage</li>
             <li>"Snapshot testing"</li>
           </ul>
-        </p>
         </section>
         <section>
           <h3>Beispiel: Ein einfacher Test</h3>
@@ -2393,6 +2396,134 @@ render() {
         
       </section>
 
+      <section id="t-context">
+          <h2>Context API</h2>
+          <a href="code/schritte/context/public/index.html" target="_blank">Ziel-Anwendung</a>
+        </section>
+
+        <section>
+            <h2>Problem</h2>
+            <h3>Zentrale Daten, die an vielen Stellen benötigt werden</h3>
+            <img src="images/context-screenshot.png" style="max-height:650px" /> 
+          </section>
+          <section>
+              <h2>Ansatz 1: Properties durchreichen</h2>
+              <img src="images/context-props.png" style="max-height:650px" /> 
+            </section>
+            <section>
+                <h2>Ansatz 2: React Context</h2>
+                <img src="images/context-context.png" style="max-height:650px" /> 
+            </section>
+
+            <section>
+              <h2>Context...</h2> 
+              <p><em>erlaubt das Durchreichen von Informationen ohne explizites
+                  angeben als Properties</em>               
+              <ul>
+                <li class="fragment">funktioniert nur innerhalb einer Hierarchie-Ebene</li>
+                <li class="fragment">es können beliebg viele (fachliche) Context definiert werden</li>
+                <li class="fragment">besteht aus <code>Provider</code> und <code>Consumer</code></li>
+                <li class="fragment"><a href="https://reactjs.org/docs/context.html" target="_blank">Doku</a></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Context Factory</h2>    
+                <p><em>erzeugt ein Objekt, mit <b>zwei Komponenten</b></em></p>            
+                <ul>
+                  <li class="fragment"><code>Provider</code>, stellt Objekt mit Key-Value-Paaren zur Verfügung (der Context-"Value")
+                  </li>
+                  <li class="fragment"><code>Consumer</code> wird in eigener Komponente verwendet, um auf einen Context zuzugreifen</li>
+                  </ul>
+                  <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                      import react from "React" from "react-router-dom";
+
+                      const ThemeContext = React.createContext();
+
+                      // erzeugt:
+                      // ThemeContext.Provider 
+                      // ThemeContext.Consumer
+                              </code></pre>
+                                        
+
+              </section>
+
+              <section>
+                <h2>Context Provider</h2>
+                <p><em>Eine React-Komponente, die einen Context zur Verfüng stellt</em></p>
+                <ul>
+                  <li class="fragment">wird innerhalb einer eigenen Komponente in <code>render</code> eingebunden</li>
+                  <li class="fragment">Nimmt ein Objekt ("Context") mit beliebigen Werten entgegen</li>
+                  </ul>
+                  <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                      const ThemeContext = React.createContext();
+
+                      class ThemeProvider extends React.Component {
+                        render() {
+                          const contextValue = {
+                            // the current theme
+                            theme: this.state.theme,
+                      
+                            // function to set new theme
+                            setTheme: name => this.setState({theme: name})
+                          };
+                      
+                          return &lt;ThemeContext.Provider value={contextValue}>
+                            {this.props.children}
+                          &lt;/ThemeContext.Provider>;
+                        }
+                      }                    
+</code></pre>
+                  </section>
+
+                  <section>
+                    <h2>Context Consumer</h2>
+                    <p><em>Eine React-Componente, die einen bestimmt Context konsumiert</em></p>
+
+                    <ul>
+                    <li class="fragment">Mit "<code>static contextType = ...</code>"" kann ein bestimmter Context referenziert werden</li>
+                    <li class="fragment">Context-Objekt steht dann über <code>this.context</code> zur Verfügung</li>
+                    <li class="fragment">Komponente wird neu gerendert, wenn Context sich ändert</li>
+                    </ul>
+                    <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                    import ThemeContext from "...";
+
+                    class GreetingDetail extends React.Component {
+                      static contextType = ThemeContext;
+
+                      render() {
+                        // this.context ist Objekt aus dem ThemeContext.Provider
+                        // z.B.:
+                        return &lt;div className={this.context.theme}>...&lt;/div>
+                      }
+                    }
+                      </code></pre>
+                  </section>
+
+                  <section>
+                    <h2>Mehrere Context Consumer</h2>
+                    <p>Als Render-Property</p>
+                    <ul>
+                      <li class="fragment">Die <code>MyContext.Consumer</code>-Komponente kann direkt verwendet werden</li> 
+                      <li class="fragment">Als Children wird dort JSX-Element, sondern eine <b>Callback-Funktion</b> übergeben</li>
+                      <li class="fragment">Die Funktion erthält als Parameter das Context Objekt</li>
+                        <li class="fragment">Die Funktion verwendet den Context und liefert JSX zurück</li>
+                        <li class="fragment">Mehrere Consumer können verschachtelt werden</li>
+                    </ul>
+                    <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                        import ThemeContext from "...";
+    
+                        function GreetingMaster(props) {
+                          return &lt;ThemeContext.Consumer>
+                            { themeContext => {
+                              return &lt;div className={themeContext.theme}>...&lt;/div>
+                            }}
+                            &lt;/ThemeContext.Consumer>;
+                        }
+                          </code></pre>
+                      </section>
+          
+
       <section id="t-router">
           <h2>Client-seitiges Routing (Überblick)</h2>
           <a href="code/schritte/router-v4-typescript/public/index.html" target="_blank">Ziel-Anwendung</a>
@@ -2440,14 +2571,13 @@ render() {
         <section>
           <h3>Das Router-Objekt</h3>
           <p class="fragment">Top-Level-Objekt, das einmalig (oben) in der Komponenten Hierarchie eingebunden werden muss</p>
-          <p class="fragment">Mehrere Ausprägungen zum Arbeiten mit den URL und der Browser History:
+          <p class="fragment">Mehrere Ausprägungen zum Arbeiten mit den URL und der Browser History:</p>
             <ul>
               <li class="fragment">
                 <b>HashRouter</b>: codiert Pfad in angehängten Hash (#/greetings)</li>
               <li class="fragment">
                 <b>BrowserRouter</b>: codiert Pfad direkt in URL (/greetings)</li>
             </ul>
-          </p>
           <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
   import {HashRouter as Router} from "react-router-dom";
   
