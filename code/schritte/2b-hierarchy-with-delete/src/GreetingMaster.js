@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class GreetingMaster extends React.Component {
   constructor(props) {
@@ -55,5 +56,11 @@ class GreetingMaster extends React.Component {
     );
   }
 }
+
+GreetingMaster.propTypes = {
+  greetings: PropTypes.array.isRequired,
+  onAdd: PropTypes.func,
+  onDelete: PropTypes.func
+};
 
 export default GreetingMaster;
