@@ -7,12 +7,11 @@ export default class Status extends React.Component {
     console.log("Status - constructor");
   }
 
-  componentWillReceiveProps(newProps) {
-    console.log("Status - componentWillReceiveProps", newProps);
+  componentDidUpdate(prevProps) {
+    console.log("Status - componentDidUpdate", prevProps, this.props);
   }
 
   render() {
-    return <div>Anzahl Grüße: {this.props.greetings.length}</div>
+    return <div>Anzahl Grüße: {this.props.greetings.length}</div>;
   }
-
 }
