@@ -491,11 +491,11 @@ const time = `The time is: ${new Date()}`); // The time is: ...
         <ol>
           <li>Im
             <b>Root-Verzeichnis (falls noch nicht geschehen)</b>:
-            <code>npm run start-backend</code>, um den REST-Server zustarten (einmal starten, dann einfach durchlaufen
+            <code>npm start</code>, um den REST-Server zustarten (einmal starten, dann einfach durchlaufen
             lassen)</li>
           <li>In
             <b>code/workspace</b>:
-            <code>npm start</code>, um Webpack DevServer zu starten. Kann durchlaufen, falls Reload nicht klappt, neu
+            <code>npm start</code>, um Webpack DevServer zu starten. Kann durchlaufen, aber falls Reloading nicht klappt, neu
             starten</li>
         </ol>
       </section>
@@ -556,6 +556,15 @@ const time = `The time is: ${new Date()}`); // The time is: ...
           <li>Properties und Zustand
           <li>Referenzen auf DOM-Elemente (Refs)
         </ul>
+      </section>
+
+      <section>
+        <h3>React: Rendering</h3>
+        <em>Eigene Komponenten müssen mit einem Großbuchstaben anfangen!</em>
+        <ul>
+          <li>Komponentenname entspricht dem Klassennamen</li>
+          <li>native Komponenten (button, div, input, ...) beginnen mit Kleinbuchstaben</li>
+          </ul>
       </section>
 
       <section>
@@ -2144,6 +2153,11 @@ console.log(component.toJSON());
           </section>
 
           <!-- =========================================== AUSBLICK ===================== -->
+
+          <section>
+            <h1>Aus- und Überblick</h1>
+            <h3>Weiterführende Themen</h3>
+        </section>
         
       <section id="t-redux">
         <h1>Zustands-Management mit Redux</h1>
