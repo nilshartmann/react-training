@@ -42,6 +42,7 @@ class GreetingMaster extends React.Component {
         <table>
           <thead>
             <tr>
+              <th />
               <th>Name</th>
               <th>Greeting</th>
             </tr>
