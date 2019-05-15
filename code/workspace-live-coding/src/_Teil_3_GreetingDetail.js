@@ -3,7 +3,7 @@ import React from "react";
 import { sampleGreetings } from "./_sample-greetings";
 
 // ---------------------------------------------------------------------------------------------------
-export default class GreetingDetail extends React.Component {
+export class GreetingDetail extends React.Component {
   render() {
     const { name = "", greeting } = this.state;
 
@@ -45,7 +45,7 @@ export default class GreetingDetail extends React.Component {
 }
 
 // ---------------------------------------------------------------------------------------------------
-function GreetingMaster(props) {
+export function GreetingMaster(props) {
   const body = props.greetings.map(greeting => (
     <tr key={greeting.id}>
       <td>{greeting.name}</td>

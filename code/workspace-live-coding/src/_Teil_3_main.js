@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import GreetingDetail from "./GreetingDetail";
+import { GreetingDetail, GreetingMaster } from "./GreetingDetail";
 
 import { sampleGreetings } from "./_sample-greetings";
 
@@ -9,4 +9,4 @@ import { sampleGreetings } from "./_sample-greetings";
 ReactDOM.render(<GreetingDetail />, document.getElementById("mount"));
 
 // Beispiel: MASTER
-// ReactDOM.render(<GreetingDetail greetings={sampleGreetings} />, document.getElementById("mount"));
+// ReactDOM.render(<GreetingMaster greetings={sampleGreetings} />, document.getElementById("mount"));
