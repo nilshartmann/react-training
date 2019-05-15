@@ -466,7 +466,19 @@ const time = `The time is: ${new Date()}`); // The time is: ...
             </ul>
         </ul>
       </section>
-     
+      <section>
+          <h2>React Devtools</h2>
+          <em>React Developer Tools für Chrome und Firefox</em>
+          <p>Untersuchen der React Anwendung zur Laufzeit</p>
+
+          <ul>
+            <li><a href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en" target="_blank">Chrome</a></li>
+              <li><a href="https://addons.mozilla.org/en-US/firefox/addon/react-devtools/" target="_blank">Firefox</a></li>
+            </ul>
+
+            <p><img src="images/screenshot-react-dev-tools.png" /></p>
+
+      </section>  
       <section>
         <h3>Das Beispiel-Projekt</h3>
         <p>Workspace</p>
@@ -1335,7 +1347,11 @@ class GreetingMaster extends React.Component {
             </ul>
           <li>im deinem
             <code>GreetingDetail</code> brauchst du einen neuen Knopf, der mit dem neuen Gruß den Callback aufruft
-            <br>
+          </li>
+          <li  style="font-size:75%">
+            <b>Optional:</b> Füge dem GreetingDetail einen <b>neuen</b> Knopf "Abbrechen" hinzu,
+            mit dem nur der Master wieder angezeigt wird (der eingegebene Gruße wird nicht gespeichert)  
+            </li>
            
         </ol>
       </section>
