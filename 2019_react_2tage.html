@@ -971,18 +971,17 @@ class HelloMessage extends React.Component {
       <section>
         <h3>Schritte</h3>
         <h4>Erweitere deine erste React-Komponente im workspace-Ordner</h4>
-        <ul>
-          <li>benenne deine Komponente in
+        <ol>
+          <li>benenne deine HelloMessage-Komponente (und das HelloMessage-Modul) in
             <code>GreetingDetail</code> um
           <li>du brauchst zwei Eingabefelder, die
             <code>name</code> und
             <code>greeting</code> im Zustand der Komponente setzen
           <li>Erweitere deine Komponente so, dass man von außen Properties übergeben kann, die den Zustand
-            initialisieren
-          <li>Optionaler Schritt: Kannst du die Komponente so bauen, dass du mit einer einzigen update-Methode beide
-            Felder
-            im Zustand updaten kannst?
-        </ul>
+            initialisieren</li>
+          <li>Füge einen "Clear"-Button hinzu, der den Inhalt beider Eingabefelder löscht. Das entsprechende
+            Event auf dem Button heißt <code>onClick</code></li>
+        </ol>
         <img src="images/screenshot-name-greeting.png" />
       </section>
 
