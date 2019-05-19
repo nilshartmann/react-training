@@ -12,7 +12,9 @@ export default function GreetingDetail(props) {
     setName("");
     setGreeting("");
 
-    input.current.focus();
+    if (input.current) {
+      input.current.focus();
+    }
   }
 
   function save() {
@@ -28,11 +30,13 @@ export default function GreetingDetail(props) {
         ref={input}
         onChange={event => setName(event.target.value)}
         value={name}
+        name="name"
         placeholder="Name"
       />
       <input
         onChange={event => setGreeting(event.target.value)}
         value={greeting}
+        name="greeting"
         placeholder="Greeting"
       />
 
