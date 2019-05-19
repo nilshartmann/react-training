@@ -16,4 +16,4 @@ Mehr Informationen dazu findest Du [hier](https://nilshartmann.net/react-worksho
 
 # Beispiel Anwendung
 
-![Greeting App](greeting-app.png)
+![Greeting App](images/screenshot-greeting-app.png)

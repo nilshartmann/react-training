@@ -7,10 +7,10 @@
 	"scripts": {
 		"start": "npm run server",
 		"start-backend": "npm run server",
-		"setup": "node setup.js",
+		"setup": "node .bin/setup.js",
 		"server": "nodemon --watch ./code/server ./code/server/src/server.js",
 		"postinstall": "npm run setup",
-		"prettier": "prettier --print-width 130 --write \"code/**/*.{js,jsx,ts,tsx}\""
+		"prettier": "prettier --write \"code/**/*.{js,jsx,ts,tsx,css}\""
 	},
 	"devDependencies": {
 		"@types/enzyme": "2.8.0",
