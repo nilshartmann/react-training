@@ -1,11 +1,10 @@
 {
-	"name": "react-workshop",
+	"name": "react-training",
 	"version": "1.0.0",
 	"description": "",
 	"license": "ISC",
-	"repository": "https://github.com/DJCordhose/react-workshop",
+	"repository": "https://github.com/nilshartmann/react-training",
 	"scripts": {
-		"start": "npm run server",
 		"start-backend": "npm run server",
 		"setup": "node .bin/setup.js",
 		"server": "nodemon --watch ./code/server ./code/server/src/server.js",
