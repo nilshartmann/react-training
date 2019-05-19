@@ -49,11 +49,15 @@ test("it should render fine", () => {
 test("onSave should be called with values from form", () => {
   const { onSaveMock, elements } = setup();
 
-  elements.nameInput().simulate("change", { currentTarget: { name: "name", value: aGreeting.name } });
+  elements
+    .nameInput()
+    .simulate("change", { currentTarget: { name: "name", value: aGreeting.name } });
   // checking the state here might be too much in real live,
   // here just to demonstrate the Enzyme API
 
-  elements.greetingInput().simulate("change", { currentTarget: { name: "greeting", value: aGreeting.greeting } });
+  elements
+    .greetingInput()
+    .simulate("change", { currentTarget: { name: "greeting", value: aGreeting.greeting } });
 
   elements.addButton().simulate("click");
   expect(onSaveMock.mock.calls).toHaveLength(1);
@@ -67,17 +71,23 @@ test("onSave should be disabled and enabled", () => {
   expect(elements.addButton().prop("disabled")).toBe(true);
 
   // should be disabled if only name is entered
-  elements.nameInput().simulate("change", { currentTarget: { name: "name", value: aGreeting.name } });
+  elements
+    .nameInput()
+    .simulate("change", { currentTarget: { name: "name", value: aGreeting.name } });
   expect(elements.addButton().prop("disabled")).toBe(true);
 
   // should be disabled if only greeting is enabled
   elements.nameInput().simulate("change", { currentTarget: { name: "name", value: null } });
-  elements.greetingInput().simulate("change", { currentTarget: { name: "greeting", value: aGreeting.greeting } });
+  elements
+    .greetingInput()
+    .simulate("change", { currentTarget: { name: "greeting", value: aGreeting.greeting } });
   expect(elements.addButton().prop("disabled")).toBe(true);
 
   // should be enabled if name and greeting is set
   // (btw note the imperative test code style vs the declarative react code style)
-  elements.nameInput().simulate("change", { currentTarget: { name: "name", value: aGreeting.name } });
+  elements
+    .nameInput()
+    .simulate("change", { currentTarget: { name: "name", value: aGreeting.name } });
   expect(elements.addButton().prop("disabled")).toBe(false);
 });
 
@@ -85,8 +95,12 @@ test("clear should clear the form", () => {
   const { component, elements } = setup();
 
   // enter
-  elements.nameInput().simulate("change", { currentTarget: { name: "name", value: aGreeting.name } });
-  elements.greetingInput().simulate("change", { currentTarget: { name: "greeting", value: aGreeting.greeting } });
+  elements
+    .nameInput()
+    .simulate("change", { currentTarget: { name: "name", value: aGreeting.name } });
+  elements
+    .greetingInput()
+    .simulate("change", { currentTarget: { name: "greeting", value: aGreeting.greeting } });
 
   // just to make sure, state has a value before resetting
   expect(component.state("name")).toBe(aGreeting.name);

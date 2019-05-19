@@ -4,11 +4,16 @@ import * as renderer from "react-test-renderer";
 
 import { shallow } from "enzyme";
 
-const someGreetings = [{ id: 1, name: "Klaus", greeting: "Moin moin" }, { id: 2, name: "Susi", greeting: "Hello!" }];
+const someGreetings = [
+  { id: 1, name: "Klaus", greeting: "Moin moin" },
+  { id: 2, name: "Susi", greeting: "Hello!" }
+];
 
 test("it should render table with all greetings", () => {
   const onAddMock = jest.fn();
-  const tree = renderer.create(<GreetingMaster greetings={someGreetings} onAdd={onAddMock} />).toJSON();
+  const tree = renderer
+    .create(<GreetingMaster greetings={someGreetings} onAdd={onAddMock} />)
+    .toJSON();
   expect(tree).toMatchSnapshot();
 });
 

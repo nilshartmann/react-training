@@ -15,13 +15,19 @@ type GreetingControllerState = {
   greetings: Greeting[];
 };
 
-export default class GreetingController extends React.Component<GreetingControllerProps, GreetingControllerState> {
+export default class GreetingController extends React.Component<
+  GreetingControllerProps,
+  GreetingControllerState
+> {
   render() {
     const { mode, greetings } = this.state;
     return (
       <div>
         {mode === MODE_MASTER ? (
-          <GreetingMaster greetings={greetings} onAdd={() => this.setState({ mode: MODE_DETAIL })} />
+          <GreetingMaster
+            greetings={greetings}
+            onAdd={() => this.setState({ mode: MODE_DETAIL })}
+          />
         ) : (
           <GreetingDetail onSave={greeting => this.saveGreeting(greeting)} />
         )}

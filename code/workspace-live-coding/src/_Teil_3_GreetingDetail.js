@@ -16,7 +16,12 @@ export class GreetingDetail extends React.Component {
           value={name}
           placeholder="Name"
         />
-        <input onChange={event => this.updateModel(event)} value={greeting} name="greeting" placeholder="Greeting" />
+        <input
+          onChange={event => this.updateModel(event)}
+          value={greeting}
+          name="greeting"
+          placeholder="Greeting"
+        />
 
         <button onClick={this.reset}>Clear</button>
       </div>

@@ -14,8 +14,18 @@ export default function GreetingDetail(props) {
 
   return (
     <div>
-      <input ref={inputRef} onChange={event => setName(event.target.value)} value={name} placeholder="Name" />
-      <input onChange={event => setGreeting(event.target.value)} value={greeting} name="greeting" placeholder="Greeting" />
+      <input
+        ref={inputRef}
+        onChange={event => setName(event.target.value)}
+        value={name}
+        placeholder="Name"
+      />
+      <input
+        onChange={event => setGreeting(event.target.value)}
+        value={greeting}
+        name="greeting"
+        placeholder="Greeting"
+      />
 
       <button onClick={reset}>Clear</button>
     </div>

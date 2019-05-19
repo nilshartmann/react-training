@@ -6,7 +6,10 @@ import { mount } from "enzyme";
 import { Promise } from "es6-promise";
 
 // Test data
-const someGreetings = [{ id: 1, name: "Klaus", greeting: "Moin moin" }, { id: 2, name: "Susi", greeting: "Hello!" }];
+const someGreetings = [
+  { id: 1, name: "Klaus", greeting: "Moin moin" },
+  { id: 2, name: "Susi", greeting: "Hello!" }
+];
 
 // https://github.com/facebook/jest/issues/2157#issuecomment-279171856
 function flushPromises() {
