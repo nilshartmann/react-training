@@ -1,4 +1,0 @@
-{
-  "presets": [["es2015", { "modules": false }], "es2016", "es2017", "react"],
-  "plugins": ["syntax-dynamic-import", "transform-decorators-legacy", "transform-class-properties", "transform-object-rest-spread"]
-}

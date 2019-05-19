@@ -1,21 +1,18 @@
-# React Workshop
+# React Training Nils Hartmann
 
-Dieses Repository enthält Materialen zu React Workshops von [Nils Hartmann](http://nilshartmann.net) und [Oliver Zeigermann](http://zeigermann.eu/).
+Dieses Repository enthält Materialen zu meinen React Trainings.
 
-In dem Workshop zeigen wir dir, wie Du mit React Anwendungen entwickeln kannst. Dabei fangen wir ganz von vorne an, es sind keine React Vorkenntnisse erforderlich. Bei Bedarf zeigen wir dir auch die entsprechenden JavaScript Grundlagen.
+# Interessiert an React Trainings?
 
-Neben den Grundlagen von React zeigen wir dir bei Bedarf z.B. den React Router, wie Du deine React Anwendungen testen kannst oder wie sich React Anwendungen mit TypeScript entwickeln lassen. Sprich uns einfach an!
+Ich biete sowohl öffentliche als auch individuelle In-House-Trainings für React an.
+Mehr Informationen dazu findest Du [hier](https://nilshartmann.net/react-workshops)
 
-# Nächste Termine
+# Kontakt
 
-Zurzeit sind keine öffentlichen Workshops geplant. Wenn Du interesse an einem Workshop (auch In-House) hast, [melde dich gerne bei uns](mailto:autoren@reactbuch.de). Weitere Informationen zu unserem Workshop- und Beratungsangebot findest Du auch unter https://react-workshop.de.
+- [Nils Hartmann](https://nilshartmann.net)
+- [Twitter](https://twitter.com/nilshartmann)
+- [Xing](https://www.xing.com/profile/Nils_Hartmann2)
 
-# Vergangene Workshops:
-
-* [EnterJS](http://dpunkt.de/react) in Darmstadt am 14. Juni 2016 (ausverkauft). Folien [hier](http://djcordhose.github.io/react-workshop/2016_enterjs.html#/).
-* [12. Mai 2017:](https://jax.de/session/freitag-12-05-2017-webanwendungen-mit-react-entwickeln-eine-praktische-einfuehrung/) Powerworkshop auf der JAX in Mainz (1 Tag)
-* [1./2. Juni 2017:](http://dpunkt.de/react)Einführung in die Philosophie von React und Redux (Heidelberg, 2 Tage)
-* [10. November 2017:](https://jax.de/web-development-javascript/react-und-typescript-workshop-moderne-webanwendungen-entwickeln/)Moderne Web-Anwedungen mit React und TypeScript (W-JAX, München)
 
 # Beispiel Anwendung
 
