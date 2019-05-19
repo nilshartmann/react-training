@@ -12,24 +12,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
-  <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">
 
 
   <!-- Code syntax highlighting -->
   <!-- <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css"> -->
   <link rel="stylesheet" href="reveal.js/lib/css/github.css">
+  <link rel="stylesheet" href="reveal.js/lib/font/google-fonts.css" >
   <style>
-    /*pre code {*/
 
-    /*display: block;*/
+  .reveal {
+    font-family: 'PT Sans', sans-serif;
+  }
 
-    /*padding: 0.5em;*/
+    .reveal h1 {
+      font-family: "Lora", serif;
+    }
 
-    /*background: #FFFFFF !important;*/
+    .reveal h2,
+    .reveal h3,
+    .reveal h4 {
+      font-family: "PT Sans", sans-serif;
+      font-weight: bold;
+      color: rgb(127, 94, 56);
+      text-transform: none !important;
+    }
 
-    /*color: #000000 !important;*/
-
-    /*}*/
+    .reveal em {
+      font-family: "Lora", serif;
+    }
 
     .right-img {
       margin-left: 10px !important;
@@ -519,7 +530,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
       </section>
       <section>
         <h2>Übung 1: React Hello-World</h2>
-        <h3>Mach dich mit den Werkzeugen vertraut und schreib deine erste React-Komponente</h3>
+        <h3><em>Mach dich mit den Werkzeugen vertraut und schreib deine erste React-Komponente</em></h3>
       </section>
       <section>
         <h3>Schritt #1: Tool-Chain starten (falls noch nicht gemacht)</h3>
@@ -3538,7 +3549,7 @@ const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props =>
 
   <script src="reveal.js/lib/js/head.min.js"></script>
   <script src="reveal.js/js/reveal.js"></script>
-  <script src="lib/jquery-2.2.4.js"></script>
+  <script src="reveal.js/lib/jquery-2.2.4.js"></script>
 
   <script>
     Reveal.addEventListener('ready', function (event) {
@@ -3557,7 +3568,6 @@ const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props =>
 
 
   <script>
-
     // Full list of configuration options available at:
     // https://github.com/hakimel/reveal.js#configuration
     Reveal.initialize({
@@ -3597,7 +3607,7 @@ const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props =>
         },
         { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
         { src: 'reveal.js/plugin/notes/notes.js', async: true },
-        { src: 'lib/js/line-numbers.js' }
+        { src: 'reveal.js/lib/js/line-numbers.js' }
       ]
     });
 

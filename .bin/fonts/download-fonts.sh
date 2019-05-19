@@ -1,5 +1,7 @@
 #! /bin/bash
 
+FONTS_DIR=../../reveal.js/lib/font/
+
 for i in `cat fonts.css | grep url | cut -d "(" -f 4 | cut -d ")" -f 1`; do
 
     echo Font: $i
@@ -19,6 +21,4 @@ for i in `cat fonts.css | grep url | cut -d "(" -f 4 | cut -d ")" -f 1`; do
   curl $i -o $TARGET_FILE
 done
 
-sed 's/https:\/\/fonts.gstatic.com/\/fonts/' fonts.css >./google-fonts.css
-
-
+sed 's/https:\/\/fonts.gstatic.com/\/fonts/' fonts.css >$FONTS_DIR/google-fonts.css
