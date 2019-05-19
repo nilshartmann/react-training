@@ -6,9 +6,11 @@ Auf den Teilnehmer Laptops/PCs sollte installiert sein:
 
 - git (zum installieren des Workspaces)
 - nodejs (mind. v8.12.0) und npm 6.4
-- Browser (am besten Chrome)
-- Eine IDE oder ein Texteditor (Empfehlung: [Webstorm](https://www.jetbrains.com/webstorm/download/) (Evaluationsversion reicht) und/oder [Visual Studio Code](https://code.visualstudio.com/))
-- Die Laptops sollten Internet-Zugang haben
+- Browser (am besten Chrome oder Firefox)
+- Eine IDE oder ein Texteditor, zum Beispiel:
+  - [Webstorm](https://www.jetbrains.com/webstorm/download/) (Evaluationsversion reicht)
+  - [Visual Studio Code](https://code.visualstudio.com/)
+- Die Laptops sollten _auch während des Trainings_ Internet-Zugang haben (s.u.)
 
 ## Schritt 1: Repository klonen und Pakete installieren
 
@@ -24,9 +26,9 @@ git clone https://github.com/nilshartmann/react-training
 npm install
 ```
 
-## Schritt 2: Testen, ob's funktioniert
+## Schritt 2: Testen, ob Backend funktioniert
 
-1. Im Root-Verzeichnis des Repositories das Backend starten:
+1. Im **Root-Verzeichnis** des Repositories das Backend starten:
 
 ```
 npm run start-backend
@@ -36,10 +38,12 @@ Achtung! Das Backend läuft auf **Port 7000**, dh dieser Port muss verfügbar se
 
 2. Backend testen
 
-- Im Browser (oder per curl, wget oder httpie) aufrufen: `http://localhost:7000/greetings`
+- Im Browser (oder per curl, wget oder httpie) aufrufen: http://localhost:7000/greetings
 - Dort sollte JSON Code zurückkommen
 
-3. Frontend (Beispiel-Anwendung) starten
+## Schritt 3: Testen, on Frontend/Entwicklungsumgebung funktioniert
+
+1. Frontend (Beispiel-Anwendung) starten
 
 Dazu in das Verzeichnis `code/workspace` wechseln und `npm start` ausführen:
 
@@ -53,6 +57,14 @@ Achtung! Das Frontend läuft auf **Port 8080**, dh dieser Port muss verfügbar s
 
 ![Starten des Frontends](./images/install_start_frontend.png)
 
-4. Wenn das Frontend gestartet ist, zum testen einmal die Anwendung im Browser aufrufen: [http://localhost:8080](http://localhost:8080). Dort sollte "Hello, World" erscheinen, dann ist der Workspace einsatzbereit.
+2. Wenn das Frontend gestartet ist, zum testen einmal die Anwendung im Browser aufrufen: [http://localhost:8080](http://localhost:8080). Dort sollte "Hello, World" erscheinen, dann ist der Workspace einsatzbereit.
 
 ![Funktionierendes Frontends](./images/install_frontend.png)
+
+## Internet-Zugang
+
+Da wir vor und während des Trainings ggf. noch Aktualisierungen installieren müssen, bitte sicherstellen, dass auch während des Trainings **auf den Computern der Teilnehmer der Internet-Zugang (insb git und npm) besteht und funktioniert!**
+
+Informationen zum Einrichten eines Proxies für npm könnt ihr u.a. [hier finden](http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/).
+
+Bei Fragen oder Problemen meldet Euch bitte bei mir.
