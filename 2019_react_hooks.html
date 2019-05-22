@@ -116,7 +116,7 @@
             <p><b>STARTEN</b></p>
             <ol style="font-size: 85%">
           <li>Server 1: Im geklonten Root-Verzeichnis:
-            <code>npm start</code>
+            <code>npm run start-backend</code>
           </li>
           <li>Server 2: in neuem Terminal: <code>code/workspace</code>:
                 <code>npm start</code>
@@ -577,6 +577,9 @@ const time = `The time is: ${new Date()}`); // The time is: ...
         </p>
       </section>
 
+     
+  
+
 
       <section>
         <h3>Themen</h3>
@@ -586,7 +589,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
           <li>Referenzen auf DOM-Elemente (Refs)
         </ul>
       </section>
-
+  
       <section>
         <h3>React: Rendering</h3>
         <em>Eigene Komponenten müssen mit einem Großbuchstaben anfangen!</em>
@@ -856,9 +859,16 @@ someFunction(person);
       </section>
 
       <section>
+          <h3 class="todo">useState Gotchas</h3>
+          <ul>
+            <li>Asynchroner Zugriff</li>
+            <li>Updater Funktion</li>
+        </section>
+
+      <section>
         <h3>Beispiel: Zustand einer Komponente</h3>
         <pre><code class="javascript" contenteditable data-trim>
-class GreetingDetail extends React.Component {
+function GreetingDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = { name: 'Klaus' };
