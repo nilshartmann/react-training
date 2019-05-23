@@ -1,0 +1,16 @@
+{
+  "name": "react-training-slides",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "r": "./node_modules/.bin/reveal-md ./2019_react_hooks.md -w --scripts ./src/jquery-2.2.4.js,./src/react-training.js --css ./src/fonts/google-fonts.css,./src/react-training.css",
+    "static": "rm -rf ../slides/ && ./node_modules/.bin/reveal-md ./ --static ../slides --scripts ./src/jquery-2.2.4.js,./src/react-training.js --css ./src/react-training.css --static-dirs=./src/fonts"
+
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "reveal-md": "^3.0.4"
+  }
+}
