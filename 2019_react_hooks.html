@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>React Workshop</title>
+  <title>React Training</title>
 
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -46,6 +46,9 @@
       margin-left: 10px !important;
       float: right;
       height: 500px;
+
+      border:0;
+      box-shadow:0 0 0 0;
     }
 
     .todo:before {
@@ -76,7 +79,7 @@
     /*rgb(196, 215, 240)*/
 
     html.exkurs body {
-      background: rgb(252, 220, 185) url("ai/es6-icon.png") no-repeat right bottom;
+      background: rgb(252, 220, 185) url("images/es6-icon.png") no-repeat right bottom;
     }
   </style>
 
@@ -104,7 +107,7 @@
         <p><b>INSTALLATION</b></p>
         <ol style="font-size: 85%">
           <li>
-                <code>git clone https://github.com/reactbuch/react-workshop.git</code>
+                <code>git clone https://github.com/nilshartmann/react-training.git</code>
               oder
                 <code>git pull</code>
           </li>
@@ -127,9 +130,9 @@
           <li>Wenn dort ein Hello-World-Text erscheint ist alles gut
         </ol>
         <p>Folien: Im geklonten Verzeichnis
-          <code>2019_react_2tage.html</code>
+          <code>2019_react_hooks.html</code>
 
-          <br>oder: <a href="https://reactbuch.github.io/react-workshop/2019_react_2tage.html#/">https://reactbuch.github.io/react-workshop/2019_react_2tage.html</a>
+          <br>oder: <a href="https://nilshartmann.github.io/react-training/2019_react_hooks.html#/">https://nilshartmann.github.io/react-training/2019_react_hooks.html</a>
         </p>
       </section>
 
@@ -150,7 +153,7 @@
         <h2>Inhalt</h2>
         <ul>
           <li>
-            <a href="#/t0">Teil 0: React Überblick und Build-Prozess</a>
+            <a href="#/t0">Teil 0: React Überblick, Tooling und Build-Prozess</a>
           </li>
           <li>
             <a href="#/t1">Teil I: React-Komponenten (Grundlagen)</a>
@@ -186,7 +189,7 @@
       <section id="example-app">
         <h2>Beispiel-Anwendung</h2>
         <a target="_blank" href="code/schritte/5-third-party/public/index.html">
-          <img src="images/greeting-master-and-detail.png" style="border:0;box-shadow:0 0 0 0;height:650px" />
+          <img src="images/greeting-master-and-detail.png" style="height:650px" />
         </a>
       </section>
 
@@ -228,13 +231,13 @@
 
       <section>
         <h3>Komponenten in React</h3>
-        <img src="ai/soc.png">
+        <img src="images/soc.png">
       </section>
 
       <section>
         <h3>Komponenten in React</h3>
         <p style="font-size:smaller">Unser Beispiel in Komponenten</p>
-        <img src="ai/greeting-example-component-hierarchy.png" style="height: 650px">
+        <img src="images/greeting-example-component-hierarchy.png" style="height: 650px">
       </section>
 
 
@@ -256,10 +259,12 @@
 
       <section>
         <h3>React Komponenten</h3>
-        <ul class="fragment">
-          <li>Werden als ES6 Klasse (oder Funktion) implementiert
-          <li>Keine Templatesprache (stattdessen JavaScript)
-          <li>Templates können HTML-artige Syntax enthalten (JSX)
+        <ul>
+          <li class="fragment">Werden als <b>Funktion mit Hooks</b> oder <b>ES6 Klasse</b> implementiert
+            <ul><li>Hooks erst ab React 16.8 (Februar 2019)</li>
+              <li>Klassen (noch?) Mainstream</li></ul>
+          <li class="fragment">Keine Templatesprache (stattdessen JavaScript)
+            <ul><li>Templates können HTML-artige Syntax enthalten (JSX)</ul>
         </ul>
       </section>
 
@@ -277,29 +282,19 @@
         <pre><code data-trim contenteditable>
 import React from "react";
 
-export default class HelloMessage extends React.Component {
+export default function HelloMessage(props) {
+  const [name, setName] = React.useState(props.initialGreeting || "");
 
-  constructor(props) {
-    super(props);
+  return (
+    &lt;div>
+    &lt;input ref={input} onChange={event => setName(event.target.value)} value={name} />
 
-    this.state = {greeting: props.initialGreeting};
-  }
-
-  render() {
-    return (
-      &lt;div>
-        &lt;input 
-              value={this.state.greeting} 
-              onChange=
-                {event => this.setState({greeting: event.target.value})}
-        />
-
-        &lt;p>{this.state.greeting}, World&lt;/p>
-
-      &lt;/div>
-    );
-  }
-}</code></pre>
+    &lt;p>{name}, World&lt;/p>
+    &lt;button onClick={() => setName("")}>Clear&lt;/button>
+    &lt;/div>
+  );
+}
+          </code></pre>
       </section>
 
       <section>
@@ -336,53 +331,34 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
         </p>
       </section>
 
-      <section data-state="exkurs">
-        <h3>Hintergrund</h3>
-        <h2>ES6 Features</h2>
-      </section>
-
-      <section data-state="exkurs">
-        <h3>ES6: Klassen</h3>
-        <pre><code class="javascript" contenteditable>class Person {
-    constructor(name) {
-        this._name = name;
-    }
-    getName() {
-        return this._name;
-    }
-}
-class Programmer extends Person {
-    constructor(name, language) {
-        super(name);
-        this.language = language;
-    }
-    code() {
-        return `${this.getName()} codes in ${this.language}`;
-    }
-}</code></pre>
-        <pre class="fragment"><code class="javascript" contenteditable>const programmer = new Programmer('Erna', 'JavaScript');
-console.log(programmer.code());
-console.log(programmer instanceof Programmer); // true
-console.log(programmer instanceof Person); // true</code></pre>
-      </section>
+ 
       <section data-state="exkurs">
         <h2>ES6: Module, Importe und Exporte</h2>
       </section>
       <section data-state="exkurs">
-        <h3>ES6: Export einer einzigen Klasse</h3>
+        <h3>ES6: Ein Default Export pro Modul möglich</h3>
         <pre><code class="javascript" contenteditable>// Person.js
-  class Person {
-    // ...
-  }
-  export default Person;
+class Person {
+  // ...
+}
+export default Person;
      </code></pre>
         <pre><code class="javascript" contenteditable>// Person.js
   
-  // in einer Zeile zusammengefasst
-  export default class Person {
-    // ...
-  }
+// in einer Zeile zusammengefasst
+export default class Person {
+  // ...
+}
      </code></pre>
+     <pre><code class="javascript"data-trim contenteditable>// createPerson.js
+  
+// Funktion exportieren
+export default function createPerson() { /* ... */ }
+        
+// oder
+function createPerson() { /* ... */ }
+export default createPerson;
+           </code></pre>
       </section>
       <section data-state="exkurs">
         <h3>ES6: Import</h3>
@@ -450,7 +426,33 @@ const time = `The time is: ${new Date()}`); // The time is: ...
 
       <section>
         <h2>Hintergrund</h2>
-        <h1>Buildprozess</h1>
+        <h1>Tool Chain</h1>
+
+        <ul>
+          <li>Typisches Tooling im JS/React-Umfeld</li>
+          <li>Build-Prozess React-Anwendungen</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Die Sprache</h2>
+        <p><em><b>ECMAScript 5:</b> Veröffentlicht 2015</em></p>
+
+        <div  class="fragment">
+        <ul >
+          <li>Unterstützung von praktisch allen Browsern</li>
+          <li>Die "Referenz"-Version</li>
+          </ul>
+          <a href="https://caniuse.com/#search=es5" target="_blank"><img src="images/can-i-use-es5.png" /></a>
+         </div>
+          <ul class="fragment">
+            <li><b>JavaScript</b>: Implementierung</li>
+            <li><b>ECMAScript</b>: Spezifikation</li>
+            </ul>
+      </section>
+
+      <section>
+
       </section>
 
 
@@ -863,6 +865,7 @@ someFunction(person);
           <ul>
             <li>Asynchroner Zugriff</li>
             <li>Updater Funktion</li>
+            </ul>
         </section>
 
       <section>
@@ -926,7 +929,7 @@ class GreetingDetail extends React.Component {
       <section>
         <h3>Virtual DOM</h3>
         <p>"Rendern" hat leider doppelte Bedeutung!</p>
-        <img src="images/virtual-dom.png" style="border:0;box-shadow:0 0 0 0;height:650px">
+        <img src="images/virtual-dom.png" style="height:650px">
       </section>
       <section>
           <h3>React: Referenzen auf nativen DOM</h3>
@@ -1040,7 +1043,7 @@ class HelloMessage extends React.Component {
       <section>
         <h3>Themen</h3>
         <ul>
-          <li>Komponenten als Funktionen</li>
+          <li>Komponenten als Klassen</li>
           <li>Darstellung von Listen</li>
           <li>Architektur-Idee: Controller-Komponente und View-Komponente</li>
           <li>Durchreichen von Zustand und Callbacks</li>
@@ -1049,7 +1052,7 @@ class HelloMessage extends React.Component {
 
 
       <section>
-        <h3>Komponenten als Funktion</h3>
+        <h3 class="todo">Komponenten als Klassen</h3>
         <ul class="fragment">
           <li>Alternative zu Klassen</li>
           <li>Komponente ist eine einfache Funktion</li>
@@ -1075,6 +1078,36 @@ export default function Greet(props) {
 &lt;Greet name="Susi" greeting="Hello" /&gt;
 
 </code></pre>
+      </section>
+
+      <section data-state="exkurs">
+        <h3>Hintergrund</h3>
+        <h2>ES6 Features</h2>
+      </section>
+
+      <section data-state="exkurs">
+        <h3>ES6: Klassen</h3>
+        <pre><code class="javascript" contenteditable>class Person {
+    constructor(name) {
+        this._name = name;
+    }
+    getName() {
+        return this._name;
+    }
+}
+class Programmer extends Person {
+    constructor(name, language) {
+        super(name);
+        this.language = language;
+    }
+    code() {
+        return `${this.getName()} codes in ${this.language}`;
+    }
+}</code></pre>
+        <pre class="fragment"><code class="javascript" contenteditable>const programmer = new Programmer('Erna', 'JavaScript');
+console.log(programmer.code());
+console.log(programmer instanceof Programmer); // true
+console.log(programmer instanceof Person); // true</code></pre>
       </section>
 
       <section>
@@ -1175,12 +1208,12 @@ function Choices(props) {
       <section>
         <h3>Problem: Kommunikation zwischen Komponenten</h3>
         <p>#1: Welche Komponente soll angezeigt werden (Master oder Detail?)</p>
-        <img src="ai/component-hierarchy-problems-01-views.png" style="height:550px" />
+        <img src="images/component-hierarchy-problems-01-views.png" style="height:550px" />
       </section>
       <section>
         <h3>Problem: Kommunikation zwischen Komponenten</h3>
         <p>#2: Wo wird der State (Greetings) verwaltet?</p>
-        <img src="ai/component-hierarchy-problems-02-greeting.png" style="height:550px" />
+        <img src="images/component-hierarchy-problems-02-greeting.png" style="height:550px" />
       </section>
       <section>
         <h3>Problem #1</h3>
@@ -1191,7 +1224,7 @@ function Choices(props) {
       <section>
         <h3>Controller Komponente #1</h3>
         <p>Verwaltet den Zustand (u.a. welche Komponente sichtbar ist)</p>
-        <img src="ai/greeting-hierarchy-mode.png" style="height:550px" />
+        <img src="images/greeting-hierarchy-mode.png" style="height:550px" />
       </section>
       <section>
         <h3>Controller Komponente #2</h3>
@@ -1217,7 +1250,7 @@ class GreetingController extends React.Component {
         <p class="fragment">Wie wird zwischen den Komponenten kommuniziert?</p>
         <p class="fragment">Beispiel: Child-Komponente will Parent Informationen übermitteln</p>
         <p class="fragment">Callback-Funktionen als Properties #1</p>
-        <img class="fragment" src="ai/greeting-hierarchy-mode-callback.png" style="height:550px" />
+        <img class="fragment" src="images/greeting-hierarchy-mode-callback.png" style="height:550px" />
       </section>
 
       <section>
@@ -1258,7 +1291,7 @@ class GreetingController extends React.Component {
         <h3>Controller Komponente</h3>
         <p class="fragment">Verwaltet den "globalen" State</p>
         <p class="fragment">State wird als Property an Children übergeben</p>
-        <img class="fragment" src="ai/greeting-hierarchy-greetings.png" style="height:550px" />
+        <img class="fragment" src="images/greeting-hierarchy-greetings.png" style="height:550px" />
       </section>
       <section>
         <h3>Controller Komponente</h3>
@@ -1301,7 +1334,7 @@ class GreetingMaster extends React.Component {
         <h3>Controller Komponente</h3>
         <p class="fragment">Verwaltet den "globalen" State</p>
         <div class="fragment">
-          <img src="ai/greeting-hierarchy-onsave.png" style="height:550px" />
+          <img src="images/greeting-hierarchy-onsave.png" style="height:550px" />
           <p><span style="color: #9D4493">Neues Greeting</span> wird per Callback-Funktion zurück gegeben</p>
         </div>
       </section>
@@ -1347,7 +1380,7 @@ class GreetingMaster extends React.Component {
       <section>
         <h3>Komponenten in Hierarchien</h3>
         <p>Beispiel: Unsere Anwendung (Zusammenfassung)</p>
-        <img src="ai/greeting-hierarchy.png" style="height:550px" />
+        <img src="images/greeting-hierarchy.png" style="height:550px" />
       </section>
 
       <section>
@@ -2218,30 +2251,30 @@ console.log(component.toJSON());
     <section>
       <h2>Eine typische React-Anwendung in Komponenten</h2>
       <h3>Frage an Euch: was könnte es für Probleme geben?</h3>
-      <img src="images/typische-react-komponenten-hierarchie.png"  style="border:0;box-shadow:0 0 0 0;height:650px"  />
+      <img src="images/typische-react-komponenten-hierarchie.png"  style="height:650px"  />
     </section>
 
     <section>
         <h3>Problem 1: Über Komponenten verteilter Zustand</h3>
-        <img src="images/verteilter-zustand.png"  style="border:0;box-shadow:0 0 0 0;height:650px" />
+        <img src="images/verteilter-zustand.png"  style="height:650px" />
         <p>Wo muss ich nach Fehlern suchen? Wo ist die Logik?</p>
     </section>
 
     <section>
       <h3>Problem 2: Getrennte Komponentenhierarchien</h3>
-      <img src="images/zwei-komponenten-hierarchien.png" style="border:0;box-shadow:0 0 0 0;height:650px"  />
+      <img src="images/zwei-komponenten-hierarchien.png" style="height:650px"  />
       <p>Geht entweder nicht oder "Gott-Komponente" entsteht</p>
   </section>
 
   <section>
     <h3>Problem 3: Gemeinsamer ("globaler") Zustand</h3>
-    <img src="images/gemeinsam-genutzter-state.png"  style="border:0;box-shadow:0 0 0 0;height:650px" />
+    <img src="images/gemeinsam-genutzter-state.png"  style="height:650px" />
     <p>Wie kommt Zustand von ganz oben nach ganz unten?</p>
 </section>
 
 <section>
   <h3>Problem 4: UI und Logik vermischt</h3>
-  <img src="images/ui-und-logic-vermischt.png"  style="border:0;box-shadow:0 0 0 0;height:650px" />
+  <img src="images/ui-und-logic-vermischt.png"  style="height:650px" />
   <p>Wiederverwendung? React-unabhängigkeit? Testbarkeit?</p>
 </section>
 
@@ -2260,12 +2293,12 @@ console.log(component.toJSON());
 <section>
   <h3>Wiederholung</h3>
     <h2>Render Cycle in Pure React</h2>
-    <img src="images/redux-01-react-cycle-no-redux.png"  style="border:0;box-shadow:0 0 0 0;height:650px"/>
+    <img src="images/redux-01-react-cycle-no-redux.png"  style="height:650px"/>
 </section>
 
     <section>
         <h2>Redux extrahiert die Verantwortlichkeiten</h2>
-        <img src="images/redux-02-extracting-responsibility.png" style="border:0;box-shadow:0 0 0 0;width: 900px"/>
+        <img src="images/redux-02-extracting-responsibility.png" style="width: 900px"/>
     </section>
     <section>
         <h2>Demo: Redux & Redux Devtools</h2>
@@ -2451,14 +2484,14 @@ render() {
 
     <section>
         <h2>Zusammenfassung Redux-Architektur</h2>
-        <img src="images/redux-03-resulting-redux-architecture.png" style="border:0;box-shadow:0 0 0 0;max-height:650px" />
+        <img src="images/redux-03-resulting-redux-architecture.png" style="max-height:650px" />
     </section>
 
     <section>
         <h3>Lokaler State ist weiterhin erlaubt!</h3>
         <p>Es gibt unterschiedliche Arten von "State"</p>
 
-        <img src="images/three-kinds-of-state.png"  style="border:0;box-shadow:0 0 0 0;max-height:650px" />
+        <img src="images/three-kinds-of-state.png"  style="max-height:650px" />
         
       </section>
 
@@ -2664,7 +2697,7 @@ render() {
                 <li>vergleichbar mit intelligentem
                   <code>if</code>/
                   <code>switch</code> statement</li>
-                <li>Kann überall in der Anwendung</b> verwendet werden (auf allen Hierarchie-Ebenenen) </li>
+                <li><b>Kann überall in der Anwendung</b> verwendet werden (auf allen Hierarchie-Ebenenen) </li>
               </ul>
             </li>
             <li class="fragment">Mit
@@ -2704,7 +2737,7 @@ render() {
         <section>
           <h3>Hintergrund: Pfade</h3>
           <p>In Routen werden
-            <b>Pfade</b> angegeben, die mit der aktuellen URL verglichen werden</b>
+            <b>Pfade</b> angegeben, die mit der aktuellen URL verglichen werden
             <ul>
               <li>Pfade sind per Default gültig für Teilstrings</li>
               <li>Mit
@@ -2852,8 +2885,6 @@ render() {
           </code></pre>
         </section>
   
-        </section>
-  
         <section>
           <h3>Zugriff auf die history außerhalb von "Route Components"</h3>
           <ul>
@@ -2893,12 +2924,12 @@ render() {
           </p>
           <p class="fragment">Die Higher-Order-Kommponente ist für das
             <b>rendern</b> der ursprünglichen Komonente verantwortlich
+          </p>
             <ul class="fragment">
               <li>Sie kann das Rendern bei Bedarf auch unterdrücken oder verzögern</li>
               <li>Sie hat Zugriff auf alle ursprünglichen Properties</li>
               <li>Sie kann der Ziel-Komponente zusätzliche Properties übergeben oder welche entfernen</li>
             </ul>
-          </p>
   
         </section>
         <section>
@@ -2913,7 +2944,6 @@ render() {
                 <li>Die gewrappte Komponente muss sich nicht um das (technische) Laden kümmern</li>
                 <li>Die gewrappte Komponente benötigt keinen Lifecycle, sie wird nur dargestellt, wenn ein Greeting vorhanden ist</li>
               </ul>
-            </p>
           </div>
           <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
     
@@ -2934,7 +2964,7 @@ render() {
                                     </code></pre>
         </section>
         <section>
-          <h3>Beispiel: Higher-Order Components (HOC)</h2>
+          <h3>Beispiel: Higher-Order Components (HOC)</h3>
             <p>Schritt 1: HOC definieren</p>
             <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
     
@@ -2950,7 +2980,7 @@ render() {
                                     </code></pre>
         </section>
         <section>
-          <h3>Beispiel: Higher-Order Components (HOC)</h2>
+          <h3>Beispiel: Higher-Order Components (HOC)</h3>
             <p>Schritt 2: Lifecycle-Methoden ("fachliche" Logik der HOC) implementieren</p>
             <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
   function withGreeting(RawComponent) {
@@ -2973,7 +3003,7 @@ render() {
                                       </code></pre>
         </section>
         <section>
-          <h3>Beispiel: Higher-Order Components (HOC)</h2>
+          <h3>Beispiel: Higher-Order Components (HOC)</h3>
             <p>Schritt 3: Implementieren der render-Methode</p>
             <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
     function withGreeting(RawComponent) {
@@ -3001,7 +3031,7 @@ render() {
                                         </code></pre>
         </section>
         <section>
-          <h3>Beispiel: Higher-Order Components (HOC)</h2>
+          <h3>Beispiel: Higher-Order Components (HOC)</h3>
             <p>Schritt 4: Verwenden der HOC</p>
             <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
   import withGreeting from ". . .";
@@ -3562,8 +3592,11 @@ const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props =>
   <script src="reveal.js/lib/jquery-2.2.4.js"></script>
 
   <script>
+     const isLocalServer = window.location.hostname.indexOf('localhost') !== -1 || 
+                    window.location.hostname.indexOf('127.0.0.1') !== -1;
+
     Reveal.addEventListener('ready', function (event) {
-      if (window.location.hostname.indexOf('localhost') !== -1) {
+      if (isLocalServer) {
         // only applies to presentation version
         Reveal.configure({ controls: false });
       } else {
