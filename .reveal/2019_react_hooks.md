@@ -44,25 +44,113 @@ Folien: TODO
 
 ---
 
-## Kommunikation zwischen Komponenten
+## React
 
-hallo und huhu
+[https://reactjs.org](https://reactjs.org)
 
-## ![](images/component-communication.png)
+- f Framework von und für Facebook
+- f Eingesetzt u.a. von Microsoft, Paypal, Spotify uvm
+- f Minimales API
+- f Minimales Feature Set
+  - f Ihr könnt/müsst viele Entscheidungen selber treffen
+- f Bewusste Verstöße gegen Best-Practices
+- f Zentrales Konzept: **Komponenten**
 
 ---
 
-## Äußere Architektur
+## React
 
-Problem:
+_ist sehr stabil_
 
-**Es ist alles sehr kompliziert!!!!**
+- f Semantische Versionierung
+- f API Änderungen meist abwärtskompatibel
 
-<!-- .element: class="fragment" -->
+---
 
-- Mehrere Teams
-- und vieles andere
+### Komponenten in React
 
-![](images/aeussere-architektur.png)
+![](./ai/soc.png)
 
-<!-- .element: class="fragment" style="height: 200px"  -->
+---
+
+### Komponenten in React
+
+<!-- .element: class style="font-style: smaller"  -->Unser Beispiel in Komponenten
+
+<!-- .element: class="fragment" style="height: 650px"  -->![](./ai/greeting-example-component-hierarchy.png)
+
+---
+
+### React Komponenten
+
+- f bestehen aus **Logik und UI**
+- f keine Templatesprache
+- f werden **deklarativ** beschrieben
+- f werden immer **komplett gerendet** (kein 2-Wege-Data-Binding)
+- f werden zu ganzen Anwendungen aggregiert
+
+---
+
+### React Komponenten
+
+- f Werden als **ES6 Klasse** oder **Funktion mit Hooks** (ab React 16.8) implementiert
+- f Keine Templatesprache (stattdessen JavaScript)
+- f Templates können HTML-artige Syntax enthalten (JSX)
+
+---
+
+### Eine erste Komponente: Hello, World!
+
+[Demo](../../code/schritte/0-hello_world/public/index.html)
+
+- f Beispiel Schritt-für-Schritt (`code/workspace-live-coding`)
+
+---
+
+### Hello World React
+
+```jsx
+import React from "react";
+
+export default function HelloMessage(props) {
+  const [name, setName] = React.useState(props.initialGreeting || "");
+
+  return (
+    <div>
+      <input onChange={event => setName(event.target.value)} value={name} />
+
+      <p>{name}, World</p>
+      <button onClick={() => setName("")}>Clear</button>
+    </div>
+  );
+}
+```
+
+---
+
+### Aufruf
+
+`index.html`
+
+```html
+<html>
+  <body>
+    <div id="mount"></div>
+  </body>
+  <script src="dist/main.js"></script>
+</html>
+```
+
+`main.js`
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+
+import HelloMessage from "./HelloMessage";
+
+const mountNode = document.getElementById("mount");
+ReactDOM.render(<HelloMessage initialGreeting="Hello" />, mountNode);
+```
+
+---

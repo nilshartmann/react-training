@@ -11,5 +11,5 @@ Reveal.addEventListener("ready", function(event) {
   }
 
   // just an example
-  $("li").addClass("fragment");
+  // $("li").addClass("fragment");
 });
