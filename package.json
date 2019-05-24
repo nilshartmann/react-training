@@ -9,7 +9,8 @@
 		"setup": "node .bin/setup.js",
 		"server": "nodemon --watch ./code/server ./code/server/src/server.js",
 		"postinstall": "npm run setup",
-		"prettier": "prettier --write \"code/**/*.{js,jsx,ts,tsx,css}\""
+    "prettier": "prettier --write \"code/**/*.{js,jsx,ts,tsx,css}\"",
+    "p": "prettier --write 2019_react_hooks.html"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.4.4",
