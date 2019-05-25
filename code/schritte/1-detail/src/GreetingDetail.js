@@ -3,7 +3,7 @@ import React from "react";
 export default function GreetingDetail(props) {
   const [name, setName] = React.useState(props.initialName || "");
   const [greeting, setGreeting] = React.useState(props.initialGreeting || "");
-  const inputRef = React.createRef();
+  const inputRef = React.useRef();
 
   function reset() {
     setName("");

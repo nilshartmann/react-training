@@ -76,6 +76,10 @@
         box-shadow: 0 0 0 0;
       }
 
+      .reveal ol.x-list li {
+        margin-bottom: 10px;
+      }
+
       /*rgb(196, 215, 240)*/
 
       html.exkurs body {
@@ -475,36 +479,187 @@ const time = `The time is: ${new Date()}`); // The time is: ...
           </ul>
         </section>
 
-        <section></section>
-
         <section>
-          <h2>Buildprozess</h2>
-          <ul>
-            <li>
-              ES6ff- und JSX-Code muss nach ECMAScript 5 übersetzt werden
+          <h2>Die Sprache</h2>
+
+          <em><b>ECMAScript 2015</b>: Veröffentlicht 2015</em>
+          <p>Aliase: ES<b>6</b>, ES2015, JavaScript6, "modernes JavaScript"</p>
+
+          <div class="fragment">
+            <p>Sehr viele Neuerungen:</p>
+            <ul>
+              <li>Block Scope mit let und const</li>
+              <li>Klassen und Module</li>
+              <li>Arrow Funktionen</li>
+            </ul>
+            <div class="fragment">
+              <p>
+                Löst viele "klassische" JavaScript-Probleme:
+              </p>
               <ul>
+                <li>(teilweise) Sichtbarkeiten</li>
+                <li>Hoisting</li>
+                <li>this-Binding</li>
                 <li>
-                  Status der ES6 Implementierungen der Browser:
-                  <a href="https://kangax.github.io/compat-table/es6/" target="blank">
-                    https://kangax.github.io/compat-table/es6/
-                  </a>
+                  <a href="https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore"
+                    >https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore</a
+                  >
                 </li>
               </ul>
-            </li>
+            </div>
+          </div>
 
-            <li class="fragment">
-              Typische Werkzeuge
+          <p class="fragment"><b>Künftig eine neue Version pro Jahr (ES2015, ES2016, ...)</b></p>
+        </section>
+
+        <section>
+          <h3>ES6ff-Support</h3>
+
+          <p>
+            <a href="https://kangax.github.io/compat-table/es6/"
+              >ES2015 (ES6) Kompatibilitätstabelle</a
+            >
+          </p>
+          <p>
+            <a href="https://kangax.github.io/compat-table/es2016plus/"
+              >ES2016+ Kompatibilitätstabelle</a
+            >
+          </p>
+        </section>
+        <section>
+          <h2>Buildprozess</h2>
+          <em><b> ES6ff- und JSX-Code muss nach ECMAScript 5 übersetzt werden</b></em>
+
+          <p class="fragment">Typische Werkzeuge</p>
+          <ul class="fragment">
+            <li>Babel oder TypeScript (Compiler)</li>
+            <li>Webpack (Bundler)</li>
+            <li>Webpack Dev Sever (HTTP Server mit Hot Reload)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Polyfills</h2>
+          <ul>
+            <li><b>Compiler</b> übersetzen nur die <b>Sprache</b></li>
+          </ul>
+          <ul>
+            <li>
+              <b>Polyfills</b> sind JS Bibliotheken, die fehlende <b>APIs</b> implementieren
               <ul>
-                <li>Babel oder TypeScript (Compiler)</li>
-                <li>Webpack (Bundler)</li>
-                <li>Webpack Dev Sever (HTTP Server mit Hot Reload)</li>
+                <li>Stellen Abwärtskompatibilität für ältere Browser her</li>
+                <li>Beispiele: LocalStorage, HTML5 History API, Promise API</li>
               </ul>
             </li>
           </ul>
         </section>
+
+        <section>
+          <h2>Laufzeitumgebungen</h2>
+
+          <h4><b>Browser</b>: Der Klassiker</h4>
+          <ul>
+            <li>Nahezu alle Browser implementieren ES5</li>
+            <li>JavaScript-Support wird besser und einheitlicher</li>
+            <li>Wettbewerb um beste Developer Tools</li>
+          </ul>
+
+          <div style="margin-top:2rem" class="fragment">
+            <h4><b>NodeJS</b>: Serverseitiges JavaScript</h4>
+            <ul>
+              <li>
+                Basiert auf der JS Engine V8 von Chrome
+                <ul>
+                  <li>Ermöglicht zusätzlich Zugriff auf File-System, Konsole etc</li>
+                </ul>
+              </li>
+
+              <li>
+                <b>Grundlage auch für diverses Tooling</b>
+                <ul>
+                  <li>Package Manager, Build, Test, ...</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>Modulsysteme</h2>
+
+          <ul class="fragment">
+            <li><b>CommonJS</b>: NodeJS Modul-System ("require ..." / "module.exports")</li>
+            <li><b>AMD</b>: Asynchrone Module (für Browser)</li>
+            <li><b>ES2015</b>: natives Modul System (Support u.a. in Chrome und FF)</li>
+          </ul>
+          <p class="fragment">Webpack, Babel und TypeScript können mit allen Modulen umgehen</p>
+        </section>
+
+        <section>
+          <h2>Package Manager</h2>
+          <h3>node package manager (npm)</h3>
+          <em>Standard Package Manager für Node-Entwickung</em>
+
+          <ul style="margin-top:2rem">
+            <li class="fragment">
+              Beschreibung externer Abhängigkeiten in package.json-Datei
+              <ul>
+                <li>Ähnlich wie in einer POM.xml</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Eigene Packages können publiziert werden
+              <ul>
+                <li>In zentrale Registry (analog maven-central)</li>
+                <li>Private Registry (z.B. Nexus) möglich</li>
+              </ul>
+            </li>
+          </ul>
+          <ul style="margin-top:2rem" class="fragment">
+            <li>
+              Über npm werden üblicherweise auch notwendige <b>Tools</b> deklariert und installiert
+              <ul>
+                <li>Zum Beispiel für Compiler und Build-Tools</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Package Manager</h2>
+          <h3>Alternative: yarn</h3>
+          <ul>
+            <li class="fragment"><a href="https://yarnpkg.com">https://yarnpkg.com</a></li>
+            <li class="fragment">Verwendet ebenfalls NPM Pakete und NPM Registry</li>
+            <li class="fragment">Gleiche Beschreibung der Dependencies (package.json)</li>
+            <li class="fragment">Andere (bessere?) CLI</li>
+            <li class="fragment">
+              "Plug'n'Play": Module werden zentral auf Festplatte installiert (neu)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Bundler</h2>
+          <p>
+            <b>Problem:</b> Es existieren mehrere Modulsysteme, Support im Browser nicht vollständig
+          </p>
+          <p class="fragment">Bundler...</p>
+          <ul>
+            <li class="fragment">erzeugen lauffähige JS-Datei(en) mit allen Abhängigkeiten</li>
+            <li class="fragment">unterstützen diverse Modul-Systeme</li>
+            <li class="fragment">können auch mit nicht-JS-Dateien umgehen (z.B. CSS, PNG)</li>
+          </ul>
+          <p class="fragment">
+            Prominenteste Lösung: Webpack (<a href="https://webpack.js.org/"
+              >https://webpack.js.org/</a
+            >)
+          </p>
+        </section>
+
         <section>
           <h2>Webpack und Babel</h2>
-          <img src="images/webpack-und-babel.png" style="border:0;box-shadow:0 0 0 0" />
+          <img src="images/webpack-und-babel.png" style="height:600px" />
         </section>
         <section>
           <h2>Webpack Development Server</h2>
@@ -548,22 +703,19 @@ const time = `The time is: ${new Date()}`); // The time is: ...
           <h3>Das Beispiel-Projekt</h3>
           <p>Workspace</p>
           <ul>
-            <li><code>2019_react_2tage.html</code> Slides im Root-Verzeichnis</li>
+            <li><code>2019_react_hooks.html</code> Slides im Root-Verzeichnis</li>
             <li><code>code/workspace</code>: Verzeichnis für Eure Übungen</li>
             <li><code>code/material</code>: Code als Ausgangspunkt für Übungen</li>
             <li><code>code/schritte</code>: Fertige Stände nach den einzelnen Teilen</li>
           </ul>
-          <p>Starten</p>
-          <ol>
-            <li>
-              Im <b>Root-Verzeichnis (falls noch nicht geschehen)</b>: <code>npm start</code>, um
-              den REST-Server zustarten (einmal starten, dann einfach durchlaufen lassen)
-            </li>
-            <li>
-              In <b>code/workspace</b>: <code>npm start</code>, um Webpack DevServer zu starten.
-              Kann durchlaufen, aber falls Reloading nicht klappt, neu starten
-            </li>
-          </ol>
+          <div class="fragment">
+            <p style="margin-top:2rem"><b>WEBPACK DEVSERVER STARTEN</b></p>
+            <p>in <b>code/workspace</b>: <code>npm start</code></p>
+            <p>
+              (Der Server kann durchlaufen, nur falls automatischer Reload nicht klappt, neu
+              starten)
+            </p>
+          </div>
         </section>
         <section>
           <h2>Übung 1: React Hello-World</h2>
@@ -648,36 +800,18 @@ const time = `The time is: ${new Date()}`); // The time is: ...
         </section>
 
         <section>
-          <h3>React: Rendering</h3>
-          <span class="fragment">
-            <p>
-              <em>Jede React-Komponente braucht eine <code>render</code>-Methode:</em>
-            </p>
-
-            <ul>
-              <li>wird aufgerufen beim ersten Rendering und wenn sich der Zustand ändert</li>
-              <li>kann HTML-artige JSX-Syntax nutzen</li>
-              <li>
-                liefert genau <b>ein</b> Element oder <b>null</b> oder <b>ein Boolean</b> oder
-                <b>ein Array</b> oder <b>einen String</b> oder <b>ein "Fragment"</b> zurück
-              </li>
-            </ul>
-            <pre class="fragment"><code class="xml" contenteditable data-trim>
-class GreetingDetail extends React.Component {
-  render() {
-    return (
-      <div>
-        &lt;input onChange={event => this.updateModel(event.target.value)}
-           value={this.state.greeting} />
-        <p>{this.state.greeting}, World</p>
-      </div>
-    );
-  }
-  // ...
-}
-</code></pre>
-          </span>
+          <h3>Komponenten als Funktion</h3>
+          <ul>
+            <li class="fragment">Name der Funktion entspricht Name der Komponente</li>
+            <li class="fragment">Properties werden per Parameter übergeben (als Objekt)</li>
+            <li class="fragment">
+              Muss <b>genau ein</b> (Root-)Element zurückgeben (oder null, false/true)
+            </li>
+            <li class="fragment">Neu: Über Hooks kann Zustand verwendet werden</li>
+            <li class="fragment">Neu: Über Hooks kann am Lifecycle partizipiert werden</li>
+          </ul>
         </section>
+
         <section>
           <h3>React: JSX</h3>
           <ul>
@@ -734,7 +868,7 @@ function renderCounter(label) { return &lt;Counter label="..." />; }
             <li style="font-size: 80%" class="fragment">
               Fragmente (rendern selber kein Element in den DOM, nur ihre Kind-Elemente):
               <pre><code class="xml" contenteditable data-trim>
-render() { 
+function Choice() { 
   return &lt;React.Fragment&gt;
     &lt;li>Yes&lt;/li> 
     &lt;li>No&lt;/li>
@@ -745,7 +879,7 @@ render() {
             <li style="font-size: 80%" class="fragment">
               null, false oder boolean, um nichts zu rendern:
               <pre><code class="xml" contenteditable data-trim>
-render() {
+function MyComponent() {
   if (!someCondition) {
     return null; // oder false oder true
   }
@@ -755,6 +889,32 @@ render() {
                     </code></pre>
             </li>
           </ul>
+        </section>
+        <section data-state="exkurs">
+          <h3>ES6: Destructuring von Objekten</h3>
+          <pre><code class="javascript" contenteditable>const person = {
+    fistName: 'Klaus',
+    lastName: 'Mueller',
+    age: 42
+  };</code></pre>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable>const {firstName, age, notFound} = person;
+  
+  console.log(firstName); // Klaus
+  console.log(age); // 42
+  console.log(notFound); // undefined
+  </code></pre>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable>function someFunction({firstName, age, notFound}) {
+    console.log(firstName); // Klaus
+    console.log(age); // 42
+    console.log(notFound); // undefined
+  }
+  
+  someFunction(person);
+  </code></pre>
         </section>
         <section data-state="exkurs">
           <h3>ES6: Erweiterte Objekt-Literale</h3>
@@ -775,6 +935,7 @@ const person = {
 console.log(person.firstName); // Klaus
    </code></pre>
         </section>
+
         <section data-state="exkurs">
           <h3>ES6: Computed Properties</h3>
           <em>Berechnete Keys in Objekten</em>
@@ -792,32 +953,7 @@ const personen = {
 console.log(personen); // Object {id_1: "Klaus", id_2: "Susi"}
 </code></pre>
         </section>
-        <section data-state="exkurs">
-          <h3>ES6: Destructuring von Objekten</h3>
-          <pre><code class="javascript" contenteditable>const person = {
-  fistName: 'Klaus',
-  lastName: 'Mueller',
-  age: 42
-};</code></pre>
-          <pre
-            class="fragment"
-          ><code class="javascript" contenteditable>const {firstName, age, notFound} = person;
 
-console.log(firstName); // Klaus
-console.log(age); // 42
-console.log(notFound); // undefined
-</code></pre>
-          <pre
-            class="fragment"
-          ><code class="javascript" contenteditable>function someFunction({firstName, age, notFound}) {
-  console.log(firstName); // Klaus
-  console.log(age); // 42
-  console.log(notFound); // undefined
-}
-
-someFunction(person);
-</code></pre>
-        </section>
         <section>
           <h3>React: Properties und Zustand</h3>
           <ul class="fragment">
@@ -829,8 +965,473 @@ someFunction(person);
               <b>Zustand (State)</b> ist eine <b>innere</b> Eigenschaft der Komponente (die
               verändert werden kann)
             </li>
-            <li class="fragment">Beides sind Objekte mit Key-Value-Paaren</li>
           </ul>
+        </section>
+
+        <section>
+          <h3>Properties einer Komponente</h3>
+
+          <ul>
+            <li class="fragment">
+              sind Objekt mit Key-Value-Paaren
+            </li>
+            <li class="fragment">
+              werden als 1. Methoden-Parameter an Komponente übergeben
+            </li>
+            <li class="fragment">dürfen nicht verändert werden</li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            function Header(props) {
+                return (
+                  &lt;h1 style={{color: props.titleColor}}>{props.title}&lt;/h1>
+                );
+              }
+            }
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+// Mit Destructuring
+function Header({titleColor, title}) {
+    return (
+      &lt;h1 style={{color: titleColor}}>{title}&lt;/h1>
+    );
+  }
+}
+                </code></pre>
+        </section>
+        <section>
+          <h3>Children einer Komponente</h3>
+          <ul class="fragment">
+            <li><code>props.children</code> enthält Kind-Elemente</li>
+          </ul>
+          <div class="fragment" style="margin-top: 2rem">
+            Beispiel NavBar-Komponente:
+            <pre><code class="html" contenteditable data-trim>
+      &lt;NavBar title="Navigation">
+        &lt;a href="/home">Home&lt;/a&gt;
+        &lt;a href="/shop">Shop&lt;/a&gt;
+      &lt;/NavBar>
+    </code></pre>
+          </div>
+          <div class="fragment">
+            Beispiel Implementierung:
+            <pre><code class="javascript" contenteditable data-trim>
+function NavBar(props) {
+      return (
+        &lt;div className="NavBar">
+          <h1>{props.title}</h1>
+         
+          {props.children}
+        &lt;/div>
+      );
+  }
+  </code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Zustand einer Komponente: useState-Hook</h3>
+          <ul>
+            <li>Beispiel: Inhalt eines Eingabefelds, Daten vom Server, Menu offen oder zu</li>
+            <li class="fragment"><b>Werte</b> üblicherweise immutable</li>
+            <li class="fragment">Arbeiten mit Zustand über <b>useState</b>-Hook</li>
+            <li class="fragment">
+              useState liefert zwei Werte zurück: aktuellen Zustand, und setter-Funktion um Zustand
+              zu verändern
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+function GreetingDetail(props) {
+  const [greeting, setGreeting] = React.useState(props.initialGreeting);
+
+  return &lt;input onChange={e => setGreeting(e.target.value) value={greeting} />;
+}
+                  </code></pre>
+          <ul>
+            <li class="fragment">
+              Aufruf des Setters <b>löst erneutes rendern der <i>gesamten</i> Komponente aus</b>
+            </li>
+            <li class="fragment">
+              Es können mehrere States erzeugt werden, durch Verwendung mehrerer useState-Aufrufe
+            </li>
+            <li class="fragment">
+              <b>Zustand</b> ist eines der <b>zentralen</b> Konzepte von React
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>React Hooks</h3>
+          <em>Mit React Hooks kann sich eine Komponente in Zustand und Lebenszyklus "einhaken"</em>
+          <ul>
+            <li class="fragment">Vorgestellt Ende 2018, eingeführt mit React 16.8 (Feb 2019)</li>
+            <li class="fragment">
+              "Normale" Funktionen, müssen aber mit <code>use</code> beginnen (useState, useEffect,
+              ...)
+            </li>
+            <li class="fragment">Es können eigene Hooks gebaut werden ("custom hooks")</li>
+            <li class="fragment">
+              Importieren und verwenden von Hooks
+
+              <pre><code class="javascript" contenteditable data-trim>
+                import React from "react";
+
+                function GreetingDetail(props) {
+                  const [greeting, setGreeting] = React.useState(props.initialGreeting);
+                  // ...
+                }
+                                  </code></pre>
+              <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                                      import React, { useState } from "react";
+                      
+                                      function GreetingDetail(props) {
+                                        const [greeting, setGreeting] = useState(props.initialGreeting);
+                                        // ...
+                                      }
+                                                        </code></pre>
+
+              <ul>
+                <li class="fragment">
+                  (<code>React</code> muss immer <b>importiert</b> werden, wenn JSX verwendet wird!)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>React Hooks</h3>
+          <em>Es gibt einige Regeln zu beachten, bei der Verwendung von Hooks 👆</em>
+          <p style="font-size:75%;margin-top:0">
+            <a href="https://reactjs.org/docs/hooks-rules.html"
+              >(https://reactjs.org/docs/hooks-rules.html)</a
+            >
+          </p>
+          <div class="fragment">
+            <p>Einschränkungen:</p>
+            <ul>
+              <li class="fragment">
+                Hooks können nur in Funktionskomponenten (und anderen Hooks) aufgerufen werden
+              </li>
+              <li class="fragment">
+                Hooks müssen immer in derselben Reihenfolge und auf Top-Level-Ebene verwendet werden
+                <ul>
+                  <li>Verboten z.B. in Schleifen, if-Abfragen oder in anderen Funktionen</li>
+                </ul>
+              </li>
+              <li class="fragment">
+                Es gibt ein
+                <a href="https://www.npmjs.com/package/eslint-plugin-react-hooks">ESLint Plug-in</a>
+                zur korrekten Verwendung der Hooks
+              </li>
+            </ul>
+          </div>
+          <p class="fragment">
+            <em
+              >Der Hooks-Mechanismus basiert intern darauf, dass React sich die Reihenfolge der
+              <code>useXyz</code>-Aufrufe merkt!</em
+            >
+          </p>
+        </section>
+        <section>
+          <h3>React Hooks</h3>
+
+          <em>Beispiele für korrekte und unerlaubte Verwendung</em>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              // ERLAUBT:
+              function GreetingDetail(props) {
+                const [greeting, setGreeting] = React.useState(props.initialGreeting);
+                const [name, setName] = React.useState(props.initialName);
+                // ...
+              }
+                                </code></pre>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                                    // ERLAUBT:
+                                    function GreetingDetail(props) {
+                                      const [greeting, setGreeting] = React.useState(props.initialGreeting);
+                                      const uppercaseGreeting = greeting.toUpperCase(); 
+                                      const [name, setName] = React.useState(props.initialName);
+                                      // ...
+                                    }
+                                                      </code></pre>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                                    // VERBOTEN:
+                                    function GreetingDetail(props) {
+                                      const [greeting, setGreeting] = React.useState(props.initialGreeting);
+                                      if (greeting !== null) {
+                                        const [name, setName] = React.useState(props.initialName);
+                                      }
+                                      // ...
+                                    }
+                                                      </code></pre>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                          // VERBOTEN:
+                          function GreetingDetail(props) {
+                            const [greeting, setGreeting] = React.useState(props.initialGreeting);
+                            if (greeting === null) {
+                              return <h1>Please enter greeting first</h1>;
+                            }
+                            // ...
+                          }
+                                            </code></pre>
+        </section>
+        <section>
+          <h3>React Hooks</h3>
+          <em>Beispiele für korrekte und unerlaubte Verwendung #2</em>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              // VERBOTEN 
+              function GreetingDetail(props) {
+                function initState() {
+                  return React.useState(props.initialGreeting);
+                }
+                const [greeting, setGreeting] = initState();
+              }
+            </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                // VERBOTEN (initState ist 'normale' Funktion)
+                function initState() {
+                  return React.useState(props.initialGreeting);
+                }
+
+                function GreetingDetail(props) {
+                  // wäre erlaubt, wenn initState 'useInitState' hieße
+                  const [greeting, setGreeting] = initState();
+                }
+              </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                  // ERLAUBT (GreetingDetail ist Komponente, als Arrow-Funktion)
+                  const GreetingDetail = props => {
+                    const [greeting, setGreeting] = useState("hallo");
+                    return ...;
+                  }
+                </code></pre>
+        </section>
+        <section>
+          <h3>useState: Details</h3>
+          <em>Wird verwendet, um den internen Zustand (State) einer Komponente zu verwalten</em>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                function GreetingDetail(props) {
+                  const [greeting, setGreeting] = React.useState(initialValue);
+                }
+              </code></pre>
+
+          <ul>
+            <li class="fragment">
+              <code>initialValue</code> kann lazy initialisiert werden, mit einer Funktion:
+              <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                        function GreetingDetail(props) {
+                          const [greeting, setGreeting] = React.useState(() => determineInitialGreeting());
+                        }
+                      </code></pre>
+            </li>
+            <li class="fragment">
+              Setter kann mit Funktion aufgerufen werden, dann wird der aktuelle State übergeben,
+              neuer State muss zurückgegeben werden
+              <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                            function Counter(props) {
+                              const [count, setCounter] = React.useState(0);
+
+                              &lt;button onClick={
+                                () => setCounter(currentCount => currentCount + 1)}>Plus&lt;/button>
+                            }
+                          </code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>React: Events und Data Binding</h3>
+          <p>
+            <em>Es gibt keine automatische Bindung an Modelle (2-Wege Databinding)</em>
+          </p>
+          <ul>
+            <li class="fragment">React verwendet eigene Events</li>
+            <li class="fragment">
+              DOM-Events werden in React-Events verpackt
+              <ul>
+                <li>React-Events haben weitgehend selbe API wie DOM-Events</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Besonderes Event:
+              <b>onChange</b>
+              <ul>
+                <li>
+                  onChange ist auf <code>input</code>, <code>textarea</code>,
+                  <code>select</code> definiert und verhält sich Komponenten- und
+                  Browser-übergreifend einheitlich
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <pre class="fragment"><code class="xml" contenteditable data-trim>
+function GreetingDetail(props) {
+    return (
+        &lt;input onChange={event => . . .} />
+    );
+  }
+  // ...
+}
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Render Zyklus</h3>
+          <img src="images/event-zustand-render.png" height="550px" />
+        </section>
+
+        <section>
+          <h3>Virtual DOM</h3>
+          <p>"Rendern" hat leider doppelte Bedeutung!</p>
+          <img src="images/virtual-dom.png" style="height:650px" />
+        </section>
+        <section>
+          <h3>React: Referenzen auf nativen DOM</h3>
+          <p><em>useRef-Hook</em></p>
+          <ul>
+            <li class="fragment">
+              <code>React.useRef() </code> erzeugt ein allgemeines Referenz-Objekt
+            </li>
+            <li class="fragment">Die Referenz kann bei einer Komponente angegeben werden</li>
+            <li class="fragment">
+              Über <code>current</code>-Property am Referenz-Objekt erhält man später Zugriff auf
+              das dazugehörige native DOM-Element
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+function GreetingDetail(props) {
+  const [greeting, setGreeting] = React.useState("");
+  const greetingInputRef = React.useRef();
+
+  function clear() {
+    setGreeting("");
+    greetingInputRef.current.focus();
+  }
+
+  return &lt;>
+    &lt;input ref={greetingInputRef} value="..." onChange="..." />
+    &lt;button onClick={clear}>Clear&lt;button/>
+  &lt;/>
+}         
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Übung 2: Detail-Ansicht für unsere Gruß-Anwendung</h2>
+          <em
+            ><b
+              >Erzeuge eine Komponente mit der man einen Namen und eine Grußformel eingeben kann</b
+            ></em
+          >
+        </section>
+        <section>
+          <h3>Schritte</h3>
+          <h4>Erweitere deine erste React-Komponente im workspace-Ordner</h4>
+          <ol class="x-list">
+            <li>
+              benenne deine HelloMessage-Komponente (und das HelloMessage-Modul) in
+              <code>GreetingDetail</code> um
+            </li>
+
+            <li>
+              du brauchst zwei Eingabefelder, die <code>name</code> und <code>greeting</code> im
+              Zustand der Komponente setzen
+            </li>
+
+            <li>
+              Erweitere deine Komponente so, dass man von außen Properties übergeben kann, die den
+              Zustand initialisieren (<code>initialGreeting</code> und <code>initialName</code>)
+            </li>
+            <li>
+              Füge einen "Clear"-Button hinzu, der den Inhalt beider Eingabefelder löscht. Das
+              entsprechende Event auf dem Button heißt <code>onClick</code>. <br />Nach dem Löschen
+              der Eingabefelder sollte der Focus auf das erste Eingabefeld (<code>name</code>)
+              gesetzt werden
+            </li>
+          </ol>
+          <img src="images/screenshot-name-greeting.png" />
+        </section>
+
+        <section id="t2">
+          <h1>Teil II</h1>
+          <h2>React-Komponenten: Details, Hierarchien und Anwendungen</h2>
+          <a href="code/schritte/2-hierarchy/public/index.html" target="_blank">Ziel-Anwendung</a>
+        </section>
+
+        <section>
+          <h3>Themen</h3>
+          <ul>
+            <li>Komponenten als Klassen</li>
+            <li>Darstellung von Listen</li>
+            <li>Architektur-Idee: Controller-Komponente und View-Komponente</li>
+            <li>Durchreichen von Zustand und Callbacks</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>React: Komponenten als Klassen</h3>
+        </section>
+
+        <section>
+          <h3>React: Rendering</h3>
+          <span class="fragment">
+            <p>
+              <em>Jede React-Komponente braucht eine <code>render</code>-Methode:</em>
+            </p>
+
+            <ul>
+              <li>wird aufgerufen beim ersten Rendering und wenn sich der Zustand ändert</li>
+              <li>kann HTML-artige JSX-Syntax nutzen</li>
+              <li>
+                liefert genau <b>ein</b> Element oder <b>null</b> oder <b>ein Boolean</b> oder
+                <b>ein Array</b> oder <b>einen String</b> oder <b>ein "Fragment"</b> zurück
+              </li>
+            </ul>
+            <pre class="fragment"><code class="xml" contenteditable data-trim>
+  class GreetingDetail extends React.Component {
+    render() {
+      return (
+        <div>
+          &lt;input onChange={event => this.updateModel(event.target.value)}
+             value={this.state.greeting} />
+          <p>{this.state.greeting}, World</p>
+        </div>
+      );
+    }
+    // ...
+  }
+  </code></pre>
+          </span>
+        </section>
+
+        <section>
+          <h3 class="todo">Komponenten als Klassen</h3>
+          <ul class="fragment">
+            <li>Alternative zu Klassen</li>
+            <li>Komponente ist eine einfache Funktion</li>
+            <li>entspricht der <code>render</code>-Methode einer <code>React.Component</code></li>
+            <li>Properties werden per Parameter übergeben (als Objekt)</li>
+            <li>Zurzeit nur ohne Zustand und ohne Lifecycle-Methoden</li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+import React from 'react';
+
+export default function Greet(props) {
+  return (
+      <div>
+          <h1>{props.greeting}</h1>
+          <h2>{props.name}</h2>
+      </div>
+  );
+}
+
+// Verwendung:
+&lt;Greet name="Susi" greeting="Hello" /&gt;
+
+</code></pre>
         </section>
 
         <section>
@@ -844,18 +1445,18 @@ someFunction(person);
             </li>
           </ul>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-            class Header extends React.Component {
-              constructor(props) {
-                super(props);
+              class Header extends React.Component {
+                constructor(props) {
+                  super(props);
+                }
+  
+                render() {
+                  return (
+                    &lt;h1 style={{color: this.props.titleColor}}>{this.props.title}&lt;/h1>
+                  );
+                }
               }
-
-              render() {
-                return (
-                  &lt;h1 style={{color: this.props.titleColor}}>{this.props.title}&lt;/h1>
-                );
-              }
-            }
-            </code></pre>
+              </code></pre>
         </section>
         <section>
           <h3>Children einer Komponente</h3>
@@ -865,27 +1466,27 @@ someFunction(person);
           <div class="fragment">
             Beispiel:
             <pre><code class="javascript" contenteditable data-trim>
-  class NavBar extends React.Component {
-    render() {
-      return (
-        &lt;div className="NavBar">
-          <h1>{this.props.title}</h1>
-         
-          {this.props.children}
-        &lt;/div>
-      );
+    class NavBar extends React.Component {
+      render() {
+        return (
+          &lt;div className="NavBar">
+            <h1>{this.props.title}</h1>
+           
+            {this.props.children}
+          &lt;/div>
+        );
+      }
     }
-  }
-  </code></pre>
+    </code></pre>
           </div>
           <div class="fragment">
             Verwendung:
             <pre><code class="javascript" contenteditable data-trim>
-    &lt;NavBar title="Navigation">
-      &lt;a href="/home">Home&lt;/a&gt;
-      &lt;a href="/shop">Shop&lt;/a&gt;
-    &lt;/NavBar>
-  </code></pre>
+      &lt;NavBar title="Navigation">
+        &lt;a href="/home">Home&lt;/a&gt;
+        &lt;a href="/shop">Shop&lt;/a&gt;
+      &lt;/NavBar>
+    </code></pre>
           </div>
         </section>
         <section>
@@ -925,237 +1526,25 @@ someFunction(person);
         <section>
           <h3>Beispiel: Zustand einer Komponente</h3>
           <pre><code class="javascript" contenteditable data-trim>
-function GreetingDetail extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { name: 'Klaus' };
-    }
-
-    updateModel(event) {
-        // Zustand ändern: Komponente wird neu gerendert
-        this.setState({name: event.target.value});
-    }
-
-    render() {
-        return &lt;input value={this.state.name}
-            onChange={e => this.updateModel(e)} />
-    }
-   // ...
-}
-</code></pre>
-        </section>
-        <section>
-          <h3>React: Events und Data Binding</h3>
-          <p>
-            <em>Es gibt keine automatische Bindung an Modelle (2-Wege Databinding)</em>
-          </p>
-          <ul class="fragment">
-            <li>DOM-Events werden in React-Events verpackt</li>
-            <li>React-Events haben weitgehend selbe API wie DOM-Events</li>
-            <li>
-              Besonderes Event:
-              <b>onChange</b>
-              <ul>
-                <li>
-                  onChange ist auf <code>input</code>, <code>textarea</code>,
-                  <code>select</code> definiert und verhält sich Komponenten- und
-                  Browser-übergreifend einheitlich
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <pre class="fragment"><code class="xml" contenteditable data-trim>
-class GreetingDetail extends React.Component {
-  render() {
-    return (
-        &lt;input onChange={event => . . .} />
-    );
-  }
-  // ...
-}
-</code></pre>
-        </section>
-
-        <section>
-          <h3>Render Zyklus</h3>
-          <img
-            src="images/event-zustand-render.png"
-            height="550"
-            style="border:0;box-shadow:0 0 0 0"
-          />
-        </section>
-
-        <section>
-          <h3>Virtual DOM</h3>
-          <p>"Rendern" hat leider doppelte Bedeutung!</p>
-          <img src="images/virtual-dom.png" style="height:650px" />
-        </section>
-        <section>
-          <h3>React: Referenzen auf nativen DOM</h3>
-          <ul class="fragment">
-            <li><code>React.createRef() </code> erzeugt ein allgemeines Referenz-Objekt</li>
-            <li>Das Objekt wird in der Komponente gespeichert (i.d.R. als Instanz-Variable)</li>
-            <li>Eine Komponente wird der Referenz zugewiesen</li>
-            <li>
-              Über <code>current</code>-Property am Referenz-Objekt erhält man Zugriff auf das
-              native DOM-Element
-            </li>
-          </ul>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-  class HelloMessage extends React.Component {
-    constructor(props) { 
-      super(props);
-      this.inputRef = React.createRef();
-    }
-    render() {
-      return <div>
-          &lt;input ref={this.inputRef} 
-                    onChange={...} value={...}/>
-          &lt;button onClick={() => this.reset()}>Clear&lt;/button>
-        </div>;
-    }
+  function GreetingDetail extends React.Component {
+      constructor(props) {
+          super(props);
+          this.state = { name: 'Klaus' };
+      }
   
-    reset() {
-      this.setState({greeting: ""});
+      updateModel(event) {
+          // Zustand ändern: Komponente wird neu gerendert
+          this.setState({name: event.target.value});
+      }
   
-      // focus() ist Funktion auf nativem DOM Element
-      this.inputRef.current.focus();
-    }
+      render() {
+          return &lt;input value={this.state.name}
+              onChange={e => this.updateModel(e)} />
+      }
+     // ...
   }
   </code></pre>
         </section>
-        <section>
-          <h3>React: Referenzen auf nativen DOM</h3>
-          <ul class="fragment">
-            <li>
-              Alternativ: Elementen kann eine Callback-Funktion <code>refs</code> übergeben werden
-            </li>
-
-            <li class="fragment">
-              Funktion wird nach dem Rendern mit Referenz auf DOM Element aufgerufen (oder
-              <code>null</code>)
-            </li>
-
-            <li class="fragment">Diese Referenz kann man z.B. als Member-Variable speichern</li>
-          </ul>
-
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-class HelloMessage extends React.Component {
-  render() {
-    return (
-      <div>
-        &lt;input ref={inputElement => this.inputElement = inputElement} 
-                  onChange={...} value={...}
-        />
-        &lt;button
-          onClick={() => this.reset()}>
-            Clear
-        &lt;/button>
-      </div>
-    );
-  }
-
-  reset() {
-    this.setState({greeting: ""});
-
-    // focus() ist Funktion auf nativem DOM Element
-    this.inputElement.focus();
-  }
-}
-</code></pre>
-        </section>
-
-        <section>
-          <h3>Properties, State und Instanz-Variablen</h3>
-          <ul>
-            <li class="fragment">
-              <b>Properties</b>: Konfiguration von außen übergeben. Unveränderlich innerhalb der
-              Komponente
-            </li>
-            <li class="fragment">
-              <b>State: </b> Interner und veränderlicher Zustand der Komponente. State-Änderung
-              führt zu re-rendering
-            </li>
-            <li class="fragment">
-              <b>Instanz-Variablen</b>: Nicht render-relevante Informationen, zB Referenzen auf
-              DOM-Elemente, Callbacks zum Beenden von Timern
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Übung 2: Detail-Ansicht für unsere Gruß-Anwendung</h2>
-          <h3>Erzeuge eine Komponente mit der man einen Namen und eine Grußformel eingeben kann</h3>
-        </section>
-        <section>
-          <h3>Schritte</h3>
-          <h4>Erweitere deine erste React-Komponente im workspace-Ordner</h4>
-          <ol>
-            <li>
-              benenne deine HelloMessage-Komponente (und das HelloMessage-Modul) in
-              <code>GreetingDetail</code> um
-            </li>
-
-            <li>
-              du brauchst zwei Eingabefelder, die <code>name</code> und <code>greeting</code> im
-              Zustand der Komponente setzen
-            </li>
-
-            <li>
-              Erweitere deine Komponente so, dass man von außen Properties übergeben kann, die den
-              Zustand initialisieren
-            </li>
-            <li>
-              Füge einen "Clear"-Button hinzu, der den Inhalt beider Eingabefelder löscht. Das
-              entsprechende Event auf dem Button heißt <code>onClick</code>
-            </li>
-          </ol>
-          <img src="images/screenshot-name-greeting.png" />
-        </section>
-
-        <section id="t2">
-          <h1>Teil II</h1>
-          <h2>React-Komponenten: Details, Hierarchien und Anwendungen</h2>
-          <a href="code/schritte/2-hierarchy/public/index.html" target="_blank">Ziel-Anwendung</a>
-        </section>
-
-        <section>
-          <h3>Themen</h3>
-          <ul>
-            <li>Komponenten als Klassen</li>
-            <li>Darstellung von Listen</li>
-            <li>Architektur-Idee: Controller-Komponente und View-Komponente</li>
-            <li>Durchreichen von Zustand und Callbacks</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3 class="todo">Komponenten als Klassen</h3>
-          <ul class="fragment">
-            <li>Alternative zu Klassen</li>
-            <li>Komponente ist eine einfache Funktion</li>
-            <li>entspricht der <code>render</code>-Methode einer <code>React.Component</code></li>
-            <li>Properties werden per Parameter übergeben (als Objekt)</li>
-            <li>Zurzeit nur ohne Zustand und ohne Lifecycle-Methoden</li>
-          </ul>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-import React from 'react';
-
-export default function Greet(props) {
-  return (
-      <div>
-          <h1>{props.greeting}</h1>
-          <h2>{props.name}</h2>
-      </div>
-  );
-}
-
-// Verwendung:
-&lt;Greet name="Susi" greeting="Hello" /&gt;
-
-</code></pre>
-        </section>
-
         <section data-state="exkurs">
           <h3>Hintergrund</h3>
           <h2>ES6 Features</h2>
@@ -3960,6 +4349,10 @@ const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props =>
         // $('code').removeClass('line-numbers');
         //        $('.fragment').removeClass('fragment');
       });
+
+      // open all externals link in new tab
+      $('a[href^="http://"]').attr("target", "_blank");
+      $('a[href^="https://"]').attr("target", "_blank");
     </script>
 
     <script>

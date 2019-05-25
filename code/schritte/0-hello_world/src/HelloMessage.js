@@ -2,7 +2,7 @@ import React from "react";
 
 export default function HelloMessage(props) {
   const [name, setName] = React.useState(props.initialGreeting || "");
-  const input = React.createRef();
+  const input = React.useRef();
 
   function reset() {
     setName("");

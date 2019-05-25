@@ -23,7 +23,7 @@ export default function GreetingDetail(props) {
     name: props.initialName,
     greeting: props.initialGreeting
   });
-  const inputRef = React.createRef();
+  const inputRef = React.useRef();
 
   console.log("state", state);
 

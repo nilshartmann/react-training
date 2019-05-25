@@ -4,5 +4,8 @@
   "editor.detectIndentation": false,
   "typescript.tsdk": "./node_modules/typescript/lib",
   "editor.fontLigatures": false,
-  "editor.parameterHints.enabled": false
+  "editor.parameterHints.enabled": false,
+  "editor.formatOnSave": true,
+  "xeditor.formatOnSaveTimeout": 5000,
+  "html.autoClosingTags": false
 }
