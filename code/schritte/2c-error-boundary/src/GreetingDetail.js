@@ -22,6 +22,12 @@ export default function GreetingDetail(props) {
     });
   }
 
+  if (name === "hsv") {
+    // ouch #1
+    let someUnintializedValue = null;
+    setName(someUnintializedValue.toUpperCase()); // ouch #2
+  }
+
   return (
     <div>
       <input

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { GreetingDetail, GreetingMaster } from "./GreetingDetail";
+import { GreetingDetail, GreetingMaster } from "./_Teil_3_GreetingDetail";
 
 import { sampleGreetings } from "./_sample-greetings";
 
