@@ -428,7 +428,7 @@ export default createPerson;
 
           export class Employee { }
         </code></pre>
-        <pre class="fragment"><code class="javascript" contenteditable data-trim>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
           // Verwendung
           import Programmer, { Employee } from "./Programmer";
 
@@ -931,15 +931,15 @@ function MyComponent() {
             </li>
 
             <li style="font-size: 80%" class="fragment">
-                Kommentare
-                <pre><code class="xml" contenteditable data-trim>
+              Kommentare
+              <pre><code class="xml" contenteditable data-trim>
   function MyComponent() {
     return <div>
       { /* hier ist javascript, deswegen block-kommentare erlaubt */ }
     </div>;
   }              
                       </code></pre>
-              </li>
+            </li>
           </ul>
         </section>
         <section data-state="exkurs">
@@ -2225,12 +2225,12 @@ const response = await fetch(url, {
 </code></pre>
           <pre
             class="fragment"
-          ><code class="javascript" contenteditable>// then returns a new promise
+          ><code class="javascript" contenteditable>// 'then' gibt ein neues Promise zurück
 const promise2 = promise.then(value => `${value} plus stuff`);</code></pre>
           <pre
             class="fragment"
           ><code class="javascript" contenteditable>promise2.then(value => console.log(value));
-// Output after 1 second: Result from promise plus stuff
+// Ausgabe nach einer Sekunde: "Result from promise plus stuff"
 </code></pre>
         </section>
         <section data-state="exkurs">
@@ -2276,37 +2276,6 @@ const promise2 = promise.then(value => `${value} plus stuff`);</code></pre>
 // Output:
 // Result from promise
 // error:  [Error: Something went wrong]</code></pre>
-        </section>
-
-        <section>
-          <h3>fetch im Detail</h3>
-
-          <pre><code class="javascript" contenteditable data-trim>
-try {
-  // 1. fetch returns a promise, that will be resolved
-  // with a Response object when response is received
-  // from server
-  const response = await fetch('http://localhost:7000/api/greetings');
-
-  // 2. the Response object contains a json() function,
-  // that returns the parsed JSON from the Response body
-  const json = await response.json();
-
-  // 3. with the resolved JSON object we set the
-  // component state (=&gt; leads to re-rendering)
-  this.setState({greetings: json});
-} catch (ex) {
-  // 4. in case something goes wrong (during request,
-  // request processing or rendering)
-  console.error('request failed', ex);
-  // as an alternative we could set and render an error msg:
-  this.setState({error: ex})
-}
-
-</code></pre>
-          <p>
-            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API Doku</a>
-          </p>
         </section>
 
         <section data-state="exkurs">
@@ -2401,121 +2370,281 @@ async function loadData() {
         </section>
 
         <section>
+          <h3>fetch im Detail</h3>
+
+          <pre><code class="javascript" contenteditable data-trim>
+  try {
+    // 1. fetch returns a promise, that will be resolved
+    // with a Response object when response is received
+    // from server
+    const response = await fetch('http://localhost:7000/greetings');
+  
+    // 2. the Response object contains a json() function,
+    // that returns the parsed JSON from the Response body
+    const json = await response.json();
+  
+    // 3. with the resolved JSON object we set the
+    // component state (=&gt; leads to re-rendering)
+    setGreetings(json);
+  } catch (err) {
+    // 4. in case something goes wrong (during request,
+    // request processing or rendering)
+    console.error('request failed', err);
+    // as an alternative we could set and render an error msg:
+    setError(err.toString());
+  }
+  
+  </code></pre>
+          <p>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API Doku</a>
+          </p>
+        </section>
+
+        <section>
           <h3>Wann werden Daten gelesen und geschrieben?</h3>
         </section>
         <section>
           <h3>Initiales Laden von Daten</h3>
-          <p style="font-size:80%">
-            Komponenten können optionale
-            <a
-              href="https://reactjs.org/docs/react-component.html#the-component-lifecycle"
-              target="_blank"
-              >Lifecycle-Methoden</a
-            >
-            haben
-          </p>
-          <img style="max-height: 500px;margin:0" src="images/react-lifecycle-1.png" />
           <p>
-            <a href="code/schritte/2c-hierarchy-comp-lifecycle/public/index.html" target="_blank"
+            <em
+              >Laden von Daten sind Seiteneffekte, Komponenten müssen aber Seiteneffekt-frei
+              sein</em
+            >
+          </p>
+
+          <div class="fragment">
+            <img style="height: 500px" src="images/comp_lifecycle_new.jpg" />
+            <br /><a
+              style="font-size:small"
+              href="https://twitter.com/ManuelBieh/status/994618772999884800"
+              >https://twitter.com/ManuelBieh/status/994618772999884800</a
+            >
+          </div>
+
+          <p class="fragment">
+            <a href="code/schritte/2d-hierarchy-use-effect/public/index.html" target="_blank"
               >Beispiel-Anwendung</a
             >
           </p>
         </section>
         <section>
+          <h3>useEffekt-Hook</h3>
+          <em
+            >Der useEffekt-Hook erlaubt es Seiteneffekte zu definierten Zeitpunkten auszuführen</em
+          >
+
+          <p>
+            Schritt-für-Schritt (<code
+              >code/workspace-live-coding, vorher schritte/2-hierarchy reinkopieren</code
+            >)
+          </p>
+        </section>
+
+        <section>
+          <h3>useEffekt-Hook</h3>
+          <em
+            >Der useEffekt-Hook erlaubt es Seiteneffekte zu definierten Zeitpunkten auszuführen</em
+          >
+          <ul>
+            <li class="fragment">
+              Beispiele: Laden von Daten, Arbeiten mit nativen DOM-Elementen, Counter
+              starten/stoppen
+            </li>
+            <li class="fragment">
+              Zeitpunkte: nach initialem Rendern der Komponente, nach Rendern durch Aktualisierung
+              und nach dem Entfernen aus dem DOM
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            function GreetingController(props) {
+              React.useEffect( 
+                () => console.log("Ich werde nach JEDEM Rendern ausgeführt")
+              );
+            }
+          </code></pre>
+
+          <div class="fragment">
+            2. Parameter (Array) gibt an, wann der Effekt ausgeführt werden soll:
+
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              function GreetingController(props) {
+                React.useEffect( 
+                  () => console.log("Ich werde nur nach 1. Rendern ausgeführt"),
+                  []
+                );
+              }
+            </code></pre>
+          </div>
+
+          <div class="fragment">
+            Nur nach 1. Rendern ausführen, und wenn sich das greetingId-Prop ändert:
+
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                function GreetingController(props) {
+                  React.useEffect(
+                    () => console.log("..."), 
+                    [props.greetingId]) 
+                  );
+                }
+              </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>useEffect Hook</h3>
+
+          <p>Zwei Parameter:</p>
+          <ul>
+            <li class="fragment">
+              Callback-Funktion, die aufgerufen wenn entsprechendes Ereignis eintritt (z.B.
+              initiales Rendern abgeschlossen)
+            </li>
+            <li class="fragment">
+              Ein Array mit Abhängigkeiten:
+              <ul>
+                <li class="fragment">
+                  Wenn kein Array angegeben wird, wird der Effekt nach jedem Rendern ausgeführt
+                  (achtung! Endlosschleife möglich)
+                </li>
+                <li class="fragment">
+                  Wenn ein leeres Array angegeben wird, wird der Effekt nur nach dem 1. Rendern
+                  ausgeführt
+                </li>
+                <li class="fragment">
+                  Wenn Werte angegeben werden, wird der Effekt ausgeführt, wenn sich mind 1 Wert
+                  verändert hat
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <p class="fragment">
+            Um auf das Entfernen der Komponente aus dem DOM zu reagieren (z.B Resourcen freigeben),
+            kann die Callback-Funktion eine weitere Funktion zurückliefern, die dann ausgeführt
+            wird:
+          </p>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                  function GreetingController(props) {
+                    React.useEffect(
+                      () => { console.log("..."); return () => console.log("Ich bin entfernt worden") },
+                      [props.greetingId])
+                    );
+                  }
+                </code></pre>
+        </section>
+
+        <section>
           <h3>Initiales Laden von Daten</h3>
           <div class="fragment">
             <p>
-              <code>componentDidMount</code> wird aufgerufen, wenn Komponente ins DOM gerendert
-              wurde
+              <code>useEffect</code> und (<code>useState</code>) werden verwendet um Daten nach dem
+              1. Rendern zu laden:
             </p>
-            <p>Hier werden Daten üblicherweise initial geladen:</p>
-            <pre><code class="javascript" contenteditable data-trim>class GreetingController extends React.Component {
-  constructor(props) {
-    // intial state (empty now)
-    this.state = { greetings: [] };
-  }
+            <pre><code class="javascript" contenteditable data-trim>
+                function GreetingController() {
+                  const [mode, setMode] = React.useState(MODE_MASTER);
+                  const [greetings, setGreetings] = React.useState([]);
+                
+                  React.useEffect(() => {
+                    async function loadGreetings() {
+                      let greetings = null;
+                      try {
+                        const response = await fetch(BACKEND_URL);
+                        greetings = await response.json();
+                      } catch (err) {
+                        console.error("LOADING GREETINGS FAILED:", err);
+                        return;
+                      }
+                      setGreetings(greetings);
+                    }
+                
+                    loadGreetings();
+                  }, []);
 
-  // 'async' wegen 'await' notwendig (sonst ohne 'async' hinschreiben)
-  async componentDidMount() {
-    try {
-      const response = await fetch('/api/greetings');
-      const json = await response.json();
-      this.setState({ greetings: json});
-    } catch (error) { . . .}
-  }
-}
+                  // ...
+                }
+                
                 </code></pre>
-            <p class="fragment">
-              <em>Empfehlung:</em> Zugriffe auf Server in externes Modul auslagern (besser test- bzw
-              mockbar)
-            </p>
           </div>
         </section>
         <section>
           <h3>Laden von Daten mit Props</h3>
           <p class="fragment">Aufgabe: Daten sollen abhängig von Properties geladen werden</p>
-          <p class="fragment">Beispiel: einzelnes Greeting per greetingId)</p>
+          <p class="fragment">Beispiel: einzelnes Greeting per greetingId</p>
 
-          <p class="fragment">Problem: wir müssen auf Veränderung der Properties reagieren</p>
-          <img
-            class="fragment"
-            style="max-height: 500px;margin:0"
-            src="images/react-lifecycle-2.png"
-          />
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              function SingleGreetingController(props) {
+                const [greeting, setGreeting] = React.useState(null);
+              
+                React.useEffect(() => {
+                  async function loadGreeting(id) {
+                    let greetings = null;
+                    try {
+                      const response = await fetch(BACKEND_URL + "/" + id);
+                      greeting = await response.json();
+                    } catch (err) {
+                      console.error("LOADING GREETING FAILED:", err);
+                      return;
+                    }
+                    setGreeting(greeting);
+                  }
+              
+                  loadGreeting(id);
+                }, [props.id]);
+
+                // ...
+              }
+              
+              </code></pre>
         </section>
 
-        <section>
-          <h3>Laden von Daten mit Props</h3>
-          <div class="fragment">
-            <p>
-              <code>componentDidMount</code> und <code>componentDidUpdate</code> müssen
-              implementiert werden
-            </p>
-            <pre><code class="javascript" contenteditable data-trim>class GreetingController extends React.Component {
-  constructor(props) { . . . }
-
-  async componentDidMount() {
-      const response = await fetch(`/api/greetings/${this.props.greetingId}`);
-      . . .
-  }
-
-  async componentDidUpdate(prevProps) {
-    if (prevProps.greetingId !== this.props.greetingId) {
-        const response = await fetch(`/api/greetings/${this.props.greetingId}`);
-        ...
-    }
-  }
-}
-                </code></pre>
-          </div>
-        </section>
         <section>
           <h3>Speichern von Daten</h3>
           <p>Zum Beispiel als Folge einer Benutzerinteraktion:</p>
-          <pre
-            class="fragment"
-          ><code class="javascript" contenteditable data-trim>class GreetingController extends React.Component {
-  render() {
-    ...
-      &lt;GreetingDetail onSave={greeting => this.saveGreeting(greeting)} />
-    ...
-  }
-  async saveGreeting(greetingToBeSaved) {
+          <p class="fragment">Im Event-Handler sind wir nicht in der Render-Phase!</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+function GreetingController {
+  async function addGreeting(greetingToBeAdded) {
+    let newGreeting;
     try {
-      const response = await fetch('/api/greetings', {
-        method: 'POST',
-        headers: ...,
-        body: JSON.stringify(greetingToBeSaved)
+      const response = await fetch(BACKEND_URL, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(greetingToBeAdded)
       });
-      const newGreeting = response.json();
-
-      // Neuen Gruss an bestehende Liste anfuegen und State neu setzen
-      const newGreetings = [ ...this.state.greetings, newGreeting ];
-      this.setState({greetings: newGreetings});
-    } catch (err) { . . . }
+      if (response.status !== 201) {
+        throw new Error("Invalid status code: " + response.status);
+      }
+      newGreeting = await response.json();
+    } catch (err) {
+      console.error("LOADING GREETINGS FAILED:", err);
+    }
+    // add the new greetings to the list of all greetings
+    // (create a new array for immutability)
+    // use updater function (in setGreetings) to make sure
+    // we get the latest 'greetings' value from state
+    setGreetings(currentGreetings => [...currentGreetings, newGreeting]);
+    setMode(MODE_MASTER);
   }
+  return
+    ...
+      &lt;GreetingDetail onSave={newGreeting => addGreeting(newGreeting)} />
+    ...
 }
                 </code></pre>
+        </section>
+
+        <section>
+          <h3>TODO: Custom Hook zum Laden von Daten</h3>
+          <p>
+            Ein Hook, der Daten von einer URL lädt: - lädt nur, wenn sich die URL verändert hat -
+            setzt am Anfang eine Loading-Komponente(, die übergeben wurde?) - Fehlerbehandlung
+          </p>
         </section>
 
         <section>
@@ -2527,24 +2656,43 @@ async function loadData() {
             >
           </p>
           <p>
-            Der Server ist bereits vorgegeben und kann mit <code>npm run start-backend</code> im
-            Root-Verzeichnis gestartet werden. Er ist dann unter Port 7000 erreichbar
+            Der Server ist bereits fertig. Zum Starten:
+          </p>
+          <pre><code>
+              cd react-training/code/server
+              npm start
+            </code></pre>
+          <p>Der Server ist über Port 7000 erreichbar</p>
+          <p>
+            Zum Testen:
+            <a href="http://localhost:7000/greetings">http://localhost:7000/greetings</a>
           </p>
         </section>
         <section>
           <h3>Schritte</h3>
-          <ol>
-            <li>
+          <ol class="x-list">
+            <li class="fragment">
               Kopiere <code>code/material/3-remote/GreetingController.js</code> in deinen
               Arbeitsbereich
             </li>
 
-            <li>
+            <li class="fragment">
               Die Serverzugriffe sollen in <code>loadGreetings</code> und
               <code>saveGreeting</code> erfolgen
+              <ul>
+                <li>Dort sind bereits entsprechende TODOs für dich eingetragen</li>
+                <li>Die URL des Backends steht in der Konstante <code>BACKEND_URL</code>.</li>
+              </ul>
             </li>
-            <li>Dort sind bereits entsprechende TODOs für dich eingetragen</li>
-            <li>Die URL des Backends steht in der Konstante <code>BACKEND_URL</code>.</li>
+            <li class="fragment">
+              Optional 1: Füge der loadGreetings-Methode eine Fehlerbehandlung zu. (Du kannst das
+              Backend stoppen, um einen Fehler zu provozieren). Kannst Du eine Fehlermeldung in der
+              UI anzeigen?
+            </li>
+            <li class="fragment">
+              Optional 2: Kannst Du die saveGreeting-Funktion so extrahieren, dass sie außerhalb der
+              GreetingController-Komponente stehen kann?
+            </li>
           </ol>
         </section>
 
