@@ -33,18 +33,15 @@ export default function GreetingController() {
     setMode(MODE_MASTER);
   }
 
-  return (
-    <div>
-      {mode === MODE_MASTER ? (
-        <GreetingMaster
-          greetings={greetings}
-          onAdd={() => {
-            setMode(MODE_DETAIL);
-          }}
-        />
-      ) : (
-        <GreetingDetail onSave={addGreeting} />
-      )}
-    </div>
-  );
+  if (mode === MODE_MASTER)
+    return (
+      <GreetingMaster
+        greetings={greetings}
+        onAdd={() => {
+          setMode(MODE_DETAIL);
+        }}
+      />
+    );
+
+  return <GreetingDetail onSave={addGreeting} />;
 }

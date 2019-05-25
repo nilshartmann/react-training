@@ -8,13 +8,13 @@ let currentId = 0;
 const sampleGreetings = [
   {
     id: currentId++,
-    name: "Olli",
+    name: "Klaus",
     greeting: "Huhu"
   },
   {
     id: currentId++,
-    name: "Oma",
-    greeting: "Hallo"
+    name: "Susi",
+    greeting: "Moin"
   }
 ];
 
@@ -52,13 +52,9 @@ export default function GreetingController() {
     });
   }
 
-  return (
-    <div>
-      {state.mode === MODE_MASTER ? (
-        <GreetingMaster greetings={state.greetings} onAdd={addGreeting} />
-      ) : (
-        <GreetingDetail onSave={saveGreeting} />
-      )}
-    </div>
-  );
+  if (state.mode === MODE_MASTER) {
+    return <GreetingMaster greetings={state.greetings} onAdd={addGreeting} />;
+  }
+
+  return <GreetingDetail onSave={saveGreeting} />;
 }
