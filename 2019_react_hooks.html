@@ -76,7 +76,7 @@
         box-shadow: 0 0 0 0;
       }
 
-      .reveal ol.x-list li {
+      .reveal .x-list li {
         margin-bottom: 10px;
       }
 
@@ -134,7 +134,7 @@
             </li>
             <li>
               Browser öffnen:
-              <a href="http://localhost:8080" target="_blank">http://localhost:8080</a>
+              <a href="http://localhost:8080">http://localhost:8080</a>
             </li>
             <li>Wenn dort ein Hello-World-Text erscheint ist alles gut</li>
           </ol>
@@ -291,7 +291,7 @@
 
         <section>
           <h3>Eine erste Komponente: Hello, World!</h3>
-          <p><a target="_blank" href="code/schritte/0-hello_world/public/index.html">Demo</a></p>
+          <p><a href="code/schritte/0-hello_world/public/index.html">Demo</a></p>
           <ul class="fragment">
             <li>Beispiel Schritt-für-Schritt (<code>code/workspace-live-coding</code>)</li>
           </ul>
@@ -450,12 +450,24 @@ const time = `The time is: ${new Date()}`); // The time is: ...
 
         <section>
           <h2>Hintergrund</h2>
-          <h1>Tool Chain</h1>
+          <h1>JavaScript-Ökosystem</h1>
 
+          <div class="fragment">
+              <p><em>Themen</em></p>
           <ul>
             <li>Typisches Tooling im JS/React-Umfeld</li>
             <li>Build-Prozess React-Anwendungen</li>
           </ul>
+        </div>
+
+
+          <div class="fragment">
+            <p><em>Mehr Material</em></p>
+          <ul>
+            <li>Artikel: <a href="https://nilshartmann.net/posts/hilfe-ich-muss-javascript-programmieren/">Hilfe, ich muss JavaScript programmieren</a></li>
+            <li>Slides: <a href="https://github.com/nilshartmann/js-ecosystem-talk/raw/master/js-ecosystem-wjax2017.pdf">Das JavaScript Ökosystem</a></li>
+          </ul>
+        </div>
         </section>
 
         <section>
@@ -469,9 +481,8 @@ const time = `The time is: ${new Date()}`); // The time is: ...
               <li>Unterstützung von praktisch allen Browsern</li>
               <li>Die "Referenz"-Version</li>
             </ul>
-            <a href="https://caniuse.com/#search=es5" target="_blank"
-              ><img src="images/can-i-use-es5.png"
-            /></a>
+            <img src="images/can-i-use-es5.png" />
+            <a href="https://caniuse.com/#search=es5">https://caniuse.com/#search=es5</a>
           </div>
           <ul class="fragment">
             <li><b>JavaScript</b>: Implementierung</li>
@@ -702,20 +713,12 @@ const time = `The time is: ${new Date()}`); // The time is: ...
         <section>
           <h3>Das Beispiel-Projekt</h3>
           <p>Workspace</p>
-          <ul>
+          <ul class="x-list">
             <li><code>2019_react_hooks.html</code> Slides im Root-Verzeichnis</li>
-            <li><code>code/workspace</code>: Verzeichnis für Eure Übungen</li>
-            <li><code>code/material</code>: Code als Ausgangspunkt für Übungen</li>
-            <li><code>code/schritte</code>: Fertige Stände nach den einzelnen Teilen</li>
+            <li><code>code/<b>workspace</b></code>: Verzeichnis für Eure Übungen<br/>Empfehlung: dieses Verzeichnis in VS Code/IDE öffnen</li>
+            <li><code>code/<b>material</b></code>: Code als Ausgangspunkt für Übungen</li>
+            <li><code>code/<b>schritte</b></code>: Fertige Stände nach den einzelnen Teilen</li>
           </ul>
-          <div class="fragment">
-            <p style="margin-top:2rem"><b>WEBPACK DEVSERVER STARTEN</b></p>
-            <p>in <b>code/workspace</b>: <code>npm start</code></p>
-            <p>
-              (Der Server kann durchlaufen, nur falls automatischer Reload nicht klappt, neu
-              starten)
-            </p>
-          </div>
         </section>
         <section>
           <h2>Übung 1: React Hello-World</h2>
@@ -769,13 +772,13 @@ const time = `The time is: ${new Date()}`); // The time is: ...
         <section id="t1">
           <h1>Teil I</h1>
           <h2>React-Komponenten (Grundlagen)</h2>
-          <a href="code/schritte/1-detail/public/index.html" target="_blank">Ziel-Anwendung</a>
+          <a href="code/schritte/1-detail/public/index.html">Ziel-Anwendung</a>
         </section>
 
         <section>
           <h2>Dokumentation</h2>
           <p>
-            <a href="https://reactjs.org/docs/hello-world.html" target="_blank">
+            <a href="https://reactjs.org/docs/hello-world.html">
               https://reactjs.org/docs/hello-world.html
             </a>
           </p>
@@ -4351,8 +4354,9 @@ const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props =>
       });
 
       // open all externals link in new tab
-      $('a[href^="http://"]').attr("target", "_blank");
-      $('a[href^="https://"]').attr("target", "_blank");
+      $('a:not([href^="#"])').attr("target", "_blank");
+      // $('a[href^="http://"]').attr("target", "_blank");
+      // $('a[href^="https://"]').attr("target", "_blank");
     </script>
 
     <script>

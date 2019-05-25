@@ -8,13 +8,13 @@ let currentId = 0;
 const sampleGreetings = [
   {
     id: currentId++,
-    name: "Olli",
+    name: "Klaus",
     greeting: "Huhu"
   },
   {
     id: currentId++,
-    name: "Oma",
-    greeting: "Hallo"
+    name: "Susi",
+    greeting: "Moin"
   }
 ];
 
