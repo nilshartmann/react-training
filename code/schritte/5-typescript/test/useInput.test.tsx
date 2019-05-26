@@ -9,7 +9,7 @@ function UseInputTest() {
     <>
       <input {...customerInput} />
       <button name="reset" onClick={resetCustomer} />
-      </>
+    </>
   );
 }
 
@@ -22,7 +22,7 @@ test("custom hook should work", () => {
   expect(customerInput()).toHaveLength(1);
   expect(customerInput().props().value).toBe("kunde");
 
-  customerInput().simulate("change", { target: { name: "name", value: "Anderer Kunde" } });
+  customerInput().simulate("change", { currentTarget: { name: "name", value: "Anderer Kunde" } });
   expect(customerInput().props().value).toBe("Anderer Kunde");
 
   resetButton().simulate("click");

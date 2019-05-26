@@ -20,7 +20,8 @@ function flushPromises() {
 //    -> https://github.com/airbnb/enzyme/pull/2034
 
 test("it should render greetings received from backend", () => {
-  fetch.mockResponse(JSON.stringify(someGreetings), { status: 200 });
+  // 'fetchMock' see: https://www.npmjs.com/package/jest-fetch-mock#typescript-guide
+  fetchMock.mockResponse(JSON.stringify(someGreetings), { status: 200 });
   // render the component we want to test
   const tree = mount(<GreetingController />);
   expect(fetch).toHaveBeenCalledWith("http://localhost:7000/greetings");
@@ -34,7 +35,7 @@ test("it should render greetings received from backend", () => {
 });
 
 test("it should open detail view on button click", () => {
-  fetch.mockResponse(JSON.stringify(someGreetings), { status: 200 });
+  fetchMock.mockResponse(JSON.stringify(someGreetings), { status: 200 });
 
   // mount the component into a real dom (implemented by JSDom)
   const component = mount(<GreetingController />);
