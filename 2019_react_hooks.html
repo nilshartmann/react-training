@@ -3970,24 +3970,25 @@ test("it should open detail view on button click", () => {
           <h2>React Anwendungen mit TypeScript</h2>
           <em>State und Properties von Komponenten werden mit Typen beschrieben</em>
 
-          <p class="fragment">Achtung! TypeScript-Dateien, die JSX enthalten <b>müssen</b> mit <code>.tsx</code> enden!</p>
+          <p class="fragment">
+            Achtung! TypeScript-Dateien, die JSX enthalten <b>müssen</b> mit
+            <code>.tsx</code> enden!
+          </p>
         </section>
 
-        
-
         <section>
-            <h2>Typsicherheit in Funktionskomponenten</h2>
-            <pre
-              class="fragment"
-            ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+          <h2>Typsicherheit in Funktionskomponenten</h2>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
     type GreetingMasterProps = {
         greetings: Greeting[]
         onAdd: () => void
     };
             </code></pre>
-            <pre
-              class="fragment"
-            ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
     function GreetingMaster(props: GreetingMasterProps) {
       props.greetings.length // OK
       
@@ -3996,41 +3997,42 @@ test("it should open detail view on button click", () => {
     }
     
             </code></pre>
-            <pre
-              class="fragment"
-            ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
     // Mit Destructuring
     function GreetingMaster({greetings, onAdd}: GreetingMasterProps) => {
       // ...
     }
     
             </code></pre>
-          </section>
+        </section>
 
-          <section>
-            <h3>Typsichere Verwendung von Komponenten</h3>
+        <section>
+          <h3>Typsichere Verwendung von Komponenten</h3>
 
-            <div class="fragment">
-              <p>Code Completion</p>
-              <img style="height: 200px" src="images/screenshot-ts-code_completion.png" />
-            </div>
+          <div class="fragment">
+            <p>Code Completion</p>
+            <img style="height: 200px" src="images/screenshot-ts-code_completion.png" />
+          </div>
 
-            <div class="fragment">
-                <p>Unbekanntes Property</p>
-                <img style="height: 200px"  src="images/screenshot-ts-error-01.png" />
-              </div>
+          <div class="fragment">
+            <p>Unbekanntes Property</p>
+            <img style="height: 200px" src="images/screenshot-ts-error-01.png" />
+          </div>
 
-              <div class="fragment">
-                  <p>Falsche Verwendung eines Properties</p>
-                  <img style="height: 200px"  src="images/screenshot-ts-error-02.png" />
-                </div>
-    
-          </section>
+          <div class="fragment">
+            <p>Falsche Verwendung eines Properties</p>
+            <img style="height: 200px" src="images/screenshot-ts-error-02.png" />
+          </div>
+        </section>
 
-          <section>
-            <h3>Typsicherheit in useState</h3>
-            <p>Der Typ des States bei useState kann abgeleitet</p>
-            <pre class="fragment"><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+        <section>
+          <h3>Typsicherheit in useState</h3>
+          <p>Der Typ des States bei useState kann abgeleitet</p>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
 type GreetingDetailProps = { intitialGreeting: string };
 function GreetingDetailProps(props: GreetingDetailProps) {
   const [greeting, setGreeting] = React.useState(props.initialGreeting);
@@ -4041,7 +4043,7 @@ function GreetingDetailProps(props: GreetingDetailProps) {
   setGreeting(null); // ERROR (falscher Typ)
 }
             </code></pre>
-            <div class="fragment">
+          <div class="fragment">
             <p>Oder explizit angeben</p>
             <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
 
@@ -4059,13 +4061,17 @@ function GreetingController() {
   setMode("NOT_FOUND"); // compile error
 }
                             </code></pre>
-                          </div>
-          </section>
+          </div>
+        </section>
 
-          <section>
-            <h3>Array-Rückgabewerte in Custom Hooks</h3>
-            <p>In Arrays muss explizit angegeben werden, an welcher Position sich welcher Typ befindet</p>
-            <pre class="fragment"><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+        <section>
+          <h3>Array-Rückgabewerte in Custom Hooks</h3>
+          <p>
+            In Arrays muss explizit angegeben werden, an welcher Position sich welcher Typ befindet
+          </p>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
 // Rückgabewert besteht aus Array mit zwei Elementen
 type UseInputResult = [
   {
@@ -4081,17 +4087,17 @@ function useInput(placeholder: string, initialValue?: string): UseInputResult {
   // ...
 }
                                             </code></pre>
-                          </section>
+        </section>
 
-          <section>
-              <h2>Getypte React Klassen-Komponenten</h2>
-              <p>
-                <code>React.Component</code> ist eine generische Klasse, die einen Typ für Properties
-                und State erwartet
-              </p>
-              <pre
-                class="fragment"
-              ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+        <section>
+          <h2>Getypte React Klassen-Komponenten</h2>
+          <p>
+            <code>React.Component</code> ist eine generische Klasse, die einen Typ für Properties
+            und State erwartet
+          </p>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
       type Greeting = {name: string; greeting: string};
       
       type GreetingDetailProps = {
@@ -4104,17 +4110,17 @@ function useInput(placeholder: string, initialValue?: string): UseInputResult {
           greeting: string;
       }
                   </code></pre>
-    
-              <pre
-                class="fragment"
-              ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
       
       class GreetingDetail
         extends React.Component&lt;GreetingDetailProps, GreetingDetailState> {
         // ...
       }
                   </code></pre>
-            </section>
+        </section>
         <section>
           <h3>Typsicherheit in React Klassen-Komponenten</h3>
           <p>Properties und State sind typsicher</p>
@@ -4144,7 +4150,10 @@ function useInput(placeholder: string, initialValue?: string): UseInputResult {
         <section>
           <h2>React Events in TypeScript</h2>
           <p>Generisches React Event: <code>React.SyntheticEvent</code></p>
-          <p class="fragment">Wird parametrisiert mit dem Element, <b>auf dem es definiert ist</b>, z.B. HTMLInputElement</p>
+          <p class="fragment">
+            Wird parametrisiert mit dem Element, <b>auf dem es definiert ist</b>, z.B.
+            HTMLInputElement
+          </p>
           <p class="fragment">TypeScript weiß dann, wie das Event aussieht</p>
           <span class="fragment">
             <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
@@ -4169,60 +4178,60 @@ function GreetingDetail(props) {
             </p>
           </span>
         </section>
-       
+
         <section>
-          <h2>Übung: Eine Komponente auf TypeScript umstellen</h2>
+          <h2>Übung: Typsichere React-Komponenten</h2>
           <h3>
-            <em>Stelle die GreetingDetail Komponente auf TypeScript um</em>
+            <em>Vervollständige die Typ-Informationen der Anwendung</em>
           </h3>
           <div style="font-size: 80%">
             <p>
-              <b>Hinweis: </b> Bitte arbeite dazu in dem neuen Workspace
-              <code>code/workspace-typescript</code>:
+              <b>WORKSPACE:</b>
             </p>
-            <ul>
+            <p>
+              Bitte arbeite in dem neuen Workspace <code><b>code/workspace-typescript</b></code
+              >, der die Anwendung aus dem letzten Schritt enthält, aber in TypeScript implementiert
+            </p>
+            <p>
+              <b>VORBEREITUNG:</b>
+            </p>
+            <ol class="x-list">
+              <li>Beende deinen laufenden Webpack Dev Server! (Strg/Ctrl/Cmd+C)</li>
               <li>
-                Dieses Verzeichnis enthält die Anwendung aus unserem letzten Schritt, aber in
-                TypeScript implementiert
+                Starte den neuen Dev Server mit TypeScript (statt Babel) in
+                <b>code/workspace-typescript</b>:
+                <pre><code>npm start</code></pre>
               </li>
-              <li>
-                Lediglich das <code>GreetingDetail</code> ist noch in JavaScript implementiert
-              </li>
-              <li>
-                Du kannst den Webpack Server in diesem Verzeichnis ebenfalls mit
-                <code>npm start</code> starten
-              </li>
-              <li>Denk dran, deinen laufenden Webpack Server vorher zu beenden</li>
-            </ul>
+            </ol>
           </div>
         </section>
         <section>
-          <h2>Schritte</h2>
+          <h3>Aufgabe 1: Typ-Informationen ergänzen</h3>
           <ol style="font-size:80%">
-            <li>
-              Definiere einen Typen für die Properties und den State und passe die
-              <code>GreetingDetail</code>-Klasse an
+            <li class="fragment">
+              <b>Ergänze die Typ-Informationen in GreetingDetail</b> (Vorher umbenennen
+              <code>GreetingDetail.js</code> in <code>GreetingDetail.tsx</code>. Sobald Du die Datei
+              umbenennst, sollten Compile-Fehler angezeigt werden)
             </li>
-            <li>
-              Füge der Komponente das <code>input</code>-Property hinzu (Type:
-              <code>HTMLInputElement</code>)
+            <li class="fragment">
+              <b>Ergänze die Typ-Informationen in useInput</b> (Vorher umbenennen
+              <code>useInput.js</code> in <code>useInput.tsx</code>. Sobald Du die Datei umbenennst,
+              sollten Compile-Fehler angezeigt werden)
             </li>
-            <li>
-              Experimentiere (optional):
-              <ul>
-                <li>
-                  Was passiert, wenn Du im <code>GreetingDetail</code> auf ein nicht bekanntes
-                  Property zugreifst?
-                </li>
-                <li>
-                  Was passiert, wenn Du im <code>GreetingDetail</code> den State mit
-                  <code>this.state = { . . .}</code> neu setzt?
-                </li>
-                <li>
-                  Was passiert, wenn Du beim Aufrufen des <code>GreetingDetail</code> (
-                  <code>GreetingController</code>) ein zusätzliches Property übergibst?
-                </li>
-              </ul>
+          </ol>
+
+          <h3 class="fragment">Aufgabe 2: Neuen Mode im GreetingController einführen</h3>
+          <ol>
+            <li class="fragment">
+              Nach dem Speichern eines neuen Greetings soll ein neuer "Feedback-View" mit einer
+              Meldung erscheinen (statt Master), in der steht "Gruß wurde gespeichert" (o.ä.).
+            </li>
+            <li class="fragment">Neben der Meldung soll der View einen "OK"-Button anzeigen.</li>
+            <li class="fragment">
+              Wenn der OK-Button geklickt wird, soll wieder zum Master gewechselt werden.
+            </li>
+            <li class="fragment">
+              <code>MASTER --onAdd--> DETAIL --onSave--> FEEDBACK --onOk--> MASTER</code>
             </li>
           </ol>
         </section>

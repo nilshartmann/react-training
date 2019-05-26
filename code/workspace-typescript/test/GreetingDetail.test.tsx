@@ -1,10 +1,12 @@
-import * as React from "react";
+import React from "react";
 import GreetingDetail from "../src/GreetingDetail";
-import * as renderer from "react-test-renderer";
+import renderer from "react-test-renderer";
 
-import { shallow, ShallowWrapper } from "enzyme";
+// use "enzyme" as "prefix" in code below to make it more
+// obvious where shallow comes from
+import * as enzyme from "enzyme";
 
-const exactlyOne = (component: ShallowWrapper<any, any>) => {
+const exactlyOne = (component: enzyme.ShallowWrapper<any, any>) => {
   expect(component).toHaveLength(1);
   return component;
 };
@@ -12,7 +14,7 @@ const exactlyOne = (component: ShallowWrapper<any, any>) => {
 const setup = () => {
   const onSaveMock = jest.fn();
 
-  const component = shallow(<GreetingDetail onSave={onSaveMock} />);
+  const component = enzyme.shallow(<GreetingDetail onSave={onSaveMock} />);
 
   const nameInput = () => exactlyOne(component.find('input[name="name"]'));
   const greetingInput = () => exactlyOne(component.find('input[name="greeting"]'));
@@ -46,18 +48,34 @@ test("it should render fine", () => {
   expect(tree).toMatchSnapshot();
 });
 
+const changeEvent = (name: string, value: string | null) => ({
+  currentTarget: { name, value }
+});
+
+test.skip("enablement should work", () => {
+  const onSaveMock = jest.fn();
+  const greetingDetail = enzyme.mount(<GreetingDetail onSave={onSaveMock} />);
+
+  expect(greetingDetail.find('button[children="Save"]').prop("disabled")).toBe(true);
+
+  greetingDetail.find('input[name="name"]').simulate("change", changeEvent("name", "Susi"));
+  greetingDetail
+    .find('input[name="greeting"]')
+    .simulate("change", changeEvent("greeting", "Hello"));
+
+  greetingDetail.update();
+
+  expect(greetingDetail.find('button[children="Save"]').prop("disabled")).toBe(false);
+});
+
 test("onSave should be called with values from form", () => {
   const { onSaveMock, elements } = setup();
 
-  elements
-    .nameInput()
-    .simulate("change", { currentTarget: { name: "name", value: aGreeting.name } });
+  elements.nameInput().simulate("change", changeEvent("name", aGreeting.name));
   // checking the state here might be too much in real live,
   // here just to demonstrate the Enzyme API
 
-  elements
-    .greetingInput()
-    .simulate("change", { currentTarget: { name: "greeting", value: aGreeting.greeting } });
+  elements.greetingInput().simulate("change", changeEvent("greeting", aGreeting.greeting));
 
   elements.addButton().simulate("click");
   expect(onSaveMock.mock.calls).toHaveLength(1);
@@ -71,23 +89,17 @@ test("onSave should be disabled and enabled", () => {
   expect(elements.addButton().prop("disabled")).toBe(true);
 
   // should be disabled if only name is entered
-  elements
-    .nameInput()
-    .simulate("change", { currentTarget: { name: "name", value: aGreeting.name } });
+  elements.nameInput().simulate("change", changeEvent("name", aGreeting.name));
   expect(elements.addButton().prop("disabled")).toBe(true);
 
   // should be disabled if only greeting is enabled
-  elements.nameInput().simulate("change", { currentTarget: { name: "name", value: null } });
-  elements
-    .greetingInput()
-    .simulate("change", { currentTarget: { name: "greeting", value: aGreeting.greeting } });
+  elements.nameInput().simulate("change", changeEvent("name", null));
+  elements.greetingInput().simulate("change", changeEvent("greeting", aGreeting.greeting));
   expect(elements.addButton().prop("disabled")).toBe(true);
 
   // should be enabled if name and greeting is set
   // (btw note the imperative test code style vs the declarative react code style)
-  elements
-    .nameInput()
-    .simulate("change", { currentTarget: { name: "name", value: aGreeting.name } });
+  elements.nameInput().simulate("change", changeEvent("name", aGreeting.name));
   expect(elements.addButton().prop("disabled")).toBe(false);
 });
 
@@ -95,21 +107,17 @@ test("clear should clear the form", () => {
   const { component, elements } = setup();
 
   // enter
-  elements
-    .nameInput()
-    .simulate("change", { currentTarget: { name: "name", value: aGreeting.name } });
-  elements
-    .greetingInput()
-    .simulate("change", { currentTarget: { name: "greeting", value: aGreeting.greeting } });
+  elements.nameInput().simulate("change", changeEvent("name", aGreeting.name));
+  elements.greetingInput().simulate("change", changeEvent("greeting", aGreeting.greeting));
 
   // just to make sure, state has a value before resetting
-  expect(component.state("name")).toBe(aGreeting.name);
-  expect(component.state("greeting")).toBe(aGreeting.greeting);
+  expect(elements.nameInput().props().value).toBe(aGreeting.name);
+  expect(elements.greetingInput().props().value).toBe(aGreeting.greeting);
 
   // press clear button
   elements.clearButton().simulate("click");
 
   // make sure state has been reset correctly
-  expect(component.state("name")).toBe("");
-  expect(component.state("greeting")).toBe("");
+  expect(elements.nameInput().props().value).toBe("");
+  expect(elements.greetingInput().props().value).toBe("");
 });

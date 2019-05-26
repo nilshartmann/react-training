@@ -1,67 +1,35 @@
-import * as React from "react";
+import React from "react";
 
 import GreetingMaster from "./GreetingMaster";
 import GreetingDetail from "./GreetingDetail";
-import { Greeting, NewGreeting } from "./types";
+import { NewGreeting, Greeting } from "./types";
 
 const BACKEND_URL = "http://localhost:7000/greetings";
 const MODE_MASTER = "MODE_MASTER";
 const MODE_DETAIL = "MODE_DETAIL";
 
-type GreetingControllerProps = {};
+export default function GreetingController() {
+  const [mode, setMode] = React.useState<typeof MODE_MASTER | typeof MODE_DETAIL>(MODE_MASTER);
+  const [greetings, setGreetings] = React.useState<Greeting[]>([]);
 
-type GreetingControllerState = {
-  mode: typeof MODE_MASTER | typeof MODE_DETAIL;
-  greetings: Greeting[];
-};
-
-export default class GreetingController extends React.Component<
-  GreetingControllerProps,
-  GreetingControllerState
-> {
-  render() {
-    const { mode, greetings } = this.state;
-    return (
-      <div>
-        {mode === MODE_MASTER ? (
-          <GreetingMaster
-            greetings={greetings}
-            onAdd={() => this.setState({ mode: MODE_DETAIL })}
-          />
-        ) : (
-          <GreetingDetail onSave={greeting => this.saveGreeting(greeting)} />
-        )}
-      </div>
-    );
-  }
-
-  constructor(props: GreetingControllerProps) {
-    super(props);
-    this.state = {
-      greetings: [],
-      mode: MODE_MASTER
-    };
-  }
-
-  componentDidMount() {
-    this.loadGreetings();
-  }
-
-  async loadGreetings() {
-    let greetings = null;
-    try {
-      const response = await fetch(BACKEND_URL);
-      greetings = await response.json();
-    } catch (err) {
-      console.error("LOADING GREETINGS FAILED:", err);
-      return;
+  React.useEffect(() => {
+    async function loadGreetings() {
+      let greetings = null;
+      try {
+        const response = await fetch(BACKEND_URL);
+        greetings = await response.json();
+      } catch (err) {
+        console.error("LOADING GREETINGS FAILED:", err);
+        return;
+      }
+      setGreetings(greetings);
     }
 
-    this.setState({ greetings });
-  }
+    loadGreetings();
+  }, []);
 
-  async saveGreeting(greetingToBeAdded: NewGreeting) {
-    let newGreeting;
+  async function addGreeting(greetingToBeAdded: NewGreeting) {
+    let newGreeting: Greeting;
     try {
       const response = await fetch(BACKEND_URL, {
         method: "POST",
@@ -80,15 +48,21 @@ export default class GreetingController extends React.Component<
     }
     // add the new greetings to the list of all greetings
     // (create a new array for immutability)
-
-    const newGreetings = [...this.state.greetings, newGreeting];
-
-    // set the new list of greetings as our new state
-    // also set 'MODE_MASTER' to make sure the master-View is
-    // displayed now
-    this.setState({
-      greetings: newGreetings,
-      mode: MODE_MASTER
-    });
+    // use updater function (in setGreetings) to make sure
+    // we get the latest 'greetings' value from state
+    setGreetings(currentGreetings => [...currentGreetings, newGreeting]);
+    setMode(MODE_MASTER);
   }
+
+  if (mode === MODE_MASTER)
+    return (
+      <GreetingMaster
+        greetings={greetings}
+        onAdd={() => {
+          setMode(MODE_DETAIL);
+        }}
+      />
+    );
+
+  return <GreetingDetail onSave={addGreeting} />;
 }

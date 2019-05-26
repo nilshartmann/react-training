@@ -1,12 +1,12 @@
-import React from "react";
+import * as React from "react";
 import { Greeting } from "./types";
 
 type GreetingMasterProps = {
   greetings: Greeting[];
-  onAdd(): void;
+  onAdd: () => void;
 };
 
-function GreetingMaster(props: GreetingMasterProps) {
+const GreetingMaster = (props: GreetingMasterProps) => {
   const { greetings, onAdd } = props;
   const body = greetings.map(greeting => (
     <tr key={greeting.id}>
@@ -28,6 +28,6 @@ function GreetingMaster(props: GreetingMasterProps) {
       <button onClick={onAdd}>Add</button>
     </div>
   );
-}
+};
 
 export default GreetingMaster;
