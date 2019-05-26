@@ -4238,10 +4238,21 @@ function GreetingDetail(props) {
 
         <section id="t-router">
           <h2>Client-seitiges Routing (Überblick)</h2>
-          <a href="code/schritte/router-v4-typescript/public/index.html" target="_blank"
+          <a href="code/schritte/6-router/public/index.html" target="_blank"
             >Ziel-Anwendung</a
           >
         </section>
+        <section>
+          <h2>Warum Routing</h2>
+
+          <p>Fragen an Euch</p>
+          <ul>
+            <li class="fragment">Warum überhaupt? Was bedeutet das für den Anwender?</li>
+            <li class="fragment">Was haben wir für Anforderungen, was muss funktionieren?</li>
+            <li class="fragment">Was haben für Probleme/Herausforderungen (beim Implementieren)</li>
+          </ul>
+        </section>
+
         <section>
           <h2>Warum Routing?</h2>
           <span>
@@ -4267,8 +4278,8 @@ function GreetingDetail(props) {
         </section>
 
         <section>
-          <h2>Herausforderungen</h2>
-          <p>
+            <h2>Herausforderungen</h2>
+          <p class="fragment">
             Auf Änderungen der URL reagieren
             <br />
             <span style="font-size: 80%"
@@ -4276,8 +4287,8 @@ function GreetingDetail(props) {
               roundtrip</span
             >
           </p>
-          <p>Hierarchische Komponentenstrukturen</p>
-          <p>Beim Klick auf Links etc aktualisieren der URL</p>
+          <p class="fragment">Hierarchische Komponentenstrukturen</p>
+          <p class="fragment">Beim Klick auf Links etc aktualisieren der URL</p>
         </section>
 
         <section>
@@ -4286,7 +4297,7 @@ function GreetingDetail(props) {
             <li>Kein Bestandteil von React</li>
             <li>Sehr häufig verwendet (de-facto Standard)</li>
             <li>
-              Aktuelle Version 4:
+              Aktuelle Version 5:
               <a href="https://reacttraining.com/react-router/" target="_blank">
                 https://reacttraining.com/react-router/</a
               >
@@ -4401,7 +4412,7 @@ function GreetingDetail(props) {
           component={&lt;GreetingDisplay />} />
     
     // in GreetingDisplay kann die greetingId über
-    // this.props.match.params.greetingId abgefragt werden
+    // props.match.params.greetingId abgefragt werden
             </code></pre>
         </section>
         <section>
@@ -4710,7 +4721,7 @@ function GreetingDetail(props) {
                                             </code></pre>
         </section>
         <section>
-          <h2>Alternative PropTypes</h2>
+          <h2>Alternative Render Props</h2>
           <p>https://reactjs.org/docs/render-props.html</p>
           <p>https://www.youtube.com/watch?v=BcVAq3YFiuc</p>
         </section>
@@ -4732,13 +4743,11 @@ function GreetingDetail(props) {
           <p class="fragment">Die Komponente kann für ihre Properties das Interface erweitern:</p>
           <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
     import { RouteComponentProps } from "react-router";
-    interface GreetingControllerProps extends RouteComponentProps&lt;void&gt { 
+    type GreetingControllerProps = RouteComponentProps&lt;void&gt; &amp; { 
       // ggf. eigene Properties des GreetingControllers
     }
-    class GreetingController extends React.Component&lt;GreetingControllerProps> {
-      render() {
+    function GreetingController(props:GreetingControllerProps) {
         const history = this.props.history; // ok, kein Compile-Fehler
-      }
     }
     </code></pre>
         </section>
@@ -4756,24 +4765,25 @@ function GreetingDetail(props) {
     import { RouteComponentProps } from "react-router";
     
     // Die im Path definierten Parameter
-    interface GreetingControllerParams { greetingId: string };
+    type GreetingControllerParams = { greetingId: string };
     
     // Als Type-Argument werden die Parameter angegeben
-    interface GreetingControllerProps extends 
-      RouteComponentProps&lt;GreetingControllerParams&gt {   }
+    type GreetingControllerProps = 
+      RouteComponentProps&lt;GreetingControllerParams&gt; {   }
     
-    class GreetingController extends React.Component&lt;GreetingControllerProps> {
-      render() {
+    function GreetingController(props:GreetingControllerProps) {
         const params = this.props.match;
     
         const greetingId = params.greetingId; // ok, kein Compile-Fehler
         const userId = params.userId; // Fehler: userId nicht bekannt
-      }
+        // ...
     }
       </code></pre>
         </section>
 
         <section>
+          
+          <h1>Anhang</h1>
           <h2>Wiederholung</h2>
 
           <em>Gemeinsam neues Feature implementieren, um zu wiederholen</em>
