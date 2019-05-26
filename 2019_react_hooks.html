@@ -1407,6 +1407,185 @@ function GreetingDetail(props) {
           <img src="images/screenshot-name-greeting.png" />
         </section>
 
+        <section>
+          <h3>Custom Hooks</h3>
+
+          <em>Eigene Hooks können für wiederkehrende Aufgaben genutzt werden</em>
+
+          <p class="fragment">
+            Beispiele: Laden von Daten, Arbeiten mit spezialisiertem State, ...
+          </p>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+
+          <ul>
+            <li class="fragment">
+              ...müssen mit <code>use</code>beginnen
+              <ul>
+                <li>(ansonsten kann der Linter nicht auf mögliche Fehler prüfen!)</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              ...dürfen nur aus anderen (Custom) Hooks und Komponenten aufgerufen werden
+            </li>
+            <li class="fragment">
+              ...erwarten "normale" Funktionsparameter (nicht zwingend ein Objekt wie bei
+              Komponenten)
+            </li>
+            <li class="fragment">...dürfen andere (Custom) Hooks verwenden</li>
+            <li class="fragment">
+              ...beliebiger Rückgabewert möglich (alle Typen erlaubt, auch JSX!)
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            function useUpperCase(initialState) {
+              const [value, setValue] = React.useState(initialState);
+
+              function onValueChange(newValue) {
+                setValue(newValue.toUpperCase());
+              }
+
+              return [
+                value,
+                onValueChange
+              ]
+
+            }
+
+            function GreetingDetail(props) {
+              const [name, setName] = useUpperCase(props.initialName);
+
+              return &lt;input onChange={e => setName(e.target.value)} value={name} />
+            }
+
+            
+          </code></pre>
+        </section>
+        <section>
+          <h3>Custom Hooks</h3>
+
+          <p class="fragment">Beispiel: Konfiguration eines Eingabefeldes (input, textarea)</p>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                function GreetingDetail(props) {
+                  const [name, setName] = React.useState(props.initialName || "");
+                  const [greeting, setGreeting] = React.useState(props.initialGreeting || "");
+                  const inputRef = React.useRef();
+                
+                  function reset() { /* ... */ }
+                
+                  return (
+                    &lt;div>
+                    &lt;input
+                        ref={inputRef}
+                        onChange={event => setName(event.target.value)}
+                        value={name}
+                        name="name"
+                        placeholder="Name"
+                      />
+                      &lt;input
+                        onChange={event => setGreeting(event.target.value)}
+                        value={greeting}
+                        name="greeting"
+                        placeholder="Greeting"
+                      />
+                
+                      &lt;/div>
+                  );
+                }
+            </code></pre>
+          <ul>
+            <li class="fragment">
+              useState mit initialValue und dessen Initialisierung für jedes Feld
+            </li>
+            <li class="fragment">onChange, value, placeholder für jedes Feld</li>
+            <li class="fragment">Eigene (input-)Komponente oder Hook?</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+
+          <p>Beispiel: Konfiguration eines Eingabefeldes (input, textarea)</p>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                  function useInput(placeholder, initialValue) {
+                    const [value, setValue] = React.useState(initialValue || "");
+                  
+                    function reset() {
+                      setValue("");
+                    }
+                  
+                    // Array mit 2 Feldern
+                    return [
+                      { // Objekt mit Werten fuer Input-Feld
+                        placeholder,
+                        name: placeholder.toLowerCase(),
+                        onChange: event => setValue(event.target.value),
+                        value
+                      },
+                      reset // Funktion zum Reset des States
+                    ];
+                  }
+              </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                  function GreetingDetail(props) {
+                    const [nameInput, resetName] = useInput("Name", props.initialName);
+                    const [greetingInput, resetGreeting] = useInput("Greeting", props.initialGreeting);
+                  
+                    function reset() { resetName(); resetGreeting(); }
+                  
+                    return &lt;div>
+                      &lt;input {...nameInput} ref={inputRef} />
+                      &lt;input {...greetingInput} />
+                    &lt;/div>;
+                  }
+                  
+              </code></pre>
+        </section>
+        <section>
+          <h3>Hintergrund: Objekt Spread mit JSX</h3>
+
+          <p class="fragment">
+            Mit dem Objekt Spread Operator ({...object}) können alle Properties eines Objektes
+            "pauschal" an eine Komponente übergeben werden:
+          </p>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                const properties = {
+                  className: "success"
+                  onClick: () => console.log("Klick!")
+                }
+
+                &lt;button {...properties}>OK&lt;/button>
+              </code></pre>
+
+          <div class="fragment">
+            <p>Identisch mit:</p>
+            <pre><code class="javascript" contenteditable data-trim>
+                  &lt;button className="success" onClick={() => console.log("Klick")}>OK&lt;/button>
+                </code></pre>
+          </div>
+          <div class="fragment">
+            <p>Hintere Properties überschreiben Werte aus Objekt</p>
+
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                    const properties = {
+                      className: "success"
+                      onClick: () => console.log("Klick!"),
+                      onBlur: () => console.log("Blur")
+                    }
+    
+                    &lt;button className="Error" {...properties} onBlur={() => console.log("Ciao")}>OK&lt;/button>
+                    // className wird aus properties genommen ("success")
+                    // onBlur aus aufruf (console.log("Ciao"))
+                  </code></pre>
+          </div>
+        </section>
+
         <section id="t2">
           <h1>Teil II</h1>
           <h2>React-Komponenten: Details, Hierarchien und Anwendungen</h2>
@@ -2419,24 +2598,26 @@ async function loadData() {
               href="https://twitter.com/ManuelBieh/status/994618772999884800"
               >https://twitter.com/ManuelBieh/status/994618772999884800</a
             >
+            <p>Nur in der "Commit Phase" dürfen Seiteneffekte ausgeführt werden</p>
+          </div>
+        </section>
+        <section>
+          <h3>useEffekt-Hook</h3>
+          <em
+            >Der useEffekt-Hook erlaubt es, Seiteneffekte zu definierten Zeitpunkten auszuführen</em
+          >
+
+          <div class="fragment">
+            <img style="height: 500px" src="images/hook-flow.png" />
+            <br /><a style="font-size:small" href="https://github.com/donavon/hook-flow"
+              >https://github.com/donavon/hook-flow</a
+            >
           </div>
 
           <p class="fragment">
             <a href="code/schritte/2d-hierarchy-use-effect/public/index.html" target="_blank"
               >Beispiel-Anwendung</a
             >
-          </p>
-        </section>
-        <section>
-          <h3>useEffekt-Hook</h3>
-          <em
-            >Der useEffekt-Hook erlaubt es Seiteneffekte zu definierten Zeitpunkten auszuführen</em
-          >
-
-          <p>
-            Schritt-für-Schritt (<code
-              >code/workspace-live-coding, vorher schritte/2-hierarchy reinkopieren</code
-            >)
           </p>
         </section>
 
@@ -2537,6 +2718,13 @@ async function loadData() {
 
         <section>
           <h3>Initiales Laden von Daten</h3>
+
+          <p class="fragment">
+            Schritt-für-Schritt (<code
+              >code/workspace-live-coding, vorher schritte/2-hierarchy reinkopieren</code
+            >)
+          </p>
+
           <div class="fragment">
             <p>
               <code>useEffect</code> und (<code>useState</code>) werden verwendet um Daten nach dem
@@ -2598,6 +2786,11 @@ async function loadData() {
               }
               
               </code></pre>
+        </section>
+
+        <section>
+          <h3>Probleme mit useEffect</h3>
+          <p class="todo">asynchrones Verhalten mit ref und updater</p>
         </section>
 
         <section>
@@ -2695,6 +2888,36 @@ function GreetingController {
             </li>
           </ol>
         </section>
+
+        <section>
+          <p class="todo">EXKURS: DATA LOADING "RICHTIG"</p>
+
+          <ul>
+            <li>Fehlerbehandlung</li>
+            <li>Daten abhängig von Properties laden</li>
+          </ul>
+        </section>
+
+        <!-- <section>
+          <h3>Custom Hooks</h3>
+          <em>Es können eigene Hooks für wiederkehrende Aufgaben implementiert werden</em>
+          <p class="fragment">Beispiel: Hook zum Laden von Daten</p>
+        </section>
+
+        <section>
+          <h3>Custom Hook zum Daten laden</h3>
+          <p class="fragment"><em>Frage an Euch: welche Anforderungen müsste ein solcher Hook erfüllen</em></p>
+        </section>
+
+        <section>
+            <h3>Custom Hook zum Daten laden</h3>
+            <p class="fragment"><em>Anforderungen</em></p>
+            <ul>
+              <li class="fragment">Laden der Daten von konfigurierbarer URL</li>
+              <li class="fragment"><b>Fehlerbehandlung</b>: z.B. ausgeben einer Fehlermeldung</li>
+              <li class="fragment"><b>Umgehen mit Wartezeiten</b>: Darstellen eines Loading Indicators</li>
+            </ul>
+          </section> -->
 
         <section id="t-test">
           <h1>Teil IV</h1>

@@ -32,20 +32,11 @@ export default function GreetingDetail(props) {
 
   const inputRef = React.useRef();
 
-  const saveDisabled = !(nameInput.value && greetingInput.value);
-
   function reset() {
     resetName();
     resetGreeting();
 
     inputRef.current.focus();
-  }
-
-  function save() {
-    props.onSave({
-      name: nameInput.value,
-      greeting: greetingInput.value
-    });
   }
 
   return (
@@ -54,9 +45,6 @@ export default function GreetingDetail(props) {
       <input {...greetingInput} />
 
       <button onClick={reset}>Clear</button>
-      <button disabled={saveDisabled} onClick={save}>
-        Save
-      </button>
     </div>
   );
 }

@@ -7,24 +7,25 @@ const BACKEND_URL = "http://localhost:7000/greetings";
 const MODE_MASTER = "MODE_MASTER";
 const MODE_DETAIL = "MODE_DETAIL";
 
+async function loadGreetings() {
+  try {
+    const response = await fetch(BACKEND_URL);
+    return await response.json();
+  } catch (err) {
+    console.error("LOADING GREETINGS FAILED:", err);
+    return;
+  }
+}
+
 export default function GreetingController() {
   const [mode, setMode] = React.useState(MODE_MASTER);
   const [greetings, setGreetings] = React.useState([]);
 
   React.useEffect(() => {
-    async function loadGreetings() {
-      let greetings = null;
-      try {
-        const response = await fetch(BACKEND_URL);
-        greetings = await response.json();
-      } catch (err) {
-        console.error("LOADING GREETINGS FAILED:", err);
-        return;
-      }
+    (async function() {
+      const greetings = await loadGreetings();
       setGreetings(greetings);
-    }
-
-    loadGreetings();
+    })();
   }, []);
 
   async function addGreeting(greetingToBeAdded) {
