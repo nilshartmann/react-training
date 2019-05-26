@@ -113,7 +113,7 @@
           <ol style="font-size: 85%">
             <li>
               <code>git clone https://github.com/nilshartmann/react-training.git</code>
-              oder
+              <br />oder
               <code>git pull</code>
             </li>
             <li>
@@ -122,14 +122,13 @@
             </li>
           </ol>
 
+          <p><b>IN EDITOR/IDE ÖFFNEN</b></p>
+          <p>Empfehlung: Nur Verzeichnis <code>code/workspace</code> öffnen</p>
+
           <p><b>STARTEN</b></p>
           <ol style="font-size: 85%">
             <li>
-              Server 1: Im geklonten Root-Verzeichnis:
-              <code>npm run start-backend</code>
-            </li>
-            <li>
-              Server 2: in neuem Terminal: <code>code/workspace</code>:
+              Webserver (Frontend) in <code>code/workspace</code>:
               <code>npm start</code>
             </li>
             <li>
@@ -139,8 +138,9 @@
             <li>Wenn dort ein Hello-World-Text erscheint ist alles gut</li>
           </ol>
 
+          <p><b>FOLIEN</b></p>
           <p>
-            Folien: Im geklonten Verzeichnis
+            Im geklonten Verzeichnis
             <code>2019_react_hooks.html</code>
 
             <br />oder:
@@ -180,15 +180,18 @@
             <li>
               <a href="#/t-test">Teil IV: Testen von React Anwendungen</a>
             </li>
+            <li>
+              <a href="#/t-typescript">Teil V: React Anwendungen mit TypeScript entwickeln</a>
+            </li>
+            <li><a href="#/t-router">Teil VI: Client-seitiges Routing mit React Router</a></li>
 
             <li style="margin-top: 30px">
               <a href="#/t7">Ausblick/Diskussion</a>
               <ul style="font-size: 85%">
+                <li>Neue React-Features in 2019 (Suspense, Code Splitting)</li>
+                <li>Mögliche Performance-Optimierungen</li>
                 <li><a href="#/t-redux">Architekturpattern: Flux / Redux</a></li>
                 <li><a href="#/t-context">Context API</a></li>
-                <li><a href="#/t-router">Client-seitiges Routing mit React Router</a></li>
-                <li><a href="#/t-hooks">React Hooks API</a></li>
-                <li><a href="#/t-typescript">React Anwendungen mit TypeScript entwickeln</a></li>
                 <li>Einbinden von 3rd-Party-Libs</li>
               </ul>
             </li>
@@ -227,25 +230,32 @@
             </li>
 
             <li class="fragment">Bewusste Verstöße gegen Best-Practices</li>
-            <li class="fragment">Zentrales Konzept: <b>Komponenten</b></li>
           </ul>
         </section>
 
-        <section id="react">
+        <section>
           <h2>React</h2>
-          <p>
-            <em>ist sehr stabil</em>
-          </p>
+          <p><em>ist sehr stabil</em></p>
           <ul>
             <li class="fragment">Semantische Versionierung</li>
             <li class="fragment">API Änderungen meist abwärtskompatibel</li>
           </ul>
-          <p class="todo">HSV-Trainer-Vergleich</p>
+          <div class="fragment">
+            <p>Zum Vergleich...</p>
+            <img height="200px" src="images/react-major-releases.png" />
+          </div>
+          <br />
+          <img class="fragment" height="200px" src="images/jdk-major-releases.png" />
+          <br />
+          <img class="fragment" height="200px" src="images/hsv-trainer.png" />
         </section>
 
         <section>
           <h3>Komponenten in React</h3>
-          <img src="images/soc.png" />
+          <p>
+            <em>Zentrales Konzept in React: <b>Komponenten</b></em>
+          </p>
+          <img style="height:800px" class="fragment" src="images/soc.png" />
         </section>
 
         <section>
@@ -509,7 +519,9 @@ const time = `The time is: ${new Date()}`); // The time is: ...
               <li>Unterstützung von praktisch allen Browsern</li>
               <li>Die "Referenz"-Version</li>
             </ul>
+            <br />
             <img src="images/can-i-use-es5.png" />
+            <br />
             <a href="https://caniuse.com/#search=es5">https://caniuse.com/#search=es5</a>
           </div>
           <ul class="fragment">
@@ -582,7 +594,8 @@ const time = `The time is: ${new Date()}`); // The time is: ...
           <ul>
             <li><b>Compiler</b> übersetzen nur die <b>Sprache</b></li>
           </ul>
-          <ul>
+          <br />
+          <ul class="fragment">
             <li>
               <b>Polyfills</b> sind JS Bibliotheken, die fehlende <b>APIs</b> implementieren
               <ul>
@@ -590,6 +603,47 @@ const time = `The time is: ${new Date()}`); // The time is: ...
                 <li>Beispiele: LocalStorage, HTML5 History API, Promise API</li>
               </ul>
             </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Linter</h2>
+          <p><em>Statische Codeanalyse</em></p>
+          <ul>
+            <li class="fragment">Findet typische JavaScript Programmierfehler</li>
+            <li class="fragment">
+              Achtet auf Einhaltung von Konventionen (z.B. Semikolon ja/nein)
+            </li>
+            <li class="fragment">Kann in den CI-Build und IDE eingebunden werden</li>
+          </ul>
+
+          <div class="fragment">
+            <p><a href="https://eslint.org/">ESLint</a></p>
+
+            <img style="height: 400px" src="images/eslint.png" />
+          </div>
+        </section>
+
+        <section>
+          <h2>Code-Formatierer</h2>
+
+          <ul>
+            <li class="fragment">
+              JavaScript macht keine/sehr wenige Aussagen, wie Code strukturiert wird
+            </li>
+            <li class="fragment">Zeilenumbrüche, -längen</li>
+            <li class="fragment">Semikolon ja/nein</li>
+            <li class="fragment">Anführungszeichen doppelt/einfach</li>
+            <li class="fragment">Spaces, Tabs, etc</li>
+            <li class="fragment">
+              <b>kann z.B. zu überflüssigen Änderungen im Git Commit führen</b>
+            </li>
+          </ul>
+
+          <p class="fragment"><a href="https://prettier.io">Prettier</a> (Mainstream)</p>
+          <ul>
+            <li class="fragment">Kann als Pre-Commit-Hook verwendet werden</li>
+            <li class="fragment">Integration mit allen relevanten IDEs</li>
           </ul>
         </section>
 
@@ -638,7 +692,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
           <h2>Package Manager</h2>
           <h3>node package manager (npm)</h3>
           <em>Standard Package Manager für Node-Entwickung</em>
-
+          <br />
           <ul style="margin-top:2rem">
             <li class="fragment">
               Beschreibung externer Abhängigkeiten in package.json-Datei
@@ -654,6 +708,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
               </ul>
             </li>
           </ul>
+          <br />
           <ul style="margin-top:2rem" class="fragment">
             <li>
               Über npm werden üblicherweise auch notwendige <b>Tools</b> deklariert und installiert
@@ -715,6 +770,14 @@ const time = `The time is: ${new Date()}`); // The time is: ...
           </ul>
         </section>
         <section>
+            <h3>create-react-app</h3>
+            <a href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
+              target="_blank">User Guide</a>
+            <p>Bootstrap von React Anwendung</p>
+            <p>Fertige Konfiguration von Webpack, React, ...</p>
+            <p>Beispiel: npx create-react-app PROJEKTNAME --typescript</p>
+          </section>
+        <section>
           <h2>React Devtools</h2>
           <em>React Developer Tools für Chrome und Firefox</em>
           <p>Untersuchen der React Anwendung zur Laufzeit</p>
@@ -738,6 +801,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
 
           <p><img src="images/screenshot-react-dev-tools.png" /></p>
         </section>
+
         <section>
           <h3>Das Beispiel-Projekt</h3>
           <p>Workspace</p>
@@ -3420,7 +3484,12 @@ test("custom hook should work", () => {
   expect(customerInput().props().value).toBe("");
 });          
         </code></pre>
-        <p class="fragment">Alternative: <a href="https://github.com/mpeyper/react-hooks-testing-library">react-hooks-testing-library</a>?</p>
+          <p class="fragment">
+            Alternative:
+            <a href="https://github.com/mpeyper/react-hooks-testing-library"
+              >react-hooks-testing-library</a
+            >?
+          </p>
         </section>
 
         <section>
@@ -3434,8 +3503,13 @@ test("custom hook should work", () => {
 
         <section>
           <h3>Mock der fetch-Funktion</h3>
-          <em>Die fetch-Funktion kann global gemockt werden, das asynchrone Verhalten bleibt aber!</em>
-          <p class="fragment"><a href="https://github.com/jefflau/jest-fetch-mock">jest-fetch-mock</a></p>
+          <em
+            >Die fetch-Funktion kann global gemockt werden, das asynchrone Verhalten bleibt
+            aber!</em
+          >
+          <p class="fragment">
+            <a href="https://github.com/jefflau/jest-fetch-mock">jest-fetch-mock</a>
+          </p>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
 test("it should open detail view on button click", () => {
   // configure fetch mock with expected result
@@ -3451,7 +3525,9 @@ test("it should open detail view on button click", () => {
   expect(tree.find("tbody tr")).toHaveLength(0);
 });
           </code></pre>
-          <p class="fragment">Um auf Ergebnis zu warten, "Trick anwenden", um Promises aufzulösen:</p>
+          <p class="fragment">
+            Um auf Ergebnis zu warten, "Trick anwenden", um Promises aufzulösen:
+          </p>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
 test("it should open detail view on button click", () => {
   // ... wie oben ....
@@ -3463,29 +3539,36 @@ test("it should open detail view on button click", () => {
   });
 });
           </code></pre>
-
         </section>
 
         <section>
           <h2>Übung: React Komponente mit Jest und Enzyme testen</h2>
           <p><em>Vervollständige Testfälle für die GreetingMaster Komponente</em></p>
 
-          <ol>
-            <li>
-              Kopiere
-              <p><code>code/material/4-test/test</code> <br />nach <code>code/workspace</code></p>
+          <ol class="x-list">
+            <li class="fragment">
+              Kopiere das Verzeichnis
+              <p>
+                <code>code/material/4-test/test</code> <br />nach <br /><code>code/workspace</code>
+              </p>
               (so dass <code>code/workspace/test</code> entsteht)
             </li>
-            <li>In der Datei sind TODOs mit den Aufgaben hinterlegt</li>
-            <li>
+            <li class="fragment">
               Du kannst die Tests mit <code>npm test</code> ausführen ("watch"-Modus, werden bei
               jeder Änderung neu ausgeführt)
             </li>
-            <li>Die Jest Snapshots kannst du mit "u" auf der Konsole aktualisieren ("update")</li>
+            <li class="fragment">
+              In der Datei <code>GreetingMaster.test.js</code> sind TODOs mit den Aufgaben
+              hinterlegt
+            </li>
+            <li class="fragment">
+              Die Jest Snapshots kannst du mit "u" auf der Konsole aktualisieren ("update")
+            </li>
           </ol>
         </section>
 
         <section id="t-typescript">
+          <h1>Teil V</h1>
           <h2>React mit TypeScript entwickeln</h2>
           <p>
             <a href="code/schritte/5-typescript/public/index.html" target="_blank"
@@ -3787,6 +3870,14 @@ test("it should open detail view on button click", () => {
         </code></pre>
         </section>
 
+        <section>
+          <h2>Intersection Types</h2>
+        </section>
+
+        <section>
+          <h2>Union Types</h2>
+        </section>
+
         <section id="t-typescript-react">
           <h2>React Anwendungen mit TypeScript</h2>
           <em>State und Properties von Komponenten werden mit Typen beschrieben</em>
@@ -3974,6 +4065,558 @@ test("it should open detail view on button click", () => {
               </ul>
             </li>
           </ol>
+        </section>
+
+        <section id="t-router">
+          <h2>Client-seitiges Routing (Überblick)</h2>
+          <a href="code/schritte/router-v4-typescript/public/index.html" target="_blank"
+            >Ziel-Anwendung</a
+          >
+        </section>
+        <section>
+          <h2>Warum Routing?</h2>
+          <span>
+            <p>
+              Mappen von URLs auf Komponenten
+              <br />
+              <span style="font-size: 80%">(Navigation findet ohne Server-Roundtrip statt)</span>
+            </p>
+          </span>
+          <span>
+            <p>
+              Komponenten halten (Teil) des Zustandes der Anwendung
+              <br />
+              <span style="font-size: 80%"
+                >Welche Komponente ist sichtbar (Master oder Detail)?</span
+              >
+              <br />
+              <span style="font-size: 80%"
+                >Welche Daten werden dafür geladen (z.B. Greeting Id)</span
+              >
+            </p>
+          </span>
+        </section>
+
+        <section>
+          <h2>Herausforderungen</h2>
+          <p>
+            Auf Änderungen der URL reagieren
+            <br />
+            <span style="font-size: 80%"
+              >Ableiten des Zustandes aus der URL <br />Wenn sich die URL ändert, kein Server
+              roundtrip</span
+            >
+          </p>
+          <p>Hierarchische Komponentenstrukturen</p>
+          <p>Beim Klick auf Links etc aktualisieren der URL</p>
+        </section>
+
+        <section>
+          <h2>React Router</h2>
+          <ul>
+            <li>Kein Bestandteil von React</li>
+            <li>Sehr häufig verwendet (de-facto Standard)</li>
+            <li>
+              Aktuelle Version 4:
+              <a href="https://reacttraining.com/react-router/" target="_blank">
+                https://reacttraining.com/react-router/</a
+              >
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Das Router-Objekt</h3>
+          <p class="fragment">
+            Top-Level-Objekt, das einmalig (oben) in der Komponenten Hierarchie eingebunden werden
+            muss
+          </p>
+          <p class="fragment">
+            Mehrere Ausprägungen zum Arbeiten mit den URL und der Browser History:
+          </p>
+          <ul>
+            <li class="fragment">
+              <b>HashRouter</b>: codiert Pfad in angehängten Hash (#/greetings)
+            </li>
+            <li class="fragment"><b>BrowserRouter</b>: codiert Pfad direkt in URL (/greetings)</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    import {HashRouter as Router} from "react-router-dom";
+    
+    const app = &lt;Router>&lt;GreetingController/>&lt;/Router>;
+    
+    ReactDOM.render(app, document.getElementById(...));
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Welche Komponente soll für einen Pfad gerendert werden</h3>
+          <p class="fragment">Das <code>Route</code>-Objekt mappt Pfade auf Komponenten</p>
+          <ul>
+            <li class="fragment">
+              Wird verwendet, wo Pfad-abhängig Komponenten ausgewählt werden sollen
+              <ul>
+                <li>
+                  vergleichbar mit intelligentem <code>if</code>/ <code>switch</code> statement
+                </li>
+                <li>
+                  <b>Kann überall in der Anwendung</b> verwendet werden (auf allen
+                  Hierarchie-Ebenenen)
+                </li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Mit <code>path</code> wird der Pfad übergeben, für den die Route matchen soll
+            </li>
+            <li class="fragment">Mit <code>component</code> wird die Komponente übergeben</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    import {HashRouter as Router, Route} from "react-router-dom";
+    
+    const app = &lt;Router>
+      &lt;Route path="/greet/:greetingId" component={GreetingDisplayController}/>
+      &lt;Route path="/" component={GreetingController}/>
+    &lt;/Router>;
+    
+    ReactDOM.render(app, document.getElementById(...));
+            </code></pre>
+        </section>
+        <section>
+          <h3>Route #2: Das render-Property</h3>
+          <ul>
+            <li>
+              Statt einer Komponente kann eine Funktion übergeben werden, die eine Komponente
+              zurückliefert
+            </li>
+            <li>Ermöglicht es, zusätzliche Properties an die Komponente zu übergeben</li>
+            <li>Kann unterschiedliche Komponenten zurückliefern (z.B. für Authorisierung)</li>
+            <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    &lt;Route path="/"
+      render={() => {
+        return loggedIn ? 
+          &lt;GreetingMaster greetings={initialGreetings} />
+        :
+          &lt;LoginForm />
+      }}
+    />
+            </code></pre>
+          </ul>
+        </section>
+        <section>
+          <h3>Hintergrund: Pfade</h3>
+          <p>
+            In Routen werden <b>Pfade</b> angegeben, die mit der aktuellen URL verglichen werden
+          </p>
+
+          <ul>
+            <li>Pfade sind per Default gültig für Teilstrings</li>
+            <li>Mit <code>exact</code> kann das Verhalten verändert werden</li>
+
+            <li>Eine Route ohne <code>path</code> matcht immer</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    // trifft zu für / und /greeting
+    &lt;Route path="/" component={GreetingController}/>
+    
+    // trifft nur zu für /
+    &lt;Route path="/" exact component={GreetingController}/>
+    
+    // passt auf jede URL:
+    &lt;Route component={GreetingController}/>
+    
+            </code></pre>
+          <ul>
+            <li class="fragment">Kann variable Segmente enthalten:</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    &lt;Route path="/greeting/:greetingId"
+          component={&lt;GreetingDisplay />} />
+    
+    // in GreetingDisplay kann die greetingId über
+    // this.props.match.params.greetingId abgefragt werden
+            </code></pre>
+        </section>
+        <section>
+          <h3>Switch</h3>
+          <ul>
+            <li class="fragment">
+              Wenn mehrere path-Ausdrücke matchen, werden mehrere Komponenten gerendert (z.B. "/"
+              und "/greetings")
+            </li>
+            <li class="fragment">
+              <code>Switch</code> sorgt dafür, dass nur die erste Komponente im Block gerendert wird
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    import {HashRouter as Router, Route, Switch} from "react-router-dom";
+    
+    const app = (
+      &lt;Router>
+        &lt;Switch>
+          &lt;Route path="/greet/:greetingId" component={GreetingDisplayController}/>
+          &lt;Route path="/" component={GreetingController}/>
+    
+          // "No match": ohne Pfad
+          &lt;Route component={NotFoundPage}/>
+    
+        &lt;/Switch>
+      &lt;/Router>
+    );
+    
+    ReactDOM.render(app, document.getElementById(...));
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Router Properties für Komponente</h3>
+          <p>Der Router übergibt automatisch drei Properties an die gerenderte Komponente:</p>
+          <ul>
+            <li class="fragment">
+              <code>match</code>: Enthält u.a. die Parameter aus dem Pfad (
+              <code>match.params.xyz</code>)
+            </li>
+            <li class="fragment">
+              <code>history</code>: Zum Arbeiten mit der History (z.B. <code>push()</code> zum
+              Navigieren)
+            </li>
+            <li class="fragment">
+              <code>location</code>: Der aktuelle Pfad (z.B. <code>pathname</code>,
+              <code>search</code>)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    const HelloComponent = ({match, history, location}) => (
+      &lt;div>
+        &lt;h1>Hello, {match.params.name}&lt;/h1>
+        &lt;small>The current path is: {location.pathname}&lt;/small>
+        &lt;button onClick={() =&gt; history.push('/greetings')}>Show Greetings&lt;/button>
+      &lt;/div>
+    );
+    
+    // ...
+    &lt;Route path="/greet/:name" component={HelloComponent}/>
+    
+            </code></pre>
+          <ul>
+            <li class="fragment">
+              Die Properties werden auch an die <code>render</code>-Funktion einer
+              <code>Route</code> als Parameter übergeben
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+     &lt;Route path="/somewhere" render={({match, history, location}) => . . . }/>
+              
+                      </code></pre>
+        </section>
+
+        <section>
+          <h3>Links</h3>
+          <p>Mit <code>Link</code> und <code>NavLink</code> können Links erzeugt werden</p>
+          <ul>
+            <li>Mit <code>to</code> wird das Ziel angegeben</li>
+            <li>Gerendert wird per default ein <code>a</code> Element</li>
+            <li>URL wird entsprechend der History (Browser oder Hash) erzeugt</li>
+            <li>
+              Mit <code>activeClassName</code> und <code>activeStyle</code> auf
+              <code>NavLink</code> können Styles übergeben werden, die angewendet werden, wenn der
+              Link der aktiven Route entspricht
+            </li>
+          </ul>
+
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    import {Link, NavLink} from "react-router-dom";
+    
+    &lt;Link to='/greetings'>Show all greetings&lt;/Link>
+    
+    // Erzeugtes 'a' Element erhält 'highlight' CSS-Klasse, wenn die aktive Route
+    &lt;NavLink to='/greeting/me' activeClassName="highlight">Greet me&lt;/NavLink>
+    
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Das history-Objekt</h3>
+          <p class="fragment">
+            Mit dem <code>history</code>-Objekt kann mit der Browser History interagiert werden
+          </p>
+          <p class="fragment">
+            Es gibt verschiende Implementierungen (insb BrowserHistory und HashHistory sowie "memory
+            history" für Testen)
+          </p>
+          <p class="fragment">
+            Mit der History kann auf andere URLs gesprungen werden oder die Location abgefragt
+            werden
+          </p>
+          <p class="fragment">Route-Komponenten erhalten die history automatisch per Property</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    function GreetingController({history}) {
+      // gehe zu neuer URL
+      history.push("/..."); 
+    
+      // gehe zu neuer URL, lösche aber aktuelle aus History im Browser
+      history.replace("/...") 
+    
+      // aktuelle URL
+      const currentPath = history.location.pathname; 
+    }
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Zugriff auf die history außerhalb von "Route Components"</h3>
+          <ul>
+            <li class="fragment">
+              Komponenten, die von <code>Route</code> gerendert werden, erhalten automatisch Zugriff
+              auf <code>history</code> etc
+            </li>
+            <li class="fragment">Für alle anderen Komponenten, brauchen wir eine andere Lösung</li>
+            <li class="fragment">
+              <code>withRouter</code> HOC "erweitert" Komponenten und Router Properties
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    import {withRouter} from "react-router-dom";
+    
+    function GreetLink(props) {
+      const greeting = this.props.greeting; // übergeben vom ursprünglichen Aufrufer
+      const history = this.props.history; // übergeben von withRouter
+      return &lt;div>
+        &lt;button onClick={() =&gt; history.push(`/${greeting.id}`)}>Show Greeting&lt;/button>
+      &lt;/div>;
+    }
+    
+    // 
+    export default withRouter(GreetingLink);
+                      </code></pre>
+        </section>
+        <section>
+          <h3>withRouter zur Laufzeit</h3>
+          <img src="./images/screenshot-withRouter.png" />
+        </section>
+
+        <section>
+          <h3>Hintergrund</h3>
+          <h2>Higher-Order Components (HOC)</h2>
+          <p>https://reactjs.org/docs/higher-order-components.html</p>
+          <p>
+            Eine Higher-Order Komponente ist eine Funktion, die
+            <b>eine Komponente entgegennimmt und eine neue Komponente zurückliefert</b>
+          </p>
+          <p class="fragment">
+            Die Higher-Order-Kommponente ist für das <b>rendern</b> der ursprünglichen Komonente
+            verantwortlich
+          </p>
+          <ul class="fragment">
+            <li>Sie kann das Rendern bei Bedarf auch unterdrücken oder verzögern</li>
+            <li>Sie hat Zugriff auf alle ursprünglichen Properties</li>
+            <li>
+              Sie kann der Ziel-Komponente zusätzliche Properties übergeben oder welche entfernen
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Beispiel: Higher-Order Components (HOC)</h3>
+          <p>
+            Ziel:
+            <em
+              >Eine HOC, die ein Greeting lädt das geladene Greeting an die ursprüngliche Komponente
+              weitergibt</em
+            >
+          </p>
+          <div style="font-size:85%">
+            <p>Vorteile:</p>
+            <ul>
+              <li>
+                "Komplexe" Logik zum Laden der Daten, Fehlerbehandlung etc, liegt zentral in der HOC
+              </li>
+              <li>Die gewrappte Komponente muss sich nicht um das (technische) Laden kümmern</li>
+              <li>
+                Die gewrappte Komponente benötigt keinen Lifecycle, sie wird nur dargestellt, wenn
+                ein Greeting vorhanden ist
+              </li>
+            </ul>
+          </div>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      
+    // GreetingDisplayController.js          
+    // GreetingDisplayController (stellt einen Gruß dar):
+    function GreetingDisplayController({greeting}) {
+      return &lt;h1>&lt;{greeting.name}, {greeting.greeting}&lt;/h1>;
+    }
+      
+    // umschliessen mit der HOC
+    export default withGreeting(GreetingDisplayContainer);
+    </code></pre>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    // Verwender
+    import GreetingDisplayController from "...";
+    // dass es sich um eine HOC handelt, ist für den Verwender transparent:
+    &lt;GreetingDisplayController greetingId={3} />
+                                      </code></pre>
+        </section>
+        <section>
+          <h3>Beispiel: Higher-Order Components (HOC)</h3>
+          <p>Schritt 1: HOC definieren</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      
+      // Schritt 1: stumpfes Wrappen einer Komponente.
+      function withGreeting(RawComponent) {
+        return class extends React.Component {
+          render() {
+            // mit {...this.props} werden alle Properties, die der HOC übergeben
+            // wurden,  an die Ziel-Komponente übergeben
+            return &lt;RawComponent {...this.props} />
+          }
+        }
+                                      </code></pre>
+        </section>
+        <section>
+          <h3>Beispiel: Higher-Order Components (HOC)</h3>
+          <p>Schritt 2: Lifecycle-Methoden ("fachliche" Logik der HOC) implementieren</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    function withGreeting(RawComponent) {
+      return class extends React.Component {
+      
+        // HOC ist "normale" Komponente, dh wir habe Lifecycle-Methoden etc
+        componentDidMount() {
+          // GreetingId kommt aus den Props, mit dem die HOC aufgerufen wurde
+          const greeting = loadGreeting(this.props.greetingId);
+          this.setState({greeting});
+        }
+    
+        componentWillReceiveProps(nextProps) {
+          // analog: greeting lesen und State setzen
+        }
+      
+        render() { . . . }
+      }
+    }
+                                        </code></pre>
+        </section>
+        <section>
+          <h3>Beispiel: Higher-Order Components (HOC)</h3>
+          <p>Schritt 3: Implementieren der render-Methode</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      function withGreeting(RawComponent) {
+        return class extends React.Component {
+        
+          componentDidMount() { ... }
+      
+          componentWillReceiveProps(nextProps) { ... }
+            // analog: greeting lesen und State setzen
+          }
+        
+          render() { 
+            if (!this.state.greeting) {
+              // Greeting noch nicht geladen
+              return null;  
+              // alternativ: Loading Spinner zeigen, Fehlerbehandlung o.ä.
+            }
+    
+            // Ziel-Komponente erhält geladenes Greeting als
+            // 'greeting' Property
+            return &lt;RawComponent greeting={this.state.greeting} />
+          }
+        }
+      }
+                                          </code></pre>
+        </section>
+        <section>
+          <h3>Beispiel: Higher-Order Components (HOC)</h3>
+          <p>Schritt 4: Verwenden der HOC</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    import withGreeting from ". . .";
+    
+    // GreetingDisplayController kennt kein greetingId-Property, 
+    // nur das geladene Greeting
+    function GreetingDisplayController({greeting}) { . . .};
+    
+    export default withGreeting(GreetingDisplayController);
+                                            </code></pre>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    import GreetingDisplayController from ". . .";
+    
+    // Verwender übergibt nur das greetingId-Property, 
+    // nicht das geladene Greeting
+    &lt;GreetingDisplayController greetingId={7} />
+                                            </code></pre>
+        </section>
+        <section>
+          <h2>Alternative PropTypes</h2>
+          <p>https://reactjs.org/docs/render-props.html</p>
+          <p>https://www.youtube.com/watch?v=BcVAq3YFiuc</p>
+        </section>
+
+        <section>
+          <h2>Der Router mit TypeScript</h2>
+        </section>
+
+        <section>
+          <h3>RouteComponentProps</h3>
+          <p>Der Router übergibt Properties an eine Route-Komponente</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    // GreetingController erhält history etc als Property          
+    &lt;Route component={GreetingController} />
+                                                        </code></pre>
+          <p class="fragment">
+            Die Route-Properties sind im Interface <code>RouteComponentProps</code> definiert
+          </p>
+          <p class="fragment">Die Komponente kann für ihre Properties das Interface erweitern:</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    import { RouteComponentProps } from "react-router";
+    interface GreetingControllerProps extends RouteComponentProps&lt;void&gt { 
+      // ggf. eigene Properties des GreetingControllers
+    }
+    class GreetingController extends React.Component&lt;GreetingControllerProps> {
+      render() {
+        const history = this.props.history; // ok, kein Compile-Fehler
+      }
+    }
+    </code></pre>
+        </section>
+        <section>
+          <h3>RouteComponentProps #2</h3>
+          <p>Der Router übergibt die Parameter aus der URL an die Route-Komponente</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      // GreetingController erhält "greetingId" als Property
+      &lt;Route path="/greeting/:greetingId" component={GreetingController} />
+                                                          </code></pre>
+          <p class="fragment">
+            RouteComponentProps ist mit den erwarteten Parametern aus der URL generifiziert
+          </p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    import { RouteComponentProps } from "react-router";
+    
+    // Die im Path definierten Parameter
+    interface GreetingControllerParams { greetingId: string };
+    
+    // Als Type-Argument werden die Parameter angegeben
+    interface GreetingControllerProps extends 
+      RouteComponentProps&lt;GreetingControllerParams&gt {   }
+    
+    class GreetingController extends React.Component&lt;GreetingControllerProps> {
+      render() {
+        const params = this.props.match;
+    
+        const greetingId = params.greetingId; // ok, kein Compile-Fehler
+        const userId = params.userId; // Fehler: userId nicht bekannt
+      }
+    }
+      </code></pre>
+        </section>
+
+        <section>
+          <h2>Wiederholung</h2>
+
+          <em>Gemeinsam neues Feature implementieren, um zu wiederholen</em>
+          <p class="fragment">
+            Vorschlag: wir bauen die Lade-Funktion eines Einzelgrußes "richtig" (mit
+            Fehlerbehandlung etc)
+          </p>
+          <p class="fragment">
+            Dabei können wir uns komplexen State, Custom Hooks, Effekte etc nocheinmal ansehen
+          </p>
+
+          <p class="fragment">Ohne Netz und doppelten Boden! 👷👷‍</p>
         </section>
 
         <!-- =========================================== AUSBLICK ===================== -->
@@ -4420,543 +5063,6 @@ render() {
                             &lt;/ThemeContext.Consumer>;
                         }
                           </code></pre>
-        </section>
-
-        <section id="t-router">
-          <h2>Client-seitiges Routing (Überblick)</h2>
-          <a href="code/schritte/router-v4-typescript/public/index.html" target="_blank"
-            >Ziel-Anwendung</a
-          >
-        </section>
-        <section>
-          <h2>Warum Routing?</h2>
-          <span>
-            <p>
-              Mappen von URLs auf Komponenten
-              <br />
-              <span style="font-size: 80%">(Navigation findet ohne Server-Roundtrip statt)</span>
-            </p>
-          </span>
-          <span>
-            <p>
-              Komponenten halten (Teil) des Zustandes der Anwendung
-              <br />
-              <span style="font-size: 80%"
-                >Welche Komponente ist sichtbar (Master oder Detail)?</span
-              >
-              <br />
-              <span style="font-size: 80%"
-                >Welche Daten werden dafür geladen (z.B. Greeting Id)</span
-              >
-            </p>
-          </span>
-        </section>
-
-        <section>
-          <h2>Herausforderungen</h2>
-          <p>
-            Auf Änderungen der URL reagieren
-            <br />
-            <span style="font-size: 80%"
-              >Ableiten des Zustandes aus der URL <br />Wenn sich die URL ändert, kein Server
-              roundtrip</span
-            >
-          </p>
-          <p>Hierarchische Komponentenstrukturen</p>
-          <p>Beim Klick auf Links etc aktualisieren der URL</p>
-        </section>
-
-        <section>
-          <h2>React Router</h2>
-          <ul>
-            <li>Kein Bestandteil von React</li>
-            <li>Sehr häufig verwendet (de-facto Standard)</li>
-            <li>
-              Aktuelle Version 4:
-              <a href="https://reacttraining.com/react-router/" target="_blank">
-                https://reacttraining.com/react-router/</a
-              >
-            </li>
-          </ul>
-        </section>
-        <section>
-          <h3>Das Router-Objekt</h3>
-          <p class="fragment">
-            Top-Level-Objekt, das einmalig (oben) in der Komponenten Hierarchie eingebunden werden
-            muss
-          </p>
-          <p class="fragment">
-            Mehrere Ausprägungen zum Arbeiten mit den URL und der Browser History:
-          </p>
-          <ul>
-            <li class="fragment">
-              <b>HashRouter</b>: codiert Pfad in angehängten Hash (#/greetings)
-            </li>
-            <li class="fragment"><b>BrowserRouter</b>: codiert Pfad direkt in URL (/greetings)</li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  import {HashRouter as Router} from "react-router-dom";
-  
-  const app = &lt;Router>&lt;GreetingController/>&lt;/Router>;
-  
-  ReactDOM.render(app, document.getElementById(...));
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>Welche Komponente soll für einen Pfad gerendert werden</h3>
-          <p class="fragment">Das <code>Route</code>-Objekt mappt Pfade auf Komponenten</p>
-          <ul>
-            <li class="fragment">
-              Wird verwendet, wo Pfad-abhängig Komponenten ausgewählt werden sollen
-              <ul>
-                <li>
-                  vergleichbar mit intelligentem <code>if</code>/ <code>switch</code> statement
-                </li>
-                <li>
-                  <b>Kann überall in der Anwendung</b> verwendet werden (auf allen
-                  Hierarchie-Ebenenen)
-                </li>
-              </ul>
-            </li>
-            <li class="fragment">
-              Mit <code>path</code> wird der Pfad übergeben, für den die Route matchen soll
-            </li>
-            <li class="fragment">Mit <code>component</code> wird die Komponente übergeben</li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  import {HashRouter as Router, Route} from "react-router-dom";
-  
-  const app = &lt;Router>
-    &lt;Route path="/greet/:greetingId" component={GreetingDisplayController}/>
-    &lt;Route path="/" component={GreetingController}/>
-  &lt;/Router>;
-  
-  ReactDOM.render(app, document.getElementById(...));
-          </code></pre>
-        </section>
-        <section>
-          <h3>Route #2: Das render-Property</h3>
-          <ul>
-            <li>
-              Statt einer Komponente kann eine Funktion übergeben werden, die eine Komponente
-              zurückliefert
-            </li>
-            <li>Ermöglicht es, zusätzliche Properties an die Komponente zu übergeben</li>
-            <li>Kann unterschiedliche Komponenten zurückliefern (z.B. für Authorisierung)</li>
-            <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  &lt;Route path="/"
-    render={() => {
-      return loggedIn ? 
-        &lt;GreetingMaster greetings={initialGreetings} />
-      :
-        &lt;LoginForm />
-    }}
-  />
-          </code></pre>
-          </ul>
-        </section>
-        <section>
-          <h3>Hintergrund: Pfade</h3>
-          <p>
-            In Routen werden <b>Pfade</b> angegeben, die mit der aktuellen URL verglichen werden
-          </p>
-
-          <ul>
-            <li>Pfade sind per Default gültig für Teilstrings</li>
-            <li>Mit <code>exact</code> kann das Verhalten verändert werden</li>
-
-            <li>Eine Route ohne <code>path</code> matcht immer</li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  // trifft zu für / und /greeting
-  &lt;Route path="/" component={GreetingController}/>
-  
-  // trifft nur zu für /
-  &lt;Route path="/" exact component={GreetingController}/>
-  
-  // passt auf jede URL:
-  &lt;Route component={GreetingController}/>
-  
-          </code></pre>
-          <ul>
-            <li class="fragment">Kann variable Segmente enthalten:</li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  &lt;Route path="/greeting/:greetingId"
-        component={&lt;GreetingDisplay />} />
-  
-  // in GreetingDisplay kann die greetingId über
-  // this.props.match.params.greetingId abgefragt werden
-          </code></pre>
-        </section>
-        <section>
-          <h3>Switch</h3>
-          <ul>
-            <li class="fragment">
-              Wenn mehrere path-Ausdrücke matchen, werden mehrere Komponenten gerendert (z.B. "/"
-              und "/greetings")
-            </li>
-            <li class="fragment">
-              <code>Switch</code> sorgt dafür, dass nur die erste Komponente im Block gerendert wird
-            </li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  import {HashRouter as Router, Route, Switch} from "react-router-dom";
-  
-  const app = (
-    &lt;Router>
-      &lt;Switch>
-        &lt;Route path="/greet/:greetingId" component={GreetingDisplayController}/>
-        &lt;Route path="/" component={GreetingController}/>
-  
-        // "No match": ohne Pfad
-        &lt;Route component={NotFoundPage}/>
-  
-      &lt;/Switch>
-    &lt;/Router>
-  );
-  
-  ReactDOM.render(app, document.getElementById(...));
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>Router Properties für Komponente</h3>
-          <p>Der Router übergibt automatisch drei Properties an die gerenderte Komponente:</p>
-          <ul>
-            <li class="fragment">
-              <code>match</code>: Enthält u.a. die Parameter aus dem Pfad (
-              <code>match.params.xyz</code>)
-            </li>
-            <li class="fragment">
-              <code>history</code>: Zum Arbeiten mit der History (z.B. <code>push()</code> zum
-              Navigieren)
-            </li>
-            <li class="fragment">
-              <code>location</code>: Der aktuelle Pfad (z.B. <code>pathname</code>,
-              <code>search</code>)
-            </li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  const HelloComponent = ({match, history, location}) => (
-    &lt;div>
-      &lt;h1>Hello, {match.params.name}&lt;/h1>
-      &lt;small>The current path is: {location.pathname}&lt;/small>
-      &lt;button onClick={() =&gt; history.push('/greetings')}>Show Greetings&lt;/button>
-    &lt;/div>
-  );
-  
-  // ...
-  &lt;Route path="/greet/:name" component={HelloComponent}/>
-  
-          </code></pre>
-          <ul>
-            <li class="fragment">
-              Die Properties werden auch an die <code>render</code>-Funktion einer
-              <code>Route</code> als Parameter übergeben
-            </li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-   &lt;Route path="/somewhere" render={({match, history, location}) => . . . }/>
-            
-                    </code></pre>
-        </section>
-
-        <section>
-          <h3>Links</h3>
-          <p>Mit <code>Link</code> und <code>NavLink</code> können Links erzeugt werden</p>
-          <ul>
-            <li>Mit <code>to</code> wird das Ziel angegeben</li>
-            <li>Gerendert wird per default ein <code>a</code> Element</li>
-            <li>URL wird entsprechend der History (Browser oder Hash) erzeugt</li>
-            <li>
-              Mit <code>activeClassName</code> und <code>activeStyle</code> auf
-              <code>NavLink</code> können Styles übergeben werden, die angewendet werden, wenn der
-              Link der aktiven Route entspricht
-            </li>
-          </ul>
-
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  import {Link, NavLink} from "react-router-dom";
-  
-  &lt;Link to='/greetings'>Show all greetings&lt;/Link>
-  
-  // Erzeugtes 'a' Element erhält 'highlight' CSS-Klasse, wenn die aktive Route
-  &lt;NavLink to='/greeting/me' activeClassName="highlight">Greet me&lt;/NavLink>
-  
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>Das history-Objekt</h3>
-          <p class="fragment">
-            Mit dem <code>history</code>-Objekt kann mit der Browser History interagiert werden
-          </p>
-          <p class="fragment">
-            Es gibt verschiende Implementierungen (insb BrowserHistory und HashHistory sowie "memory
-            history" für Testen)
-          </p>
-          <p class="fragment">
-            Mit der History kann auf andere URLs gesprungen werden oder die Location abgefragt
-            werden
-          </p>
-          <p class="fragment">Route-Komponenten erhalten die history automatisch per Property</p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  function GreetingController({history}) {
-    // gehe zu neuer URL
-    history.push("/..."); 
-  
-    // gehe zu neuer URL, lösche aber aktuelle aus History im Browser
-    history.replace("/...") 
-  
-    // aktuelle URL
-    const currentPath = history.location.pathname; 
-  }
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>Zugriff auf die history außerhalb von "Route Components"</h3>
-          <ul>
-            <li class="fragment">
-              Komponenten, die von <code>Route</code> gerendert werden, erhalten automatisch Zugriff
-              auf <code>history</code> etc
-            </li>
-            <li class="fragment">Für alle anderen Komponenten, brauchen wir eine andere Lösung</li>
-            <li class="fragment">
-              <code>withRouter</code> HOC "erweitert" Komponenten und Router Properties
-            </li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  import {withRouter} from "react-router-dom";
-  
-  function GreetLink(props) {
-    const greeting = this.props.greeting; // übergeben vom ursprünglichen Aufrufer
-    const history = this.props.history; // übergeben von withRouter
-    return &lt;div>
-      &lt;button onClick={() =&gt; history.push(`/${greeting.id}`)}>Show Greeting&lt;/button>
-    &lt;/div>;
-  }
-  
-  // 
-  export default withRouter(GreetingLink);
-                    </code></pre>
-        </section>
-        <section>
-          <h3>withRouter zur Laufzeit</h3>
-          <img src="./images/screenshot-withRouter.png" />
-        </section>
-
-        <section>
-          <h3>Hintergrund</h3>
-          <h2>Higher-Order Components (HOC)</h2>
-          <p>https://reactjs.org/docs/higher-order-components.html</p>
-          <p>
-            Eine Higher-Order Komponente ist eine Funktion, die
-            <b>eine Komponente entgegennimmt und eine neue Komponente zurückliefert</b>
-          </p>
-          <p class="fragment">
-            Die Higher-Order-Kommponente ist für das <b>rendern</b> der ursprünglichen Komonente
-            verantwortlich
-          </p>
-          <ul class="fragment">
-            <li>Sie kann das Rendern bei Bedarf auch unterdrücken oder verzögern</li>
-            <li>Sie hat Zugriff auf alle ursprünglichen Properties</li>
-            <li>
-              Sie kann der Ziel-Komponente zusätzliche Properties übergeben oder welche entfernen
-            </li>
-          </ul>
-        </section>
-        <section>
-          <h3>Beispiel: Higher-Order Components (HOC)</h3>
-          <p>
-            Ziel:
-            <em
-              >Eine HOC, die ein Greeting lädt das geladene Greeting an die ursprüngliche Komponente
-              weitergibt</em
-            >
-          </p>
-          <div style="font-size:85%">
-            <p>Vorteile:</p>
-            <ul>
-              <li>
-                "Komplexe" Logik zum Laden der Daten, Fehlerbehandlung etc, liegt zentral in der HOC
-              </li>
-              <li>Die gewrappte Komponente muss sich nicht um das (technische) Laden kümmern</li>
-              <li>
-                Die gewrappte Komponente benötigt keinen Lifecycle, sie wird nur dargestellt, wenn
-                ein Greeting vorhanden ist
-              </li>
-            </ul>
-          </div>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    
-  // GreetingDisplayController.js          
-  // GreetingDisplayController (stellt einen Gruß dar):
-  function GreetingDisplayController({greeting}) {
-    return &lt;h1>&lt;{greeting.name}, {greeting.greeting}&lt;/h1>;
-  }
-    
-  // umschliessen mit der HOC
-  export default withGreeting(GreetingDisplayContainer);
-  </code></pre>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  // Verwender
-  import GreetingDisplayController from "...";
-  // dass es sich um eine HOC handelt, ist für den Verwender transparent:
-  &lt;GreetingDisplayController greetingId={3} />
-                                    </code></pre>
-        </section>
-        <section>
-          <h3>Beispiel: Higher-Order Components (HOC)</h3>
-          <p>Schritt 1: HOC definieren</p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    
-    // Schritt 1: stumpfes Wrappen einer Komponente.
-    function withGreeting(RawComponent) {
-      return class extends React.Component {
-        render() {
-          // mit {...this.props} werden alle Properties, die der HOC übergeben
-          // wurden,  an die Ziel-Komponente übergeben
-          return &lt;RawComponent {...this.props} />
-        }
-      }
-                                    </code></pre>
-        </section>
-        <section>
-          <h3>Beispiel: Higher-Order Components (HOC)</h3>
-          <p>Schritt 2: Lifecycle-Methoden ("fachliche" Logik der HOC) implementieren</p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  function withGreeting(RawComponent) {
-    return class extends React.Component {
-    
-      // HOC ist "normale" Komponente, dh wir habe Lifecycle-Methoden etc
-      componentDidMount() {
-        // GreetingId kommt aus den Props, mit dem die HOC aufgerufen wurde
-        const greeting = loadGreeting(this.props.greetingId);
-        this.setState({greeting});
-      }
-  
-      componentWillReceiveProps(nextProps) {
-        // analog: greeting lesen und State setzen
-      }
-    
-      render() { . . . }
-    }
-  }
-                                      </code></pre>
-        </section>
-        <section>
-          <h3>Beispiel: Higher-Order Components (HOC)</h3>
-          <p>Schritt 3: Implementieren der render-Methode</p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    function withGreeting(RawComponent) {
-      return class extends React.Component {
-      
-        componentDidMount() { ... }
-    
-        componentWillReceiveProps(nextProps) { ... }
-          // analog: greeting lesen und State setzen
-        }
-      
-        render() { 
-          if (!this.state.greeting) {
-            // Greeting noch nicht geladen
-            return null;  
-            // alternativ: Loading Spinner zeigen, Fehlerbehandlung o.ä.
-          }
-  
-          // Ziel-Komponente erhält geladenes Greeting als
-          // 'greeting' Property
-          return &lt;RawComponent greeting={this.state.greeting} />
-        }
-      }
-    }
-                                        </code></pre>
-        </section>
-        <section>
-          <h3>Beispiel: Higher-Order Components (HOC)</h3>
-          <p>Schritt 4: Verwenden der HOC</p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  import withGreeting from ". . .";
-  
-  // GreetingDisplayController kennt kein greetingId-Property, 
-  // nur das geladene Greeting
-  function GreetingDisplayController({greeting}) { . . .};
-  
-  export default withGreeting(GreetingDisplayController);
-                                          </code></pre>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  import GreetingDisplayController from ". . .";
-  
-  // Verwender übergibt nur das greetingId-Property, 
-  // nicht das geladene Greeting
-  &lt;GreetingDisplayController greetingId={7} />
-                                          </code></pre>
-        </section>
-        <section>
-          <h2>Alternative PropTypes</h2>
-          <p>https://reactjs.org/docs/render-props.html</p>
-          <p>https://www.youtube.com/watch?v=BcVAq3YFiuc</p>
-        </section>
-
-        <section>
-          <h2>Der Router mit TypeScript</h2>
-        </section>
-
-        <section>
-          <h3>RouteComponentProps</h3>
-          <p>Der Router übergibt Properties an eine Route-Komponente</p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  // GreetingController erhält history etc als Property          
-  &lt;Route component={GreetingController} />
-                                                      </code></pre>
-          <p class="fragment">
-            Die Route-Properties sind im Interface <code>RouteComponentProps</code> definiert
-          </p>
-          <p class="fragment">Die Komponente kann für ihre Properties das Interface erweitern:</p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  import { RouteComponentProps } from "react-router";
-  interface GreetingControllerProps extends RouteComponentProps&lt;void&gt { 
-    // ggf. eigene Properties des GreetingControllers
-  }
-  class GreetingController extends React.Component&lt;GreetingControllerProps> {
-    render() {
-      const history = this.props.history; // ok, kein Compile-Fehler
-    }
-  }
-  </code></pre>
-        </section>
-        <section>
-          <h3>RouteComponentProps #2</h3>
-          <p>Der Router übergibt die Parameter aus der URL an die Route-Komponente</p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    // GreetingController erhält "greetingId" als Property
-    &lt;Route path="/greeting/:greetingId" component={GreetingController} />
-                                                        </code></pre>
-          <p class="fragment">
-            RouteComponentProps ist mit den erwarteten Parametern aus der URL generifiziert
-          </p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-  import { RouteComponentProps } from "react-router";
-  
-  // Die im Path definierten Parameter
-  interface GreetingControllerParams { greetingId: string };
-  
-  // Als Type-Argument werden die Parameter angegeben
-  interface GreetingControllerProps extends 
-    RouteComponentProps&lt;GreetingControllerParams&gt {   }
-  
-  class GreetingController extends React.Component&lt;GreetingControllerProps> {
-    render() {
-      const params = this.props.match;
-  
-      const greetingId = params.greetingId; // ok, kein Compile-Fehler
-      const userId = params.userId; // Fehler: userId nicht bekannt
-    }
-  }
-    </code></pre>
         </section>
 
         <section id="t-hooks">
