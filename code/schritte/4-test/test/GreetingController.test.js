@@ -22,11 +22,9 @@ function flushPromises() {
 test("it should render greetings received from backend", () => {
   fetch.mockResponse(JSON.stringify(someGreetings), { status: 200 });
   // render the component we want to test
-  let tree;
-  act(() => {
-    tree = mount(<GreetingController />);
-    return;
-  });
+  const tree = mount(<GreetingController />);
+  expect(fetch).toHaveBeenCalledWith("http://localhost:7000/greetings");
+  expect(tree.find("tbody tr")).toHaveLength(0);
 
   return flushPromises().then(() => {
     tree.update();
@@ -40,6 +38,7 @@ test("it should open detail view on button click", () => {
 
   // mount the component into a real dom (implemented by JSDom)
   const component = mount(<GreetingController />);
+  expect(fetch).toHaveBeenCalledWith("http://localhost:7000/greetings");
 
   return flushPromises().then(() => {
     component.update();
