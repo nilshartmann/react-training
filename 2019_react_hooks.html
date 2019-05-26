@@ -213,7 +213,6 @@
           <h2>React-Einführung und Build-Prozess</h2>
         </section>
 
-     
         <section id="react">
           <h2>React</h2>
           <p>
@@ -253,47 +252,63 @@
 
         <section>
           <h3>React</h3>
-            <p><em>Mit React werden üblicherweise <b>Single-Page-Anwendungen</b> (SPA) gebaut</em></p>
-              <p class="fragment">Single-Page-Anwendungen...</p>
-              <ul class="x-list">
-                <li class="fragment">Technisch auf <b>einer</b> (index.html)-Seite
-                <ul><li >Aus <b>Benutzersicht</b> kann es durchaus mehrere "Seiten" geben</li>
-                <li class="fragment">JavaScript ist für Logik und Darstellung alleinverantwortlich</li></ul>
+          <p>
+            <em>Mit React werden üblicherweise <b>Single-Page-Anwendungen</b> (SPA) gebaut</em>
+          </p>
+          <p class="fragment">Single-Page-Anwendungen...</p>
+          <ul class="x-list">
+            <li class="fragment">
+              Technisch auf <b>einer</b> (index.html)-Seite
+              <ul>
+                <li>Aus <b>Benutzersicht</b> kann es durchaus mehrere "Seiten" geben</li>
+                <li class="fragment">
+                  JavaScript ist für Logik und Darstellung alleinverantwortlich
                 </li>
-                <li class="fragment">Back-Button, Deep Links etc trotzdem möglich</li>
-                <li class="fragment">React kann sich auch auf einem <b>Teil</b> der Seite integrieren</li>
-                </ul>
-            </section>
-    
-          <section>
-            <h3>Single-Page-Anwendungen</h3>
-            <p>Beispiele</p>
-            <ul>
-              <li><a href="https://outlook.live.com" target="_blank">Microsoft Outlook</a></li>
-              <li><a href="https://www.figma.com/" target="_blank">Figma</a></li>
-              <li><a href="https://open.spotify.com/browse/featured" target="_blank">Spotify</a></li>
               </ul>
-          </section>
-    
-          <section>
-              <h4>Architektur</h4>
-              <h3>"Klassische" Web Anwendungen</h3>
-            <img src="images/abb-02a-classic-webapp-architecture.png" style="border:0;box-shadow:0 0 0 0;height:650px" />
-          </section>
-  
-          <section>
-              <h4>Architektur</h4>
-              <h3>"Erweiterte Klassische" Web Anwendungen</h3>
-              <img src="images/webapp_arch_02_jquery.png" style="border:0;box-shadow:0 0 0 0;height:650px" />
-            </section>
-    
-  
-          <section>
-              <h4>Architektur</h4>
-              <h3>Single-Page-Anwendungen</h3>
-              <img src="images/abb-02c-spa-webapp-architecture.png" style="border:0;box-shadow:0 0 0 0;height:650px" />
-            </section>
-  
+            </li>
+            <li class="fragment">Back-Button, Deep Links etc trotzdem möglich</li>
+            <li class="fragment">
+              React kann sich auch auf einem <b>Teil</b> der Seite integrieren
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Single-Page-Anwendungen</h3>
+          <p>Beispiele</p>
+          <ul>
+            <li><a href="https://outlook.live.com" target="_blank">Microsoft Outlook</a></li>
+            <li><a href="https://www.figma.com/" target="_blank">Figma</a></li>
+            <li><a href="https://open.spotify.com/browse/featured" target="_blank">Spotify</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h4>Architektur</h4>
+          <h3>"Klassische" Web Anwendungen</h3>
+          <img
+            src="images/abb-02a-classic-webapp-architecture.png"
+            style="border:0;box-shadow:0 0 0 0;height:650px"
+          />
+        </section>
+
+        <section>
+          <h4>Architektur</h4>
+          <h3>"Erweiterte Klassische" Web Anwendungen</h3>
+          <img
+            src="images/webapp_arch_02_jquery.png"
+            style="border:0;box-shadow:0 0 0 0;height:650px"
+          />
+        </section>
+
+        <section>
+          <h4>Architektur</h4>
+          <h3>Single-Page-Anwendungen</h3>
+          <img
+            src="images/abb-02c-spa-webapp-architecture.png"
+            style="border:0;box-shadow:0 0 0 0;height:650px"
+          />
+        </section>
 
         <section>
           <h3>Komponenten in React</h3>
@@ -690,7 +705,6 @@ const time = `The time is: ${new Date()}`); // The time is: ...
             <li class="fragment">Formatiert JavaScript, TypeScript, HTML, CSS, JSON, ...</li>
             <li class="fragment">Kann als Pre-Commit-Hook verwendet werden</li>
             <li class="fragment">Integration mit allen relevanten IDEs</li>
-            
           </ul>
         </section>
 
@@ -817,13 +831,16 @@ const time = `The time is: ${new Date()}`); // The time is: ...
           </ul>
         </section>
         <section>
-            <h3>create-react-app</h3>
-            <a href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
-              target="_blank">User Guide</a>
-            <p>Bootstrap von React Anwendung</p>
-            <p>Fertige Konfiguration von Webpack, React, ...</p>
-            <p>Beispiel: npx create-react-app PROJEKTNAME --typescript</p>
-          </section>
+          <h3>create-react-app</h3>
+          <a
+            href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
+            target="_blank"
+            >User Guide</a
+          >
+          <p>Bootstrap von React Anwendung</p>
+          <p>Fertige Konfiguration von Webpack, React, ...</p>
+          <p>Beispiel: npx create-react-app PROJEKTNAME --typescript</p>
+        </section>
         <section>
           <h2>React Devtools</h2>
           <em>React Developer Tools für Chrome und Firefox</em>
@@ -3898,6 +3915,30 @@ test("it should open detail view on button click", () => {
                  </code></pre>
         </section>
         <section>
+          <h2>Type Aliase</h2>
+          <p>Mit <b>type</b> können Aliase für Typen definiert werden.</p>
+          <p class="fragment">Sehr ähnlich zu Interface mittlerweile</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+  type Book = {
+    title: string
+  }
+  
+  type Movie = {
+    title: string
+  }
+  
+  const book:Book = { title: "Das Kapital" };
+  const movie:Movie = { title: "Der weiße Hai" };
+
+  type MODE_DETAIL = "MODE_DETAIL";
+  let s:MODE_DETAIL = "MODE_DETAIL";
+  s = "MODE_MASTER" // ERROR
+
+
+                             </code></pre>
+        </section>
+
+        <section>
           <h2>Generics</h2>
           <p>Generische Typen verwenden</p>
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
@@ -3928,42 +3969,154 @@ test("it should open detail view on button click", () => {
         <section id="t-typescript-react">
           <h2>React Anwendungen mit TypeScript</h2>
           <em>State und Properties von Komponenten werden mit Typen beschrieben</em>
+
+          <p class="fragment">Achtung! TypeScript-Dateien, die JSX enthalten <b>müssen</b> mit <code>.tsx</code> enden!</p>
         </section>
 
-        <section>
-          <h2>Getypte React Komponenten</h2>
-          <p>
-            <code>React.Component</code> ist eine generische Klasse, die einen Typ für Properties
-            und State erwartet
-          </p>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  interface Greeting = {name: string; greeting: string};
-  
-  interface GreetingDetailProps {
-      greeting?: Greeting;
-      onSave: (newGreeting: NewGreeting) => void;
-  }
-  
-  interface GreetingDetailState {
-      name: string;
-      greeting: string;
-  }
-              </code></pre>
+        
 
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  
-  class GreetingDetail
-    extends React.Component&lt;GreetingDetailProps, GreetingDetailState> {
-    // ...
-  }
-              </code></pre>
-        </section>
         <section>
-          <h3>Typsicherheit in React Komponenten</h3>
+            <h2>Typsicherheit in Funktionskomponenten</h2>
+            <pre
+              class="fragment"
+            ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+    type GreetingMasterProps = {
+        greetings: Greeting[]
+        onAdd: () => void
+    };
+            </code></pre>
+            <pre
+              class="fragment"
+            ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+    function GreetingMaster(props: GreetingMasterProps) {
+      props.greetings.length // OK
+      
+      props.greeting // compile ERROR: Property 'greeting' does not exist on type 'GreetingMasterProps'.
+      props.onAdd("huhu"); // compile ERROR: Expected 0 arguments, but got 1.
+    }
+    
+            </code></pre>
+            <pre
+              class="fragment"
+            ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+    // Mit Destructuring
+    function GreetingMaster({greetings, onAdd}: GreetingMasterProps) => {
+      // ...
+    }
+    
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Typsichere Verwendung von Komponenten</h3>
+
+            <div class="fragment">
+              <p>Code Completion</p>
+              <img style="height: 200px" src="images/screenshot-ts-code_completion.png" />
+            </div>
+
+            <div class="fragment">
+                <p>Unbekanntes Property</p>
+                <img style="height: 200px"  src="images/screenshot-ts-error-01.png" />
+              </div>
+
+              <div class="fragment">
+                  <p>Falsche Verwendung eines Properties</p>
+                  <img style="height: 200px"  src="images/screenshot-ts-error-02.png" />
+                </div>
+    
+          </section>
+
+          <section>
+            <h3>Typsicherheit in useState</h3>
+            <p>Der Typ des States bei useState kann abgeleitet</p>
+            <pre class="fragment"><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type GreetingDetailProps = { intitialGreeting: string };
+function GreetingDetailProps(props: GreetingDetailProps) {
+  const [greeting, setGreeting] = React.useState(props.initialGreeting);
+
+  // greeting ist string, weil initialGreeting ein string ist
+  setGreeting("huhu"); // OK
+  setGreeting(666); // ERROR (falscher Typ)
+  setGreeting(null); // ERROR (falscher Typ)
+}
+            </code></pre>
+            <div class="fragment">
+            <p>Oder explizit angeben</p>
+            <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+
+const MODE_MASTER = "MODE_MASTER";
+const MODE_DETAIL = "MODE_DETAIL"; 
+
+type MODE_STATE = typeof MODE_MASTER | typeof MODE_DETAIL;
+
+function GreetingController() {
+  const [mode, setMode] = React.useState&lt;MODE_STATE>(MODE_MASTER);
+
+  // Mode ist entweder MODE_MASTER oder MODE_DETAIL
+  // setMode akzeptiert nur MODE_MASTER oder MODE_DETAIL (Konstante oder String)
+
+  setMode("NOT_FOUND"); // compile error
+}
+                            </code></pre>
+                          </div>
+          </section>
+
+          <section>
+            <h3>Array-Rückgabewerte in Custom Hooks</h3>
+            <p>In Arrays muss explizit angegeben werden, an welcher Position sich welcher Typ befindet</p>
+            <pre class="fragment"><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+// Rückgabewert besteht aus Array mit zwei Elementen
+type UseInputResult = [
+  {
+    value: string;
+    placeholder: string;
+    onChange(event: React.SyntheticEvent&lt;HTMLInputElement>): void;
+    name: string;
+  },
+  () => void
+];
+
+function useInput(placeholder: string, initialValue?: string): UseInputResult {
+  // ...
+}
+                                            </code></pre>
+                          </section>
+
+          <section>
+              <h2>Getypte React Klassen-Komponenten</h2>
+              <p>
+                <code>React.Component</code> ist eine generische Klasse, die einen Typ für Properties
+                und State erwartet
+              </p>
+              <pre
+                class="fragment"
+              ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+      type Greeting = {name: string; greeting: string};
+      
+      type GreetingDetailProps = {
+          greeting?: Greeting;
+          onSave: (newGreeting: NewGreeting) => void;
+      }
+      
+      type GreetingDetailState = {
+          name: string;
+          greeting: string;
+      }
+                  </code></pre>
+    
+              <pre
+                class="fragment"
+              ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+      
+      class GreetingDetail
+        extends React.Component&lt;GreetingDetailProps, GreetingDetailState> {
+        // ...
+      }
+                  </code></pre>
+            </section>
+        <section>
+          <h3>Typsicherheit in React Klassen-Komponenten</h3>
           <p>Properties und State sind typsicher</p>
           <pre
             class="fragment"
@@ -3990,23 +4143,20 @@ test("it should open detail view on button click", () => {
         </section>
         <section>
           <h2>React Events in TypeScript</h2>
+          <p>Generisches React Event: <code>React.SyntheticEvent</code></p>
+          <p class="fragment">Wird parametrisiert mit dem Element, <b>auf dem es definiert ist</b>, z.B. HTMLInputElement</p>
+          <p class="fragment">TypeScript weiß dann, wie das Event aussieht</p>
           <span class="fragment">
             <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  class GreetingDetail extends React.Component&lt;Props, State> {
-    // . . .
-    updateModel(event: React.SyntheticEvent&lt;HTMLInputElement>) {
-      // 'currentTarget' anstatt 'target' verwenden:
-      const { name, value } = event.currentTarget;
-      // . . .
-  
-      // Compile error! 
-      this.setState({[name]}: value);
-  
-      // @ts-ignore 
-      this.setState({[name]}: value);
-    }
+function GreetingDetail(props) {
+  const [greeting, setGreeting] = React.useState("");
+
+  function handleChange(e: React.SyntheticEvent&lt;HTMLInputElement>) {
+    setGreeting(e.currentTaget.value);
   }
-  
+
+  return &lt;input onChange={handleChange} value={greeting} />
+}              
           </code></pre>
             <p>
               <a
@@ -4019,44 +4169,7 @@ test("it should open detail view on button click", () => {
             </p>
           </span>
         </section>
-        <section>
-          <h2>Functional Components</h2>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  type GreetingMasterProps = {
-      greetings: Greeting[]
-      onAdd: () => void
-  };
-          </code></pre>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  const GreetingMaster = (props: GreetingMasterProps) => {
-      const {greetings, onAdd} = props;
-      // . . .
-  }
-  
-          </code></pre>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  // or
-  const GreetingMaster = ({greetings, onAdd}: GreetingMasterProps) => {
-      // . . .
-  }
-  
-          </code></pre>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  // or
-  const GreetingMaster: React.FunctionComponent&lt;GreetingMasterProps> = props => {
-      const {greetings, onAdd} = props;
-      // . . .
-  }
-          </code></pre>
-        </section>
+       
         <section>
           <h2>Übung: Eine Komponente auf TypeScript umstellen</h2>
           <h3>
