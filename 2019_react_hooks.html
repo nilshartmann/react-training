@@ -1586,6 +1586,41 @@ function GreetingDetail(props) {
           </div>
         </section>
 
+        <section>
+                <h2>Optionale Übung: Ein Custom Hook</h2>
+                <em
+                  ><b
+                  >Baue einen useInput-Hook</b
+                  ></em
+                >
+
+                <ol>
+                  <li class="fragment">
+                    Verwaltet Zustand für input- und textarea-Elemente (wie gesehen)
+                  </li>
+                  <li class="fragment">
+                      wird für <code>name</code> und <code>greeting</code> im GreetingDetail verwendet (wie gesehen)
+                    </li>
+                  <li class="fragment">
+                    Zusätzlich: <ul>
+                      <li class="fragment">Dem Hook wird eine Callback-Funktion als weiterem Parameter übergeben</li>
+                      <li class="fragment">wenn im input-Feld <b>Enter</b> gedrückt wird, soll die Callback-Funktion mit dem aktuellen State aufgerufen werden</li>
+                      <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                          &lt;input onKeyDown={e => {
+                            const keyCode = e.which || e.keyCode;
+                            if (keyCode === 13) {
+                              // enter wurde gedrückt
+                            } else {
+                            // andere taste
+                            }
+                          } ... />
+                        </code></pre>
+                    </ul>
+                  </li>
+                </ol>
+
+        </section>
+
         <section id="t2">
           <h1>Teil II</h1>
           <h2>React-Komponenten: Details, Hierarchien und Anwendungen</h2>
