@@ -82,6 +82,29 @@
 
       /*rgb(196, 215, 240)*/
 
+      html.title body {
+        /* height: 100%;
+        width: 100%; */
+        background-position: center; 
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url("images/bg.jpg");
+        /* background: linear-gradient(rgba(212,235,233, 0.9), rgba(212,235,233, 0.9)), url("images/bg.jpg"); */
+      }
+
+      html.title body > .reveal {
+        background: rgba(212,235,233, 0.5);
+      }
+
+      html.title b,
+      html.title .transparent-bg
+       {
+  
+        background-color: rgba(189,215,238, 0.5);
+        padding: 5px 10px;
+        
+      }
+
       html.exkurs body {
         background: rgb(252, 220, 185) url("images/es6-icon.png") no-repeat right bottom;
       }
@@ -150,16 +173,20 @@
           </p>
         </section>
 
-        <section>
+        <section data-state="title">
           <h2>
             <b>Einführung in React</b>
           </h2>
+          
           <h4>
+              <span class="transparent-bg">
             <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a> /
             <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
             /
             <a href="mailto:nils@nilshartmann.net" target="_blank">E-Mail: nils@nilshartmann.net</a>
+          </span>
           </h4>
+        
         </section>
 
         <section>
@@ -4238,9 +4265,7 @@ function GreetingDetail(props) {
 
         <section id="t-router">
           <h2>Client-seitiges Routing (Überblick)</h2>
-          <a href="code/schritte/6-router/public/index.html" target="_blank"
-            >Ziel-Anwendung</a
-          >
+          <a href="code/schritte/6-router/public/index.html" target="_blank">Ziel-Anwendung</a>
         </section>
         <section>
           <h2>Warum Routing</h2>
@@ -4278,7 +4303,7 @@ function GreetingDetail(props) {
         </section>
 
         <section>
-            <h2>Herausforderungen</h2>
+          <h2>Herausforderungen</h2>
           <p class="fragment">
             Auf Änderungen der URL reagieren
             <br />
@@ -4782,7 +4807,6 @@ function GreetingDetail(props) {
         </section>
 
         <section>
-          
           <h1>Anhang</h1>
           <h2>Wiederholung</h2>
 
