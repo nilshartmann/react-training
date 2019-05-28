@@ -1,0 +1,2 @@
+https://unpkg.com/react-dom@16.8.6/umd/
+https://unpkg.com/react@16.8.6/umd/
