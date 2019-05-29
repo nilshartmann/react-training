@@ -4234,31 +4234,29 @@ function GreetingDetail(props) {
         </section>
         <section>
           <h3>Aufgabe 1: Typ-Informationen ergänzen</h3>
-          <ol style="font-size:80%">
-            <li class="fragment">
-              <b>Ergänze die Typ-Informationen in GreetingDetail</b> (Vorher umbenennen
-              <code>GreetingDetail.js</code> in <code>GreetingDetail.tsx</code>. Sobald Du die Datei
-              umbenennst, sollten Compile-Fehler angezeigt werden)
-            </li>
+          <ol style="font-size:80%" class="x-list">
             <li class="fragment">
               <b>Ergänze die Typ-Informationen in useInput</b> (Vorher umbenennen
               <code>useInput.js</code> in <code>useInput.tsx</code>. Sobald Du die Datei umbenennst,
               sollten Compile-Fehler angezeigt werden)
             </li>
+            <li class="fragment">
+              <b>Ergänze die Typ-Informationen in GreetingDetail</b> (Vorher umbenennen
+              <code>GreetingDetail.js</code> in <code>GreetingDetail.tsx</code>. Sobald Du die Datei
+              umbenennst, sollten Compile-Fehler angezeigt werden)
+            </li>
           </ol>
 
           <h3 class="fragment">Aufgabe 2: Neuen Mode im GreetingController einführen</h3>
-          <ol>
+          <ol style="font-size:80%" class="x-list">
             <li class="fragment">
               Nach dem Speichern eines neuen Greetings soll ein neuer "Feedback-View" mit einer
               Meldung erscheinen (statt Master), in der steht "Gruß wurde gespeichert" (o.ä.).
             </li>
             <li class="fragment">Neben der Meldung soll der View einen "OK"-Button anzeigen.</li>
             <li class="fragment">
-              Wenn der OK-Button geklickt wird, soll wieder zum Master gewechselt werden.
-            </li>
-            <li class="fragment">
-              <code>MASTER --onAdd--> DETAIL --onSave--> FEEDBACK --onOk--> MASTER</code>
+              Wenn der OK-Button geklickt wird, soll wieder zum Master gewechselt werden:
+              <br/><code class="fragment">MASTER --onAdd--> DETAIL --onSave--> FEEDBACK --onOk--> MASTER</code>
             </li>
           </ol>
         </section>
