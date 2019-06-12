@@ -1,0 +1,1 @@
+React und ReactDOM als externe Libs, Dateinamen der eigenen Bundles mit Hashes fuer endlos Caching im Browser

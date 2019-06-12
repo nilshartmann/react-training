@@ -1,0 +1,1 @@
+React und ReactDOM als externals, eigene Bundles aufgesplittet mittels React.lazy
