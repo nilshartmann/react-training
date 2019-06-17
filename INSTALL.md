@@ -4,10 +4,11 @@
 
 Auf den Teilnehmer Laptops/PCs sollte installiert sein:
 
-- git (zum installieren des Workspaces)
-- nodejs (mind. v8.12.0) und npm 6.4
+- Git (zum installieren des Workspaces)
+- [NodeJS](https://nodejs.org/en/download/) (mind. v10.16) und npm Version 6.9 (ist in der NodeJS Distribution enthalten)
 - Browser (am besten Chrome oder Firefox)
 - Eine IDE oder ein Texteditor, zum Beispiel:
+  - [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) (Ultimate Edition, Evaluationsversion reicht aber)
   - [Webstorm](https://www.jetbrains.com/webstorm/download/) (Evaluationsversion reicht)
   - [Visual Studio Code](https://code.visualstudio.com/)
 - Die Laptops sollten _auch während des Trainings_ Internet-Zugang haben (s.u.)
@@ -34,7 +35,7 @@ npm install
 npm run start-backend
 ```
 
-Achtung! Das Backend läuft auf **Port 7000**, dh dieser Port muss verfügbar sein.
+Achtung! Das Backend läuft auf **Port 7000**, d.h. dieser Port muss verfügbar sein.
 
 2. Backend testen
 
@@ -63,7 +64,7 @@ Achtung! Das Frontend läuft auf **Port 8080**, dh dieser Port muss verfügbar s
 
 ## Internet-Zugang
 
-Da wir vor und während des Trainings ggf. noch Aktualisierungen installieren müssen, bitte sicherstellen, dass auch während des Trainings **auf den Computern der Teilnehmer der Internet-Zugang (insb git und npm) besteht und funktioniert!**
+Da wir vor und während des Trainings ggf. noch Aktualisierungen installieren müssen, bitte sicherstellen, dass auch während des Trainings **auf den Computern der Teilnehmer der Internet-Zugang (insb. git und npm) besteht und funktioniert!**
 
 Informationen zum Einrichten eines Proxies für npm könnt ihr u.a. [hier finden](http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/).
 
