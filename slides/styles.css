@@ -1,0 +1,87 @@
+@import "reveal.js/css/reveal.css";
+@import "reveal.js/css/theme/solarized.css";
+@import "reveal.js/lib/css/github.css";
+@import "reveal.js/lib/font/google-fonts.css";
+
+.reveal {
+  font-family: "PT Sans", sans-serif;
+}
+
+.reveal h1 {
+  font-family: "Lora", serif;
+}
+
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  font-family: "PT Sans", sans-serif;
+  font-weight: bold;
+  color: rgb(127, 94, 56);
+  text-transform: none !important;
+}
+
+.reveal em {
+  font-family: "Lora", serif;
+}
+
+.right-img {
+  margin-left: 10px !important;
+  float: right;
+  height: 500px;
+
+  border: 0;
+  box-shadow: 0 0 0 0;
+}
+
+.todo:before {
+  content: "TODO: ";
+}
+
+.todo {
+  color: red !important;
+}
+
+code span.line-number {
+  color: lightcoral;
+}
+
+.reveal pre {
+  max-width: 1100px;
+}
+
+.reveal pre code {
+  max-height: 1000px !important;
+}
+
+.reveal section img {
+  border: 0;
+  box-shadow: 0 0 0 0;
+}
+
+.reveal .x-list li {
+  margin-bottom: 10px;
+}
+
+/*rgb(196, 215, 240)*/
+
+html.title body {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("images/bg.jpg");
+}
+
+html.title body > .reveal {
+  background: rgba(212, 235, 233, 0.5);
+}
+
+html.title b,
+html.title .transparent-bg {
+  background-color: rgba(189, 215, 238, 0.5);
+  padding: 5px 10px;
+}
+
+html.exkurs body {
+  background: rgb(252, 220, 185) url("images/es6-icon.png") no-repeat right
+    bottom;
+}
