@@ -13,13 +13,13 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
     />
 
-    <link rel="stylesheet" href="reveal.js/css/reveal.css" />
-    <link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme" />
+    <link rel="stylesheet" href="slides/reveal.js/css/reveal.css" />
+    <link rel="stylesheet" href="slides/reveal.js/css/theme/solarized.css" id="theme" />
 
     <!-- Code syntax highlighting -->
-    <!-- <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css"> -->
-    <link rel="stylesheet" href="reveal.js/lib/css/github.css" />
-    <link rel="stylesheet" href="reveal.js/lib/font/google-fonts.css" />
+    <!-- <link rel="stylesheet" href="slides/reveal.js/lib/css/zenburn.css"> -->
+    <link rel="stylesheet" href="slides/reveal.js/lib/css/github.css" />
+    <link rel="stylesheet" href="slides/reveal.js/lib/font/google-fonts.css" />
     <style>
       .reveal {
         font-family: "PT Sans", sans-serif;
@@ -88,8 +88,8 @@
         background-position: center; 
         background-repeat: no-repeat;
         background-size: cover;
-        background-image: url("images/bg.jpg");
-        /* background: linear-gradient(rgba(212,235,233, 0.9), rgba(212,235,233, 0.9)), url("images/bg.jpg"); */
+        background-image: url("slides/images/bg.jpg");
+        /* background: linear-gradient(rgba(212,235,233, 0.9), rgba(212,235,233, 0.9)), url("slides/images/bg.jpg"); */
       }
 
       html.title body > .reveal {
@@ -106,7 +106,7 @@
       }
 
       html.exkurs body {
-        background: rgb(252, 220, 185) url("images/es6-icon.png") no-repeat right bottom;
+        background: rgb(252, 220, 185) url("slides/images/es6-icon.png") no-repeat right bottom;
       }
     </style>
 
@@ -116,13 +116,13 @@
       link.rel = "stylesheet";
       link.type = "text/css";
       link.href = window.location.search.match(/print-pdf/gi)
-        ? "reveal.js/css/print/pdf.css"
-        : "reveal.js/css/print/paper.css";
+        ? "slides/reveal.js/css/print/pdf.css"
+        : "slides/reveal.js/css/print/paper.css";
       document.getElementsByTagName("head")[0].appendChild(link);
     </script>
 
     <!--[if lt IE 9]>
-      <script src="reveal.js/lib/js/html5shiv.js"></script>
+      <script src="slides/reveal.js/lib/js/html5shiv.js"></script>
     <![endif]-->
   </head>
 
@@ -231,7 +231,7 @@
         <section id="example-app">
           <h2>Beispiel-Anwendung</h2>
           <a target="_blank" href="code/schritte/6b-router-typescript/build/index.html">
-            <img src="images/greeting-master-and-detail.png" style="height:650px" />
+            <img src="slides/images/greeting-master-and-detail.png" style="height:650px" />
           </a>
         </section>
 
@@ -271,12 +271,12 @@
           </ul>
           <div class="fragment">
             <p>Zum Vergleich...</p>
-            <img height="200px" src="images/react-major-releases.png" />
+            <img height="200px" src="slides/images/react-major-releases.png" />
           </div>
           <br />
-          <img class="fragment" height="200px" src="images/jdk-major-releases.png" />
+          <img class="fragment" height="200px" src="slides/images/jdk-major-releases.png" />
           <br />
-          <img class="fragment" height="200px" src="images/hsv-trainer.png" />
+          <img class="fragment" height="200px" src="slides/images/hsv-trainer.png" />
         </section>
 
         <section>
@@ -316,7 +316,7 @@
           <h4>Architektur</h4>
           <h3>"Klassische" Web Anwendungen</h3>
           <img
-            src="images/abb-02a-classic-webapp-architecture.png"
+            src="slides/images/abb-02a-classic-webapp-architecture.png"
             style="border:0;box-shadow:0 0 0 0;height:650px"
           />
         </section>
@@ -325,7 +325,7 @@
           <h4>Architektur</h4>
           <h3>"Erweiterte Klassische" Web Anwendungen</h3>
           <img
-            src="images/webapp_arch_02_jquery.png"
+            src="slides/images/webapp_arch_02_jquery.png"
             style="border:0;box-shadow:0 0 0 0;height:650px"
           />
         </section>
@@ -334,7 +334,7 @@
           <h4>Architektur</h4>
           <h3>Single-Page-Anwendungen</h3>
           <img
-            src="images/abb-02c-spa-webapp-architecture.png"
+            src="slides/images/abb-02c-spa-webapp-architecture.png"
             style="border:0;box-shadow:0 0 0 0;height:650px"
           />
         </section>
@@ -344,13 +344,13 @@
           <p>
             <em>Zentrales Konzept in React: <b>Komponenten</b></em>
           </p>
-          <img style="height:800px" class="fragment" src="images/soc.png" />
+          <img style="height:800px" class="fragment" src="slides/images/soc.png" />
         </section>
 
         <section>
           <h3>Komponenten in React</h3>
           <p style="font-size:smaller">Unser Beispiel in Komponenten</p>
-          <img src="images/greeting-example-component-hierarchy.png" style="height: 650px" />
+          <img src="slides/images/greeting-example-component-hierarchy.png" style="height: 650px" />
         </section>
 
         <section>
@@ -609,7 +609,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
               <li>Die "Referenz"-Version</li>
             </ul>
             <br />
-            <img src="images/can-i-use-es5.png" />
+            <img src="slides/images/can-i-use-es5.png" />
             <br />
             <a href="https://caniuse.com/#search=es5">https://caniuse.com/#search=es5</a>
           </div>
@@ -709,7 +709,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
           <div class="fragment">
             <p><a href="https://eslint.org/">ESLint</a></p>
 
-            <img style="height: 400px" src="images/eslint.png" />
+            <img style="height: 400px" src="slides/images/eslint.png" />
           </div>
         </section>
 
@@ -843,7 +843,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
 
         <section>
           <h2>Webpack und Babel</h2>
-          <img src="images/webpack-und-babel.png" style="height:600px" />
+          <img src="slides/images/webpack-und-babel.png" style="height:600px" />
         </section>
         <section>
           <h2>Webpack Development Server</h2>
@@ -892,7 +892,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
             </li>
           </ul>
 
-          <p><img src="images/screenshot-react-dev-tools.png" /></p>
+          <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
         </section>
 
         <section>
@@ -941,7 +941,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
             <li>Wenn auf der Seite 'Hello, World' steht, ist alles gut</li>
           </ol>
 
-          <img src="images/screenshot-npm-start.png" />
+          <img src="slides/images/screenshot-npm-start.png" />
         </section>
         <section>
           <h3>Schritt #2: Deine erste React-Komponente</h3>
@@ -1489,13 +1489,13 @@ function GreetingDetail(props) {
 
         <section>
           <h3>Render Zyklus</h3>
-          <img src="images/event-zustand-render.png" height="550px" />
+          <img src="slides/images/event-zustand-render.png" height="550px" />
         </section>
 
         <section>
           <h3>Virtual DOM</h3>
           <p>"Rendern" hat leider doppelte Bedeutung!</p>
-          <img src="images/virtual-dom.png" style="height:650px" />
+          <img src="slides/images/virtual-dom.png" style="height:650px" />
         </section>
         <section>
           <h3>React: Referenzen auf nativen DOM</h3>
@@ -1561,7 +1561,7 @@ function GreetingDetail(props) {
               gesetzt werden
             </li>
           </ol>
-          <img src="images/screenshot-name-greeting.png" />
+          <img src="slides/images/screenshot-name-greeting.png" />
         </section>
 
         <section>
@@ -1799,7 +1799,7 @@ function GreetingDetail(props) {
         <section>
           <div style="display: flex">
             <div style="flex: 1">
-              <img src="images/greeting-master-table.png" style="max-width:100%" />
+              <img src="slides/images/greeting-master-table.png" style="max-width:100%" />
             </div>
             <div style="flex: 1">
               <h3>Listen</h3>
@@ -1922,12 +1922,12 @@ function Choices(props) {
         <section>
           <h3>Problem: Kommunikation zwischen Komponenten</h3>
           <p>#1: Welche Komponente soll angezeigt werden (Master oder Detail?)</p>
-          <img src="images/component-hierarchy-problems-01-views.png" style="height:550px" />
+          <img src="slides/images/component-hierarchy-problems-01-views.png" style="height:550px" />
         </section>
         <section>
           <h3>Problem: Kommunikation zwischen Komponenten</h3>
           <p>#2: Wo wird der State (Greetings) verwaltet?</p>
-          <img src="images/component-hierarchy-problems-02-greeting.png" style="height:550px" />
+          <img src="slides/images/component-hierarchy-problems-02-greeting.png" style="height:550px" />
         </section>
         <section>
           <h3>Problem #1</h3>
@@ -1938,7 +1938,7 @@ function Choices(props) {
         <section>
           <h3>Controller Komponente #1</h3>
           <p>Verwaltet den Zustand (u.a. welche Komponente sichtbar ist)</p>
-          <img src="images/greeting-hierarchy-mode.png" style="height:550px" />
+          <img src="slides/images/greeting-hierarchy-mode.png" style="height:550px" />
         </section>
         <section>
           <h3>Controller Komponente #2</h3>
@@ -1963,7 +1963,7 @@ function GreetingController(props) {
           <p class="fragment">Callback-Funktionen als Properties #1</p>
           <img
             class="fragment"
-            src="images/greeting-hierarchy-mode-callback.png"
+            src="slides/images/greeting-hierarchy-mode-callback.png"
             style="height:550px"
           />
         </section>
@@ -2005,7 +2005,7 @@ function GreetingController(props) {
           <p class="fragment">State wird als Property an Children übergeben</p>
           <img
             class="fragment"
-            src="images/greeting-hierarchy-greetings.png"
+            src="slides/images/greeting-hierarchy-greetings.png"
             style="height:550px"
           />
         </section>
@@ -2041,7 +2041,7 @@ function GreetingMaster(props) {
           <h3>Controller Komponente</h3>
           <p class="fragment">Verwaltet den "globalen" State</p>
           <div class="fragment">
-            <img src="images/greeting-hierarchy-onsave.png" style="height:550px" />
+            <img src="slides/images/greeting-hierarchy-onsave.png" style="height:550px" />
             <p>
               <span style="color: #9D4493">Neues Greeting</span> wird per Callback-Funktion zurück
               gegeben
@@ -2086,7 +2086,7 @@ function GreetingMaster(props) {
         <section>
           <h3>Komponenten in Hierarchien</h3>
           <p>Beispiel: Unsere Anwendung (Zusammenfassung)</p>
-          <img src="images/greeting-hierarchy.png" style="height:550px" />
+          <img src="slides/images/greeting-hierarchy.png" style="height:550px" />
         </section>
 
         <section>
@@ -2094,7 +2094,7 @@ function GreetingMaster(props) {
           <p style="font-size: smaller;margin-bottom:0">
             (Alternativ: Container und Presentation Components)
           </p>
-          <img style="margin-top:0;max-height:600px" src="images/component-communication.png" />
+          <img style="margin-top:0;max-height:600px" src="slides/images/component-communication.png" />
         </section>
 
         <section>
@@ -2140,11 +2140,11 @@ function GreetingMaster(props) {
         </section>
         <section>
           <h3>GreetingMaster</h3>
-          <img src="images/greeting-master.png" style="border:0;box-shadow:0 0 0 0" />
+          <img src="slides/images/greeting-master.png" style="border:0;box-shadow:0 0 0 0" />
         </section>
         <section>
           <h3>GreetingDetail</h3>
-          <img src="images/greeting-detail.png" style="border:0;box-shadow:0 0 0 0" />
+          <img src="slides/images/greeting-detail.png" style="border:0;box-shadow:0 0 0 0" />
         </section>
 
         <section>
@@ -2786,7 +2786,7 @@ async function loadData() {
           </p>
 
           <div class="fragment">
-            <img style="height: 500px" src="images/comp_lifecycle_new.jpg" />
+            <img style="height: 500px" src="slides/images/comp_lifecycle_new.jpg" />
             <br /><a
               style="font-size:small"
               href="https://twitter.com/ManuelBieh/status/994618772999884800"
@@ -2802,7 +2802,7 @@ async function loadData() {
           >
 
           <div class="fragment">
-            <img style="height: 500px" src="images/hook-flow.png" />
+            <img style="height: 500px" src="slides/images/hook-flow.png" />
             <br /><a style="font-size:small" href="https://github.com/donavon/hook-flow"
               >https://github.com/donavon/hook-flow</a
             >
@@ -3436,7 +3436,7 @@ console.log(component.toJSON());
           <ul>
             <li class="fragment">
               Bei <b>erster</b> Ausführung: legt Snapshot-File an (
-              <a href="images/jest-snapshot-file.png" target="_blank">Beispiel</a>)
+              <a href="slides/images/jest-snapshot-file.png" target="_blank">Beispiel</a>)
               <ul>
                 <li class="fragment">Snapshotdateien werden in Git versioniert</li>
               </ul>
@@ -3450,11 +3450,11 @@ console.log(component.toJSON());
               <ul>
                 <li>
                   Fehler samt Diff (
-                  <a href="images/jest-snapshot-diff.png" target="_blank">Beispiel</a>)
+                  <a href="slides/images/jest-snapshot-diff.png" target="_blank">Beispiel</a>)
                 </li>
                 <li>
                   Im Watch Mode kann Snapshot aktualisiert werden
-                  <img src="images/jest-snapshot-update.png" />
+                  <img src="slides/images/jest-snapshot-update.png" />
                 </li>
               </ul>
             </li>
@@ -4042,17 +4042,17 @@ test("it should open detail view on button click", () => {
 
           <div class="fragment">
             <p>Code Completion</p>
-            <img style="height: 200px" src="images/screenshot-ts-code_completion.png" />
+            <img style="height: 200px" src="slides/images/screenshot-ts-code_completion.png" />
           </div>
 
           <div class="fragment">
             <p>Unbekanntes Property</p>
-            <img style="height: 200px" src="images/screenshot-ts-error-01.png" />
+            <img style="height: 200px" src="slides/images/screenshot-ts-error-01.png" />
           </div>
 
           <div class="fragment">
             <p>Falsche Verwendung eines Properties</p>
-            <img style="height: 200px" src="images/screenshot-ts-error-02.png" />
+            <img style="height: 200px" src="slides/images/screenshot-ts-error-02.png" />
           </div>
         </section>
 
@@ -4595,7 +4595,7 @@ function GreetingDetail(props) {
         </section>
         <section>
           <h3>withRouter zur Laufzeit</h3>
-          <img src="./images/screenshot-withRouter.png" />
+          <img src="slides/images/screenshot-withRouter.png" />
         </section>
 
         <section>
@@ -4836,30 +4836,30 @@ function GreetingDetail(props) {
         <section>
           <h2>Eine typische React-Anwendung in Komponenten</h2>
           <h3>Frage an Euch: was könnte es für Probleme geben?</h3>
-          <img src="images/typische-react-komponenten-hierarchie.png" style="height:650px" />
+          <img src="slides/images/typische-react-komponenten-hierarchie.png" style="height:650px" />
         </section>
 
         <section>
           <h3>Problem 1: Über Komponenten verteilter Zustand</h3>
-          <img src="images/verteilter-zustand.png" style="height:650px" />
+          <img src="slides/images/verteilter-zustand.png" style="height:650px" />
           <p>Wo muss ich nach Fehlern suchen? Wo ist die Logik?</p>
         </section>
 
         <section>
           <h3>Problem 2: Getrennte Komponentenhierarchien</h3>
-          <img src="images/zwei-komponenten-hierarchien.png" style="height:650px" />
+          <img src="slides/images/zwei-komponenten-hierarchien.png" style="height:650px" />
           <p>Geht entweder nicht oder "Gott-Komponente" entsteht</p>
         </section>
 
         <section>
           <h3>Problem 3: Gemeinsamer ("globaler") Zustand</h3>
-          <img src="images/gemeinsam-genutzter-state.png" style="height:650px" />
+          <img src="slides/images/gemeinsam-genutzter-state.png" style="height:650px" />
           <p>Wie kommt Zustand von ganz oben nach ganz unten?</p>
         </section>
 
         <section>
           <h3>Problem 4: UI und Logik vermischt</h3>
-          <img src="images/ui-und-logic-vermischt.png" style="height:650px" />
+          <img src="slides/images/ui-und-logic-vermischt.png" style="height:650px" />
           <p>Wiederverwendung? React-unabhängigkeit? Testbarkeit?</p>
         </section>
 
@@ -4879,12 +4879,12 @@ function GreetingDetail(props) {
         <section>
           <h3>Wiederholung</h3>
           <h2>Render Cycle in Pure React</h2>
-          <img src="images/redux-01-react-cycle-no-redux.png" style="height:650px" />
+          <img src="slides/images/redux-01-react-cycle-no-redux.png" style="height:650px" />
         </section>
 
         <section>
           <h2>Redux extrahiert die Verantwortlichkeiten</h2>
-          <img src="images/redux-02-extracting-responsibility.png" style="width: 900px" />
+          <img src="slides/images/redux-02-extracting-responsibility.png" style="width: 900px" />
         </section>
         <section>
           <h2>Demo: Redux & Redux Devtools</h2>
@@ -5109,14 +5109,14 @@ render() {
 
         <section>
           <h2>Zusammenfassung Redux-Architektur</h2>
-          <img src="images/redux-03-resulting-redux-architecture.png" style="max-height:650px" />
+          <img src="slides/images/redux-03-resulting-redux-architecture.png" style="max-height:650px" />
         </section>
 
         <section>
           <h3>Lokaler State ist weiterhin erlaubt!</h3>
           <p>Es gibt unterschiedliche Arten von "State"</p>
 
-          <img src="images/three-kinds-of-state.png" style="max-height:650px" />
+          <img src="slides/images/three-kinds-of-state.png" style="max-height:650px" />
         </section>
 
         <section id="t-context">
@@ -5127,15 +5127,15 @@ render() {
         <section>
           <h2>Problem</h2>
           <h3>Zentrale Daten, die an vielen Stellen benötigt werden</h3>
-          <img src="images/context-screenshot.png" style="max-height:650px" />
+          <img src="slides/images/context-screenshot.png" style="max-height:650px" />
         </section>
         <section>
           <h2>Ansatz 1: Properties durchreichen</h2>
-          <img src="images/context-props.png" style="max-height:650px" />
+          <img src="slides/images/context-props.png" style="max-height:650px" />
         </section>
         <section>
           <h2>Ansatz 2: React Context</h2>
-          <img src="images/context-context.png" style="max-height:650px" />
+          <img src="slides/images/context-context.png" style="max-height:650px" />
         </section>
 
         <section>
@@ -5302,9 +5302,9 @@ render() {
       </div>
     </div>
 
-    <script src="reveal.js/lib/js/head.min.js"></script>
-    <script src="reveal.js/js/reveal.js"></script>
-    <script src="reveal.js/lib/jquery-2.2.4.js"></script>
+    <script src="slides/reveal.js/lib/js/head.min.js"></script>
+    <script src="slides/reveal.js/js/reveal.js"></script>
+    <script src="slides/reveal.js/lib/jquery-2.2.4.js"></script>
 
     <script>
       const isLocalServer =
@@ -5347,25 +5347,25 @@ render() {
         // Optional reveal.js plugins
         dependencies: [
           {
-            src: "reveal.js/lib/js/classList.js",
+            src: "slides/reveal.js/lib/js/classList.js",
             condition: function() {
               return !document.body.classList;
             }
           },
           {
-            src: "reveal.js/plugin/markdown/marked.js",
+            src: "slides/reveal.js/plugin/markdown/marked.js",
             condition: function() {
               return !!document.querySelector("[data-markdown]");
             }
           },
           {
-            src: "reveal.js/plugin/markdown/markdown.js",
+            src: "slides/reveal.js/plugin/markdown/markdown.js",
             condition: function() {
               return !!document.querySelector("[data-markdown]");
             }
           },
           {
-            src: "reveal.js/plugin/highlight/highlight.js",
+            src: "slides/reveal.js/plugin/highlight/highlight.js",
             async: true,
             condition: function() {
               return !!document.querySelector("pre code");
@@ -5374,9 +5374,9 @@ render() {
               hljs.initHighlightingOnLoad();
             }
           },
-          { src: "reveal.js/plugin/zoom-js/zoom.js", async: true },
-          { src: "reveal.js/plugin/notes/notes.js", async: true },
-          { src: "reveal.js/lib/js/line-numbers.js" }
+          { src: "slides/reveal.js/plugin/zoom-js/zoom.js", async: true },
+          { src: "slides/reveal.js/plugin/notes/notes.js", async: true },
+          { src: "slides/reveal.js/lib/js/line-numbers.js" }
         ]
       });
     </script>
