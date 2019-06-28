@@ -19,7 +19,6 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-
         <section data-state="title">
           <h2>
             <b>Einführung in React</b>
@@ -58,14 +57,20 @@
             <li>
               <a href="#/t-typescript">Teil V: React Anwendungen mit TypeScript entwickeln</a>
             </li>
-            <li><a href="#/t-router">Teil VI: Client-seitiges Routing mit React Router</a></li>
+            <li>
+              <a href="#/t-router">Teil VI: Client-seitiges Routing mit React Router (Überblick)</a>
+            </li>
+            <li>
+              <a href="#/t-redux"
+                >Teil VII: Das Flux-Architektur-Pattern am Beispiel von Redux (Überblick)</a
+              >
+            </li>
 
             <li style="margin-top: 30px">
               <a href="#/t7">Ausblick/Diskussion</a>
               <ul style="font-size: 85%">
                 <li>Neue React-Features in 2019 (Suspense, Code Splitting)</li>
-                <li>Mögliche Performance-Optimierungen</li>
-                <li><a href="#/t-redux">Architekturpattern: Flux / Redux</a></li>
+                <li>Mögliche Performance-Optimierungen (für Produktion)</li>
                 <li><a href="#/t-context">Context API</a></li>
                 <li>Einbinden von 3rd-Party-Libs</li>
               </ul>
@@ -118,14 +123,31 @@
             <li class="fragment">Semantische Versionierung</li>
             <li class="fragment">API Änderungen meist abwärtskompatibel</li>
           </ul>
-          <div class="fragment">
-            <p>Zum Vergleich...</p>
-            <img height="200px" src="slides/images/react-major-releases.png" />
+          <p class="fragment">Zum Vergleich...</p>
+          <div
+            style="display: flex;
+          flex-direction: column;
+          align-items: center;"
+          >
+            <img
+              style="display:block"
+              class="fragment"
+              height="100px"
+              src="slides/images/react-major-releases.png"
+            />
+            <img
+              style="display:block"
+              class="fragment"
+              height="100px"
+              src="slides/images/jdk-major-releases.png"
+            />
+            <img
+              style="display:block"
+              class="fragment"
+              height="100px"
+              src="slides/images/hsv-trainer.png"
+            />
           </div>
-          <br />
-          <img class="fragment" height="200px" src="slides/images/jdk-major-releases.png" />
-          <br />
-          <img class="fragment" height="200px" src="slides/images/hsv-trainer.png" />
         </section>
 
         <section>
@@ -255,7 +277,7 @@ export default function HelloMessage(props) {
 
   return (
     &lt;div>
-    &lt;input ref={input} onChange={event => setName(event.target.value)} value={name} />
+    &lt;input onChange={event => setName(event.target.value)} value={name} />
 
     &lt;p>{name}, World&lt;/p>
     &lt;button onClick={() => setName("")}>Clear&lt;/button>
@@ -458,14 +480,12 @@ const time = `The time is: ${new Date()}`); // The time is: ...
               <li>Die "Referenz"-Version</li>
             </ul>
             <br />
-            <img src="slides/images/can-i-use-es5.png" />
+            <img style="height: 500px" src="slides/images/can-i-use-es5.png" />
             <br />
             <a href="https://caniuse.com/#search=es5">https://caniuse.com/#search=es5</a>
+            <br />
+            <b>JavaScript</b>: Implementierung | <b>ECMAScript</b>: Spezifikation
           </div>
-          <ul class="fragment">
-            <li><b>JavaScript</b>: Implementierung</li>
-            <li><b>ECMAScript</b>: Spezifikation</li>
-          </ul>
         </section>
 
         <section>
@@ -748,7 +768,7 @@ const time = `The time is: ${new Date()}`); // The time is: ...
           <h3>Das Beispiel-Projekt</h3>
           <p>Workspace</p>
           <ul class="x-list">
-            <li><code>2019_react_hooks.html</code> Slides im Root-Verzeichnis</li>
+            <li><code>2019_training_hooks.html</code> Slides im Root-Verzeichnis</li>
             <li>
               <code>code/<b>workspace</b></code
               >: Verzeichnis für Eure Übungen<br />Empfehlung: dieses Verzeichnis in VS Code/IDE
@@ -1273,11 +1293,33 @@ function GreetingDetail(props) {
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
                 function GreetingDetail(props) {
                   const [greeting, setGreeting] = React.useState(initialValue);
+
+                  // Aufruf von setGreeting führt dazu, dass Komponente neu gerendert wird
+                  // d.h. diese Funktion (GreetingDetail) wird erneut ausgeführt
                 }
               </code></pre>
 
+              <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                  function GreetingDetail(props) {
+
+                    // ANNAHME: Diese Komponente wird zwei mal gerendert 
+                    // (weil setGreeting aufgerufen wird, um State zu verändern)
+                    //
+                    // FRAGE: - wie häufig wird useState aufgeführt? 
+                    //        - was passiert mit initialValue?
+                    const [greeting, setGreeting] = React.useState(initialValue);
+                  }
+                </code></pre>
+
+         
+        </section>
+
+        <section>
+          <h3>useState: Details II</h3>
+
+
           <ul>
-            <li class="fragment">
+            <li >
               <code>initialValue</code> kann lazy initialisiert werden, mit einer Funktion:
               <pre class="fragment"><code class="javascript" contenteditable data-trim>
                         function GreetingDetail(props) {
@@ -1300,7 +1342,7 @@ function GreetingDetail(props) {
           </ul>
         </section>
 
-        <section>
+        <!-- <section>
           <h3>React: Events und Data Binding</h3>
           <p>
             <em>Es gibt keine automatische Bindung an Modelle (2-Wege Databinding)</em>
@@ -1334,7 +1376,7 @@ function GreetingDetail(props) {
   // ...
 }
 </code></pre>
-        </section>
+        </section> -->
 
         <section>
           <h3>Render Zyklus</h3>
