@@ -1,9 +1,19 @@
 import React from "react";
 
+function ErrorMessage({ msg, onRetry }) {
+  return (
+    <div>
+      <h1>An error occured!</h1>
+      <pre>{msg}</pre>
+      <button onClick={onRetry}>Try again</button>
+    </div>
+  );
+}
+
 export default class ErrorHandler extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = {};
   }
 
   static getDerivedStateFromError(error) {
@@ -16,13 +26,7 @@ export default class ErrorHandler extends React.Component {
 
   render() {
     if (this.state.error) {
-      return (
-        <div>
-          <h1>An error occured!</h1>
-          <pre>{this.state.error}</pre>
-          <button onClick={() => this.setState({ error: null })}>Try again</button>
-        </div>
-      );
+      return <ErrorMessage msg={this.state.error} onRetry={() => this.setState({ error: null })} />;
     }
 
     return this.props.children;

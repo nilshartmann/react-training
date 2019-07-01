@@ -1,5 +1,20 @@
 import React from "react";
 
+type ErrorMessageProps = {
+  msg: string;
+  onRetry(): void;
+};
+
+function ErrorMessage({ msg, onRetry }: ErrorMessageProps) {
+  return (
+    <div>
+      <h1>An error occured!</h1>
+      <pre>{msg}</pre>
+      <button onClick={onRetry}>Try again</button>
+    </div>
+  );
+}
+
 type ErrorHandlerProps = {};
 type ErrorHandlerState = {
   error?: string | null;
@@ -21,13 +36,7 @@ export default class ErrorHandler extends React.Component<ErrorHandlerProps, Err
 
   render() {
     if (this.state.error) {
-      return (
-        <div>
-          <h1>An error occured!</h1>
-          <pre>{this.state.error}</pre>
-          <button onClick={() => this.setState({ error: null })}>Try again</button>
-        </div>
-      );
+      return <ErrorMessage msg={this.state.error} onRetry={() => this.setState({ error: null })} />;
     }
 
     return this.props.children;

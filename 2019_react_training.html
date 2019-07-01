@@ -20,7 +20,7 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
         <section data-state="title">
-          <h2>
+          <h2 class="title">
             <b>Einführung in React</b>
           </h2>
 
@@ -32,6 +32,10 @@
               <a href="mailto:nils@nilshartmann.net" target="_blank">nils@nilshartmann.net</a>
             </span>
           </h4>
+
+          <p style="margin-top:4rem">
+            <span class="transparent-bg">Slides: react-training/2019_react_training.html</span>
+          </p>
         </section>
 
         <section>
@@ -81,7 +85,7 @@
 
         <section id="example-app">
           <h2>Beispiel-Anwendung</h2>
-          <a target="_blank" href="code/schritte/6b-router-typescript/build/index.html">
+          <a target="_blank" href="code/schritte/6b-router-typescript/public/index.html">
             <img src="slides/images/greeting-master-and-detail.png" style="height:650px" />
           </a>
         </section>
@@ -243,8 +247,8 @@
             <li class="fragment">
               Werden als <b>Funktion mit Hooks</b> oder <b>ES6 Klasse</b> implementiert
               <ul>
-                <li>Hooks erst ab React 16.8 (Februar 2019)</li>
-                <li>Klassen (noch?) Mainstream</li>
+                <li>Hooks erst seit React 16.8 (Februar 2019)</li>
+                <li>Klassen (noch?) sehr weit verbreitet in bestehendem Code</li>
               </ul>
             </li>
 
@@ -324,22 +328,22 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
         </section>
         <section data-state="exkurs">
           <h3>ES6: Ein Default Export pro Modul möglich</h3>
-          <pre><code class="javascript" contenteditable>// Person.js
+          <pre class="fragment"><code class="javascript" contenteditable>// Person.js
 class Person {
   // ...
 }
 export default Person;
      </code></pre>
-          <pre><code class="javascript" contenteditable>// Person.js
+          <pre class="fragment"><code class="javascript" contenteditable>// Person.js
   
 // in einer Zeile zusammengefasst
 export default class Person {
   // ...
 }
      </code></pre>
-          <pre><code class="javascript"data-trim contenteditable>// createPerson.js
-  
-// Funktion exportieren
+          <pre
+            class="fragment"
+          ><code class="javascript"data-trim contenteditable>// Funktion exportieren
 export default function createPerson() { /* ... */ }
         
 // oder
@@ -352,30 +356,45 @@ export default createPerson;
           <pre><code class="javascript" contenteditable>// Programmer.js
   import Person from './Person';
   
-  export default class Programmer extends Person {
+  class Programmer extends Person {
     // ...
   }
+
+  export default Programmer;
      </code></pre>
         </section>
         <section data-state="exkurs">
           <h3>ES6: Benannte Exporte</h3>
           <pre><code class="javascript" contenteditable data-trim>
-  export function displayInPage(text) {
-      document.body.innerHTML += `${text}<br>` ;
-  }
+// Export 1            
+export function displayInPage(text) {
+  document.body.innerHTML += `${text}<br>` ;
+}
+
+// Export 2
+export function showInfo(msg) {
+  window.alert(`Wichtige Info: ${msg}`);
+}
+
+// nicht exportiert
+function leftPad(str, n) { ... }
   
-  export showInfo = msg => window.alert(`Wichtige Info: ${msg}`);
 </code></pre>
 
           <p class="fragment">Alternativ: Gruppierung der Exporte</p>
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-  function displayInPage(text) { . . . }
+// Export 1            
+function displayInPage(text) { . . . }
+
+// Export 2
+function showInfo(msg) { . . . }
+
+// nicht exportiert
+function leftPad(str, n) { ... }
   
-  const showInfo = ...;
-  
-  // specify exports
-  export { displayInPage, showInfo };
+// specify exports
+export { displayInPage, showInfo };
      </code></pre>
         </section>
 
@@ -384,16 +403,19 @@ export default createPerson;
           <pre
             class="fragment"
           ><code class="javascript" contenteditable data-trim>import {displayInPage} from "./util";
+
 displayInPage('Hello, World');
      </code></pre>
           <pre
             class="fragment"
           ><code class="javascript" contenteditable data-trim>import {displayInPage as display} from "./util";
+
 display('Hello, World');
           </code></pre>
           <pre
             class="fragment"
           ><code class="javascript" contenteditable data-trim>import * as util from "./util";
+
 util.displayInPage('Hello, World');
           </code></pre>
         </section>
@@ -402,8 +424,11 @@ util.displayInPage('Hello, World');
           <h3>ES6: Default <em>und</em> benannten Export importieren</h3>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
           // Programmer.js
+
+          // default Export
           export default class Programmer { }
 
+          // benannter Export
           export class Employee { }
         </code></pre>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
@@ -423,20 +448,6 @@ util.displayInPage('Hello, World');
               const e = new Employee();
               </code></pre>
         </section>
-
-        <section data-state="exkurs">
-          <h3>ES6: Arrow Functions</h3>
-          <pre><code class="javascript" contenteditable>const displayInPage = (text) => {
-   return document.body.innerHTML +=
-       `${text}<br>`;
-};</code></pre>
-          <pre
-            class="fragment"
-          ><code class="javascript" contenteditable>// Klammern können weggelassen werden, genau ein Parameter
-// ebenso die geschweiften Klassen, wenn nur ein Statement:
-const displayInPage = text => document.body.innerHTML += `${text}<br>`;
-</code></pre>
-        </section>
         <section data-state="exkurs">
           <h3>ES6: Template Strings</h3>
           <p>
@@ -446,11 +457,49 @@ const displayInPage = text => document.body.innerHTML += `${text}<br>`;
 
           <pre><code class="javascript" contenteditable>const name = "Susi";
 const greeting = `Hello, ${name}`; // Hello, Susi
-
+  
 const four = `Two and two is: ${2+2}` // Two and two is: 4
-
+  
 const time = `The time is: ${new Date()}`); // The time is: ...
-            </code></pre>
+              </code></pre>
+        </section>
+        <section data-state="exkurs">
+          <h3>ES6: Arrow Functions</h3>
+          <pre><code class="javascript" contenteditable>const greet = (text) => {
+   return `Hello, ${text}<br>`;
+};</code></pre>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable>// Klammern können weggelassen werden, genau ein Parameter
+// ebenso die geschweiften Klassen, wenn nur ein Statement:
+const greet = text => `Hello, ${text}<br>`;
+</code></pre>
+        </section>
+
+        <section data-state="exkurs">
+          <h3>JavaScript: Funktionen allgemein</h3>
+          <p>Funktionen sind first-class citizens</p>
+          <pre><code class="javascript" contenteditable>
+// greetingProvider muss eine REFERENZ auf eine Funktion sein            
+const greet = (text, greetProvider) => `${greetProvider()}, ${text}`
+</code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable>
+// REFERENZ auf "anonyme" Arrow Funktion
+greet("Klaus", () => "Hello"); // Hello, Klaus
+</code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable>
+function ciao() { return "ciao"; }
+
+// REFERENZ auf 'ciao' function
+greet("Monika", ciao); // ciao, Monika
+</code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable>
+
+const goodbye = () => "Goodbye";
+// FEHLER: goodbye ist keine REFERENZ, sondern...?
+greet("Sam", goodbye()) // Uncaught TypeError: greetingProvider is not a function
+
+</code></pre>
         </section>
 
         <section>
@@ -596,60 +645,6 @@ const time = `The time is: ${new Date()}`); // The time is: ...
             <p><a href="https://eslint.org/">ESLint</a></p>
 
             <img style="height: 400px" src="slides/images/eslint.png" />
-          </div>
-        </section>
-
-        <section>
-          <h2>Code-Formatierer</h2>
-
-          <ul>
-            <li class="fragment">
-              JavaScript macht keine/sehr wenige Aussagen, wie Code strukturiert wird
-            </li>
-            <li class="fragment">Zeilenumbrüche, -längen</li>
-            <li class="fragment">Semikolon ja/nein</li>
-            <li class="fragment">Anführungszeichen doppelt/einfach</li>
-            <li class="fragment">Spaces, Tabs, etc</li>
-            <li class="fragment">
-              <b>kann z.B. zu überflüssigen Änderungen im Git Commit führen</b>
-            </li>
-          </ul>
-
-          <p class="fragment"><a href="https://prettier.io">Prettier</a> (Mainstream)</p>
-          <ul>
-            <li class="fragment">Formatiert JavaScript, TypeScript, HTML, CSS, JSON, ...</li>
-            <li class="fragment">Kann als Pre-Commit-Hook verwendet werden</li>
-            <li class="fragment">Integration mit allen relevanten IDEs</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Laufzeitumgebungen</h2>
-
-          <h4><b>Browser</b>: Der Klassiker</h4>
-          <ul>
-            <li>Nahezu alle Browser implementieren ES5</li>
-            <li>JavaScript-Support wird besser und einheitlicher</li>
-            <li>Wettbewerb um beste Developer Tools</li>
-          </ul>
-
-          <div style="margin-top:2rem" class="fragment">
-            <h4><b>NodeJS</b>: Serverseitiges JavaScript</h4>
-            <ul>
-              <li>
-                Basiert auf der JS Engine V8 von Chrome
-                <ul>
-                  <li>Ermöglicht zusätzlich Zugriff auf File-System, Konsole etc</li>
-                </ul>
-              </li>
-
-              <li>
-                <b>Grundlage auch für diverses Tooling</b>
-                <ul>
-                  <li>Package Manager, Build, Test, ...</li>
-                </ul>
-              </li>
-            </ul>
           </div>
         </section>
 
@@ -1469,175 +1464,7 @@ function GreetingDetail(props) {
           <img src="slides/images/screenshot-name-greeting.png" />
         </section>
 
-        <section>
-          <h3>Custom Hooks</h3>
-
-          <em>Eigene Hooks können für wiederkehrende Aufgaben genutzt werden</em>
-
-          <p class="fragment">
-            Beispiele: Laden von Daten, Arbeiten mit spezialisiertem State, ...
-          </p>
-        </section>
-
-        <section>
-          <h3>Custom Hooks</h3>
-
-          <ul>
-            <li class="fragment">
-              ...müssen mit <code>use</code>beginnen
-              <ul>
-                <li>(ansonsten kann der Linter nicht auf mögliche Fehler prüfen!)</li>
-              </ul>
-            </li>
-            <li class="fragment">
-              ...dürfen nur aus anderen (Custom) Hooks und Komponenten aufgerufen werden
-            </li>
-            <li class="fragment">
-              ...erwarten "normale" Funktionsparameter (nicht zwingend ein Objekt wie bei
-              Komponenten)
-            </li>
-            <li class="fragment">...dürfen andere (Custom) Hooks verwenden</li>
-            <li class="fragment">
-              ...beliebiger Rückgabewert möglich (alle Typen erlaubt, auch JSX!)
-            </li>
-          </ul>
-        </section>
-        <section>
-          <h3>Custom Hooks</h3>
-
-          <p class="fragment">Beispiel: Konfiguration eines Eingabefeldes (input, textarea)</p>
-
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                function GreetingDetail(props) {
-                  const [name, setName] = React.useState(props.initialName || "");
-                  const [greeting, setGreeting] = React.useState(props.initialGreeting || "");
-                  const inputRef = React.useRef();
-                
-                  function reset() { /* ... */ }
-                
-                  return (
-                    &lt;div>
-                    &lt;input
-                        ref={inputRef}
-                        onChange={event => setName(event.target.value)}
-                        value={name}
-                        name="name"
-                        placeholder="Name"
-                      />
-                      &lt;input
-                        onChange={event => setGreeting(event.target.value)}
-                        value={greeting}
-                        name="greeting"
-                        placeholder="Greeting"
-                      />
-                
-                      &lt;/div>
-                  );
-                }
-            </code></pre>
-          <ul>
-            <li class="fragment">
-              useState mit initialValue und dessen Initialisierung für jedes Feld
-            </li>
-            <li class="fragment">onChange, value, placeholder für jedes Feld</li>
-            <li class="fragment">Eigene (input-)Komponente oder Hook?</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Custom Hooks</h3>
-
-          <p>Beispiel: Konfiguration eines Eingabefeldes (input, textarea)</p>
-
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                  function useInput(placeholder, initialValue) {
-                    const [value, setValue] = React.useState(initialValue || "");
-                  
-                    function reset() {
-                      setValue("");
-                    }
-                  
-                    // Array mit 2 Feldern
-                    return [
-                      { // Objekt mit Werten fuer Input-Feld
-                        placeholder,
-                        name: placeholder.toLowerCase(),
-                        onChange: event => setValue(event.target.value),
-                        value
-                      },
-                      reset // Funktion zum Reset des States
-                    ];
-                  }
-              </code></pre>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                  function GreetingDetail(props) {
-                    const [nameInput, resetName] = useInput("Name", props.initialName);
-                    const [greetingInput, resetGreeting] = useInput("Greeting", props.initialGreeting);
-                  
-                    function reset() { resetName(); resetGreeting(); }
-                  
-                    return &lt;div>
-                      &lt;input {...nameInput} ref={inputRef} />
-                      &lt;input {...greetingInput} />
-                    &lt;/div>;
-                  }
-                  
-              </code></pre>
-        </section>
-        <section>
-          <h3>Hintergrund: Objekt Spread mit JSX</h3>
-
-          <p class="fragment">
-            Mit dem Objekt Spread Operator ({...object}) können alle Properties eines Objektes
-            "pauschal" an eine Komponente übergeben werden:
-          </p>
-
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                const properties = {
-                  className: "success"
-                  onClick: () => console.log("Klick!")
-                }
-
-                &lt;button {...properties}>OK&lt;/button>
-              </code></pre>
-
-          <div class="fragment">
-            <p>Identisch mit:</p>
-            <pre><code class="javascript" contenteditable data-trim>
-                  &lt;button className="success" onClick={() => console.log("Klick")}>OK&lt;/button>
-                </code></pre>
-          </div>
-          <div class="fragment">
-            <p>Hintere Properties überschreiben Werte aus Objekt</p>
-
-            <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                    const properties = {
-                      className: "success"
-                      onClick: () => console.log("Klick!"),
-                      onBlur: () => console.log("Blur")
-                    }
-    
-                    &lt;button className="Error" {...properties} onBlur={() => console.log("Ciao")}>OK&lt;/button>
-                    // className wird aus properties genommen ("success")
-                    // onBlur aus aufruf (console.log("Ciao"))
-                  </code></pre>
-          </div>
-        </section>
-
-        <section>
-          <h2>Optionale Übung: Ein Custom Hook</h2>
-          <em><b>Baue einen useInput-Hook</b></em>
-
-          <ol>
-            <li class="fragment">
-              Verwaltet Zustand für input- und textarea-Elemente (wie gesehen)
-            </li>
-            <li class="fragment">
-              wird für <code>name</code> und <code>greeting</code> im GreetingDetail verwendet (wie
-              gesehen)
-            </li>
-          </ol>
-        </section>
+      
 
         <section id="t2">
           <h1>Teil II</h1>
@@ -1694,41 +1521,7 @@ const GreetingsTable(props) => (
             </div>
           </div>
         </section>
-        <section>
-          <h3>Listen und Keys</h3>
-          <ul class="fragment">
-            <li>
-              Arrays können in einer Komponente als Rückgabewert zurückgegeben werden (anstatt
-              <b>eines</b> Root Elements)
-            </li>
-
-            <li>Elemente brauchen trotzdem einen eindeutigen Key</li>
-          </ul>
-
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-// Beispiel: statische Elemente          
-function Choices(props) { 
-  return [
-    &lt;td key="yes">Yes&lt;/td>,
-    &lt;td key="no">No&lt;/td>
-  ]
-}
-          </code></pre>
-
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-// Beispiel: dynamisches Array          
-function GreetingRows(props) {
-
-  // map liefert ein Array zurück!
-  return props.greetings.map(greeting =>
-    &lt;tr key={greeting.id}>
-      &lt;td>{greeting.name}&lt;/td>
-      &lt;td>{greeting.greeting}&lt;/td>
-    &lt;/tr>
-  ;
-)
-</code></pre>
-        </section>
+       
         <section>
           <h3>Fragmente</h3>
           <ul style="font-size:90%">
@@ -2058,9 +1851,11 @@ function GreetingMaster(props) {
     switch (action.type) {
       case "ADD_GREETING":
         return { ...state, mode: MODE_DETAIL };
+
       case "SAVE_GREETING":
         const newGreeting = action.newGreeting;
         return { greetings: [...state.greetings, newGreeting], mode: MODE_MASTER };
+
       default: {
         throw new Error(`Unsupported action type: ${action.type}`);
       }
@@ -2215,7 +2010,6 @@ function GreetingMaster(props) {
           <h3>Properties einer Komponente</h3>
           <ul class="fragment">
             <li>Properties werden über den Konstruktor in die Komponente hineingereicht</li>
-            <li>Properties dürfen nicht verändert werden</li>
             <li>
               Zugriff über
               <code>this.props</code>
@@ -2234,6 +2028,17 @@ function GreetingMaster(props) {
                 }
               }
               </code></pre>
+
+              <ul class="fragment">
+                  <li>Zum Vergleich: Komponente als Funktion</li>
+                </ul>
+                <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                    function Header(props) {
+                        return (
+                          &lt;h1 style={{color: this.props.titleColor}}>{this.props.title}&lt;/h1>
+                        )
+                    }
+                    </code></pre>
         </section>
 
         <section>
@@ -2259,6 +2064,39 @@ function GreetingMaster(props) {
         </section>
 
         <section>
+          <h3>Beispiel: State in Komponente als Klasse</h3>
+
+          <pre><code data-trim contenteditable>
+              import React from "react";
+              
+              export default class GreetingDetail extends React.Component {
+                constructor(props) {
+                  super(props);
+              
+                  // STATE INITIALISIEREN
+                  this.state = {
+                    name: props.initialName,
+                    greeting: props.initialGreeting
+                  };
+                }
+              
+                render() {
+                  return (
+                    &lt;>
+                      &lt;input  // ZUGRIFF AUF STATE:
+                        value={this.state.name} 
+                        onChange=  // SETZEN:
+                          {event => this.setState({greeting: event.target.name})}
+                      />
+                      &lt;input ... /> 
+                    &lt;/>
+                  );
+                }
+              }</code></pre>
+
+        </section>
+
+        <section>
           <h3>Beispiel: Error Boundary</h3>
           <p class="fragment">
             <b>getDerivedStateFromError</b> und <b>componentDidCatch</b> werden von React im
@@ -2268,7 +2106,7 @@ function GreetingMaster(props) {
               class ErrorHandler extends React.Component {
                 constructor(props) {
                   super(props);
-                  this.state = { error: false };
+                  this.state = { error: null };
                 }
               
                 static getDerivedStateFromError(error) {
@@ -2293,6 +2131,60 @@ function GreetingMaster(props) {
                 }
               }
             </code></pre>
+        </section>
+
+        <section>
+          <h3>Beispiel: Error Boundary</h3>
+          <h4>Lifecycle</h4>
+
+          <div style="display:flex">
+
+              <pre ><code class="javascript" contenteditable data-trim>
+                  class ErrorHandler extends React.Component {
+                    constructor(props) {
+                      super(props);
+                      this.state = { error: null };
+                    }
+                  
+                    static getDerivedStateFromError(error) {
+                      return { error: error.toString() };
+                    }
+                  
+                    componentDidCatch(error, info) {
+                      console.error("uups... we caught an error", error, info);
+                    }
+                  
+                    render() {
+                      if (this.state.error) {
+                        return (
+                      &lt;div>
+                         &lt;h1>An error occured!&lt;/h1>
+                        &lt;pre>{this.state.error}&lt;/pre>
+                        &lt;button onClick={() => this.setState({ error: null })}>Try again&lt;/button>
+                      &lt;/div>
+                        );
+                      }
+                      return this.props.children;
+                    }
+                  }
+              </pre></code>
+
+          <ol>
+            <li class="fragment">Komponente wird instantiiert, Konstruktor aufgerufen, State vorbelegt (error = null)</li>
+            <li class="fragment">Komponente wird gerendert. Da <code>this.state.error</code> nicht gesetzt ist, werden die Children gerendert</li>
+            <li class="fragment">Fehler tritt in Unterkomponente beim Rendern auf</li>
+            <li class="fragment"><code>componentDidCatch</code> wird aufgerufen (Fehler kann z.B. protokolliert werden)</li>
+            <li class="fragment"><code>getDerivedStateFromError</code> wird aufgerufen und liefert einen neuen Teil-State zurück.
+            <br/>(Andere Teile des States bleiben unverändert)</li>
+            <li class="fragment">Komponente wird erneut gerendert. Da <code>this.state.error</code> jetzt gesetzt ist, wird die Fehlermeldung
+              angezeigt, inklusive des Buttons</li>
+              <li class="fragment">Nach dem Klick auf den Button, wird <code>this.state.error</code> wieder auf null gesetzt</li>
+              <li class="fragment">Komponente wird neu gerendert (durch <code>setState</code>). Da <code>this.state.error</code> wieder null ist, werden die Children erneut gerendert</li>
+            </ol>
+
+
+          </div>
+
         </section>
 
         <section>
@@ -2353,10 +2245,44 @@ console.log(programmer instanceof Person); // true</code></pre>
 
         <!-- ENDE KLASSEN -->
 
-        <section class="todo">
-          <h3>TODO: Übung!
-        </section>
+        <section>
+            <h2>Übung: Ein ErrorBoundary implementieren</h2>
+            <p>
+              <em>
+                Vervollständige die ErrorHandler-Komponente, um ein Gefühl für das Arbeiten mit State in Klassen-Komponenten zu bekommen</em
+              >
+            </p>
+          </section>
+          <section>
+            <h3>Schritte</h3>
+            <ol>
+              <li class="fragment">
+                kopiere das Material aus <code>code/material/2c-error-boundary</code> in deinen src-Ordner und starte Webpack neu (Beenden mit Ctrl+C)
+              </li>
+              <li class="fragment">
+                die Anwendung ist nun mit einem ErrorBoundary umschlossen (siehe <code>src/main.js</code>), der aber <b>immer</b> die Children rendert
+                (also auch, wenn Fehler aufgetreten ist)
+              </li>
+              <li class="fragment">
+                Füge in das GreetingDetail einen "simulierten" Fehler ein, der z.B. auftritt, wenn ein <code>a</code> eingegeben wurde:
+                <pre><code>
+export default function GreetingDetail(props) {
+  const [name, setName] = React.useState(props.initialName || "");
+  // ...
+  if (name === "a") {
+    throw new Error("This should not happen");
+  }     
 
+  return ...;
+}             
+                </code></pre>
+              </li>
+              <li class="fragment">Vervollständige nun die Klasse <code>ErrorHandler</code>. Dort sind entsprechende TODOs eingetragen</li>
+              <li class="fragment">Optional 1: schaffst Du es, die Klasse so zu erweitern, dass nach Klick auf "Try again" über den Children ein Hinweis
+                mit einer Entschuldigung ausgegeben wird ("We're sorry!")?</li>
+                <li class="fragment">Optional 2: schaffst Du es, dass die Entschuldigung automatisch nach einigen Sekunden wieder verschwindet?</li>
+            </ol>
+          </section>
         <section id="t3">
           <h1>Teil III</h1>
           <h2>Daten lesen und schreiben vom Server</h2>
@@ -2398,7 +2324,9 @@ console.log(programmer instanceof Person); // true</code></pre>
                 </li>
               </ul>
             </li>
-            <li class="fragment">Populäre Alternative: <a href="https://github.com/axios/axios">Axios</a></li>
+            <li class="fragment">
+              Populäre Alternative: <a href="https://github.com/axios/axios">Axios</a>
+            </li>
           </ul>
         </section>
         <section>
@@ -2895,6 +2823,176 @@ function GreetingController {
         </section>
 
         <section>
+            <h3>Custom Hooks</h3>
+  
+            <em>Eigene Hooks können für wiederkehrende Aufgaben genutzt werden</em>
+  
+            <p class="fragment">
+              Beispiele: Laden von Daten, Arbeiten mit spezialisiertem State, ...
+            </p>
+          </section>
+  
+          <section>
+            <h3>Custom Hooks</h3>
+  
+            <ul>
+              <li class="fragment">
+                ...müssen mit <code>use</code>beginnen
+                <ul>
+                  <li>(ansonsten kann der Linter nicht auf mögliche Fehler prüfen!)</li>
+                </ul>
+              </li>
+              <li class="fragment">
+                ...dürfen nur aus anderen (Custom) Hooks und Komponenten aufgerufen werden
+              </li>
+              <li class="fragment">
+                ...erwarten "normale" Funktionsparameter (nicht zwingend ein Objekt wie bei
+                Komponenten)
+              </li>
+              <li class="fragment">...dürfen andere (Custom) Hooks verwenden</li>
+              <li class="fragment">
+                ...beliebiger Rückgabewert möglich (alle Typen erlaubt, auch JSX!)
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h3>Custom Hooks</h3>
+  
+            <p class="fragment">Beispiel: Konfiguration eines Eingabefeldes (input, textarea)</p>
+  
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                  function GreetingDetail(props) {
+                    const [name, setName] = React.useState(props.initialName || "");
+                    const [greeting, setGreeting] = React.useState(props.initialGreeting || "");
+                    const inputRef = React.useRef();
+                  
+                    function reset() { /* ... */ }
+                  
+                    return (
+                      &lt;div>
+                      &lt;input
+                          ref={inputRef}
+                          onChange={event => setName(event.target.value)}
+                          value={name}
+                          name="name"
+                          placeholder="Name"
+                        />
+                        &lt;input
+                          onChange={event => setGreeting(event.target.value)}
+                          value={greeting}
+                          name="greeting"
+                          placeholder="Greeting"
+                        />
+                  
+                        &lt;/div>
+                    );
+                  }
+              </code></pre>
+            <ul>
+              <li class="fragment">
+                useState mit initialValue und dessen Initialisierung für jedes Feld
+              </li>
+              <li class="fragment">onChange, value, placeholder für jedes Feld</li>
+              <li class="fragment">Eigene (input-)Komponente oder Hook?</li>
+            </ul>
+          </section>
+  
+          <section>
+            <h3>Custom Hooks</h3>
+  
+            <p>Beispiel: Konfiguration eines Eingabefeldes (input, textarea)</p>
+  
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                    function useInput(placeholder, initialValue) {
+                      const [value, setValue] = React.useState(initialValue || "");
+                    
+                      function reset() {
+                        setValue("");
+                      }
+                    
+                      // Array mit 2 Feldern
+                      return [
+                        { // Objekt mit Werten fuer Input-Feld
+                          placeholder,
+                          name: placeholder.toLowerCase(),
+                          onChange: event => setValue(event.target.value),
+                          value
+                        },
+                        reset // Funktion zum Reset des States
+                      ];
+                    }
+                </code></pre>
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                    function GreetingDetail(props) {
+                      const [nameInput, resetName] = useInput("Name", props.initialName);
+                      const [greetingInput, resetGreeting] = useInput("Greeting", props.initialGreeting);
+                    
+                      function reset() { resetName(); resetGreeting(); }
+                    
+                      return &lt;div>
+                        &lt;input {...nameInput} ref={inputRef} />
+                        &lt;input {...greetingInput} />
+                      &lt;/div>;
+                    }
+                    
+                </code></pre>
+          </section>
+          <section>
+            <h3>Hintergrund: Objekt Spread mit JSX</h3>
+  
+            <p class="fragment">
+              Mit dem Objekt Spread Operator ({...object}) können alle Properties eines Objektes
+              "pauschal" an eine Komponente übergeben werden:
+            </p>
+  
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                  const properties = {
+                    className: "success"
+                    onClick: () => console.log("Klick!")
+                  }
+  
+                  &lt;button {...properties}>OK&lt;/button>
+                </code></pre>
+  
+            <div class="fragment">
+              <p>Identisch mit:</p>
+              <pre><code class="javascript" contenteditable data-trim>
+                    &lt;button className="success" onClick={() => console.log("Klick")}>OK&lt;/button>
+                  </code></pre>
+            </div>
+            <div class="fragment">
+              <p>Hintere Properties überschreiben Werte aus Objekt</p>
+  
+              <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                      const properties = {
+                        className: "success"
+                        onClick: () => console.log("Klick!"),
+                        onBlur: () => console.log("Blur")
+                      }
+      
+                      &lt;button className="Error" {...properties} onBlur={() => console.log("Ciao")}>OK&lt;/button>
+                      // className wird aus properties genommen ("success")
+                      // onBlur aus aufruf (console.log("Ciao"))
+                    </code></pre>
+            </div>
+          </section>
+  
+          <section>
+            <h2>Optionale Übung: Ein Custom Hook</h2>
+            <em><b>Baue einen useInput-Hook</b></em>
+  
+            <ol>
+              <li class="fragment">
+                Verwaltet Zustand für input- und textarea-Elemente (wie gesehen)
+              </li>
+              <li class="fragment">
+                wird für <code>name</code> und <code>greeting</code> im GreetingDetail verwendet (wie
+                gesehen)
+              </li>
+            </ol>
+          </section>
+
+        <section>
           <h3>TODO: Custom Hook zum Laden von Daten</h3>
           <p>
             Ein Hook, der Daten von einer URL lädt: - lädt nur, wenn sich die URL verändert hat -
@@ -2954,14 +3052,21 @@ function GreetingController {
         <section>
           <p class="todo">USE CUSTOM HOOK HIER!!!!</p>
 
-
           <ul>
             <li>Custom Hook: Gemeinsam erarbeiten, Anforderungen und API besprechen, umsetzen</li>
             <li>
-            Custom Hook fertig in 3b-remote-useApi-Hook
+              Custom Hook fertig in 3b-remote-useApi-Hook
+            </li>
+
+            <li></li>
             <li>
-              <li>Problem dort: was passiert, wenn Komponente un-gemounted wird? Was passiert mit Nebenläufigkeit (setGreetings) => Diskutieren!</li>
-              <li>Mögliche Lösungen: canceled Flag das in Rückgabe-Methode gesetzt wird und wenn setGreetings neu gesetzt wird? </li>
+              Problem dort: was passiert, wenn Komponente un-gemounted wird? Was passiert mit
+              Nebenläufigkeit (setGreetings) => Diskutieren!
+            </li>
+            <li>
+              Mögliche Lösungen: canceled Flag das in Rückgabe-Methode gesetzt wird und wenn
+              setGreetings neu gesetzt wird?
+            </li>
           </ul>
 
           <ul>
