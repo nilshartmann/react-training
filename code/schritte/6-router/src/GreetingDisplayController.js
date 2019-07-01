@@ -1,25 +1,17 @@
 import React from "react";
 import LinkButtonBar from "./LinkButtonBar";
+import LoadingIndicator from "./LoadingIndicator";
+import useApi from "./useApi";
 const BACKEND_URL = "http://localhost:7000/greetings";
 
+const SLOW = ""; // "?slow";
+
 export default function GreetingDisplayController(props) {
-  const [greeting, setGreeting] = React.useState(null);
+  const [greeting, _, isLoading] = useApi(`${BACKEND_URL}/${props.match.params.greetingId}${SLOW}`);
 
-  React.useEffect(() => {
-    async function loadGreeting(greetingId) {
-      setGreeting(null);
-      try {
-        const response = await fetch(`${BACKEND_URL}/${greetingId}`);
-        const loadedGreeting = await response.json();
-        setGreeting(loadedGreeting);
-      } catch (err) {
-        console.error("LOADING GREETINGS FAILED:", err);
-        return;
-      }
-    }
-
-    loadGreeting(props.match.params.greetingId);
-  }, [props.match.params.greetingId]);
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   if (!greeting) {
     return <h1>No Greeting loaded (yet)</h1>;

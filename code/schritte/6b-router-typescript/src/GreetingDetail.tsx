@@ -1,5 +1,4 @@
 import React from "react";
-import useInput from "./useInput";
 import { NewGreeting } from "./types";
 
 type GreetingDetailProps = {
@@ -10,33 +9,46 @@ type GreetingDetailProps = {
 };
 
 export default function GreetingDetail(props: GreetingDetailProps) {
-  const [nameInput, resetName] = useInput("Name", props.initialName);
-  const [greetingInput, resetGreeting] = useInput("Greeting", props.initialGreeting);
+  const [name, setName] = React.useState(props.initialName || "");
+  const [greeting, setGreeting] = React.useState(props.initialGreeting || "");
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const saveDisabled = !(nameInput.value && greetingInput.value);
+  const saveDisabled = !(name && greeting);
 
   function reset() {
-    resetName();
-    resetGreeting();
+    setName("");
+    setGreeting("");
 
     if (inputRef.current) {
+      // make sure, 'current' is actually set
+      // (it will NOT be set in tests without DOM!)
       inputRef.current.focus();
     }
   }
 
   function save() {
     props.onSave({
-      name: nameInput.value,
-      greeting: greetingInput.value
+      name,
+      greeting
     });
   }
 
   return (
     <div>
-      <input {...nameInput} ref={inputRef} />
-      <input {...greetingInput} />
+      <input
+        ref={inputRef}
+        onChange={event => setName(event.currentTarget.value)}
+        value={name}
+        name="name"
+        placeholder="Name"
+      />
+      <input
+        onChange={event => setGreeting(event.currentTarget.value)}
+        value={greeting}
+        name="greeting"
+        placeholder="Greeting"
+      />
 
       <button onClick={reset}>Clear</button>
       <button disabled={saveDisabled} onClick={save}>

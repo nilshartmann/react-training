@@ -4,27 +4,13 @@ import { Route } from "react-router-dom";
 
 import GreetingMaster from "./GreetingMaster";
 import GreetingDetail from "./GreetingDetail";
+import LoadingIndicator from "./LoadingIndicator";
+import useApi from "./useApi";
 
 const BACKEND_URL = "http://localhost:7000/greetings";
 
 export default function GreetingController(props) {
-  const [greetings, setGreetings] = React.useState([]);
-
-  React.useEffect(() => {
-    async function loadGreetings() {
-      let greetings = null;
-      try {
-        const response = await fetch(BACKEND_URL);
-        greetings = await response.json();
-      } catch (err) {
-        console.error("LOADING GREETINGS FAILED:", err);
-        return;
-      }
-      setGreetings(greetings);
-    }
-
-    loadGreetings();
-  }, []);
+  const [greetings, setGreetings, isLoading] = useApi(BACKEND_URL, []);
 
   async function addGreeting(greetingToBeAdded) {
     let newGreeting;
@@ -61,7 +47,13 @@ export default function GreetingController(props) {
       <Route
         exact
         path="/"
-        render={() => <GreetingMaster greetings={greetings} onAdd={openAddView} />}
+        render={() =>
+          isLoading ? (
+            <LoadingIndicator />
+          ) : (
+            <GreetingMaster greetings={greetings} onAdd={openAddView} />
+          )
+        }
       />
       <Route path="/add" render={() => <GreetingDetail onSave={addGreeting} />} />
     </div>
