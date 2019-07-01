@@ -10,7 +10,11 @@ export default function GreetingDetail(props) {
     setName("");
     setGreeting("");
 
-    inputRef.current.focus();
+    if (inputRef.current) {
+      // make sure, 'current' is actually set
+      // (it will NOT be set in tests without DOM!)
+      inputRef.current.focus();
+    }
   }
 
   function save() {
@@ -26,6 +30,7 @@ export default function GreetingDetail(props) {
         ref={inputRef}
         onChange={event => setName(event.target.value)}
         value={name}
+        name="name"
         placeholder="Name"
       />
       <input

@@ -28,6 +28,7 @@ export default function GreetingDetail(props) {
         ref={input}
         onChange={event => setName(event.target.value)}
         value={name}
+        name="name"
         placeholder="Name"
       />
       <input
