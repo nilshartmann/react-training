@@ -12,7 +12,9 @@ export function GreetingDetail(props) {
     setName("");
     setGreeting("");
 
-    inputRef.current.focus();
+    if (!inputRef.current) {
+      inputRef.current.focus();
+    }
   }
 
   return (
@@ -21,6 +23,7 @@ export function GreetingDetail(props) {
         ref={inputRef}
         onChange={event => setName(event.target.value)}
         value={name}
+        name="name"
         placeholder="Name"
       />
       <input
