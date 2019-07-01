@@ -1464,8 +1464,6 @@ function GreetingDetail(props) {
           <img src="slides/images/screenshot-name-greeting.png" />
         </section>
 
-      
-
         <section id="t2">
           <h1>Teil II</h1>
           <h2>React-Komponenten: Details, Hierarchien und Anwendungen</h2>
@@ -1521,7 +1519,7 @@ const GreetingsTable(props) => (
             </div>
           </div>
         </section>
-       
+
         <section>
           <h3>Fragmente</h3>
           <ul style="font-size:90%">
@@ -2029,10 +2027,10 @@ function GreetingMaster(props) {
               }
               </code></pre>
 
-              <ul class="fragment">
-                  <li>Zum Vergleich: Komponente als Funktion</li>
-                </ul>
-                <pre class="fragment"><code class="javascript" contenteditable data-trim>
+          <ul class="fragment">
+            <li>Zum Vergleich: Komponente als Funktion</li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
                     function Header(props) {
                         return (
                           &lt;h1 style={{color: this.props.titleColor}}>{this.props.title}&lt;/h1>
@@ -2093,7 +2091,6 @@ function GreetingMaster(props) {
                   );
                 }
               }</code></pre>
-
         </section>
 
         <section>
@@ -2138,8 +2135,7 @@ function GreetingMaster(props) {
           <h4>Lifecycle</h4>
 
           <div style="display:flex">
-
-              <pre ><code class="javascript" contenteditable data-trim>
+            <pre><code class="javascript" contenteditable data-trim>
                   class ErrorHandler extends React.Component {
                     constructor(props) {
                       super(props);
@@ -2167,24 +2163,39 @@ function GreetingMaster(props) {
                       return this.props.children;
                     }
                   }
-              </pre></code>
+                </code></pre>
 
-          <ol>
-            <li class="fragment">Komponente wird instantiiert, Konstruktor aufgerufen, State vorbelegt (error = null)</li>
-            <li class="fragment">Komponente wird gerendert. Da <code>this.state.error</code> nicht gesetzt ist, werden die Children gerendert</li>
-            <li class="fragment">Fehler tritt in Unterkomponente beim Rendern auf</li>
-            <li class="fragment"><code>componentDidCatch</code> wird aufgerufen (Fehler kann z.B. protokolliert werden)</li>
-            <li class="fragment"><code>getDerivedStateFromError</code> wird aufgerufen und liefert einen neuen Teil-State zurück.
-            <br/>(Andere Teile des States bleiben unverändert)</li>
-            <li class="fragment">Komponente wird erneut gerendert. Da <code>this.state.error</code> jetzt gesetzt ist, wird die Fehlermeldung
-              angezeigt, inklusive des Buttons</li>
-              <li class="fragment">Nach dem Klick auf den Button, wird <code>this.state.error</code> wieder auf null gesetzt</li>
-              <li class="fragment">Komponente wird neu gerendert (durch <code>setState</code>). Da <code>this.state.error</code> wieder null ist, werden die Children erneut gerendert</li>
+            <ol>
+              <li class="fragment">
+                Komponente wird instantiiert, Konstruktor aufgerufen, State vorbelegt (error = null)
+              </li>
+              <li class="fragment">
+                Komponente wird gerendert. Da <code>this.state.error</code> nicht gesetzt ist,
+                werden die Children gerendert
+              </li>
+              <li class="fragment">Fehler tritt in Unterkomponente beim Rendern auf</li>
+              <li class="fragment">
+                <code>componentDidCatch</code> wird aufgerufen (Fehler kann z.B. protokolliert
+                werden)
+              </li>
+              <li class="fragment">
+                <code>getDerivedStateFromError</code> wird aufgerufen und liefert einen neuen
+                Teil-State zurück. <br />(Andere Teile des States bleiben unverändert)
+              </li>
+              <li class="fragment">
+                Komponente wird erneut gerendert. Da <code>this.state.error</code> jetzt gesetzt
+                ist, wird die Fehlermeldung angezeigt, inklusive des Buttons
+              </li>
+              <li class="fragment">
+                Nach dem Klick auf den Button, wird <code>this.state.error</code> wieder auf null
+                gesetzt
+              </li>
+              <li class="fragment">
+                Komponente wird neu gerendert (durch <code>setState</code>). Da
+                <code>this.state.error</code> wieder null ist, werden die Children erneut gerendert
+              </li>
             </ol>
-
-
           </div>
-
         </section>
 
         <section>
@@ -2246,26 +2257,30 @@ console.log(programmer instanceof Person); // true</code></pre>
         <!-- ENDE KLASSEN -->
 
         <section>
-            <h2>Übung: Ein ErrorBoundary implementieren</h2>
-            <p>
-              <em>
-                Vervollständige die ErrorHandler-Komponente, um ein Gefühl für das Arbeiten mit State in Klassen-Komponenten zu bekommen</em
-              >
-            </p>
-          </section>
-          <section>
-            <h3>Schritte</h3>
-            <ol>
-              <li class="fragment">
-                kopiere das Material aus <code>code/material/2c-error-boundary</code> in deinen src-Ordner und starte Webpack neu (Beenden mit Ctrl+C)
-              </li>
-              <li class="fragment">
-                die Anwendung ist nun mit einem ErrorBoundary umschlossen (siehe <code>src/main.js</code>), der aber <b>immer</b> die Children rendert
-                (also auch, wenn Fehler aufgetreten ist)
-              </li>
-              <li class="fragment">
-                Füge in das GreetingDetail einen "simulierten" Fehler ein, der z.B. auftritt, wenn ein <code>a</code> eingegeben wurde:
-                <pre><code>
+          <h2>Übung: Ein ErrorBoundary implementieren</h2>
+          <p>
+            <em>
+              Vervollständige die ErrorHandler-Komponente, um ein Gefühl für das Arbeiten mit State
+              in Klassen-Komponenten zu bekommen</em
+            >
+          </p>
+        </section>
+        <section>
+          <h3>Schritte</h3>
+          <ol>
+            <li class="fragment">
+              kopiere das Material aus <code>code/material/2c-error-boundary</code> in deinen
+              src-Ordner und starte Webpack neu (Beenden mit Ctrl+C)
+            </li>
+            <li class="fragment">
+              die Anwendung ist nun mit einem ErrorBoundary umschlossen (siehe
+              <code>src/main.js</code>), der aber <b>immer</b> die Children rendert (also auch, wenn
+              Fehler aufgetreten ist)
+            </li>
+            <li class="fragment">
+              Füge in das GreetingDetail einen "simulierten" Fehler ein, der z.B. auftritt, wenn ein
+              <code>a</code> eingegeben wurde:
+              <pre><code>
 export default function GreetingDetail(props) {
   const [name, setName] = React.useState(props.initialName || "");
   // ...
@@ -2276,13 +2291,22 @@ export default function GreetingDetail(props) {
   return ...;
 }             
                 </code></pre>
-              </li>
-              <li class="fragment">Vervollständige nun die Klasse <code>ErrorHandler</code>. Dort sind entsprechende TODOs eingetragen</li>
-              <li class="fragment">Optional 1: schaffst Du es, die Klasse so zu erweitern, dass nach Klick auf "Try again" über den Children ein Hinweis
-                mit einer Entschuldigung ausgegeben wird ("We're sorry!")?</li>
-                <li class="fragment">Optional 2: schaffst Du es, dass die Entschuldigung automatisch nach einigen Sekunden wieder verschwindet?</li>
-            </ol>
-          </section>
+            </li>
+            <li class="fragment">
+              Vervollständige nun die Klasse <code>ErrorHandler</code>. Dort sind entsprechende
+              TODOs eingetragen
+            </li>
+            <li class="fragment">
+              Optional 1: schaffst Du es, die Klasse so zu erweitern, dass nach Klick auf "Try
+              again" über den Children ein Hinweis mit einer Entschuldigung ausgegeben wird ("We're
+              sorry!")?
+            </li>
+            <li class="fragment">
+              Optional 2: schaffst Du es, dass die Entschuldigung automatisch nach einigen Sekunden
+              wieder verschwindet?
+            </li>
+          </ol>
+        </section>
         <section id="t3">
           <h1>Teil III</h1>
           <h2>Daten lesen und schreiben vom Server</h2>
@@ -2714,13 +2738,16 @@ async function loadData() {
         <section>
           <h3>Initiales Laden von Daten</h3>
 
-          <p class="fragment">
+          <p>
             Schritt-für-Schritt (<code
               >code/workspace-live-coding, vorher schritte/2-hierarchy reinkopieren</code
             >)
           </p>
+        </section>
+        <section>
+          <h3>Initiales Laden von Daten</h3>
 
-          <div class="fragment">
+          <div>
             <p>
               <code>useEffect</code> und (<code>useState</code>) werden verwendet um Daten nach dem
               1. Rendern zu laden:
@@ -2823,184 +2850,6 @@ function GreetingController {
         </section>
 
         <section>
-            <h3>Custom Hooks</h3>
-  
-            <em>Eigene Hooks können für wiederkehrende Aufgaben genutzt werden</em>
-  
-            <p class="fragment">
-              Beispiele: Laden von Daten, Arbeiten mit spezialisiertem State, ...
-            </p>
-          </section>
-  
-          <section>
-            <h3>Custom Hooks</h3>
-  
-            <ul>
-              <li class="fragment">
-                ...müssen mit <code>use</code>beginnen
-                <ul>
-                  <li>(ansonsten kann der Linter nicht auf mögliche Fehler prüfen!)</li>
-                </ul>
-              </li>
-              <li class="fragment">
-                ...dürfen nur aus anderen (Custom) Hooks und Komponenten aufgerufen werden
-              </li>
-              <li class="fragment">
-                ...erwarten "normale" Funktionsparameter (nicht zwingend ein Objekt wie bei
-                Komponenten)
-              </li>
-              <li class="fragment">...dürfen andere (Custom) Hooks verwenden</li>
-              <li class="fragment">
-                ...beliebiger Rückgabewert möglich (alle Typen erlaubt, auch JSX!)
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h3>Custom Hooks</h3>
-  
-            <p class="fragment">Beispiel: Konfiguration eines Eingabefeldes (input, textarea)</p>
-  
-            <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                  function GreetingDetail(props) {
-                    const [name, setName] = React.useState(props.initialName || "");
-                    const [greeting, setGreeting] = React.useState(props.initialGreeting || "");
-                    const inputRef = React.useRef();
-                  
-                    function reset() { /* ... */ }
-                  
-                    return (
-                      &lt;div>
-                      &lt;input
-                          ref={inputRef}
-                          onChange={event => setName(event.target.value)}
-                          value={name}
-                          name="name"
-                          placeholder="Name"
-                        />
-                        &lt;input
-                          onChange={event => setGreeting(event.target.value)}
-                          value={greeting}
-                          name="greeting"
-                          placeholder="Greeting"
-                        />
-                  
-                        &lt;/div>
-                    );
-                  }
-              </code></pre>
-            <ul>
-              <li class="fragment">
-                useState mit initialValue und dessen Initialisierung für jedes Feld
-              </li>
-              <li class="fragment">onChange, value, placeholder für jedes Feld</li>
-              <li class="fragment">Eigene (input-)Komponente oder Hook?</li>
-            </ul>
-          </section>
-  
-          <section>
-            <h3>Custom Hooks</h3>
-  
-            <p>Beispiel: Konfiguration eines Eingabefeldes (input, textarea)</p>
-  
-            <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                    function useInput(placeholder, initialValue) {
-                      const [value, setValue] = React.useState(initialValue || "");
-                    
-                      function reset() {
-                        setValue("");
-                      }
-                    
-                      // Array mit 2 Feldern
-                      return [
-                        { // Objekt mit Werten fuer Input-Feld
-                          placeholder,
-                          name: placeholder.toLowerCase(),
-                          onChange: event => setValue(event.target.value),
-                          value
-                        },
-                        reset // Funktion zum Reset des States
-                      ];
-                    }
-                </code></pre>
-            <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                    function GreetingDetail(props) {
-                      const [nameInput, resetName] = useInput("Name", props.initialName);
-                      const [greetingInput, resetGreeting] = useInput("Greeting", props.initialGreeting);
-                    
-                      function reset() { resetName(); resetGreeting(); }
-                    
-                      return &lt;div>
-                        &lt;input {...nameInput} ref={inputRef} />
-                        &lt;input {...greetingInput} />
-                      &lt;/div>;
-                    }
-                    
-                </code></pre>
-          </section>
-          <section>
-            <h3>Hintergrund: Objekt Spread mit JSX</h3>
-  
-            <p class="fragment">
-              Mit dem Objekt Spread Operator ({...object}) können alle Properties eines Objektes
-              "pauschal" an eine Komponente übergeben werden:
-            </p>
-  
-            <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                  const properties = {
-                    className: "success"
-                    onClick: () => console.log("Klick!")
-                  }
-  
-                  &lt;button {...properties}>OK&lt;/button>
-                </code></pre>
-  
-            <div class="fragment">
-              <p>Identisch mit:</p>
-              <pre><code class="javascript" contenteditable data-trim>
-                    &lt;button className="success" onClick={() => console.log("Klick")}>OK&lt;/button>
-                  </code></pre>
-            </div>
-            <div class="fragment">
-              <p>Hintere Properties überschreiben Werte aus Objekt</p>
-  
-              <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                      const properties = {
-                        className: "success"
-                        onClick: () => console.log("Klick!"),
-                        onBlur: () => console.log("Blur")
-                      }
-      
-                      &lt;button className="Error" {...properties} onBlur={() => console.log("Ciao")}>OK&lt;/button>
-                      // className wird aus properties genommen ("success")
-                      // onBlur aus aufruf (console.log("Ciao"))
-                    </code></pre>
-            </div>
-          </section>
-  
-          <section>
-            <h2>Optionale Übung: Ein Custom Hook</h2>
-            <em><b>Baue einen useInput-Hook</b></em>
-  
-            <ol>
-              <li class="fragment">
-                Verwaltet Zustand für input- und textarea-Elemente (wie gesehen)
-              </li>
-              <li class="fragment">
-                wird für <code>name</code> und <code>greeting</code> im GreetingDetail verwendet (wie
-                gesehen)
-              </li>
-            </ol>
-          </section>
-
-        <section>
-          <h3>TODO: Custom Hook zum Laden von Daten</h3>
-          <p>
-            Ein Hook, der Daten von einer URL lädt: - lädt nur, wenn sich die URL verändert hat -
-            setzt am Anfang eine Loading-Komponente(, die übergeben wurde?) - Fehlerbehandlung
-          </p>
-        </section>
-
-        <section>
           <h2>Übung: Laden und Speichern der Daten von/auf einem Server</h2>
           <p>
             <em
@@ -3012,9 +2861,9 @@ function GreetingController {
             Der Server ist bereits fertig. Zum Starten:
           </p>
           <pre><code>
-              cd react-training/code/server
-              npm start
-            </code></pre>
+                cd react-training/code/server
+                npm start
+              </code></pre>
           <p>Der Server ist über Port 7000 erreichbar</p>
           <p>
             Zum Testen:
@@ -3050,56 +2899,144 @@ function GreetingController {
         </section>
 
         <section>
-          <p class="todo">USE CUSTOM HOOK HIER!!!!</p>
-
-          <ul>
-            <li>Custom Hook: Gemeinsam erarbeiten, Anforderungen und API besprechen, umsetzen</li>
-            <li>
-              Custom Hook fertig in 3b-remote-useApi-Hook
-            </li>
-
-            <li></li>
-            <li>
-              Problem dort: was passiert, wenn Komponente un-gemounted wird? Was passiert mit
-              Nebenläufigkeit (setGreetings) => Diskutieren!
-            </li>
-            <li>
-              Mögliche Lösungen: canceled Flag das in Rückgabe-Methode gesetzt wird und wenn
-              setGreetings neu gesetzt wird?
-            </li>
-          </ul>
-
-          <ul>
-            <li>Übung: der useApi-Hook</li>
-            <li>Mit Loading?</li>
-          </ul>
-
-          <ul>
-            <li>Fehlerbehandlung</li>
-            <li>Daten abhängig von Properties laden</li>
-          </ul>
-        </section>
-
-        <!-- <section>
           <h3>Custom Hooks</h3>
-          <em>Es können eigene Hooks für wiederkehrende Aufgaben implementiert werden</em>
-          <p class="fragment">Beispiel: Hook zum Laden von Daten</p>
+
+          <em>Eigene Hooks können für wiederkehrende Aufgaben genutzt werden</em>
+
+          <p class="fragment">
+            Beispiele: Laden von Daten, Arbeiten mit spezialisiertem State, ...
+          </p>
         </section>
 
         <section>
-          <h3>Custom Hook zum Daten laden</h3>
-          <p class="fragment"><em>Frage an Euch: welche Anforderungen müsste ein solcher Hook erfüllen</em></p>
+          <h3>Custom Hooks</h3>
+
+          <ul class="x-list">
+            <li class="fragment">
+              ...müssen mit <code>use</code>beginnen
+              <ul>
+                <li>(ansonsten kann der Linter nicht auf mögliche Fehler prüfen!)</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              ...dürfen nur aus anderen (Custom) Hooks und Komponenten aufgerufen werden
+            </li>
+            <li class="fragment">
+              ...erwarten "normale" Funktionsparameter (nicht zwingend ein Objekt wie bei
+              Komponenten)
+            </li>
+            <li class="fragment">...dürfen andere (Custom) Hooks verwenden</li>
+            <li class="fragment">
+              ...beliebiger Rückgabewert möglich (alle Typen erlaubt, auch JSX!)
+            </li>
+          </ul>
         </section>
 
         <section>
-            <h3>Custom Hook zum Daten laden</h3>
-            <p class="fragment"><em>Anforderungen</em></p>
-            <ul>
-              <li class="fragment">Laden der Daten von konfigurierbarer URL</li>
-              <li class="fragment"><b>Fehlerbehandlung</b>: z.B. ausgeben einer Fehlermeldung</li>
-              <li class="fragment"><b>Umgehen mit Wartezeiten</b>: Darstellen eines Loading Indicators</li>
-            </ul>
-          </section> -->
+          <h3>Ein Custom Hook zum Laden von Daten</h3>
+          <p><em>Frage an Euch: Wie könnte ein Custom Hook zum Laden von Daten aussehen? </em></p>
+
+          <p class="fragment">Zur Erinnerung, der bestehende Code:</p>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                export default function GreetingController() {
+                  const [mode, setMode] = React.useState(MODE_MASTER);
+                  const [greetings, setGreetings] = React.useState([]);
+                
+                  React.useEffect(() => {
+                    async function loadGreetings() {
+                      try {
+                        const response = await fetch(BACKEND_URL);
+                        const greetings = await response.json();
+                        setGreetings(greetings);
+                      } catch (err) {
+                        console.error("LOADING GREETINGS FAILED:", err);
+                        setGreetings(null);
+                        return;
+                      }
+                    }
+                    loadGreetings();
+                  }, []);    
+                  
+                  return ...;
+                }
+              </code></pre>
+
+          <ul class="fragment">
+            <li>Wie sieht die API für unseren Hook aus? Welche Parameter werden benötigt?</li>
+            <li>Was gibt der Hook zurück?</li>
+          </ul>
+
+          <ul class="fragment">
+            <li>
+              Zugabe: Bekommen wir auch einen Hinweis für den Benutzer hin, wenn Daten geladen
+              werden (Loading Indicator)?
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Übung: Ein Custom Hook zum Laden von Daten</h2>
+          <p>
+            <em>
+              Refaktorisiere den GreetingController, in dem Du den Code zum Laden der Greetings in
+              einen eigenen Hook verschiebst</em
+            >. Du kannst den Hook einfach in die GreetingController.js-Datei schreiben.
+          </p>
+          <h3>Anforderungen</h3>
+          <ol>
+            <li>Der <code>useApi</code>-Hook benötigt zwei Paramter: URL und intial Value</li>
+            <li>
+              Der Hook soll zwei Werte zurückliefern: den aktuellen Wert und die set-Methode zum
+              setzen des Wertes, damit der GreetingController neue Greetings (nach 'add' hinzufügen
+              kann)
+            </li>
+            <li>
+              Die Daten sollen nur vom REST Endpunkt geladen werden, wenn sich die URL verändert
+            </li>
+            <li>
+              Bekommst Du auch den Loading State und Loading Indicator integriert? <br />
+              Die Komponente <code>LoadingIndicator</code> findest Du in
+              <code>material/3c-remote-useApi-loading</code>, du kannst sie in deinen src-Ordner
+              kopieren und verwenden. Sie erwartet keine Properties.
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Der useApi-Hook: offene Baustellen</h3>
+
+          <p><em>Was fehlt unserem Hook noch zur "produktionsreife"?</em></p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                  export default function useApi(url, initialValue) {
+                    const [isLoading, setLoading] = React.useState(false);
+                    const [data, setData] = React.useState(initialValue);
+                  
+                    React.useEffect(
+                      () => {
+                        async function loadData() {
+                          try {
+                            setLoading(true);
+                            setData(initialValue);
+                            const response = await fetch(url);
+                            const json = await response.json();
+                            setData(json);
+                          } catch (err) {
+                            console.error("LOADING DATA FAILED:", err);
+                            setData(initialValue);
+                          } finally {
+                            setLoading(false);
+                          }
+                        }
+                        loadData();
+                      },
+                      [url]
+                    );
+                  
+                    return [data, setData, isLoading];
+                  }                
+                </code></pre>
+        </section>
 
         <section id="t-test">
           <h1>Teil IV</h1>
