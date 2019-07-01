@@ -26,19 +26,17 @@
 
           <h4>
             <span class="transparent-bg">
-              <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a> /
+              <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a> |
               <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
-              /
-              <a href="mailto:nils@nilshartmann.net" target="_blank"
-                >E-Mail: nils@nilshartmann.net</a
-              >
+              |
+              <a href="mailto:nils@nilshartmann.net" target="_blank">nils@nilshartmann.net</a>
             </span>
           </h4>
         </section>
 
         <section>
           <h2>Inhalt</h2>
-          <ul>
+          <ul style="font-size: 85%">
             <li>
               <a href="#/t0">Teil 0: React Überblick, Tooling und Build-Prozess</a>
             </li>
@@ -350,7 +348,7 @@ export default createPerson;
            </code></pre>
         </section>
         <section data-state="exkurs">
-          <h3>ES6: Import</h3>
+          <h3>ES6: Default Import</h3>
           <pre><code class="javascript" contenteditable>// Programmer.js
   import Person from './Person';
   
@@ -361,15 +359,17 @@ export default createPerson;
         </section>
         <section data-state="exkurs">
           <h3>ES6: Benannte Exporte</h3>
-          <pre><code class="javascript" contenteditable data-trim>// util.js
+          <pre><code class="javascript" contenteditable data-trim>
   export function displayInPage(text) {
-      document.body.innerHTML +=
-          `${text}<br>` ;
+      document.body.innerHTML += `${text}<br>` ;
   }
   
   export showInfo = msg => window.alert(`Wichtige Info: ${msg}`);
-  
-  // or
+</code></pre>
+
+          <p class="fragment">Alternativ: Gruppierung der Exporte</p>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
   function displayInPage(text) { . . . }
   
   const showInfo = ...;
@@ -377,17 +377,25 @@ export default createPerson;
   // specify exports
   export { displayInPage, showInfo };
      </code></pre>
+        </section>
+
+        <section data-state="exkurs">
+          <h3>ES6: Benannten Export importieren</h3>
           <pre
             class="fragment"
           ><code class="javascript" contenteditable data-trim>import {displayInPage} from "./util";
-  displayInPage('Hello, World');
+displayInPage('Hello, World');
      </code></pre>
-          <!--<pre class="fragment"><code class="javascript" contenteditable data-trim>import {displayInPage as display} from "./util";-->
-          <!--display('Hello, World');-->
-          <!--</code></pre>-->
-          <!--<pre class="fragment"><code class="javascript" contenteditable data-trim>import * as util from "./util";-->
-          <!--util.displayInPage('Hello, World');-->
-          <!--</code></pre>-->
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import {displayInPage as display} from "./util";
+display('Hello, World');
+          </code></pre>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import * as util from "./util";
+util.displayInPage('Hello, World');
+          </code></pre>
         </section>
 
         <section data-state="exkurs">
@@ -405,6 +413,15 @@ export default createPerson;
           const p = new Programmer();
           const e = new Employee();
           </code></pre>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              // Alternative Verwendung
+              import Programmer from "./Programmer";
+              import { Employee } from "./Programmer";
+    
+              const p = new Programmer();
+              const e = new Employee();
+              </code></pre>
         </section>
 
         <section data-state="exkurs">
@@ -1047,11 +1064,11 @@ console.log(personen); // Object {id_1: "Klaus", id_2: "Susi"}
         </section>
 
         <section>
-          <h3>Properties einer Komponente</h3>
+          <h3>Properties ("Props") einer Komponente</h3>
 
           <ul>
             <li class="fragment">
-              sind Objekt mit Key-Value-Paaren
+              sind Objekte mit Key-Value-Paaren
             </li>
             <li class="fragment">
               werden als 1. Methoden-Parameter an Komponente übergeben
@@ -1299,7 +1316,7 @@ function GreetingDetail(props) {
                 }
               </code></pre>
 
-              <pre class="fragment"><code class="javascript" contenteditable data-trim>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
                   function GreetingDetail(props) {
 
                     // ANNAHME: Diese Komponente wird zwei mal gerendert 
@@ -1310,16 +1327,13 @@ function GreetingDetail(props) {
                     const [greeting, setGreeting] = React.useState(initialValue);
                   }
                 </code></pre>
-
-         
         </section>
 
         <section>
           <h3>useState: Details II</h3>
 
-
           <ul>
-            <li >
+            <li>
               <code>initialValue</code> kann lazy initialisiert werden, mit einer Funktion:
               <pre class="fragment"><code class="javascript" contenteditable data-trim>
                         function GreetingDetail(props) {
@@ -1487,30 +1501,6 @@ function GreetingDetail(props) {
               ...beliebiger Rückgabewert möglich (alle Typen erlaubt, auch JSX!)
             </li>
           </ul>
-
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-            function useUpperCase(initialState) {
-              const [value, setValue] = React.useState(initialState);
-
-              function onValueChange(newValue) {
-                setValue(newValue.toUpperCase());
-              }
-
-              return [
-                value,
-                onValueChange
-              ]
-
-            }
-
-            function GreetingDetail(props) {
-              const [name, setName] = useUpperCase(props.initialName);
-
-              return &lt;input onChange={e => setName(e.target.value)} value={name} />
-            }
-
-            
-          </code></pre>
         </section>
         <section>
           <h3>Custom Hooks</h3>
@@ -1645,28 +1635,6 @@ function GreetingDetail(props) {
             <li class="fragment">
               wird für <code>name</code> und <code>greeting</code> im GreetingDetail verwendet (wie
               gesehen)
-            </li>
-            <li class="fragment">
-              Zusätzlich:
-              <ul>
-                <li class="fragment">
-                  Dem Hook wird eine Callback-Funktion als weiterem Parameter übergeben
-                </li>
-                <li class="fragment">
-                  wenn im input-Feld <b>Enter</b> gedrückt wird, soll die Callback-Funktion mit dem
-                  aktuellen State aufgerufen werden
-                </li>
-                <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                          &lt;input onKeyDown={e => {
-                            const keyCode = e.which || e.keyCode;
-                            if (keyCode === 13) {
-                              // enter wurde gedrückt
-                            } else {
-                            // andere taste
-                            }
-                          } ... />
-                        </code></pre>
-              </ul>
             </li>
           </ol>
         </section>
@@ -2385,6 +2353,10 @@ console.log(programmer instanceof Person); // true</code></pre>
 
         <!-- ENDE KLASSEN -->
 
+        <section class="todo">
+          <h3>TODO: Übung!
+        </section>
+
         <section id="t3">
           <h1>Teil III</h1>
           <h2>Daten lesen und schreiben vom Server</h2>
@@ -2405,7 +2377,7 @@ console.log(programmer instanceof Person); // true</code></pre>
           <h3>Server-Calls</h3>
           <ul>
             <li>React macht keine Angabe, wie Server-Calls (technisch) gemacht werden</li>
-            <li>
+            <li class="fragment">
               Häufig in React verwendet: <b>fetch</b> API
               <ul>
                 <li>Browser-API zum Ausführen von HTTP Requests</li>
@@ -2426,6 +2398,7 @@ console.log(programmer instanceof Person); // true</code></pre>
                 </li>
               </ul>
             </li>
+            <li class="fragment">Populäre Alternative: <a href="https://github.com/axios/axios">Axios</a></li>
           </ul>
         </section>
         <section>
@@ -2578,7 +2551,7 @@ console.log(greeting) // => Promise {&lt;resolved>: "Hello, Klaus"}
                 </code></pre>
             </li>
             <li class="fragment">
-              <code>aync</code> function als Fat Arrow function:
+              <code>async</code> function als Fat Arrow function:
               <pre><code class="javascript" contenteditable data-trim>
 const greet = async (name) => `Hello, ${name}`;                
   
@@ -2800,7 +2773,10 @@ async function loadData() {
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
                   function GreetingController(props) {
                     React.useEffect(
-                      () => { console.log("..."); return () => console.log("Ich bin entfernt worden") },
+                      () => {
+                        console.log("greetingId hat sich geändert"); 
+                        return () => console.log("Ich bin entfernt worden") 
+                      },
                       [props.greetingId])
                     );
                   }
@@ -2877,11 +2853,6 @@ async function loadData() {
               }
               
               </code></pre>
-        </section>
-
-        <section>
-          <h3>Probleme mit useEffect</h3>
-          <p class="todo">asynchrones Verhalten mit ref und updater</p>
         </section>
 
         <section>
@@ -2981,7 +2952,19 @@ function GreetingController {
         </section>
 
         <section>
-          <p class="todo">EXKURS: DATA LOADING "RICHTIG"</p>
+          <p class="todo">USE CUSTOM HOOK HIER!!!!</p>
+
+          <ul>
+            <li>
+            Custom Hook fertig in 3b-remote-useApi-Hook
+            <li>
+              <li>Problem dort: was passiert, wenn Komponente un-gemounted wird? Was passiert mit Nebenläufigkeit (setGreetings) => Diskutieren!</li>
+              <li>Mögliche Lösungen: canceled Flag das in Rückgabe-Methode gesetzt wird und wenn setGreetings neu gesetzt wird? </li>
+          </ul>
+
+          <ul>
+            <li>Übung: der useApi-Hook</li>
+          </ul>
 
           <ul>
             <li>Fehlerbehandlung</li>

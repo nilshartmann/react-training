@@ -2,6 +2,7 @@ import React from "react";
 
 import GreetingMaster from "./GreetingMaster";
 import GreetingDetail from "./GreetingDetail";
+import useApi from "./useApi";
 
 const BACKEND_URL = "http://localhost:7000/greetings";
 const MODE_MASTER = "MODE_MASTER";
@@ -9,22 +10,7 @@ const MODE_DETAIL = "MODE_DETAIL";
 
 export default function GreetingController() {
   const [mode, setMode] = React.useState(MODE_MASTER);
-  const [greetings, setGreetings] = React.useState([]);
-
-  React.useEffect(() => {
-    async function loadGreetings() {
-      try {
-        const response = await fetch(BACKEND_URL);
-        const greetings = await response.json();
-        setGreetings(greetings);
-      } catch (err) {
-        console.error("LOADING GREETINGS FAILED:", err);
-        setGreetings(null);
-        return;
-      }
-    }
-    loadGreetings();
-  }, []);
+  const [greetings, setGreetings] = useApi(BACKEND_URL, []);
 
   async function addGreeting(greetingToBeAdded) {
     let newGreeting;
@@ -54,12 +40,14 @@ export default function GreetingController() {
 
   if (mode === MODE_MASTER)
     return (
-      <GreetingMaster
-        greetings={greetings}
-        onAdd={() => {
-          setMode(MODE_DETAIL);
-        }}
-      />
+      <>
+        <GreetingMaster
+          greetings={greetings}
+          onAdd={() => {
+            setMode(MODE_DETAIL);
+          }}
+        />
+      </>
     );
 
   return <GreetingDetail onSave={addGreeting} />;

@@ -1,34 +1,39 @@
 import React from "react";
-import useInput from "./useInput";
 
 export default function GreetingDetail(props) {
-  const [nameInput, resetName] = useInput("Name", props.initialName);
-  const [greetingInput, resetGreeting] = useInput("Greeting", props.initialGreeting);
-
+  const [name, setName] = React.useState(props.initialName || "");
+  const [greeting, setGreeting] = React.useState(props.initialGreeting || "");
   const inputRef = React.useRef();
-
-  const saveDisabled = !(nameInput.value && greetingInput.value);
+  const saveDisabled = !(name && greeting);
 
   function reset() {
-    resetName();
-    resetGreeting();
+    setName("");
+    setGreeting("");
 
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
+    inputRef.current.focus();
   }
 
   function save() {
     props.onSave({
-      name: nameInput.value,
-      greeting: greetingInput.value
+      name,
+      greeting
     });
   }
 
   return (
     <div>
-      <input {...nameInput} ref={inputRef} />
-      <input {...greetingInput} />
+      <input
+        ref={inputRef}
+        onChange={event => setName(event.target.value)}
+        value={name}
+        placeholder="Name"
+      />
+      <input
+        onChange={event => setGreeting(event.target.value)}
+        value={greeting}
+        name="greeting"
+        placeholder="Greeting"
+      />
 
       <button onClick={reset}>Clear</button>
       <button disabled={saveDisabled} onClick={save}>

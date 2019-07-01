@@ -13,6 +13,15 @@ const createApp = (db, largedata) => {
     next();
   });
 
+  app.use((req, _res, next) => {
+    if (req.query.slow !== undefined) {
+      const timeout = (Math.floor(Math.random() * 4) + 2) * 125;
+      setTimeout(next, timeout);
+    } else {
+      next();
+    }
+  });
+
   // Return all greetings
   app.get("/greetings", (req, res) => res.json(db.findAll()));
 
