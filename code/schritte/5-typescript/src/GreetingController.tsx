@@ -2,6 +2,8 @@ import React from "react";
 
 import GreetingMaster from "./GreetingMaster";
 import GreetingDetail from "./GreetingDetail";
+import LoadingIndicator from "./LoadingIndicator";
+import useApi from "./useApi";
 import { NewGreeting, Greeting } from "./types";
 
 const BACKEND_URL = "http://localhost:7000/greetings";
@@ -9,23 +11,7 @@ type MODE = "MODE_MASTER" | "MODE_DETAIL";
 
 export default function GreetingController() {
   const [mode, setMode] = React.useState<MODE>("MODE_MASTER");
-  const [greetings, setGreetings] = React.useState<Greeting[]>([]);
-
-  React.useEffect(() => {
-    async function loadGreetings() {
-      let greetings = null;
-      try {
-        const response = await fetch(BACKEND_URL);
-        greetings = await response.json();
-      } catch (err) {
-        console.error("LOADING GREETINGS FAILED:", err);
-        return;
-      }
-      setGreetings(greetings);
-    }
-
-    loadGreetings();
-  }, []);
+  const [greetings, setGreetings, isLoading] = useApi<Greeting[]>(BACKEND_URL, []);
 
   async function addGreeting(greetingToBeAdded: NewGreeting) {
     let newGreeting: Greeting;
@@ -53,7 +39,12 @@ export default function GreetingController() {
     setMode("MODE_MASTER");
   }
 
-  if (mode === "MODE_MASTER")
+  if (mode === "MODE_MASTER") {
+    console.log("isLoading", isLoading);
+    if (isLoading) {
+      return <LoadingIndicator />;
+    }
+
     return (
       <GreetingMaster
         greetings={greetings}
@@ -62,6 +53,7 @@ export default function GreetingController() {
         }}
       />
     );
+  }
 
   return <GreetingDetail onSave={addGreeting} />;
 }
