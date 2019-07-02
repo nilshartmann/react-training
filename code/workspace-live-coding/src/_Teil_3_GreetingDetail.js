@@ -12,7 +12,7 @@ export function GreetingDetail(props) {
     setName("");
     setGreeting("");
 
-    if (!inputRef.current) {
+    if (inputRef.current) {
       inputRef.current.focus();
     }
   }
