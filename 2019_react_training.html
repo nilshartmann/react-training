@@ -19,6 +19,16 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
+       <!-- <section>
+          <h3>Vorbereitung</h3>
+          <ul>
+            <li>git clone https://github.com/nilshartmann/react-training</li>
+            <li>oder: <code>git stash</code> und <code>git pull</code></li>
+            <li>cd react-training</li>
+            <li>npm install</li>
+          </ul>
+        </section>
+        -->
         <section data-state="title">
           <h2 class="title">
             <b>Einführung in React</b>
@@ -1025,7 +1035,6 @@ const person = {
 console.log(person.firstName); // Klaus
    </code></pre>
         </section>
-
         <section data-state="exkurs">
           <h3>ES6: Computed Properties</h3>
           <em>Berechnete Keys in Objekten</em>
@@ -1043,7 +1052,6 @@ const personen = {
 console.log(personen); // Object {id_1: "Klaus", id_2: "Susi"}
 </code></pre>
         </section>
-
         <section>
           <h3>React: Properties und Zustand</h3>
           <ul class="fragment">
@@ -1148,7 +1156,6 @@ function GreetingDetail(props) {
             </li>
           </ul>
         </section>
-
         <section>
           <h3>React Hooks</h3>
           <em>Mit React Hooks kann sich eine Komponente in Zustand und Lebenszyklus "einhaken"</em>
@@ -1460,8 +1467,15 @@ function GreetingDetail(props) {
               der Eingabefelder sollte der Focus auf das erste Eingabefeld (<code>name</code>)
               gesetzt werden
             </li>
+            <li>REFERENZ FÜR FOCUS:
+              <pre><code>const inputRef = React.useRef();
+function clear() { set...(); inputRef.current.focus(); }              
+// ...
+&lt;input type="..." ref={inputRef} ... />
+&lt;button onClick={clear}>Clear&lt;/button>                
+              </code></pre>
+            </li>
           </ol>
-          <img src="slides/images/screenshot-name-greeting.png" />
         </section>
 
         <section id="t2">
@@ -1977,7 +1991,7 @@ function GreetingMaster(props) {
               &lt;input 
                 value={this.state.name} 
                 onChange=
-                  {event => this.setState({greeting: event.target.name})}
+                  {event => this.setState({name: event.target.value})}
               />
               &lt;input 
                     value={this.state.greeting} 
@@ -2886,7 +2900,11 @@ function GreetingController {
                 <li>Die URL des Backends steht in der Konstante <code>BACKEND_URL</code>.</li>
               </ul>
             </li>
+
             <li class="fragment">
+              const BACKEND_URL = "http://localhost:7000/greetings"</li>
+
+            <!-- <li class="fragment">
               Optional 1: Füge der loadGreetings-Methode eine Fehlerbehandlung zu. (Du kannst das
               Backend stoppen, um einen Fehler zu provozieren). Kannst Du eine Fehlermeldung in der
               UI anzeigen?
@@ -2894,7 +2912,7 @@ function GreetingController {
             <li class="fragment">
               Optional 2: Kannst Du die saveGreeting-Funktion so extrahieren, dass sie außerhalb der
               GreetingController-Komponente stehen kann?
-            </li>
+            </li> -->
           </ol>
         </section>
 
