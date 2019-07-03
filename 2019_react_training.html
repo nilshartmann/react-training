@@ -4938,17 +4938,6 @@ function GreetingDetail(props) {
         <section>
           <h1>Anhang</h1>
           <h2>Wiederholung</h2>
-
-          <em>Gemeinsam neues Feature implementieren, um zu wiederholen</em>
-          <p class="fragment">
-            Vorschlag: wir bauen die Lade-Funktion eines Einzelgrußes "richtig" (mit
-            Fehlerbehandlung etc)
-          </p>
-          <p class="fragment">
-            Dabei können wir uns komplexen State, Custom Hooks, Effekte etc nocheinmal ansehen
-          </p>
-
-          <p class="fragment">Ohne Netz und doppelten Boden! 👷👷‍</p>
         </section>
 
         <!-- =========================================== AUSBLICK ===================== -->
@@ -5022,23 +5011,17 @@ function GreetingDetail(props) {
         </section>
 
         <section>
-          <h2>Redux Schritt-für-Schritt</h2>
-          <p>Wir stellen eine Komponente auf Redux um</p>
-          <p>(Verzeichnis: <code>workspace-redux</code>)</p>
-        </section>
-
-        <section>
           <h2>Strukturierter Überblick über alle Redux Teile</h2>
         </section>
 
         <section>
           <h3>Event-Handlers werden Action-Creators</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-export const setFilter = filter => {
-return {
+export function setFilter(filter) {
+  return {
     type: SET_FILTER,
     filter
-};
+  };
 }
 </code></pre>
           <ul>
