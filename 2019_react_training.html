@@ -19,7 +19,7 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-       <!-- <section>
+        <!-- <section>
           <h3>Vorbereitung</h3>
           <ul>
             <li>git clone https://github.com/nilshartmann/react-training</li>
@@ -1467,7 +1467,8 @@ function GreetingDetail(props) {
               der Eingabefelder sollte der Focus auf das erste Eingabefeld (<code>name</code>)
               gesetzt werden
             </li>
-            <li>REFERENZ FÜR FOCUS:
+            <li>
+              REFERENZ FÜR FOCUS:
               <pre><code>const inputRef = React.useRef();
 function clear() { set...(); inputRef.current.focus(); }              
 // ...
@@ -2902,7 +2903,8 @@ function GreetingController {
             </li>
 
             <li class="fragment">
-              const BACKEND_URL = "http://localhost:7000/greetings"</li>
+              const BACKEND_URL = "http://localhost:7000/greetings"
+            </li>
 
             <!-- <li class="fragment">
               Optional 1: Füge der loadGreetings-Methode eine Fehlerbehandlung zu. (Du kannst das
@@ -3747,6 +3749,15 @@ test("it should open detail view on button click", () => {
               </code></pre>
           </div>
           <div class="fragment">
+            <p><code>undefined</code> muss ebenfalls explizit zugelassen werden:</p>
+            <pre><code class="typescript line-numbers" contenteditable data-trim>
+    let city:string = undefined; //Type 'undefined' is not assignable to type 'string'.
+    
+    let optionalCity:string|undefined = undefined; // OK
+    let optionalCity:string|undefined|null = null; // OK
+                </code></pre>
+          </div>
+          <div class="fragment">
             <p>
               Optionale Parameter können mit ? gekennzeichnet werden (erlauben dann auch
               <code>undefined</code>)
@@ -3839,9 +3850,33 @@ test("it should open detail view on button click", () => {
   }
   </code></pre>
         </section>
+
+        <section>
+          <h2>Generics</h2>
+          <p>Klassen können ähnlich wie in Java mit Generics parametrisiert werden:</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+class Store&lt;T> {
+  private value: T;
+
+  setValue(t: T) { this.value = t};
+  getValue() { return this.value  ; }
+}
+
+const s = new Store&lt;string>();
+s.set("Klaus"); // ok
+s.set(123); // err
+
+const x:number = s.get(); // err
+const y = s.get(); //OK (y ist string)
+const z:string = s.get(); OK;
+</code></pre>
+        </section>
+
         <section>
           <h2>Eigene Typen</h2>
-          <p>Mit <code>interface</code> können eigene Typen defniert werden:</p>
+          <p>
+            Mit <code>interface</code> können eigene Typen (Objekt-Strukturen) definiert werden:
+          </p>
 
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
   // Komplexer Typ
@@ -3914,8 +3949,8 @@ test("it should open detail view on button click", () => {
           <h2>Generics</h2>
           <p>Generische Typen verwenden</p>
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  interface Person { name: string };
-  interface Movie { title: string };
+  type Person = { name: string };
+  type Movie =  { title: string };
   
   let persons:Array&lt;Person&gt; = [];
   let movies:Array&lt;Movie&gt; = [];
@@ -3931,13 +3966,103 @@ test("it should open detail view on button click", () => {
         </section>
 
         <section>
-          <h2>Intersection Types</h2>
-        </section>
+          <h2>Methoden</h2>
 
+          <p>Methoden können beschrieben werden</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type AnEvent = { type: string; payload: any }
+type ListenerFunction = (e: AnEvent) => void;
+
+class EventEmitter {
+  // addEventListener erwartet EINEN Parameter:
+  // eine Funktion, die ein 'AnEvent' entgegennimmer
+  addEventListener(listenerFn: ListenerFunction) {
+
+    listenerFn(null); // err
+    listenerFn({ type: "GREET", payload: "Hello"}); // OK
+  }
+}    
+
+
+const c = new EventEmitter();
+c.addEventListener( (e) => console.log(e)); // OK
+c.addEventListener( (e,p: string) => console.log(e)); 
+  // ERR: Argument of type '(e: any, p: string) => void' is not 
+  //      assignable to parameter of type '(e: AnEvent) => void'.
+
+          </code></pre>
+        </section>
         <section>
           <h2>Union Types</h2>
-        </section>
+          <p>Variablen, Parameter etc. können mehr als einen Typ annehmen:</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type Person = { name: string };
+type Movie = { title: string };
 
+function printNameOrTitle(obj: Person | Movie) { 
+
+  console.log(obj.title); // ERR: Property 'title' does not 
+                          // exist on type 'Person | Movie'
+ 
+  if ("title" in obj) {
+    // obj ist Movie hier, title ist definiert
+    console.log(obj.title);
+  } else {
+    // obj ist Person hier: name ist definiert
+    console.log(obj.name);
+  }
+}
+
+printNameOrTitle({name: "Klaus"}); //OK
+printNameOrTitle({title: "Pulp Fiction"}); //OK
+printNameOrTitle({label: "Save"}); // ERR
+    
+          </code></pre>
+        </section>
+        <section>
+          <h2>Intersection Types</h2>
+          <p>Types können kombiniert werden. Sie enthalten dann alle Properties aus allen Types:</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type Person = { name: string };
+type Birthday = { dateOfBirth: number };
+
+type PersonWithBirthday = Person & Birthday;
+
+const x:PersonWithBirthday = {
+  name: "Klaus",
+  dateOfBirth: 1976
+} // OK
+
+const x:PersonWithBirthday = {
+  name: "Klaus"
+} // ERR: Missing Property 'dateOfBirth'
+      
+            </code></pre>
+        </section>
+        <section>
+          <h2>Mapped Types</h2>
+          <p>Bestehende Typen können auf neue Typen mit neuen Eigenschaften gemappt werden:</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>              
+type Person = { name: string; lastname: string};
+
+const p:Person = {
+    name: "Klaus",
+    lastname: "mueller"
+}
+
+p.lastname = "Meier"; // OK
+
+// ReadonlyPerson ist ein "mapped type"
+type ReadonlyPerson = Readonly&lt;Person>;
+
+const p2:ReadonlyPerson = {
+    name: "Klaus",
+    lastname: "mueller"
+}
+
+p2.name = "Karl"; // Cannot assign to 'name' because it is a read-only property.
+</code></pre>
+        </section>
         <section id="t-typescript-react">
           <h2>React Anwendungen mit TypeScript</h2>
           <em>State und Properties von Komponenten werden mit Typen beschrieben</em>
@@ -4034,31 +4159,6 @@ function GreetingController() {
 }
                             </code></pre>
           </div>
-        </section>
-
-        <section>
-          <h3>Array-Rückgabewerte in Custom Hooks</h3>
-          <p>
-            In Arrays muss explizit angegeben werden, an welcher Position sich welcher Typ befindet
-          </p>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-// Rückgabewert besteht aus Array mit zwei Elementen
-type UseInputResult = [
-  {
-    value: string;
-    placeholder: string;
-    onChange(event: React.SyntheticEvent&lt;HTMLInputElement>): void;
-    name: string;
-  },
-  () => void
-];
-
-function useInput(placeholder: string, initialValue?: string): UseInputResult {
-  // ...
-}
-                                            </code></pre>
         </section>
 
         <section>
