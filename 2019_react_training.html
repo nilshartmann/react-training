@@ -3875,7 +3875,8 @@ const z:string = s.get(); OK;
         <section>
           <h2>Eigene Typen</h2>
           <p>
-            Mit <code>interface</code> können eigene Typen (Objekt-Strukturen) definiert werden:
+            Mit <code>interface</code> und <code>type</code>können eigene Typen (Objekt-Strukturen)
+            definiert werden:
           </p>
 
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
@@ -3884,6 +3885,9 @@ const z:string = s.get(); OK;
     name: string; // Pflicht
     livesIn?: string; // Optional
   }
+
+  // Alternativ (interface und type fast synonym)
+  type Person = { name: string; livesIn?: string; }
   
   const susi: Person = { // OK
     name: 'Klaus',
@@ -3900,6 +3904,37 @@ const z:string = s.get(); OK;
     profession: 'Lokführer'
   } // Error: 'profession' does not exist in type 'Person'.
                  </code></pre>
+        </section>
+
+        <section>
+          <h2>Eigene Typen II</h2>
+          <p>Eigene Objekt-Typen können sowohl "Attribute" als auch Funktionen enthalten:</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+            // Komplexer Typ
+            type Person {
+              name: string; // Pflicht
+              greet(greeting: string): string;
+            }
+
+            const p:Person = {
+              name: "Klaus",
+              greet(greeting: string) { 
+                return `${greeting}, ${this.name}`
+              }
+            }
+            p.greet("Hello"); // OK
+            p.greet(123); // ERR: Argument of type '123' is not 
+                          // assignable to parameter of type 'string'.
+
+            const wrong:Person = {
+              name: "Susi", // OK
+              greet(greeting: number) { return "hello" } 
+                // ERR: Type '(greeting: number) => string' is not assignable to 
+                //      type '(greeting: string) => string'.
+                //      Types of parameters 'greeting' and 'greeting' are incompatible.
+                //      Type 'string' is not assignable to type 'number'.
+            }
+                           </code></pre>
         </section>
 
         <section>
@@ -3924,7 +3959,10 @@ const z:string = s.get(); OK;
         <section>
           <h2>Type Aliase</h2>
           <p>Mit <b>type</b> können Aliase für Typen definiert werden.</p>
-          <p class="fragment">Sehr ähnlich zu Interface mittlerweile</p>
+          <p>
+            Mittlerweile sehr ähnlich zu Interfaces und fast können sowohl interface als auch type
+            verwendet werden
+          </p>
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
   type Book = {
     title: string
@@ -4040,6 +4078,30 @@ const x:PersonWithBirthday = {
             </code></pre>
         </section>
         <section>
+          <h2>String Literal Types</h2>
+          <p>
+            Mit einem String Literal Type kann genau festgelegt werden, welche Ausprägungen ein
+            String annehmen kann. Dadurch sind Enum-ähnliche Konstrukte möglich.
+          </p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+
+type MODE = "MASTER" | "DETAIL" | "ERROR";
+
+const m:MODE = "MASTER"; // OK
+const n:MODE = "FEHLER"; // ERR: Type '"FEHLER"' 
+                         // is not assignable to type 'MODE'.
+
+function getView(m: MODE) {
+  if (m === "NOT_FOUND") {
+     // ERR: This condition will always return 'false' since the 
+     // types 'MODE' and '"NOT_FOUND"' have no overlap.       
+  } else if (m === "DETAIL") {
+      // OK
+  }
+}
+            </code></pre>
+        </section>
+        <section>
           <h2>Mapped Types</h2>
           <p>Bestehende Typen können auf neue Typen mit neuen Eigenschaften gemappt werden:</p>
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>              
@@ -4143,19 +4205,16 @@ function GreetingDetailProps(props: GreetingDetailProps) {
           <div class="fragment">
             <p>Oder explizit angeben</p>
             <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-
-const MODE_MASTER = "MODE_MASTER";
-const MODE_DETAIL = "MODE_DETAIL"; 
-
-type MODE_STATE = typeof MODE_MASTER | typeof MODE_DETAIL;
+type MODE_STATE = "MODE_MASTER" | "MODE_DETAIL";
 
 function GreetingController() {
-  const [mode, setMode] = React.useState&lt;MODE_STATE>(MODE_MASTER);
+  const [mode, setMode] = React.useState&lt;MODE_STATE>("MODE_MASTER");
 
-  // Mode ist entweder MODE_MASTER oder MODE_DETAIL
-  // setMode akzeptiert nur MODE_MASTER oder MODE_DETAIL (Konstante oder String)
+  // Mode ist entweder String "MODE_MASTER" oder "MODE_DETAIL"
+  // setMode akzeptiert nur Strings "MODE_MASTER" oder "MODE_DETAIL" 
 
   setMode("NOT_FOUND"); // compile error
+  setMode(null); // compile error
 }
                             </code></pre>
           </div>
@@ -4250,7 +4309,30 @@ function GreetingDetail(props) {
             </p>
           </span>
         </section>
+        <section>
+          <h2>useRef</h2>
+          <p>
+            <code>useRef</code> liefert Container für beliebigen Typ zurück. <br />Der gehaltene
+            Wert kann immer entweder vom vorgegebenen Typ sein (z.B. ein HTML Element) oder
+            <code>null</code>
+          </p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
 
+
+  function GreetingDetail(props) {
+    const inputRef = React.useRef&lt;HTMLInputElement>(null);
+    // inputRef.current kann entweder HTMLInputElement oder null ein
+
+    function reset() {
+      inputRef.current.focus(); // ERR: current kann null sein
+      
+      if (inputRef.current) {
+        inputRef.current.focus(); // OK
+      }
+    }
+  }
+            </code></pre>
+        </section>
         <section>
           <h2>Übung: Typsichere React-Komponenten</h2>
           <h3>
@@ -4282,7 +4364,7 @@ function GreetingDetail(props) {
           <ol style="font-size:80%" class="x-list">
             <li class="fragment">
               <b>Ergänze die Typ-Informationen in useInput</b> (Vorher umbenennen
-              <code>useInput.js</code> in <code>useInput.tsx</code>. Sobald Du die Datei umbenennst,
+              <code>useApi.js</code> in <code>useApi.tsx</code>. Sobald Du die Datei umbenennst,
               sollten Compile-Fehler angezeigt werden)
             </li>
             <li class="fragment">
@@ -4298,7 +4380,9 @@ function GreetingDetail(props) {
               Nach dem Speichern eines neuen Greetings soll ein neuer "Feedback-View" mit einer
               Meldung erscheinen (statt Master), in der steht "Gruß wurde gespeichert" (o.ä.).
             </li>
-            <li class="fragment">Neben der Meldung soll der View einen "OK"-Button anzeigen.</li>
+            <li class="fragment">
+              Zusätzlich zu der Meldung soll der View einen "OK"-Button anzeigen.
+            </li>
             <li class="fragment">
               Wenn der OK-Button geklickt wird, soll wieder zum Master gewechselt werden:
               <br /><code class="fragment"
