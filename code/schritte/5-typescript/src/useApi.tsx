@@ -1,8 +1,6 @@
 import React from "react";
 
-type UseApiResult<T> = [T, React.Dispatch<React.SetStateAction<T>>, boolean];
-
-export default function useApi<T>(url: string, initialValue: T): UseApiResult<T> {
+export default function useApi<T>(url: string, initialValue: T) {
   const [isLoading, setLoading] = React.useState(false);
   const [data, setData] = React.useState(initialValue);
 
@@ -22,7 +20,9 @@ export default function useApi<T>(url: string, initialValue: T): UseApiResult<T>
       }
     }
     loadData();
-  }, [url]); // Make sure, this Hook only runs (after initial) when URL changes
+  }, [url]);
 
-  return [data, setData, isLoading];
+  // use 'as const' to make sure the array is interpreted as a 'tuple', not as a regular 'array'
+  // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions
+  return [data, setData, isLoading] as const;
 }
