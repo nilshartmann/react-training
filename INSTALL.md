@@ -32,7 +32,7 @@ npm install
 1. Im **Root-Verzeichnis** des Repositories das Backend starten:
 
 ```
-npm run start-backend
+npm run backend
 ```
 
 Achtung! Das Backend läuft auf **Port 7000**, d.h. dieser Port muss verfügbar sein.
@@ -56,11 +56,11 @@ npm start
 
 Achtung! Das Frontend läuft auf **Port 8080**, dh dieser Port muss verfügbar sein.
 
-![Starten des Frontends](./images/install_start_frontend.png)
+![Starten des Frontends](./slides/images/screenshot_npm_install.png)
 
 2. Wenn das Frontend gestartet ist, zum testen einmal die Anwendung im Browser aufrufen: [http://localhost:8080](http://localhost:8080). Dort sollte "Hello, World" erscheinen, dann ist der Workspace einsatzbereit.
 
-![Funktionierendes Frontends](./images/install_frontend.png)
+![Funktionierendes Frontends](./slides/images/install_frontend.png)
 
 ## Internet-Zugang
 

@@ -5,7 +5,7 @@
 	"license": "ISC",
 	"repository": "https://github.com/nilshartmann/react-training",
 	"scripts": {
-		"start-backend": "npm run server",
+		"backend": "node ./code/server/src/server.js",
 		"setup": "node .bin/setup.js",
 		"server": "nodemon --watch ./code/server ./code/server/src/server.js",
 		"postinstall": "npm run setup",
