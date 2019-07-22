@@ -1,7 +1,7 @@
 export function setGreetings(newGreetings) {
   return {
     type: "SET_GREETINGS",
-    greetings: greetings
+    greetings: newGreetings
   };
 }
 
