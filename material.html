@@ -1,0 +1,145 @@
+<section>
+  <h3>create-react-app</h3>
+  <a
+    href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
+    target="_blank"
+    >User Guide</a
+  >
+  <p>Bootstrap von React Anwendung</p>
+  <p>Fertige Konfiguration von Webpack, React, ...</p>
+  <p>Beispiel: npx create-react-app PROJEKTNAME --typescript --use-npm</p>
+</section>
+<section>
+  <h2>React Devtools</h2>
+  <em>React Developer Tools für Chrome und Firefox</em>
+  <p>Untersuchen der React Anwendung zur Laufzeit</p>
+
+  <ul>
+    <li>
+      <a
+        href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en"
+        target="_blank"
+        >Chrome</a
+      >
+    </li>
+    <li>
+      <a href="https://addons.mozilla.org/en-US/firefox/addon/react-devtools/" target="_blank"
+        >Firefox</a
+      >
+    </li>
+  </ul>
+
+  <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
+</section>
+
+<!-- ========= ========= ========= ========= ========= ========= -->
+<!-- HOC -->
+<!-- ========= ========= ========= ========= ========= ========= -->
+<section>
+  <h3>Beispiel: Higher-Order Components (HOC)</h3>
+  <p>Schritt 1: HOC definieren</p>
+  <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+
+// Schritt 1: stumpfes Wrappen einer Komponente.
+function withGreeting(RawComponent) {
+  return class extends React.Component {
+    render() {
+      // mit {...this.props} werden alle Properties, die der HOC übergeben
+      // wurden,  an die Ziel-Komponente übergeben
+      return &lt;RawComponent {...this.props} />
+    }
+  }
+                                </code></pre>
+</section>
+<section>
+  <h3>Beispiel: Higher-Order Components (HOC)</h3>
+  <p>Schritt 2: Lifecycle-Methoden ("fachliche" Logik der HOC) implementieren</p>
+  <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+function withGreeting(RawComponent) {
+return class extends React.Component {
+
+  // HOC ist "normale" Komponente, dh wir habe Lifecycle-Methoden etc
+  componentDidMount() {
+    // GreetingId kommt aus den Props, mit dem die HOC aufgerufen wurde
+    const greeting = loadGreeting(this.props.greetingId);
+    this.setState({greeting});
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // analog: greeting lesen und State setzen
+  }
+
+  render() { . . . }
+}
+}
+                                  </code></pre>
+</section>
+<section>
+  <h3>Beispiel: Higher-Order Components (HOC)</h3>
+  <p>Schritt 3: Implementieren der render-Methode</p>
+  <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+function withGreeting(RawComponent) {
+  return class extends React.Component {
+  
+    componentDidMount() { ... }
+
+    componentWillReceiveProps(nextProps) { ... }
+      // analog: greeting lesen und State setzen
+    }
+  
+    render() { 
+      if (!this.state.greeting) {
+        // Greeting noch nicht geladen
+        return null;  
+        // alternativ: Loading Spinner zeigen, Fehlerbehandlung o.ä.
+      }
+
+      // Ziel-Komponente erhält geladenes Greeting als
+      // 'greeting' Property
+      return &lt;RawComponent greeting={this.state.greeting} />
+    }
+  }
+}
+                                    </code></pre>
+</section>
+<section>
+  <h3>Beispiel: Higher-Order Components (HOC)</h3>
+  <p>Schritt 4: Verwenden der HOC</p>
+  <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+import withGreeting from ". . .";
+
+// GreetingDisplayController kennt kein greetingId-Property, 
+// nur das geladene Greeting
+function GreetingDisplayController({greeting}) { . . .};
+
+export default withGreeting(GreetingDisplayController);
+                                      </code></pre>
+  <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+import GreetingDisplayController from ". . .";
+
+// Verwender übergibt nur das greetingId-Property, 
+// nicht das geladene Greeting
+&lt;GreetingDisplayController greetingId={7} />
+                                      </code></pre>
+</section>
+<section>
+  <h2>Alternative Render Props</h2>
+  <p>https://reactjs.org/docs/render-props.html</p>
+  <p>https://www.youtube.com/watch?v=BcVAq3YFiuc</p>
+</section>
+<section>
+  <h2>Hooks</h2>
+  <p>
+    Auch Hooks sind mit dem Versprechen angetreten, Code zu vereinfachen bzw Wiederverwendbarkeit zu
+    erhöhen
+  </p>
+  <p>Beispiel: useApi</p>
+  <p>Fiktives Beispiel: useRouter()</p>
+  <p>
+    These: HOCs verlieren an Bedeutung. Schwer zu verstehen, können sich außerdem gegenseitig
+    beeinflussen (selbe Properties)
+  </p>
+</section>
+<!-- ========= ========= ========= ========= ========= ========= -->
+<!-- HOC ENDE -->
+<!-- ========= ========= ========= ========= ========= ========= -->
