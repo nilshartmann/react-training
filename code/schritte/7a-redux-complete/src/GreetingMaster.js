@@ -28,7 +28,7 @@ function FilterPanel({ filter, setFilter }) {
 export default function GreetingMaster({ onAddClick }) {
   const dispatch = useDispatch();
   const { greetings, filter } = useSelector(state => ({
-    greetings: state.greetings,
+    greetings: state.greetings.greetings,
     filter: state.filter
   }));
 

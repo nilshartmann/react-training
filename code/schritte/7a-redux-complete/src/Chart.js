@@ -64,7 +64,7 @@ class Chart extends React.Component {
 
 export default connect(
   state => ({
-    data: aggregateGreetings(state.greetings)
+    data: aggregateGreetings(state.greetings.greetings)
   }),
   dispatch => ({
     onSegmentSelected: filter => dispatch(actions.setFilter(filter))

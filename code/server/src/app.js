@@ -15,7 +15,9 @@ const createApp = (db, largedata) => {
 
   app.use((req, _res, next) => {
     if (req.query.slow !== undefined) {
-      const timeout = (Math.floor(Math.random() * 4) + 2) * 125;
+      // can't remember why I do this kind of math, but it seems to work 😱
+      const timeout = (Math.floor(Math.random() * 4) + 2) * 250;
+      console.log(`Slow down ${timeout}ms`);
       setTimeout(next, timeout);
     } else {
       next();

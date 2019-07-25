@@ -5,7 +5,7 @@ import { filterGreetings } from "./selectors";
 export default function Counter() {
   // TODO ===> BETTER SELECT? WITH EITHER RE-SELECT OR USESELECTOR???
   const { greetings, filter } = useSelector(state => ({
-    greetings: state.greetings,
+    greetings: state.greetings.greetings,
     filter: state.filter
   }));
   const greetingCount = greetings.length;
