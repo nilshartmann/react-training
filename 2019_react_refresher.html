@@ -51,9 +51,10 @@
 
         <section>
           <h2>Inhalt</h2>
+          <h3 style="font-size: 95%">React Auffrischung (Tag 1, Tag 2)</h3>
           <ul style="font-size: 85%">
             <li>
-              <a href="#/t0">Teil 0: React Überblick, Tooling und Build-Prozess</a>
+              <a href="#/t0">Teil 0: React Überblick</a>
             </li>
             <li>
               <a href="#/t1">Teil I: React-Komponenten (Grundlagen)</a>
@@ -65,33 +66,31 @@
               <a href="#/t3">Teil III: Daten lesen und schreiben vom Server</a>
             </li>
             <li>
-              <a href="#/t-test">Teil IV: Testen von React Anwendungen</a>
-            </li>
-            <li>
-              <a href="#/t-typescript">Teil V: React Anwendungen mit TypeScript entwickeln</a>
-            </li>
-            <li>
-              <a href="#/t-router">Teil VI: Client-seitiges Routing mit React Router (Überblick)</a>
+              <a href="#/t-typescript">Teil IV: React Anwendungen mit TypeScript entwickeln</a>
             </li>
             <li>
               <a href="#/t-redux"
-                >Teil VII: Das Flux-Architektur-Pattern am Beispiel von Redux (Überblick)</a
+                >Teil V: Das Flux-Architektur-Pattern am Beispiel von Redux (Überblick)</a
               >
             </li>
-
-            <li style="margin-top: 30px">
-              <a href="#/t7">Ausblick/Diskussion</a>
-              <ul style="font-size: 85%">
-                <li>Neue React-Features in 2019 (Suspense, Code Splitting)</li>
-                <li>Mögliche Performance-Optimierungen (für Produktion)</li>
-                <li><a href="#/t-context">Context API</a></li>
-                <li>Einbinden von 3rd-Party-Libs</li>
-              </ul>
+            <li style="font-size: 75%">
+              <a href="#/t-test">Teil VI: Testen von React Anwendungen (Überblick, optional)</a>
+            </li>
+            <li style="font-size: 75%">
+              <a href="#/t-router"
+                >Teil VII: Client-seitiges Routing mit React Router (Überblick, optional)</a
+              >
             </li>
           </ul>
-          <div style="font-size:80%">
-            <p><b>Jederzeit:</b> Fragen und Diskussionen!</p>
-          </div>
+          <h3 style="font-size: 95%;margin-top:20px">
+            Gemeinsame Diskussionen/Workshop (Tag 2, Tag 3)
+          </h3>
+          <ul style="font-size: 85%">
+            <li>Projekt-Setup, Build-Tools</li>
+            <li>Performance</li>
+            <li>Styling/CSS</li>
+            <li>...</li>
+          </ul>
         </section>
 
         <section id="example-app">
@@ -518,8 +517,8 @@ function NavBar(props) {
             <li class="fragment"><b>Werte</b> üblicherweise immutable</li>
             <li class="fragment">Arbeiten mit Zustand über <b>useState</b>-Hook</li>
             <li class="fragment">
-              useState liefert zwei Werte zurück: aktuellen Zustand, und setter-Funktion um Zustand
-              zu verändern
+              useState liefert Array mit zwei Werten zurück: aktuellen Zustand, und setter-Funktion
+              um Zustand zu verändern
             </li>
           </ul>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
@@ -2246,16 +2245,16 @@ function GreetingController {
           <p><em>Frage an Euch: Wie könnte ein Custom Hook zum Laden von Daten aussehen? </em></p>
 
           <ul class="fragment">
-              <li>Wie sieht die API für unseren Hook aus? Welche Parameter werden benötigt?</li>
-              <li>Was gibt der Hook zurück?</li>
-            </ul>
-  
-            <ul class="fragment">
-              <li>
-                Zugabe: Bekommen wir auch einen Hinweis für den Benutzer hin, wenn Daten geladen
-                werden (Loading Indicator)?
-              </li>
-            </ul>
+            <li>Wie sieht die API für unseren Hook aus? Welche Parameter werden benötigt?</li>
+            <li>Was gibt der Hook zurück?</li>
+          </ul>
+
+          <ul class="fragment">
+            <li>
+              Zugabe: Bekommen wir auch einen Hinweis für den Benutzer hin, wenn Daten geladen
+              werden (Loading Indicator)?
+            </li>
+          </ul>
 
           <p class="fragment">Zur Erinnerung, der bestehende Code:</p>
 
@@ -2282,8 +2281,6 @@ function GreetingController {
                   return ...;
                 }
               </code></pre>
-
-        
         </section>
 
         <section>
@@ -2314,359 +2311,8 @@ function GreetingController {
           </ol>
         </section>
 
-       
-
-        <section id="t-test">
-          <h1>Teil IV</h1>
-          <h2>Testen von React Anwendungen</h2>
-          <ul style="font-size:85%">
-            <li>
-              <a href="code/schritte/4-test/public/index.html" target="_blank">Ziel-Anwendung</a>
-            </li>
-            <li>
-              <a href="code/schritte/4-test/test-report.html" target="_blank">Test Report</a>
-            </li>
-
-            <li>
-              <a href="code/schritte/4-test/coverage/lcov-report/index.html" target="_blank"
-                >Coverage Report</a
-              >
-            </li>
-          </ul>
-        </section>
-
-        <section data-transition="slide none">
-          <h2>Was testen wir überhaupt?</h2>
-          <ul>
-            <li class="fragment"><b>UI-unabhängige Logik</b> (z.B. Services, Backend-Calls)</li>
-            <li class="fragment">
-              <b>Rendern</b> (wird meine Greeting-Liste für ein Satz von Greetings korrekt
-              dargestellt)
-            </li>
-            <li class="fragment">
-              <b>Interaktionen</b> (funktionieren meine Event-Listener korrekt)
-            </li>
-            <li class="fragment">
-              <b>Verhalten im Browser</b> (z.B. korrekte Darstellung, Browser-spezifisches
-              JavaScript, Arbeiten mit history, Titelzeile, Scrollbars etc)
-            </li>
-          </ul>
-        </section>
-
-        <section data-transition="slide none">
-          <h2>Was testen wir überhaupt?</h2>
-          <ul>
-            <li style="color: lightgrey">
-              <b>UI-unabhängige Logik</b>
-            </li>
-            <li>
-              <b>Rendern</b> (wird meine Greeting-Liste für ein Satz von Greetings korrekt
-              dargestellt)
-            </li>
-            <li><b>Interaktionen</b> (funktionieren meine Event-Listener korrekt)</li>
-            <li style="color: lightgrey">
-              <b>Verhalten im Browser</b> (z.B. korrekte Darstellung, Browser-spezifisches
-              JavaScript, Arbeiten mit history, Titelzeile, Scrollbars etc)
-            </li>
-          </ul>
-        </section>
-
-        
-
-        <section>
-          <h1>Jest</h1>
-          <p>
-            <em
-              >"Delightful JavaScript Testing" (
-              <a href="http://facebook.github.io/jest/" target="_blank"
-                >http://facebook.github.io/jest/</a
-              >)</em
-            >
-          </p>
-          <p class="fragment">
-            Vollständige Test-Lösung, wird von Facebook für Testen von React verwendet:
-          </p>
-          <ul class="fragment">
-            <li>Test Runner</li>
-            <li>Specs, Assertions, Mocks</li>
-            <li>Code Coverage</li>
-            <li>"Snapshot testing"</li>
-          </ul>
-        </section>
-        <section>
-          <h4>Jest</h4>
-          <h3>Beispiel: Ein einfacher Test</h3>
-          <pre><code class="javascript" contenteditable data-trim>// sum.js (oder sum.ts)
-  export const sum = (a,b) => a+b;
-  </code></pre>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>// sum.test.js
-  import {sum} from '../sum.js';
-  
-  test('sum of 2 and 2 is 4', () => {
-    expect(sum(2, 2)).toBe(4);
-  });
-  
-  test('sum of 2 and 2 is not 3', () => {
-    expect(sum(2, 2)).not.toBe(3);
-  });
-          </code></pre>
-        </section>
-        <section>
-            <h4>Jest</h4>
-          <h2>Testcases</h2>
-          <p>
-            <code>test</code> oder
-            <code>it</code>
-          </p>
-          <pre><code data-trim contenteditable>test('it should work', () => {
-    expect(...).toBe(...);
-  });</code></pre>
-          <pre><code data-trim contenteditable>it('it should also work', () => {
-    expect(...).toBe(...);
-  });</code></pre>
-        </section>
-        
-        <section>
-            <h4>Jest</h4>
-          <h2>Expectations und Matcher</h2>
-          <div class="fragment">
-            <p>
-              <code>expect()</code> liefert eine <em>Expectation</em> zurück, auf der
-              <em>Matcher</em> definiert sind:
-            </p>
-            <pre><code data-trim contenteditable>expect(actual).toXyz(expected);
-  // for example:
-  expect("Hello Jest").toBe("Hello Jest"); // => ok
-  </code></pre>
-          </div>
-          <div class="fragment">
-            <p>Einige Matcher</p>
-
-            <pre><code data-trim contenteditable>// Vergleich auf Identität
-  expect(actual).toBe(expected);
-  // Inhaltsvergleich:
-  expect(actual).toEqual(expected);
-  // true / false / null:
-  expect(actual).toBeTruthy();
-  expect(actual).toBeFalsy();
-  expect(actual).toBeNull();
-  // Länge (Array oder String)
-  expect(actual).toHaveLength(123);
-  </code></pre>
-          </div>
-          <p class="fragment">
-            <a href="https://facebook.github.io/jest/docs/expect.html#content"
-              >https://facebook.github.io/jest/docs/expect.html#content</a
-            >
-          </p>
-        </section>
-
-        <section>
-            <h4>Jest</h4>
-          <h2>Mock Funktionen</h2>
-          <ul>
-            <li class="fragment">
-              <code>jest.fn()</code> erzeugt eine Mock-Funktion
-              <pre><code data-trim contenteditable>// Liefert undefined zurück, wenn ausgeführt
-const aMockFn = jest.fn();
-
-aMockFn("huhu"); // => undefined
-
-expect(aMockFn).toHaveBeenCalled());
-expect(aMockFn.toHaveBeenCalledWith("huhu"));
-                    </code></pre>
-            </li>
-
-            <li class="fragment">
-              Implementierung der Mockfunktion kann als Parameter übergeben werden:
-              <pre><code data-trim contenteditable>
-const aMockFn = jest.fn( param => `Hello, ${param}` );
-
-console.log(aMockFn('World'));
-// => Hello, World
-                </code></pre>
-            </li>
-          </ul>
-        </section>
-         
-
-        <section>
-          <h3>Testen von React Komponenten</h3>
-          <h2>Nur Rendering</h2>
-        </section>
-
-        <section>
-          <h3>React Test Renderer</h3>
-          <p>
-            <a href="https://www.npmjs.com/package/react-test-renderer"
-              >https://www.npmjs.com/package/react-test-renderer</a
-            >
-          </p>
-          <p>Rendert React Komponenten in JSON Objekte (ohne DOM):</p>
-          <pre
-            class="fragment"
-          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
-  
-const component = renderer.create(
-  &lt;GreetingMaster greetings={someGreetings} />
-);
-  
-console.log(component.toJSON());
-          </code></pre>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-  { type: 'div',
-    props: {},
-    children:  [
-      { type: 'table', props: {}, children: [Object] },
-      { type: 'button', props: [Object], children: [Object] }
-    ]
-  }
-          </code></pre>
-        </section>
-        <section>
-          <h3>"Snapshot Testing" mit Jest</h3>
-          <p>
-            <code>expect(obj).toMatchSnapshot()</code> vergleicht ein JSON-Objekt mit einer
-            gespeicherten Datei:
-          </p>
-          <ul>
-            <li class="fragment">
-              Bei <b>erster</b> Ausführung: legt Snapshot-File an (
-              <a href="slides/images/jest-snapshot-file.png" target="_blank">Beispiel</a>)
-              <ul>
-                <li class="fragment">Snapshotdateien werden in Git versioniert</li>
-              </ul>
-            </li>
-            <li class="fragment">
-              Bei <b>folgenden</b> Ausführungen: erzeugt neuen Snapshot und vergleicht mit
-              gespeichtertem Snapshot
-            </li>
-            <li class="fragment">
-              Wenn Snapshots unterschiedlich
-              <ul>
-                <li>
-                  Fehler samt Diff (
-                  <a href="slides/images/jest-snapshot-diff.png" target="_blank">Beispiel</a>)
-                </li>
-                <li>
-                  Im Watch Mode kann Snapshot aktualisiert werden
-                  <img src="slides/images/jest-snapshot-update.png" />
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Snapshot Testing mit Jest und React</h3>
-          <pre
-            class="fragment"
-          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
-  
-  test('it should render correctly', () => {
-  
-  const someGreetings = [ . . . ];
-  
-  const component = renderer.create(
-    &lt;GreetingMaster greetings={someGreetings} />
-  );
-  
-  expect(component.toJSON()).toMatchSnapshot();
-});
-          </code></pre>
-          <p class="fragment">
-            <em
-              >Snapshot sagt nicht, ob UI richtig oder falsch gerendert wird, sondern nur, ob sie
-              verändert wurde!</em
-            >
-          </p>
-        </section>
-
-        <section>
-          <h3>Testen von React Komponenten, Teil 2</h3>
-          <h2>Interaktion</h2>
-        </section>
-
-        <section>
-          <h3>Option 1: Enzyme</h3>
-          <p>
-            <em
-              >JavaScript Testing utilities for React (
-              <a href="http://airbnb.io/enzyme/" target="_blank">http://airbnb.io/enzyme/</a>)</em
-            >
-          </p>
-          <p>Bibliothek mit Funktionen zum Testen von React Komponenten</p>
-          <ul>
-            <li class="fragment">
-              Rendern von Komponenten:
-              <ul>
-                <li><b>shallow</b> zum "flachen" Rendern einer Komponente</li>
-                <li>
-                  <b>mount</b> zum Rendern einer Komponete in einen (headless) DOM, z.B. jsdom
-                </li>
-              </ul>
-            </li>
-            <li class="fragment">
-              Navigieren durch den DOM und Suchen von Elementen und Komponenten
-            </li>
-            <li class="fragment">Modifizieren von Komponenten und Auslösen von Events</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Testen einer Komponente mit Jest und Enzyme</h3>
-          <pre
-            class="fragment"
-          ><code class="javascript" contenteditable data-trim>import {mount} from 'enzyme';
-  import GreetingController from '...';
-  import GreetingDetail from '...';
-  
-  test('it should open detail view on button click', () => {
-    // mount the component into a real dom (implemented by JSDom)
-    const component = mount(&lt;GreetingController  />);
-  
-    // on initial render the list with greetings (GreetingMaster)
-    // is visible but no GreetingDetail
-    expect(component.find(GreetingDetail)).toHaveLength(0);
-  
-    // find the "add" Button...
-    const addButton = component.find('button');
-  
-    // click on the button
-    addButton.simulate('click');
-  
-    // now the GreetingDetail should be visible
-    expect(component.find(GreetingDetail)).toHaveLength(1);
-  });
-          </code></pre>
-        </section>
-
-        <section>
-            <h3 class="todo">Option 2: react-testing-library</h3>
-            <p>
-              <em
-                >Simple and complete React DOM testing utilities that encourage good testing practices." (
-                <a href="https://github.com/testing-library/react-testing-library" target="_blank">https://github.com/testing-library/react-testing-library</a>)</em
-              >
-            </p>
-            <p>Tests sollen aus Benutzersicht geschrieben sein. Suche nach sichtbaren Strings etc, eher keine CSS-Klassen etc</p>
-            <pre
-            class="fragment"
-          ><code class="javascript" contenteditable data-trim>import {mount} from 'enzyme';
-  import GreetingController from '...';
-  import GreetingDetail from '...';
-  
-  test('it should open detail view on button click', () => {
-   TODO
-  });
-          </code></pre>
-          </section>
-
-       
-
-
         <section id="t-typescript">
-          <h1>Teil V</h1>
+          <h1>Teil IV</h1>
           <h2>React mit TypeScript entwickeln</h2>
           <p>
             <a href="code/schritte/5-typescript/public/index.html" target="_blank"
@@ -3188,7 +2834,6 @@ p2.name = "Karl"; // Cannot assign to 'name' because it is a read-only property.
         <section id="t-typescript-react">
           <h2>React Anwendungen mit TypeScript</h2>
           <em>State und Properties von Komponenten werden mit Typen beschrieben</em>
-         
 
           <p class="fragment">
             Achtung! TypeScript-Dateien, die JSX enthalten <b>müssen</b> mit
@@ -3455,364 +3100,14 @@ function GreetingDetail(props) {
           </ol>
         </section>
 
-        <section id="t-router">
-          <h2>Client-seitiges Routing (Überblick)</h2>
-          <a href="code/schritte/6-router/public/index.html" target="_blank">Ziel-Anwendung</a>
-        </section>
-       
-
-        <section>
-          <h2>React Router</h2>
-          <ul>
-            <li>Kein Bestandteil von React</li>
-            <li>Sehr häufig verwendet (de-facto Standard)</li>
-            <li>
-              Aktuelle Version 5:
-              <a href="https://reacttraining.com/react-router/" target="_blank">
-                https://reacttraining.com/react-router/</a
-              >
-            </li>
-          </ul>
-        </section>
-        <section>
-          <h3>Das Router-Objekt</h3>
-          <p class="fragment">
-            Top-Level-Objekt, das einmalig (oben) in der Komponenten Hierarchie eingebunden werden
-            muss
-          </p>
-          <p class="fragment">
-            Mehrere Ausprägungen zum Arbeiten mit den URL und der Browser History:
-          </p>
-          <ul>
-            <li class="fragment">
-              <b>HashRouter</b>: codiert Pfad in angehängten Hash (#/greetings)
-            </li>
-            <li class="fragment"><b>BrowserRouter</b>: codiert Pfad direkt in URL (/greetings)</li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    import {HashRouter as Router} from "react-router-dom";
-    
-    const app = &lt;Router>&lt;GreetingController/>&lt;/Router>;
-    
-    ReactDOM.render(app, document.getElementById(...));
-            </code></pre>
-        </section>
-
-        <section>
-          <h3>Welche Komponente soll für einen Pfad gerendert werden</h3>
-          <p class="fragment">Das <code>Route</code>-Objekt mappt Pfade auf Komponenten</p>
-          <ul>
-            <li class="fragment">
-              Wird verwendet, wo Pfad-abhängig Komponenten ausgewählt werden sollen
-              <ul>
-                <li>
-                  vergleichbar mit intelligentem <code>if</code>/ <code>switch</code> statement
-                </li>
-                <li>
-                  <b>Kann überall in der Anwendung</b> verwendet werden (auf allen
-                  Hierarchie-Ebenenen)
-                </li>
-              </ul>
-            </li>
-            <li class="fragment">
-              Mit <code>path</code> wird der Pfad übergeben, für den die Route matchen soll
-            </li>
-            <li class="fragment">Mit <code>component</code> wird die Komponente übergeben</li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    import {HashRouter as Router, Route} from "react-router-dom";
-    
-    const app = &lt;Router>
-      &lt;Route path="/greet/:greetingId" component={GreetingDisplayController}/>
-      &lt;Route path="/" component={GreetingController}/>
-    &lt;/Router>;
-    
-    ReactDOM.render(app, document.getElementById(...));
-            </code></pre>
-        </section>
-        <section>
-          <h3>Route #2: Das render-Property</h3>
-          <ul>
-            <li>
-              Statt einer Komponente kann eine Funktion übergeben werden, die eine Komponente
-              zurückliefert
-            </li>
-            <li>Ermöglicht es, zusätzliche Properties an die Komponente zu übergeben</li>
-            <li>Kann unterschiedliche Komponenten zurückliefern (z.B. für Authorisierung)</li>
-            <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    &lt;Route path="/"
-      render={() => {
-        return loggedIn ? 
-          &lt;GreetingMaster greetings={initialGreetings} />
-        :
-          &lt;LoginForm />
-      }}
-    />
-            </code></pre>
-          </ul>
-        </section>
-      
-
-        <section>
-          <h3>Router Properties für Komponente</h3>
-          <p>Der Router übergibt automatisch drei Properties an die gerenderte Komponente:</p>
-          <ul>
-            <li class="fragment">
-              <code>match</code>: Enthält u.a. die Parameter aus dem Pfad (
-              <code>match.params.xyz</code>)
-            </li>
-            <li class="fragment">
-              <code>history</code>: Zum Arbeiten mit der History (z.B. <code>push()</code> zum
-              Navigieren)
-            </li>
-            <li class="fragment">
-              <code>location</code>: Der aktuelle Pfad (z.B. <code>pathname</code>,
-              <code>search</code>)
-            </li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    const HelloComponent = ({match, history, location}) => (
-      &lt;div>
-        &lt;h1>Hello, {match.params.name}&lt;/h1>
-        &lt;small>The current path is: {location.pathname}&lt;/small>
-        &lt;button onClick={() =&gt; history.push('/greetings')}>Show Greetings&lt;/button>
-      &lt;/div>
-    );
-    
-    // ...
-    &lt;Route path="/greet/:name" component={HelloComponent}/>
-    
-            </code></pre>
-          <ul>
-            <li class="fragment">
-              Die Properties werden auch an die <code>render</code>-Funktion einer
-              <code>Route</code> als Parameter übergeben
-            </li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-     &lt;Route path="/somewhere" render={({match, history, location}) => . . . }/>
-              
-                      </code></pre>
-        </section>
-
-        <section>
-          <h3>Links</h3>
-          <p>Mit <code>Link</code> und <code>NavLink</code> können Links erzeugt werden</p>
-          <ul>
-            <li>Mit <code>to</code> wird das Ziel angegeben</li>
-            <li>Gerendert wird per default ein <code>a</code> Element</li>
-            <li>URL wird entsprechend der History (Browser oder Hash) erzeugt</li>
-            <li>
-              Mit <code>activeClassName</code> und <code>activeStyle</code> auf
-              <code>NavLink</code> können Styles übergeben werden, die angewendet werden, wenn der
-              Link der aktiven Route entspricht
-            </li>
-          </ul>
-
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    import {Link, NavLink} from "react-router-dom";
-    
-    &lt;Link to='/greetings'>Show all greetings&lt;/Link>
-    
-    // Erzeugtes 'a' Element erhält 'highlight' CSS-Klasse, wenn die aktive Route
-    &lt;NavLink to='/greeting/me' activeClassName="highlight">Greet me&lt;/NavLink>
-    
-            </code></pre>
-        </section>
-
-        <section>
-          <h3>Das history-Objekt</h3>
-          <p class="fragment">
-            Mit dem <code>history</code>-Objekt kann mit der Browser History interagiert werden
-          </p>
-          <p class="fragment">
-            Es gibt verschiende Implementierungen (insb BrowserHistory und HashHistory sowie "memory
-            history" für Testen)
-          </p>
-          <p class="fragment">
-            Mit der History kann auf andere URLs gesprungen werden oder die Location abgefragt
-            werden
-          </p>
-          <p class="fragment">Route-Komponenten erhalten die history automatisch per Property</p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    function GreetingController({history}) {
-      // gehe zu neuer URL
-      history.push("/..."); 
-    
-      // gehe zu neuer URL, lösche aber aktuelle aus History im Browser
-      history.replace("/...") 
-    
-      // aktuelle URL
-      const currentPath = history.location.pathname; 
-    }
-            </code></pre>
-        </section>
-
-        <section>
-          <h3>Zugriff auf die history außerhalb von "Route Components"</h3>
-          <ul>
-            <li class="fragment">
-              Komponenten, die von <code>Route</code> gerendert werden, erhalten automatisch Zugriff
-              auf <code>history</code> etc
-            </li>
-            <li class="fragment">Für alle anderen Komponenten, brauchen wir eine andere Lösung</li>
-            <li class="fragment">
-              <code>withRouter</code> HOC "erweitert" Komponenten und Router Properties
-            </li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    import {withRouter} from "react-router-dom";
-    
-    function GreetLink(props) {
-      const greeting = this.props.greeting; // übergeben vom ursprünglichen Aufrufer
-      const history = this.props.history; // übergeben von withRouter
-      return &lt;div>
-        &lt;button onClick={() =&gt; history.push(`/${greeting.id}`)}>Show Greeting&lt;/button>
-      &lt;/div>;
-    }
-    
-    // 
-    export default withRouter(GreetingLink);
-                      </code></pre>
-        </section>
-        <section>
-          <h3>withRouter zur Laufzeit</h3>
-          <img src="slides/images/screenshot-withRouter.png" />
-        </section>
-
-        <section>
-          <h3>Hintergrund</h3>
-          <h2>Higher-Order Components (HOC)</h2>
-          <p>https://reactjs.org/docs/higher-order-components.html</p>
-          <p>
-            Eine Higher-Order Komponente ist eine Funktion, die
-            <b>eine Komponente entgegennimmt und eine neue Komponente zurückliefert</b>
-          </p>
-          <p class="fragment">
-            Die Higher-Order-Kommponente ist für das <b>rendern</b> der ursprünglichen Komonente
-            verantwortlich
-          </p>
-          <ul class="fragment">
-            <li>Sie kann das Rendern bei Bedarf auch unterdrücken oder verzögern</li>
-            <li>Sie hat Zugriff auf alle ursprünglichen Properties</li>
-            <li>
-              Sie kann der Ziel-Komponente zusätzliche Properties übergeben oder welche entfernen
-            </li>
-          </ul>
-        </section>
-        <section>
-          <h3>Beispiel: Higher-Order Components (HOC)</h3>
-          <p>
-            Ziel:
-            <em
-              >Eine HOC, die ein Greeting lädt das geladene Greeting an die ursprüngliche Komponente
-              weitergibt</em
-            >
-          </p>
-          <div style="font-size:85%">
-            <p>Vorteile:</p>
-            <ul>
-              <li>
-                "Komplexe" Logik zum Laden der Daten, Fehlerbehandlung etc, liegt zentral in der HOC
-              </li>
-              <li>Die gewrappte Komponente muss sich nicht um das (technische) Laden kümmern</li>
-              <li>
-                Die gewrappte Komponente benötigt keinen Lifecycle, sie wird nur dargestellt, wenn
-                ein Greeting vorhanden ist
-              </li>
-            </ul>
-          </div>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-      
-    // GreetingDisplayController.js          
-    // GreetingDisplayController (stellt einen Gruß dar):
-    function GreetingDisplayController({greeting}) {
-      return &lt;h1>&lt;{greeting.name}, {greeting.greeting}&lt;/h1>;
-    }
-      
-    // umschliessen mit der HOC
-    export default withGreeting(GreetingDisplayContainer);
-    </code></pre>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    // Verwender
-    import GreetingDisplayController from "...";
-    // dass es sich um eine HOC handelt, ist für den Verwender transparent:
-    &lt;GreetingDisplayController greetingId={3} />
-                                      </code></pre>
-        </section>
-     
-        <section>
-          <h2>Der Router mit TypeScript</h2>
-        </section>
-
-        <section>
-          <h3>RouteComponentProps</h3>
-          <p>Der Router übergibt Properties an eine Route-Komponente</p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    // GreetingController erhält history etc als Property          
-    &lt;Route component={GreetingController} />
-                                                        </code></pre>
-          <p class="fragment">
-            Die Route-Properties sind im Interface <code>RouteComponentProps</code> definiert
-          </p>
-          <p class="fragment">Die Komponente kann für ihre Properties das Interface erweitern:</p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    import { RouteComponentProps } from "react-router";
-    type GreetingControllerProps = RouteComponentProps&lt;void&gt; &amp; { 
-      // ggf. eigene Properties des GreetingControllers
-    }
-    function GreetingController(props:GreetingControllerProps) {
-        const history = this.props.history; // ok, kein Compile-Fehler
-    }
-    </code></pre>
-        </section>
-        <section>
-          <h3>RouteComponentProps #2</h3>
-          <p>Der Router übergibt die Parameter aus der URL an die Route-Komponente</p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-      // GreetingController erhält "greetingId" als Property
-      &lt;Route path="/greeting/:greetingId" component={GreetingController} />
-                                                          </code></pre>
-          <p class="fragment">
-            RouteComponentProps ist mit den erwarteten Parametern aus der URL generifiziert
-          </p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-    import { RouteComponentProps } from "react-router";
-    
-    // Die im Path definierten Parameter
-    type GreetingControllerParams = { greetingId: string };
-    
-    // Als Type-Argument werden die Parameter angegeben
-    type GreetingControllerProps = 
-      RouteComponentProps&lt;GreetingControllerParams&gt; {   }
-    
-    function GreetingController(props:GreetingControllerProps) {
-        const params = this.props.match;
-    
-        const greetingId = params.greetingId; // ok, kein Compile-Fehler
-        const userId = params.userId; // Fehler: userId nicht bekannt
-        // ...
-    }
-      </code></pre>
-        </section>
-
-      
-
-        <!-- =========================================== AUSBLICK ===================== -->
-
-        <section>
-          <h1>Aus- und Überblick</h1>
-          <h3>Weiterführende Themen</h3>
-        </section>
-
         <section id="t-redux">
-          <h1>Zustands-Management mit Redux</h1>
+          <h1>Teil V</h1>
+          <h2>Zustands-Management mit Redux</h2>
         </section>
 
         <section>
-          <h2>Eine typische React-Anwendung in Komponenten</h2>
-          <h3>Frage an Euch: was könnte es für Probleme geben?</h3>
-          <img src="slides/images/typische-react-komponenten-hierarchie.png" style="height:650px" />
+          <h2>Motivation</h2>
+          <h3>Probleme mit der React Architektur (wie gesehen)</h3>
         </section>
 
         <section>
@@ -3840,14 +3135,6 @@ function GreetingDetail(props) {
         </section>
 
         <section>
-          <h3>External Statemanagement</h3>
-          <div class="fragment">
-            <p>Habt ihr Ideen?</p>
-            <p>Wie können wir Zustand und/oder Logik aus den Komponenten befreien?</p>
-          </div>
-        </section>
-
-        <section>
           <h2>Redux</h2>
           <h3>External Statemanagement</h3>
         </section>
@@ -3865,7 +3152,7 @@ function GreetingDetail(props) {
         <section>
           <h2>Demo: Redux & Redux Devtools</h2>
           <a href="http://localhost:8080/" target="_blank">Ziel-Anwendung</a>
-          <p>(npm start in code/schritte/redux/7-redux-complete-app)</p>
+          <p>(npm start in code/schritte/redux/7a-redux-complete)</p>
         </section>
 
         <section>
@@ -3894,36 +3181,10 @@ export function setFilter(filter) {
             <li class="fragment">
               Actions bestehen aus einem Typen und einer beliebigen Nutzlast (payload)
             </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Action-Creators machen Server-Calls</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-export const loadGreeting = greetingId => dispatch => {
-fetch(BACKEND_URL+'/'+greetingId)
-    .then(response => response.json())
-    .then(greetings => dispatch({
-        type: SET_GREETINGS,
-        greetings
-    });
-};
-</code></pre>
-          <ul>
             <li class="fragment">
-              Die Action wird nicht direkt zurück geliefert, sondern erst später dispatched
-            </li>
-            <li class="fragment">
-              wir bekommen die dispatch Methode als Parameter, mit der wir später die Action
-              dispatchen
+              Action-Creators machen asynchrone Operationen (später mehr)
             </li>
           </ul>
-          <p class="fragment">
-            <strong
-              >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
-              Operationen ausführen dürfen</strong
-            >
-          </p>
         </section>
 
         <section>
@@ -3961,22 +3222,17 @@ import { applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 const store = createStore(
-rootReducer, // reducer
-applyMiddleware(thunk) // middleware as enhancer
+  rootReducer, // reducer
+  applyMiddleware(thunk) // middleware as enhancer
 );
     </code></pre>
           <ul>
-            <li class="fragment">Die Thunk Middleware dient als de-facto-Standard</li>
             <li class="fragment">
-              Gibt die dispatch-Methode and (asynchrone) Action Creators weiter
-            </li>
-            <li class="fragment">
-              <a href="https://github.com/gaearon/redux-thunk#whats-a-thunk" target="_blank">
-                'A thunk is a function that wraps an expression to delay its evaluation'
-              </a>
+              Beispiel für Middleware: Thunk (de-facto-Standard), Sagas, Redux Observable
             </li>
             <li class="fragment">
               Middleware ist ein fortgeschrittenes Feature und meistens genügt die Thunk Middleware
+              (oder Saga oder Redux Observable)
             </li>
           </ul>
         </section>
@@ -3988,9 +3244,9 @@ import {combineReducers} from 'redux';
 
 // http://redux.js.org/docs/api/combineReducers.html
 export const rootReducer = combineReducers({
-greetings, // updates greeting partial state
-filter,
-mode
+  greetings, // updates greeting partial state
+  filter,
+  mode
 });
     </code></pre>
           <ul>
@@ -4005,20 +3261,20 @@ mode
         <section>
           <h3>Teil-Reducer</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-const mode = (state = MODE_MASTER, action) => {
-switch (action.type) {
+function modeReducer(state = MODE_MASTER, action) {
+  switch (action.type) {
     case SET_MODE:
-        return action.mode;
+      return action.mode;
     default:
-        return state;
-}
+      return state;
+  }
 };
     </code></pre>
           <ul>
             <li class="fragment">
               Initialisiert seinen Teilzustand (oft mit einem Default-Parameter)
             </li>
-            <li class="fragment">Ändert niemals zustand direkt</li>
+            <li class="fragment">Ändert niemals Zustand direkt</li>
             <li class="fragment">
               Sondern liefert einen neuen Zustand (manchmal teilweise als Kopie)
             </li>
@@ -4033,11 +3289,13 @@ import { connect } from 'react-redux';
 import * as actions from './actions';
 
 export default connect(
-state => ({
+  state => ({
     mode: state.mode
     // ...
-}),
-actions
+  }),
+
+  // alle Actions werden automatisch mit 'dispatch' verbunden
+  actions
 )(GreetingController);
         </code></pre>
           <ul>
@@ -4053,15 +3311,13 @@ actions
         <section>
           <h3>Verwendung von Zustand und Action-Creators in verbundenen Komponenten</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-class GreetingController extends React.Component {
-render() {
+function GreetingController(props) {
     // state from store
-    const {aggregatedGreetings, greetings, mode} = this.props;
+    const {aggregatedGreetings, greetings, mode} = props;
     // action creators bound to dispatch from store
-    const {setMode, saveGreeting, setFilter} = this.props;
+    const {setMode, saveGreeting, setFilter} = props;
 
     // ...
-}
 }
         </code></pre>
           <ul>
@@ -4069,12 +3325,30 @@ render() {
               Action-Creators und Zustand werden in Properties hinein gemerged
             </li>
             <li class="fragment">
-              Diese werden mit ES6-Destructuring an den Stellen aufgelöst wo wir sie brauchen
-            </li>
-            <li class="fragment">
               Die Komponenten wird nur neu gerendert wenn sich der benutzte Zustand verändert
             </li>
           </ul>
+        </section>
+
+        <section>
+          <h3>Redux Hooks</h3>
+          <em>Seit react-redux 7.1 gibt es Hooks API</em>
+          <p>
+            Statt <code>connect</code>-Funktion werden zwei Hooks verwendet:
+            <code>useSelector</code> und <code>useDispatcher</code>
+          </p>
+          <pre class="fragment"><code class="line-numbers" contenteditable data-trim>
+function GreetingController() {
+  const dispatch = useDispatch();
+
+  // ein oder mehrere 'useSelector'-Aufrufe um Teile aus dem 
+  // Gesamtzustand zu selektieren
+  const mode = useSelector(state => state.mode);
+
+  return &ltbutton onClick={() => dispatch(actions.openDetailsView()}>Add&lt;button>;
+
+}            
+          </code></pre>
         </section>
 
         <section>
@@ -4090,6 +3364,209 @@ render() {
           <p>Es gibt unterschiedliche Arten von "State"</p>
 
           <img src="slides/images/three-kinds-of-state.png" style="max-height:650px" />
+        </section>
+
+        <section>
+          <h3>Redux</h3>
+          <h2>Asynchrone Actions</h2>
+          <em>Problem: Asynchronität, z.B. beim Laden von Daten</em>
+          <ul>
+            <li class="fragment">
+              Wo unterbringen?
+              <ul>
+                <li>Reducer sind Seiteneffekt-frei!</li>
+                <li>Actions sind nur JavaScript-Objekte (keine Logik!)</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Weiteres Problem: fachliche Abläufe meistens komplex(er) als nur eine Action.
+              <ul>
+                <li>Typisch: Request Start, ... Request erfolgreich/Request fehlgeschlagen</li>
+              </ul>
+            </li>
+            <li class="fragment">Redux bringt dafür nix mit :-(</li>
+            <li class="fragment">Es gibt aber Antworten: Thunk (Promi?), Saga, Observable</li>
+            <li class="fragment">
+              Idee ist bei allen ähnlich: im Action Creator kann (a) asynchroner Code ausgeführt
+              werden und es können (b) mehrere Actions innerhalb des ACs dispatched werden
+            </li>
+          </ul>
+          <li class="fragment">Alle werden über Middleware eingebunden</li>
+        </section>
+
+        <section>
+          <h3>Asynchrone Actions</h3>
+          <em>Beispiel (konzeptionell)</em>
+          <div class="fragment">
+            <p>Komponente unverändert, dispatched weiterhin <b>eine</b> "normale" Redux Action</p>
+            <pre><code>
+              // in der Komponente
+              import { loadGreetings } from "./actions";
+
+              &lt;button onClick={() => dispatch(loadGreetings())}>Load&lt;/button>
+          </code></pre>
+          </div>
+          <div class="fragment">
+            <p>
+              Die o.g. Frameworks erlauben, es "komplexe" und asynchrone Action Creator dafür zu
+              schreiben
+            </p>
+            <pre><code>
+              // Action Creator (pseudo code)
+              function loadGreetings() {
+
+                dispatchAction "REQUEST_START"
+
+                try {
+                  greetings = await loadGreetingViaHttp() // ASYNCHRON !!!
+                  dispatchAction "REQUEST_SUCCESS"
+                  dispatchAction "SET_GREETINGS" greetings
+                } catch (err) {
+                  dispatchAction "REQUEST_FAILURE" err
+                }
+              }
+            </code></pre>
+          </div>
+          <p class="fragment">Reducer ebenfalls unverändert</p>
+        </section>
+
+        <section>
+          <h2>Redux Thunk</h2>
+          <em>Der Standard (?) für asynchone Action Verarbeitung</em>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+    function loadGreeting(greetingId) => dispatch => {
+    fetch(BACKEND_URL+'/'+greetingId)
+        .then(response => response.json())
+        .then(greetings => dispatch({
+            type: SET_GREETINGS,
+            greetings
+        });
+    };
+    </code></pre>
+          <ul>
+            <li class="fragment">
+              Die Action wird nicht direkt zurück geliefert, sondern erst später dispatched
+            </li>
+            <li class="fragment">
+              wir bekommen die dispatch Methode als Parameter, mit der wir später die Action
+              dispatchen können
+              <ul>
+                <li>zu beliebigem Zeitpunkt</li>
+                <li>auch mehrere Actions</li>
+                <li>muss nicht asynchron sein</li>
+              </ul>
+            </li>
+          </ul>
+          <!-- <p class="fragment">
+                <strong
+                  >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
+                  Operationen ausführen dürfen</strong
+                >
+              </p> -->
+        </section>
+
+        <section>
+          <h2>Redux Saga</h2>
+          <p>Worker und Watcher</p>
+          <p>Tasks</p>
+          <p>ES6 Generator Functions</p>
+          <p>Funktionen werden deklarativ angegeben (call)</p>
+        </section>
+
+        <section>
+            <h2>Beispiel Redux Saga</h2>
+            <pre class="fragment"><code class="line-numbers" contenteditable data-trim>
+                function* saveGreetingToServer(action) {
+                  yield put(apiRequestStart("Saving"));
+                  let savedGreeting;
+                  try {
+                    savedGreeting = yield call(postGreeting, action.newGreeting);
+                  } catch (error) {
+                    yield put(requestFailure(error));
+                    return;
+                  }
+                
+                  yield put(requestSuccess());
+                  yield put(addGreeting(savedGreeting));
+                }            
+              </code></pre>
+              <pre class="fragment"><code class="line-numbers" contenteditable data-trim>
+// Watcher                
+export function* greetingSagas() {
+  yield takeEvery("LOAD_GREETINGS", loadGreetingsFromServer);
+  yield takeEvery("SAVE_GREETING", saveGreetingToServer);
+
+  // alternativ:
+  yield takeLatest("LOAD_GREETINGS", loadGreetingsFromServer);
+}     
+                </code></pre>              
+          </section>
+
+        <section>
+          <h2>Redux Observable</h2>
+          <em>Basiert auf RxJS</em>
+          <ul>
+            <li class="fragment">
+              Zentrales Element: <b>Epic</b>: verarbeitet einen Stream von Actions und gibt einen
+              Stream von Actions zurück
+            </li>
+            <li class="fragment">
+              Man muss RxJS API beherrschen und mit Observables umgehen können
+            </li>
+            <li class="fragment">
+              Man kann nicht ohne weiteres Promises verwenden (bzw. muss Promises in Observable
+              konvertieren)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Epic</h2>
+          <p>Funktion: <code>(action$: Observable&lt;Action>) => Observable&lt;Action>;</code></p>
+          <p>
+            Action wird erst an Reducer verteilt, <b>danach</b> erst an die Epics. Alle Epics
+            bekommen alle Actions, müssen selber filtern
+          </p>
+          <ol>
+            <li class="fragment">Komponente: <code>dispatch({type: "PING"})</code></li>
+            <li class="fragment">Reducer bekommen PING (und kann darauf reagieren)</li>
+            <li class="fragment">Epics bekommen PING</li>
+            <li class="fragment">Epic emitiert neue Action(s) <code>({type: "PONG"})</code></li>
+            <li class="fragment">Reducer bekommen PONG</li>
+            <li class="fragment">Epics bekommen PONG</li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Beispiel Redux Observables</h2>
+          <pre class="fragment"><code class="line-numbers" contenteditable data-trim>
+                function saveGreetingsEpic(action$) {
+                  return action$.pipe(
+                    ofType("SAVE_GREETING"),
+                    flatMap(action =>
+                      concat(
+                        of(apiRequestStart("Saving")),
+                        from(postGreeting(action.newGreeting)).pipe(
+                          map(savedGreeting => addGreeting(savedGreeting))
+                        ),
+                        of(requestSuccess())
+                      ).pipe(catchError(err => of(requestFailure(err))))
+                    )
+                  );
+                }              
+            </code></pre>
+        </section>
+
+        <section>
+          <h2>Und was nehmen wir nun?</h2>
+          <p><b>Thunk</b></p>
+          <p>De-facto Standard, weit verbreitet, in Redux Doku erwähnt</p>
+          <p><b>Saga</b></p>
+          <p>Testbarkeit ist sehr wichtig (interne Abläufe eines Action Creators)</p>
+          <p>Dinge wie Throttling, abbrechbare Actions etc sind wichtig</p>
+          <p><b>Saga</b></p>
+          <p>Man ist RxJS-Fan</p>
+          <p>Dinge wie Throttling, abbrechbare Actions etc sind wichtig</p>
         </section>
 
         <section id="t-context">
