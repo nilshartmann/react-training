@@ -4,19 +4,19 @@ import { connect, useSelector, useDispatch } from "react-redux";
 function HelloMessage({ initialMessage }) {
   const [greeting, setGreeting] = React.useState(initialMessage);
 
-  function updateGreeting(event) {
+  function onUpdateGreeting(event) {
     setGreeting(event.target.value);
   }
 
-  function resetGreeting() {
+  function onResetGreeting() {
     setGreeting("");
   }
 
   return (
     <div>
-      <input onChange={updateGreeting} value={greeting} />
+      <input onChange={onUpdateGreeting} value={greeting} />
       <p>{greeting}, World</p>
-      <button onClick={resetGreeting}>Clear</button>
+      <button onClick={onResetGreeting}>Clear</button>
     </div>
   );
 }
