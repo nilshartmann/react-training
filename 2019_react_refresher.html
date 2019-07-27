@@ -3467,19 +3467,32 @@ function GreetingController() {
 
         <section>
           <h2>Redux Saga</h2>
-          <p>Worker und Watcher</p>
-          <p>Tasks</p>
-          <p>ES6 Generator Functions</p>
-          <p>Funktionen werden deklarativ angegeben (call)</p>
+          <p>
+            Watcher Saga: horcht auf Actions und startet neue Worker Sagas (Tasks) bzw bricht
+            laufende ab
+          </p>
+          <p>Worker Saga/Task: implementiert die Logik</p>
+          <p>
+            Sagas sind mit
+            <a
+              href="https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Statements/function*"
+              >ES6 Generator Functions</a
+            >
+            implementiert
+          </p>
+          <p>Funktionsaufrufe werden deklarativ angegeben (call)</p>
         </section>
 
         <section>
-            <h2>Beispiel Redux Saga</h2>
-            <pre class="fragment"><code class="line-numbers" contenteditable data-trim>
+          <h2>Beispiel Redux Saga</h2>
+          <h3>Task (Worker Saga)</h3>
+
+          <pre><code class="line-numbers" contenteditable data-trim>
                 function* saveGreetingToServer(action) {
                   yield put(apiRequestStart("Saving"));
                   let savedGreeting;
                   try {
+                    // Funktionsaufruf (statt postGreeting(action.newGreeting))
                     savedGreeting = yield call(postGreeting, action.newGreeting);
                   } catch (error) {
                     yield put(requestFailure(error));
@@ -3490,7 +3503,23 @@ function GreetingController() {
                   yield put(addGreeting(savedGreeting));
                 }            
               </code></pre>
-              <pre class="fragment"><code class="line-numbers" contenteditable data-trim>
+          <ul>
+            <li>Funktionsaufrufe werden deklarativ mit <code>call</code> beschrieben</li>
+            <li><code>put</code> dispatched neue Actions</li>
+            <li>
+              Liefert <code>yield</code> ein Promise zurück, wartet Saga mit der weiteren Ausführung
+              der Funktion
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Beispiel Redux Saga</h2>
+          <h3>Watcher Saga</h3>
+          <ul>
+            <li>Watcher Sagas werden in der Saga Middleware registriert</li>
+            <li>Sie sind verantwortlich, Tasks zu starten</li>
+          </ul>
+          <pre class="fragment"><code class="line-numbers" contenteditable data-trim>
 // Watcher                
 export function* greetingSagas() {
   yield takeEvery("LOAD_GREETINGS", loadGreetingsFromServer);
@@ -3499,8 +3528,8 @@ export function* greetingSagas() {
   // alternativ:
   yield takeLatest("LOAD_GREETINGS", loadGreetingsFromServer);
 }     
-                </code></pre>              
-          </section>
+                </code></pre>
+        </section>
 
         <section>
           <h2>Redux Observable</h2>
