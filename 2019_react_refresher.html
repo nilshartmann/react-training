@@ -101,7 +101,9 @@
         </section>
 
         <section>
-          <h2>Inhalt</h2>
+          <h2>Agenda</h2>
+          <h3 style="font-size: 70%">Vorab: Formales und Zeiten</h3>
+          <div class="fragment">
           <h3 style="font-size: 95%">React Auffrischung (Tag 1, Tag 2)</h3>
           <ul style="font-size: 85%">
             <li>
@@ -121,7 +123,7 @@
             </li>
             <li>
               <a href="#/t-redux"
-                >Teil V: Das Flux-Architektur-Pattern am Beispiel von Redux (Überblick)</a
+                >Teil V: Externes Statemanagement mit Redux</a
               >
             </li>
             <li style="font-size: 75%">
@@ -133,6 +135,8 @@
               >
             </li>
           </ul>
+        </div>
+        <div class="fragment">
           <h3 style="font-size: 95%;margin-top:20px">
             Gemeinsame Diskussionen/Workshop (Tag 2, Tag 3)
           </h3>
@@ -140,8 +144,13 @@
             <li>Projekt-Setup, Build-Tools</li>
             <li>Performance</li>
             <li>Styling/CSS</li>
-            <li>...</li>
+            <li>Blick in Euren Code</li>
           </ul>
+        </div>
+          <div class="fragment">
+            <b>Agenda ist nicht in Stein gemeißelt! Jederzeit Fragen und Diskussionen!</b>
+          </div>
+          
         </section>
 
         <section id="example-app">
@@ -277,6 +286,43 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
             <a target="_blank" href="code/schritte/0-hello_world/public/index.html">Run</a>
           </p>
         </section>
+
+        <section>
+            <h3>create-react-app</h3>
+            <a
+              href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
+              target="_blank"
+              >User Guide</a
+            >
+            <p>Bootstrap von neuen React Anwendung</p>
+            <p>Fertige Konfiguration von React und Webpack mit TypeScript, Sass, Linter</p>
+            <p>Beispiel: npx create-react-app PROJEKTNAME --typescript</p>
+          </section>
+
+          <section>
+              <h2>React Devtools</h2>
+              <em>React Developer Tools für Chrome und Firefox</em>
+              <p>Untersuchen der React Anwendung zur Laufzeit</p>
+    
+              <ul>
+                <li>
+                  <a
+                    href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en"
+                    target="_blank"
+                    >Chrome</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://addons.mozilla.org/en-US/firefox/addon/react-devtools/"
+                    target="_blank"
+                    >Firefox</a
+                  >
+                </li>
+              </ul>
+    
+              <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
+            </section>
 
         <section>
           <h3>Das Beispiel-Projekt</h3>
