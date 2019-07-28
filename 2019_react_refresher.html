@@ -74,7 +74,7 @@
 
         <section>
           <h2>it-visions</h2>
-          <a href="https://it-visions.de"><img src="slides/images/it-visions.png" /></a>
+          <a href="https://it-visions.de"><img src="slides/images/it-visions.png"/></a>
           <ul>
             <li>
               Expertennetzwerk mit Schwerpunkt auf Web & Microsoft:
@@ -97,60 +97,56 @@
               </ul>
             </li>
           </ul>
-        
         </section>
 
         <section>
           <h2>Agenda</h2>
           <h3 style="font-size: 70%">Vorab: Formales und Zeiten</h3>
           <div class="fragment">
-          <h3 style="font-size: 95%">React Auffrischung (Tag 1, Tag 2)</h3>
-          <ul style="font-size: 85%">
-            <li>
-              <a href="#/t0">Teil 0: React Überblick</a>
-            </li>
-            <li>
-              <a href="#/t1">Teil I: React-Komponenten (Grundlagen)</a>
-            </li>
-            <li>
-              <a href="#/t2">Teil II: React-Komponenten: Details, Hierarchien und Anwendungen</a>
-            </li>
-            <li>
-              <a href="#/t3">Teil III: Daten lesen und schreiben vom Server</a>
-            </li>
-            <li>
-              <a href="#/t-typescript">Teil IV: React Anwendungen mit TypeScript entwickeln</a>
-            </li>
-            <li>
-              <a href="#/t-redux"
-                >Teil V: Externes Statemanagement mit Redux</a
-              >
-            </li>
-            <li style="font-size: 75%">
-              <a href="#/t-test">Teil VI: Testen von React Anwendungen (Überblick, optional)</a>
-            </li>
-            <li style="font-size: 75%">
-              <a href="#/t-router"
-                >Teil VII: Client-seitiges Routing mit React Router (Überblick, optional)</a
-              >
-            </li>
-          </ul>
-        </div>
-        <div class="fragment">
-          <h3 style="font-size: 95%;margin-top:20px">
-            Gemeinsame Diskussionen/Workshop (Tag 2, Tag 3)
-          </h3>
-          <ul style="font-size: 85%">
-            <li>Projekt-Setup, Build-Tools</li>
-            <li>Performance</li>
-            <li>Styling/CSS</li>
-            <li>Blick in Euren Code</li>
-          </ul>
-        </div>
+            <h3 style="font-size: 95%">React Auffrischung (Tag 1, Tag 2)</h3>
+            <ul style="font-size: 85%">
+              <li>
+                <a href="#/t0">Teil 0: React Überblick</a>
+              </li>
+              <li>
+                <a href="#/t1">Teil I: React-Komponenten (Grundlagen)</a>
+              </li>
+              <li>
+                <a href="#/t2">Teil II: React-Komponenten: Details, Hierarchien und Anwendungen</a>
+              </li>
+              <li>
+                <a href="#/t3">Teil III: Daten lesen und schreiben vom Server</a>
+              </li>
+              <li>
+                <a href="#/t-typescript">Teil IV: React Anwendungen mit TypeScript entwickeln</a>
+              </li>
+              <li>
+                <a href="#/t-redux">Teil V: Externes Statemanagement mit Redux</a>
+              </li>
+              <li style="font-size: 75%">
+                <a href="#/t-test">Teil VI: Testen von React Anwendungen (Überblick, optional)</a>
+              </li>
+              <li style="font-size: 75%">
+                <a href="#/t-router"
+                  >Teil VII: Client-seitiges Routing mit React Router (Überblick, optional)</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="fragment">
+            <h3 style="font-size: 95%;margin-top:20px">
+              Gemeinsame Diskussionen/Workshop (Tag 2, Tag 3)
+            </h3>
+            <ul style="font-size: 85%">
+              <li>Projekt-Setup, Build-Tools</li>
+              <li>Performance</li>
+              <li>Styling/CSS</li>
+              <li>Blick in Euren Code</li>
+            </ul>
+          </div>
           <div class="fragment">
             <b>Agenda ist nicht in Stein gemeißelt! Jederzeit Fragen und Diskussionen!</b>
           </div>
-          
         </section>
 
         <section id="example-app">
@@ -288,41 +284,41 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
         </section>
 
         <section>
-            <h3>create-react-app</h3>
-            <a
-              href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
-              target="_blank"
-              >User Guide</a
-            >
-            <p>Bootstrap von neuen React Anwendung</p>
-            <p>Fertige Konfiguration von React und Webpack mit TypeScript, Sass, Linter</p>
-            <p>Beispiel: npx create-react-app PROJEKTNAME --typescript</p>
-          </section>
+          <h3>create-react-app</h3>
+          <a
+            href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
+            target="_blank"
+            >User Guide</a
+          >
+          <p>Bootstrap von neuen React Anwendung</p>
+          <p>Fertige Konfiguration von React und Webpack mit TypeScript, Sass, Linter</p>
+          <p>Beispiel: npx create-react-app PROJEKTNAME --typescript</p>
+        </section>
 
-          <section>
-              <h2>React Devtools</h2>
-              <em>React Developer Tools für Chrome und Firefox</em>
-              <p>Untersuchen der React Anwendung zur Laufzeit</p>
-    
-              <ul>
-                <li>
-                  <a
-                    href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en"
-                    target="_blank"
-                    >Chrome</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://addons.mozilla.org/en-US/firefox/addon/react-devtools/"
-                    target="_blank"
-                    >Firefox</a
-                  >
-                </li>
-              </ul>
-    
-              <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
-            </section>
+        <section>
+          <h2>React Devtools</h2>
+          <em>React Developer Tools für Chrome und Firefox</em>
+          <p>Untersuchen der React Anwendung zur Laufzeit</p>
+
+          <ul>
+            <li>
+              <a
+                href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en"
+                target="_blank"
+                >Chrome</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://addons.mozilla.org/en-US/firefox/addon/react-devtools/"
+                target="_blank"
+                >Firefox</a
+              >
+            </li>
+          </ul>
+
+          <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
+        </section>
 
         <section>
           <h3>Das Beispiel-Projekt</h3>
@@ -3309,6 +3305,17 @@ mountNode
 
         <section>
           <h3>Middleware zwischen Dispatch und Store</h3>
+          <p><em>Zentral Querschnittsfunktionalität hinzufügen</em></p>
+          <img src="slides/images/redux-middleware.png" style="max-height:125px" />
+          <ul>
+            <li class="fragment">
+              Beispiel für Middleware: Logging, Asynchrones Verarbeitung von Nachrichten (Thunk,
+              Sagas, Redux Observable)
+            </li>
+            <li class="fragment">
+              Middleware ist ein fortgeschrittenes Feature und meistens genügt die Thunk Middleware
+            </li>
+          </ul>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
 import { applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -3318,15 +3325,6 @@ const store = createStore(
   applyMiddleware(thunk) // middleware as enhancer
 );
     </code></pre>
-          <ul>
-            <li class="fragment">
-              Beispiel für Middleware: Thunk (de-facto-Standard), Sagas, Redux Observable
-            </li>
-            <li class="fragment">
-              Middleware ist ein fortgeschrittenes Feature und meistens genügt die Thunk Middleware
-              (oder Saga oder Redux Observable)
-            </li>
-          </ul>
         </section>
 
         <section>
@@ -3386,7 +3384,7 @@ export default connect(
     // ...
   }),
 
-  // alle Actions werden automatisch mit 'dispatch' verbunden
+  // alle angegebenen Actions werden automatisch mit 'dispatch' verbunden
   actions
 )(GreetingController);
         </code></pre>
@@ -3437,7 +3435,7 @@ function GreetingController() {
   // Gesamtzustand zu selektieren
   const mode = useSelector(state => state.mode);
 
-  return &ltbutton onClick={() => dispatch(actions.openDetailsView()}>Add&lt;button>;
+  return &ltbutton onClick={() => dispatch(actions.openDetailsView()}>Add&lt;/button>;
 
 }            
           </code></pre>
@@ -3467,23 +3465,34 @@ function GreetingController() {
               Wo unterbringen?
               <ul>
                 <li>Reducer sind Seiteneffekt-frei!</li>
-                <li>Actions sind nur JavaScript-Objekte (keine Logik!)</li>
+                <li>Actions sind nur JavaScript-Objekte (keine Logik)!</li>
               </ul>
             </li>
             <li class="fragment">
               Weiteres Problem: fachliche Abläufe meistens komplex(er) als nur eine Action.
               <ul>
-                <li>Typisch: Request Start, ... Request erfolgreich/Request fehlgeschlagen</li>
+                <li>
+                  Typisch: Request Start, Request läuft, Request erfolgreich/Request fehlgeschlagen
+                </li>
               </ul>
             </li>
             <li class="fragment">Redux bringt dafür nix mit :-(</li>
             <li class="fragment">Es gibt aber Antworten: Thunk (Promi?), Saga, Observable</li>
-            <li class="fragment">
-              Idee ist bei allen ähnlich: im Action Creator kann (a) asynchroner Code ausgeführt
-              werden und es können (b) mehrere Actions innerhalb des ACs dispatched werden
-            </li>
           </ul>
-          <li class="fragment">Alle werden über Middleware eingebunden</li>
+        </section>
+        <section>
+          <h3>Redux</h3>
+          <h2>Asynchrone Actions</h2>
+          <em>Grundsätzliche Idee, bei allen Frameworks ähnlich</em>
+          <ul>
+            <li class="fragment">
+              Im <b>Action Creator</b> kann asynchroner Code ausgeführt werden
+            </li>
+            <li class="fragment">
+              Es können <b>mehrere Actions</b> innerhalb des Action Creators dispatched werden
+            </li>
+            <li class="fragment">Alle Frameworks werden über Middleware eingebunden</li>
+          </ul>
         </section>
 
         <section>
@@ -3498,8 +3507,11 @@ function GreetingController() {
         <section>
           <h3>Asynchrone Actions</h3>
           <em>Beispiel (konzeptionell)</em>
+          <p>
+            Schritt 1: <b>Dispatchen von Actions</b>: Komponente bleibt unverändert, dispatched
+            weiterhin eine "normale" Redux Action
+          </p>
           <div class="fragment">
-            <p>Komponente unverändert, dispatched weiterhin <b>eine</b> "normale" Redux Action</p>
             <pre><code>
               // in der Komponente
               import { loadGreetings } from "./actions";
@@ -3507,12 +3519,15 @@ function GreetingController() {
               &lt;button onClick={() => dispatch(loadGreetings())}>Load&lt;/button>
           </code></pre>
           </div>
-          <div class="fragment">
-            <p>
-              Die o.g. Frameworks erlauben, es "komplexe" und asynchrone Action Creator dafür zu
-              schreiben
-            </p>
-            <pre><code>
+        </section>
+        <section>
+          <h3>Asynchrone Actions</h3>
+          <em>Beispiel (konzeptionell)</em>
+          <p>
+            Schritt 2: <b>Action Creator</b>: Hier können jetzt weitere Actions, auch asynchron,
+            dispatched werden
+          </p>
+          <pre class="fragment"><code>
               // Action Creator (pseudo code)
               function loadGreetings() {
 
@@ -3527,35 +3542,55 @@ function GreetingController() {
                 }
               }
             </code></pre>
-          </div>
-          <p class="fragment">Reducer ebenfalls unverändert</p>
+        </section>
+
+        <section>
+          <h3>Asynchrone Actions</h3>
+          <em>Beispiel (konzeptionell)</em>
+          <p>Schritt 3: <b>Reducer</b>: Unverändert. Reducer empfangen "normale" Actions</p>
+        </section>
+
+        <section>
+          <h2>Beispiele für Middlewares zum Arbeiten mit Asynchronität</h2>
+          <ul>
+            <li>Thunk</li>
+            <li>Redux Saga</li>
+            <li>Redux Observable</li>
+          </ul>
         </section>
 
         <section>
           <h2>Redux Thunk</h2>
-          <em>Der Standard (?) für asynchone Action Verarbeitung</em>
+          <em>Die Standard (?) Middleware für asynchone Action Verarbeitung</em>
+          <p>
+            <a href="https://github.com/reduxjs/redux-thunk"
+              >https://github.com/reduxjs/redux-thunk</a
+            >
+          </p>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-    function loadGreeting(greetingId) => dispatch => {
-    fetch(BACKEND_URL+'/'+greetingId)
-        .then(response => response.json())
-        .then(greetings => dispatch({
-            type: SET_GREETINGS,
-            greetings
-        });
-    };
+              function saveGreeting(newGreeting) {
+                return async dispatch => {
+
+                  dispatch(apiRequestStart("Saving"));
+
+                  return postGreeting(newGreeting).then(
+                    greeting => {
+                      dispatch(requestSuccess());
+                      dispatch(addGreeting(greeting));
+                    },
+                    error => dispatch(requestFailure(error))
+                  );
+                };
+              }
     </code></pre>
           <ul>
             <li class="fragment">
-              Die Action wird nicht direkt zurück geliefert, sondern erst später dispatched
+              Die Action wird nicht direkt zurück geliefert, sondern eine Funktion
             </li>
             <li class="fragment">
-              wir bekommen die dispatch Methode als Parameter, mit der wir später die Action
-              dispatchen können
-              <ul>
-                <li>zu beliebigem Zeitpunkt</li>
-                <li>auch mehrere Actions</li>
-                <li>muss nicht asynchron sein</li>
-              </ul>
+              Die Funktion wird von der Middleware aufgerufen und bekommt die
+              <code>dispatch</code> Funktion als Parameter, mit der zu beliebigen Zeiten Actions
+              dispatched werden können.
             </li>
           </ul>
           <!-- <p class="fragment">
@@ -3568,6 +3603,8 @@ function GreetingController() {
 
         <section>
           <h2>Redux Saga</h2>
+          <p><a href="https://redux-saga.js.org">https://redux-saga.js.org</a></p>
+          <em>Ein eigener "Thread" für asynchrone Seiteneffekte</em>
           <p>
             Watcher Saga: horcht auf Actions und startet neue Worker Sagas (Tasks) bzw bricht
             laufende ab
@@ -3635,6 +3672,8 @@ export function* greetingSagas() {
         <section>
           <h2>Redux Observable</h2>
           <em>Basiert auf RxJS</em>
+          <p><a href="https://redux-observable.js.org/">https://redux-observable.js.org/</a></p>
+
           <ul>
             <li class="fragment">
               Zentrales Element: <b>Epic</b>: verarbeitet einen Stream von Actions und gibt einen
@@ -3689,14 +3728,27 @@ export function* greetingSagas() {
 
         <section>
           <h2>Und was nehmen wir nun?</h2>
-          <p><b>Thunk</b></p>
-          <p>De-facto Standard, weit verbreitet, in Redux Doku erwähnt</p>
-          <p><b>Saga</b></p>
-          <p>Testbarkeit ist sehr wichtig (interne Abläufe eines Action Creators)</p>
-          <p>Dinge wie Throttling, abbrechbare Actions etc sind wichtig</p>
-          <p><b>Saga</b></p>
-          <p>Man ist RxJS-Fan</p>
-          <p>Dinge wie Throttling, abbrechbare Actions etc sind wichtig</p>
+          <div class="fragment">
+            <p><b>Thunk</b></p>
+            <p>De-facto Standard, weit verbreitet, in Redux Doku erwähnt</p>
+            <p>
+              Teil des Unbehanges gegenüber Thunk wohl noch aus Promise-Zeiten vor async/await
+              (Callback-Hell)
+            </p>
+          </div>
+          <div class="fragment">
+            <p><b>Redux Saga</b></p>
+            <p>Testbarkeit ist sehr wichtig (interne Abläufe eines Action Creators)</p>
+            <p>Dinge wie Throttling, abbrechbare Actions etc sind wichtig</p>
+          </div>
+          <div class="fragment">
+            <p><b>Redux Observable</b></p>
+            <p>Man ist RxJS-Fan</p>
+            <p>Dinge wie Throttling, abbrechbare Actions etc sind wichtig</p>
+          </div>
+          <div class="fragment">
+            <p><em>Saga und Observable nur bei sehr komplexen Abläufen einsetzen</em></p>
+          </div>
         </section>
 
         <section id="t-context">
@@ -3727,8 +3779,8 @@ export function* greetingSagas() {
           </p>
 
           <ul>
-            <li class="fragment">funktioniert nur innerhalb einer Hierarchie-Ebene</li>
-            <li class="fragment">es können beliebg viele (fachliche) Context definiert werden</li>
+            <li class="fragment">funktioniert (nur) unterhalb einer Provider-Komponente</li>
+            <li class="fragment">es können beliebg viele (fachliche) Kontexte definiert werden</li>
             <li class="fragment">besteht aus <code>Provider</code> und <code>Consumer</code></li>
             <li class="fragment">
               <a href="https://reactjs.org/docs/context.html" target="_blank">Doku</a>
@@ -3771,7 +3823,9 @@ export function* greetingSagas() {
             </li>
             <li class="fragment">Nimmt ein Objekt ("Context") mit beliebigen Werten entgegen</li>
           </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+          <div class="fragment">
+            <p>Beispiel mit Klassenkomponente</p>
+            <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
                       const ThemeContext = React.createContext();
 
                       class ThemeProvider extends React.Component {
@@ -3790,11 +3844,28 @@ export function* greetingSagas() {
                         }
                       }                    
 </code></pre>
+          </div>
         </section>
 
         <section>
           <h2>Context Consumer</h2>
           <p><em>Eine React-Componente, die einen bestimmt Context konsumiert</em></p>
+          <p>Beispiel: Verwendung mit <code>useContext</code>-Hook</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                import ThemeContext from "...";
+
+                function GreetingDetail() {
+                  const theme = React.useContext(ThemeContext);
+
+                  return &lt;div className={this.context.theme}>...&lt;/div>
+                }
+                  </code></pre>
+        </section>
+
+        <section>
+          <h2>Context Consumer</h2>
+          <p><em>Eine React-Componente, die einen bestimmt Context konsumiert</em></p>
+          <p>Beispiel: Klassenkomponente mit <b>contextType</b></p>
 
           <ul>
             <li class="fragment">
@@ -3823,6 +3894,8 @@ export function* greetingSagas() {
 
         <section>
           <h2>Mehrere Context Consumer</h2>
+          <p>Beispiel: Klassenkomponente, die <b>mehrere</b> Kontexte konsumiert</p>
+
           <p>Als Render-Property</p>
           <ul>
             <li class="fragment">
@@ -3849,26 +3922,23 @@ export function* greetingSagas() {
                           </code></pre>
         </section>
 
-        <section id="t-hooks">
-          <h1>React Hooks API</h1>
-          <p>
-            <em
-              >Mit der React Hooks API lassen sich State und Lifecycle-Methoden auch in Funktionen
-              verwenden</em
-            >
-          </p>
-          <ul class="fragment">
-            <li>
-              <a href="https://github.com/nilshartmann/react-hook-and-suspense" target="_blank"
-                >Eine Beispiel Anwendung</a
-              >
-            </li>
-            <li>
-              <a href="https://www.youtube.com/watch?v=u1oRaO-RtCI" target="_blank"
-                >Einführungstalk zu Hooks auf YouTube</a
-              >
-            </li>
-          </ul>
+        <section>
+          <h2>Redux vs Context</h2>
+          <em>Beide Ansätze ermöglichen das Bereitstellen und Verändern von globalen Daten</em>
+          <div class="fragment">
+            <p><b>Redux</b></p>
+            <p>Ein globaler Store für alles</p>
+            <p>Architekturmuster mit Actions und Reducern</p>
+            <p>Sehr schnell auch bei großen Komponentenhierarchien und vielen Updates</p>
+            <p>Redux Dev Tools mit Time-travelling debugger</p>
+            <p>Middleware</p>
+          </div>
+          <div class="fragment">
+            <p><b>React Context</b></p>
+            <p>"Nur" Ersatz für Property durchschleifen</p>
+            <p>Feingranularer Einsatz möglich (z.B. ein Context pro Seite/Anwendungsteil)</p>
+            <p>Offizielle Empfehlung: nicht für Daten verwenden, die sich häufig ändern</p>
+          </div>
         </section>
 
         <section>
