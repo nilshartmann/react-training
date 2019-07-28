@@ -3824,26 +3824,29 @@ export function* greetingSagas() {
             <li class="fragment">Nimmt ein Objekt ("Context") mit beliebigen Werten entgegen</li>
           </ul>
           <div class="fragment">
-            <p>Beispiel mit Klassenkomponente</p>
             <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-                      const ThemeContext = React.createContext();
+                export const ThemeContext = React.createContext();
 
-                      class ThemeProvider extends React.Component {
-                        render() {
-                          const contextValue = {
-                            // the current theme
-                            theme: this.state.theme,
-                      
-                            // function to set new theme
-                            setTheme: name => this.setState({theme: name})
-                          };
-                      
-                          return &lt;ThemeContext.Provider value={contextValue}>
-                            {this.props.children}
-                          &lt;/ThemeContext.Provider>;
-                        }
-                      }                    
-</code></pre>
+                export default function ThemeProvider({ children }) {
+                  const [themeName, setThemeName] = React.useState("orange");
+                
+                  function switchTheme(newThemeName) {
+                    setThemeName(newThemeName);
+                  }
+                
+                  const contextValue = {
+                    availableThemes: [ "orange", "blue"],
+
+                    // the current theme
+                    themeName,
+                
+                    // function to set new theme
+                    switchTheme
+                  };
+                
+                  return &lt;ThemeContext.Provider value={contextValue}>{children}&lt;/ThemeContext.Provider>;
+                }
+                </code></pre>
           </div>
         </section>
 
@@ -3855,9 +3858,9 @@ export function* greetingSagas() {
                 import ThemeContext from "...";
 
                 function GreetingDetail() {
-                  const theme = React.useContext(ThemeContext);
+                  const {themeName} = React.useContext(ThemeContext);
 
-                  return &lt;div className={this.context.theme}>...&lt;/div>
+                  return &lt;div className={themeName}>...&lt;/div>
                 }
                   </code></pre>
         </section>
@@ -3886,10 +3889,11 @@ export function* greetingSagas() {
                       render() {
                         // this.context ist Objekt aus dem ThemeContext.Provider
                         // z.B.:
-                        return &lt;div className={this.context.theme}>...&lt;/div>
+                        return &lt;div className={this.context.themeName}>...&lt;/div>
                       }
                     }
                       </code></pre>
+
         </section>
 
         <section>
@@ -3915,7 +3919,7 @@ export function* greetingSagas() {
                         function GreetingMaster(props) {
                           return &lt;ThemeContext.Consumer>
                             { themeContext => {
-                              return &lt;div className={themeContext.theme}>...&lt;/div>
+                              return &lt;div className={themeContext.themeName}>...&lt;/div>
                             }}
                             &lt;/ThemeContext.Consumer>;
                         }

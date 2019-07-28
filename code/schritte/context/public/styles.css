@@ -1,0 +1,254 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  margin-top: 2rem;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.6);
+  background-color: #f2f2f2;
+  font-family: "Lato", sans-serif;
+  font-size: 1.2rem;
+}
+
+input {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.6);
+
+  box-shadow: 4px 4px 7px 0px rgba(208, 208, 208, 1);
+}
+
+.blue input {
+  border: 1px solid rgba(41, 128, 185, 0.5);
+  background-color: rgba(41, 128, 185, 0.7);
+}
+
+.orange input {
+  border: 1px solid rgba(255, 187, 120, 0.7);
+  background-color: rgba(255, 187, 120, 0.5);
+}
+
+input:focus {
+  outline: none;
+}
+
+.orange input:focus {
+  border: 1px solid rgb(255, 187, 120);
+  background-color: rgba(255, 187, 120, 0.3);
+}
+
+.blue input:focus {
+  border: 1px solid rgb(41, 128, 185);
+  background-color: rgba(41, 128, 185, 0.3);
+}
+
+button {
+  padding: 0.5rem;
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+  color: #e9e9e9;
+  border: 0;
+  box-shadow: 4px 4px 7px 0 rgba(208, 208, 208, 1);
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.blue button {
+  background-color: rgba(41, 128, 185, 0.7);
+}
+
+.blue button:hover {
+  background-color: #4995c7;
+}
+
+.orange button {
+  background-color: rgba(255, 127, 14, 0.7);
+}
+
+.orange button:hover {
+  background-color: rgba(255, 127, 14);
+}
+
+button:disabled {
+  color: rgba(233, 233, 233, 0.8);
+  cursor: default;
+}
+
+.orange button:disabled {
+  background-color: rgba(255, 127, 14, 0.4);
+}
+
+.blue button:disabled {
+  background-color: rgba(72, 148, 199, 0.4);
+}
+
+table {
+  width: 100%;
+  border-spacing: 0;
+
+  box-shadow: 4px 4px 7px 0 rgba(208, 208, 208, 1);
+}
+
+thead {
+  width: 100%;
+  color: #fefff2;
+}
+
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+  margin: 0;
+  padding: 0.5rem;
+  border: 0;
+}
+
+th {
+  font-weight: 700;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+}
+
+.orange th {
+  background-color: rgba(255, 127, 14, 0.7);
+}
+
+.blue th {
+  background-color: rgba(41, 128, 185, 0.7);
+}
+
+.orange tr:nth-child(odd) {
+  background-color: rgba(255, 187, 120, 0.7);
+}
+
+.blue tr:nth-child(odd) {
+  background-color: rgba(41, 128, 185, 0.7);
+}
+
+.orange tr:nth-child(even) {
+  background-color: rgba(255, 187, 120, 0.5);
+}
+
+.blue tr:nth-child(even) {
+  background-color: rgba(41, 128, 185, 0.5);
+}
+
+table ~ button {
+  margin-top: 1rem;
+  margin-left: 0;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.SelectableTable tbody tr {
+  cursor: pointer;
+}
+
+table a {
+  color: rgba(0, 0, 0, 0.6);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+table a:hover {
+  text-decoration: underline;
+}
+
+#mount {
+  border: 1px solid #e9e9e9;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 5px 5px 8px 0 rgba(208, 208, 208, 1);
+}
+
+.Left {
+  width: 50%;
+  float: left;
+}
+
+.Right {
+  width: 50%;
+  float: left;
+}
+
+.Title {
+  display: flex;
+  display: -webkit-flex; /* Safari */
+  justify-content: space-between;
+
+  padding: 0 0 0.5rem 0;
+  margin: 0 0 1.5rem;
+}
+
+.Title.orange {
+  border-bottom: 3px solid rgba(255, 127, 14, 0.7);
+}
+
+.Title.blue {
+  border-bottom: 3px solid rgba(41, 128, 185, 0.5);
+}
+
+h1 {
+  flex: auto;
+  margin: 0;
+  padding: 0;
+}
+
+div.Counter {
+  margin-top: auto;
+}
+
+div.FilterPanel {
+  margin-top: 0.7rem;
+  font-size: 15px;
+}
+
+div.FilterPanel a {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.Filter h1 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* http://nicolasgallagher.com/micro-clearfix-hack */
+.Main:before,
+.Main:after,
+.Title:before,
+.Title:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+.Main:after,
+.Title:after {
+  clear: both;
+}
+
+.ThemeChooser {
+  display: flex;
+}
+
+.ThemeChooser .Chooser {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  border: 1px solid rgba(208, 208, 208, 1);
+  cursor: pointer;
+}
+
+.ThemeChooser .Chooser.orange {
+  background-color: rgba(255, 127, 14, 0.7);
+}
+
+.ThemeChooser .Chooser.blue {
+  background-color: rgba(41, 128, 185, 0.5);
+}
