@@ -3191,7 +3191,9 @@ function GreetingDetail(props) {
         <section id="t-redux">
           <h1>Teil V</h1>
           <h2>Zustands-Management mit Redux</h2>
-          <a href="code/schritte/7a-redux-complete/public/index.html" target="_blank">Ziel-Anwendung</a>
+          <a href="code/schritte/7a-redux-complete/public/index.html" target="_blank"
+            >Ziel-Anwendung</a
+          >
         </section>
 
         <section>
@@ -3455,6 +3457,39 @@ function GreetingController() {
           <p>Es gibt unterschiedliche Arten von "State"</p>
 
           <img src="slides/images/three-kinds-of-state.png" style="max-height:650px" />
+        </section>
+
+        <section>
+          <h2>Übung: Redux</h2>
+          <em
+            >Entwickle die "Filter"-Funktionalität: beim Klicken auf einen Gruß in der Tabelle oder
+            dem Chart wird der gewählte Empfänger als 'Filter' gesetzt und nur noch dessen Grüße
+            werden angezeigt. Bei erneutem Klick auf denselben Namen wird der Filter aufgehoben
+          </em>
+          <p class="fragment">
+            <b
+              >Achtung! Bitte arbeite im Verzeichnis <code>code/workspace-redux</code> und starte
+              das Frontend dort mit <code>npm start</code></b
+            >
+          </p>
+          <p class="fragment">
+            Du must den Action Creator und den Reducer bauen. Außerdem die neue Action dispatchen
+          </p>
+          <p class="fragment">Dazu sind in folgenden Dateien TODOs eingetragen:</p>
+          <ul class="fragment">
+            <li>actions.js</li>
+            <li>GreetingMaster.js</li>
+            <li>reducers.js (danach sollten die Filter über den Greeting Master funktionieren)</li>
+            <li>Chart.js</li>
+          </ul>
+          <p class="fragment">
+            Du kannst die
+            <a
+              href="https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=de"
+              >Redux Dev Tools für Chrome</a
+            >
+            installieren, um die Actions zu sehen
+          </p>
         </section>
 
         <section>
@@ -3894,7 +3929,6 @@ export function* greetingSagas() {
                       }
                     }
                       </code></pre>
-
         </section>
 
         <section>
