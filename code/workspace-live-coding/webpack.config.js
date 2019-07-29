@@ -14,5 +14,8 @@ module.exports = {
       }
     ]
   },
-  devtool: "inline-source-map"
+  devtool: "inline-source-map",
+  devServer: {
+    stats: "minimal"
+  }
 };
