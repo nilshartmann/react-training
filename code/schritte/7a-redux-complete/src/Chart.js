@@ -1,31 +1,33 @@
 import React from "react";
-import PropTypes from "prop-types";
 import d3 from "d3";
 import nv from "nvd3";
 
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as actions from "./actions";
 import { aggregateGreetings } from "./selectors";
 
-class Chart extends React.Component {
-  static propTypes = {
-    data: PropTypes.array.isRequired,
-    onSegmentSelected: PropTypes.func
-  };
+export default function Chart() {
+  const _d3selection = React.useRef();
+  const _chart = React.useRef();
+  const _nvd3chart = React.useRef();
 
-  shouldComponentUpdate() {
-    return false;
+  const dispatch = useDispatch();
+  const greetings = useSelector(store => store.greetings.greetings);
+  const data = aggregateGreetings(greetings);
+
+  function segmentSelected(event) {
+    const selectedLabel = event.data.label;
+    dispatch(actions.setFilter(selectedLabel));
   }
 
-  // will be called even when shouldComponentUpdate returns false
-  componentWillReceiveProps(nextProps) {
-    const { data } = nextProps;
-    this._d3selection && this._d3selection.datum(data).call(this._nvd3chart);
-  }
+  React.useEffect(() => {
+    if (_nvd3chart.current) {
+      // Update
+      _d3selection.current && _d3selection.current.datum(data).call(_nvd3chart.current);
+      return;
+    }
 
-  componentDidMount() {
-    // http://nvd3.org/examples/pie.html
     nv.addGraph(() => {
       const chart = nv.models
         .pieChart()
@@ -34,39 +36,18 @@ class Chart extends React.Component {
         .showLabels(true);
       chart.legend.updateState(false);
 
-      const { data, onSegmentSelected } = this.props;
-      this._d3selection = d3.select(this._chart);
+      _d3selection.current = d3.select(_chart.current);
+      _d3selection.current.datum(data).call(chart);
 
-      this._d3selection.datum(data).call(chart);
-
-      this._nvd3chart = chart;
-      if (onSegmentSelected) {
-        chart.pie.dispatch.on("elementClick", e => onSegmentSelected(e.data.label));
-      }
+      _nvd3chart.current = chart;
+      chart.pie.dispatch.on("elementClick", segmentSelected);
       return chart;
     });
-  }
+  }, [data]);
 
-  render() {
-    const svgStyle = {
-      height: "500px",
-      width: "600px"
-    };
-    return (
-      <svg
-        style={svgStyle}
-        className="with-3d-shadow with-transitions"
-        ref={c => (this._chart = c)}
-      />
-    );
-  }
+  const svgStyle = {
+    height: "500px",
+    width: "600px"
+  };
+  return <svg style={svgStyle} className="with-3d-shadow with-transitions" ref={_chart} />;
 }
-
-export default connect(
-  state => ({
-    data: aggregateGreetings(state.greetings.greetings)
-  }),
-  dispatch => ({
-    onSegmentSelected: filter => dispatch(actions.setFilter(filter))
-  })
-)(Chart);
