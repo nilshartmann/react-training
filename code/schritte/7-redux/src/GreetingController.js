@@ -24,27 +24,22 @@ export default function GreetingController() {
   }, []);
 
   async function addGreeting(greetingToBeAdded) {
-    let newGreeting;
-    try {
-      const response = await fetch(BACKEND_URL, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(greetingToBeAdded)
-      });
-      if (response.status !== 201) {
-        throw new Error("Invalid status code: " + response.status);
-      }
-      newGreeting = await response.json();
-    } catch (err) {
-      console.error("LOADING GREETINGS FAILED:", err);
-    }
-    dispatch(actions.addGreeting(newGreeting));
+    await dispatch(actions.saveGreetingToServer(greetingToBeAdded));
+
+    // DISCUSS:
+    // is this the best place for SAVE and NAVIGATE? (2 different concerns???)
+
+    // Possible options:
+    // 1. navigation part of saveGreeting logic (i.e move following dispatch
+    //    call to saveGreeting action creator)
+    // 2. write an own action creator (addAndNavigate) that re-uses saveGreeting
+    // 2a. error handling?
+    // 3. stay here as it is now?
+    // 3a. error handling? we have no idea that saving greetings failed
+    // 4. more?
+
     dispatch(actions.openMasterView());
   }
-
   if (mode === MODE_MASTER)
     return (
       <GreetingMaster

@@ -46,3 +46,27 @@ export function loadGreetingsFromServer() {
     }
   };
 }
+
+export function saveGreetingToServer(greetingToBeAdded) {
+  return async dispatch => {
+    let newGreeting;
+    try {
+      const response = await fetch(BACKEND_URL, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(greetingToBeAdded)
+      });
+      if (response.status !== 201) {
+        throw new Error("Invalid status code: " + response.status);
+      }
+      newGreeting = await response.json();
+    } catch (err) {
+      console.error("LOADING GREETINGS FAILED:", err);
+      return;
+    }
+    dispatch(addGreeting(newGreeting));
+  };
+}
