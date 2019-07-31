@@ -123,6 +123,12 @@
               <li>
                 <a href="#/t-redux">Teil V: Externes Statemanagement mit Redux</a>
               </li>
+              <li>
+                <a href="#/t-context"
+                  >Statemanagement mit React Mitteln: <code>useContext</code> und
+                  <code>useReducer</code></a
+                >
+              </li>
               <li style="font-size: 75%">
                 <a href="#/t-test">Teil VI: Testen von React Anwendungen (Überblick, optional)</a>
               </li>
@@ -3795,7 +3801,9 @@ export function* greetingSagas() {
         <section>
           <h2>Problem</h2>
           <h3>Zentrale Daten, die an vielen Stellen benötigt werden</h3>
-          <a href="code/schritte/context/public/index.html"><img src="slides/images/context-screenshot.png" style="max-height:650px" /></a>
+          <a href="code/schritte/context/public/index.html"
+            ><img src="slides/images/context-screenshot.png" style="max-height:650px"
+          /></a>
         </section>
         <section>
           <h2>Ansatz 1: Properties durchreichen</h2>
