@@ -3987,6 +3987,352 @@ export function* greetingSagas() {
             <p>Offizielle Empfehlung: nicht für Daten verwenden, die sich häufig ändern</p>
           </div>
         </section>
+        <section id="t-test">
+            <h1>Teil IV</h1>
+            <h2>Testen von React Anwendungen</h2>
+            <ul style="font-size:85%">
+              <li>
+                <a href="code/schritte/4-test/public/index.html" target="_blank">Ziel-Anwendung</a>
+              </li>
+              <li>
+                <a href="code/schritte/4-test/test-report.html" target="_blank">Test Report</a>
+              </li>
+          
+              <li>
+                <a href="code/schritte/4-test/coverage/lcov-report/index.html" target="_blank"
+                  >Coverage Report</a
+                >
+              </li>
+            </ul>
+          </section>
+          
+          <section data-transition="slide none">
+            <h2>Was testen wir überhaupt?</h2>
+            <ul>
+              <li class="fragment"><b>UI-unabhängige Logik</b> (z.B. Services, Backend-Calls)</li>
+              <li class="fragment">
+                <b>Rendern</b> (wird meine Greeting-Liste für ein Satz von Greetings korrekt dargestellt)
+              </li>
+              <li class="fragment"><b>Interaktionen</b> (funktionieren meine Event-Listener korrekt)</li>
+              <li class="fragment">
+                <b>Verhalten im Browser</b> (z.B. korrekte Darstellung, Browser-spezifisches JavaScript,
+                Arbeiten mit history, Titelzeile, Scrollbars etc)
+              </li>
+            </ul>
+          </section>
+          
+          <section data-transition="slide none">
+            <h2>Was testen wir überhaupt?</h2>
+            <ul>
+              <li style="color: lightgrey">
+                <b>UI-unabhängige Logik</b>
+              </li>
+              <li>
+                <b>Rendern</b> (wird meine Greeting-Liste für ein Satz von Greetings korrekt dargestellt)
+              </li>
+              <li><b>Interaktionen</b> (funktionieren meine Event-Listener korrekt)</li>
+              <li style="color: lightgrey">
+                <b>Verhalten im Browser</b> (z.B. korrekte Darstellung, Browser-spezifisches JavaScript,
+                Arbeiten mit history, Titelzeile, Scrollbars etc)
+              </li>
+            </ul>
+          </section>
+          
+          <section>
+            <h1>Jest</h1>
+            <p>
+              <em
+                >"Delightful JavaScript Testing" (
+                <a href="http://facebook.github.io/jest/" target="_blank">http://facebook.github.io/jest/</a
+                >)</em
+              >
+            </p>
+            <p class="fragment">
+              Vollständige Test-Lösung, wird von Facebook für Testen von React verwendet:
+            </p>
+            <ul class="fragment">
+              <li>Test Runner</li>
+              <li>Specs, Assertions, Mocks</li>
+              <li>Code Coverage</li>
+              <li>"Snapshot testing"</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Jest</h4>
+            <h3>Beispiel: Ein einfacher Test</h3>
+            <pre><code class="javascript" contenteditable data-trim>// sum.js (oder sum.ts)
+          export const sum = (a,b) => a+b;
+          </code></pre>
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>// sum.test.js
+          import {sum} from '../sum.js';
+          
+          test('sum of 2 and 2 is 4', () => {
+          expect(sum(2, 2)).toBe(4);
+          });
+          
+          test('sum of 2 and 2 is not 3', () => {
+          expect(sum(2, 2)).not.toBe(3);
+          });
+              </code></pre>
+          </section>
+          <section>
+            <h4>Jest</h4>
+            <h2>Testcases</h2>
+            <p>
+              <code>test</code> oder
+              <code>it</code>
+            </p>
+            <pre><code data-trim contenteditable>test('it should work', () => {
+          expect(...).toBe(...);
+          });</code></pre>
+            <pre><code data-trim contenteditable>it('it should also work', () => {
+          expect(...).toBe(...);
+          });</code></pre>
+          </section>
+          
+          <section>
+            <h4>Jest</h4>
+            <h2>Expectations und Matcher</h2>
+            <div class="fragment">
+              <p>
+                <code>expect()</code> liefert eine <em>Expectation</em> zurück, auf der
+                <em>Matcher</em> definiert sind:
+              </p>
+              <pre><code data-trim contenteditable>expect(actual).toXyz(expected);
+          // for example:
+          expect("Hello Jest").toBe("Hello Jest"); // => ok
+          </code></pre>
+            </div>
+            <div class="fragment">
+              <p>Einige Matcher</p>
+          
+              <pre><code data-trim contenteditable>// Vergleich auf Identität
+          expect(actual).toBe(expected);
+          // Inhaltsvergleich:
+          expect(actual).toEqual(expected);
+          // true / false / null:
+          expect(actual).toBeTruthy();
+          expect(actual).toBeFalsy();
+          expect(actual).toBeNull();
+          // Länge (Array oder String)
+          expect(actual).toHaveLength(123);
+          </code></pre>
+            </div>
+            <p class="fragment">
+              <a href="https://facebook.github.io/jest/docs/expect.html#content"
+                >https://facebook.github.io/jest/docs/expect.html#content</a
+              >
+            </p>
+          </section>
+          
+          <section>
+            <h4>Jest</h4>
+            <h2>Mock Funktionen</h2>
+            <ul>
+              <li class="fragment">
+                <code>jest.fn()</code> erzeugt eine Mock-Funktion
+                <pre><code data-trim contenteditable>// Liefert undefined zurück, wenn ausgeführt
+          const aMockFn = jest.fn();
+          
+          aMockFn("huhu"); // => undefined
+          
+          expect(aMockFn).toHaveBeenCalled());
+          expect(aMockFn.toHaveBeenCalledWith("huhu"));
+                        </code></pre>
+              </li>
+          
+              <li class="fragment">
+                Implementierung der Mockfunktion kann als Parameter übergeben werden:
+                <pre><code data-trim contenteditable>
+          const aMockFn = jest.fn( param => `Hello, ${param}` );
+          
+          console.log(aMockFn('World'));
+          // => Hello, World
+                    </code></pre>
+              </li>
+            </ul>
+          </section>
+          
+          <section>
+            <h3>Testen von React Komponenten</h3>
+            <h2>Nur Rendering</h2>
+          </section>
+          
+          <section>
+            <h3>React Test Renderer</h3>
+            <p>
+              <a href="https://www.npmjs.com/package/react-test-renderer"
+                >https://www.npmjs.com/package/react-test-renderer</a
+              >
+            </p>
+            <p>Rendert React Komponenten in JSON Objekte (ohne DOM):</p>
+            <pre
+              class="fragment"
+            ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
+          
+          const component = renderer.create(
+          &lt;GreetingMaster greetings={someGreetings} />
+          );
+          
+          console.log(component.toJSON());
+              </code></pre>
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+          { type: 'div',
+          props: {},
+          children:  [
+          { type: 'table', props: {}, children: [Object] },
+          { type: 'button', props: [Object], children: [Object] }
+          ]
+          }
+              </code></pre>
+          </section>
+          <section>
+            <h3>"Snapshot Testing" mit Jest</h3>
+            <p>
+              <code>expect(obj).toMatchSnapshot()</code> vergleicht ein JSON-Objekt mit einer gespeicherten
+              Datei:
+            </p>
+            <ul>
+              <li class="fragment">
+                Bei <b>erster</b> Ausführung: legt Snapshot-File an (
+                <a href="slides/images/jest-snapshot-file.png" target="_blank">Beispiel</a>)
+                <ul>
+                  <li class="fragment">Snapshotdateien werden in Git versioniert</li>
+                </ul>
+              </li>
+              <li class="fragment">
+                Bei <b>folgenden</b> Ausführungen: erzeugt neuen Snapshot und vergleicht mit gespeichtertem
+                Snapshot
+              </li>
+              <li class="fragment">
+                Wenn Snapshots unterschiedlich
+                <ul>
+                  <li>
+                    Fehler samt Diff (
+                    <a href="slides/images/jest-snapshot-diff.png" target="_blank">Beispiel</a>)
+                  </li>
+                  <li>
+                    Im Watch Mode kann Snapshot aktualisiert werden
+                    <img src="slides/images/jest-snapshot-update.png" />
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          
+          <section>
+            <h3>Snapshot Testing mit Jest und React</h3>
+            <pre
+              class="fragment"
+            ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
+          
+          test('it should render correctly', () => {
+          
+          const someGreetings = [ . . . ];
+          
+          const component = renderer.create(
+          &lt;GreetingMaster greetings={someGreetings} />
+          );
+          
+          expect(component.toJSON()).toMatchSnapshot();
+          });
+              </code></pre>
+            <p class="fragment">
+              <em
+                >Snapshot sagt nicht, ob UI richtig oder falsch gerendert wird, sondern nur, ob sie verändert
+                wurde!</em
+              >
+            </p>
+          </section>
+          
+          <section>
+            <h3>Testen von React Komponenten, Teil 2</h3>
+            <h2>Interaktion</h2>
+          </section>
+          
+          <section>
+            <h3>Option 1: Enzyme</h3>
+            <p>
+              <em
+                >JavaScript Testing utilities for React (
+                <a href="http://airbnb.io/enzyme/" target="_blank">http://airbnb.io/enzyme/</a>)</em
+              >
+            </p>
+            <p>Bibliothek mit Funktionen zum Testen von React Komponenten</p>
+            <ul>
+              <li class="fragment">
+                Rendern von Komponenten:
+                <ul>
+                  <li><b>shallow</b> zum "flachen" Rendern einer Komponente</li>
+                  <li><b>mount</b> zum Rendern einer Komponete in einen (headless) DOM, z.B. jsdom</li>
+                </ul>
+              </li>
+              <li class="fragment">
+                Navigieren durch den DOM und Suchen von Elementen und Komponenten
+              </li>
+              <li class="fragment">Modifizieren von Komponenten und Auslösen von Events</li>
+            </ul>
+          </section>
+          
+          <section>
+            <h3>Testen einer Komponente mit Jest und Enzyme</h3>
+            <pre
+              class="fragment"
+            ><code class="javascript" contenteditable data-trim>import {mount} from 'enzyme';
+          import GreetingController from '...';
+          import GreetingDetail from '...';
+          
+          test('it should open detail view on button click', () => {
+          // mount the component into a real dom (implemented by JSDom)
+          const component = mount(&lt;GreetingController  />);
+          
+          // on initial render the list with greetings (GreetingMaster)
+          // is visible but no GreetingDetail
+          expect(component.find(GreetingDetail)).toHaveLength(0);
+          
+          // find the "add" Button...
+          const addButton = component.find('button');
+          
+          // click on the button
+          addButton.simulate('click');
+          
+          // now the GreetingDetail should be visible
+          expect(component.find(GreetingDetail)).toHaveLength(1);
+          });
+              </code></pre>
+          </section>
+          
+          <section>
+            <h3 class="todo">Option 2: react-testing-library</h3>
+            <p>
+              <em
+                >Simple and complete React DOM testing utilities that encourage good testing practices." (
+                <a href="https://github.com/testing-library/react-testing-library" target="_blank"
+                  >https://github.com/testing-library/react-testing-library</a
+                >)</em
+              >
+            </p>
+            <p>
+              Tests sollen aus Benutzersicht geschrieben sein. Suche nach sichtbaren Strings etc, eher keine
+              CSS-Klassen etc
+            </p>
+            <pre
+              class="fragment"
+            ><code class="javascript" contenteditable data-trim>import { render, fireEvent } from "@testing-library/react";
+          import GreetingController from '...';
+          import GreetingDetail from '...';
+          
+          test('it should open detail view on button click', () => {
+          const { getByText, queryByText } = render(&lt;GreetingController />);
+          expect(queryByText("Save")).not.toBeInDocument();
+          
+          fireEvent.click(getByText("Add"));
+          expect(getByText("Greeting")).toBeInDocument();
+          
+          });
+              </code></pre>
+          </section>
+          
         <section id="t-router">
           <h1>Teil VII</h1>
           <h2>Client-seitiges Routing (Überblick)</h2>
