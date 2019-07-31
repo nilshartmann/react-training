@@ -6,7 +6,11 @@ export default function ThemeChooser() {
   return (
     <div className="ThemeChooser">
       {availableThemes.map(themeName => (
-        <div className={`Chooser ${themeName}`} onClick={() => switchTheme(themeName)}>
+        <div
+          key={themeName}
+          className={`Chooser ${themeName}`}
+          onClick={() => switchTheme(themeName)}
+        >
           &nbsp;
         </div>
       ))}
