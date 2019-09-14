@@ -66,6 +66,12 @@ code span.line-number {
   margin-bottom: 10px;
 }
 
+.reveal .img-fullsize {
+  border: 0;
+  box-shadow: 0 0 0 0;
+  height: 650px;
+}
+
 /*rgb(196, 215, 240)*/
 
 html.title body {

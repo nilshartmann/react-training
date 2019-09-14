@@ -44,11 +44,38 @@
           </h4>
 
           <p style="margin-top:4rem">
-            <span class="transparent-bg">Slides: react-training/2019_react_training.html
+            <span class="transparent-bg"
+              >Slides: react-training/2019_react_training_september.html
             </span>
-            <p><span class="transparent-bg">Oder: https://nils.buzz/react-training-juli</span></p>
-            
           </p>
+
+          <p>
+            <span class="transparent-bg">Oder: https://nils.buzz/react-training-september</span>
+          </p>
+        </section>
+        <section>
+          <h2>Nils Hartmann</h2>
+          <p>
+            <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a> /
+            <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+          <p><em>Freiberuflicher Entwickler, Architekt, Trainer aus Hamburg </em></p>
+
+          <div style="display:flex;justify-content:center">
+            <div style="margin-right:15px">
+              <p>Java</p>
+              <p>JavaScript, TypeScript</p>
+              <p>React</p>
+              <p>Single-Page-Anwendungen</p>
+              <p>GraphQL</p>
+            </div>
+
+            <div style="margin-left:15px">
+              <a href="https://reactbuch.de"
+                ><img style="max-height:450px" src="slides/images/reactbuch-de.png"
+              /></a>
+            </div>
+          </div>
         </section>
 
         <section>
@@ -117,8 +144,29 @@
             <li class="fragment">Framework von und für Facebook</li>
             <li class="fragment">
               Eingesetzt u.a. von Microsoft, Paypal, Spotify, ... <br />daserste.de, xing.de,
-              saturn.de, ticketmaster.de, aok.de
+              saturn.de, ticketmaster.de, sueddeutsche.de, aok.de
             </li>
+          </ul>
+        </section>
+        <section>
+          <h2>React</h2>
+          <h3>Beispiel: daserste.de</h3>
+          <a href="https://www.daserste.de/"
+            ><img class="img-fullsize" src="slides/images/screenshot-daserste-wetter.png"
+          /></a>
+        </section>
+
+        <section>
+          <h2>React</h2>
+          <h3>Beispiel: daserste.de (React als Widget)</h3>
+          <a href="https://www.daserste.de/"
+            ><img class="img-fullsize" src="slides/images/screenshot-daserste-wetter-widget.png"
+          /></a>
+        </section>
+
+        <section>
+          <h2>React</h2>
+          <ul>
             <li class="fragment">Minimales API</li>
             <li class="fragment">
               Minimales Feature Set
@@ -552,7 +600,6 @@ greet("Sam", goodbye()) // Uncaught TypeError: greetingProvider is not a functio
           <p>
             <em><b>ECMAScript 5:</b> Veröffentlicht 2015</em>
           </p>
-          <p class="todo">Liste der JavaScript-Versionen in tabellarischer Form, wie im Buch, as js-webdev Trainig übernehmen</p>
 
           <div class="fragment">
             <ul>
@@ -761,8 +808,8 @@ greet("Sam", goodbye()) // Uncaught TypeError: greetingProvider is not a functio
             target="_blank"
             >User Guide</a
           >
-          <p>Bootstrap von React Anwendung</p>
-          <p>Fertige Konfiguration von Webpack, React, ...</p>
+          <p>Bootstrap von neuen React Anwendung</p>
+          <p>Fertige Konfiguration von React und Webpack mit TypeScript, Sass, Linter</p>
           <p>Beispiel: npx create-react-app PROJEKTNAME --typescript</p>
         </section>
         <section>
@@ -900,8 +947,8 @@ greet("Sam", goodbye()) // Uncaught TypeError: greetingProvider is not a functio
             <li class="fragment">
               Muss <b>genau ein</b> (Root-)Element zurückgeben (oder null, false/true)
             </li>
-            <li class="fragment">Neu: Über Hooks kann Zustand verwendet werden</li>
-            <li class="fragment">Neu: Über Hooks kann am Lifecycle partizipiert werden</li>
+            <li class="fragment">Über Hooks kann Zustand verwendet werden</li>
+            <li class="fragment">Über Hooks kann am Lifecycle partizipiert werden</li>
           </ul>
         </section>
 
@@ -1137,8 +1184,8 @@ function NavBar(props) {
             <li class="fragment"><b>Werte</b> üblicherweise immutable</li>
             <li class="fragment">Arbeiten mit Zustand über <b>useState</b>-Hook</li>
             <li class="fragment">
-              useState liefert zwei Werte zurück: aktuellen Zustand, und setter-Funktion um Zustand
-              zu verändern
+              useState liefert Array mit zwei Werten zurück: aktuellen Zustand, und setter-Funktion
+              um Zustand zu verändern
             </li>
           </ul>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
@@ -1301,13 +1348,6 @@ function GreetingDetail(props) {
                   const [greeting, setGreeting] = initState();
                 }
               </code></pre>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                  // ERLAUBT (GreetingDetail ist Komponente, als Arrow-Funktion)
-                  const GreetingDetail = props => {
-                    const [greeting, setGreeting] = useState("hallo");
-                    return ...;
-                  }
-                </code></pre>
         </section>
         <section>
           <h3>useState: Details</h3>
@@ -1362,42 +1402,6 @@ function GreetingDetail(props) {
           </ul>
         </section>
 
-        <!-- <section>
-          <h3>React: Events und Data Binding</h3>
-          <p>
-            <em>Es gibt keine automatische Bindung an Modelle (2-Wege Databinding)</em>
-          </p>
-          <ul>
-            <li class="fragment">React verwendet eigene Events</li>
-            <li class="fragment">
-              DOM-Events werden in React-Events verpackt
-              <ul>
-                <li>React-Events haben weitgehend selbe API wie DOM-Events</li>
-              </ul>
-            </li>
-            <li class="fragment">
-              Besonderes Event:
-              <b>onChange</b>
-              <ul>
-                <li>
-                  onChange ist auf <code>input</code>, <code>textarea</code>,
-                  <code>select</code> definiert und verhält sich Komponenten- und
-                  Browser-übergreifend einheitlich
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <pre class="fragment"><code class="xml" contenteditable data-trim>
-function GreetingDetail(props) {
-    return (
-        &lt;input onChange={event => . . .} />
-    );
-  }
-  // ...
-}
-</code></pre>
-        </section> -->
-
         <section>
           <h3>Render Zyklus</h3>
           <img src="slides/images/event-zustand-render.png" height="550px" />
@@ -1414,6 +1418,9 @@ function GreetingDetail(props) {
           <ul>
             <li class="fragment">
               <code>React.useRef() </code> erzeugt ein allgemeines Referenz-Objekt
+            </li>
+            <li class="fragment">
+              Das zurückgegebene Objekt ist über alle Render-Zyklen einer Komponente hinweg stabil
             </li>
             <li class="fragment">Die Referenz kann bei einer Komponente angegeben werden</li>
             <li class="fragment">
@@ -1792,7 +1799,7 @@ function GreetingMaster(props) {
             </li>
 
             <li>
-              erweitere im <code>GreetingController</code> die render-Methode, so dass dein
+              erweitere den <code>GreetingController</code>, so dass dein
               <code>GreetingDetail</code> angezeigt wird, wenn der Benutzer den Add-Button klickt:
               <ul>
                 <li>
@@ -2276,7 +2283,7 @@ console.log(programmer instanceof Person); // true</code></pre>
         <!-- ENDE KLASSEN -->
 
         <section>
-          <h2>Übung: Ein ErrorBoundary implementieren</h2>
+          <h2>Übung: Ein ErrorBoundary implementieren (bei Interesse)</h2>
           <p>
             <em>
               Vervollständige die ErrorHandler-Komponente, um ein Gefühl für das Arbeiten mit State
@@ -2314,15 +2321,6 @@ export default function GreetingDetail(props) {
             <li class="fragment">
               Vervollständige nun die Klasse <code>ErrorHandler</code>. Dort sind entsprechende
               TODOs eingetragen
-            </li>
-            <li class="fragment">
-              Optional 1: schaffst Du es, die Klasse so zu erweitern, dass nach Klick auf "Try
-              again" über den Children ein Hinweis mit einer Entschuldigung ausgegeben wird ("We're
-              sorry!")?
-            </li>
-            <li class="fragment">
-              Optional 2: schaffst Du es, dass die Entschuldigung automatisch nach einigen Sekunden
-              wieder verschwindet?
             </li>
           </ol>
         </section>
@@ -2620,21 +2618,17 @@ async function loadData() {
         <section>
           <h3>Initiales Laden von Daten</h3>
           <p>
-            <em
-              >Laden von Daten sind Seiteneffekte, Komponenten müssen aber Seiteneffekt-frei
-              sein</em
-            >
+            <em> Komponenten müssen Seiteneffekt-frei sein</em>
           </p>
-
-          <div class="fragment">
-            <img style="height: 500px" src="slides/images/comp_lifecycle_new.jpg" />
-            <br /><a
-              style="font-size:small"
-              href="https://twitter.com/ManuelBieh/status/994618772999884800"
-              >https://twitter.com/ManuelBieh/status/994618772999884800</a
-            >
-            <p>Nur in der "Commit Phase" dürfen Seiteneffekte ausgeführt werden</p>
-          </div>
+          <p>Beispiele für Seiteneffekte:</p>
+          <ul>
+            <li>
+              Daten laden
+            </li>
+            <li>DOM verändern</li>
+            <li>Websockets Verbindung öffnen</li>
+            <li>console.log �</li>
+          </ul>
         </section>
         <section>
           <h3>useEffekt-Hook</h3>
@@ -2662,10 +2656,6 @@ async function loadData() {
             >Der useEffekt-Hook erlaubt es Seiteneffekte zu definierten Zeitpunkten auszuführen</em
           >
           <ul>
-            <li class="fragment">
-              Beispiele: Laden von Daten, Arbeiten mit nativen DOM-Elementen, Counter
-              starten/stoppen
-            </li>
             <li class="fragment">
               Zeitpunkte: nach initialem Rendern der Komponente, nach Rendern durch Aktualisierung
               und nach dem Entfernen aus dem DOM
@@ -2808,10 +2798,10 @@ async function loadData() {
                 const [greeting, setGreeting] = React.useState(null);
               
                 React.useEffect(() => {
-                  async function loadGreeting(id) {
+                  async function loadGreeting() {
                     let greetings = null;
                     try {
-                      const response = await fetch(BACKEND_URL + "/" + id);
+                      const response = await fetch(BACKEND_URL + "/" + props.id);
                       greeting = await response.json();
                     } catch (err) {
                       console.error("LOADING GREETING FAILED:", err);
@@ -2820,7 +2810,7 @@ async function loadData() {
                     setGreeting(greeting);
                   }
               
-                  loadGreeting(id);
+                  loadGreeting();
                 }, [props.id]);
 
                 // ...
@@ -2902,12 +2892,12 @@ function GreetingController {
               <code>saveGreeting</code> erfolgen
               <ul>
                 <li>Dort sind bereits entsprechende TODOs für dich eingetragen</li>
-                <li>Die URL des Backends steht in der Konstante <code>BACKEND_URL</code>.</li>
+                <li>
+                  Die URL des Backends steht in der Konstante <code>BACKEND_URL</code>. <br /><code
+                    >const BACKEND_URL = "http://localhost:7000/greetings";</code
+                  >
+                </li>
               </ul>
-            </li>
-
-            <li class="fragment">
-              const BACKEND_URL = "http://localhost:7000/greetings"
             </li>
 
             <!-- <li class="fragment">
@@ -2937,7 +2927,7 @@ function GreetingController {
 
           <ul class="x-list">
             <li class="fragment">
-              ...müssen mit <code>use</code>beginnen
+              ...müssen mit <code>use</code> beginnen
               <ul>
                 <li>(ansonsten kann der Linter nicht auf mögliche Fehler prüfen!)</li>
               </ul>
@@ -2959,6 +2949,18 @@ function GreetingController {
         <section>
           <h3>Ein Custom Hook zum Laden von Daten</h3>
           <p><em>Frage an Euch: Wie könnte ein Custom Hook zum Laden von Daten aussehen? </em></p>
+
+          <ul class="fragment">
+            <li>Wie sieht die API für unseren Hook aus? Welche Parameter werden benötigt?</li>
+            <li>Was gibt der Hook zurück?</li>
+          </ul>
+
+          <ul class="fragment">
+            <li>
+              Zugabe: Bekommen wir auch einen Hinweis für den Benutzer hin, wenn Daten geladen
+              werden (Loading Indicator)?
+            </li>
+          </ul>
 
           <p class="fragment">Zur Erinnerung, der bestehende Code:</p>
 
@@ -2985,18 +2987,6 @@ function GreetingController {
                   return ...;
                 }
               </code></pre>
-
-          <ul class="fragment">
-            <li>Wie sieht die API für unseren Hook aus? Welche Parameter werden benötigt?</li>
-            <li>Was gibt der Hook zurück?</li>
-          </ul>
-
-          <ul class="fragment">
-            <li>
-              Zugabe: Bekommen wir auch einen Hinweis für den Benutzer hin, wenn Daten geladen
-              werden (Loading Indicator)?
-            </li>
-          </ul>
         </section>
 
         <section>
@@ -3118,29 +3108,6 @@ function GreetingController {
         </section>
 
         <section>
-          <h2>Anforderungen</h2>
-          <ul>
-            <li class="fragment">Komponenten müssen im Test gerendert werden können</li>
-            <div class="fragment">
-              <li>Gerenderte Komponenten/HTML-Elemente müssen gefunden und validiert werden</li>
-              <li>
-                <ul>
-                  <li>Beispiel: CSS-Klasse korrekt gesetzt, 'value' korrekt gesetzt</li>
-                </ul>
-              </li>
-            </div>
-            <div class="fragment">
-              <li>
-                Interaktion mit DOM muss möglich sein
-                <ul>
-                  <li>Events müssen getriggert oder simuliert werden können</li>
-                </ul>
-              </li>
-            </div>
-          </ul>
-        </section>
-
-        <section>
           <h1>Jest</h1>
           <p>
             <em
@@ -3161,59 +3128,40 @@ function GreetingController {
           </ul>
         </section>
         <section>
+          <h4>Jest</h4>
           <h3>Beispiel: Ein einfacher Test</h3>
           <pre><code class="javascript" contenteditable data-trim>// sum.js (oder sum.ts)
-  export const sum = (a,b) => a+b;
-  </code></pre>
+        export const sum = (a,b) => a+b;
+        </code></pre>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>// sum.test.js
-  import {sum} from '../sum.js';
-  
-  test('sum of 2 and 2 is 4', () => {
-    expect(sum(2, 2)).toBe(4);
-  });
-  
-  test('sum of 2 and 2 is not 3', () => {
-    expect(sum(2, 2)).not.toBe(3);
-  });
-          </code></pre>
+        import {sum} from '../sum.js';
+        
+        test('sum of 2 and 2 is 4', () => {
+        expect(sum(2, 2)).toBe(4);
+        });
+        
+        test('sum of 2 and 2 is not 3', () => {
+        expect(sum(2, 2)).not.toBe(3);
+        });
+            </code></pre>
         </section>
         <section>
+          <h4>Jest</h4>
           <h2>Testcases</h2>
           <p>
             <code>test</code> oder
             <code>it</code>
           </p>
           <pre><code data-trim contenteditable>test('it should work', () => {
-    expect(...).toBe(...);
-  });</code></pre>
+        expect(...).toBe(...);
+        });</code></pre>
           <pre><code data-trim contenteditable>it('it should also work', () => {
-    expect(...).toBe(...);
-  });</code></pre>
+        expect(...).toBe(...);
+        });</code></pre>
         </section>
+
         <section>
-          <h2>Testsuites</h2>
-          <ul>
-            <li>
-              Testsuites (optional, müssen nicht verwendet werden)
-              <pre><code data-trim contenteditable>describe('some feature', () => {
-    test('test 1', () => {...});
-    test('test 2', () => {...});
-    test('test 3', () => {...});
-  });</code></pre>
-            </li>
-            <li class="fragment">
-              Überspringen ( <code>skip</code>) / Auswählen ( <code>only</code>) einzelner Tests:
-              <pre><code data-trim contenteditable>describe.only('some feature', () => { } );
-describe.skip('another feature', () => { });
-  
-test.only('should work', () => { });
-test.skip('does not work, skip for now', () => { });
-  
-  </code></pre>
-            </li>
-          </ul>
-        </section>
-        <section>
+          <h4>Jest</h4>
           <h2>Expectations und Matcher</h2>
           <div class="fragment">
             <p>
@@ -3221,24 +3169,24 @@ test.skip('does not work, skip for now', () => { });
               <em>Matcher</em> definiert sind:
             </p>
             <pre><code data-trim contenteditable>expect(actual).toXyz(expected);
-  // for example:
-  expect("Hello Jest").toBe("Hello Jest"); // => ok
-  </code></pre>
+        // for example:
+        expect("Hello Jest").toBe("Hello Jest"); // => ok
+        </code></pre>
           </div>
           <div class="fragment">
             <p>Einige Matcher</p>
 
             <pre><code data-trim contenteditable>// Vergleich auf Identität
-  expect(actual).toBe(expected);
-  // Inhaltsvergleich:
-  expect(actual).toEqual(expected);
-  // true / false / null:
-  expect(actual).toBeTruthy();
-  expect(actual).toBeFalsy();
-  expect(actual).toBeNull();
-  // Länge (Array oder String)
-  expect(actual).toHaveLength(123);
-  </code></pre>
+        expect(actual).toBe(expected);
+        // Inhaltsvergleich:
+        expect(actual).toEqual(expected);
+        // true / false / null:
+        expect(actual).toBeTruthy();
+        expect(actual).toBeFalsy();
+        expect(actual).toBeNull();
+        // Länge (Array oder String)
+        expect(actual).toHaveLength(123);
+        </code></pre>
           </div>
           <p class="fragment">
             <a href="https://facebook.github.io/jest/docs/expect.html#content"
@@ -3248,104 +3196,36 @@ test.skip('does not work, skip for now', () => { });
         </section>
 
         <section>
-          <h2>Mock Funktionen (in Jest)</h2>
+          <h4>Jest</h4>
+          <h2>Mock Funktionen</h2>
           <ul>
             <li class="fragment">
               <code>jest.fn()</code> erzeugt eine Mock-Funktion
               <pre><code data-trim contenteditable>// Liefert undefined zurück, wenn ausgeführt
-const aMockFn = jest.fn();
-
-aMockFn(); // => undefined
-                    </code></pre>
+        const aMockFn = jest.fn();
+        
+        aMockFn("huhu"); // => undefined
+        
+        expect(aMockFn).toHaveBeenCalled());
+        expect(aMockFn.toHaveBeenCalledWith("huhu"));
+                      </code></pre>
             </li>
 
             <li class="fragment">
               Implementierung der Mockfunktion kann als Parameter übergeben werden:
               <pre><code data-trim contenteditable>
-const aMockFn = jest.fn( param => `Hello, ${param}` );
-
-console.log(aMockFn('World'));
-// => Hello, World
-                </code></pre>
+        const aMockFn = jest.fn( param => `Hello, ${param}` );
+        
+        console.log(aMockFn('World'));
+        // => Hello, World
+                  </code></pre>
             </li>
           </ul>
         </section>
-        <section>
-          <h2>Mock Funktionen</h2>
-          <li class="fragment">
-            Aufrufe sicherstellen
-            <pre><code data-trim contenteditable>
-const aMockFn = jest.fn( param => `Hello, ${param}` );
-// use aMockFn somewhere in your code, then assert:
-
-expect(aMockFn).toHaveBeenCalled();
-expect(aMockFn).toHaveBeenCalledWith('World');
-</code></pre>
-          </li>
-          <li class="fragment">
-            Aufrufe: <code>fn.mock.calls</code>
-            <pre><code data-trim contenteditable>
-const mockFn = jest.fn();
-mockFn('Hello', 'World');
-expect(mockFn.mock.calls).toHaveLength(1);
-expect(mockFn.mock.calls[0].toBe(['Hello', 'World']);
-</code></pre>
-          </li>
-          <li class="fragment">
-            Zurücksetzen: Reset
-            <pre><code data-trim contenteditable>
-const mockFn = jest.fn();
-mockFn('Hello', 'World');
-expect(mockFn.mock.calls).toHaveLength(1);
-jest.restAllMocks(); // or: mockFn.mockReset();
-expect(mockFn.mock.calls).toHaveLength(0);
-            </code></pre>
-          </li>
-        </section>
-        <section>
-          <h2>Mock modules</h2>
-          <li class="fragment">
-            Ein Modul mocken:
-            <pre><code data-trim contenteditable>
-// external module:
-jest.mock('react-dom');
-// internal module:
-jest.mock('../../app/myDataService');
-
-// alle Funktionen sind jetzt gemockt,
-// "leere" Implementierung, return undefined)
-</code></pre>
-          </li>
-          <li class="fragment">
-            Implementierung für Mockfunktion:
-            <pre><code data-trim contenteditable>
-jest.mock('../../app/myDataService', () => ({
-  loadData: jest.fn( () => ({data: 'mock data'}) );
-});
-
-console.log(myDataService.loadData());
-// => {data: 'mock data'}
-</code></pre>
-          </li>
-        </section>
-        <section>
-          <h2>Mock modules</h2>
-          <li class="fragment">
-            Funktionen aus gemockten Modulen sind Jest Mock Funktionen
-            <pre><code data-trim contenteditable>
-import myDataService from '../../app/myDataService';
-jest.mock('../../app/myDataService');
-
-// do something in code, that uses my dataservice
-expect(myDataService).toHaveBeenCalled();
-
-</code></pre>
-          </li>
-        </section>
 
         <section>
-          <h3>Testen von React Komponenten, Teil 1</h3>
-          <h2>Rendering</h2>
+          <h3>Testen von React Komponenten</h3>
+          <h2>Nur Rendering</h2>
         </section>
 
         <section>
@@ -3359,22 +3239,22 @@ expect(myDataService).toHaveBeenCalled();
           <pre
             class="fragment"
           ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
-  
-const component = renderer.create(
-  &lt;GreetingMaster greetings={someGreetings} />
-);
-  
-console.log(component.toJSON());
-          </code></pre>
+        
+        const component = renderer.create(
+        &lt;GreetingMaster greetings={someGreetings} />
+        );
+        
+        console.log(component.toJSON());
+            </code></pre>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-  { type: 'div',
-    props: {},
-    children:  [
-      { type: 'table', props: {}, children: [Object] },
-      { type: 'button', props: [Object], children: [Object] }
-    ]
-  }
-          </code></pre>
+        { type: 'div',
+        props: {},
+        children:  [
+        { type: 'table', props: {}, children: [Object] },
+        { type: 'button', props: [Object], children: [Object] }
+        ]
+        }
+            </code></pre>
         </section>
         <section>
           <h3>"Snapshot Testing" mit Jest</h3>
@@ -3415,18 +3295,18 @@ console.log(component.toJSON());
           <pre
             class="fragment"
           ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
-  
-  test('it should render correctly', () => {
-  
-  const someGreetings = [ . . . ];
-  
-  const component = renderer.create(
-    &lt;GreetingMaster greetings={someGreetings} />
-  );
-  
-  expect(component.toJSON()).toMatchSnapshot();
-});
-          </code></pre>
+        
+        test('it should render correctly', () => {
+        
+        const someGreetings = [ . . . ];
+        
+        const component = renderer.create(
+        &lt;GreetingMaster greetings={someGreetings} />
+        );
+        
+        expect(component.toJSON()).toMatchSnapshot();
+        });
+            </code></pre>
           <p class="fragment">
             <em
               >Snapshot sagt nicht, ob UI richtig oder falsch gerendert wird, sondern nur, ob sie
@@ -3441,7 +3321,7 @@ console.log(component.toJSON());
         </section>
 
         <section>
-          <h3>Enzyme</h3>
+          <h3>Option 1: Enzyme</h3>
           <p>
             <em
               >JavaScript Testing utilities for React (
@@ -3471,118 +3351,60 @@ console.log(component.toJSON());
           <pre
             class="fragment"
           ><code class="javascript" contenteditable data-trim>import {mount} from 'enzyme';
-  import GreetingController from '...';
-  import GreetingDetail from '...';
-  
-  test('it should open detail view on button click', () => {
-    // mount the component into a real dom (implemented by JSDom)
-    const component = mount(&lt;GreetingController  />);
-  
-    // on initial render the list with greetings (GreetingMaster)
-    // is visible but no GreetingDetail
-    expect(component.find(GreetingDetail)).toHaveLength(0);
-  
-    // find the "add" Button...
-    const addButton = component.find('button');
-  
-    // click on the button
-    addButton.simulate('click');
-  
-    // now the GreetingDetail should be visible
-    expect(component.find(GreetingDetail)).toHaveLength(1);
-  });
-          </code></pre>
+        import GreetingController from '...';
+        import GreetingDetail from '...';
+        
+        test('it should open detail view on button click', () => {
+        // mount the component into a real dom (implemented by JSDom)
+        const component = mount(&lt;GreetingController  />);
+        
+        // on initial render the list with greetings (GreetingMaster)
+        // is visible but no GreetingDetail
+        expect(component.find(GreetingDetail)).toHaveLength(0);
+        
+        // find the "add" Button...
+        const addButton = component.find('button');
+        
+        // click on the button
+        addButton.simulate('click');
+        
+        // now the GreetingDetail should be visible
+        expect(component.find(GreetingDetail)).toHaveLength(1);
+        });
+            </code></pre>
         </section>
 
         <section>
-          <h3>Testen von Custom Hooks</h3>
-
-          <p>Custom Hooks müssen im Test mit Test-Komponente umschlossen werden</p>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-import * from 'enzyme';
-function UseInputTest() {
-  const [customerInput, resetCustomer] = useInput("Customer", "kunde");
-
-  return &lt;>
-      &lt;input {...customerInput} />
-      &lt;button name="reset" onClick={resetCustomer} />
-      &lt;/>
-}  
-          </code></pre>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-test("custom hook should work", () => {
-  const component = enzyme.shallow(&lt;UseInputTest />);
-
-  const customerInput = () => component.find('input[name="customer"]');
-  const resetButton = () => component.find('button[name="reset"]');
-
-  expect(customerInput()).toHaveLength(1);
-  expect(customerInput().props().value).toBe("kunde");
-
-  customerInput().simulate("change", { target: { name: "name", value: "Anderer Kunde" } });
-  expect(customerInput().props().value).toBe("Anderer Kunde");
-
-  resetButton().simulate("click");
-  expect(customerInput().props().value).toBe("");
-});          
-        </code></pre>
-          <p class="fragment">
-            Alternative:
-            <a href="https://github.com/mpeyper/react-hooks-testing-library"
-              >react-hooks-testing-library</a
-            >?
-          </p>
-        </section>
-
-        <section>
-          <h3>Ausblick: Testen von asynchronem (React) Code</h3>
+          <h3 class="todo">Option 2: react-testing-library</h3>
           <p>
-            <a href="https://github.com/nilshartmann/jest-playground" target="_blank"
-              >Beispiel mit mehreren möglichen Strategien</a
+            <em
+              >Simple and complete React DOM testing utilities that encourage good testing
+              practices." (
+              <a href="https://github.com/testing-library/react-testing-library" target="_blank"
+                >https://github.com/testing-library/react-testing-library</a
+              >)</em
             >
           </p>
-        </section>
-
-        <section>
-          <h3>Mock der fetch-Funktion</h3>
-          <em
-            >Die fetch-Funktion kann global gemockt werden, das asynchrone Verhalten bleibt
-            aber!</em
-          >
-          <p class="fragment">
-            <a href="https://github.com/jefflau/jest-fetch-mock">jest-fetch-mock</a>
+          <p>
+            Tests sollen aus Benutzersicht geschrieben sein. Suche nach sichtbaren Strings etc, eher
+            keine CSS-Klassen etc
           </p>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-test("it should open detail view on button click", () => {
-  // configure fetch mock with expected result
-  fetch.mockResponse(JSON.stringify(someGreetings), { status: 200 });
-
-  // mount the component into a real dom (implemented by JSDom)
-  const tree = mount(&lt;GreetingController />);
-
-  // fetch should have been invoked now...
-  expect(fetch).toHaveBeenCalledWith("http://localhost:7000/greetings");
-
-  // ...but result is pending, as promises haven't been resolved yet
-  expect(tree.find("tbody tr")).toHaveLength(0);
-});
-          </code></pre>
-          <p class="fragment">
-            Um auf Ergebnis zu warten, "Trick anwenden", um Promises aufzulösen:
-          </p>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-test("it should open detail view on button click", () => {
-  // ... wie oben ....
-  return flushPromises().then(() => {
-    tree.update();
-    
-    // now mock data from fetch is "loaded" and table has been rendered
-    expect(tree.find("tbody tr")).toHaveLength(2);
-  });
-});
-          </code></pre>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import { render, fireEvent } from "@testing-library/react";
+        import GreetingController from '...';
+        import GreetingDetail from '...';
+        
+        test('it should open detail view on button click', () => {
+        const { getByText, queryByText } = render(&lt;GreetingController />);
+        expect(queryByText("Save")).not.toBeInDocument();
+        
+        fireEvent.click(getByText("Add"));
+        expect(getByText("Greeting")).toBeInDocument();
+        
+        });
+            </code></pre>
         </section>
-
         <section>
           <h2>Übung: React Komponente mit Jest und Enzyme testen</h2>
           <p><em>Vervollständige Testfälle für die GreetingMaster Komponente</em></p>
@@ -4137,6 +3959,8 @@ p2.name = "Karl"; // Cannot assign to 'name' because it is a read-only property.
             Achtung! TypeScript-Dateien, die JSX enthalten <b>müssen</b> mit
             <code>.tsx</code> enden!
           </p>
+
+          <p class="fragment">�‍�Zeigen in <code>workspace-typescript</code></p>
         </section>
 
         <section>
