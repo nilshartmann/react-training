@@ -384,10 +384,10 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
           </p>
         </section>
 
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h2>ES6: Module, Importe und Exporte</h2>
         </section>
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>ES6: Ein Default Export pro Modul möglich</h3>
           <pre class="fragment"><code class="javascript" contenteditable>// Person.js
 class Person {
@@ -412,7 +412,7 @@ function createPerson() { /* ... */ }
 export default createPerson;
            </code></pre>
         </section>
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>ES6: Default Import</h3>
           <pre><code class="javascript" contenteditable>// Programmer.js
   import Person from './Person';
@@ -424,7 +424,7 @@ export default createPerson;
   export default Programmer;
      </code></pre>
         </section>
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>ES6: Benannte Exporte</h3>
           <pre><code class="javascript" contenteditable data-trim>
 // Export 1            
@@ -459,7 +459,7 @@ export { displayInPage, showInfo };
      </code></pre>
         </section>
 
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>ES6: Benannten Export importieren</h3>
           <pre
             class="fragment"
@@ -481,7 +481,7 @@ util.displayInPage('Hello, World');
           </code></pre>
         </section>
 
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>ES6: Default <em>und</em> benannten Export importieren</h3>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
           // Programmer.js
@@ -509,7 +509,7 @@ util.displayInPage('Hello, World');
               const e = new Employee();
               </code></pre>
         </section>
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>ES6: Template Strings</h3>
           <p>
             Template Strings werden in Backticks (``) geschrieben und können Ausdrücke (in
@@ -524,7 +524,7 @@ const four = `Two and two is: ${2+2}` // Two and two is: 4
 const time = `The time is: ${new Date()}`); // The time is: ...
               </code></pre>
         </section>
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>ES6: Arrow Functions</h3>
           <pre><code class="javascript" contenteditable>const greet = (text) => {
    return `Hello, ${text}<br>`;
@@ -537,7 +537,7 @@ const greet = text => `Hello, ${text}<br>`;
 </code></pre>
         </section>
 
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>JavaScript: Funktionen allgemein</h3>
           <p>Funktionen sind first-class citizens</p>
           <pre><code class="javascript" contenteditable>
@@ -562,281 +562,6 @@ greet("Sam", goodbye()) // Uncaught TypeError: greetingProvider is not a functio
 
 </code></pre>
         </section>
-
-        <section>
-          <h2>Hintergrund</h2>
-          <h1>JavaScript-Ökosystem</h1>
-
-          <div class="fragment">
-            <p><em>Themen</em></p>
-            <ul>
-              <li>Typisches Tooling im JS/React-Umfeld</li>
-              <li>Build-Prozess React-Anwendungen</li>
-            </ul>
-          </div>
-
-          <div class="fragment">
-            <p><em>Mehr Material</em></p>
-            <ul>
-              <li>
-                Artikel:
-                <a href="https://nilshartmann.net/posts/hilfe-ich-muss-javascript-programmieren/"
-                  >Hilfe, ich muss JavaScript programmieren</a
-                >
-              </li>
-              <li>
-                Slides:
-                <a
-                  href="https://github.com/nilshartmann/js-ecosystem-talk/raw/master/js-ecosystem-wjax2017.pdf"
-                  >Das JavaScript Ökosystem</a
-                >
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section>
-          <h2>Die Sprache</h2>
-          <p>
-            <em><b>ECMAScript 5:</b> Veröffentlicht 2015</em>
-          </p>
-
-          <div class="fragment">
-            <ul>
-              <li>Unterstützung von praktisch allen Browsern</li>
-              <li>Die "Referenz"-Version</li>
-            </ul>
-            <br />
-            <img style="height: 500px" src="slides/images/can-i-use-es5.png" />
-            <br />
-            <a href="https://caniuse.com/#search=es5">https://caniuse.com/#search=es5</a>
-            <br />
-            <b>JavaScript</b>: Implementierung | <b>ECMAScript</b>: Spezifikation
-          </div>
-        </section>
-
-        <section>
-          <h2>Die Sprache</h2>
-
-          <em><b>ECMAScript 2015</b>: Veröffentlicht 2015</em>
-          <p>Aliase: ES<b>6</b>, ES2015, JavaScript6, "modernes JavaScript"</p>
-
-          <div class="fragment">
-            <p>Sehr viele Neuerungen:</p>
-            <ul>
-              <li>Block Scope mit let und const</li>
-              <li>Klassen und Module</li>
-              <li>Arrow Funktionen</li>
-            </ul>
-            <div class="fragment">
-              <p>
-                Löst viele "klassische" JavaScript-Probleme:
-              </p>
-              <ul>
-                <li>(teilweise) Sichtbarkeiten</li>
-                <li>Hoisting</li>
-                <li>this-Binding</li>
-                <li>
-                  <a href="https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore"
-                    >https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <p class="fragment"><b>"ES.next"</b>: Künftig eine neue Version pro Jahr (ES2016, ES2017, ...)</p>
-        </section>
-
-        <section>
-          <h3>ES6ff-Support</h3>
-
-          <p>
-            <a href="https://kangax.github.io/compat-table/es6/"
-              >ES2015 (ES6) Kompatibilitätstabelle</a
-            >
-          </p>
-          <p>
-            <a href="https://kangax.github.io/compat-table/es2016plus/"
-              >ES2016+ Kompatibilitätstabelle</a
-            >
-          </p>
-        </section>
-        <section>
-          <h2>Buildprozess</h2>
-          <em><b> ES6ff- und JSX-Code muss nach ECMAScript 5 übersetzt werden</b></em>
-
-          <p class="fragment">Typische Werkzeuge</p>
-          <ul class="fragment">
-            <li>Babel oder TypeScript (Compiler)</li>
-            <li>Webpack (Bundler)</li>
-            <li>Webpack Dev Sever (HTTP Server mit Hot Reload)</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Polyfills</h2>
-          <ul>
-            <li><b>Compiler</b> übersetzen nur die <b>Sprache</b></li>
-          </ul>
-          <br />
-          <ul class="fragment">
-            <li>
-              <b>Polyfills</b> sind JS Bibliotheken, die fehlende <b>APIs</b> implementieren
-              <ul>
-                <li>Stellen Abwärtskompatibilität für ältere Browser her</li>
-                <li>Beispiele: LocalStorage, HTML5 History API, Promise API</li>
-              </ul>
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Linter</h2>
-          <p><em>Statische Codeanalyse</em></p>
-          <ul>
-            <li class="fragment">Findet typische JavaScript Programmierfehler</li>
-            <li class="fragment">
-              Achtet auf Einhaltung von Konventionen (z.B. Semikolon ja/nein)
-            </li>
-            <li class="fragment">Kann in den CI-Build und IDE eingebunden werden</li>
-          </ul>
-
-          <div class="fragment">
-            <p><a href="https://eslint.org/">ESLint</a></p>
-
-            <img style="height: 400px" src="slides/images/eslint.png" />
-          </div>
-        </section>
-
-        <section>
-          <h2>Modulsysteme</h2>
-
-          <ul class="fragment">
-            <li><b>CommonJS</b>: NodeJS Modul-System ("require ..." / "module.exports")</li>
-            <li><b>AMD</b>: Asynchrone Module (für Browser)</li>
-            <li><b>ES2015</b>: natives Modul System (Support u.a. in Chrome und FF)</li>
-          </ul>
-          <p class="fragment">Webpack, Babel und TypeScript können mit allen Modulen umgehen</p>
-        </section>
-
-        <section>
-          <h2>Package Manager</h2>
-          <h3>node package manager (npm)</h3>
-          <em>Standard Package Manager für Node-Entwickung</em>
-          <br />
-          <ul style="margin-top:2rem">
-            <li class="fragment">
-              Beschreibung externer Abhängigkeiten in package.json-Datei
-              <ul>
-                <li>Ähnlich wie in einer POM.xml</li>
-              </ul>
-            </li>
-            <li class="fragment">
-              Eigene Packages können publiziert werden
-              <ul>
-                <li>In zentrale Registry (analog maven-central)</li>
-                <li>Private Registry (z.B. Nexus) möglich</li>
-              </ul>
-            </li>
-          </ul>
-          <br />
-          <ul style="margin-top:2rem" class="fragment">
-            <li>
-              Über npm werden üblicherweise auch notwendige <b>Tools</b> deklariert und installiert
-              <ul>
-                <li>Zum Beispiel für Compiler und Build-Tools</li>
-              </ul>
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Package Manager</h2>
-          <h3>Alternative: yarn</h3>
-          <ul>
-            <li class="fragment"><a href="https://yarnpkg.com">https://yarnpkg.com</a></li>
-            <li class="fragment">Verwendet ebenfalls NPM Pakete und NPM Registry</li>
-            <li class="fragment">Gleiche Beschreibung der Dependencies (package.json)</li>
-            <li class="fragment">Andere (bessere?) CLI</li>
-            <li class="fragment">
-              "Plug'n'Play": Module werden zentral auf Festplatte installiert (neu)
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Bundler</h2>
-          <p>
-            <b>Problem:</b> Es existieren mehrere Modulsysteme, Support im Browser nicht vollständig
-          </p>
-          <p class="fragment">Bundler...</p>
-          <ul>
-            <li class="fragment">erzeugen lauffähige JS-Datei(en) mit allen Abhängigkeiten</li>
-            <li class="fragment">unterstützen diverse Modul-Systeme</li>
-            <li class="fragment">können auch mit nicht-JS-Dateien umgehen (z.B. CSS, PNG)</li>
-          </ul>
-          <p class="fragment">
-            Prominenteste Lösung: Webpack (<a href="https://webpack.js.org/"
-              >https://webpack.js.org/</a
-            >)
-          </p>
-        </section>
-
-        <section>
-          <h2>Webpack und Babel</h2>
-          <img src="slides/images/webpack-und-babel.png" style="height:600px" />
-        </section>
-        <section>
-          <h2>Webpack Development Server</h2>
-          <ul>
-            <li>Zum Ausführen der Anwendung wird ein Webserver benötigt</li>
-            <li class="fragment">
-              Für die Entwicklung <b>Webpack Dev Server</b>:
-              <ul>
-                <li>...führt Webpack auf Basis der Projekt Webpack Konfiguration aus</li>
-                <li>...erzeugt Ausgabe in Memory (Performance)</li>
-                <li>...Hot Reloading: Automatische Aktualisierung nach Code Änderung</li>
-              </ul>
-            </li>
-          </ul>
-        </section>
-        <section>
-          <h3>create-react-app</h3>
-          <a
-            href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
-            target="_blank"
-            >User Guide</a
-          >
-          <p>Bootstrap von neuen React Anwendung</p>
-          <p>Fertige Konfiguration von React und Webpack mit TypeScript, Sass, Linter</p>
-          <p>Beispiel: npx create-react-app PROJEKTNAME --typescript</p>
-        </section>
-        <section>
-          <h2>React Devtools</h2>
-          <em>React Developer Tools für Chrome und Firefox</em>
-          <p>Untersuchen der React Anwendung zur Laufzeit</p>
-
-          <ul>
-            <li>
-              <a
-                href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en"
-                target="_blank"
-                >Chrome</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://addons.mozilla.org/en-US/firefox/addon/react-devtools/"
-                target="_blank"
-                >Firefox</a
-              >
-            </li>
-          </ul>
-
-          <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
-        </section>
-
         <section>
           <h3>Das Beispiel-Projekt</h3>
           <p>Workspace</p>
@@ -905,6 +630,281 @@ greet("Sam", goodbye()) // Uncaught TypeError: greetingProvider is not a functio
             </li>
           </ul>
         </section>
+        <section data-state="js-exkurs">
+          <h2>Hintergrund</h2>
+          <h1>JavaScript-Ökosystem</h1>
+
+          <div class="fragment">
+            <p><em>Themen</em></p>
+            <ul>
+              <li>Typisches Tooling im JS/React-Umfeld</li>
+              <li>Build-Prozess React-Anwendungen</li>
+            </ul>
+          </div>
+
+          <div class="fragment">
+            <p><em>Mehr Material</em></p>
+            <ul>
+              <li>
+                Artikel:
+                <a href="https://nilshartmann.net/posts/hilfe-ich-muss-javascript-programmieren/"
+                  >Hilfe, ich muss JavaScript programmieren</a
+                >
+              </li>
+              <li>
+                Slides:
+                <a
+                  href="https://github.com/nilshartmann/js-ecosystem-talk/raw/master/js-ecosystem-wjax2017.pdf"
+                  >Das JavaScript Ökosystem</a
+                >
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>Die Sprache</h2>
+          <p>
+            <em><b>ECMAScript 5:</b> Veröffentlicht 2015</em>
+          </p>
+
+          <div class="fragment">
+            <ul>
+              <li>Unterstützung von praktisch allen Browsern</li>
+              <li>Die "Referenz"-Version</li>
+            </ul>
+            <br />
+            <img style="height: 500px" src="slides/images/can-i-use-es5.png" />
+            <br />
+            <a href="https://caniuse.com/#search=es5">https://caniuse.com/#search=es5</a>
+            <br />
+            <b>JavaScript</b>: Implementierung | <b>ECMAScript</b>: Spezifikation
+          </div>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>Die Sprache</h2>
+
+          <em><b>ECMAScript 2015</b>: Veröffentlicht 2015</em>
+          <p>Aliase: ES<b>6</b>, ES2015, JavaScript6, "modernes JavaScript"</p>
+
+          <div class="fragment">
+            <p>Sehr viele Neuerungen:</p>
+            <ul>
+              <li>Block Scope mit let und const</li>
+              <li>Klassen und Module</li>
+              <li>Arrow Funktionen</li>
+            </ul>
+            <div class="fragment">
+              <p>
+                Löst viele "klassische" JavaScript-Probleme:
+              </p>
+              <ul>
+                <li>(teilweise) Sichtbarkeiten</li>
+                <li>Hoisting</li>
+                <li>this-Binding</li>
+                <li>
+                  <a href="https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore"
+                    >https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="fragment"><b>"ES.next"</b>: Künftig eine neue Version pro Jahr (ES2016, ES2017, ...)</p>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h3>ES6ff-Support</h3>
+
+          <p>
+            <a href="https://kangax.github.io/compat-table/es6/"
+              >ES2015 (ES6) Kompatibilitätstabelle</a
+            >
+          </p>
+          <p>
+            <a href="https://kangax.github.io/compat-table/es2016plus/"
+              >ES2016+ Kompatibilitätstabelle</a
+            >
+          </p>
+        </section>
+        <section data-state="js-exkurs">
+          <h2>Buildprozess</h2>
+          <em><b> ES6ff- und JSX-Code muss nach ECMAScript 5 übersetzt werden</b></em>
+
+          <p class="fragment">Typische Werkzeuge</p>
+          <ul class="fragment">
+            <li>Babel oder TypeScript (Compiler)</li>
+            <li>Webpack (Bundler)</li>
+            <li>Webpack Dev Sever (HTTP Server mit Hot Reload)</li>
+          </ul>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>Polyfills</h2>
+          <ul>
+            <li><b>Compiler</b> übersetzen nur die <b>Sprache</b></li>
+          </ul>
+          <br />
+          <ul class="fragment">
+            <li>
+              <b>Polyfills</b> sind JS Bibliotheken, die fehlende <b>APIs</b> implementieren
+              <ul>
+                <li>Stellen Abwärtskompatibilität für ältere Browser her</li>
+                <li>Beispiele: LocalStorage, HTML5 History API, Promise API</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>Linter</h2>
+          <p><em>Statische Codeanalyse</em></p>
+          <ul>
+            <li class="fragment">Findet typische JavaScript Programmierfehler</li>
+            <li class="fragment">
+              Achtet auf Einhaltung von Konventionen (z.B. Semikolon ja/nein)
+            </li>
+            <li class="fragment">Kann in den CI-Build und IDE eingebunden werden</li>
+          </ul>
+
+          <div class="fragment">
+            <p><a href="https://eslint.org/">ESLint</a></p>
+
+            <img style="height: 400px" src="slides/images/eslint.png" />
+          </div>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>Modulsysteme</h2>
+
+          <ul class="fragment">
+            <li><b>CommonJS</b>: NodeJS Modul-System ("require ..." / "module.exports")</li>
+            <li><b>AMD</b>: Asynchrone Module (für Browser)</li>
+            <li><b>ES2015</b>: natives Modul System (Support u.a. in Chrome und FF)</li>
+          </ul>
+          <p class="fragment">Webpack, Babel und TypeScript können mit allen Modulen umgehen</p>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>Package Manager</h2>
+          <h3>node package manager (npm)</h3>
+          <em>Standard Package Manager für Node-Entwickung</em>
+          <br />
+          <ul style="margin-top:2rem">
+            <li class="fragment">
+              Beschreibung externer Abhängigkeiten in package.json-Datei
+              <ul>
+                <li>Ähnlich wie in einer POM.xml</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Eigene Packages können publiziert werden
+              <ul>
+                <li>In zentrale Registry (analog maven-central)</li>
+                <li>Private Registry (z.B. Nexus) möglich</li>
+              </ul>
+            </li>
+          </ul>
+          <br />
+          <ul style="margin-top:2rem" class="fragment">
+            <li>
+              Über npm werden üblicherweise auch notwendige <b>Tools</b> deklariert und installiert
+              <ul>
+                <li>Zum Beispiel für Compiler und Build-Tools</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>Package Manager</h2>
+          <h3>Alternative: yarn</h3>
+          <ul>
+            <li class="fragment"><a href="https://yarnpkg.com">https://yarnpkg.com</a></li>
+            <li class="fragment">Verwendet ebenfalls NPM Pakete und NPM Registry</li>
+            <li class="fragment">Gleiche Beschreibung der Dependencies (package.json)</li>
+            <li class="fragment">Andere (bessere?) CLI</li>
+            <li class="fragment">
+              "Plug'n'Play": Module werden zentral auf Festplatte installiert (neu)
+            </li>
+          </ul>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>Bundler</h2>
+          <p>
+            <b>Problem:</b> Es existieren mehrere Modulsysteme, Support im Browser nicht vollständig
+          </p>
+          <p class="fragment">Bundler...</p>
+          <ul>
+            <li class="fragment">erzeugen lauffähige JS-Datei(en) mit allen Abhängigkeiten</li>
+            <li class="fragment">unterstützen diverse Modul-Systeme</li>
+            <li class="fragment">können auch mit nicht-JS-Dateien umgehen (z.B. CSS, PNG)</li>
+          </ul>
+          <p class="fragment">
+            Prominenteste Lösung: Webpack (<a href="https://webpack.js.org/"
+              >https://webpack.js.org/</a
+            >)
+          </p>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>Webpack und Babel</h2>
+          <img src="slides/images/webpack-und-babel.png" style="height:600px" />
+        </section>
+        <section data-state="js-exkurs">
+          <h2>Webpack Development Server</h2>
+          <ul>
+            <li>Zum Ausführen der Anwendung wird ein Webserver benötigt</li>
+            <li class="fragment">
+              Für die Entwicklung <b>Webpack Dev Server</b>:
+              <ul>
+                <li>...führt Webpack auf Basis der Projekt Webpack Konfiguration aus</li>
+                <li>...erzeugt Ausgabe in Memory (Performance)</li>
+                <li>...Hot Reloading: Automatische Aktualisierung nach Code Änderung</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section data-state="js-exkurs">
+          <h3>create-react-app</h3>
+          <a
+            href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
+            target="_blank"
+            >User Guide</a
+          >
+          <p>Bootstrap von neuen React Anwendung</p>
+          <p>Fertige Konfiguration von React und Webpack mit TypeScript, Sass, Linter</p>
+          <p>Beispiel: npx create-react-app PROJEKTNAME --typescript</p>
+        </section>
+        <section data-state="js-exkurs">
+          <h2>React Devtools</h2>
+          <em>React Developer Tools für Chrome und Firefox</em>
+          <p>Untersuchen der React Anwendung zur Laufzeit</p>
+
+          <ul>
+            <li>
+              <a
+                href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en"
+                target="_blank"
+                >Chrome</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://addons.mozilla.org/en-US/firefox/addon/react-devtools/"
+                target="_blank"
+                >Firefox</a
+              >
+            </li>
+          </ul>
+
+          <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
+        </section>
+
+ 
 
         <section id="t1">
           <h1>Teil I</h1>
@@ -1041,7 +1041,7 @@ function MyComponent() {
             </li>
           </ul>
         </section>
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>ES6: Destructuring von Objekten</h3>
           <pre><code class="javascript" contenteditable>const person = {
     fistName: 'Klaus',
@@ -1067,7 +1067,7 @@ function MyComponent() {
   someFunction(person);
   </code></pre>
         </section>
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>ES6: Erweiterte Objekt-Literale</h3>
           <pre><code class="javascript" contenteditable>
 
@@ -1086,7 +1086,7 @@ const person = {
 console.log(person.firstName); // Klaus
    </code></pre>
         </section>
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>ES6: Computed Properties</h3>
           <em>Berechnete Keys in Objekten</em>
           <pre><code class="javascript" contenteditable>const schluessel = 'vorname';
@@ -2248,12 +2248,12 @@ function GreetingMaster(props) {
           </p>
         </section>
 
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>Hintergrund</h3>
           <h2>ES6 Features</h2>
         </section>
 
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>ES6: Klassen</h3>
           <pre><code class="javascript" contenteditable>class Person {
     constructor(name) {
@@ -2423,15 +2423,15 @@ const response = await fetch(url, {
     </code></pre>
         </section>
 
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h2>ES6: Promises</h2>
         </section>
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>Ein Promise ist ein Versprechen auf einen Wert</h3>
           <h4 class="fragment">Wird evtl. erst in der Zukunft eingelöst</h4>
         </section>
 
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>Verkettete Ausführung</h3>
           <pre><code class="javascript" contenteditable>const promise = . . .;
 </code></pre>
@@ -2445,12 +2445,12 @@ const promise2 = promise.then(value => `${value} plus stuff`);</code></pre>
 // Ausgabe nach einer Sekunde: "Result from promise plus stuff"
 </code></pre>
         </section>
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>Fehler führen zum Abbruch der Chain</h3>
           <h4>Allerdings <b>muss</b> man etwas tun, um das mitzubekommen: catch()</h4>
         </section>
 
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>Catch-Klausel im Erfolgsfall</h3>
           <pre><code class="javascript" contenteditable>Promise
     // creates and directly resolves promise
@@ -2469,7 +2469,7 @@ const promise2 = promise.then(value => `${value} plus stuff`);</code></pre>
 // Result from promise
 // This will be printed</code></pre>
         </section>
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>Catch-Klausel im Fehlerfall</h3>
           <pre><code class="javascript" contenteditable>Promise
     // creates and directly resolves promise
@@ -2490,7 +2490,7 @@ const promise2 = promise.then(value => `${value} plus stuff`);</code></pre>
 // error:  [Error: Something went wrong]</code></pre>
         </section>
 
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>Alternative zu Promises</h3>
           <h2>async / await</h2>
           <p>Erlauben es, asynchronen Code "linear" hinzuschreiben</p>
@@ -2501,7 +2501,7 @@ const promise2 = promise.then(value => `${value} plus stuff`);</code></pre>
           </ul>
         </section>
 
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>async / await</h3>
           <ul>
             <li class="fragment"><code>async</code> definiert "async functions"</li>
@@ -2538,7 +2538,7 @@ console.log(greeting) // => Promise {&lt;resolved>: "Hello, Klaus"}
           </ul>
         </section>
 
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>async / await</h3>
           <p><code>await</code> wartet auf erfüllte Promises</p>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
@@ -2559,7 +2559,7 @@ async function sayWhat(name) {
 }
                   </code></pre>
         </section>
-        <section data-state="exkurs">
+        <section data-state="es6-exkurs">
           <h3>async / await</h3>
           <p>
             Statt <code>then</code> bzw <code>catch</code> werden mehrere

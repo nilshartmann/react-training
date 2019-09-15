@@ -91,6 +91,10 @@ html.title .transparent-bg {
   padding: 5px 10px;
 }
 
-html.exkurs body {
+html.es6-exkurs body {
   background: rgb(252, 220, 185) url("images/es6-icon.png") no-repeat right bottom;
+}
+
+html.js-exkurs body {
+  background-color: #e3f3ff;
 }
