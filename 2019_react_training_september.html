@@ -82,29 +82,31 @@
           <h2>Inhalt</h2>
           <ul style="font-size: 85%">
             <li>
-              <a href="#/t0">Teil 0: React Überblick, Tooling und Build-Prozess</a>
+              <a href="#/t1">Teil I: React Überblick, JavaScript Ökosystem und Build-Prozess</a>
             </li>
             <li>
-              <a href="#/t1">Teil I: React-Komponenten (Grundlagen)</a>
+              <a href="#/t2">Teil II: React-Komponenten (Grundlagen)</a>
             </li>
             <li>
-              <a href="#/t2">Teil II: React-Komponenten: Details, Hierarchien und Anwendungen</a>
+              <a href="#/t3">Teil III: React-Komponenten: Details, Hierarchien und Anwendungen</a>
+            </li>
+            <li style="margin-bottom: 20px">
+              <a href="#/t4">Teil IV: Daten lesen und schreiben vom Server</a>
             </li>
             <li>
-              <a href="#/t3">Teil III: Daten lesen und schreiben vom Server</a>
+              <a href="#/t-test">Teil V: Testen von React Anwendungen</a>
             </li>
             <li>
-              <a href="#/t-test">Teil IV: Testen von React Anwendungen</a>
+              <a href="#/t-typescript">Teil VI: React Anwendungen mit TypeScript entwickeln</a>
             </li>
             <li>
-              <a href="#/t-typescript">Teil V: React Anwendungen mit TypeScript entwickeln</a>
-            </li>
-            <li>
-              <a href="#/t-router">Teil VI: Client-seitiges Routing mit React Router (Überblick)</a>
+              <a href="#/t-router"
+                >Teil VII: Client-seitiges Routing mit React Router (Überblick)</a
+              >
             </li>
             <li>
               <a href="#/t-redux"
-                >Teil VII: Das Flux-Architektur-Pattern am Beispiel von Redux (Überblick)</a
+                >Teil VIII: Externes Statemanagement mit Redux (Überblick)</a
               >
             </li>
 
@@ -130,8 +132,8 @@
           </a>
         </section>
 
-        <section id="t0">
-          <h1>Teil 0</h1>
+        <section id="t1">
+          <h1>Teil 1</h1>
           <h2>React-Einführung und Build-Prozess</h2>
         </section>
 
@@ -181,7 +183,7 @@
 
         <section>
           <h2>React</h2>
-          <p><em>ist sehr stabil</em></p>
+          <p><em>ist sehr stabil</em> (16.x seit September 2017!)</p>
           <ul>
             <li class="fragment">Semantische Versionierung</li>
             <li class="fragment">API Änderungen meist abwärtskompatibel</li>
@@ -712,7 +714,9 @@ greet("Sam", goodbye()) // Uncaught TypeError: greetingProvider is not a functio
             </div>
           </div>
 
-          <p class="fragment"><b>"ES.next"</b>: Künftig eine neue Version pro Jahr (ES2016, ES2017, ...)</p>
+          <p class="fragment">
+            <b>"ES.next"</b>: Künftig eine neue Version pro Jahr (ES2016, ES2017, ...)
+          </p>
         </section>
 
         <section data-state="js-exkurs">
@@ -904,10 +908,8 @@ greet("Sam", goodbye()) // Uncaught TypeError: greetingProvider is not a functio
           <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
         </section>
 
- 
-
-        <section id="t1">
-          <h1>Teil I</h1>
+        <section id="t2">
+          <h1>Teil II</h1>
           <h2>React-Komponenten (Grundlagen)</h2>
           <a href="code/schritte/1-detail/public/index.html">Ziel-Anwendung</a>
         </section>
@@ -1490,8 +1492,8 @@ function clear() { set...(); inputRef.current.focus(); }
           </ol>
         </section>
 
-        <section id="t2">
-          <h1>Teil II</h1>
+        <section id="t3">
+          <h1>Teil III</h1>
           <h2>React-Komponenten: Details, Hierarchien und Anwendungen</h2>
           <a href="code/schritte/2-hierarchy/public/index.html" target="_blank">Ziel-Anwendung</a>
         </section>
@@ -1592,7 +1594,7 @@ function Choices(props) {
             </code></pre>
         </section>
         <section>
-          <h3>Teil II (b)</h3>
+          <h3>Teil III (b)</h3>
           <h2>Anwendungen und Komponentenhierarchien</h2>
         </section>
         <section>
@@ -2324,8 +2326,8 @@ export default function GreetingDetail(props) {
             </li>
           </ol>
         </section>
-        <section id="t3">
-          <h1>Teil III</h1>
+        <section id="t4">
+          <h1>Teil IV</h1>
           <h2>Daten lesen und schreiben vom Server</h2>
           <a href="code/schritte/3-remote/public/index.html" target="_blank">Ziel-Anwendung</a>
         </section>
@@ -3053,7 +3055,7 @@ function GreetingController {
         </section>
 
         <section id="t-test">
-          <h1>Teil IV</h1>
+          <h1>Teil V</h1>
           <h2>Testen von React Anwendungen</h2>
           <ul style="font-size:85%">
             <li>
@@ -3432,7 +3434,7 @@ function GreetingController {
         </section>
 
         <section id="t-typescript">
-          <h1>Teil V</h1>
+          <h1>Teil VI</h1>
           <h2>React mit TypeScript entwickeln</h2>
           <p>
             <a href="code/schritte/5-typescript/public/index.html" target="_blank"
@@ -4221,6 +4223,7 @@ function GreetingDetail(props) {
         </section>
 
         <section id="t-router">
+          <h1>Teil VII</h1>
           <h2>Client-seitiges Routing (Überblick)</h2>
           <a href="code/schritte/6-router/public/index.html" target="_blank">Ziel-Anwendung</a>
         </section>
@@ -4776,6 +4779,7 @@ function GreetingDetail(props) {
         </section>
 
         <section id="t-redux">
+          <h1>Teil VIII</h1>
           <h1>Zustands-Management mit Redux</h1>
         </section>
 
