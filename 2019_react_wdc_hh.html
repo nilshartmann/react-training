@@ -109,20 +109,20 @@
           <h2>Inhalt</h2>
           <ul style="font-size: 85%">
             <li>
-              <a href="#/t1">Teil I: React Einführung und ...</a>
+              <a href="#/t1">Teil I: React Einführung</a>
             </li>
             <li>
-              <a href="#/t2">Teil II: React-Komponenten (Grundlagen)</a>
+              <a href="#/t2">Teil II: React-Komponenten (Details)</a>
             </li>
             <li>
-              <a href="#/t3">Teil III: React-Komponenten: Details, Hierarchien und Anwendungen</a>
+              <a href="#/t3">Teil III: React-Komponenten: Hierarchien und Anwendungen</a>
             </li>
             <li style="margin-bottom: 20px">
               <a href="#/t4">Teil IV: Daten lesen und schreiben vom Server</a>
             </li>
 
             <li>
-              <a href="#/t-redux">Teil VIII: Externes Statemanagement mit Redux (Überblick)</a>
+              <a href="#/t-redux">Teil V: Externes Statemanagement mit Redux (Überblick)</a>
             </li>
           </ul>
           <div style="font-size:80%">
@@ -230,7 +230,7 @@
           </ul>
         </section>
 
-        <section>
+        <section id="interaktiv-hellomessage">
           <h3>Hello World React</h3>
           <pre><code data-trim contenteditable>
 import React from "react";
@@ -341,6 +341,14 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
           <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
         </section>
 
+      
+
+        <section>
+          <h2>Übung 1: React Hello-World</h2>
+          <h3>
+            <em>Mach dich mit den Werkzeugen vertraut und schreib deine erste React-Komponente</em>
+          </h3>
+        </section>
         <section>
           <h3>Das Beispiel-Projekt</h3>
           <p>Workspace</p>
@@ -362,13 +370,6 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
               >: Fertige Stände nach den einzelnen Teilen
             </li>
           </ul>
-        </section>
-
-        <section>
-          <h2>Übung 1: React Hello-World</h2>
-          <h3>
-            <em>Mach dich mit den Werkzeugen vertraut und schreib deine erste React-Komponente</em>
-          </h3>
         </section>
         <section>
           <h3>Schritt #1: Tool-Chain starten (falls noch nicht gemacht)</h3>
@@ -395,14 +396,12 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
         <section>
           <h3>Schritt #2: Deine erste React-Komponente</h3>
           <ul>
+            <li>Implementiere die erste Version der GreetingDetail-Komponente:
+              <ul><li>Füge ein Eingabefeld für den Namen hinzu</li>
+                <li>Der eingegeben Gruß soll in der Zeile darunter ausgegeben werden</li></ul>
+              </li>
             <li>
-              Ersetze die "statische" Komponente (HelloMessage) mit der React-Komponente aus dem
-              vorherigen Beispiel aus den Folien ("Hello World React")
-            </li>
-
-            <li class="todo">
-              Entweder das Beispiel rausnehmen, oder mit zwei Eingabefeldern. In jedem Fall aber
-              gleich mit GreetingDetail starten
+              Als Hilfe kannst Du dir den Code auf den <a href="#/interaktiv-hellomessage">vergangenen Folien</a> anschauen
             </li>
           </ul>
         </section>
@@ -420,37 +419,6 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
               https://reactjs.org/docs/hello-world.html
             </a>
           </p>
-        </section>
-
-        <section>
-          <h3>Themen</h3>
-          <ul>
-            <li>Rendering</li>
-            <li>Properties und Zustand</li>
-            <li>Referenzen auf DOM-Elemente (Refs)<span class="todo">raus?</span></li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>React: Rendering</h3>
-          <em>Eigene Komponenten müssen mit einem Großbuchstaben anfangen!</em>
-          <ul>
-            <li>Komponentenname entspricht dem Klassennamen</li>
-            <li>native Komponenten (button, div, input, ...) beginnen mit Kleinbuchstaben</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Komponenten als Funktion</h3>
-          <ul>
-            <li class="fragment">Name der Funktion entspricht Name der Komponente</li>
-            <li class="fragment">Properties werden per Parameter übergeben (als Objekt)</li>
-            <li class="fragment">
-              Muss <b>genau ein</b> (Root-)Element zurückgeben (oder null, false/true)
-            </li>
-            <li class="fragment">Über Hooks kann Zustand verwendet werden</li>
-            <li class="fragment">Über Hooks kann am Lifecycle partizipiert werden</li>
-          </ul>
         </section>
 
         <section>
@@ -495,18 +463,6 @@ const styles = { marginLeft: '10px', border: '1px solid red' };
           <h3>React: JSX #2</h3>
           <ul>
             <li style="font-size: 80%" class="fragment">
-              Zuweisen an Variablen
-              <pre><code class="xml" contenteditable data-trim>
-const counter = &lt;Counter label="..." />
-                    </code></pre>
-            </li>
-            <li style="font-size: 80%" class="fragment">
-              ...als Return-Wert:
-              <pre><code class="xml" contenteditable data-trim>
-function renderCounter(label) { return &lt;Counter label="..." />; }
-                      </code></pre>
-            </li>
-            <li style="font-size: 80%" class="fragment">
               Fragmente (rendern selber kein Element in den DOM, nur ihre Kind-Elemente):
               <pre><code class="xml" contenteditable data-trim>
 function Choice() { 
@@ -520,12 +476,12 @@ function Choice() {
             <li style="font-size: 80%" class="fragment">
               null, false oder boolean, um nichts zu rendern:
               <pre><code class="xml" contenteditable data-trim>
-function MyComponent() {
-  if (!someCondition) {
+function ErrorMessage(props) {
+  if (!props.msg) {
     return null; // oder false oder true
   }
 
-  return ...;
+  return <h1>Fehler: {props.msg}</h1>;
 }              
                     </code></pre>
             </li>
@@ -786,33 +742,19 @@ function GreetingDetail(props) {
           <h4>Erweitere deine erste React-Komponente im workspace-Ordner</h4>
           <ol class="x-list">
             <li>
-              benenne deine HelloMessage-Komponente (und das HelloMessage-Modul) in
-              <code>GreetingDetail</code> um
-            </li>
-
-            <li>
-              du brauchst zwei Eingabefelder, die <code>name</code> und <code>greeting</code> im
-              Zustand der Komponente setzen
+              du brauchst ein zweites Eingabefeld, das <code>greeting</code> heißt
             </li>
 
             <li>
               Erweitere deine Komponente so, dass man von außen Properties übergeben kann, die den
-              Zustand initialisieren (<code>initialGreeting</code> und <code>initialName</code>)
+              Zustand der beiden Eingabefelder initialisieren (<code>initialGreeting</code> und <code>initialName</code>)
             </li>
             <li>
-              Füge einen "Clear"-Button hinzu, der den Inhalt beider Eingabefelder löscht. Das
-              entsprechende Event auf dem Button heißt <code>onClick</code>. <br />Nach dem Löschen
-              der Eingabefelder sollte der Focus auf das erste Eingabefeld (<code>name</code>)
-              gesetzt werden
+              Füge einen "Clear"-Button hinzu, der den Inhalt beider Eingabefelder löscht.
             </li>
             <li>
-              REFERENZ FÜR FOCUS:
-              <pre><code>const inputRef = React.useRef();
-function clear() { set...(); inputRef.current.focus(); }              
-// ...
-&lt;input type="..." ref={inputRef} ... />
-&lt;button onClick={clear}>Clear&lt;/button>                
-              </code></pre>
+              Optional, wenn Du schnell fertig bist: kannst Du den "Clear"-Button disablen, solange
+              beide Eingabefelder leer sind?
             </li>
           </ol>
         </section>
@@ -1510,7 +1452,7 @@ function GreetingController {
         </section>
 
         <section id="t-redux">
-          <h1>Teil VIII</h1>
+          <h1>Teil V</h1>
           <h1>Zustands-Management mit Redux</h1>
         </section>
 
@@ -1572,6 +1514,11 @@ function GreetingController {
           <a href="http://localhost:8080/" target="_blank">Ziel-Anwendung</a>
           <p>(npm start in code/schritte/redux/7-redux-complete-app)</p>
         </section>
+
+        <section>
+            <h2>Redux im Code</h2>
+            <p>(npm start in code/workspace-live-coding-redux)</p>
+          </section>
 
         <section>
           <h2>Strukturierter Überblick über alle Redux Teile</h2>
@@ -1775,13 +1722,14 @@ function GreetingController() {
         </section>
 
         <section>
-          <h2>Geschafft ;-)</h2>
+          <h2>Geschafft 😊</h2>
           <h3>Vielen Dank für Eure Teilnahme!</h3>
           <p>
-            Kontakt: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a> |
-            <a href="https://xing.to/nilshartmann" target="_blank">Xing</a> |
-            <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+            Kontakt: </p><p>Mail: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a> 
           </p>
+          <p>
+            Web: <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a> </p>
+            <p>Twitter: <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a></p>
         </section>
       </div>
     </div>

@@ -6,18 +6,9 @@ import store from "./store";
 
 import HelloMessage from "./HelloMessage";
 
-ReactDOM.render(<HelloMessage initialMessage="Hello" />, document.getElementById("mount"));
-
-// const store = createStore(
-//   combineReducers({
-//     greeting: greetingReducer
-//   }),
-//   composeWithDevTools(applyMiddleware(thunk))
-// );
-
-// ReactDOM.render(
-//   <Provider store={store}>
-//     <HelloMessage />
-//   </Provider>,
-//   document.getElementById("mount")
-// );
+ReactDOM.render(
+  <Provider store={store}>
+    <HelloMessage initialMessage="Hello" />
+  </Provider>,
+  document.getElementById("mount")
+);
