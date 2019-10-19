@@ -50,5 +50,7 @@ export default function GreetingController() {
       />
     );
 
-  return <GreetingDetail onSave={addGreeting} />;
+  return (
+    <GreetingDetail onSave={addGreeting} onCancel={() => dispatch(actions.openMasterView())} />
+  );
 }

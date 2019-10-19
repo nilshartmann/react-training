@@ -12,6 +12,13 @@ export default function GreetingDetail(props) {
     inputRef.current.focus();
   }
 
+  function save() {
+    props.onSave({
+      name,
+      greeting
+    });
+  }
+
   return (
     <div>
       <input
@@ -29,6 +36,7 @@ export default function GreetingDetail(props) {
       />
 
       <button onClick={reset}>Clear</button>
+      <button onClick={save}>Save</button>
     </div>
   );
 }

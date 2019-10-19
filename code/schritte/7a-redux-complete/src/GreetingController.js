@@ -36,5 +36,7 @@ export default function GreetingController() {
 
   if (mode === MODE_MASTER) return <GreetingMaster onAddClick={openDetailView} />;
 
-  return <GreetingDetail onSave={addGreeting} />;
+  return (
+    <GreetingDetail onSave={addGreeting} onCancel={() => dispatch(actions.openMasterView())} />
+  );
 }

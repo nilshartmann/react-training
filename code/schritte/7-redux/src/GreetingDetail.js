@@ -38,6 +38,7 @@ export default function GreetingDetail(props) {
         placeholder="Greeting"
       />
       <button onClick={reset}>Clear</button>
+      <button onClick={props.onCancel}>Cancel</button>
       <button disabled={saveDisabled} onClick={save}>
         Save
       </button>

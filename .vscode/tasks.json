@@ -6,7 +6,7 @@
     {
 			"label": "Start Greeting Backend Server",
       "type": "npm",
-      "script": "start-backend",
+      "script": "backend",
       "problemMatcher": []
     }
   ]
