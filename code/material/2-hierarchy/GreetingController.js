@@ -47,13 +47,15 @@ export default function GreetingController() {
     );
 
   /*
-      1a. Hier statt null deine GreetingDetail-Komponente zurück geben
-      1b. Eine Callback-Funktion für das Hinzufügen eines Grußes an die GreetingDetail-Komponente übergeben
-      1c. Die Callback-Funktion soll addGreeting (s.o.) aufrufen, um den Gruß der Liste hinzuzufügen
+      TODO:
 
-      2a. In GreetingDetail einen Knopf zum Hinzufügen einbauen
-      2b. Beim Drücken auf den Knopf soll die übergebene Callback-Funktion (1b) mit dem eingegebenen
-          Gruß aufgerufen werden (Parameter: ein Objekt { name: ..., greeting: ... })
+      1. Hier statt null deine GreetingDetail-Komponente zurück geben
+          - Der Komponente eine Callback-Funktion für das Hinzufügen eines Grußes übergeben
+          - Die Callback-Funktion soll die fertige addGreeting-Funktion (oben) aufrufen, 
+            um den Gruß der Liste hinzufügen
+
+      2. In GreetingDetail einen Knopf zum Hinzufügen einbauen (siehe dort)
+      
     */
 
   return null;

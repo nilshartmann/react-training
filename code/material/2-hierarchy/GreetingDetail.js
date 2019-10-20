@@ -13,14 +13,6 @@ export default function GreetingDetail(props) {
     input.current.focus();
   }
 
-  function save() {
-    /*
-        Hier die übergebene Callback-Funktion 'onSave' (aus den Properties) aufrufen,
-        und ein Objekt, bestehend aus name und greeting (jeweils aus dem State)
-        übergeben
-         */
-  }
-
   return (
     <div>
       <input
@@ -37,8 +29,11 @@ export default function GreetingDetail(props) {
 
       <button onClick={reset}>Clear</button>
       {/*
-         Hier neuen Button hinzufügen, der die save()-Funktion (s. o.) 
-         beim onClick()-Event aufruft
+         Hier neuen Button hinzufügen, der die Callback-Funktion 'onSave'
+         aus den Properties aufruft.
+
+         Die Callback-Funktion erwartet ein Objekt bestehend aus den beiden
+         Eigenschaften 'name' und 'greeting'
       */}
     </div>
   );

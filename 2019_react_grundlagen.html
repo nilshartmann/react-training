@@ -118,17 +118,16 @@
             </li>
 
             <li>
-              <a href="#/t-typescript">Teil V: TypeScript und React (?)</a>
+              <a href="#/t-typescript">Teil V: TypeScript und React</a>
             </li>
 
             <li>
-              <a href="#/t-redux">Teil VI: Externes Statemanagement mit Redux (Überblick)</a>
+              <a href="#/t-redux">Teil VI: Externes Statemanagement mit Redux</a>
             </li>
 
             <li>
-              Ausblick: GraphQL mit dem Apollo React Client (?)</a>
+              Ausblick: GraphQL mit dem Apollo React Client (?)
             </li>
-
           </ul>
           <div style="font-size:80%">
             <p><b>Jederzeit:</b> Fragen und Diskussionen!</p>
@@ -173,8 +172,7 @@
           <h2>React</h2>
           <p><em>ist sehr stabil</em> (16.x seit September 2017!)</p>
           <ul>
-            <li class="fragment">Semantische Versionierung</li>
-            <li class="fragment">API Änderungen meist abwärtskompatibel</li>
+            <li class="fragment">Trotzdem grundlegend neue (zusätzliche) APIs</li>
           </ul>
         </section>
 
@@ -211,10 +209,10 @@
           <h3>React Komponenten</h3>
           <ul>
             <li class="fragment">
-              Werden als <b>Funktion mit Hooks</b> oder <b>ES6 Klasse</b> implementiert
+              Werden als <b>Funktion mit <em>Hooks</em></b> oder als <b>ES6 Klasse</b> implementiert
               <ul>
-                <li>Hooks seit React 16.8 (Februar 2019)</li>
-                <li>Klassen (noch?) sehr weit verbreitet in bestehendem Code</li>
+                <li>Hooks API seit React 16.8 (Februar 2019)</li>
+                <li>Klassen noch sehr weit verbreitet in bestehendem Code</li>
               </ul>
             </li>
 
@@ -248,7 +246,6 @@ export default function HelloMessage(props) {
     &lt;input onChange={event => setName(event.target.value)} value={name} />
 
     &lt;p>{name}, World&lt;/p>
-    &lt;button onClick={() => setName("")}>Clear&lt;/button>
     &lt;/div>
   );
 }
@@ -404,7 +401,10 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
               <ul class="x-list">
                 <li>Füge ein Eingabefeld für den Namen hinzu</li>
                 <li>Der eingegeben Gruß soll in der Zeile darunter ausgegeben werden</li>
-                <li style="margin-top:30px">Optional: wenn kein Gruß eingegeben ist (Eingabe leer), soll stattdessen eine Meldung ausgegeben werden (z.B. "Bitte Gruß eingeben")</li>
+                <li style="margin-top:30px">
+                  Optional: wenn kein Gruß eingegeben ist (Eingabe leer), soll stattdessen eine
+                  Meldung ausgegeben werden (z.B. "Bitte Gruß eingeben")
+                </li>
               </ul>
             </li>
             <li>
@@ -451,7 +451,7 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
                     </code></pre>
             </li>
             <li style="font-size: 80%" class="fragment">
-              Kann pures JavaScript enthalten, eingeschlossen in {}:
+              Kann JavaScript Ausdrücke (<em>Expressions</em>) enthalten, eingeschlossen in {}:
               <pre><code class="xml" contenteditable data-trim>
 const title = 'Hello, World';
 &lt;h1>{title.toUpperCase()}&lt;/h1>
@@ -584,7 +584,7 @@ function GreetingDetail(props) {
           </ul>
         </section>
         <section>
-          <h3>React Hooks</h3>
+          <h3>Hintergrund: <em>React Hooks API</em></h3>
           <em>Mit React Hooks kann sich eine Komponente in Zustand und Lebenszyklus "einhaken"</em>
           <ul>
             <li class="fragment">Vorgestellt Ende 2018, eingeführt mit React 16.8 (Feb 2019)</li>
@@ -631,7 +631,7 @@ function GreetingDetail(props) {
           </p>
           <div class="fragment">
             <p>Einschränkungen:</p>
-            <ul>
+            <ul class="x-list">
               <li class="fragment">
                 Hooks können nur in Funktionskomponenten (und anderen Hooks) aufgerufen werden
               </li>
@@ -678,6 +678,10 @@ function GreetingDetail(props) {
                                       // ...
                                     }
                                                       </code></pre>
+        </section>
+        <section>
+          <h3>React Hooks</h3>
+          <em>Beispiele für unerlaubte Verwendung #1</em>
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
                                     // VERBOTEN:
@@ -703,7 +707,7 @@ function GreetingDetail(props) {
         </section>
         <section>
           <h3>React Hooks</h3>
-          <em>Beispiele für korrekte und unerlaubte Verwendung #2</em>
+          <em>Beispiele für unerlaubte Verwendung #2</em>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
               // VERBOTEN 
               function GreetingDetail(props) {
@@ -711,6 +715,7 @@ function GreetingDetail(props) {
                   return React.useState(props.initialGreeting);
                 }
                 const [greeting, setGreeting] = initState();
+                // ...
               }
             </code></pre>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
@@ -722,6 +727,7 @@ function GreetingDetail(props) {
                 function GreetingDetail(props) {
                   // wäre erlaubt, wenn initState 'useInitState' hieße
                   const [greeting, setGreeting] = initState();
+                  // ...
                 }
               </code></pre>
         </section>
@@ -757,11 +763,12 @@ function GreetingDetail(props) {
               <code>initialName</code>)
             </li>
             <li>
-              Füge einen "Clear"-Button hinzu, der den Inhalt beider Eingabefelder löscht (<code>onClick</code>-Event)
+              Füge einen "Clear"-Button hinzu, der den Inhalt beider Eingabefelder löscht
+              (<code>onClick</code>-Event)
             </li>
             <li>
-              Optional: kannst Du den "Clear"-Button disablen, solange
-              beide Eingabefelder leer sind?
+              Optional: kannst Du den "Clear"-Button disablen, solange beide Eingabefelder leer
+              sind?
             </li>
           </ol>
         </section>
@@ -1021,7 +1028,7 @@ function GreetingMaster(props) {
         </section>
         <section>
           <h3>Schritte</h3>
-          <ol>
+          <ol class="x-list">
             <li>
               kopiere das Material aus <code>code/material/2-hierarchy</code> in deinen src-Ordner
               <span style="font-size:85%"
@@ -1031,18 +1038,12 @@ function GreetingMaster(props) {
 
             <li>
               erweitere den <code>GreetingController</code>, so dass dein
-              <code>GreetingDetail</code> angezeigt wird, wenn der Benutzer den Add-Button klickt:
-              <ul>
-                <li>
-                  dort gibt es bereits einen Kommentar, der dir die richtige Stelle anzeigt und
-                  weitere Details enthält
-                </li>
-                <li>übergib einen Callback der <code>addGreeting</code> nutzt</li>
-              </ul>
+              <code>GreetingDetail</code> angezeigt wird, wenn der Benutzer den Add-Button klickt.
+              Dort gibt es bereits einen Kommentar (TODO), der weitere Details enthält
             </li>
             <li>
-              im deinem <code>GreetingDetail</code> brauchst du einen neuen Knopf, der mit dem neuen
-              Gruß den Callback aufruft
+              im <code>GreetingDetail</code> brauchst du einen neuen Knopf, der mit dem neuen Gruß
+              den Callback aufruft
             </li>
           </ol>
         </section>
@@ -1056,12 +1057,16 @@ function GreetingMaster(props) {
         </section>
 
         <section>
-          <h3>Rückblick: Komponenten als Klassen</h3>
+          <h3>Exkurs: Komponenten als Klassen</h3>
 
-          <p>Statt <b>useState</b>: State als this.state und this.setState()</p>
-          <p>Properties als this.props</p>
+          <div>
+            <p style="font-size: 80%;margin:0">
+              State als <code>this.state</code> und <code>this.setState()</code>
+            </p>
+            <p style="font-size: 80%;margin:0">Properties als <code>this.props</code></p>
+          </div>
 
-          <pre><code data-trim contenteditable>
+          <pre><code data-trim contenteditable style="line-height: 1.1;">
       import React from "react";
       
       export default class GreetingDetail extends React.Component {
@@ -1080,13 +1085,11 @@ function GreetingMaster(props) {
             &lt;div>
               &lt;input 
                 value={this.state.name} 
-                onChange=
-                  {event => this.setState({name: event.target.value})}
+                onChange={event => this.setState({name: event.target.value})}
               />
               &lt;input 
-                    value={this.state.greeting} 
-                    onChange=
-                      {event => this.setState({greeting: event.target.value})}
+                value={this.state.greeting} 
+                onChange={event => this.setState({greeting: event.target.value})}
               />
             &lt;/div>
           );
@@ -1142,7 +1145,8 @@ function GreetingMaster(props) {
               >)
             </li>
             <li class="fragment">
-              Oder ganz anders: <a href="https://www.apollographql.com/docs/react/">GraphQL mit dem Apollo Client</a>
+              Oder ganz anders:
+              <a href="https://www.apollographql.com/docs/react/">GraphQL mit dem Apollo Client</a>
             </li>
           </ul>
         </section>
@@ -1289,7 +1293,7 @@ const response = await fetch(url, {
           </div>
         </section>
 
-        <section>
+        <section style="font-size:90%">
           <h3>useEffect Hook</h3>
 
           <p>Zwei Parameter:</p>
@@ -1380,10 +1384,16 @@ const response = await fetch(url, {
 
         <section>
           <h3>Speichern von Daten</h3>
-          <p>Zum Beispiel als Folge einer Benutzerinteraktion:</p>
-          <p class="fragment">Im Event-Handler sind wir nicht in der Render-Phase!</p>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-function GreetingController {
+          <div style="font-size:80%">
+          <p style="margin:0">Im Event-Handler als Folge einer Benutzerinteraktion</p>
+          <p style="margin:0" class="fragment">
+            Im Event-Handler sind wir nicht in der Render-Phase!
+          </p>
+        </div>
+          <pre
+            class="fragment"
+          ><code style="font-size:90%" class="javascript" contenteditable data-trim>
+function GreetingController(props) {
   async function addGreeting(greetingToBeAdded) {
     let newGreeting;
     try {
@@ -1399,11 +1409,7 @@ function GreetingController {
         throw new Error("Invalid status code: " + response.status);
       }
       newGreeting = await response.json();
-    } catch (err) {
-      console.error("LOADING GREETINGS FAILED:", err);
-    }
-    // add the new greetings to the list of all greetings
-    // (create a new array for immutability)
+    } catch (err) { ... }
     // use updater function (in setGreetings) to make sure
     // we get the latest 'greetings' value from state
     setGreetings(currentGreetings => [...currentGreetings, newGreeting]);
@@ -1432,7 +1438,6 @@ function GreetingController {
                 cd react-training/code/server
                 npm start
               </code></pre>
-          <p>Der Server ist über Port 7000 erreichbar</p>
           <p>
             Zum Testen:
             <a href="http://localhost:7000/greetings">http://localhost:7000/greetings</a>

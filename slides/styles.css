@@ -3,6 +3,11 @@
 @import "reveal.js/lib/css/github.css";
 @import "reveal.js/lib/font/google-fonts.css";
 
+.reveal .slides,
+.reveal .slides > section {
+  padding-top: 0;
+}
+
 .reveal {
   font-family: "PT Sans", sans-serif;
 }
@@ -62,7 +67,7 @@ code span.line-number {
   box-shadow: 0 0 0 0;
 }
 
-.reveal .x-list li {
+.reveal .x-list > li {
   margin-bottom: 10px;
 }
 
