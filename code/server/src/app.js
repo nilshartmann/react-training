@@ -71,8 +71,20 @@ const createApp = (db, largedata) => {
       return res.status(400).json({ error: "greeting.greeting must be defined" });
     }
 
+    if (greeting.name === "a") {
+      // slow down greetings with a
+      // to show async problems in GreetingController
+
+      setTimeout(() => {
+        const newGreeting = db.insert(req.body);
+        res.status(201).json(newGreeting);
+      }, 10000);
+
+      return;
+    }
+
     const newGreeting = db.insert(req.body);
-    return res.status(201).json(newGreeting);
+    res.status(201).json(newGreeting);
   });
 
   return app;
