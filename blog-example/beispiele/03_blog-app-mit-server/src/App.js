@@ -13,6 +13,10 @@ function Post({ post }) {
 function App() {
   const [posts, setPosts] = React.useState([]);
 
+  // Den Server kannst Du starten, in dem Du in das Verzeichnis
+  // blog-example/backend wechselst, und dort
+  //    npm start
+  // ausführst
   React.useEffect(() => {
     fetch("http://localhost:7000/posts")
       .then(response => response.json())
