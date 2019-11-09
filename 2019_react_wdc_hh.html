@@ -98,9 +98,12 @@
             </div>
 
             <div style="margin-left:15px">
-              <a href="https://www.dpunkt.de/buecher/13201/9783864905520-react.html"
-                ><img style="max-height:450px" src="slides/images/react-buch-v2.jpg"
-              /></a>
+              <a href="https://reactbuch.de"
+                ><img
+                  style="max-height:450px"
+                  src="slides/images/react-buch-v2.png"
+                /><br />https://reactbuch.de</a
+              >
             </div>
           </div>
         </section>
@@ -128,7 +131,6 @@
             <li>
               <a href="#/t-redux">Teil VI: Externes Statemanagement mit Redux (Überblick)</a>
             </li>
-
           </ul>
           <div style="font-size:80%">
             <p><b>Jederzeit:</b> Fragen und Diskussionen!</p>
@@ -346,8 +348,6 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
           <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
         </section>
 
-      
-
         <section>
           <h2>Übung 1: React Hello-World</h2>
           <h3>
@@ -401,12 +401,16 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
         <section>
           <h3>Schritt #2: Deine erste React-Komponente</h3>
           <ul>
-            <li>Implementiere die erste Version der GreetingDetail-Komponente:
-              <ul><li>Füge ein Eingabefeld für den Namen hinzu</li>
-                <li>Der eingegeben Gruß soll in der Zeile darunter ausgegeben werden</li></ul>
-              </li>
             <li>
-              Als Hilfe kannst Du dir den Code auf den <a href="#/interaktiv-hellomessage">vergangenen Folien</a> anschauen
+              Implementiere die erste Version der GreetingDetail-Komponente:
+              <ul>
+                <li>Füge ein Eingabefeld für den Namen hinzu</li>
+                <li>Der eingegeben Gruß soll in der Zeile darunter ausgegeben werden</li>
+              </ul>
+            </li>
+            <li>
+              Als Hilfe kannst Du dir den Code auf den
+              <a href="#/interaktiv-hellomessage">vergangenen Folien</a> anschauen
             </li>
           </ul>
         </section>
@@ -746,13 +750,12 @@ function GreetingDetail(props) {
           <h3>Schritte</h3>
           <h4>Erweitere deine erste React-Komponente im workspace-Ordner</h4>
           <ol class="x-list">
-            <li>
-              du brauchst ein zweites Eingabefeld, das <code>greeting</code> heißt
-            </li>
+            <li>du brauchst ein zweites Eingabefeld, das <code>greeting</code> heißt</li>
 
             <li>
               Erweitere deine Komponente so, dass man von außen Properties übergeben kann, die den
-              Zustand der beiden Eingabefelder initialisieren (<code>initialGreeting</code> und <code>initialName</code>)
+              Zustand der beiden Eingabefelder initialisieren (<code>initialGreeting</code> und
+              <code>initialName</code>)
             </li>
             <li>
               Füge einen "Clear"-Button hinzu, der den Inhalt beider Eingabefelder löscht.
@@ -2310,9 +2313,9 @@ function GreetingDetail(props) {
         </section>
 
         <section>
-            <h2>Redux im Code</h2>
-            <p>(npm start in code/workspace-live-coding-redux)</p>
-          </section>
+          <h2>Redux im Code</h2>
+          <p>(npm start in code/workspace-live-coding-redux)</p>
+        </section>
 
         <section>
           <h2>Strukturierter Überblick über alle Redux Teile</h2>
@@ -2519,11 +2522,15 @@ function GreetingController() {
           <h2>Geschafft 😊</h2>
           <h3>Vielen Dank für Eure Teilnahme!</h3>
           <p>
-            Kontakt: </p><p>Mail: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a> 
+            Kontakt:
+          </p>
+          <p>Mail: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a></p>
+          <p>
+            Web: <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a>
           </p>
           <p>
-            Web: <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a> </p>
-            <p>Twitter: <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a></p>
+            Twitter: <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
         </section>
       </div>
     </div>
