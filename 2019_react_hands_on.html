@@ -114,78 +114,38 @@
         </p>
         </section>
 
-
         <section>
-          <h3>Eine erste Komponente: Hello, World!</h3>
+          <h3>Der Beispiel-Workspace</h3>
+          <p>Im Verzeichnis <b>code/blog-example/workspace</b> ist schon alles vorbereitet</p>
+          <p>Du kannst dort mit <b>npm install</b> und <b>npm start</b> die (leere) Anwendung starten</p>
+          <p>In der Datei App.js kannst Du deine Anwendung implementieren
+            <br/>Dazu bitte in index.js die App-Komponente importieren (siehe Kommentare dort)
+          </p>
+          <p>Wenn Du Änderungen machst, wird die Anwendung automatisch gebaut und im Browser aktualisiert</p>
+        </section>
+        <section>
+          <h3>Mögliche Features</h3>
+
+          <p>Du kannst im Team eine App ganz nach deinen Wünschen bauen 😊</p>
+          <p>Zur Inspiration hier einige Ideen:</p>
           <ul>
-            <li>Beispiel Schritt-für-Schritt (<code>blog-example/workspace</code>)</li>
-          </ul>
+            <li>Schritt 1: Ein Formular zur Eingabe eines neuen Blog-Posts</li>
+            <li>Schritt 2: Neu eingegebene Blog-Posts werden in einer Liste unterhalb des Formulars angezeigt
+              <br/>Architekur-Idee: Eigene Komponente für ein einzelnes Blog-Post, das Formular sowie eine
+              zentrale App-Komponente die die Liste der Posts verwaltet
+            </li><li>
+              Schritt 3: Speichern der Blog-Posts auf dem Server</li>
+            <li>Validierung der Eingaben im Formular (keine Leer-Eingaben etc)</li>
+            <li>Formular zur Eingabe des Blog-Posts auf einer einzelnen Seite</li>
+            <li>Darstellung eines einzelnen Posts auf einer eigenen Seite (Trennung in Übersichtsliste und Detail-Ansicht)</li>
+            </ul>
         </section>
 
-        <section id="interaktiv-hellomessage">
-          <h3>Hello World React</h3>
-          <code>HelloWorld.js</code>
-          <pre><code data-trim contenteditable>
-import React from "react";
 
-export default function HelloWorld(props) {
-  const [greeting, setGreeting] = React.useState(props.initialGreeting || "");
+          
 
-  return (
-    &lt;div>
-    &lt;input onChange={event => setGreeting(event.target.value)} value={greeting} />
 
-    &lt;p>{greeting}, World&lt;/p>
-    &lt;button onClick={() => setGreeting("")}>Clear&lt;/button>
-    &lt;/div>
-  );
-}
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>Aufruf</h3>
-          <div class="fragment">
-            <p>
-              <code>index.html</code>
-            </p>
-            <pre><code data-trim contenteditable>
-&lt;html>
-  &lt;-- ... -->
-  &lt;body>
-    <div id="root"></div>
-  &lt;/body>
-&lt;/html>
-</code></pre>
-          </div>
-          <div class="fragment">
-            <p>
-              <code>index.js</code>
-            </p>
-            <pre><code data-trim contenteditable class="javascript">
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import HelloWorld from './HelloWorld';
-
-ReactDOM.render(&lt;HelloWorld initialGreeting="Hello"/>, 
-  document.getElementById('root')
-);
-</code></pre>
-          </div>
-        </section>
-        
-        <section>
-          <h3>create-react-app</h3>
-          <a
-            href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
-            target="_blank"
-            >User Guide</a
-          >
-          <p>Bootstrap von neuen React Anwendung</p>
-          <p>Fertige Konfiguration von React und Webpack mit TypeScript, Sass, Linter</p>
-          <p>Beispiel: npx create-react-app PROJEKTNAME --typescript</p>
-        </section>
+      
         <section data-state="js-exkurs">
           <h2>React Devtools</h2>
           <em>React Developer Tools für Chrome und Firefox</em>
@@ -277,7 +237,65 @@ ReactDOM.render(&lt;HelloWorld initialGreeting="Hello"/>,
             </a>
           </p>
         </section>
-
+        <section>
+            <h3>Eine erste Komponente: Hello, World!</h3>
+            <ul>
+              <li>Beispiel Schritt-für-Schritt (<code>blog-example/workspace</code>)</li>
+            </ul>
+          </section>
+  
+          <section id="interaktiv-hellomessage">
+            <h3>Hello World React</h3>
+            <code>HelloWorld.js</code>
+            <pre><code data-trim contenteditable>
+  import React from "react";
+  
+  export default function HelloWorld(props) {
+    const [greeting, setGreeting] = React.useState(props.initialGreeting || "");
+  
+    return (
+      &lt;div>
+      &lt;input onChange={event => setGreeting(event.target.value)} value={greeting} />
+  
+      &lt;p>{greeting}, World&lt;/p>
+      &lt;button onClick={() => setGreeting("")}>Clear&lt;/button>
+      &lt;/div>
+    );
+  }
+            </code></pre>
+          </section>
+  
+          <section>
+            <h3>Aufruf</h3>
+            <div class="fragment">
+              <p>
+                <code>index.html</code>
+              </p>
+              <pre><code data-trim contenteditable>
+  &lt;html>
+    &lt;-- ... -->
+    &lt;body>
+      <div id="root"></div>
+    &lt;/body>
+  &lt;/html>
+  </code></pre>
+            </div>
+            <div class="fragment">
+              <p>
+                <code>index.js</code>
+              </p>
+              <pre><code data-trim contenteditable class="javascript">
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  
+  import HelloWorld from './HelloWorld';
+  
+  ReactDOM.render(&lt;HelloWorld initialGreeting="Hello"/>, 
+    document.getElementById('root')
+  );
+  </code></pre>
+            </div>
+          </section>
         <section>
           <h3>React: JSX</h3>
           <ul>
