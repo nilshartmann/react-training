@@ -29,8 +29,6 @@
             <span class="transparent-bg">
               <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a> |
               <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
-              |
-              <a href="mailto:nils@nilshartmann.net" target="_blank">nils@nilshartmann.net</a>
             </span>
           </h4>
 
@@ -46,33 +44,15 @@
             <p><span class="transparent-bg">npm install</span></p>
           </div>
 
+         
           <p>
-            <span class="transparent-bg">Slides: react-training/2019_hands_on.html</span>
+                  <span class="transparent-bg">Slides: https://nils.buzz/techlab</span>
           </p>
+                <p>
+            <span class="transparent-bg">oder: react-training/2019_hands_on.html</span>
+                </p>
+         
         </section>
-<!--        
-        <section>
-          <h3>Das Beispiel-Projekt</h3>
-          <p>Workspace</p>
-          <ul class="x-list">
-            <li style="margin-bottom:40px">
-              <code>2019_react_wdc_hh.html</code> Slides im Root-Verzeichnis
-            </li>
-            <li style="margin-bottom:40px">
-              <code>code/<b>workspace</b></code
-              >: Verzeichnis für Eure Übungen<br />👉&nbsp;Empfehlung: dieses Verzeichnis in VS
-              Code/IDE öffnen
-            </li>
-            <li>
-              <code>code/<b>material</b></code
-              >: Code als Ausgangspunkt für Übungen
-            </li>
-            <li>
-              <code>code/<b>schritte</b></code
-              >: Fertige Stände nach den einzelnen Teilen
-            </li>
-          </ul>
-        </section> -->
         <section>
           <h2>Nils Hartmann</h2>
           <p>
@@ -101,149 +81,39 @@
           </div>
         </section>
 
-        <section>
-          <h2>Inhalt</h2>
-          <ul style="font-size: 85%">
-            <li>
-              <a href="#/t1">Teil I: React Einführung</a>
-            </li>
-            <li>
-              <a href="#/t2">Teil II: React-Komponenten (Details)</a>
-            </li>
-            <li>
-              <a href="#/t3">Teil III: React-Komponenten: Hierarchien und Anwendungen</a>
-            </li>
-            <li style="margin-bottom: 20px">
-              <a href="#/t4">Teil IV: Daten lesen und schreiben vom Server</a>
-            </li>
-
-            <li>
-              <a href="#/t-typescript">Teil V: TypeScript und React</a>
-            </li>
-
-            <li>
-              <a href="#/t-redux">Teil VI: Externes Statemanagement mit Redux (Überblick)</a>
-            </li>
-          </ul>
-          <div style="font-size:80%">
-            <p><b>Jederzeit:</b> Fragen und Diskussionen!</p>
-          </div>
-        </section>
-
         <section id="example-app">
-          <h2>Beispiel-Anwendung</h2>
-          <a target="_blank" href="code/schritte/7-redux/public/index.html">
-            <img src="slides/images/greeting-master-and-detail.png" style="height:650px" />
+          <h3>Beispiel-Anwendung</h3>
+          <a target="_blank" href="blog-example/beispiele/02_blog-app/build/index.html">
+            <img src="blog-example/blog-example.png" style="height:650px" />
           </a>
+
+          <p>cd blog-example/beispiele/02_blog-app && npm start
+        </p>
         </section>
 
-        <section id="t1">
-          <h1>Teil 1</h1>
-          <h2>React-Einführung</h2>
-        </section>
-
-        <section id="react">
-          <h2>React</h2>
-          <p>
-            <a href="https://reactjs.org" target="_blank">https://reactjs.org</a>
-          </p>
-        </section>
-
-        <section>
-          <h2>React</h2>
-          <ul>
-            <li class="fragment">Minimales API</li>
-            <li class="fragment">
-              Minimales Feature Set
-              <ul>
-                <li>Ihr könnt/müsst viele Entscheidungen selber treffen</li>
-              </ul>
-            </li>
-
-            <li class="fragment">Bewusste Verstöße gegen Best-Practices</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>React</h2>
-          <p><em>ist sehr stabil</em> (16.x seit September 2017!)</p>
-          <ul>
-            <li class="fragment">Semantische Versionierung</li>
-            <li class="fragment">API Änderungen meist abwärtskompatibel</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Komponenten in React</h3>
-          <p>
-            <em>Zentrales Konzept in React: <b>Komponenten</b></em>
-          </p>
-          <img style="height:800px" class="fragment" src="slides/images/soc.png" />
-        </section>
-
-        <section>
-          <h3>Komponenten in React</h3>
-          <p style="font-size:smaller">Unser Beispiel in Komponenten</p>
-          <img src="slides/images/greeting-example-component-hierarchy.png" style="height: 650px" />
-        </section>
-
-        <section>
-          <h3>React Komponenten</h3>
-          <ul>
-            <li class="fragment">bestehen aus <b>Logik und UI</b></li>
-            <li class="fragment">
-              <b>keine Templatesprache</b>
-            </li>
-            <li class="fragment">werden <b>deklarativ</b> beschrieben</li>
-            <li class="fragment">
-              werden immer <b>komplett gerendert</b> (kein 2-Wege-Data-Binding)
-            </li>
-            <li class="fragment">werden zu <b>ganzen Anwendungen</b> aggregiert</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>React Komponenten</h3>
-          <ul>
-            <li class="fragment">
-              Werden als <b>Funktion mit Hooks</b> oder <b>ES6 Klasse</b> implementiert
-              <ul>
-                <li>Hooks seit React 16.8 (Februar 2019)</li>
-                <li>Klassen (noch?) sehr weit verbreitet in bestehendem Code</li>
-              </ul>
-            </li>
-
-            <li class="fragment">
-              Keine Templatesprache (stattdessen JavaScript)
-              <ul>
-                <li>Templates können HTML-artige Syntax enthalten (JSX)</li>
-              </ul>
-            </li>
-          </ul>
-        </section>
 
         <section>
           <h3>Eine erste Komponente: Hello, World!</h3>
-          <p><a href="code/schritte/0-hello_world/public/index.html">Demo</a></p>
-          <ul class="fragment">
-            <li>Beispiel Schritt-für-Schritt (<code>code/workspace-live-coding</code>)</li>
+          <ul>
+            <li>Beispiel Schritt-für-Schritt (<code>blog-example/workspace</code>)</li>
           </ul>
         </section>
 
         <section id="interaktiv-hellomessage">
           <h3>Hello World React</h3>
+          <code>HelloWorld.js</code>
           <pre><code data-trim contenteditable>
 import React from "react";
 
-export default function HelloMessage(props) {
-  const [name, setName] = React.useState(props.initialGreeting || "");
+export default function HelloWorld(props) {
+  const [greeting, setGreeting] = React.useState(props.initialGreeting || "");
 
   return (
     &lt;div>
-    &lt;input onChange={event => setName(event.target.value)} value={name} />
+    &lt;input onChange={event => setGreeting(event.target.value)} value={greeting} />
 
-    &lt;p>{name}, World&lt;/p>
-    &lt;button onClick={() => setName("")}>Clear&lt;/button>
+    &lt;p>{greeting}, World&lt;/p>
+    &lt;button onClick={() => setGreeting("")}>Clear&lt;/button>
     &lt;/div>
   );
 }
@@ -258,54 +128,31 @@ export default function HelloMessage(props) {
             </p>
             <pre><code data-trim contenteditable>
 &lt;html>
+  &lt;-- ... -->
   &lt;body>
-    <div id="mount"></div>
+    <div id="root"></div>
   &lt;/body>
-  &lt;script src="dist/main.js">&lt;/script>
 &lt;/html>
 </code></pre>
           </div>
           <div class="fragment">
             <p>
-              <code>main.js</code>
+              <code>index.js</code>
             </p>
             <pre><code data-trim contenteditable class="javascript">
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import HelloMessage from './HelloMessage';
+import HelloWorld from './HelloWorld';
 
-const mountNode = document.getElementById('mount');
-ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
+ReactDOM.render(&lt;HelloWorld initialGreeting="Hello"/>, 
+  document.getElementById('root')
+);
 </code></pre>
           </div>
-          <p class="fragment">
-            <a target="_blank" href="code/schritte/0-hello_world/public/index.html">Run</a>
-          </p>
         </section>
-        <section data-state="js-exkurs">
-          <h2>Hintergrund: Tooling</h2>
-        </section>
-
-        <section data-state="js-exkurs">
-          <h2>Webpack und Babel</h2>
-          <img src="slides/images/webpack-und-babel.png" style="height:600px" />
-        </section>
-        <section data-state="js-exkurs">
-          <h2>Webpack Development Server</h2>
-          <ul>
-            <li>Zum Ausführen der Anwendung wird ein Webserver benötigt</li>
-            <li class="fragment">
-              Für die Entwicklung <b>Webpack Dev Server</b>:
-              <ul>
-                <li>...führt Webpack auf Basis der Projekt Webpack Konfiguration aus</li>
-                <li>...erzeugt Ausgabe in Memory (Performance)</li>
-                <li>...Hot Reloading: Automatische Aktualisierung nach Code Änderung</li>
-              </ul>
-            </li>
-          </ul>
-        </section>
-        <section data-state="js-exkurs">
+        
+        <section>
           <h3>create-react-app</h3>
           <a
             href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
@@ -374,7 +221,7 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
 
           <ol style="font-size: 85%">
             <li>
-              <code>cd code/workspace</code>
+              <code>cd code/blog-example/workspace</code>
             </li>
 
             <li>
@@ -382,40 +229,18 @@ ReactDOM.render(&lt;HelloMessage initialGreeting="Hello"/>, mountNode);
             </li>
 
             <li>
-              Öffne <a href="http://localhost:8080" target="_blank">http://localhost:8080</a> im
+              Öffne <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> im
               Browser
             </li>
 
             <li>Wenn auf der Seite 'Hello, World' steht, ist alles gut</li>
           </ol>
 
-          <img src="slides/images/screenshot-npm-start.png" />
+          <img src="slides/images/screenshot-npm-start-cra.png" />
         </section>
+      
         <section>
-          <h3>Schritt #2: Deine erste React-Komponente</h3>
-          <ul>
-            <li>
-              Implementiere die erste Version der GreetingDetail-Komponente:
-              <ul>
-                <li>Füge ein Eingabefeld für den Namen hinzu</li>
-                <li>Der eingegeben Gruß soll in der Zeile darunter ausgegeben werden</li>
-              </ul>
-            </li>
-            <li>
-              Als Hilfe kannst Du dir den Code auf den
-              <a href="#/interaktiv-hellomessage">vergangenen Folien</a> anschauen
-            </li>
-          </ul>
-        </section>
-
-        <section id="t2">
-          <h1>Teil II</h1>
-          <h2>React-Komponenten (Grundlagen)</h2>
-          <a href="code/schritte/1-detail/public/index.html">Ziel-Anwendung</a>
-        </section>
-
-        <section>
-          <h2>Dokumentation</h2>
+          <h2>React Dokumentation</h2>
           <p>
             <a href="https://reactjs.org/docs/hello-world.html">
               https://reactjs.org/docs/hello-world.html
@@ -559,7 +384,7 @@ function Header({titleColor, title}) {
             </li>
           </ul>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-function GreetingDetail(props) {
+function HelloWorld(props) {
   const [greeting, setGreeting] = React.useState(props.initialGreeting);
 
   return &lt;input onChange={e => setGreeting(e.target.value) value={greeting} />;
@@ -581,19 +406,17 @@ function GreetingDetail(props) {
           <h3>React Hooks</h3>
           <em>Mit React Hooks kann sich eine Komponente in Zustand und Lebenszyklus "einhaken"</em>
           <ul>
-            <li class="fragment">Vorgestellt Ende 2018, eingeführt mit React 16.8 (Feb 2019)</li>
             <li class="fragment">
-              "Normale" Funktionen, müssen aber mit <code>use</code> beginnen (useState, useEffect,
+              Hooks sind "normale" Funktionen, müssen aber mit <code>use</code> beginnen (useState, useEffect,
               ...)
             </li>
-            <li class="fragment">Es können eigene Hooks gebaut werden ("custom hooks")</li>
             <li class="fragment">
-              Importieren und verwenden von Hooks
+              Beispiel: Importieren und verwenden von Hooks
 
               <pre><code class="javascript" contenteditable data-trim>
                 import React from "react";
 
-                function GreetingDetail(props) {
+                function HelloWorld(props) {
                   const [greeting, setGreeting] = React.useState(props.initialGreeting);
                   // ...
                 }
@@ -601,7 +424,7 @@ function GreetingDetail(props) {
               <pre class="fragment"><code class="javascript" contenteditable data-trim>
                                       import React, { useState } from "react";
                       
-                                      function GreetingDetail(props) {
+                                      function HelloWorld(props) {
                                         const [greeting, setGreeting] = useState(props.initialGreeting);
                                         // ...
                                       }
@@ -656,7 +479,7 @@ function GreetingDetail(props) {
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
               // ERLAUBT:
-              function GreetingDetail(props) {
+              function HelloWorld(props) {
                 const [greeting, setGreeting] = React.useState(props.initialGreeting);
                 const [name, setName] = React.useState(props.initialName);
                 // ...
@@ -665,7 +488,7 @@ function GreetingDetail(props) {
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
                                     // ERLAUBT:
-                                    function GreetingDetail(props) {
+                                    function HelloWorld(props) {
                                       const [greeting, setGreeting] = React.useState(props.initialGreeting);
                                       const uppercaseGreeting = greeting.toUpperCase(); 
                                       const [name, setName] = React.useState(props.initialName);
@@ -675,7 +498,7 @@ function GreetingDetail(props) {
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
                                     // VERBOTEN:
-                                    function GreetingDetail(props) {
+                                    function HelloWorld(props) {
                                       const [greeting, setGreeting] = React.useState(props.initialGreeting);
                                       if (greeting !== null) {
                                         const [name, setName] = React.useState(props.initialName);
@@ -686,7 +509,7 @@ function GreetingDetail(props) {
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
                           // VERBOTEN:
-                          function GreetingDetail(props) {
+                          function HelloWorld(props) {
                             const [greeting, setGreeting] = React.useState(props.initialGreeting);
                             if (greeting === null) {
                               return <h1>Please enter greeting first</h1>;
@@ -700,7 +523,7 @@ function GreetingDetail(props) {
           <em>Beispiele für korrekte und unerlaubte Verwendung #2</em>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
               // VERBOTEN 
-              function GreetingDetail(props) {
+              function HelloWorld(props) {
                 function initState() {
                   return React.useState(props.initialGreeting);
                 }
@@ -713,7 +536,7 @@ function GreetingDetail(props) {
                   return React.useState(props.initialGreeting);
                 }
 
-                function GreetingDetail(props) {
+                function HelloWorld(props) {
                   // wäre erlaubt, wenn initState 'useInitState' hieße
                   const [greeting, setGreeting] = initState();
                 }
@@ -722,71 +545,17 @@ function GreetingDetail(props) {
 
         <section>
           <h3>Render Zyklus</h3>
-          <img src="slides/images/event-zustand-render.png" height="550px" />
+          <img src="slides/images/render-cycle.png" height="550px" />
         </section>
 
         <section>
           <h3>Virtual DOM</h3>
           <p>"Rendern" hat leider doppelte Bedeutung!</p>
-          <img src="slides/images/virtual-dom.png" style="height:650px" />
+          <img src="slides/images/vdom.png" style="height:650px" />
         </section>
 
         <section>
-          <h2>Übung 2: Detail-Ansicht für unsere Gruß-Anwendung</h2>
-          <em
-            ><b
-              >Erzeuge eine Komponente mit der man einen Namen und eine Grußformel eingeben kann</b
-            ></em
-          >
-        </section>
-        <section>
-          <h3>Schritte</h3>
-          <h4>Erweitere deine erste React-Komponente im workspace-Ordner</h4>
-          <ol class="x-list">
-            <li>du brauchst ein zweites Eingabefeld, das <code>greeting</code> heißt</li>
-
-            <li>
-              Erweitere deine Komponente so, dass man von außen Properties übergeben kann, die den
-              Zustand der beiden Eingabefelder initialisieren (<code>initialGreeting</code> und
-              <code>initialName</code>)
-            </li>
-            <li>
-              Füge einen "Clear"-Button hinzu, der den Inhalt beider Eingabefelder löscht.
-            </li>
-            <li>
-              Optional, wenn Du schnell fertig bist: kannst Du den "Clear"-Button disablen, solange
-              beide Eingabefelder leer sind?
-            </li>
-          </ol>
-        </section>
-
-        <section id="t3">
-          <h1>Teil III</h1>
-          <h2>React-Komponenten: Details, Hierarchien und Anwendungen</h2>
-          <a href="code/schritte/2-hierarchy/public/index.html" target="_blank">Ziel-Anwendung</a>
-        </section>
-
-        <section>
-          <h3>Themen</h3>
-          <ul>
-            <li>Darstellung von Listen</li>
-            <li>Architektur-Idee: Controller-Komponente und View-Komponente</li>
-            <li>Durchreichen von Zustand und Callbacks</li>
-            <li>Komponenten als Klassen</li>
-          </ul>
-        </section>
-
-        <section>
-          <div style="display: flex">
-            <div style="flex: 1">
-              <img src="slides/images/greeting-master-table.png" style="max-width:100%" />
-            </div>
-            <div style="flex: 1">
               <h3>Listen</h3>
-              <div
-                class="fragment"
-                style="display: flex; flex-direction: column; justify-content: center;align-items: center"
-              >
                 <p>JSX bietet nichts für Listen</p>
                 <p>
                   Ausgabe typischerweise über
@@ -795,28 +564,23 @@ function GreetingDetail(props) {
                 <p>Elemente einer Liste brauchen einen eindeutigen Key</p>
 
                 <pre class="fragment"><code class="javascript" contenteditable data-trim>
-const greetings = [
-  { id: 0, name: 'Klaus', greeting: 'Hallo' },
-  { id: 1, name: 'Susi', greeting: 'Moin' }
+const posts = [
+  { id: 0, title: 'Hello World', body: 'Lorem ipsum' },
+  { id: 1, title: 'React in a Nutshell', body: 'Lets get started with React' }
 ];
 
-const GreetingsTable(props) => (
-    &lt;table>
-      {props.greetings.map(greeting =>
-        &lt;tr key={greeting.id}>
-            &lt;td>{greeting.name}&lt;/td>
-            &lt;td>{greeting.greeting}&lt;/td>
-        &lt;/tr>
-      )}
-    &lt;/table>
-);
+function PostList(props) {
+  return {props.posts.map(post => (
+    &lt;div key={post.id}>
+        &lt;h1>{post.title}&lt;/h1>
+        &lt;p>{post.body}&lt;/p>
+    &lt;/div>
+  )}
+}
 </code></pre>
-              </div>
-            </div>
-          </div>
         </section>
 
-        <section>
+        <section class="todo">
           <h3>Teil III (b)</h3>
           <h2>Anwendungen und Komponentenhierarchien</h2>
         </section>
@@ -1004,139 +768,36 @@ function GreetingMaster(props) {
           />
         </section>
 
-        <section>
-          <h2>Übung 3: Eine komplette Anwendung zusammen setzen</h2>
-          <p>
-            <em>
-              Füge deinen bestehenden Detail-View <code>GreetingDetail</code> und einen Master-View
-              über eine Controller-Komponente zusammen</em
-            >
-          </p>
-        </section>
-        <section>
-          <h3>Schritte</h3>
-          <ol>
-            <li>
-              kopiere das Material aus <code>code/material/2-hierarchy</code> in deinen src-Ordner
-              <span style="font-size:85%"
-                >(oder dein fertiges <code>GreetingDetail</code> verwenden)</span
-              >
-            </li>
-
-            <li>
-              erweitere den <code>GreetingController</code>, so dass dein
-              <code>GreetingDetail</code> angezeigt wird, wenn der Benutzer den Add-Button klickt:
-              <ul>
-                <li>
-                  dort gibt es bereits einen Kommentar, der dir die richtige Stelle anzeigt und
-                  weitere Details enthält
-                </li>
-                <li>übergib einen Callback der <code>addGreeting</code> nutzt</li>
-              </ul>
-            </li>
-            <li>
-              im deinem <code>GreetingDetail</code> brauchst du einen neuen Knopf, der mit dem neuen
-              Gruß den Callback aufruft
-            </li>
-          </ol>
-        </section>
-        <section>
-          <h3>GreetingMaster</h3>
-          <img src="slides/images/greeting-master.png" style="border:0;box-shadow:0 0 0 0" />
-        </section>
-        <section>
-          <h3>GreetingDetail</h3>
-          <img src="slides/images/greeting-detail.png" style="border:0;box-shadow:0 0 0 0" />
-        </section>
-
-        <section>
-          <h3>Rückblick: Komponenten als Klassen</h3>
-
-          <p>Statt <b>useState</b>: State als this.state und this.setState()</p>
-          <p>Properties als this.props</p>
-
-          <pre><code data-trim contenteditable>
-      import React from "react";
-      
-      export default class GreetingDetail extends React.Component {
-      
-        constructor(props) {
-          super(props);
-      
-          this.state = {
-            name: props.initialName,
-            greeting: props.initialGreeting
-          };
-        }
-      
-        render() {
-          return (
-            &lt;div>
-              &lt;input 
-                value={this.state.name} 
-                onChange=
-                  {event => this.setState({name: event.target.value})}
-              />
-              &lt;input 
-                    value={this.state.greeting} 
-                    onChange=
-                      {event => this.setState({greeting: event.target.value})}
-              />
-            &lt;/div>
-          );
-        }
-      }</code></pre>
-        </section>
 
         <section id="t4">
           <h1>Teil IV</h1>
           <h2>Daten lesen und schreiben vom Server</h2>
-          <a href="code/schritte/3-remote/public/index.html" target="_blank">Ziel-Anwendung</a>
         </section>
 
         <section>
-          <h3>Herausforderungen</h3>
-          <ol>
-            <li>Wie machen wir das Laden und Speichern technisch?</li>
-            <li>Wo steht der Code zum initialen Laden der Grüße? (beim Start der Anwendung)</li>
-            <li>Wo speichern wir?</li>
-            <li>Wie funktioniert asynchrone Verarbeitung in React?</li>
-          </ol>
-        </section>
+            <h3>Der Blog-Server</h3>
+            <p>
+              Der Server ist bereits fertig. Zum Starten:
+            </p>
+            <pre><code>
+                  cd react-training/blog-example/backend
+                  npm start
+                </code></pre>
+            <p>Der Server ist über Port 7000 erreichbar</p>
+            <p>
+              Zum Testen:
+              <a href="http://localhost:7000/posts">http://localhost:7000/posts</a>
+            </p>
+          </section>
+
+        
 
         <section>
           <h3>Server-Calls</h3>
-          <ul>
-            <li>React macht keine Angabe, wie Server-Calls (technisch) gemacht werden</li>
-            <li class="fragment">
-              Häufig in React verwendet: <b>fetch</b> API
-              <ul>
-                <li>Browser-API zum Ausführen von HTTP Requests</li>
-                <li>
-                  <a href="http://caniuse.com/#search=fetch" target="_blank">hohe Verbreitung</a>
-                </li>
-                <li>
-                  Spezifikation:
-                  <a href="https://fetch.spec.whatwg.org/" target="_blank"
-                    >https://fetch.spec.whatwg.org/</a
-                  >
-                </li>
-                <li>
-                  Polyfill:
-                  <a href="https://github.com/github/fetch" target="_blank"
-                    >https://github.com/github/fetch</a
-                  >
-                </li>
-              </ul>
-            </li>
-            <li class="fragment">
-              Populäre Alternative: <a href="https://github.com/axios/axios">Axios</a> (<a
-                href="https://www.reddit.com/r/javascript/comments/cp5qhm/askjs_the_sad_state_of_axios/"
-                >Project tot?</a
-              >)
-            </li>
-          </ul>
+          <p>React macht keine Angabe, wie Server-Calls (technisch) gemacht werden</p>
+          <p>Häufig in React verwendet: <a href="https://developer.mozilla.org/de/docs/Web/API/Fetch_API">fetch</a> API</p>
         </section>
+
         <section>
           <h3>Beispiel: fetch</h3>
           <p>Daten lesen per GET</p>
@@ -1153,7 +814,7 @@ function GreetingMaster(props) {
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
 // Alternative mit Promise:
 
-fetch('http://localhost:7000/api/greetings')
+fetch('http://localhost:7000/posts')
   .then(response => response.json())
   .then(json => /* ... */)
   .catch(ex => console.error('request failed', ex));
@@ -1198,11 +859,11 @@ const response = await fetch(url, {
     // 1. fetch gibt ein Promise zurück, dass mit dem
     // Response-Objekt aufgelöst wird, wenn die Antwort vom Server
     // kommt
-    const response = await fetch('http://localhost:7000/greetings');
+    const response = await fetch('http://localhost:7000/posts');
   
     // 2. das Response Objekt enthält eine json() Funktion,
     // die das geparse JSON aus der Antwort zurückliefert
-    const greetings = await response.json();
+    const posts = await response.json();
   
     // WAS MACHEN WIR MIT DER ANTWORT?
     // ???
@@ -1214,22 +875,6 @@ const response = await fetch(url, {
   </code></pre>
           <p>
             <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API Doku</a>
-          </p>
-        </section>
-
-        <section>
-          <h3>Wann werden Daten gelesen und geschrieben?</h3>
-
-          <p>Wann müssen die Daten in der Greeting-Anwendung <b>gelesen</b> werden?</p>
-        </section>
-
-        <section>
-          <h3>Initiales Laden von Daten</h3>
-
-          <p>
-            Schritt-für-Schritt (<code
-              >code/workspace-live-coding, vorher schritte/2-hierarchy reinkopieren</code
-            >)
           </p>
         </section>
 
@@ -1246,7 +891,7 @@ const response = await fetch(url, {
           </ul>
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-            function GreetingController(props) {
+            function App(props) {
               React.useEffect( 
                 () => console.log("Ich werde nach JEDEM Rendern ausgeführt")
               );
@@ -1257,7 +902,7 @@ const response = await fetch(url, {
             2. Parameter (Array) gibt an, wann der Effekt ausgeführt werden soll:
 
             <pre class="fragment"><code class="javascript" contenteditable data-trim>
-              function GreetingController(props) {
+              function App(props) {
                 React.useEffect( 
                   () => console.log("Ich werde nur nach 1. Rendern ausgeführt"),
                   []
@@ -1267,13 +912,13 @@ const response = await fetch(url, {
           </div>
 
           <div class="fragment">
-            Nur nach 1. Rendern ausführen, und wenn sich das greetingId-Prop ändert:
+            Nach 1. Rendern ausführen und wenn sich das postId-Property ändert:
 
             <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                function GreetingController(props) {
+                function BlogPost(props) {
                   React.useEffect(
                     () => console.log("..."), 
-                    [props.greetingId]) 
+                    [props.postId]) 
                   );
                 }
               </code></pre>
@@ -1315,13 +960,13 @@ const response = await fetch(url, {
           </p>
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                  function GreetingController(props) {
+                  function BlogPost(props) {
                     React.useEffect(
                       () => {
-                        console.log("greetingId hat sich geändert"); 
+                        console.log("postId hat sich geändert"); 
                         return () => console.log("Ich bin entfernt worden") 
                       },
-                      [props.greetingId])
+                      [props.postId])
                     );
                   }
                 </code></pre>
@@ -1336,27 +981,18 @@ const response = await fetch(url, {
               1. Rendern zu laden:
             </p>
             <pre><code class="javascript" contenteditable data-trim>
-                function GreetingController() {
-                  const [mode, setMode] = React.useState(MODE_MASTER);
-                  const [greetings, setGreetings] = React.useState([]);
+                function App() {
+                  const [posts, setPosts] = React.useState([]);
                 
                   React.useEffect(() => {
-                    async function loadGreetings() {
-                      let greetings = null;
-                      try {
-                        const response = await fetch(BACKEND_URL);
-                        greetings = await response.json();
-                      } catch (err) {
-                        console.error("LOADING GREETINGS FAILED:", err);
-                        return;
-                      }
-                      setGreetings(greetings);
-                    }
-                
-                    loadGreetings();
+                    fetch("http://localhost:7000/posts")
+                      .then(response => response.json())
+                      .then(json => setPosts(json));
                   }, []);
 
-                  // ...
+                  return {posts.map(p => (
+                    &lt;Post key={p.id} post={p} />
+                  ))}
                 }
                 
                 </code></pre>
@@ -1364,1152 +1000,37 @@ const response = await fetch(url, {
         </section>
 
         <section>
-          <h3>Wann werden Daten gelesen und geschrieben?</h3>
-
-          <p>Wann müssen die Daten in der Greeting-Anwendung <b>gespeichert</b> werden?</p>
-        </section>
-
-        <section>
           <h3>Speichern von Daten</h3>
           <p>Zum Beispiel als Folge einer Benutzerinteraktion:</p>
-          <p class="fragment">Im Event-Handler sind wir nicht in der Render-Phase!</p>
+          <p class="fragment">Im Event-Handler dürfen wir direkt Seiteneffekte nutzen</p>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-function GreetingController {
-  async function addGreeting(greetingToBeAdded) {
-    let newGreeting;
-    try {
-      const response = await fetch(BACKEND_URL, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(greetingToBeAdded)
-      });
-      if (response.status !== 201) {
-        throw new Error("Invalid status code: " + response.status);
-      }
-      newGreeting = await response.json();
-    } catch (err) {
-      console.error("LOADING GREETINGS FAILED:", err);
-    }
-    // add the new greetings to the list of all greetings
-    // (create a new array for immutability)
-    // use updater function (in setGreetings) to make sure
-    // we get the latest 'greetings' value from state
-    setGreetings(currentGreetings => [...currentGreetings, newGreeting]);
-    setMode(MODE_MASTER);
+function App(props) {
+  // laden, wie gesehen
+  React.useEffect( ... );
+
+  function addPost(post) {
+    fetch("http://localhost:7000/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(post)
+    })
+      .then(response => response.json())
+      .then(newPost => setPosts([newPost, ...posts]));
   }
+
+
   return
     ...
-      &lt;GreetingDetail onSave={newGreeting => addGreeting(newGreeting)} />
+      &lt;CreatePostForm onAdd={newPost => addPost(newPost)} />
     ...
 }
                 </code></pre>
         </section>
 
-        <section>
-          <h2>Übung: Laden und Speichern der Daten von/auf einem Server</h2>
-          <p>
-            <em
-              >Entwickle auf Basis von fetch eine Version des GreetingControllers, der die Daten auf
-              dem Server laden und dort wieder speichern kann</em
-            >
-          </p>
-          <p>
-            Der Server ist bereits fertig. Zum Starten:
-          </p>
-          <pre><code>
-                cd react-training/code/server
-                npm start
-              </code></pre>
-          <p>Der Server ist über Port 7000 erreichbar</p>
-          <p>
-            Zum Testen:
-            <a href="http://localhost:7000/greetings">http://localhost:7000/greetings</a>
-          </p>
-        </section>
-        <section>
-          <h3>Schritte</h3>
-          <ol class="x-list">
-            <li class="fragment">
-              Kopiere <code>code/material/3-remote/GreetingController.js</code> in deinen
-              Arbeitsbereich
-            </li>
-
-            <li class="fragment">
-              Die Serverzugriffe sollen in <code>loadGreetings</code> und
-              <code>saveGreeting</code> erfolgen
-              <ul>
-                <li>Dort sind bereits entsprechende TODOs für dich eingetragen</li>
-                <li>
-                  Die URL des Backends steht in der Konstante <code>BACKEND_URL</code>. <br /><code
-                    >const BACKEND_URL = "http://localhost:7000/greetings";</code
-                  >
-                </li>
-              </ul>
-            </li>
-          </ol>
-        </section>
-
-        <section id="t-typescript">
-          <h1>Teil V</h1>
-          <h2>React mit TypeScript entwickeln</h2>
-          <p>
-            <a href="code/schritte/5-typescript/public/index.html" target="_blank"
-              >Ziel-Anwendung</a
-            >
-          </p>
-          <h3>Themen</h3>
-          <ul>
-            <li>
-              <a href="#/t-typescript-grundlagen">TypeScript Grundlagen</a>
-            </li>
-            <li>
-              <a href="#/t-typescript-react">React-Anwendungen mit TypeScript entwickeln</a>
-            </li>
-          </ul>
-        </section>
-
-        <section id="t-typescript-grundlagen">
-          <h2>Hintergrund: TypeScript</h2>
-          <p>
-            <em>TypeScript is a superset of JavaScript that compiles to plain JavaScript </em>(
-            <a href="http://www.typescriptlang.org/" target="_blank"
-              >http://www.typescriptlang.org/</a
-            >)
-          </p>
-          <ul>
-            <li>Erweitert JavaScript um ein Typen System</li>
-            <li>Jeder gültige JavaScript Code ist auch gültiger TypeScript Code</li>
-            <li>Mittels des TypeScript Compilers wird aus TS Code JavaScript Code</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>TypeScript Grundlagen</h3>
-          <p>Typ-Angaben werden hinter einen Bezeichner geschrieben</p>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // Variablen können Typ-Informationen bekommen
-  let foo: string;
-  foo = 'yo';
-  // Error: number: This type is incompatible with string
-  foo = 10;
-                 </code></pre>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // Funktionen
-  function sayIt(what: string): string {
-    return `Saying: ${what}`;
-  }
-  
-  sayIt('Klaus'); // ok
-  sayIt(10); // error
-  </code></pre>
-
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // Arrow Funktionen
-  const sayIt = (what: string): string => `Saying: ${what}`;
-  
-  sayIt('Moin');
-  sayIt(123); // Error: Argument of type '123' is not assignable
-              // to parameter of type 'string'.
-  </code></pre>
-        </section>
-
-        <section>
-          <h2>Eingebaute Typen</h2>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // string
-  let city: string = 'Hamburg';
-  
-  // boolean
-  let isDone: boolean = false;
-  
-  // number
-  let theAnswer: number = 42;
-  
-  // array (note the [])
-  let cities: string[] = ['Hamburg', 'Barcelona'];
-  // alternative:
-  let languages: Array&lt;string> = ['JavaScript', 'TypeScript'];
-  
-  // any
-  let theUnknown: any = 'Who cares';
-  theUnknown = 666; // ok
-  theUnknown = true; // ok
-  let a: number = theUnknown; // ok
-  
-  // void
-  function log(s: string): void { /* ... */ }
-              </code></pre>
-        </section>
-        <section>
-          <h2>Typen können abgeleitet (inferred) werden</h2>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  let city = 'Hamburg'; // city ist ein String
-  
-  city = 42;
-  // Fehler: [ts] Type '42' is not assignable to type 'string'.
-  </code></pre>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // Explizite Angabe eines Types (parameter)
-  // und abgeleiteter Typ (Return Type der Funktion)
-  
-  function sayIt(what: string) {
-    return `Saying: ${what}`;
-  }
-  
-  const said: string = sayIt('Hello TypeScript'); // ok
-  const saidItWrong: number = sayIt('Hello TypeScript'); // error!
-  
-  
-  </code></pre>
-        </section>
-
-        <section>
-          <h2>Type Check ausschalten</h2>
-          <p>
-            Mit <code>@ts-ignore</code> (als Kommentar) kann wird die Überprüfung der nächsten Zeile
-            ausgeschaltet:
-          </p>
-          <pre><code class="typescript line-numbers" contenteditable data-trim>
-  let city:string = "Hamburg";
-  
-  city = 20259; // error: [ts] Type '20259' is not assignable to type 'string'.
-  
-  // @ts-ignore
-  city = 20259; // ok                
-  </code></pre>
-          <p class="fragment">
-            Nützlich in corner cases, die nur schwer mit TypeScript abbildbar sind oder bei
-            Migration
-          </p>
-        </section>
-        <section>
-          <h2>null und undefined</h2>
-          <div class="fragment">
-            <p><code>null</code> muss explizit zugelassen werden <em>(strictNullChecks</em>):</p>
-            <pre><code class="typescript line-numbers" contenteditable data-trim>
-  let city:string = null; //Type 'null' is not assignable to type 'string'.
-  
-  let optionalCity:string|null = null; // OK
-              </code></pre>
-          </div>
-          <div class="fragment">
-            <p><code>undefined</code> muss ebenfalls explizit zugelassen werden:</p>
-            <pre><code class="typescript line-numbers" contenteditable data-trim>
-    let city:string = undefined; //Type 'undefined' is not assignable to type 'string'.
-    
-    let optionalCity:string|undefined = undefined; // OK
-    let optionalCity:string|undefined|null = null; // OK
-                </code></pre>
-          </div>
-          <div class="fragment">
-            <p>
-              Optionale Parameter können mit ? gekennzeichnet werden (erlauben dann auch
-              <code>undefined</code>)
-            </p>
-            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  function greet(name: string, greeting?: string) {
-    console.log(`${greeting || 'Hello'}, {name}`);
-  }
-  
-  greet('Susi', 'Moin')// Moin, Susi
-  
-  // 2. Parameter ist optional:
-  greet('Klaus'); // Hello, Klaus
-  
-  greet('Peter', null); // Argument of type 'null' is not assignable
-                        // to parameter of type 'string | undefined'.
-              </code></pre>
-          </div>
-        </section>
-
-        <section>
-          <h2>Klassen</h2>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  class Sayer {
-    what: string; // Typ-Angabe für Felder ist erforderlich
-  
-    constructor(what: string) { // Typ-Angabe für Parameter ist erforderlich
-      this.what = what;
-    }
-  
-    // Angabe des Return-Types optional
-    sayIt(): string {
-      return `Saying: ${this.what}`;
-    }
-  }
-  
-  </code></pre>
-        </section>
-
-        <section>
-          <h2>Klassen (Sichtbarkeiten)</h2>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  class Sayer {
-    // Erlaubte Sichtbarkeiten: private | protected | public
-    private what: string; 
-  
-    constructor(what: string) { 
-      this.what = what;
-    }
-  
-    sayIt(): string {
-      return `Saying: ${this.what}`;
-    }
-  }
-  
-  const sayer = new Sayer("Susi");
-  sayer.what = ""; // ERROR: Property 'greeting' is private
-  
-  </code></pre>
-        </section>
-        <section>
-          <h2>Klassen (Parameter Properties)</h2>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  class Sayer {
-    // identisch zu vorherigem Beispiel
-    constructor(private what: string) {
-    }
-  
-    sayIt(): string {
-      return `Saying: ${this.what}`;
-    }
-  }
-  </code></pre>
-        </section>
-        <section>
-          <h2>Klassen (readonly Felder)</h2>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  class Sayer {
-  
-    readonly what: string; 
-  
-    // Alternativ:
-    constructor(readonly public what: string) {
-    }
-  
-    setWhat(newWhat: string) {
-      this.what = newWhat; // ERR Cannot assign to 'what' 
-                           // because it is a read-only property.
-    }
-  }
-  </code></pre>
-        </section>
-
-        <section>
-          <h2>Generics</h2>
-          <p>Klassen können ähnlich wie in Java mit Generics parametrisiert werden:</p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-class Store&lt;T> {
-  private value: T;
-
-  setValue(t: T) { this.value = t};
-  getValue() { return this.value  ; }
-}
-
-const s = new Store&lt;string>();
-s.set("Klaus"); // ok
-s.set(123); // err
-
-const x:number = s.get(); // err
-const y = s.get(); //OK (y ist string)
-const z:string = s.get(); OK;
-</code></pre>
-        </section>
-
-        <section>
-          <h2>Eigene Typen</h2>
-          <p>
-            Mit <code>interface</code> und <code>type</code>können eigene Typen (Objekt-Strukturen)
-            definiert werden:
-          </p>
-
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  // Komplexer Typ
-  interface Person {
-    name: string; // Pflicht
-    livesIn?: string; // Optional
-  }
-
-  // Alternativ (interface und type fast synonym)
-  type Person = { name: string; livesIn?: string; }
-  
-  const susi: Person = { // OK
-    name: 'Klaus',
-    livesIn: 'Hamburg'
-  };
-  const klaus: Person = { // OK (livesIn ist optional)
-    name: 'Klaus'
-  }
-  
-  const helmut: Person = {} // Error: Property 'name' is missing
-  
-  const lukas: Person = {
-    name: 'Lukas',
-    profession: 'Lokführer'
-  } // Error: 'profession' does not exist in type 'Person'.
-                 </code></pre>
-        </section>
-
-        <section>
-          <h2>Eigene Typen II</h2>
-          <p>Eigene Objekt-Typen können sowohl "Attribute" als auch Funktionen enthalten:</p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-            // Komplexer Typ
-            type Person {
-              name: string; // Pflicht
-              greet(greeting: string): string;
-            }
-
-            const p:Person = {
-              name: "Klaus",
-              greet(greeting: string) { 
-                return `${greeting}, ${this.name}`
-              }
-            }
-            p.greet("Hello"); // OK
-            p.greet(123); // ERR: Argument of type '123' is not 
-                          // assignable to parameter of type 'string'.
-
-            const wrong:Person = {
-              name: "Susi", // OK
-              greet(greeting: number) { return "hello" } 
-                // ERR: Type '(greeting: number) => string' is not assignable to 
-                //      type '(greeting: string) => string'.
-                //      Types of parameters 'greeting' and 'greeting' are incompatible.
-                //      Type 'string' is not assignable to type 'number'.
-            }
-                           </code></pre>
-        </section>
-
-        <section>
-          <h2>Typ Kompatibilität</h2>
-          <em
-            >Im Gegensatz zu Java/C# ("nominal typing") sind bei TypeScript zwei Typen kompatibel,
-            sofern sie <b>dieselbe Struktur</b> haben ("structural typing")</em
-          >
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  interface Book {
-    title: string
-  }
-  
-  interface Movie {
-    title: string
-  }
-  
-  const book:Book = { title: "Das Kapital" };
-  const movie:Movie = book; // OK, obwohl Book !== Movie
-                 </code></pre>
-        </section>
-        <section>
-          <h2>Type Aliase</h2>
-          <p>Mit <b>type</b> können Aliase für Typen definiert werden.</p>
-          <p>
-            Mittlerweile sehr ähnlich zu Interfaces und fast können sowohl interface als auch type
-            verwendet werden
-          </p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  type Book = {
-    title: string
-  }
-  
-  type Movie = {
-    title: string
-  }
-  
-  const book:Book = { title: "Das Kapital" };
-  const movie:Movie = { title: "Der weiße Hai" };
-
-  type MODE_DETAIL = "MODE_DETAIL";
-  let s:MODE_DETAIL = "MODE_DETAIL";
-  s = "MODE_MASTER" // ERROR
-
-
-                             </code></pre>
-        </section>
-
-        <section>
-          <h2>Generics</h2>
-          <p>Generische Typen verwenden</p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  type Person = { name: string };
-  type Movie =  { title: string };
-  
-  let persons:Array&lt;Person&gt; = [];
-  let movies:Array&lt;Movie&gt; = [];
-  
-  persons.push({name: 'Klaus'});
-  movies.push({title: 'Batman'});
-  
-  persons.push({title: 'Casablanca'}) // error ('title' not in Person)
-  
-  persons = movies; // error
-  
-        </code></pre>
-        </section>
-
-        <section>
-          <h2>Methoden</h2>
-
-          <p>Methoden können beschrieben werden</p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-type AnEvent = { type: string; payload: any }
-type ListenerFunction = (e: AnEvent) => void;
-
-class EventEmitter {
-  // addEventListener erwartet EINEN Parameter:
-  // eine Funktion, die ein 'AnEvent' entgegennimmer
-  addEventListener(listenerFn: ListenerFunction) {
-
-    listenerFn(null); // err
-    listenerFn({ type: "GREET", payload: "Hello"}); // OK
-  }
-}    
-
-
-const c = new EventEmitter();
-c.addEventListener( (e) => console.log(e)); // OK
-c.addEventListener( (e,p: string) => console.log(e)); 
-  // ERR: Argument of type '(e: any, p: string) => void' is not 
-  //      assignable to parameter of type '(e: AnEvent) => void'.
-
-          </code></pre>
-        </section>
-        <section>
-          <h2>Union Types</h2>
-          <p>Variablen, Parameter etc. können mehr als einen Typ annehmen:</p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-type Person = { name: string };
-type Movie = { title: string };
-
-function printNameOrTitle(obj: Person | Movie) { 
-
-  console.log(obj.title); // ERR: Property 'title' does not 
-                          // exist on type 'Person | Movie'
- 
-  if ("title" in obj) {
-    // obj ist Movie hier, title ist definiert
-    console.log(obj.title);
-  } else {
-    // obj ist Person hier: name ist definiert
-    console.log(obj.name);
-  }
-}
-
-printNameOrTitle({name: "Klaus"}); //OK
-printNameOrTitle({title: "Pulp Fiction"}); //OK
-printNameOrTitle({label: "Save"}); // ERR
-    
-          </code></pre>
-        </section>
-        <section>
-          <h2>Intersection Types</h2>
-          <p>Types können kombiniert werden. Sie enthalten dann alle Properties aus allen Types:</p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-type Person = { name: string };
-type Birthday = { dateOfBirth: number };
-
-type PersonWithBirthday = Person & Birthday;
-
-const x:PersonWithBirthday = {
-  name: "Klaus",
-  dateOfBirth: 1976
-} // OK
-
-const x:PersonWithBirthday = {
-  name: "Klaus"
-} // ERR: Missing Property 'dateOfBirth'
+       
       
-            </code></pre>
-        </section>
-        <section>
-          <h2>String Literal Types</h2>
-          <p>
-            Mit einem String Literal Type kann genau festgelegt werden, welche Ausprägungen ein
-            String annehmen kann. Dadurch sind Enum-ähnliche Konstrukte möglich.
-          </p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-
-type MODE = "MASTER" | "DETAIL" | "ERROR";
-
-const m:MODE = "MASTER"; // OK
-const n:MODE = "FEHLER"; // ERR: Type '"FEHLER"' 
-                         // is not assignable to type 'MODE'.
-
-function getView(m: MODE) {
-  if (m === "NOT_FOUND") {
-     // ERR: This condition will always return 'false' since the 
-     // types 'MODE' and '"NOT_FOUND"' have no overlap.       
-  } else if (m === "DETAIL") {
-      // OK
-  }
-}
-            </code></pre>
-        </section>
-        <section>
-          <h2>Mapped Types</h2>
-          <p>Bestehende Typen können auf neue Typen mit neuen Eigenschaften gemappt werden:</p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>              
-type Person = { name: string; lastname: string};
-
-const p:Person = {
-    name: "Klaus",
-    lastname: "mueller"
-}
-
-p.lastname = "Meier"; // OK
-
-// ReadonlyPerson ist ein "mapped type"
-type ReadonlyPerson = Readonly&lt;Person>;
-
-const p2:ReadonlyPerson = {
-    name: "Klaus",
-    lastname: "mueller"
-}
-
-p2.name = "Karl"; // Cannot assign to 'name' because it is a read-only property.
-</code></pre>
-        </section>
-        <section id="t-typescript-react">
-          <h2>React Anwendungen mit TypeScript</h2>
-          <em>State und Properties von Komponenten werden mit Typen beschrieben</em>
-
-          <p class="fragment">
-            Achtung! TypeScript-Dateien, die JSX enthalten <b>müssen</b> mit
-            <code>.tsx</code> enden!
-          </p>
-
-          <p class="fragment">�‍�Zeigen in <code>workspace-typescript</code></p>
-        </section>
-
-        <section>
-          <h2>Typsicherheit in Funktionskomponenten</h2>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-    type GreetingMasterProps = {
-        greetings: Greeting[]
-        onAdd: () => void
-    };
-            </code></pre>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-    function GreetingMaster(props: GreetingMasterProps) {
-      props.greetings.length // OK
-      
-      props.greeting // compile ERROR: Property 'greeting' does not exist on type 'GreetingMasterProps'.
-      props.onAdd("huhu"); // compile ERROR: Expected 0 arguments, but got 1.
-    }
-    
-            </code></pre>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-    // Mit Destructuring
-    function GreetingMaster({greetings, onAdd}: GreetingMasterProps) => {
-      // ...
-    }
-    
-            </code></pre>
-        </section>
-
-        <section>
-          <h3>Typsichere Verwendung von Komponenten</h3>
-
-          <div class="fragment">
-            <p>Code Completion</p>
-            <img style="height: 200px" src="slides/images/screenshot-ts-code_completion.png" />
-          </div>
-
-          <div class="fragment">
-            <p>Unbekanntes Property</p>
-            <img style="height: 200px" src="slides/images/screenshot-ts-error-01.png" />
-          </div>
-
-          <div class="fragment">
-            <p>Falsche Verwendung eines Properties</p>
-            <img style="height: 200px" src="slides/images/screenshot-ts-error-02.png" />
-          </div>
-        </section>
-
-        <section>
-          <h3>Typsicherheit in useState</h3>
-          <p>Der Typ des States bei useState kann abgeleitet</p>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-type GreetingDetailProps = { intitialGreeting: string };
-function GreetingDetailProps(props: GreetingDetailProps) {
-  const [greeting, setGreeting] = React.useState(props.initialGreeting);
-
-  // greeting ist string, weil initialGreeting ein string ist
-  setGreeting("huhu"); // OK
-  setGreeting(666); // ERROR (falscher Typ)
-  setGreeting(null); // ERROR (falscher Typ)
-}
-            </code></pre>
-          <div class="fragment">
-            <p>Oder explizit angeben</p>
-            <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-type MODE_STATE = "MODE_MASTER" | "MODE_DETAIL";
-
-function GreetingController() {
-  const [mode, setMode] = React.useState&lt;MODE_STATE>("MODE_MASTER");
-
-  // Mode ist entweder String "MODE_MASTER" oder "MODE_DETAIL"
-  // setMode akzeptiert nur Strings "MODE_MASTER" oder "MODE_DETAIL" 
-
-  setMode("NOT_FOUND"); // compile error
-  setMode(null); // compile error
-}
-                            </code></pre>
-          </div>
-        </section>
-
-        <section>
-          <h2>Getypte React Klassen-Komponenten</h2>
-          <p>
-            <code>React.Component</code> ist eine generische Klasse, die einen Typ für Properties
-            und State erwartet
-          </p>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-      type Greeting = {name: string; greeting: string};
-      
-      type GreetingDetailProps = {
-          greeting?: Greeting;
-          onSave: (newGreeting: NewGreeting) => void;
-      }
-      
-      type GreetingDetailState = {
-          name: string;
-          greeting: string;
-      }
-                  </code></pre>
-
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-      
-      class GreetingDetail
-        extends React.Component&lt;GreetingDetailProps, GreetingDetailState> {
-        // ...
-      }
-                  </code></pre>
-        </section>
-        <section>
-          <h3>Typsicherheit in React Klassen-Komponenten</h3>
-          <p>Properties und State sind typsicher</p>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  constructor(props: Props) {
-      super(props);
-  
-      this.state = { name: '', greeting: ''} // OK
-  
-      // ERROR: Object literal may only specify known properties,
-      // and 'aha' does not exist in type 'Readonly&lt;State>'
-      this.state = {name: '', greeting: '', aha: 10};
-  
-      // ERROR: Cannot assign to 'greeting' because
-      // it is a constant or a read-only property.
-      this.state.greeting = 'no way';
-  }
-  
-  render() {
-    // ERROR: Property 'nothere' does not exist on type...
-    return &lt;div>{this.props.nothere}&lt;/iv>;
-  }
-                 </code></pre>
-        </section>
-        <section>
-          <h2>React Events in TypeScript</h2>
-          <p>Generisches React Event: <code>React.SyntheticEvent</code></p>
-          <p class="fragment">
-            Wird parametrisiert mit dem Element, <b>auf dem es definiert ist</b>, z.B.
-            HTMLInputElement
-          </p>
-          <p class="fragment">TypeScript weiß dann, wie das Event aussieht</p>
-          <span class="fragment">
-            <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-function GreetingDetail(props) {
-  const [greeting, setGreeting] = React.useState("");
-
-  function handleChange(e: React.SyntheticEvent&lt;HTMLInputElement>) {
-    setGreeting(e.currentTaget.value);
-  }
-
-  return &lt;input onChange={handleChange} value={greeting} />
-}              
-          </code></pre>
-            <p>
-              <a
-                href="https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682"
-                target="_blank"
-              >
-                <code>target</code> vs
-                <code>currentTarget</code>
-              </a>
-            </p>
-          </span>
-        </section>
-        <section>
-          <h2>useRef</h2>
-          <p>
-            <code>useRef</code> liefert Container für beliebigen Typ zurück. <br />Der gehaltene
-            Wert kann immer entweder vom vorgegebenen Typ sein (z.B. ein HTML Element) oder
-            <code>null</code>
-          </p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-
-
-  function GreetingDetail(props) {
-    const inputRef = React.useRef&lt;HTMLInputElement>(null);
-    // inputRef.current kann entweder HTMLInputElement oder null ein
-
-    function reset() {
-      inputRef.current.focus(); // ERR: current kann null sein
-      
-      if (inputRef.current) {
-        inputRef.current.focus(); // OK
-      }
-    }
-  }
-            </code></pre>
-        </section>
-        <section>
-          <h2>Übung: Typsichere React-Komponenten</h2>
-          <h3>
-            <em>Vervollständige die Typ-Informationen der Anwendung</em>
-          </h3>
-          <div style="font-size: 80%">
-            <p>
-              <b>WORKSPACE:</b>
-            </p>
-            <p>
-              Bitte arbeite in dem neuen Workspace <code><b>code/workspace-typescript</b></code
-              >, der die Anwendung aus dem letzten Schritt enthält, aber in TypeScript implementiert
-            </p>
-            <p>
-              <b>VORBEREITUNG:</b>
-            </p>
-            <ol class="x-list">
-              <li>Beende deinen laufenden Webpack Dev Server! (Strg/Ctrl/Cmd+C)</li>
-              <li>
-                Starte den neuen Dev Server mit TypeScript (statt Babel) in
-                <b>code/workspace-typescript</b>:
-                <pre><code>npm start</code></pre>
-              </li>
-            </ol>
-          </div>
-        </section>
-        <section>
-          <h3>Aufgabe 1: Typ-Informationen ergänzen</h3>
-          <ol style="font-size:80%" class="x-list">
-            <li class="fragment">
-              <b>Ergänze die Typ-Informationen in useInput</b> (Vorher umbenennen
-              <code>useApi.js</code> in <code>useApi.tsx</code>. Sobald Du die Datei umbenennst,
-              sollten Compile-Fehler angezeigt werden)
-            </li>
-            <li class="fragment">
-              <b>Ergänze die Typ-Informationen in GreetingDetail</b> (Vorher umbenennen
-              <code>GreetingDetail.js</code> in <code>GreetingDetail.tsx</code>. Sobald Du die Datei
-              umbenennst, sollten Compile-Fehler angezeigt werden)
-            </li>
-          </ol>
-
-          <h3 class="fragment">Aufgabe 2: Neuen Mode im GreetingController einführen</h3>
-          <ol style="font-size:80%" class="x-list">
-            <li class="fragment">
-              Nach dem Speichern eines neuen Greetings soll ein neuer "Feedback-View" mit einer
-              Meldung erscheinen (statt Master), in der steht "Gruß wurde gespeichert" (o.ä.).
-            </li>
-            <li class="fragment">
-              Zusätzlich zu der Meldung soll der View einen "OK"-Button anzeigen.
-            </li>
-            <li class="fragment">
-              Wenn der OK-Button geklickt wird, soll wieder zum Master gewechselt werden:
-              <br /><code class="fragment"
-                >MASTER --onAdd--> DETAIL --onSave--> FEEDBACK --onOk--> MASTER</code
-              >
-            </li>
-          </ol>
-        </section>
-
-        <section id="t-redux">
-          <h1>Teil VI</h1>
-          <h1>Zustands-Management mit Redux</h1>
-        </section>
-
-        <section>
-          <h2>Eine typische React-Anwendung in Komponenten</h2>
-          <h3>Frage an Euch: was könnte es für Probleme geben?</h3>
-          <img src="slides/images/typische-react-komponenten-hierarchie.png" style="height:650px" />
-        </section>
-
-        <section>
-          <h3>Problem 1: Über Komponenten verteilter Zustand</h3>
-          <img src="slides/images/verteilter-zustand.png" style="height:650px" />
-          <p>Wo muss ich nach Fehlern suchen? Wo ist die Logik?</p>
-        </section>
-
-        <section>
-          <h3>Problem 2: Getrennte Komponentenhierarchien</h3>
-          <img src="slides/images/zwei-komponenten-hierarchien.png" style="height:650px" />
-          <p>Geht entweder nicht oder "Gott-Komponente" entsteht</p>
-        </section>
-
-        <section>
-          <h3>Problem 3: Gemeinsamer ("globaler") Zustand</h3>
-          <img src="slides/images/gemeinsam-genutzter-state.png" style="height:650px" />
-          <p>Wie kommt Zustand von ganz oben nach ganz unten?</p>
-        </section>
-
-        <section>
-          <h3>Problem 4: UI und Logik vermischt</h3>
-          <img src="slides/images/ui-und-logic-vermischt.png" style="height:650px" />
-          <p>Wiederverwendung? React-unabhängigkeit? Testbarkeit?</p>
-        </section>
-
-        <section>
-          <h3>External Statemanagement</h3>
-          <div class="fragment">
-            <p>Habt ihr Ideen?</p>
-            <p>Wie können wir Zustand und/oder Logik aus den Komponenten befreien?</p>
-          </div>
-        </section>
-
-        <section>
-          <h2>Redux</h2>
-          <h3>External Statemanagement</h3>
-        </section>
-
-        <section>
-          <h3>Wiederholung</h3>
-          <h2>Render Cycle in Pure React</h2>
-          <img src="slides/images/redux-01-react-cycle-no-redux.png" style="height:650px" />
-        </section>
-
-        <section>
-          <h2>Redux extrahiert die Verantwortlichkeiten</h2>
-          <img src="slides/images/redux-02-extracting-responsibility.png" style="width: 900px" />
-        </section>
-        <section>
-          <h2>Demo: Redux & Redux Devtools</h2>
-          <a href="http://localhost:8080/" target="_blank">Ziel-Anwendung</a>
-          <p>(npm start in code/schritte/redux/7-redux-complete-app)</p>
-        </section>
-
-        <section>
-          <h2>Redux im Code</h2>
-          <p>(npm start in code/workspace-live-coding-redux)</p>
-        </section>
-
-        <section>
-          <h2>Strukturierter Überblick über alle Redux Teile</h2>
-        </section>
-
-        <section>
-          <h3>Event-Handlers werden Action-Creators</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-export function setFilter(filter) {
-  return {
-    type: SET_FILTER,
-    filter
-  };
-}
-</code></pre>
-          <ul>
-            <li class="fragment">Action-Creators erzeugen Action-Objekte</li>
-            <li class="fragment">
-              Actions sind Kommando-artige Strukturen von Dingen, die die Applikation tun soll
-            </li>
-            <li class="fragment">
-              Über die dispatch-Methode des Stores werden sie an <em>alle</em> Reducer weiter
-              gegeben
-            </li>
-            <li class="fragment">
-              Actions bestehen aus einem Typen und einer beliebigen Nutzlast (payload)
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Action-Creators machen Server-Calls</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-export const loadGreeting = greetingId => dispatch => {
-fetch(BACKEND_URL+'/'+greetingId)
-    .then(response => response.json())
-    .then(greetings => dispatch({
-        type: SET_GREETINGS,
-        greetings
-    });
-};
-</code></pre>
-          <ul>
-            <li class="fragment">
-              Die Action wird nicht direkt zurück geliefert, sondern erst später dispatched
-            </li>
-            <li class="fragment">
-              wir bekommen die dispatch Methode als Parameter, mit der wir später die Action
-              dispatchen
-            </li>
-          </ul>
-          <p class="fragment">
-            <strong
-              >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
-              Operationen ausführen dürfen</strong
-            >
-          </p>
-        </section>
-
-        <section>
-          <h3>Ein <em>einziger</em> Store hält den <em>kompletten</em> Zustand</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { rootReducer } from './reducers';
-
-// http://redux.js.org/docs/api/createStore.html
-const store = createStore(
-rootReducer // reducer
-);
-ReactDOM.render(
-&lt;Provider store={store}>
-    &lt;GreetingController />
-&lt;/Provider>,
-mountNode
-);
-    </code></pre>
-          <ul>
-            <li class="fragment">Zentraler Teil der Anwendung</li>
-            <li class="fragment">Liefert die bereits bekannte dispatch-Methode</li>
-            <li class="fragment">
-              Der Store wird allen Componenten über die Wrapper-Komponenten <em>Provider</em>
-              zur Verfügung gestellt
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Middleware zwischen Dispatch und Store</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import { applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-
-const store = createStore(
-  rootReducer, // reducer
-  applyMiddleware(thunk) // middleware as enhancer
-);
-    </code></pre>
-          <ul>
-            <li class="fragment">Die Thunk Middleware dient als de-facto-Standard</li>
-            <li class="fragment">
-              Gibt die dispatch-Methode and (asynchrone) Action Creators weiter
-            </li>
-            <li class="fragment">
-              <a href="https://github.com/gaearon/redux-thunk#whats-a-thunk" target="_blank">
-                'A thunk is a function that wraps an expression to delay its evaluation'
-              </a>
-            </li>
-            <li class="fragment">
-              Middleware ist ein fortgeschrittenes Feature und meistens genügt die Thunk Middleware
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Reducers enthalten die Kern-(Business)-Logik</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import {combineReducers} from 'redux';
-
-// http://redux.js.org/docs/api/combineReducers.html
-export const rootReducer = combineReducers({
-greetings, // updates greeting partial state
-filter,
-mode
-});
-    </code></pre>
-          <ul>
-            <li class="fragment">
-              Reducer sind pure Funktionen, die den alten Zustand und eine Action bekommen und einen
-              neuen Zustand erzeugen
-            </li>
-            <li class="fragment">Oft bearbeitet ein Reducer nur einen Teil des Zustands</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Teil-Reducer</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-const mode = (state = MODE_MASTER, action) => {
-switch (action.type) {
-    case SET_MODE:
-        return action.mode;
-    default:
-        return state;
-}
-};
-    </code></pre>
-          <ul>
-            <li class="fragment">
-              Initialisiert seinen Teilzustand (oft mit einem Default-Parameter)
-            </li>
-            <li class="fragment">Ändert niemals zustand direkt</li>
-            <li class="fragment">
-              Sondern liefert einen neuen Zustand (manchmal teilweise als Kopie)
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>useSelector: Auf den globalen Zustand zugreifen</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import { useSelector } from 'react-redux';
-
-function GreetingController() {
-  const mode = useSelector(state => state.mode);
-  ...
-}
-</code></pre>
-        </section>
-        <section>
-          <h3>useDispatch: Actions auslösen</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-      import { useDispatch } from 'react-redux';
-      
-      import * as actions from './actions';
-      
-      function GreetingController() {
-        const dispatch = useDispatch();
-
-        async function addGreeting(greetingToBeAdded) {
-          await dispatch(actions.saveGreetingToServer(greetingToBeAdded));
-        }
-        ...
-      }
-    </code></pre>
-        </section>
-
-        <section>
-          <h2>Zusammenfassung Redux-Architektur</h2>
-          <img
-            src="slides/images/redux-03-resulting-redux-architecture.png"
-            style="max-height:650px"
-          />
-        </section>
-
-        <section>
-          <h3>Lokaler State ist weiterhin erlaubt!</h3>
-          <p>Es gibt unterschiedliche Arten von "State"</p>
-
-          <img src="slides/images/three-kinds-of-state.png" style="max-height:650px" />
-        </section>
 
         <section>
           <h2>Geschafft 😊</h2>

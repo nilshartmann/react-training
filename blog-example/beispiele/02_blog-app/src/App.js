@@ -1,27 +1,21 @@
 import React from "react";
-import CreatePostForm from "./CreatePostForm";
+import mockPosts from "./mock";
 
-const mockPosts = [
-  {
-    id: "1",
-    title: "Some notes from me",
-    body: `I also believe it's important for every member to be involved and invested in our company and this is one way to do so. Curate.
-      Guerrilla marketing we don't want to boil the ocean we need to leverage our synergies touch base
-      The sprint is over please use "solutionise" instead of solution ideas! :)
-      Push back digitalize yet enough to wash your face, or low-hanging fruit horsehead offer, for Bob called an all-hands this afternoon that ipo will be a game-changer.
-      `
-  },
-  {
-    id: "2",
-    title: "To be or not to be",
-    body: `Self law truth moral will gains. Marvelous self burying battle virtues eternal-return.
-      Chaos of madness ultimate moral moral play victorious faith ubermensch pious will.
-      Zarathustra will burying christianity enlightenment decrepit christian ocean gains. Good ocean strong  grandeur free superiority zarathustra selfish inexpedient reason.
-      Decrepit ultimate chaos.
-      `
-  }
-];
+// Diese Datei enthält alle Komponenten der Blog-Post-Anwendung
+// - In einer "echten" React-Anwendung würden die Komponenten u.U.
+//   in einzelne Module wandern
+// - Die initialen Blog-Posts kommen aus dem mock-Modul (noch kein Server)
+//   und neue Blog-Posts werden auch nur auf dem Client "gespeichert"
+// - Ein bisschen CSS ist schon in der index.css-Datei definiert
 
+// ================================================================
+// ===
+// === Post-Komponente
+// ===
+// === Zeigt einen einzelnen Blog-Post an.
+// === Der Blog-Post wird mit dem Property "post" übergeben
+// ===
+// ================================================================
 function Post({ post }) {
   return (
     <article className="Container">
@@ -31,15 +25,80 @@ function Post({ post }) {
   );
 }
 
+// ================================================================
+// ===
+// === AddPostForm-Komponente
+// ===
+// === Zeigt ein Formular zum Eingeben eines neuen Blog-Posts an
+// ===
+// === Wenn das Formular abgeschlossen wird, wird der eingegebene
+// === Post als Objekt ({title: "...", body: "..."}) an die
+// === übergebene onAddPost-Callback-Funktion übergeben.
+// ===
+// === Der Verwender der AddPostForm-Komponente muss also eine
+// === Funktion "onAddPost" als Property übergeben, um auf das
+// === Hinzufügen des Posts reagieren zu können
+// ===
+// ================================================================
+function AddPostForm(props) {
+  const [title, setTitle] = React.useState("");
+  const [body, setBody] = React.useState("");
+
+  function onAdd() {
+    return props.onAddPost({
+      title,
+      body
+    });
+  }
+
+  return (
+    <div className="Container">
+      <h1>Create Post</h1>
+
+      <label>
+        Title
+        <input value={title} onChange={e => setTitle(e.currentTarget.value)} />
+      </label>
+
+      <label>
+        Body
+        <textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
+      </label>
+
+      <button onClick={onAdd}>Add Post</button>
+    </div>
+  );
+}
+
+// ================================================================
+// ===
+// === Zentrale App-Komponente
+// ===
+// === Diese Komponente enthält unsere Logik zum Verwalten der
+// === Posts, also Laden, Speichern und Hinzufügen
+// ===
+
 function App() {
   const [posts, setPosts] = React.useState(mockPosts);
 
+  // Diese Funktion wird aufgerufen, wenn im
+  // AddPostForm-Formular ein neues Blog-Post
+  // eingegeben und auf "Add" gedrückt wurde
   function addPost(post) {
     const postWithId = {
       ...post,
-      id: posts.length + 1
+      id: posts.length + 1 // Pseudo-Id Vergabe
     };
-    setPosts([postWithId, ...posts]);
+
+    // Wir erzeugen eine neue Liste mit Blog-Posts
+    // Das neue Blog-Post soll als ersten Eintrag hinzugefügt
+    // werden.
+    const newPosts = [postWithId, ...posts];
+    //
+    // Wir setzen den State neu, was dazu führt, dass die
+    // App-Komponente neu gerendert wird (also diese App-Funktion
+    // wird neu ausgeführt) und das neue Blog-Posts wird sichtbar
+    setPosts(newPosts);
   }
 
   return (
@@ -48,7 +107,10 @@ function App() {
         <h1>React Hands-on</h1>
       </header>
 
-      <CreatePostForm onAddPost={addPost} />
+      {/* Formular anzeigen */}
+      <AddPostForm onAddPost={addPost} />
+
+      {/* List der Blog-Posts darstellen */}
       {posts.map(p => (
         <Post key={p.id} post={p} />
       ))}
