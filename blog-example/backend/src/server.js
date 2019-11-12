@@ -44,7 +44,11 @@ app.use((req, _res, next) => {
   }
 });
 
-app.get("/posts", (req, res) => res.json(allPosts));
+app.get("/posts", (req, res) =>
+  req.query.short !== undefined
+    ? res.json(allPosts.map(p => ({ id: p.id, title: p.title })))
+    : res.json(allPosts)
+);
 
 // Return Post with specified id (or 404)
 app.get("/posts/:id", (req, res) => {
@@ -79,6 +83,12 @@ app.post("/posts", (req, res) => {
   allPosts = [newPost, ...allPosts];
 
   res.status(201).json(newPost);
+});
+
+app.delete("/posts/:id", (req, res) => {
+  const postId = req.params.id;
+  allPosts = allPosts.filter(p => p.id !== postId);
+  res.sendStatus(200);
 });
 
 const port = process.env.SERVER_PORT || 7000;

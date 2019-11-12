@@ -44,14 +44,12 @@
             <p><span class="transparent-bg">npm install</span></p>
           </div>
 
-         
           <p>
-                  <span class="transparent-bg">Slides: https://nils.buzz/techlab</span>
+            <span class="transparent-bg">Slides: https://nils.buzz/techlab</span>
           </p>
-                <p>
+          <p>
             <span class="transparent-bg">oder: react-training/2019_hands_on.html</span>
-                </p>
-         
+          </p>
         </section>
         <section>
           <h2>Nils Hartmann</h2>
@@ -82,27 +80,29 @@
         </section>
 
         <section>
-            <h2>Inhalt</h2>
-            <div>
-              <ul style="font-size: 85%">
-                <li><a href="#/example-app">Das Beispiel</a>
-                <br/>Die Beispiel-Anwendung, der -Workspace und mögliche Erweiterungen</li>
-                <li>
-                  <a href="#/reactgrundlagen">React Grundlagen</a>
-                  <br/>Komponenten, JSX, State und Properties
-                </li>
-                <li>
-                  <a href="#/server">Arbeiten mit einem Server (REST)</a>
-                  <br/>useEffect, fetch
-                </li>
-              </ul>
-            </div>
-          </section>
+          <h2>Inhalt</h2>
+          <div>
+            <ul style="font-size: 85%">
+              <li>
+                <a href="#/example-app">Das Beispiel</a> <br />Die Beispiel-Anwendung, der
+                -Workspace und mögliche Erweiterungen
+              </li>
+              <li>
+                <a href="#/reactgrundlagen">React Grundlagen</a>
+                <br />Komponenten, JSX, State und Properties
+              </li>
+              <li>
+                <a href="#/server">Arbeiten mit einem Server (REST)</a>
+                <br />useEffect, fetch
+              </li>
+            </ul>
+          </div>
+        </section>
 
-            <section id="example-app">
-              <h1>Das Beispiel</h1>
-              <h2>und der Beispiel-Workspace</h2>
-            </section>
+        <section id="example-app">
+          <h1>Das Beispiel</h1>
+          <h2>und der Beispiel-Workspace</h2>
+        </section>
 
         <section>
           <h3>Beispiel-Anwendung</h3>
@@ -110,42 +110,55 @@
             <img src="blog-example/blog-example.png" style="height:650px" />
           </a>
 
-          <p>cd blog-example/beispiele/02_blog-app && npm start
-        </p>
+          <p>cd blog-example/beispiele/02_blog-app && npm start</p>
         </section>
 
         <section>
           <h3>Der Beispiel-Workspace</h3>
           <p>Im Verzeichnis <b>code/blog-example/workspace</b> ist schon alles vorbereitet</p>
-          <p>Du kannst dort mit <b>npm install</b> und <b>npm start</b> die (leere) Anwendung starten</p>
-          <p>In der Datei App.js kannst Du deine Anwendung implementieren
-            <br/>Dazu bitte in index.js die App-Komponente importieren (siehe Kommentare dort)
+          <p>
+            Du kannst dort mit <b>npm install</b> und <b>npm start</b> die (leere) Anwendung starten
           </p>
-          <p>Wenn Du Änderungen machst, wird die Anwendung automatisch gebaut und im Browser aktualisiert</p>
+          <p>
+            In der Datei App.js kannst Du deine Anwendung implementieren <br />Dazu bitte in
+            index.js die App-Komponente importieren (siehe Kommentare dort)
+          </p>
+          <p>
+            Wenn Du Änderungen machst, wird die Anwendung automatisch gebaut und im Browser
+            aktualisiert
+          </p>
         </section>
         <section>
-          <h3>Mögliche Features</h3>
+          <h3>Mögliche Features #1</h3>
 
           <p>Du kannst im Team eine App ganz nach deinen Wünschen bauen 😊</p>
           <p>Zur Inspiration hier einige Ideen:</p>
           <ul>
             <li>Schritt 1: Ein Formular zur Eingabe eines neuen Blog-Posts</li>
-            <li>Schritt 2: Neu eingegebene Blog-Posts werden in einer Liste unterhalb des Formulars angezeigt
-              <br/>Architekur-Idee: Eigene Komponente für ein einzelnes Blog-Post, das Formular sowie eine
-              zentrale App-Komponente die die Liste der Posts verwaltet
-            </li><li>
-              Schritt 3: Speichern der Blog-Posts auf dem Server</li>
-            <li>Validierung der Eingaben im Formular (keine Leer-Eingaben etc)</li>
-            <li>Formular zur Eingabe des Blog-Posts auf einer einzelnen Seite</li>
-            <li>Darstellung eines einzelnen Posts auf einer eigenen Seite (Trennung in Übersichtsliste und Detail-Ansicht)</li>
-            </ul>
+            <li>
+              Schritt 2: Neu eingegebene Blog-Posts werden in einer Liste unterhalb des Formulars
+              angezeigt <br />Architekur-Idee: Eigene Komponente für ein einzelnes Blog-Post, das
+              Formular sowie eine zentrale App-Komponente die die Liste der Posts verwaltet
+            </li>
+            <li>
+              Schritt 3: Speichern der Blog-Posts auf dem Server
+            </li>
+          </ul>
         </section>
 
+        <section>
+          <h3>Mögliche Features #2</h3>
+          <ul>
+            <li>Validierung der Eingaben im Formular (keine Leer-Eingaben etc)</li>
+            <li>Das Formular kann ein- und ausgeblendet werden</li>
+            <li>Formular zur Eingabe des Blog-Posts auf einer einzelnen Seite</li>
+            <li>
+              Darstellung eines einzelnen Posts auf einer eigenen Seite (Trennung in Übersichtsliste
+              und Detail-Ansicht)
+            </li>
+          </ul>
+        </section>
 
-          
-
-
-      
         <section data-state="js-exkurs">
           <h2>React Devtools</h2>
           <em>React Developer Tools für Chrome und Firefox</em>
@@ -228,7 +241,7 @@
         <section id="reactgrundlagen">
           <h1>React Grundlagen</h1>
         </section>
-      
+
         <section>
           <h2>React Dokumentation</h2>
           <p>
@@ -238,16 +251,16 @@
           </p>
         </section>
         <section>
-            <h3>Eine erste Komponente: Hello, World!</h3>
-            <ul>
-              <li>Beispiel Schritt-für-Schritt (<code>blog-example/workspace</code>)</li>
-            </ul>
-          </section>
-  
-          <section id="interaktiv-hellomessage">
-            <h3>Hello World React</h3>
-            <code>HelloWorld.js</code>
-            <pre><code data-trim contenteditable>
+          <h3>Eine erste Komponente: Hello, World!</h3>
+          <ul>
+            <li>Beispiel Schritt-für-Schritt (<code>blog-example/workspace</code>)</li>
+          </ul>
+        </section>
+
+        <section id="interaktiv-hellomessage">
+          <h3>Hello World React</h3>
+          <code>HelloWorld.js</code>
+          <pre><code data-trim contenteditable>
   import React from "react";
   
   export default function HelloWorld(props) {
@@ -263,15 +276,15 @@
     );
   }
             </code></pre>
-          </section>
-  
-          <section>
-            <h3>Aufruf</h3>
-            <div class="fragment">
-              <p>
-                <code>index.html</code>
-              </p>
-              <pre><code data-trim contenteditable>
+        </section>
+
+        <section>
+          <h3>Aufruf</h3>
+          <div class="fragment">
+            <p>
+              <code>index.html</code>
+            </p>
+            <pre><code data-trim contenteditable>
   &lt;html>
     &lt;-- ... -->
     &lt;body>
@@ -279,12 +292,12 @@
     &lt;/body>
   &lt;/html>
   </code></pre>
-            </div>
-            <div class="fragment">
-              <p>
-                <code>index.js</code>
-              </p>
-              <pre><code data-trim contenteditable class="javascript">
+          </div>
+          <div class="fragment">
+            <p>
+              <code>index.js</code>
+            </p>
+            <pre><code data-trim contenteditable class="javascript">
   import React from 'react';
   import ReactDOM from 'react-dom';
   
@@ -294,8 +307,8 @@
     document.getElementById('root')
   );
   </code></pre>
-            </div>
-          </section>
+          </div>
+        </section>
         <section>
           <h3>React: JSX</h3>
           <ul>
@@ -455,8 +468,8 @@ function HelloWorld(props) {
           <em>Mit React Hooks kann sich eine Komponente in Zustand und Lebenszyklus "einhaken"</em>
           <ul>
             <li class="fragment">
-              Hooks sind "normale" Funktionen, müssen aber mit <code>use</code> beginnen (useState, useEffect,
-              ...)
+              Hooks sind "normale" Funktionen, müssen aber mit <code>use</code> beginnen (useState,
+              useEffect, ...)
             </li>
             <li class="fragment">
               Beispiel: Importieren und verwenden von Hooks
@@ -603,15 +616,15 @@ function HelloWorld(props) {
         </section>
 
         <section>
-              <h3>Listen</h3>
-                <p>JSX bietet nichts für Listen</p>
-                <p>
-                  Ausgabe typischerweise über
-                  <code>Array.map()</code>
-                </p>
-                <p>Elemente einer Liste brauchen einen eindeutigen Key</p>
+          <h3>Listen</h3>
+          <p>JSX bietet nichts für Listen</p>
+          <p>
+            Ausgabe typischerweise über
+            <code>Array.map()</code>
+          </p>
+          <p>Elemente einer Liste brauchen einen eindeutigen Key</p>
 
-                <pre class="fragment"><code class="javascript" contenteditable data-trim>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
 const posts = [
   { id: 0, title: 'Hello World', body: 'Lorem ipsum' },
   { id: 1, title: 'React in a Nutshell', body: 'Lets get started with React' }
@@ -816,33 +829,53 @@ function GreetingMaster(props) {
           />
         </section>
 
-
         <section id="server">
           <h1>Daten lesen und schreiben vom Server</h1>
         </section>
 
         <section>
-            <h3>Der Blog-Server</h3>
-            <p>
-              Der Server ist bereits fertig. Zum Starten:
-            </p>
-            <pre><code>
+          <h3>Der Blog-Server</h3>
+          <p>
+            Der Server ist bereits fertig. Zum Starten:
+          </p>
+          <pre><code>
                   cd react-training/blog-example/backend
                   npm start
                 </code></pre>
-            <p>Der Server ist über Port 7000 erreichbar</p>
-            <p>
-              Zum Testen:
-              <a href="http://localhost:7000/posts">http://localhost:7000/posts</a>
-            </p>
-          </section>
+          <p>Der Server ist über Port 7000 erreichbar</p>
+          <p>
+            Zum Testen:
+            <a href="http://localhost:7000/posts">http://localhost:7000/posts</a>
+          </p>
+        </section>
 
-        
+        <section>
+          <h3>Der Blog-Server</h3>
+          <p>
+            Die Endpunkte:
+          </p>
+          <p><b>GET /posts</b> Alle Blog Posts abfragen</p>
+          <p><b>GET /posts?short</b>: Alle Blog Post IDs und deren Titel</p>
+          <p><b>GET /posts/:id</b> Einen einzelnen Blog Post lesen</p>
+          <p>
+            <b>POST /posts</b> Einen neuen Blog Post anlegen. Als Payload/Body muss ein Objekt mit
+            <code>title</code> und <code>string</code> übertragen werden. Als Ergebnis wird der
+            komplette, neue Blog Post (inklusive ID) zurück gegeben
+          </p>
+          <p><b>DELETE /posts/:id</b> Einen Blog-Post löschen</p>
+          <p>
+            Außerdem kann allen Requests der URL Parameter<b>?slow</b> übergeben werden, um die
+            Antwort künstlich zu verlangsamen (wenn ihr z.B. mit Wartezuständen arbeiten wollt)
+          </p>
+        </section>
 
         <section>
           <h3>Server-Calls</h3>
           <p>React macht keine Angabe, wie Server-Calls (technisch) gemacht werden</p>
-          <p>Häufig in React verwendet: <a href="https://developer.mozilla.org/de/docs/Web/API/Fetch_API">fetch</a> API</p>
+          <p>
+            Häufig in React verwendet:
+            <a href="https://developer.mozilla.org/de/docs/Web/API/Fetch_API">fetch</a> API
+          </p>
         </section>
 
         <section>
@@ -926,49 +959,58 @@ const response = await fetch(url, {
         </section>
 
         <section>
-          <h3>useEffekt-Hook</h3>
+          <h3>useEffect-Hook</h3>
           <em
-            >Der useEffekt-Hook erlaubt es Seiteneffekte zu definierten Zeitpunkten auszuführen</em
+            >In der Render-Phase einer Komponente (das ist die Ausführung der Komponenten-Funktion)
+            darfst Du keine Seiteneffekte (z.B. Server-Zugriffe) machen.</em
           >
-          <ul>
-            <li class="fragment">
-              Zeitpunkte: nach initialem Rendern der Komponente, nach Rendern durch Aktualisierung
-              und nach dem Entfernen aus dem DOM
-            </li>
-          </ul>
+          <p>
+            Der useEffekt-Hook erlaubt es dir aber, Seiteneffekte zu definierten (späteren)
+            Zeitpunkten auszuführen
+          </p>
+        </section>
+        <section>
+          <h3>useEffect-Hook</h3>
 
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-            function App(props) {
-              React.useEffect( 
-                () => console.log("Ich werde nach JEDEM Rendern ausgeführt")
-              );
-            }
-          </code></pre>
+          <div class="fragment">
+            <p>
+              Als 1. Parameter übergibst Du eine Callback-Funktion, die deinen Code enthält. Dieser
+              darf Seiteneffekte enthalten, z.B. einen fetch-Aufruf
+            </p>
+
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                function App(props) {
+                  React.useEffect( 
+                    () => console.log("Ich werde nach JEDEM Rendern ausgeführt")
+                  );
+                }
+              </code></pre>
+          </div>
 
           <div class="fragment">
             2. Parameter (Array) gibt an, wann der Effekt ausgeführt werden soll:
 
             <pre class="fragment"><code class="javascript" contenteditable data-trim>
-              function App(props) {
-                React.useEffect( 
-                  () => console.log("Ich werde nur nach 1. Rendern ausgeführt"),
-                  []
-                );
-              }
-            </code></pre>
+                function App(props) {
+                  React.useEffect( 
+                    () => console.log("Ich werde nur nach 1. Rendern ausgeführt"),
+                    []
+                  );
+                }
+              </code></pre>
           </div>
 
           <div class="fragment">
             Nach 1. Rendern ausführen und wenn sich das postId-Property ändert:
 
             <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                function BlogPost(props) {
-                  React.useEffect(
-                    () => console.log("..."), 
-                    [props.postId]) 
-                  );
-                }
-              </code></pre>
+                  function BlogPost(props) {
+                    React.useEffect(
+                      () => console.log("..."), 
+                      [props.postId]
+                    );
+                  }
+                </code></pre>
           </div>
         </section>
 
@@ -976,7 +1018,7 @@ const response = await fetch(url, {
           <h3>useEffect Hook</h3>
 
           <p>Zwei Parameter:</p>
-          <ul>
+          <ol>
             <li class="fragment">
               Callback-Funktion, die aufgerufen wenn entsprechendes Ereignis eintritt (z.B.
               initiales Rendern abgeschlossen)
@@ -986,37 +1028,19 @@ const response = await fetch(url, {
               <ul>
                 <li class="fragment">
                   Wenn kein Array angegeben wird, wird der Effekt nach jedem Rendern ausgeführt
-                  (achtung! Endlosschleife möglich)
+                  (Achtung! Endlosschleife möglich)
                 </li>
                 <li class="fragment">
                   Wenn ein leeres Array angegeben wird, wird der Effekt nur nach dem 1. Rendern
                   ausgeführt
                 </li>
                 <li class="fragment">
-                  Wenn Werte angegeben werden, wird der Effekt ausgeführt, wenn sich mind 1 Wert
-                  verändert hat
+                  Wenn Werte angegeben werden, wird der Effekt ausgeführt, wenn sich mind. 1 Wert
+                  zwischen zwei Render-Zyklen verändert hat
                 </li>
               </ul>
             </li>
-          </ul>
-
-          <p class="fragment">
-            Um auf das Entfernen der Komponente aus dem DOM zu reagieren (z.B Resourcen freigeben),
-            kann die Callback-Funktion eine weitere Funktion zurückliefern, die dann ausgeführt
-            wird:
-          </p>
-
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                  function BlogPost(props) {
-                    React.useEffect(
-                      () => {
-                        console.log("postId hat sich geändert"); 
-                        return () => console.log("Ich bin entfernt worden") 
-                      },
-                      [props.postId])
-                    );
-                  }
-                </code></pre>
+          </ol>
         </section>
 
         <section>
@@ -1047,6 +1071,28 @@ const response = await fetch(url, {
         </section>
 
         <section>
+            <h3>Initiales Laden von Daten</h3>
+
+            <p>Lifecycle des gezeigten Beispiels:</p>
+            <ol>
+              <li>Komponenten-Funktion wird ausgeführt (Komponente wird "gerendert")</li>
+              <li>State mit leerem Array initialisiert</li>
+              <li>Effekt zum Laden der Daten wird registriert</li>
+              <li>UI-Code wird zurückgegeben (leere Liste mit Posts, da noch keine Daten geladen sind)</li>
+              <li>React erzeugt den nativen DOM für die UI</li>
+              <li>Der registrierte Effekt wird ausgeführt, der Server-Call gestartet</li>
+              <li>Der Server-Call kommt zurück, die Daten werden in den State gesetzt</li>
+              <li>Durch das Setzen des States, wird die Komponente erneut gerendert, also wird die Komponenten-Funktion neu aufgerufen</li>
+              <li>Der State ist nun das Array mit den geladenen Daten</li>
+              <li>Der Effekt wird nicht erneut registriert (leeres Array als 2. Parameter)</li>
+              <li>Die Komponente liefert nun die UI für die geladene Liste zurück</li>
+            </ol>
+            
+
+
+          </section>
+
+        <section>
           <h3>Speichern von Daten</h3>
           <p>Zum Beispiel als Folge einer Benutzerinteraktion:</p>
           <p class="fragment">Im Event-Handler dürfen wir direkt Seiteneffekte nutzen</p>
@@ -1075,9 +1121,6 @@ function App(props) {
 }
                 </code></pre>
         </section>
-
-       
-      
 
         <section>
           <h2>Geschafft 😊</h2>
