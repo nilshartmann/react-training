@@ -52,10 +52,10 @@ app.get("/posts", (req, res) =>
 
 // Return Post with specified id (or 404)
 app.get("/posts/:id", (req, res) => {
-  const post = posts.find(p => p.id === req.params.id);
+  const post = allPosts.find(p => p.id === req.params.id);
 
   if (!post) {
-    return res.status(404).json({ error: `Post '${id}' not found` });
+    return res.status(404).json({ error: `Post '${req.params.id}' not found` });
   }
 
   return res.json(post);

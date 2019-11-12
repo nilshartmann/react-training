@@ -1,0 +1,121 @@
+:root {
+  --color-mainx: #94849b;
+  --color-main: #b04e4b;
+}
+* {
+  box-sizing: border-box;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+  height: 100vh;
+  background: linear-gradient(270deg, #6fd2d2 0%, #a4d1d1 100%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+  color: var(--color-main);
+}
+
+p {
+  line-height: 1.4;
+}
+
+button,
+input,
+textarea {
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--color-main);
+  color: var(--color-main);
+}
+
+input:hover,
+input:active,
+input:focus,
+textarea:hover,
+textarea:active,
+textarea:focus {
+  background-color: rgb(255, 247, 239);
+}
+
+button {
+  background-color: var(--color-main);
+  color: white;
+  border: none;
+
+  cursor: pointer;
+
+  padding: 1rem 1.2rem;
+}
+
+button:hover {
+  background-color: #b86764;
+}
+
+label {
+  margin-bottom: 1rem;
+  color: var(--color-main);
+  font-size: 1rem;
+  font-weight: bold;
+  display: block;
+}
+
+.App {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1024px;
+
+  /* background-color: white; */
+  padding: 14px;
+}
+
+.App > header {
+  margin: 0 0 20px;
+  padding: 14px;
+
+  color: #fff;
+  background-color: var(--color-main);
+
+  -webkit-box-shadow: 9px 8px 7px 0px rgba(120, 119, 120, 1);
+  -moz-box-shadow: 9px 8px 7px 0px rgba(120, 119, 120, 1);
+  box-shadow: 9px 8px 7px 0px rgba(120, 119, 120, 1);
+}
+
+.App > header h1 {
+  color: #fff;
+  margin: 0;
+}
+
+.Container {
+  background: linear-gradient(45deg, #ffffff 0%, rgb(255, 247, 239) 100%);
+
+  background-color: white;
+  margin-top: 2rem;
+  padding: 1rem 1rem;
+
+  -webkit-box-shadow: 9px 8px 7px 0px rgba(120, 119, 120, 1);
+  -moz-box-shadow: 9px 8px 7px 0px rgba(120, 119, 120, 1);
+  box-shadow: 9px 8px 7px 0px rgba(120, 119, 120, 1);
+}
+
+article h1 {
+  margin-top: 0;
+  width: 100%;
+  padding-bottom: 1rem;
+
+  border-bottom: 1px solid var(--color-main);
+}
