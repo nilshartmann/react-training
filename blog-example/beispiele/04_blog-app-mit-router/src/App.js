@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 // auf der ersten Seite (/) zeigen wir eine Liste aller Posts an (nur deren Titel)
 // durch einen Klick kann man eine eigene Seite für den angeklickten Post öffnen
-//
+// auch das Formular ist auf einer eigenen Seite (/add)
 
 // ================================================================
 // ===
@@ -27,20 +27,11 @@ function Post({ post }) {
 }
 // ================================================================
 // ===
-// === AddPostForm-Komponente
+// === AddPostPage-Komponente
 // ===
-// === Zeigt ein Formular zum Eingeben eines neuen Blog-Posts an
-// ===
-// === Wenn das Formular abgeschlossen wird, wird der eingegebene
-// === Post als Objekt ({title: "...", body: "..."}) an die
-// === übergebene onAddPost-Callback-Funktion übergeben.
-// ===
-// === Der Verwender der AddPostForm-Komponente muss also eine
-// === Funktion "onAddPost" als Property übergeben, um auf das
-// === Hinzufügen des Posts reagieren zu können
 // ===
 // ================================================================
-function AddPostForm(props) {
+function AddPostPage(props) {
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
 
@@ -70,7 +61,7 @@ function AddPostForm(props) {
   );
 }
 
-function BlogList() {
+function BlogListPage() {
   // Hier initialisieren wir jetzt den Zustand mit einem
   // leeren Array, da wir beim Starten der Anwendung und dem
   // initialen Rendern der Komponente noch keine Daten geladen
@@ -106,7 +97,7 @@ function BlogList() {
 }
 
 // Eine Komponente, die einen einzelnen Blog-Post darstellt
-function BlogPost() {
+function BlogPostPage() {
   const { postId } = useParams();
 
   const [post, setPost] = React.useState(null);
@@ -155,14 +146,14 @@ function App() {
 
       <Switch>
         <Route path="/add">
-          <AddPostForm onAddPost={addPost} />
+          <AddPostPage onAddPost={addPost} />
         </Route>
         <Route exact path="/">
           <Link to="/add">Add new blog post</Link>
-          <BlogList />
+          <BlogListPage />
         </Route>
         <Route exact path="/post/:postId">
-          <BlogPost />
+          <BlogPostPage />
         </Route>
       </Switch>
     </div>

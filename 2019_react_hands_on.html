@@ -60,25 +60,22 @@
           <p><em>Freiberuflicher Entwickler, Architekt, Trainer aus Hamburg </em></p>
 
           <div style="display:flex;justify-content:center">
-            <div style="margin-right:15px">
+            <div >
               <p>Java</p>
               <p>JavaScript, TypeScript</p>
               <p>React</p>
               <p>Single-Page-Anwendungen</p>
               <p>GraphQL</p>
             </div>
-
-            <div style="margin-left:15px">
-              <a href="https://reactbuch.de"
-                ><img
-                  style="max-height:450px"
-                  src="slides/images/react-buch-v2.png"
-                /><br />https://reactbuch.de</a
-              >
-            </div>
           </div>
         </section>
-
+        <section data-markdown>
+            <textarea data-template>
+                <h3><a href="https://reactbuch.de">https://reactbuch.de</a>                </h3>
+              <a href="https://reactbuch.de"><img src='slides/images/react-buch-v2.png' style="max-height: 650px;">    </a>
+              <p>🎅 2., überarbeitete und erweiterte Auflage, Dezember 2019 🤶</p>
+            </textarea>
+          </section>
         <section>
           <h2>Inhalt</h2>
           <div>
@@ -1087,7 +1084,7 @@ const response = await fetch(url, {
               <li>Der Effekt wird nicht erneut registriert (leeres Array als 2. Parameter)</li>
               <li>Die Komponente liefert nun die UI für die geladene Liste zurück</li>
             </ol>
-            
+
 
 
           </section>
@@ -1121,6 +1118,238 @@ function App(props) {
 }
                 </code></pre>
         </section>
+
+        <section id="t-router">
+            <h2>Client-seitiges Routing</h2>
+
+            <p>Beispiel: code/blog-example/beispiele/04_blog-app-mit-router</p>
+          </section>
+          <section>
+            <h2>Warum Routing?</h2>
+            <span>
+              <p>
+                Mappen von URLs auf Komponenten
+                <br />
+                <span style="font-size: 80%">(Navigation findet ohne Server-Roundtrip statt)</span>
+              </p>
+            </span>
+            <span>
+              <p>
+                Komponenten halten (Teil) des Zustandes der Anwendung
+                <br />
+                <span style="font-size: 80%"
+                  >Welche "Seite" ist sichtbar (Blog Liste, Formular oder Einzelansicht)?</span
+                >
+                <br />
+                <span style="font-size: 80%"
+                  >Welche Daten werden dafür geladen (z.B. Blog Post Id)</span
+                >
+              </p>
+            </span>
+          </section>
+  
+          <section>
+            <h2>React Router</h2>
+            <ul>  
+              <li>
+                Aktuelle Version 5.1:
+                <a href="https://reacttraining.com/react-router/" target="_blank">
+                  https://reacttraining.com/react-router/</a
+                >
+              </li>
+              <li>Kein Bestandteil von React</li>
+              <li>Sehr häufig verwendet (de-facto Standard)</li>
+              <li>(Erst) seit Version 5.1 mit Hooks API (useParams, useLocation, useHistory)</li>
+            
+            </ul>
+          </section>
+          <section>
+            <h3>Das Router-Objekt</h3>
+            <p class="fragment">
+              Top-Level-Objekt, das einmalig (oben) in der Komponenten Hierarchie eingebunden werden
+              muss
+            </p>
+            <p class="fragment">
+              Mehrere Ausprägungen zum Arbeiten mit den URL und der Browser History:
+            </p>
+            <ul>
+              <li class="fragment">
+                <b>HashRouter</b>: codiert Pfad in angehängten Hash (#/post/1)
+              </li>
+              <li class="fragment"><b>BrowserRouter</b>: codiert Pfad direkt in URL (/post/1)</li>
+            </ul>
+            <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router} from "react-router-dom";
+      
+      const app = &lt;Router>&lt;App/>&lt;/Router>;
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+          </section>
+  
+          <section>
+            <h3>Welche Komponente soll für einen Pfad gerendert werden</h3>
+            <p class="fragment">Das <code>Route</code>-Objekt mappt Pfade auf Komponenten</p>
+            <ul>
+              <li class="fragment">
+                Wird verwendet, wo Pfad-abhängig Komponenten ausgewählt werden sollen
+                <ul>
+                  <li>
+                    vergleichbar mit intelligentem <code>if</code>/ <code>switch</code> statement
+                  </li>
+                  <li>
+                    <b>Kann überall in der Anwendung</b> verwendet werden (auf allen
+                    Hierarchie-Ebenenen)
+                  </li>
+                </ul>
+              </li>
+              <li class="fragment">
+                Mit <code>path</code> wird der Pfad übergeben, für den die Route matchen soll
+              </li>
+              <li class="fragment">Als Children wird die Komponente angegeben</li>
+            </ul>
+            <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router, Route} from "react-router-dom";
+      
+      const app = &lt;Router>
+        &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
+        &lt;Route path="/add">&lt;AddPostPage onAdd={...} />&lt;/Route>
+        &lt;Route path="/" exact>&lt;BlogListPage />&lt;/Route>
+      &lt;/Router>;
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+          </section>
+      
+          <section>
+            <h3>Hintergrund: Pfade</h3>
+            <p>
+              In Routen werden <b>Pfade</b> angegeben, die mit der aktuellen URL verglichen werden
+            </p>
+  
+            <ul>
+              <li>Pfade sind per Default gültig für Teilstrings, aber mit <code>exact</code> kann das Verhalten verändert werden</li>
+              <li>Eine Route ohne <code>path</code> matcht immer</li>
+            </ul>
+            <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      // trifft zu für / und /greeting
+      &lt;Route path="/">...&lt;/Route>
+      
+      // trifft nur zu für /
+      &lt;Route path="/" exact>...&lt;/Route>
+      
+      // passt auf JEDE URL:
+      &lt;Route>...&lt;/Route>
+      
+              </code></pre>
+            <ul>
+              <li class="fragment">Kann variable Segmente enthalten:</li>
+            </ul>
+            <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      &lt;Route path="/posts/:postId">&lt;BlogPostPage/>&lt;/Route>
+            </pre></code>
+            <ul>
+                <li class="fragment">Werte der variablen Parameter werden mit useParams in der Komponente abgefragt:</li>
+              </ul>
+              <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                import { useParams } from "react-router";
+
+                function BlogPostPage() {
+                  const params = useParams();
+
+                  // params.postId enthält den variablen Wert aus der URL
+                        </pre></code>
+          </section>
+          <section>
+            <h3>Switch</h3>
+            <ul>
+              <li class="fragment">
+                Wenn mehrere path-Ausdrücke matchen, werden mehrere Komponenten gerendert (z.B. "/"
+                und "/post")
+              </li>
+              <li class="fragment">
+                <code>Switch</code> sorgt dafür, dass nur die erste Komponente im Block gerendert wird
+              </li>
+            </ul>
+            <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router, Route, Switch} from "react-router-dom";
+      
+      const app = (
+        &lt;Router>
+          &lt;Switch>
+            &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
+            &lt;Route path="/">&lt;BlogListPage/>&lt;/Route>
+      
+            // "No match": ohne Pfad
+            &lt;Route>&lt;NotFoundPage/>&lt;/Route>
+      
+          &lt;/Switch>
+        &lt;/Router>
+      );
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+          </section>
+  
+        
+          <section>
+            <h3>Links</h3>
+            <p>Mit <code>Link</code> und <code>NavLink</code> können Links erzeugt werden</p>
+            <ul>
+              <li>Mit <code>to</code> wird das Ziel angegeben</li>
+              <li>Gerendert wird per default ein <code>a</code> Element</li>
+              <li>URL wird entsprechend der History (Browser oder Hash) erzeugt</li>
+              <li>
+                Mit <code>activeClassName</code> und <code>activeStyle</code> auf
+                <code>NavLink</code> können Styles übergeben werden, die angewendet werden, wenn der
+                Link der aktiven Route entspricht
+              </li>
+            </ul>
+  
+            <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {Link, NavLink} from "react-router-dom";
+      
+      &lt;Link to='/'>Show all Posts&lt;/Link>
+      
+      // Erzeugtes 'a' Element erhält 'highlight' CSS-Klasse, wenn die aktive Route
+      &lt;NavLink to='/add' activeClassName="highlight">Add Post&lt;/NavLink>
+      
+              </code></pre>
+          </section>
+  
+          <section>
+            <h3>Das history-Objekt</h3>
+            <p>
+              Mit dem <code>history</code>-Objekt kann mit der Browser History interagiert werden
+            </p>
+            <p>
+              Mit der History kann auf andere URLs gesprungen werden oder die Location abgefragt
+              werden
+            </p>
+            <p class="fragment">Komponenten bekommen das history-Objekt über den useHistory Hook</p>
+            <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import { useHistory } from "react-router";
+
+      function App() {
+        const history = useHistory();
+
+        function onAdd(newBlogPost) {
+           ...
+
+           // gehe zu neuer URL
+           history.push("/"); 
+
+           // Alternativ: gehe zu neuer URL, lösche aber aktuelle aus 
+           // History im Browser
+           history.replace("/...") 
+        }
+
+        return ...;
+      }
+              </code></pre>
+          </section>
+  
+          
 
         <section>
           <h2>Geschafft 😊</h2>
