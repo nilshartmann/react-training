@@ -92,6 +92,11 @@
                 <a href="#/server">Arbeiten mit einem Server (REST)</a>
                 <br />useEffect, fetch
               </li>
+
+              <li>
+                <a href="#/t-router">Client-seitiges Routing</a>
+                <br />React Router
+              </li>
             </ul>
           </div>
         </section>
@@ -106,8 +111,6 @@
           <a target="_blank" href="blog-example/beispiele/02_blog-app/build/index.html">
             <img src="blog-example/blog-example.png" style="height:650px" />
           </a>
-
-          <p>cd blog-example/beispiele/02_blog-app && npm start</p>
         </section>
 
         <section>
@@ -125,6 +128,20 @@
             aktualisiert
           </p>
         </section>
+
+        <section>
+          <h3>Fertige Beispiele</h3>
+          <p>In <code>beispiele</code> befinden sich mehrere Stände der fertigen Anwendung. Diese kannst Du zum Beispiel
+            als Hilfe bei Problemen verwenden.</p>
+            
+            <p><b>01_addpost-form</b>: Nur das Formular zum Eingeben eines neuen Blog Posts. Du siehst hier die useState-Verwendung.</p>
+            <p><b>02_blog-app</b>: Eingabeformular und darunter die Liste mit den Blog Posts, aber ohne Server-Calls. Du siehst hier,
+              wie zwischen Komponenten kommuniziert wird (App und AddPostForm)</p>
+              <p><b>03_blog-app-mit-server</b>: Genau wie 02, nur mit Server-Calls, dh Blog Posts werden vom Server gelesen und dort gespeichert</p>
+              <p><b>04_blog-app-mit-router</b>: Ähnlich Stand 03, aber die einzelnen Komponenten sind über Links erreichbar. Außerdem gibt es eine
+                Ansicht für einen einzelnen Blog-Post</p>
+              </section>
+
         <section>
           <h3>Mögliche Features #1</h3>
 
@@ -140,18 +157,31 @@
             <li>
               Schritt 3: Speichern der Blog-Posts auf dem Server
             </li>
+            <li>
+                Schritt 4: Router
+              </li>
           </ul>
+          <p>(Du siehst, dass entspricht "zufällig" auch den Ständen im <code>beispiele</code>-Verzeichnis 😇)</p>
         </section>
 
         <section>
           <h3>Mögliche Features #2</h3>
           <ul>
-            <li>Validierung der Eingaben im Formular (keine Leer-Eingaben etc)</li>
-            <li>Das Formular kann ein- und ausgeblendet werden</li>
-            <li>Formular zur Eingabe des Blog-Posts auf einer einzelnen Seite</li>
+            <li>Validierung der Eingaben im Formular (keine Leer-Eingaben etc)
+              <br />Schwierigkeitsgrad: einfach
+            </li>
+            <li>Das Formular kann ein- und ausgeblendet werden
+                <br />Schwierigkeitsgrad: mittel
+
+            </li>
+            <li>Formular zur Eingabe des Blog-Posts auf einer einzelnen Seite
+                <br />Schwierigkeitsgrad: hoch
+
+            </li>
             <li>
               Darstellung eines einzelnen Posts auf einer eigenen Seite (Trennung in Übersichtsliste
               und Detail-Ansicht)
+              <br />Schwierigkeitsgrad: hoch
             </li>
           </ul>
         </section>
@@ -209,7 +239,7 @@
             </li>
           </ul>
         </section> -->
-        <section class="todo">
+        <section >
           <h2>Der Workspace</h2>
         </section>
         <section>
@@ -232,7 +262,7 @@
             <li>Wenn auf der Seite 'Hello, World' steht, ist alles gut</li>
           </ol>
 
-          <img src="slides/images/screenshot-npm-start-cra.png" />
+          <img style="height:400px" src="slides/images/screenshot-npm-start-cra.png" />
         </section>
 
         <section id="reactgrundlagen">
@@ -643,18 +673,53 @@ function PostList(props) {
           <h2>Anwendungen und Komponentenhierarchien</h2>
         </section>
         <section>
-          <h3>Problem: Kommunikation zwischen Komponenten</h3>
-          <p>#1: Welche Komponente soll angezeigt werden (Master oder Detail?)</p>
-          <img src="slides/images/component-hierarchy-problems-01-views.png" style="height:550px" />
+          <h3>Datenfluss in React-Anwendungen</h3>
+          <ol>
+          <li>In React-Anwendungen werden Komponenten zu Anwendungen in Hierarchien zusammengesteckt</li>
+          <li>Innerhalb einer Hierarchie wird immer nur in eine Richtung kommuniziert: Eltern-Komponenten übergeben Properties an ihre Kinder</li>
+          <li>Mit den Properties werden Daten von "oben" nach "unten" gereicht (ggf. über mehr als eine Hierarchie-Ebene)</li>
+          <li>Über Properties können auch Callback-Funktionen nach unten gereicht werden. </li>
+          <li>Eine Kind-Komponente kann diese Funktion dann aufrufen, und der Eltern Komponente darüber ein Signal geben
+            <br/>(so, wie wir das schon beim onChange-Property des input-Felds gesehen haben)
+          </li>
+        </ol>
         </section>
-        <section>
-          <h3>Problem: Kommunikation zwischen Komponenten</h3>
-          <p>#2: Wo wird der State (Greetings) verwaltet?</p>
-          <img
-            src="slides/images/component-hierarchy-problems-02-greeting.png"
-            style="height:550px"
-          />
-        </section>
+          
+
+          <section data-markdown data-transition="none">
+            <textarea data-template>
+    ### Kommunikation zwischen beliebigen Anwendungsteilen
+    
+    <img src='slides/images/smart-dumb-1.png' height="600">
+                    </textarea>
+          </section>
+    
+          <section data-markdown data-transition="none">
+            <textarea data-template>
+    ### Kommunikation zwischen beliebigen Anwendungsteilen
+    
+    <img src='slides/images/smart-dumb-2.png' height="600">
+                    </textarea>
+          </section>
+    
+          <section data-markdown data-transition="none">
+            <textarea data-template>
+    ### Kommunikation zwischen beliebigen Anwendungsteilen
+    
+    <img src='slides/images/smart-dumb-3.png' height="600">
+                    </textarea>
+          </section>
+    
+          <section data-markdown data-markdown data-transition="none">
+            <textarea data-template>
+    ### Kommunikation zwischen beliebigen Anwendungsteilen
+    
+    <img src='slides/images/datenfluss-4.png' height="550">
+    
+    Klarer Daten- und Kontroll-Fluss    
+                      </textarea>
+          </section>
+         
         <section>
           <h3>Problem #1</h3>
           <h2>Welche Komponente soll angezeigt werden?</h2>
