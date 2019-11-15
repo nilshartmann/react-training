@@ -772,8 +772,82 @@ function PostList(props) {
     Klarer Daten- und Kontroll-Fluss    
                       </textarea>
           </section>
+
+          <section>
+            <h3>Beispiel</h3>
+
+            <p>Unsere Smart-Komponente hält eine Liste von Blog-Posts und steuert, welche Ansicht aktiv ist</p>
+            <p>Die Smart-Komponente gibt die Liste der Blog-Posts an die BlogList zum Anzeigen</p>
+            <p>Die Smart-Komponente gibt jeweils eine Callback-Funktion an die BlogList und die AddForm</p>
+
+            <pre><code>
+function App() {
+  const [posts, setPosts] = React.useState([]);
+  const [view, setView] = React.useState("list");
+
+  function addPost(newPost) {
+    // Neuen Post hinzufügen
+    setPosts([...posts, newPost]);
+
+    // Wieder Liste anzeigen
+    setView("list");
+  }
+
+  if (view === "list") {
+    return &lt;BlogList posts={posts} onAdd={() => setView("addForm")} />
+  }
+
+  return &lt;AddForm onAdd={addPost} />
+
+}            
+</code></pre> 
+
+
+          </section>
+
+          <section>
+              <h3>Beispiel #2</h3>
+
+              <p>Die BlogList zeigt die übergebene Liste nur an und informiert die App, wenn auf den "Add"-Button gedrückt wurde</p>
+              <p>Die App kann dann die andere Komponente (AddForm) anzeigen</p>
+  
+              <pre><code>
+  function BlogList(props) {
+
+    return &lt;div>
+      // ... Liste anzeigen ...
+      &lt;button onClick={props.onAdd}>Add Blog Post&lt;/button>
+    &lt;/div>;
+  }            
+  </code></pre> 
+          </section>
          
-     
+          <section>
+              <h3>Beispiel #3</h3>
+
+              <p>Die AddForm erfasst einen neuen BlogPost und übergibt diesen der Callback-Funktion, so dass die
+                App-Komponente ihn in die Liste der BlogPosts (State) einfügen kann</p>
+              <pre><code>
+  function AddForm(props) {
+    const [title, setTitle] = React.useState("");
+    const [body, setBody] = React.useState("");
+
+    function addPost() {
+      const newPost = {
+        title, body
+      }
+
+      // App-Komponente informieren
+      props.onAdd(newPost);
+    }
+
+    return &lt;div>
+      // ... Formular rendern ...
+      &lt;button onClick={addPost}>Save Post&lt;/button>
+    &lt;/div>;
+  }            
+  </code></pre> 
+          </section>
 
         <section id="server">
           <h1>Daten lesen und schreiben vom Server</h1>
