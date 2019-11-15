@@ -130,6 +130,29 @@
         </section>
 
         <section>
+          <h3>Tool-Chain starten</h3>
+
+          <ol style="font-size: 85%">
+            <li>
+              <code>cd code/blog-example/workspace</code>
+            </li>
+
+            <li>
+              <code>npm start</code>
+            </li>
+
+            <li>
+              Öffne <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> im
+              Browser
+            </li>
+
+            <li>Wenn auf der Seite 'Hello, World' steht, ist alles gut</li>
+          </ol>
+
+          <img style="height:400px" src="slides/images/screenshot-npm-start-cra.png" />
+        </section>
+
+        <section>
           <h3>Fertige Beispiele</h3>
           <p>In <code>beispiele</code> befinden sich mehrere Stände der fertigen Anwendung. Diese kannst Du zum Beispiel
             als Hilfe bei Problemen verwenden.</p>
@@ -239,31 +262,6 @@
             </li>
           </ul>
         </section> -->
-        <section >
-          <h2>Der Workspace</h2>
-        </section>
-        <section>
-          <h3>Tool-Chain starten (falls noch nicht gemacht)</h3>
-
-          <ol style="font-size: 85%">
-            <li>
-              <code>cd code/blog-example/workspace</code>
-            </li>
-
-            <li>
-              <code>npm start</code>
-            </li>
-
-            <li>
-              Öffne <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> im
-              Browser
-            </li>
-
-            <li>Wenn auf der Seite 'Hello, World' steht, ist alles gut</li>
-          </ol>
-
-          <img style="height:400px" src="slides/images/screenshot-npm-start-cra.png" />
-        </section>
 
         <section id="reactgrundlagen">
           <h1>React Grundlagen</h1>
@@ -277,6 +275,43 @@
             </a>
           </p>
         </section>
+
+        <section>
+            <h3>React Komponenten</h3>
+            <img src="slides/images/komponente.png" style="height:400px" />
+            <ul>
+                <li class="fragment">bestehen aus <b>Zustand, Logik und UI</b></li>
+                <li class="fragment">
+                  <b>keine Templatesprache</b>
+                </li>
+                <li class="fragment">werden <b>deklarativ</b> beschrieben</li>
+                <li class="fragment">
+                  werden immer <b>komplett gerendert</b> (kein 2-Wege-Data-Binding)
+                </li>
+                <li class="fragment">werden zu <b>ganzen Anwendungen</b> aggregiert</li>
+            </ul>
+          </section>
+  
+          <section>
+            <h3>React Komponenten</h3>
+            <ul>
+              <li class="fragment">
+                Werden als <b>Funktion mit Hooks</b> oder <b>ES6 Klasse</b> implementiert
+                <ul>
+                  <li>Hooks erst seit React 16.8 (Februar 2019)</li>
+                  <li>Klassen (noch?) sehr weit verbreitet in bestehendem Code</li>
+                </ul>
+              </li>
+  
+              <li class="fragment">
+                Keine Templatesprache (stattdessen JavaScript)
+                <ul>
+                  <li>Templates können HTML-artige Syntax enthalten (JSX)</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+
         <section>
           <h3>Eine erste Komponente: Hello, World!</h3>
           <ul>
@@ -668,9 +703,8 @@ function PostList(props) {
 </code></pre>
         </section>
 
-        <section class="todo">
-          <h3>Teil III (b)</h3>
-          <h2>Anwendungen und Komponentenhierarchien</h2>
+        <section>
+          <h2>Komponentenhierarchien</h2>
         </section>
         <section>
           <h3>Datenfluss in React-Anwendungen</h3>
@@ -684,7 +718,26 @@ function PostList(props) {
           </li>
         </ol>
         </section>
-          
+
+        <section>
+          <h3>Smart und Dumb-Komponenten #1</h3>
+
+          <p>Zur Erinnerung: in React bauen wir Komponenten. Komponenten bestehen aus Logik, Zustand und UI (HTML-Elemente und Styling)</p>
+          <p>Ein bekanntes Muster ist, die Komponenten in zwei Arten aufzuteilen: <b>Smart (oder Controller)</b>- und <b>Dumb oder (Presentation-)</b>-Komponenten</p>
+          <p>Technisch sind die Komponenten identisch, also "normale" React-Komponenten</p>
+          <p>Nur ihre <b>Aufgabe</b> ist anders definiert...</p>
+        </section>
+
+        <section>
+            <h3>Smart und Dumb-Komponenten #2</h3>
+            <p>Smart-Komponenten enthalten Logik und Zustand</p>
+            <p>Dumb-Komponenten sind nur zur Darstellung der Daten</p>
+            <p>Smart-Komponenten reichen Zustand in die Dumb-Komponenten. Diese zeigen den Zustand an</p>
+            <p>Smart-Komponenten reichen Callback-Funktion als Event-Handler an die Dumb-Komponenten</p>
+            <p>Wenn in Dumb-Komponenten ein Ereignis eintritt (z.B. Button-Click oder Texteingabe), wird eine Callback-Funktion aufgerufen</p>
+            <p>Die Callback-Funktion wird dann in der Smart-Komponente aufgerufen und die Verarbeitung ausgeführt</p>
+            <p>Die Smart-Komponente setzt ihren Zustand neu, und rendert sich und ihre Kinder (die Dumb-Komponenten) neu</p>
+          </section>
 
           <section data-markdown data-transition="none">
             <textarea data-template>
@@ -720,176 +773,7 @@ function PostList(props) {
                       </textarea>
           </section>
          
-        <section>
-          <h3>Problem #1</h3>
-          <h2>Welche Komponente soll angezeigt werden?</h2>
-          <p>Master oder Detail?</p>
-          <p>Schritt-für-Schritt in <code>code/workspace-live-coding</code></p>
-        </section>
-        <section>
-          <h3>Controller Komponente #1</h3>
-          <p>Verwaltet den Zustand (u.a. welche Komponente sichtbar ist)</p>
-          <img src="slides/images/greeting-hierarchy-mode.png" style="height:550px" />
-        </section>
-        <section>
-          <h3>Controller Komponente #2</h3>
-          <p>Rendering der Children</p>
-          <pre><code class="javascript" contenteditable data-trim>
-function GreetingController(props) {
-  const [mode, setMode] = React.useState(MODE_MASTER);
-
-  if (mode === 'MASTER') {
-    return &lt;GreetingMaster />;
-  } 
-
-  return &lt;GreetingDetail />;
-}            
-            </code></pre>
-        </section>
-
-        <section>
-          <h3>Controller Komponente</h3>
-          <p class="fragment">Wie wird zwischen den Komponenten kommuniziert?</p>
-          <p class="fragment">Beispiel: Child-Komponente will Parent Informationen übermitteln</p>
-          <p class="fragment">Callback-Funktionen als Properties #1</p>
-          <img
-            class="fragment"
-            src="slides/images/greeting-hierarchy-mode-callback.png"
-            style="height:550px"
-          />
-        </section>
-
-        <section>
-          <h3>Controller Komponente</h3>
-          <p>Kommunikation mit Children: Callback-Funktionen als Properties #2</p>
-          <pre><code class="javascript" contenteditable data-trim>
-function GreetingController(props) {
-  const [mode, setMode] = React.useState('MASTER');
-
-  if (mode === 'MASTER') {
-    return &lt;GreetingMaster onAdd={() => setMode('DETAIL')} />;
-  } 
-
-  return &lt;GreetingDetail onSave={() => setMode('MASTER')} />;
-}      
-
-  
-</code></pre>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-  function GreetingMaster(props) {
-      return (
-        // Tabelle mit Greetings ...
-        &lt;button onClick={props.onAdd}>Add&lt;/button>
-      )
-  }            
-              </code></pre>
-        </section>
-
-        <section>
-          <h3>Problem #2</h3>
-          <h2>Wo wird der State (Greetings) verwaltet?</h2>
-          <p>Wie kommen neue Greetings (GreetingDetail) in die Liste (GreetingMaster)?</p>
-        </section>
-        <section>
-          <h3>Controller Komponente</h3>
-          <p class="fragment">Verwaltet den "globalen" State</p>
-          <p class="fragment">State wird als Property an Children übergeben</p>
-          <img
-            class="fragment"
-            src="slides/images/greeting-hierarchy-greetings.png"
-            style="height:550px"
-          />
-        </section>
-        <section>
-          <h3>Controller Komponente</h3>
-          <p>State wird als Property an Children übergeben #2</p>
-          <pre><code class="javascript" contenteditable data-trim>
-function GreetingController(props) {
-  const [mode, setMode] = React.useState('MASTER');
-  const [greetings, setGreetings] = React.useState(props.initialGreetings);
-
-  if (mode === 'MASTER') {
-        return &lt;GreetingMaster
-          greetings={greetings}
-          onAdd={() => setMode('DETAIL')}
-        />
-  }
-  // ...
-}
-  </code></pre>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-function GreetingMaster(props) {
-    return (
-      &lt;table>
-        { props.greetings.map(g => &lt;tr>...&lt;/tr>) }
-      &lt;/table>
-      &lt;button onClick={props.onAdd}>Add&lt;/button>
-    )
-}            
-                </code></pre>
-        </section>
-        <section>
-          <h3>Controller Komponente</h3>
-          <p class="fragment">Verwaltet den "globalen" State</p>
-          <div class="fragment">
-            <img src="slides/images/greeting-hierarchy-onsave.png" style="height:550px" />
-            <p>
-              <span style="color: #9D4493">Neues Greeting</span> wird per Callback-Funktion zurück
-              gegeben
-            </p>
-          </div>
-        </section>
-        <section>
-          <h3>Controller Komponente</h3>
-          <p>Neues Greeting wird per Callback-Funktion übergeben #2</p>
-          <pre><code class="javascript" contenteditable data-trim>
-  function GreetingController(props) {
-    const [mode, setMode] = React.useState('MASTER');
-    const [greetings, setGreetings] = React.useState(props.initialGreetings);
-
-    if (mode === 'MASTER') {
-      // ...
-    }
-
-    return &lt;GreetingDetail 
-      onSave={newGreeting => {
-        setGreetings: [...greetings, newGreeting];
-        setMode('MASTER');
-      }} 
-    />;
-  }      
-    </code></pre>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-  function GreetingDetail(props) {
-    const [name, setName] = React.useState();
-    const [greeting, setGreeting] = React.useState();
-      return (
-        &lt;input name="name" . . . />
-        &lt;input name="greeting" . . . />
-        &lt;button onClick={() => props.onSave({name: name, greeting: greeting})}>
-          Add
-        &lt;/button>
-      )
-  }            
-                  </code></pre>
-        </section>
-
-        <section>
-          <h3>Komponenten in Hierarchien</h3>
-          <p>Beispiel: Unsere Anwendung (Zusammenfassung)</p>
-          <img src="slides/images/greeting-hierarchy.png" style="height:550px" />
-        </section>
-
-        <section>
-          <h3>Smart und Dumb Components</h3>
-          <p style="font-size: smaller;margin-bottom:0">
-            (Alternativ: Container und Presentation Components)
-          </p>
-          <img
-            style="margin-top:0;max-height:600px"
-            src="slides/images/component-communication.png"
-          />
-        </section>
+     
 
         <section id="server">
           <h1>Daten lesen und schreiben vom Server</h1>
@@ -1312,7 +1196,7 @@ function App(props) {
             </ul>
             <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
       &lt;Route path="/posts/:postId">&lt;BlogPostPage/>&lt;/Route>
-            </pre></code>
+           </code> </pre>
             <ul>
                 <li class="fragment">Werte der variablen Parameter werden mit useParams in der Komponente abgefragt:</li>
               </ul>
@@ -1323,7 +1207,7 @@ function App(props) {
                   const params = useParams();
 
                   // params.postId enthält den variablen Wert aus der URL
-                        </pre></code>
+                </code></pre>
           </section>
           <section>
             <h3>Switch</h3>
