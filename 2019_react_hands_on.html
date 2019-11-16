@@ -114,6 +114,30 @@
         </section>
 
         <section>
+            <h3>Vorbereitung</h3>
+            <p>
+            git clone https://github.com/nilshartmann/react-training
+            </p>
+            <p>
+  cd react-training/blog-example/workspace
+            </p>
+
+            <p>
+  npm install
+  <p>
+
+      <p>
+          npm start
+          <p>
+
+            <p>Aufrufen: http://localhost:3000</p>
+
+    <p>
+  Slides: https://nils.buzz/techlab
+    </p></section>
+
+
+        <section>
           <h3>Der Beispiel-Workspace</h3>
           <p>Im Verzeichnis <b>blog-example/workspace</b> ist schon alles vorbereitet</p>
           <p>
@@ -234,6 +258,19 @@
           <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
         </section>
 
+        <section data-state="js-exkurs">
+            <h3>create-react-app</h3>
+            <a
+              href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
+              target="_blank"
+              >User Guide</a
+            >
+            <p>Bootstrap von React Projekten</p>
+            <p>Fertige Konfiguration von Webpack, Bablel React, ...</p>
+            <p>Beispiel: npx create-react-app PROJEKTNAME</p>
+            <p>oder mit TypeScript Support: npx create-react-app PROJEKTNAME --typescript</p>
+          </section>
+
         <!-- <section>
           <h2>Übung 1: React Hello-World</h2>
           <h3>
@@ -326,14 +363,14 @@
   import React from "react";
   
   export default function HelloWorld(props) {
-    const [greeting, setGreeting] = React.useState(props.initialGreeting || "");
+    const [title, setTitle] = React.useState(props.initialTitle || "");
   
     return (
       &lt;div>
-      &lt;input onChange={event => setGreeting(event.target.value)} value={greeting} />
+        &lt;input onChange={event => setTitle(event.target.value)} value={title} />
   
-      &lt;p>{greeting}, World&lt;/p>
-      &lt;button onClick={() => setGreeting("")}>Clear&lt;/button>
+        &lt;p>Eingegebener Titel: {greeting}&lt;/p>
+        &lt;button onClick={() => setTitle("")}>Clear&lt;/button>
       &lt;/div>
     );
   }
@@ -365,7 +402,7 @@
   
   import HelloWorld from './HelloWorld';
   
-  ReactDOM.render(&lt;HelloWorld initialGreeting="Hello"/>, 
+  ReactDOM.render(&lt;HelloWorld initialTitle="Moin moin"/>, 
     document.getElementById('root')
   );
   </code></pre>
@@ -508,9 +545,9 @@ function Header({titleColor, title}) {
           </ul>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
 function HelloWorld(props) {
-  const [greeting, setGreeting] = React.useState(props.initialGreeting);
+  const [title, setTitle] = React.useState(props.initialTitle);
 
-  return &lt;input onChange={e => setGreeting(e.target.value) value={greeting} />;
+  return &lt;input onChange={e => setTitle(e.target.value) value={title} />;
 }
                   </code></pre>
           <ul>
@@ -540,7 +577,7 @@ function HelloWorld(props) {
                 import React from "react";
 
                 function HelloWorld(props) {
-                  const [greeting, setGreeting] = React.useState(props.initialGreeting);
+                  const [title, setTitle] = React.useState(props.initialTitle);
                   // ...
                 }
                                   </code></pre>
@@ -548,7 +585,7 @@ function HelloWorld(props) {
                                       import React, { useState } from "react";
                       
                                       function HelloWorld(props) {
-                                        const [greeting, setGreeting] = useState(props.initialGreeting);
+                                        const [title, setTitle] = useState(props.initialTitle);
                                         // ...
                                       }
                                                         </code></pre>
@@ -1301,7 +1338,7 @@ function App(props) {
         &lt;Router>
           &lt;Switch>
             &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
-            &lt;Route path="/">&lt;BlogListPage/>&lt;/Route>
+            &lt;Route path="/" exact>&lt;BlogListPage/>&lt;/Route>
       
             // "No match": ohne Pfad
             &lt;Route>&lt;NotFoundPage/>&lt;/Route>
