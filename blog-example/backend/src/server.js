@@ -4,10 +4,47 @@ const bodyParser = require("body-parser");
 const app = express();
 
 app.use(bodyParser.json());
-
 let allPosts = [
   {
+    id: "6",
+    date: "2019-06-12T14:10:22.666Z",
+    title: "Prejudice abstract derive victorious",
+    body: `Burying marvelous good against spirit passion reason. Value hope superiority derive hatred justice eternal-return zarathustra revaluation fearful christianity faith abstract hope.
+Depths transvaluation joy fearful sea. Prejudice god merciful hope intentions sexuality oneself revaluation contradict christianity war philosophy passion. Convictions of of free insofar battle intentions ascetic decieve derive good. Madness sexuality deceptions faithful christianity victorious.
+Will victorious self against madness holiest right against ultimate reason revaluation god decieve. Inexpedient law eternal-return convictions sexuality love play marvelous enlightenment joy. Ultimate reason evil christian pinnacle endless contradict. Snare love horror overcome ascetic revaluation enlightenment derive sea overcome. Derive of horror disgust truth revaluation deceptions play disgust god morality abstract passion pious. Against dead reason faithful ocean hope abstract of pinnacle.
+Chaos law hope endless ocean virtues ascetic. Transvaluation deceptions intentions justice hatred salvation good war society justice. Ultimate pious selfish virtues strong love contradict god grandeur enlightenment.`
+  },
+  {
+    id: "5",
+    date: "2019-07-07T12:22:22.666Z",
+    title: "Experiences short bursts of poo-phoria",
+    body: `Eat all the power cords get scared by sudden appearance of cucumber for howl uncontrollably for no reason yet i cry and cry and cry unless you pet me, and then maybe i cry just for fun pooping rainbow while flying in a toasted bread costume in space. 
+    Meow for food, then when human fills food dish, take a few bites of food and continue meowing behind the couch, so sit in a box for hours but find a way to fit in tiny box you have cat to be kitten me right meow for make meme, make cute face.
+`
+  },
+  {
+    id: "4",
+    date: "2019-07-12T13:22:22.666Z",
+    title: "Aliqua tempor in venison pork belly",
+    body: `Swine bresaola porchetta drumstick. 
+    Doner flank pork, burgdoggen jerky venison bresaola corned beef landjaeger t-bone hamburger pastrami tenderloin. 
+    Short ribs chuck andouille cow t-bone doner ribeye tail bacon shank meatloaf pork tenderloin capicola frankfurter. 
+    Andouille hamburger pastrami, cow bacon kielbasa chicken pancetta sirloin landjaeger pork belly.`
+  },
+  {
+    id: "3",
+    date: "2019-07-15T12:21:22.666Z",
+    title: "Ghupft wia gsprunga weida auszutzeln nackata do legst di nieda? ",
+    body: `Zidern hob Sepp, Resi eam do legst di nieda baddscher a liabs Deandl des is hoid aso eam Weibaleid. Nia need nackata Biakriagal wolpern naa Marterl mogsd a Bussal. 
+    San nia und Prosd, wuid gscheit oans, zwoa, gsuffa a so a Schmarn Haberertanz scheans? 
+    Oans ned Haberertanz Schneid i mog di fei umananda, Hetschapfah spernzaln sog i. 
+    Hawadere midananda luja da, hog di hi, Gamsbart da hi i mog di fei. Oans Deandlgwand do Blosmusi ned woar, da. 
+    Wea nia ausgähd, kummt nia hoam luja griasd eich midnand Lewakaas baddscher i moan oiwei hinter’m Berg san a no Leit de: Kirwa Kneedl i mog di fei Namidog Ramasuri des is hoid aso do, Bladl? 
+    Bitt Spuiratz aasgem, wo hi anbandeln Heimatland obacht glacht ognudelt.`
+  },
+  {
     id: "2",
+    date: "2019-08-23T18:25:43.511Z",
     title: "Some notes from me",
     body: `I also believe it's important for every member to be involved and invested in our company and this is one way to do so. Curate.
         Guerrilla marketing we don't want to boil the ocean we need to leverage our synergies touch base
@@ -17,6 +54,7 @@ let allPosts = [
   },
   {
     id: "1",
+    date: "2019-09-22T14:12:21.511Z",
     title: "To be or not to be",
     body: `Self law truth moral will gains. Marvelous self burying battle virtues eternal-return.
         Chaos of madness ultimate moral moral play victorious faith ubermensch pious will.
@@ -25,6 +63,8 @@ let allPosts = [
         `
   }
 ];
+
+let counter = allPosts.length + 1;
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "OPTIONS,GET,PUT,POST,PATCH,DELETE");
@@ -45,10 +85,18 @@ app.use((req, _res, next) => {
   }
 });
 
+function sortByDate(posts) {
+  return posts.slice().sort((p1, p2) => new Date(p2.date).getTime() > new Date(p1.date).getTime());
+}
+
 app.get("/posts", (req, res) =>
-  req.query.short !== undefined
-    ? res.json(allPosts.map(p => ({ id: p.id, title: p.title })))
-    : res.json(allPosts)
+  res.json(
+    sortByDate(
+      req.query.short !== undefined
+        ? allPosts.map(p => ({ id: p.id, date: p.date, title: p.title }))
+        : allPosts
+    )
+  )
 );
 
 // Return Post with specified id (or 404)
@@ -78,7 +126,8 @@ app.post("/posts", (req, res) => {
 
   const newPost = {
     ...post,
-    id: String(allPosts.length + 3)
+    id: String(counter++),
+    date: new Date().toJSON()
   };
 
   allPosts = [newPost, ...allPosts];
