@@ -9,6 +9,8 @@ export default function PostEditor(props) {
     setBody("");
   }
 
+  const saveButtonDisabled = !title || !body;
+
   return (
     <div className="Container">
       <h1>Create Post</h1>
@@ -25,6 +27,7 @@ export default function PostEditor(props) {
 
       <button onClick={clear}>Clear</button>
       <button
+        disabled={saveButtonDisabled}
         onClick={() => {
           props.onSavePost({
             title,
