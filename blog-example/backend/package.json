@@ -10,7 +10,8 @@
     "nodemon": "^1.19.4"
   },
   "scripts": {
-    "start": "nodemon --inspect src/server.js"
+    "start": "nodemon src/server.js",
+    "start:debug": "nodemon --inspect src/server.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
