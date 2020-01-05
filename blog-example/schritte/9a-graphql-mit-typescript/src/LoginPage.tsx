@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/react-hooks";
 import LoginForm from "./LoginForm";
 import { LoginMutation, LoginMutationVariables } from "./querytypes/LoginMutation";
 import { useAuth } from "./AuthContext";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($login: String!, $password: String!) {
@@ -21,6 +21,7 @@ const LOGIN_MUTATION = gql`
 
 export default function LoginPage() {
   const history = useHistory();
+  const location = useLocation();
   const [mutate, { error, data }] = useMutation<LoginMutation, LoginMutationVariables>(
     LOGIN_MUTATION
   );
@@ -42,7 +43,8 @@ export default function LoginPage() {
       username: user!.name
     });
 
-    history.push("/add");
+    const redirectAfter = location.state?.redirectAfter || "/add";
+    history.push(redirectAfter);
   }
 
   const errorMessage = error ? error.toString() : data?.login?.error;

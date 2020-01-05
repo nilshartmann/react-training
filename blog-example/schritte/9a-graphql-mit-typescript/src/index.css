@@ -104,6 +104,20 @@ button:hover:disabled {
   cursor: default;
 }
 
+.Link {
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  text-decoration: underline;
+}
+
+.Link:hover {
+  color: var(--color-primary);
+  background-color: var(--color-white);
+  box-shadow: none;
+  /* box-shadow: var(--color-primary) 0px 0px 0px 2px inset; */
+}
+
 label {
   margin-bottom: 1rem;
   color: var(--color-main);
@@ -124,6 +138,7 @@ label {
   justify-content: space-between;
   align-items: flex-end;
   padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
 
   color: var(--grey-3);
 

@@ -14,6 +14,7 @@ export default function Post({ post }: PostProps) {
     <article className="Container">
       <p className="Date">{formattedDate(post.date)}</p>
       <h1>{post.title}</h1>
+      <p>by {post.user.name}</p>
       {post.body.split("\\n").map((p, ix) => (
         <p key={`${post.id}_${ix}`}>{p}</p>
       ))}

@@ -9,20 +9,14 @@ export default function LoginForm({ error, onLogin }: LoginFormProps) {
   const [login, setLogin] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  function clear() {
-    setLogin("");
-    setPassword("");
-  }
-
   return (
     <div className="Container">
       <h1>Login</h1>
-
       <label>
         Username
         <input value={login} onChange={e => setLogin(e.currentTarget.value)} />
       </label>
-
+      <p>(Valid logins: nils, susi, klaus, sua, lauren, olivia, cathy, maja)</p>
       <label>
         Passwort
         <input
@@ -31,16 +25,14 @@ export default function LoginForm({ error, onLogin }: LoginFormProps) {
           onChange={e => setPassword(e.currentTarget.value)}
         />
       </label>
-
+      <p>(Use some non-empty string as password)</p>
       {error && <p>{error}</p>}
-
-      <button onClick={clear}>Clear</button>
       <button
         onClick={() => {
           onLogin(login, password);
         }}
       >
-        Save Post
+        Login
       </button>
     </div>
   );

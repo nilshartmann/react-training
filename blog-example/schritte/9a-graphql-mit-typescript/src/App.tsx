@@ -5,29 +5,33 @@ import PostListPage from "./PostListPage";
 import NotFoundPage from "./NotFound";
 import PostEditorPage from "./PostEditorPage";
 import LoginPage from "./LoginPage";
+import AppHeader from "./AppHeader";
 
 function App() {
   return (
-    <Switch>
-      <Route exact path="/">
-        <PostListPage />
-      </Route>
-      <Route path="/post/:postId">
-        <PostPage />
-      </Route>
+    <div className="App">
+      <AppHeader />
+      <Switch>
+        <Route exact path="/">
+          <PostListPage />
+        </Route>
+        <Route path="/post/:postId">
+          <PostPage />
+        </Route>
 
-      <Route path="/add">
-        <PostEditorPage />
-      </Route>
+        <Route path="/add">
+          <PostEditorPage />
+        </Route>
 
-      <Route path="/login">
-        <LoginPage />
-      </Route>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
 
-      <Route>
-        <NotFoundPage />
-      </Route>
-    </Switch>
+        <Route>
+          <NotFoundPage />
+        </Route>
+      </Switch>
+    </div>
   );
 }
 

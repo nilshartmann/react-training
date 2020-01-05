@@ -1,11 +1,12 @@
 import React from "react";
 
 const defaultContext = {
-  setAuthState(authState: AuthState | null) {},
-
+  setAuthState(authState: AuthState) {},
+  logout() {},
   authState: undefined
 } as {
-  setAuthState(authState: AuthState | null | undefined): void;
+  setAuthState(authState: AuthState): void;
+  logout(): void;
   authState: AuthState | null | undefined;
 };
 
@@ -62,11 +63,16 @@ export default function AuthContextProvider({ children }: AuthContextProviderPro
     setLocalState(newAuth);
   }
 
+  function doLogout() {
+    updateAuthorization(null);
+  }
+
   return (
     <AuthContext.Provider
       value={{
         authState: localState,
-        setAuthState: updateAuthorization
+        setAuthState: updateAuthorization,
+        logout: doLogout
       }}
     >
       {children}
