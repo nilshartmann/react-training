@@ -1,0 +1,43 @@
+{
+  "Markdown Slide": {
+    "scope": "html",
+    "prefix": "ms",
+    "body": [
+      "<section data-markdown>",
+      "  <textarea data-template>",
+      "    $0",
+      "  </textarea>",
+      "</section>"
+    ]
+  },
+  "Markdown Comment": {
+    "scope": "html",
+    "prefix": "md",
+    "body": [
+      "<!-- ============================================================================= -->"
+    ]
+  },
+  "Section": {
+    "scope": "html",
+    "prefix": "sec",
+    "body": [
+      "",
+      "<!-- ============================================================================= -->",
+      "<section>",
+      "  <h3>$0</h3>",
+      "",
+      "</section>",
+      ""
+    ]
+  },
+  "Code Block": {
+    "scope": "html",
+    "prefix": "hc",
+    "body": ["", "<pre><code class=\"javascript\">", "  $0", "</code></pre>", ""]
+  },
+  "Code Fragment Block": {
+    "scope": "html",
+    "prefix": "hcf",
+    "body": ["", "<pre class=\"fragment\"><code class=\"javascript\">", "  $0", "</code></pre>", ""]
+  }
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <h1>Hello World-App</h1>
+
+    <input id="greetInput" />
+    <button onclick="javascript:greet()">Greet!</button>
+  </body>
+  <script>
+    function greet() {
+      const greeting = document.getElementById("greetInput").value;
+      alert(`Your greeting: '${greeting}'`);
+    }
+  </script>
+</html>

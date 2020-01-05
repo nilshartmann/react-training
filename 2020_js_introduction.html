@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Introduction into JavaScript language</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="stylesheet" href="slides/styles.css" />
+    <script src="slides/export.js"></script>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-state="title">
+          <h2>
+            <b>JavaScript Introduction</b>
+          </h2>
+          <h4>
+            <span class="transparent-bg">
+              <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a>
+              /
+              <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+              /
+              <a href="mailto:nils@nilshartmann.net" target="_blank"
+                >E-Mail: nils@nilshartmann.net</a
+              >
+            </span>
+          </h4>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+## Agenda
+
+1. Eins
+2. Zwei
+3. Drei
+
+**Every time**: Questions and discussions!
+</textarea
+          >
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+<img style="height: 800px" src="slides/images/screenshot-tweet-the-javascript.png" />
+<p><a class="small" href="https://twitter.com/lukaseder/status/787216648642109441">https://twitter.com/lukaseder/status/787216648642109441</a></p>
+          </textarea>
+        </section>
+
+        <section>
+          <h2>JavaScript Step-by-Step</h2>
+
+          <p>Verzeichnis: <code>code/workspace</code></p>
+        </section>
+
+        <section>
+          <h2 class="todo">Den DOM Teil hier weiter nach hinten verschieben????</h2>
+        </section>
+
+        <section>
+          <h3>JavaScript and HTML</h3>
+          <p>From your HTML code, the Browser creates the Document Object Model (DOM)</p>
+          <p>You can access the DOM via JavaScript</p>
+          <pre><code data-trim class="html">
+&lt;html>
+  &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
+  &lt;body>
+    &lt;h1>Hello World-App&lt;/h1>
+    
+    &lt;input id="greetInput" />
+    &lt;button onclick="javascript:greet()">Greet!&lt;/button>
+  &lt;/body>
+  &lt;script>
+    function greet() {
+      const greeting = document.getElementById("greetInput").value;
+      alert(`Your greeting: '${greeting}'`);
+    }
+  &lt;/script>
+&lt;/html>
+</code></pre>
+          <p><a href="code/js-intro/01_helloworld/index.html">Example in the Browser</a></p>
+        </section>
+        <section>
+          <h3>JavaScript and HTML: Interaction and manipulating the DOM</h3>
+          <pre><code data-trim class="html">
+      &lt;!DOCTYPE html>
+      &lt;html>
+        &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
+        &lt;body>
+          &lt;h1>Hello World-App&lt;/h1>
+      
+          &lt;input id="greetInput" />
+          &lt;button id="greetButton" disabled onclick="javascript:greet()">
+            Greet!
+          &lt;/button>
+        &lt;/body>
+        &lt;script>
+          document.getElementById("greetInput")
+            .addEventListener("input", function(event) {
+              if (event.target.value.length > 0) {
+                document.getElementById("greetButton").disabled = false;
+              } else {
+                document.getElementById("greetButton").disabled = true;
+              }
+            });
+          function greet() {
+            const greeting = document.getElementById("greetInput").value;
+            alert(`Your greeting: '${greeting}'`);
+          }
+        &lt;/script>
+      &lt;/html>
+      
+  </code></pre>
+          <p><a href="code/js-intro/02_helloworld/index.html">Example in the Browser</a></p>
+        </section>
+        <section>
+          <p class="todo">Code Beispiel zum Erzeugen des DOMs aus OOSE Talk</p>
+          <h3>JavaScript and HTML: Create Elements</h3>
+          <pre><code data-trim class="html">
+        &lt;!DOCTYPE html>
+        &lt;html>
+          &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
+          &lt;body>
+            &lt;h1>Hello World-App&lt;/h1>
+        
+            &lt;input id="greetInput" />
+            &lt;button id="greetButton" disabled onclick="javascript:greet()">
+              Greet!
+            &lt;/button>
+          &lt;/body>
+          &lt;script>
+            document
+              .getElementById("greetInput")
+              .addEventListener("input", function(event) {
+                if (event.target.value.length > 0) {
+                  document.getElementById("greetButton").disabled = false;
+                } else {
+                  document.getElementById("greetButton").disabled = true;
+                }
+              });
+            function greet() {
+              const greeting = document.getElementById("greetInput").value;
+        
+              const div = document.createElement("p");
+              div.textContent = greeting;
+              document.body.appendChild(div);
+            }
+          &lt;/script>
+        &lt;/html>    </code></pre>
+          <p><a href="code/js-intro/03_helloworld/index.html">Example in the Browser</a></p>
+        </section>
+        <section>
+          <h2>Wird das wohl Spaß machen, damit richtige Anwendungen zu entwickeln?</h2>
+          <div class="choice-of-horror">
+            <label><input name="xxx" type="radio" class="choices" /><span>Nein</span></label>
+            <label
+              ><input name="xxx" type="radio" class="choices" /><span>Auf keinen Fall</span></label
+            >
+            <label
+              ><input name="xxx" type="radio" class="choices" /><span
+                >Ich will nach Hause</span
+              ></label
+            >
+          </div>
+        </section>
+
+        <section>
+          <h3>Hintergrund: "Modernes" JavaScript</h3>
+          <p>
+            <b>ES5</b> (veröffentlicht 2009): wird von
+            <a href="http://kangax.github.io/compat-table/es5/">allen Browsern unterstützt</a>,
+            selbst IE11/IE10
+          </p>
+          <p>
+            <b>ECMAScript 2015</b> / <b>ES6</b>: sehr großes Release,
+            <a href="http://kangax.github.io/compat-table/es6/"
+              >Unterstützung nur in neueren Browsern</a
+            >
+            (FF, Chrome, Edge)
+          </p>
+          <p>Ab 2015 ein Release pro Jahr, dafür weniger Features</p>
+          <p><b>ES.next</b> bezeichnet die jeweils kommende Version</p>
+        </section>
+
+        <section>
+          <h3 class="todo">JavaScript vs Java aus Java Ökosystem Talk</h3>
+        </section>
+
+        <section>
+          <h2>Reference</h2>
+        </section>
+
+        <section>
+          <h3>JavaScript: Documentation</h3>
+          <p>
+            MDN web docs - Comprehensive documentation of all APIs by Mozilla, supported by
+            Microsoft, Google and Samsung)<br /><a href="https://developer.mozilla.org"
+              >https://developer.mozilla.org</a
+            >
+          </p>
+        </section>
+
+        <section>
+          <h3>JavaScript: The language</h3>
+          <p>
+            ⚠️&nbsp;<em
+              >JavaScript has been created in
+              <a
+                href="https://thenewstack.io/brendan-eich-on-creating-javascript-in-10-days-and-what-hed-do-differently-today/"
+                >ten days!</a
+              ></em
+            >&nbsp;👷
+          </p>
+          <pre><code class="javascript">
+// let creates a variable            
+let x = "Hallo"; // typeof x === string
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+    // dynamic typing (vs static typing in C#, java, ...)
+    x = 7; // typeof x === number
+    x = false; // typeof x === boolean
+    x = function() { return "Hallo" } // typeof x === function
+    
+    x.toUpperCase(); // Ouch 😱
+    </code></pre>
+          <pre class="fragment"><code class="javascript">
+        // Or: 
+        const y = "Hello";
+        y = 7; // ERROR: TypeError: Assignment to constant variable.
+
+        // very old and outdated syntax (and bad as there is almost no scoping):
+        var z = "Hello";
+
+        // you totaly don't wanna do this: (no scoping at, global visible)
+        neu = "I'm visible for everyone";
+        </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Operators</h3>
+
+          <pre><code class="javascript">
+            // == (double equal operator) with  implicit type conversions ("coercion")
+            if (42 == 42) {
+              console.log("of course"); // of course
+            }
+
+            if ("3" == 3) {
+              console.log("makes sense"); // makes sense
+            }
+
+            if ("" == false) {
+               console.log("hmm..."); // hmm...
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              // === (triple equal operator) WITHOUT implicit type conversion ("coercion")
+              if (42 === 42) {
+                console.log("of course"); // of course 
+              }
+
+              if ("3" === 3) {
+                console.log("makes sense"); // 
+              }
+  
+              if ("" === false) {
+                 console.log("hmm..."); //
+              }
+            </code></pre>
+
+          <p class="fragment"><b>Recommendation</b>: always use triple-equal-operator!</p>
+          <p class="fragment">
+            More coercion fun:
+            <a href="https://github.com/denysdovhan/wtfjs">WTF JS</a>
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>JavaScript: Functions</h3>
+          <pre><code class="javascript">
+function greet(msg) {
+return "Hello, " + msg;
+}
+
+greet("World"); // Hello, World
+greet(null), // Hello, null
+greet(); // Hello, undefined
+
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+// Functions are "1st-class-citizens":
+function greet(msg) { ... }
+
+// assign a function to a variable
+const gruss = greet;
+gruss("World"); // Hello, World
+
+function printer(msgGeneratorFn) {
+  console.log(msgGeneratorFn())
+}
+
+printer(function(){return "Hello, World"}));
+
+function helloWorld() { return  "Hello, World" };
+printer(helloWorld); 
+
+  </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>JavaScript: Terrible</h3>
+          <pre><code class="javascript">
+  function terrible(msg) {
+    return "Hello, " + msg;
+  }
+
+  terrible("World");
+  // Hello World
+
+  terrible = "awful"; // 😱
+
+  terrible("World");
+  // TypeError: awful is not a function
+  </code></pre>
+          <h3 class="fragement">
+            In JavaScript you can change and remove almost everything from everywhere
+          </h3>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>JavaScript: Functions #2, Fat Arrow Functions</h3>
+          <pre><code class="javascript">
+const greet = (msg) => {
+  return "Hello, " + msg;
+}
+
+// or:
+const greet => "Hello, " + msg;
+
+greet("World"); // Hello, World
+greet(null), // Hello, null
+greet(); // Hello, undefined
+
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+// Again: functions are "1st-class-citizens":
+const greet => "Hello, " + msg;
+
+function printer(msgGeneratorFn) {
+  console.log(msgGeneratorFn())
+}
+printer(() => "Hello, World");
+printer(() => greet("World"));
+    </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>JavaScript: Datatypes</h3>
+          <p>Boolean, Null, Undefined, Number, String, Symbol</p>
+
+          <pre><code class="javascript">
+            const check = true; // typeof check == "boolean"
+            if (check) {
+              console.log("jupp!");
+            }
+
+            const age = 32; // typeof age === "number"
+            if (age < 16) {
+              console.log("No Beer, sorry!")
+            }
+
+            const name = "Klaus";
+            if (name === "Klaus") { // typeof name === "string"
+              console.log("Hello, Klaus!");
+            }
+
+            let value;
+            typeof value === "undefined"
+
+            value = null;
+            typeof value !== "undefined"
+            typeof value === "null"
+
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>JavaScript: Arrays</h3>
+
+          <pre><code class="javascript">
+            
+          
+          const empty = []; // typeof empty === "object" 😕
+
+          if (Array.isArray([]) {
+            console.log("at least"); // at least
+          }
+
+          // Add items to an existing array
+          const abc = ["a", "b", "c"];
+          abc.push("d", "e"); // ["a", "b", "c", "d", "e"];
+          abc[4]; // e
+          abc.length // 5
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+
+          // COPY the array, then add items to the copy
+          const three = [1, 2, 3];
+          const five = three.concat(4, 5)
+          // three !== five
+
+          // or use "array destructuring" operator:
+          const six = [...three, 4, 5, 6]
+            // [1, 2, 3, 4, 5, 6]
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+          // Iterate
+
+          for (const x of six) {
+            console.log(x);
+          }
+          // 1, 2, 3, 4, 5, 6
+
+          six.forEach(v => console.log(v));
+          // 1, 2, 3, 4, 5, 6
+
+          const multiplied = six.map(v => v * 2);
+          // [2, 4, 6, 8, 10, 12]
+        </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>JavaScript: string</h3>
+
+          <pre><code class="javascript">
+            const name = "Susi";
+            name.length // 4
+            name.toUpperCase() // SUSI
+
+            const nothing = "";
+            if (!nothing) {
+              console.log("nothing"); // nothing (explanation in a minute)
+            }
+
+            const fullname = name + " Mueller";
+          </code></pre>
+
+          <p>
+            <a
+              href="https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >Doku</a
+            >
+          </p>
+
+          <h3 class="fragment">Template Strings</h3>
+          <pre class="fragment"><code class="javascript">
+
+            const name = "Susi";
+            const greet = `Hello, ${name}`; // Hello, Susi
+            const loudGreet = `Hello, ${name.toUpperCase()}` // Hello, SUSI
+            const evenLouder = `Hello, ${name}`.toUpperCase(); // HELLO, SUSI
+          </code></pre>
+          <p class="fragment">
+            <a
+              href="https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/template_strings"
+              >Documentation</a
+            >
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Truthy and falsy</h3>
+
+          <p class="todo">Examples</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>JavaScript: Objects</h3>
+          <pre><code class="javascript">
+const person = {
+  firstname: "Klaus",
+  age: 34
+}
+
+typeof person // object
+person.firstname // Klaus
+person["firstname"] // Klaus
+
+person.firstname = "Susi"
+person.firstname // Susi
+
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              const what = "firstname";
+              person[what]; // Susi
+              person[what] = "Moni";
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              person.lastname // undefined
+              delete person.firstname
+              person.firstname // undefined
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Objects: shorthand notation</h3>
+
+          <p>
+            If you have local variable, that should be put under the same in an object, you can skip
+            the value
+          </p>
+
+          <pre><code class="javascript">
+              const name = "Susi";
+
+              const person = {
+                name,
+                age: 32
+              }
+            </code></pre>
+          <pre class="fragment"><code class="javascript">
+              // Same as: 
+              const name = "Susi";
+
+              const person = {
+                name: name
+                age: 32
+              }
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Destructuring</h3>
+          <p>
+            You can use the
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment"
+              >object destructuring assignment</a
+            >
+            operator to access values in an object:
+          </p>
+
+          <pre><code class="javascript">
+              const person = {
+                name: "Susi",
+                age: 32
+              };
+
+              const { name } = person;
+              console.log(name); // person
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              const person = {
+                name: "Susi",
+                age: 32
+              };
+
+              // You can assign default values:
+              const { city = "Freiburg" } = person;
+              console.log(city); // Freiburg
+            </code></pre>
+        </section>
+        <section>
+          <h3>Destructuring #2</h3>
+          <p>Use it in function parameters:</p>
+
+          <pre><code class="javascript">
+              function printPerson({name, age}) {
+                console.log(`${name} is ${age} years old`);
+              }
+
+              printPerson({
+                name: "Susi",
+                age: 32
+              });
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+               // with default values
+             function printPerson({name, age, city="Freiburg"})
+                 // ...
+             }
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Destructuring</h3>
+          <p>With Rest Parameter</p>
+
+          <pre><code class="javascript">
+            const person = {
+              name: "Susi",
+              age: 32
+            } 
+            
+            const newPerson = {...person};
+            // newPerson is a flat clone of person
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+             const person = {
+              name: "Susi",
+              age: 32
+            } 
+
+            // You can add and override properties:
+            const newPerson = { name: "Klaus", ...person, age: "33"};
+            newPerson.name === "Susi"; // overriden 
+            newPerson.age === 33; // updated
+          </code></pre>
+        </section>
+
+        <!-- =============================================================================
+        <section>
+          <h3>JavaScript: Objects </h3>
+
+          <pre><code class="javascript">
+  const klaus = {
+    firstname: "Klaus",
+    sayWhat() { return "Hello, " + this.firstname }
+  }
+
+  klaus.sayWhat() // Hello, Klaus
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+const dieter = {
+  firstname: "Dieter"
+}
+
+dieter.sayWhat = klaus.sayWhat
+
+// Good or bad?
+dieter.sayWhat(); // Hello, Dieter
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // Good or bad?
+            function greet(generatorFn) {
+              console.log(generatorFn());
+            }
+            
+            greet(klaus.sayWhat);
+            // Hello, undefined
+        </code></pre>
+        </section> -->
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>this...</h3>
+
+          <img height="600px" src="slides/images/schreenshot-this-shit.png" />
+          <p>
+            <a class="small" href="https://twitter.com/oscherler/status/660049264903643136"
+              >https://twitter.com/oscherler/status/660049264903643136</a
+            >
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>JavaScript: Classes</h3>
+          <p>
+            Important: Access to instance members of a class <em>always</em> with <code>this.</code>
+          </p>
+
+          <pre><code class="javascript">
+              class Person {
+                constructor(name) {
+                    this._name = name;
+                }
+                
+                get name() {
+                    return this._name;
+                }
+                
+                set name(newName) {
+                    this._name = newName;
+                }
+                
+                toString() { return "Person: " + this.name + ""; }
+            }
+            
+            const p = new Person("Susi");
+            p.toString() // Person: Susi
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              p.name // Susi (getter)
+              p.name = "Lisa"; // setter
+
+              console.log(p.toString()) // Person: Lisa;
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              p._name // Lisa (direct field access, no visibility restrictions!)  😱
+              p._name = "Moni"; // (direct field access, no visibility restrictions!) 😱
+              console.log(p.toString()) // Person: Moni;
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>JavaScript: Classes #2</h3>
+
+          <pre><code class="javascript">
+class Musician extends Person {
+  constructor(name, instrument) {
+    // call to 'super' always must be first expression!
+    super(name);
+    this._instrument = instrument;
+  }
+
+  toString() { return super.toString() + " plays " + this._instrument}
+}            
+
+const lemmy = new Musician("Lemmy", "Bass");
+lemmy.toString(); // Lemmy plays Bass
+lemmy.name // // Lemmy
+
+
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Modules</h3>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Modules</h3>
+          <h4>Default exports</h4>
+          <p>
+            <em
+              >Objekte, Funktionen, Klassen etc müssen explizit <b>exportiert</b> und
+              <b>importiert</b> werden</em
+            >
+          </p>
+          <p>Adding an <code>export</code> to a file makes it a module</p>
+
+          <pre><code class="javascript">
+            // src/domain/Person.js
+            export default class Person { ... }
+
+            oder
+
+            class Person { ... }
+            export default Person
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              // src/domain/Person.js
+              export default function createPerson() { ... }
+  
+              oder
+  
+              function createPerson() { ... }
+              export default createPerson;
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                Nur EIN Default Export erlaubt;
+                export default function createPerson() { ... }
+                export default class Person { ... } // KONFLIKT
+              </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Modules</h3>
+          <h4>Imports</h4>
+          <p class="fragment">
+            When importing a module, you have to specify the Path(!) to it (in Browser even with
+            <code>.js</code>-suffix!)
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+              // src/domain/Musician.js
+              import Person from "./Person.js";
+  
+              export default class Musician extends Person { ... }
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                // src/App.js
+                import Musician from "./domain/Musician.js";
+  
+                const lemmy = new Musician("Lemmy", "Bass");
+              </code></pre>
+        </section>
+        <!-- ============================================================================= -->
+
+        
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Modules: Resolving process</h3>
+          <p>The specified path is resolved differently in node and in the browser</p>
+          <p>As of today you only have to know the Node resolving process (Webpack takes care of the rest)</p>
+          <p>Relative path is your own module</p>
+          <p>"Absolute" path (without leading ./) is searched under <code>node_modules</code>
+          </section>
+        
+        </section>
+        
+
+        <section>
+          <h3>Modules</h3>
+          <h4>Named exports</h4>
+          <p class="fragment">
+            Beside the (one) default export, a module can contain one or more 
+            <b>named exports</b>
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+                // src/domain/Person.js
+                export default class Person { ...}
+                export function createPerson() { ... }
+                export function removePerson() { ... }
+              </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                  // src/domain/Person.js
+                  export default class Person { ...}
+                  function createPerson() { ... }
+                  function removePerson() { ... }
+
+                  export { createPerson, removePerson }
+                </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Modules</h3>
+          <h4>Names imports</h4>
+          <pre class="fragment"><code class="javascript">
+                    // src/App.js
+                    import { createPerson } from "./Person.js"
+              </code></pre>
+          <pre class="fragment"><code class="javascript">
+                // Import default and named imports together
+                import Person, { createPerson } from "./Person.js"
+              </code></pre>
+          <pre class="fragment"><code class="javascript">
+                  // Import everything
+                  import { * as P } from "./Person.js"
+  
+                  P.createPerson();
+                </code></pre>
+          <pre class="fragment"><code class="javascript">
+                    // Rename in import (for example to avoid naming clashes)
+                    import { createPerson as create } from "./Person.js"
+    
+                    create();
+                  </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Modules im Browser</h3>
+          <p>
+            Um Module im script-Tag im HTML-Code zu verwenden, muss als dort als type "module"
+            angegeben werden
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            &lt;html>
+              ...
+              &lt;script type="module">
+                import Musician from "./Musician.js";
+
+                const m = new Musician("Lemmy", "Bass");
+              &lt;/script>
+            &lt;/html>
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Module</h3>
+          <h4>Bundling</h4>
+
+          <p>Nicht alle Browser unterstützen Module nativ</p>
+          <p>
+            Es gibt faktisch mehr als ein Modulsystem (zum Beispiel CommonJS aus Node.JS)
+          </p>
+
+          <p>
+            Mit einem Bundler (z.B.
+            <a href="http://webpack.github.io/">Webpack</a> oder
+            <a href="https://rollup.js.org">Rollup</a>) werden die Module im Build "aufgelöst" und
+            in <b>eine</b> Datei geschrieben
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Web-Entwicklung mit JavaScript</h3>
+          <p>Browser erzeugt aus HTML das Document Object Model (DOM)</p>
+          <p class="fragment">Der DOM wird vom Browser dargestellt</p>
+
+          <p class="fragment">Wir können DOM Elemente mit JavaScript suchen (getElementBy...)</p>
+          <p class="fragment">
+            Wir können am DOM Listener registrieren, um auf Veränderungen zu reagieren
+          </p>
+          <p class="fragment">
+            Wir den DOM mit JS manipulieren (Elemente hinzufügen/löschen, Attribute ändern...)
+          </p>
+          <p class="fragment">Wird der DOM verändert, ändert sich die Darstellung</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Aus der Geschichte: jQuery (hier oder später bei SPA)</h3>
+        </section>
+
+        <section>
+          <h3>Nächste Stufe unserer Anwednug: Validierung der Eingabe</h3>
+          <p>
+            Übung: Modul, dass die Eingabe prüft, und objekt mit Ergebnis zurückliefert (Error,
+            Warning, Info)
+          </p>
+          <p>
+            Übung:Egal, wie das Modul implementiert ist, darf aber keine Abhängigkeit auf DOM haben!
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>
+            Hinweis für IDE: Code Complection/Content Assist/IntelliSense kann nervig bzw
+            irreführend sein
+          </h3>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Testen von JavaScript Code</h3>
+          <p>Jest</p>
+          <p>
+            Neues Learning hier: Java Script lässt sich mit NodeJS ausführen (für Server und Tools,
+            genau wir JRE)
+          </p>
+          <p>npm / yarn für fertige Module</p>
+          <p>
+            Module verhalten sich in Node etwas anders als im Browser (NODE_PATH, commonJs), braucht
+            uns aber nicht zu stören
+          </p>
+          <p></p>
+        </section>
+
+        <section>
+          <h3>Tests 1: ohne DOM (das fachliche MOdul)</h3>
+          <h3>Tests 2: mit DOM (?) - vielleicht zu schlimm</h3>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Statische Code Qualität: ESLint</h3>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>"Qualität": Prettier</h3>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Compiler (hier schon?, alternativ direkt bei TypeScript)</h3>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Bundling und Module</h3>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h2>Teil 2</h2>
+          <h1>Single-Page-Anwendungen</h1>
+        </section>
+        <section>
+          <h3>Rückblick: jQuery</h3>
+        </section>
+        <section>
+          <h3>Single-Page-Anwendungen</h3>
+
+          Architekturgrafiken I, II und III zur Herleitung
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+    ## Geschafft ;-)
+    ### Vielen Dank für Eure Teilnahme!
+
+    **Kontakt:**
+    * <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a> 
+    *<a href="https://xing.to/nilshartmann" target="_blank">Xing</a>
+    *<a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+</textarea
+          >
+        </section>
+      </div>
+    </div>
+
+    <script src="slides/reveal.js/lib/js/head.min.js"></script>
+    <script src="slides/reveal.js/js/reveal.js"></script>
+    <script src="slides/reveal.js/lib/jquery-2.2.4.js"></script>
+    <script src="slides/reveal-config.js"></script>
+  </body>
+</html>
