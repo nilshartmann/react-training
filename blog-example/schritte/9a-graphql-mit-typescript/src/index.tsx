@@ -8,16 +8,28 @@ import App from "./App";
 
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
+import AuthContextProvider, { withTokenFromStorage } from "./AuthContext";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000"
+  uri: "http://localhost:4000",
+  request: operation => {
+    withTokenFromStorage(token =>
+      operation.setContext({
+        headers: {
+          authorization: token
+        }
+      })
+    );
+  }
 });
 
 ReactDOM.render(
   <Router>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
+    <AuthContextProvider>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </AuthContextProvider>
   </Router>,
   document.getElementById("root")
 );

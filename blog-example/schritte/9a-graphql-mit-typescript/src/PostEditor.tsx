@@ -3,6 +3,7 @@ import { NewBlogPost } from "./types";
 
 type PostEditorProps = {
   onSavePost(post: NewBlogPost): void;
+  error?: string | null | undefined;
 };
 
 export default function PostEditor(props: PostEditorProps) {
@@ -29,6 +30,8 @@ export default function PostEditor(props: PostEditorProps) {
         Body
         <textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
       </label>
+
+      {props.error && <p>{props.error}</p>}
 
       <button onClick={clear}>Clear</button>
       <button

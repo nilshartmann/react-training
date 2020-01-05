@@ -16,7 +16,9 @@ const POST_LIST_QUERY = gql`
 `;
 
 export default function PostListPage() {
-  const { loading, error, data } = useQuery<PostListQuery>(POST_LIST_QUERY);
+  const { loading, error, data } = useQuery<PostListQuery>(POST_LIST_QUERY, {
+    fetchPolicy: "cache-and-network"
+  });
 
   if (loading) {
     return <h1>Loading, please wait...</h1>;

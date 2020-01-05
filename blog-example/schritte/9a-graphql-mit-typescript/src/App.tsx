@@ -1,25 +1,12 @@
 import React from "react";
-import PostEditor from "./PostEditor";
-import { NewBlogPost } from "./types";
-import { useHistory, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import PostPage from "./PostPage";
 import PostListPage from "./PostListPage";
 import NotFoundPage from "./NotFound";
-function App() {
-  const history = useHistory();
-  function savePost(post: NewBlogPost) {
-    fetch("http://localhost:7000/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(post)
-    })
-      .then(response => response.json())
-      .then(_ => history.push("/"))
-      .catch(err => console.error("Saving failed: " + err));
-  }
+import PostEditorPage from "./PostEditorPage";
+import LoginPage from "./LoginPage";
 
+function App() {
   return (
     <Switch>
       <Route exact path="/">
@@ -30,7 +17,11 @@ function App() {
       </Route>
 
       <Route path="/add">
-        <PostEditor onSavePost={savePost} />
+        <PostEditorPage />
+      </Route>
+
+      <Route path="/login">
+        <LoginPage />
       </Route>
 
       <Route>
