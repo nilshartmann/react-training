@@ -6,7 +6,7 @@ function formattedDate(date) {
   return moment(date).format("DD.MM.YYYY");
 }
 
-export default function BlogList(props) {
+export default function PostList(props) {
   const posts = props.posts;
 
   return (

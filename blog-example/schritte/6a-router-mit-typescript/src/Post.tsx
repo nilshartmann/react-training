@@ -1,10 +1,15 @@
 import React from "react";
 import moment from "moment";
-function formattedDate(date) {
+import { BlogPost } from "./types";
+function formattedDate(date: string) {
   return moment(date).format("DD.MM.YYYY");
 }
 
-export default function Post({ post }) {
+type PostProps = {
+  post: BlogPost;
+};
+
+export default function Post({ post }: PostProps) {
   return (
     <article className="Container">
       <p className="Date">{formattedDate(post.date)}</p>

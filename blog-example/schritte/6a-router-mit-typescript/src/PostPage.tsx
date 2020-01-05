@@ -1,10 +1,11 @@
 import React from "react";
 import Post from "./Post";
 import { useParams, Link } from "react-router-dom";
+import { BlogPost } from "./types";
 
 export default function PostPage() {
   const { postId } = useParams();
-  const [post, setPost] = React.useState(null);
+  const [post, setPost] = React.useState<BlogPost | null>(null);
 
   React.useEffect(() => {
     fetch(`http://localhost:7000/posts/${postId}`)
