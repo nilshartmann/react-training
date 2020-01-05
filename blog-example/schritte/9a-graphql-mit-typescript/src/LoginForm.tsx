@@ -25,7 +25,7 @@ export default function LoginForm({ error, onLogin }: LoginFormProps) {
           onChange={e => setPassword(e.currentTarget.value)}
         />
       </label>
-      <p>(Use some non-empty string as password)</p>
+      <p>(Use any non-empty string as password)</p>
       {error && <p>{error}</p>}
       <button
         onClick={() => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth } from "./AuthContext";
-import { useHistory, useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 type UserBadgeProps = {
   username: string;
