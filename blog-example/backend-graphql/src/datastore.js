@@ -25,6 +25,10 @@ function getAllPosts() {
   return posts.values();
 }
 
+function getPost(postId) {
+  return posts.get(postId);
+}
+
 function getAllUsers() {
   return users;
 }
@@ -73,5 +77,6 @@ module.exports = {
   getUser,
   getUserByLogin,
   insertPost,
-  likePost
+  likePost,
+  getPost
 };

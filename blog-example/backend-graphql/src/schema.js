@@ -20,6 +20,7 @@ type Query {
   ping(msg: String): String!
   posts: [BlogPost!]!
   users: [User!]!
+  post(postId: ID!): BlogPost
 }
 
 type LoginResult {

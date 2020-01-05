@@ -20,6 +20,7 @@ const resolvers = {
   Query: {
     ping: (_, { msg }) => `Hello, ${msg || "World"}`,
     posts: () => datastore.getAllPosts(),
+    post: (_, { postId }) => datastore.getPost(postId),
     users: () => datastore.getAllUsers()
   },
   BlogPost: {
