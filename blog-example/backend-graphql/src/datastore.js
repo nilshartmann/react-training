@@ -22,7 +22,10 @@ const users = readUsers();
 const posts = readPosts();
 
 function getAllPosts() {
-  return posts.values();
+  const allPosts = [...posts.values()];
+  allPosts.sort((p1, p2) => new Date(p2.date) - new Date(p1.date));
+
+  return allPosts;
 }
 
 function getPost(postId) {
