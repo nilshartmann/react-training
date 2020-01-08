@@ -64,19 +64,19 @@
         <section>
           <h3>Background: "Modern" JavaScript</h3>
           <p class="fragment">
-            <b>ES5</b> (published back in 2009): 
-            <a href="http://kangax.github.io/compat-table/es5/">supported by almost all browsers</a>,
-            even IE11/IE10 🥺
+            <b>ES5</b> (published back in 2009):
+            <a href="http://kangax.github.io/compat-table/es5/">supported by almost all browsers</a
+            >, even IE11/IE10 🥺
           </p>
           <p class="fragment">
             <b>ECMAScript 2015</b> / <b>ES6</b>: quite extensive release, lot's of new features
-            <a href="http://kangax.github.io/compat-table/es6/"
-              >support only in newer Browsern</a
-            >
+            <a href="http://kangax.github.io/compat-table/es6/">support only in newer Browsern</a>
             (FF, Chrome, Edge, Safari)
-          </p class="fragment">
-          <p class="fragment">Since 2015 one release per year (with only small amount of new features) </p class="fragment">
-          <p class="fragment"><b>ES.next</b> is called the next upcoming version</p class="fragment">
+          </p>
+          <p class="fragment">
+            Since 2015 one release per year (with only small amount of new features)
+          </p>
+          <p class="fragment"><b>ES.next</b> is called the next upcoming version</p>
         </section>
 
         <section>
@@ -374,11 +374,15 @@ printer(() => greet("World"));
         <!-- ============================================================================= -->
         <section>
           <h3>Truthy and falsy</h3>
-          <p><b>falsy</b> is a value that evaluates to <b>false</b> when converted (implicitly or explicitly) into a boolean</p>
-          <p><b>truthy</b> is a value that evaluates to <b>true</b> when converted (implicitly or explicitly) into a boolean (all
-          values except those that are falys, according to MDN)</p>
+          <p>
+            <b>falsy</b> is a value that evaluates to <b>false</b> when converted (implicitly or
+            explicitly) into a boolean
+          </p>
+          <p>
+            <b>truthy</b> is a value that evaluates to <b>true</b> when converted (implicitly or
+            explicitly) into a boolean (all values except those that are falys, according to MDN)
+          </p>
 
-          
           <pre><code class="javascript">
             if (true) { console.log("of course") } // of course
 
@@ -389,17 +393,17 @@ printer(() => greet("World"));
             if (undefined) { console.log("never") } // 
           </code></pre>
 
-          <p class="fragment">What about these?</p class="fragment">
-          
+          <p class="fragment">What about these?</p>
+
           <pre class="fragment"><code class="javascript">
             if (0) { console.log("zero"); } // 🤔
           </code></pre>
-          
-           <pre class="fragment"><code class="javascript">
+
+          <pre class="fragment"><code class="javascript">
             if ("") { console.log("empty"); } // 🤔
           </code></pre>
 
-           <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
             if ([]) { console.log("empty"); } // 🤔
           </code></pre>
 
@@ -558,6 +562,11 @@ person.firstname // Susi
 
         <!-- ============================================================================= -->
         <section>
+          <h3 class="todo">Klassen eventuell komplett raus, brauchen wir nicht für React</h3>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
           <h3>this...</h3>
 
           <img height="600px" src="slides/images/schreenshot-this-shit.png" />
@@ -644,11 +653,11 @@ lemmy.name // // Lemmy
           <h4>Default exports</h4>
           <p>
             <em
-              >Objekte, Funktionen, Klassen etc müssen explizit <b>exportiert</b> und
-              <b>importiert</b> werden</em
+              >Objekts, functions and classes needs to be <b>exported</b> and
+              <b>imported</b> explicitly</em
             >
           </p>
-          <p>Adding an <code>export</code> to a file makes it a module</p>
+          <p>Adding an <code>export</code> to a file makes it a module!</p>
 
           <pre><code class="javascript">
             // src/domain/Person.js
@@ -671,7 +680,7 @@ lemmy.name // // Lemmy
             </code></pre>
 
           <pre class="fragment"><code class="javascript">
-                Nur EIN Default Export erlaubt;
+                Only ONE default export possible:
                 export default function createPerson() { ... }
                 export default class Person { ... } // KONFLIKT
               </code></pre>
@@ -767,10 +776,11 @@ lemmy.name // // Lemmy
 
         <!-- ============================================================================= -->
         <section>
-          <h3>Modules im Browser</h3>
+          <p class="todo">eventuell raus, für react irrelevant</p>
+          <h3>Modules in the browser</h3>
           <p>
-            Um Module im script-Tag im HTML-Code zu verwenden, muss als dort als type "module"
-            angegeben werden
+            To use modules in the browser (inside a script-element) you need to set the script
+            <code>type</code> to <code>module</code>
           </p>
 
           <pre class="fragment"><code class="javascript">
@@ -787,20 +797,22 @@ lemmy.name // // Lemmy
 
         <!-- ============================================================================= -->
         <section>
-          <h3>Module</h3>
+          <h3>Modules</h3>
           <h4>Bundling</h4>
 
-          <p>Nicht alle Browser unterstützen Module nativ</p>
+          <p>Not all browsers supprt native ES6 modules</p>
           <p>
-            Es gibt faktisch mehr als ein Modulsystem (zum Beispiel CommonJS aus Node.JS)
+            Also: there are more module systems in the JavaScript ecosystem (for example CommonJS
+            from Node.JS)
           </p>
 
           <p>
-            Mit einem Bundler (z.B.
-            <a href="http://webpack.github.io/">Webpack</a> oder
-            <a href="https://rollup.js.org">Rollup</a>) werden die Module im Build "aufgelöst" und
-            in <b>eine</b> Datei geschrieben
+            A bundler (for example
+            <a href="http://webpack.github.io/">Webpack</a> or
+            <a href="https://rollup.js.org">Rollup</a>) "removes" the module system and puts all JS
+            code into <b>one</b> file (preserving visibility)
           </p>
+          <p>We'll come back later during the React introduction</p>
         </section>
 
         <!-- ============================================================================= -->
@@ -1108,7 +1120,7 @@ button {  font-size: 20px; }
             <li class="fragment">...backend "only" for data</li>
           </ul>
           <p class="fragment">Own kind of frameworks (Angular, React, Vue) evolved</p>
-          <h2 class="fragment">Let's dive into React 👀</h2 class="fragment">
+          <h2 class="fragment">Let's dive into React 👀</h2>
         </section>
 
         <!-- ============================================================================= -->
@@ -1128,8 +1140,10 @@ button {  font-size: 20px; }
       </div>
     </div>
 
-    <script src="slides/reveal.js/lib/js/head.min.js"></script>
-    <script src="slides/reveal.js/js/reveal.js"></script>
+    <script src="slides/reveal.js/lib/js/head.min.js">
+      <script>
+          <script src="slides/reveal.js/js/reveal.js">
+    </script>
     <script src="slides/reveal.js/lib/jquery-2.2.4.js"></script>
     <script src="slides/reveal-config.js"></script>
   </body>
