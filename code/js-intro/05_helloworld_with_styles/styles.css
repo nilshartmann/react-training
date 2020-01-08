@@ -1,0 +1,15 @@
+/** CSS Class */
+.Title {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/** Element Id */
+#greetInput {
+  background-color: darkturquoise;
+  font-size: 32px;
+}
+
+/** HTML Element */
+button {
+  font-size: 20px;
+}

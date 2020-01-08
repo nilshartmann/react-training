@@ -77,6 +77,42 @@ code span.line-number {
   height: 650px;
 }
 
+.reveal .choice-of-horror label {
+  display: block;
+  margin-bottom: 15px;
+}
+.reveal .choice-of-horror input[type="radio"] {
+  /* width: 2.5rem;
+  height: 2.5rem; */
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.reveal .choice-of-horror input[type="radio"]:checked {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.reveal .choice-of-horror input[type="radio"] + span::before {
+  display: inline-block;
+  content: "?";
+  color: #fdf6e3;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  border: 2px solid gray;
+  margin-right: 15px;
+  vertical-align: baseline;
+}
+
+.reveal .choice-of-horror input[type="radio"] + span:hover::before,
+.reveal .choice-of-horror input[type="radio"]:checked + span::before {
+  content: "😱";
+  cursor: pointer;
+}
+
 /*rgb(196, 215, 240)*/
 
 html.title body {

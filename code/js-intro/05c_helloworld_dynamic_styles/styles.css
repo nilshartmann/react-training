@@ -1,0 +1,21 @@
+/** CSS Class */
+.Title {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.Success {
+  background-color: greenyellow;
+}
+
+#greetInput {
+  font-size: 32px;
+}
+
+.Failure {
+  background-color: lightcoral;
+}
+
+/** HTML Element */
+button {
+  font-size: 20px;
+}

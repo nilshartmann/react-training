@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello World!</title>
+    <style>
+      /** CSS Class */
+      .Title {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      /** Element Id */
+      #greetInput {
+        background-color: darkturquoise;
+        font-size: 32px;
+      }
+
+      /** HTML Element */
+      button {
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="Title">Hello World-App</h1>
+
+    <input id="greetInput" />
+    <button id="greetButton" disabled onclick="javascript:greet()">
+      Greet!
+    </button>
+  </body>
+  <script>
+    document.getElementById("greetInput").addEventListener("input", function(event) {
+      if (event.target.value.length > 0) {
+        document.getElementById("greetButton").disabled = false;
+      } else {
+        document.getElementById("greetButton").disabled = true;
+      }
+    });
+    function greet() {
+      const greeting = document.getElementById("greetInput").value;
+
+      const div = document.createElement("p");
+      div.textContent = greeting;
+      document.body.appendChild(div);
+    }
+  </script>
+</html>

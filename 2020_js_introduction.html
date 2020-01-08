@@ -35,17 +35,16 @@
           </h4>
         </section>
 
-        <section data-markdown>
-          <textarea data-template>
-## Agenda
+        <
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Agenda</h3>
 
-1. Eins
-2. Zwei
-3. Drei
-
-**Every time**: Questions and discussions!
-</textarea
-          >
+          <ol>
+            <li><a href="#p_jsintro">JS Inroduction (basics of the language)</a></li>
+            <li><a href="#p_webdev">Web Development with JavaScript</a></li>
+          </ol>
+          <p><b>Every time</b>: Questions and discussions!</p>
         </section>
         <section data-markdown>
           <textarea data-template>
@@ -55,142 +54,29 @@
         </section>
 
         <section>
-          <h2>JavaScript Step-by-Step</h2>
+          <h2>JavaScript in practice</h2>
 
           <p>Verzeichnis: <code>code/workspace</code></p>
+
+          <p class="todo">Mit nodemon außerhalb des Browsers ?</p>
         </section>
 
         <section>
-          <h2 class="todo">Den DOM Teil hier weiter nach hinten verschieben????</h2>
-        </section>
-
-        <section>
-          <h3>JavaScript and HTML</h3>
-          <p>From your HTML code, the Browser creates the Document Object Model (DOM)</p>
-          <p>You can access the DOM via JavaScript</p>
-          <pre><code data-trim class="html">
-&lt;html>
-  &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
-  &lt;body>
-    &lt;h1>Hello World-App&lt;/h1>
-    
-    &lt;input id="greetInput" />
-    &lt;button onclick="javascript:greet()">Greet!&lt;/button>
-  &lt;/body>
-  &lt;script>
-    function greet() {
-      const greeting = document.getElementById("greetInput").value;
-      alert(`Your greeting: '${greeting}'`);
-    }
-  &lt;/script>
-&lt;/html>
-</code></pre>
-          <p><a href="code/js-intro/01_helloworld/index.html">Example in the Browser</a></p>
-        </section>
-        <section>
-          <h3>JavaScript and HTML: Interaction and manipulating the DOM</h3>
-          <pre><code data-trim class="html">
-      &lt;!DOCTYPE html>
-      &lt;html>
-        &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
-        &lt;body>
-          &lt;h1>Hello World-App&lt;/h1>
-      
-          &lt;input id="greetInput" />
-          &lt;button id="greetButton" disabled onclick="javascript:greet()">
-            Greet!
-          &lt;/button>
-        &lt;/body>
-        &lt;script>
-          document.getElementById("greetInput")
-            .addEventListener("input", function(event) {
-              if (event.target.value.length > 0) {
-                document.getElementById("greetButton").disabled = false;
-              } else {
-                document.getElementById("greetButton").disabled = true;
-              }
-            });
-          function greet() {
-            const greeting = document.getElementById("greetInput").value;
-            alert(`Your greeting: '${greeting}'`);
-          }
-        &lt;/script>
-      &lt;/html>
-      
-  </code></pre>
-          <p><a href="code/js-intro/02_helloworld/index.html">Example in the Browser</a></p>
-        </section>
-        <section>
-          <p class="todo">Code Beispiel zum Erzeugen des DOMs aus OOSE Talk</p>
-          <h3>JavaScript and HTML: Create Elements</h3>
-          <pre><code data-trim class="html">
-        &lt;!DOCTYPE html>
-        &lt;html>
-          &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
-          &lt;body>
-            &lt;h1>Hello World-App&lt;/h1>
-        
-            &lt;input id="greetInput" />
-            &lt;button id="greetButton" disabled onclick="javascript:greet()">
-              Greet!
-            &lt;/button>
-          &lt;/body>
-          &lt;script>
-            document
-              .getElementById("greetInput")
-              .addEventListener("input", function(event) {
-                if (event.target.value.length > 0) {
-                  document.getElementById("greetButton").disabled = false;
-                } else {
-                  document.getElementById("greetButton").disabled = true;
-                }
-              });
-            function greet() {
-              const greeting = document.getElementById("greetInput").value;
-        
-              const div = document.createElement("p");
-              div.textContent = greeting;
-              document.body.appendChild(div);
-            }
-          &lt;/script>
-        &lt;/html>    </code></pre>
-          <p><a href="code/js-intro/03_helloworld/index.html">Example in the Browser</a></p>
-        </section>
-        <section>
-          <h2>Wird das wohl Spaß machen, damit richtige Anwendungen zu entwickeln?</h2>
-          <div class="choice-of-horror">
-            <label><input name="xxx" type="radio" class="choices" /><span>Nein</span></label>
-            <label
-              ><input name="xxx" type="radio" class="choices" /><span>Auf keinen Fall</span></label
-            >
-            <label
-              ><input name="xxx" type="radio" class="choices" /><span
-                >Ich will nach Hause</span
-              ></label
-            >
-          </div>
-        </section>
-
-        <section>
-          <h3>Hintergrund: "Modernes" JavaScript</h3>
-          <p>
-            <b>ES5</b> (veröffentlicht 2009): wird von
-            <a href="http://kangax.github.io/compat-table/es5/">allen Browsern unterstützt</a>,
-            selbst IE11/IE10
+          <h3>Background: "Modern" JavaScript</h3>
+          <p class="fragment">
+            <b>ES5</b> (published back in 2009): 
+            <a href="http://kangax.github.io/compat-table/es5/">supported by almost all browsers</a>,
+            even IE11/IE10 🥺
           </p>
-          <p>
-            <b>ECMAScript 2015</b> / <b>ES6</b>: sehr großes Release,
+          <p class="fragment">
+            <b>ECMAScript 2015</b> / <b>ES6</b>: quite extensive release, lot's of new features
             <a href="http://kangax.github.io/compat-table/es6/"
-              >Unterstützung nur in neueren Browsern</a
+              >support only in newer Browsern</a
             >
-            (FF, Chrome, Edge)
-          </p>
-          <p>Ab 2015 ein Release pro Jahr, dafür weniger Features</p>
-          <p><b>ES.next</b> bezeichnet die jeweils kommende Version</p>
-        </section>
-
-        <section>
-          <h3 class="todo">JavaScript vs Java aus Java Ökosystem Talk</h3>
+            (FF, Chrome, Edge, Safari)
+          </p class="fragment">
+          <p class="fragment">Since 2015 one release per year (with only small amount of new features) </p class="fragment">
+          <p class="fragment"><b>ES.next</b> is called the next upcoming version</p class="fragment">
         </section>
 
         <section>
@@ -488,14 +374,44 @@ printer(() => greet("World"));
         <!-- ============================================================================= -->
         <section>
           <h3>Truthy and falsy</h3>
+          <p><b>falsy</b> is a value that evaluates to <b>false</b> when converted (implicitly or explicitly) into a boolean</p>
+          <p><b>truthy</b> is a value that evaluates to <b>true</b> when converted (implicitly or explicitly) into a boolean (all
+          values except those that are falys, according to MDN)</p>
 
-          <p class="todo">Examples</p>
+          
+          <pre><code class="javascript">
+            if (true) { console.log("of course") } // of course
+
+            if ("hello") { console.log("moin!") } // moin!
+            
+            if (null) { console.log("please no!") } // 
+
+            if (undefined) { console.log("never") } // 
+          </code></pre>
+
+          <p class="fragment">What about these?</p class="fragment">
+          
+          <pre class="fragment"><code class="javascript">
+            if (0) { console.log("zero"); } // 🤔
+          </code></pre>
+          
+           <pre class="fragment"><code class="javascript">
+            if ("") { console.log("empty"); } // 🤔
+          </code></pre>
+
+           <pre class="fragment"><code class="javascript">
+            if ([]) { console.log("empty"); } // 🤔
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            if ({}) { console.log("empty"); } // 🤔
+          </code></pre>
         </section>
 
         <!-- ============================================================================= -->
         <section>
           <h3>JavaScript: Objects</h3>
-          <pre><code class="javascript">
+          <pre class="fragment"><code class="javascript">
 const person = {
   firstname: "Klaus",
   age: 34
@@ -635,40 +551,10 @@ person.firstname // Susi
           </code></pre>
         </section>
 
-        <!-- =============================================================================
+        <!-- ============================================================================= -->
         <section>
-          <h3>JavaScript: Objects </h3>
-
-          <pre><code class="javascript">
-  const klaus = {
-    firstname: "Klaus",
-    sayWhat() { return "Hello, " + this.firstname }
-  }
-
-  klaus.sayWhat() // Hello, Klaus
-          </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-const dieter = {
-  firstname: "Dieter"
-}
-
-dieter.sayWhat = klaus.sayWhat
-
-// Good or bad?
-dieter.sayWhat(); // Hello, Dieter
-          </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-            // Good or bad?
-            function greet(generatorFn) {
-              console.log(generatorFn());
-            }
-            
-            greet(klaus.sayWhat);
-            // Hello, undefined
-        </code></pre>
-        </section> -->
+          <h3 class="todo">ÜBUNG MIT FUNKTIONEN UND OBJEKTEN</h3>
+        </section>
 
         <!-- ============================================================================= -->
         <section>
@@ -816,24 +702,23 @@ lemmy.name // // Lemmy
         </section>
         <!-- ============================================================================= -->
 
-        
         <!-- ============================================================================= -->
         <section>
           <h3>Modules: Resolving process</h3>
           <p>The specified path is resolved differently in node and in the browser</p>
-          <p>As of today you only have to know the Node resolving process (Webpack takes care of the rest)</p>
+          <p>
+            As of today you only have to know the Node resolving process (Webpack takes care of the
+            rest)
+          </p>
           <p>Relative path is your own module</p>
-          <p>"Absolute" path (without leading ./) is searched under <code>node_modules</code>
-          </section>
-        
+          <p>"Absolute" path (without leading ./) is searched under <code>node_modules</code></p>
         </section>
-        
 
         <section>
           <h3>Modules</h3>
           <h4>Named exports</h4>
           <p class="fragment">
-            Beside the (one) default export, a module can contain one or more 
+            Beside the (one) default export, a module can contain one or more
             <b>named exports</b>
           </p>
 
@@ -919,64 +804,311 @@ lemmy.name // // Lemmy
         </section>
 
         <!-- ============================================================================= -->
-        <section>
-          <h3>Web-Entwicklung mit JavaScript</h3>
-          <p>Browser erzeugt aus HTML das Document Object Model (DOM)</p>
-          <p class="fragment">Der DOM wird vom Browser dargestellt</p>
+        <!-- ============================================================================= -->
+        <!-- ============================================================================= -->
+        <!-- ============================================================================= -->
+        <!-- ============================================================================= -->
 
-          <p class="fragment">Wir können DOM Elemente mit JavaScript suchen (getElementBy...)</p>
+        <section id="p_webdev">
+          <h2>Web Development with JavaScript</h2>
+        </section>
+
+        <section>
+          <h3>A simple example</h3>
+
+          <a href="code/js-intro/03_helloworld/">Hello World</a>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Web development with JavaScript</h3>
+          <p>Browser creates the Document Object Model (DOM) from our HTML code</p>
+          <p class="fragment">Browser renders and displays the DOM</p>
+
+          <p class="fragment">We can search for DOM elements with JavaScript (getElementBy...)</p>
           <p class="fragment">
-            Wir können am DOM Listener registrieren, um auf Veränderungen zu reagieren
+            We can add listeners add DOM elements to react on changes (for example, new input in
+            textfield entered)
           </p>
           <p class="fragment">
-            Wir den DOM mit JS manipulieren (Elemente hinzufügen/löschen, Attribute ändern...)
+            We can manipulate the DOM using JS (adding/removing elements, change attributes, modify
+            CSS)
           </p>
-          <p class="fragment">Wird der DOM verändert, ändert sich die Darstellung</p>
+          <p class="fragment">👉 If the DOM changes, the presentation in the browser changes</p>
+        </section>
+
+        <section>
+          <h3>JavaScript and the DOM</h3>
+          <p>You can access the DOM via JavaScript</p>
+          <pre><code data-trim class="html">
+&lt;html>
+  &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
+  &lt;body>
+    &lt;h1>Hello World-App&lt;/h1>
+    
+    &lt;input id="greetInput" />
+    &lt;button onclick="javascript:greet()">Greet!&lt;/button>
+  &lt;/body>
+  &lt;script>
+    function greet() {
+      const greeting = document.getElementById("greetInput").value;
+      alert(`Your greeting: '${greeting}'`);
+    }
+  &lt;/script>
+&lt;/html>
+</code></pre>
+        </section>
+        <section>
+          <h3>JavaScript and the DOM: Interaction and manipulating the DOM</h3>
+          <pre><code data-trim class="html">
+      &lt;!DOCTYPE html>
+      &lt;html>
+        &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
+        &lt;body>
+          &lt;h1>Hello World-App&lt;/h1>
+      
+          &lt;input id="greetInput" />
+          &lt;button id="greetButton" disabled onclick="javascript:greet()">
+            Greet!
+          &lt;/button>
+        &lt;/body>
+        &lt;script>
+          document.getElementById("greetInput")
+            .addEventListener("input", function(event) {
+              if (event.target.value.length > 0) {
+                document.getElementById("greetButton").disabled = false;
+              } else {
+                document.getElementById("greetButton").disabled = true;
+              }
+            });
+          function greet() {
+            const greeting = document.getElementById("greetInput").value;
+            alert(`Your greeting: '${greeting}'`);
+          }
+        &lt;/script>
+      &lt;/html>
+      
+  </code></pre>
+        </section>
+        <section>
+          <h3>JavaScript and the DOM: Create Elements</h3>
+          <pre><code data-trim class="html">
+        &lt;!DOCTYPE html>
+        &lt;html>
+          &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
+          &lt;body>
+            ...
+          &lt;/body>
+          &lt;script>
+            // ...
+            function greet() {
+              const greeting = document.getElementById("greetInput").value;
+        
+              const div = document.createElement("p");
+              div.textContent = greeting;
+              document.body.appendChild(div);
+            }
+          &lt;/script>
+        &lt;/html>    </code></pre>
+        </section>
+        <section>
+          <h3>For completeness: the whole app in JavaScript</h3>
+          <pre><code data-trim class="html">
+        &lt;!DOCTYPE html>
+        &lt;html>
+          &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
+          &lt;body />
+          &lt;script>
+              const title = document.createElement("h1");
+              const titleText = document.createTextNode("Hello World");
+              title.appendChild(titleText);
+
+              const greetButton = document.createElement("button");
+              greetButton.innerHTML = "Greet!";
+              greetButton.disabled = true;
+              greetButton.addEventListener("click", event => {
+                const div = document.createElement("p");
+                div.textContent = greetInput.value;
+                document.body.appendChild(div);
+              });
+
+              const greetInput = document.createElement("input");
+              greetInput.addEventListener("input", event => {
+                if (event.target.value.length > 0) {
+                  greetButton.disabled = false;
+                } else {
+                  greetButton.disabled = true;
+                }
+              });
+
+              document.body.appendChild(title);
+              document.body.appendChild(greetInput);
+              document.body.appendChild(greetButton);
+          &lt;/script>
+        &lt;/html>    </code></pre>
+        </section>
+        <section>
+          <h2>CSS</h2>
+        </section>
+
+        <section>
+          <h3>Writing CSS rules</h3>
+
+          <p>Either in an external file</p>
+          <p>as style tag</p>
+          <p>inline</p>
+          <p>with javascript</p>
+        </section>
+
+        <section>
+          <h3>Rules in external file</h3>
+          <p>styles.css</p>
+          <pre><code class="css">
+/** CSS Class */
+.Title { font-family: Arial, Helvetica, sans-serif; }
+
+/** Element Id */
+#greetInput {  background-color: darkturquoise;  font-size: 32px; }
+
+/** HTML Element */
+button {  font-size: 20px; }
+          </code></pre>
+
+          <pre class="fragment"><code class="html">
+&lt;html>
+  &lt;head>
+    &lt;link href="./styles.css" rel="stylesheet" />
+  &lt;head>
+  &lt;body>
+    <h1 class="Title">Hello World-App</h1>
+
+    &lt;input id="greetInput" />
+    &lt;button>Greet!&lt;button>
+  &lt;body>
+&lt;/html>              
+          </code></pre>
+          <a href="code/js-intro/05_helloworld_with_styles/index.html">Styles example</a>
+        </section>
+
+        <section>
+          <h3>Style Tag in your HTML file</h3>
+          <p>(only difference: where we write the CSS)</p>
+
+          <pre><code class="html">
+&lt;html>
+  &lt;head>
+    &lt;title>Hello World!&lt;title>
+    &lt;style>
+      .Title {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      #greetInput {
+        background-color: darkturquoise;
+        font-size: 32px;
+      }
+
+      button {
+        font-size: 20px;
+      }
+    &lt;style>
+  &lt;head>
+  &lt;body>...unchanged...&lt;/body>
+&lt;/html>  
+          </code></pre>
+
+          <a href="code/js-intro/05a_helloworld_with_styles_element/index.html">Styles example</a>
+        </section>
+
+        <section>
+          <h3>Inline styles</h3>
+          <p>Add styles directly to your element (not considered best practice)</p>
+
+          <pre><code class="html">
+&lt;html>
+  &lt;head>
+    ...unchanged...
+  &lt;/head>
+  &lt;body>
+   &lt;h1 class="Title" style="background-color:red">Hello World-App&lt;/h1>
+   ...
+  &lt;/body>
+&lt;/html> 
+</code></pre>
+
+          <a href="code/js-intro/05b_helloworld_with_inline_styles/index.html">Styles example</a>
+        </section>
+
+        <section>
+          <h3>With JavaScript</h3>
+          <p>
+            We can create styles at runtime (not recommended, prefer "static" CSS instead):<br />
+            <code>document.createElement("style");</code>
+          </p>
+          <p>
+            We can add/remove classes from DOM elements (for example as reaction to user
+            interaction)
+          </p>
+          <p>We can/add remove styles from DOM elements (also for user interactions)</p>
+
+          <pre class="fragment"><code class="javascript">
+    document.getElementById("greetInput").addEventListener("input", function(event) {
+      if (event.target.value.length > 0) {
+        document.getElementById("greetInput").classList.add("Success");
+        document.getElementById("greetInput").classList.remove("Failure");
+        document.getElementById("greetButton").disabled = false;
+      } else {
+        document.getElementById("greetButton").disabled = true;
+        document.getElementById("greetInput").classList.add("Failure");
+        document.getElementById("greetInput").classList.remove("Success");
+      }
+    });
+
+    // ...also don't forget to set the inital classes correctly!
+          </code></pre>
+
+          <a href="code/js-intro/05c_helloworld_dynamic_styles/index.html">Styles example</a>
+        </section>
+
+        <section>
+          <h2>Do you think it will be fun developing web apps the "vanilla js"-way?</h2>
+          <div class="choice-of-horror">
+            <label><input name="xxx" type="radio" class="choices" /><span>No</span></label>
+            <label><input name="xxx" type="radio" class="choices" /><span>Never ever</span></label>
+            <label
+              ><input name="xxx" type="radio" class="choices" /><span>I wanna go home</span></label
+            >
+          </div>
+        </section>
+
+        <section>
+          <h3>What about... jQuery?</h3>
+          <ul>
+            <li>...stil by far the most popular JS library</li>
+            <li class="fragment">
+              ...added some missing functionalities for working with the DOM <br />The most
+              important ones have been added to the official APIs
+            </li>
+            <li class="fragment">
+              ...ensures that APIs behave identically across browsers <br />Differences between
+              browsers become smaller recently
+            </li>
+            <li class="fragment">
+              ...stil "wrong" abstraction layer for "real" applications in the browser
+            </li>
+          </ul>
         </section>
 
         <!-- ============================================================================= -->
         <section>
-          <h3>Aus der Geschichte: jQuery (hier oder später bei SPA)</h3>
-        </section>
-
-        <section>
-          <h3>Nächste Stufe unserer Anwednug: Validierung der Eingabe</h3>
-          <p>
-            Übung: Modul, dass die Eingabe prüft, und objekt mit Ergebnis zurückliefert (Error,
-            Warning, Info)
-          </p>
-          <p>
-            Übung:Egal, wie das Modul implementiert ist, darf aber keine Abhängigkeit auf DOM haben!
-          </p>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>
-            Hinweis für IDE: Code Complection/Content Assist/IntelliSense kann nervig bzw
-            irreführend sein
-          </h3>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Testen von JavaScript Code</h3>
-          <p>Jest</p>
-          <p>
-            Neues Learning hier: Java Script lässt sich mit NodeJS ausführen (für Server und Tools,
-            genau wir JRE)
-          </p>
-          <p>npm / yarn für fertige Module</p>
-          <p>
-            Module verhalten sich in Node etwas anders als im Browser (NODE_PATH, commonJs), braucht
-            uns aber nicht zu stören
-          </p>
-          <p></p>
-        </section>
-
-        <section>
-          <h3>Tests 1: ohne DOM (das fachliche MOdul)</h3>
-          <h3>Tests 2: mit DOM (?) - vielleicht zu schlimm</h3>
+          <h3>Single-Page-Applications</h3>
+          <ul>
+            <li>...applications that run completly in the browser</li>
+            <li class="fragment">...all UI is manged by JavaScript</li>
+            <li class="fragment">...backend "only" for data</li>
+          </ul>
+          <p class="fragment">Own kind of frameworks (Angular, React, Vue) evolved</p>
+          <h2 class="fragment">Let's dive into React 👀</h2 class="fragment">
         </section>
 
         <!-- ============================================================================= -->
@@ -992,38 +1124,6 @@ lemmy.name // // Lemmy
         <!-- ============================================================================= -->
         <section>
           <h3>Compiler (hier schon?, alternativ direkt bei TypeScript)</h3>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Bundling und Module</h3>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h2>Teil 2</h2>
-          <h1>Single-Page-Anwendungen</h1>
-        </section>
-        <section>
-          <h3>Rückblick: jQuery</h3>
-        </section>
-        <section>
-          <h3>Single-Page-Anwendungen</h3>
-
-          Architekturgrafiken I, II und III zur Herleitung
-        </section>
-
-        <section data-markdown>
-          <textarea data-template>
-    ## Geschafft ;-)
-    ### Vielen Dank für Eure Teilnahme!
-
-    **Kontakt:**
-    * <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a> 
-    *<a href="https://xing.to/nilshartmann" target="_blank">Xing</a>
-    *<a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
-</textarea
-          >
         </section>
       </div>
     </div>
