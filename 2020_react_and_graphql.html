@@ -278,9 +278,12 @@
           <h3>React Components</h3>
           <ul>
             <li class="fragment">
-              Components are written either as <b>JS functions with "Hooks"</b> or as <b>ES6 classes</b>
+              Components are written either as <b>JS functions with "Hooks"</b> or as
+              <b>ES6 classes</b>
               <ul>
-                <li>Hooks is newer React API (since Version 16.8, February 2019) an "future of React"</li>
+                <li>
+                  Hooks is newer React API (since Version 16.8, February 2019) an "future of React"
+                </li>
                 <li>Classes still widespread in existing code, documentation, tutorials etc</li>
               </ul>
             </li>
@@ -289,8 +292,11 @@
               No Template Language
               <ul>
                 <li>We write our UI completely in JavaScript</li>
-                <li>React provides a language add-on for JavaScript allowing you to write HTML-like in JS (called JSX)</li>
-                <li>(Isn't that a template language?)
+                <li>
+                  React provides a language add-on for JavaScript allowing you to write HTML-like in
+                  JS (called JSX)
+                </li>
+                <li>(Isn't that a template language?)</li>
               </ul>
             </li>
           </ul>
@@ -310,13 +316,13 @@
   import React from "react";
   
   export default function HelloWorld(props) {
-    const [title, setTitle] = React.useState(props.initialTitle || "");
+    const [title, setTitle] = React.useState("");
   
     return (
       &lt;div>
         &lt;input onChange={event => setTitle(event.target.value)} value={title} />
   
-        &lt;p>Eingegebener Titel: {greeting}&lt;/p>
+        &lt;p>Title: {greeting}&lt;/p>
         &lt;button onClick={() => setTitle("")}>Clear&lt;/button>
       &lt;/div>
     );
@@ -325,7 +331,7 @@
         </section>
 
         <section>
-          <h3>Aufruf</h3>
+          <h3>Embedding your Application</h3>
           <div class="fragment">
             <p>
               <code>index.html</code>
@@ -349,7 +355,7 @@
   
   import HelloWorld from './HelloWorld';
   
-  ReactDOM.render(&lt;HelloWorld initialTitle="Moin moin"/>, 
+  ReactDOM.render(&lt;HelloWorld />, 
     document.getElementById('root')
   );
   </code></pre>
@@ -359,25 +365,25 @@
           <h3>React: JSX</h3>
           <ul>
             <li style="font-size: 80%" class="fragment">
-              Wird wie HTML hingeschrieben, inkl Attribute:
+              Written like HTML code, incl. attributes:
               <pre><code class="xml" contenteditable data-trim>
 &lt;div>&lt;input type="text"/>&lt;/div>
                     </code></pre>
             </li>
             <li style="font-size: 80%" class="fragment">
-              Achtung! <code>class</code>-Attribut heißt <code>className</code>:
+              Attention! <code>class</code>-attribute is called <code>className</code>:
               <pre><code class="xml" contenteditable data-trim>
                         &lt;h1 className="title">...&lt;/h1>
                     </code></pre>
             </li>
             <li style="font-size: 80%" class="fragment">
-              Attribute, die keine Strings sind, müssen in {} eingeschlossen werden:
+              Attributes, that are not string, have to be surrounded by {}:
               <pre><code class="xml" contenteditable data-trim>
 &lt;Counter label="Count" count={7} showValues={true} />
                     </code></pre>
             </li>
             <li style="font-size: 80%" class="fragment">
-              Kann pures JavaScript enthalten, eingeschlossen in {}:
+              You can use pure javascript expressions in {}:
               <pre><code class="xml" contenteditable data-trim>
 const title = 'Hello, World';
 &lt;h1>{title.toUpperCase()}&lt;/h1>
@@ -385,7 +391,7 @@ const title = 'Hello, World';
             </li>
 
             <li style="font-size: 80%" class="fragment">
-              CSS-Eigenschaften werden als Objekt übergeben in Camel-Case-Notation:
+              CSS styles are specified using an object (with keys in Camel-Case-Notation):
               <pre><code class="xml" contenteditable data-trim>
 const styles = { marginLeft: '10px', border: '1px solid red' };
 &lt;h1 style={styles}>...&lt;/h1>
@@ -397,7 +403,7 @@ const styles = { marginLeft: '10px', border: '1px solid red' };
           <h3>React: JSX #2</h3>
           <ul>
             <li style="font-size: 80%" class="fragment">
-              Fragmente (rendern selber kein Element in den DOM, nur ihre Kind-Elemente):
+              Fragments (A Fragment does not render something, only it's children):
               <pre><code class="xml" contenteditable data-trim>
 function Choice() { 
   return &lt;&gt;
@@ -408,24 +414,24 @@ function Choice() {
                     </code></pre>
             </li>
             <li style="font-size: 80%" class="fragment">
-              null, false oder boolean, um nichts zu rendern:
+              Use null, false or any boolean, to not render anything:
               <pre><code class="xml" contenteditable data-trim>
 function ErrorMessage(props) {
   if (!props.msg) {
-    return null; // oder false oder true
+    return null; // or false or true
   }
 
-  return <h1>Fehler: {props.msg}</h1>;
+  return <h1>Error: {props.msg}</h1>;
 }              
                     </code></pre>
             </li>
 
             <li style="font-size: 80%" class="fragment">
-              Kommentare
+              Comments in JSX
               <pre><code class="xml" contenteditable data-trim>
   function MyComponent() {
     return <div>
-      { /* hier ist javascript, deswegen block-kommentare erlaubt */ }
+      { /* this ist javascript, and block comments are allowed here */ }
     </div>;
   }              
                       </code></pre>
@@ -434,30 +440,30 @@ function ErrorMessage(props) {
         </section>
 
         <section>
-          <h3>React: Properties und Zustand</h3>
+          <h3>React: Properties und State</h3>
           <ul class="fragment">
             <li>
-              <b>Properties</b> werden der Komponente von <b>außen</b> übergeben (und nicht
-              verändert)
+              <b>Properties</b> are passed into the components from the <b>outside</b>, from the
+              caller of the component. Properties <b>must not be changed</b> by the component.
             </li>
             <li class="fragment">
-              <b>Zustand (State)</b> ist eine <b>innere</b> Eigenschaft der Komponente (die
-              verändert werden kann)
+              <b>State</b> is an <b>internal</b> property of a component. State
+              <b>might be changed</b> only by the component iself.
             </li>
           </ul>
         </section>
 
         <section>
-          <h3>Properties ("Props") einer Komponente</h3>
+          <h3>Properties ("Props") of a component</h3>
 
           <ul>
             <li class="fragment">
-              sind Objekte mit Key-Value-Paaren
+              ...are JavaScript objects (key-value-pairs)
             </li>
             <li class="fragment">
-              werden als 1. Methoden-Parameter an Komponente übergeben
+              ...are the first argument of a component function
             </li>
-            <li class="fragment">dürfen nicht verändert werden</li>
+            <li class="fragment">must not be changed by the receiving component</li>
           </ul>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
             function Header(props) {
@@ -469,7 +475,7 @@ function ErrorMessage(props) {
             </code></pre>
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-// Mit Destructuring
+// You can use destructuring for better (?) readabilty: 
 function Header({titleColor, title}) {
     return (
       &lt;h1 style={{color: titleColor}}>{title}&lt;/h1>
@@ -480,66 +486,77 @@ function Header({titleColor, title}) {
         </section>
 
         <section>
-          <h3>Zustand einer Komponente: useState-Hook</h3>
+          <h3>State of a component: useState-Hook</h3>
           <ul>
-            <li>Beispiel: Inhalt eines Eingabefelds, Daten vom Server, Menu offen oder zu</li>
-            <li class="fragment"><b>Werte</b> üblicherweise immutable</li>
-            <li class="fragment">Arbeiten mit Zustand über <b>useState</b>-Hook</li>
+            <li>
+              Example: Contents of a text field, data from server, is a menu expanded or collapsed
+            </li>
             <li class="fragment">
-              useState liefert Array mit zwei Werten zurück: aktuellen Zustand, und setter-Funktion
-              um Zustand zu verändern
+              <b>Values</b> normally immutable. (in many cases we have primitive data types as
+              values, so state is automatically immutable)
+            </li>
+            <li class="fragment">Working with state using the <b>useState</b>-Hook</li>
+            <li class="fragment">
+              useState returns an array with two entries: 1. the state's current value, 2. a
+              setter-function used to change the state
             </li>
           </ul>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
 function HelloWorld(props) {
-  const [title, setTitle] = React.useState(props.initialTitle);
+  const [title, setTitle] = React.useState("");
 
   return &lt;input onChange={e => setTitle(e.target.value) value={title} />;
 }
                   </code></pre>
           <ul>
             <li class="fragment">
-              Aufruf des Setters <b>löst erneutes rendern der <i>gesamten</i> Komponente aus</b>
+              Calling the setter function <b>forces re-rendering the <i>whole</i> component</b> (and
+              all children!)
             </li>
             <li class="fragment">
-              Es können mehrere States erzeugt werden, durch Verwendung mehrerer useState-Aufrufe
+              You can use multiple independent states, by calling using multiple useState calls
             </li>
             <li class="fragment">
-              <b>Zustand</b> ist eines der <b>zentralen</b> Konzepte von React
+              <b>State</b>, its behaviour and organization is one of the <b>fundamental</b> concepts
+              of React
             </li>
           </ul>
         </section>
         <section>
           <h3>React Hooks</h3>
-          <em>Mit React Hooks kann sich eine Komponente in Zustand und Lebenszyklus "einhaken"</em>
+          <em
+            >Hooks are JS functions that let you "hook into" the lifecycle of a React component
+          </em>
           <ul>
             <li class="fragment">
-              Hooks sind "normale" Funktionen, müssen aber mit <code>use</code> beginnen (useState,
+              Hooks are "normal" JS functions, but must start with <code>use</code> (useState,
               useEffect, ...)
             </li>
             <li class="fragment">
-              Beispiel: Importieren und verwenden von Hooks
+              Example: Importing and using Hooks
 
               <pre><code class="javascript" contenteditable data-trim>
-                import React from "react";
-
-                function HelloWorld(props) {
-                  const [title, setTitle] = React.useState(props.initialTitle);
-                  // ...
-                }
+// default import only
+import React from "react";
+function HelloWorld(props) {
+  const [title, setTitle] = React.useState("");
+  // ...
+}
                                   </code></pre>
               <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                                      import React, { useState } from "react";
-                      
-                                      function HelloWorld(props) {
-                                        const [title, setTitle] = useState(props.initialTitle);
-                                        // ...
-                                      }
+// Default and named import
+import React, { useState } from "react";
+
+function HelloWorld(props) {
+  const [title, setTitle] = useState("");
+  // ...
+}
                                                         </code></pre>
 
               <ul>
                 <li class="fragment">
-                  (<code>React</code> muss immer <b>importiert</b> werden, wenn JSX verwendet wird!)
+                  (Note! <code>React</code> has to be always <b>imported</b> when you use JSX in
+                  your source code!)
                 </li>
               </ul>
             </li>
@@ -547,89 +564,92 @@ function HelloWorld(props) {
         </section>
         <section>
           <h3>React Hooks</h3>
-          <em>Es gibt einige Regeln zu beachten, bei der Verwendung von Hooks 👆</em>
+          <em>You have to follow some rules when using Hooks 👆</em>
           <p style="font-size:75%;margin-top:0">
             <a href="https://reactjs.org/docs/hooks-rules.html"
               >(https://reactjs.org/docs/hooks-rules.html)</a
             >
           </p>
           <div class="fragment">
-            <p>Einschränkungen:</p>
+            <p>Restrictions:</p>
             <ul>
               <li class="fragment">
-                Hooks können nur in Funktionskomponenten (und anderen Hooks) aufgerufen werden
+                Hooks can only be used in functional components and other Hook functions. They
+                cannot be used in React Class Components.
               </li>
               <li class="fragment">
-                Hooks müssen immer in derselben Reihenfolge und auf Top-Level-Ebene verwendet werden
+                Inside a component, Hooks must be used always in the same order across render cycles
+                and only on top-level (examples following soon).
                 <ul>
-                  <li>Verboten z.B. in Schleifen, if-Abfragen oder in anderen Funktionen</li>
+                  <li>Hooks are not allowed in loops, if-statements or other functions/closures</li>
                 </ul>
               </li>
               <li class="fragment">
-                Es gibt ein
+                There is a
                 <a href="https://www.npmjs.com/package/eslint-plugin-react-hooks">ESLint Plug-in</a>
-                zur korrekten Verwendung der Hooks
+                that ensures correct usage of hooks (automatically configured in create-react-app
+                projects)
               </li>
             </ul>
           </div>
           <p class="fragment">
             <em
-              >Der Hooks-Mechanismus basiert intern darauf, dass React sich die Reihenfolge der
-              <code>useXyz</code>-Aufrufe merkt!</em
+              >Internally React remembers the <b>order</b> of the invoked hook functions of a
+              component to assign their correct values on later re-renderings!</em
+            >
             >
           </p>
         </section>
         <section>
           <h3>React Hooks</h3>
-
-          <em>Beispiele für korrekte und unerlaubte Verwendung</em>
+          <em>Examples of correct and incorrect usage</em>
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-              // ERLAUBT:
-              function HelloWorld(props) {
-                const [greeting, setGreeting] = React.useState(props.initialGreeting);
-                const [name, setName] = React.useState(props.initialName);
-                // ...
-              }
+// ALLOWED:
+function HelloWorld(props) {
+  const [greeting, setGreeting] = React.useState("");
+  const [name, setName] = React.useState("");
+  // ...
+}
                                 </code></pre>
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                                    // ERLAUBT:
-                                    function HelloWorld(props) {
-                                      const [greeting, setGreeting] = React.useState(props.initialGreeting);
-                                      const uppercaseGreeting = greeting.toUpperCase(); 
-                                      const [name, setName] = React.useState(props.initialName);
-                                      // ...
-                                    }
+// ALLOWED:
+function HelloWorld(props) {
+  const [greeting, setGreeting] = React.useState(props.initialGreeting);
+  const uppercaseGreeting = greeting.toUpperCase(); 
+  const [name, setName] = React.useState(props.initialName);
+  // ...
+}
                                                       </code></pre>
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                                    // VERBOTEN:
-                                    function HelloWorld(props) {
-                                      const [greeting, setGreeting] = React.useState(props.initialGreeting);
-                                      if (greeting !== null) {
-                                        const [name, setName] = React.useState(props.initialName);
-                                      }
-                                      // ...
-                                    }
+// FORBIDDEN:
+function HelloWorld(props) {
+  const [greeting, setGreeting] = React.useState("");
+  if (greeting !== null) {
+    const [name, setName] = React.useState("");
+  }
+  // ...
+}
                                                       </code></pre>
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                          // VERBOTEN:
-                          function HelloWorld(props) {
-                            const [greeting, setGreeting] = React.useState(props.initialGreeting);
-                            if (greeting === null) {
-                              return <h1>Please enter greeting first</h1>;
-                            }
-                            // ...
-                          }
+// FORBIDDEN:
+function HelloWorld(props) {
+  if (props.currentUser === null) {
+    return &lt;h1>Please login first&lt/h1>
+  }
+  const [greeting, setGreeting] = React.useState(props.initialGreeting);
+  return &lt;input value={greeting} ... />
+}
                                             </code></pre>
         </section>
         <section>
           <h3>React Hooks</h3>
-          <em>Beispiele für korrekte und unerlaubte Verwendung #2</em>
+          <em>Examples of correct and incorrect usage</em>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-              // VERBOTEN 
+              // FORBIDDEN 
               function HelloWorld(props) {
                 function initState() {
                   return React.useState(props.initialGreeting);
@@ -638,37 +658,37 @@ function HelloWorld(props) {
               }
             </code></pre>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                // VERBOTEN (initState ist 'normale' Funktion)
+                // FORBIDDEN (initState is a 'normal' function, 
+                //  should be useInitState instead)
                 function initState() {
                   return React.useState(props.initialGreeting);
                 }
 
                 function HelloWorld(props) {
-                  // wäre erlaubt, wenn initState 'useInitState' hieße
                   const [greeting, setGreeting] = initState();
                 }
               </code></pre>
         </section>
 
         <section>
-          <h3>Render Zyklus</h3>
+          <h3>Render Cycle</h3>
           <img src="slides/images/render-cycle.png" height="550px" />
         </section>
 
         <section>
           <h3>Virtual DOM</h3>
-          <p>"Rendern" hat leider doppelte Bedeutung!</p>
+          <p>"Rendering" has two meanings!</p>
           <img src="slides/images/vdom.png" style="height:650px" />
         </section>
 
         <section>
-          <h3>Listen</h3>
-          <p>JSX bietet nichts für Listen</p>
+          <h3>Lists</h3>
+          <p>JSX has no explicit support for lists</p>
           <p>
-            Ausgabe typischerweise über
-            <code>Array.map()</code>
+            In most cases,
+            <code>Array.map()</code> is used to map a list of objects to a list of JSX elements
           </p>
-          <p>Elemente einer Liste brauchen einen eindeutigen Key</p>
+          <p>Each element in a list needs a <em>list-wide unique key</em></p>
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
 const posts = [
@@ -688,73 +708,92 @@ function PostList(props) {
         </section>
 
         <section>
-          <h2>Komponentenhierarchien</h2>
+          <h2>Component hierarchies</h2>
         </section>
         <section>
-          <h3>Datenfluss in React-Anwendungen</h3>
+          <h2 class="todo">mehr übernehmen aus vollständigen Workshops</h2>
+        </section>
+        <section>
+          <h3>Data flow in React application</h3>
           <ol>
             <li>
-              In React-Anwendungen werden Komponenten zu Anwendungen in Hierarchien zusammengesteckt
+              In React applications, components are composed in hierarchies to become applications
+              (an application is just a bunch of components)
             </li>
-            <li>
-              Innerhalb einer Hierarchie wird immer nur in eine Richtung kommuniziert:
-              Eltern-Komponenten übergeben Properties an ihre Kinder
+            <li class="fragment">
+              Inside the hierarchy communication is always in one direction only:
+              <b>Parent</b> components pass down <b>properties</b> to their <b>children</b>
             </li>
-            <li>
-              Mit den Properties werden Daten von "oben" nach "unten" gereicht (ggf. über mehr als
-              eine Hierarchie-Ebene)
+            <li class="fragment">
+              Using the properties Data (blog post, currently logged in user, ...) can be passed
+              from "top" to "bottom". This can be done across more than one level in the hierarchy.
+              <p>
+                (A component can pass all or parts of the properties it receives itself to its
+                children)
+              </p>
             </li>
-            <li>Über Properties können auch Callback-Funktionen nach unten gereicht werden.</li>
-            <li>
-              Eine Kind-Komponente kann diese Funktion dann aufrufen, und der Eltern Komponente
-              darüber ein Signal geben <br />(so, wie wir das schon beim onChange-Property des
-              input-Felds gesehen haben)
+            <li class="fragment">
+              Using properties, <b>callback functions</b> can also be passed down
+            </li>
+            <li class="fragment">
+              A child component can invoke this function to send and event (with or without) data to
+              their parent component <br />We have seen this already with the onChange property on
+              the input-field)
             </li>
           </ol>
         </section>
 
         <section>
-          <h3>Smart und Dumb-Komponenten #1</h3>
+          <h3>Smart and Dumb-Components #1</h3>
 
           <p>
-            Zur Erinnerung: in React bauen wir Komponenten. Komponenten bestehen aus Logik, Zustand
-            und UI (HTML-Elemente und Styling)
+            Reminder: in React we build components. Components consist of logic, state and UI
+            (HTML-Elements and Styling)
           </p>
-          <p>
-            Ein bekanntes Muster ist, die Komponenten in zwei Arten aufzuteilen:
-            <b>Smart (oder Controller)</b>- und <b>Dumb oder (Presentation-)</b>-Komponenten
+          <p class="fragment">
+            In a well-known pattern components are spilt into "smart" (or "controller") and "dumb"
+            (or "presentation") components.
           </p>
-          <p>Technisch sind die Komponenten identisch, also "normale" React-Komponenten</p>
-          <p>Nur ihre <b>Aufgabe</b> ist anders definiert...</p>
+          <p class="fragment">
+            Technically both components are identical, both are regular React components
+          </p>
+          <p class="fragment">
+            Only their <b>intended purpose</b> or role is defined differently...
+          </p>
         </section>
 
         <section>
-          <h3>Smart und Dumb-Komponenten #2</h3>
-          <p>Smart-Komponenten enthalten Logik und Zustand</p>
-          <p>Dumb-Komponenten sind nur zur Darstellung der Daten</p>
-          <p>
-            Smart-Komponenten reichen Zustand in die Dumb-Komponenten. Diese zeigen den Zustand an
-          </p>
-          <p>
-            Smart-Komponenten reichen Callback-Funktion als Event-Handler an die Dumb-Komponenten
-          </p>
-          <p>
-            Wenn in Dumb-Komponenten ein Ereignis eintritt (z.B. Button-Click oder Texteingabe),
-            wird eine Callback-Funktion aufgerufen
-          </p>
-          <p>
-            Die Callback-Funktion wird dann in der Smart-Komponente aufgerufen und die Verarbeitung
-            ausgeführt
-          </p>
-          <p>
-            Die Smart-Komponente setzt ihren Zustand neu, und rendert sich und ihre Kinder (die
-            Dumb-Komponenten) neu
-          </p>
+          <h3>Smart and Dumb components #2</h3>
+          <p><b>Smart components</b> contain logic and state, but (almost) no UI</p>
+          <p><b>Dumb components</b> only present/render the data</p>
+          <ol>
+            <li class="fragment">
+              Smart components <b>manage the state</b> and pass it into Dumb components. Dump
+              components <b>render the state</b>.
+            </li>
+            <li class="fragment">
+              Smart components pass callback functions as Event-Handler into the dumb components.
+            </li>
+            <li class="fragment">
+              When an event occures inside a dumb component, (for ex. button click or text input)
+              the dumb components invokes the callback function.
+            </li>
+            <li class="fragment">
+              The callback function is executed inside the context of the smart component (normal
+              closure behaviour) and thus can acess state etc from the smart component.
+            </li>
+            <li class="fragment">
+              Inside the event handler, state of the smart component can be changed. Chaning the
+              state leads to re-rendering of the smart component and all of its children (dumb)
+              components.
+              <br /><b>The app state remains consistent across all components in the hierarchy</b>
+            </li>
+          </ol>
         </section>
 
         <section data-markdown data-transition="none">
           <textarea data-template>
-    ### Kommunikation zwischen beliebigen Anwendungsteilen
+    ### Communication between several parts of our application
     
     <img src='slides/images/smart-dumb-1.png' height="600">
                     </textarea
@@ -763,7 +802,7 @@ function PostList(props) {
 
         <section data-markdown data-transition="none">
           <textarea data-template>
-    ### Kommunikation zwischen beliebigen Anwendungsteilen
+    ### Communication between several parts of our application
     
     <img src='slides/images/smart-dumb-2.png' height="600">
                     </textarea
@@ -772,7 +811,7 @@ function PostList(props) {
 
         <section data-markdown data-transition="none">
           <textarea data-template>
-    ### Kommunikation zwischen beliebigen Anwendungsteilen
+    ### Communication between several parts of our application
     
     <img src='slides/images/smart-dumb-3.png' height="600">
                     </textarea
@@ -781,25 +820,29 @@ function PostList(props) {
 
         <section data-markdown data-markdown data-transition="none">
           <textarea data-template>
-    ### Kommunikation zwischen beliebigen Anwendungsteilen
+    ### Communication between several parts of our application
     
     <img src='slides/images/datenfluss-4.png' height="550">
     
-    Klarer Daten- und Kontroll-Fluss    
+    Strict data- and control flow    
                       </textarea
           >
         </section>
 
         <section>
-          <h3>Beispiel</h3>
+          <h3>Example</h3>
 
           <p>
-            Unsere Smart-Komponente hält eine Liste von Blog-Posts und steuert, welche Ansicht aktiv
-            ist
+            Our <b>smart component</b> holds a list of Blog Posts and deceides, which view is active
+            (Editor or List) ist
           </p>
-          <p>Die Smart-Komponente gibt die Liste der Blog-Posts an die BlogList zum Anzeigen</p>
           <p>
-            Die Smart-Komponente gibt jeweils eine Callback-Funktion an die BlogList und die AddForm
+            The smart components passes the list of blog posts to the BlogList component for
+            rendering
+          </p>
+          <p>
+            The smart components passed a callback function to BlogList and AddForm to get informed
+            about events/data changes
           </p>
 
           <pre><code>
@@ -808,10 +851,10 @@ function App() {
   const [view, setView] = React.useState("list");
 
   function addPost(newPost) {
-    // Neuen Post hinzufügen
+    // Add the new post to the state
     setPosts([...posts, newPost]);
 
-    // Wieder Liste anzeigen
+    // switch back to list view
     setView("list");
   }
 
@@ -826,19 +869,19 @@ function App() {
         </section>
 
         <section>
-          <h3>Beispiel #2</h3>
+          <h3>Example #2</h3>
 
           <p>
-            Die BlogList zeigt die übergebene Liste nur an und informiert die App, wenn auf den
-            "Add"-Button gedrückt wurde
+            The BlogList is responsible for rendering the list of posts only. If the add button gets
+            pressed, the component invokes the callback function (received from the App component).
           </p>
-          <p>Die App kann dann die andere Komponente (AddForm) anzeigen</p>
+          <p>The callback function changes the App state to make the Post Editor visible</p>
 
           <pre><code>
   function BlogList(props) {
 
     return &lt;div>
-      // ... Liste anzeigen ...
+      // ... render the blog post list ...
       &lt;button onClick={props.onAdd}>Add Blog Post&lt;/button>
     &lt;/div>;
   }            
@@ -846,11 +889,11 @@ function App() {
         </section>
 
         <section>
-          <h3>Beispiel #3</h3>
+          <h3>Example #3</h3>
 
           <p>
-            Die AddForm erfasst einen neuen BlogPost und übergibt diesen der Callback-Funktion, so
-            dass die App-Komponente ihn in die Liste der BlogPosts (State) einfügen kann
+            The AddForm component passes the new blog post (its internal state) to the callback
+            function, that it has received from the App component.
           </p>
           <pre><code>
   function AddForm(props) {
@@ -862,12 +905,12 @@ function App() {
         title, body
       }
 
-      // App-Komponente informieren
+      // Inform the App component about the new blog post
       props.onAdd(newPost);
     }
 
     return &lt;div>
-      // ... Formular rendern ...
+      // ... Render form ...
       &lt;button onClick={addPost}>Save Post&lt;/button>
     &lt;/div>;
   }            
@@ -875,61 +918,95 @@ function App() {
         </section>
 
         <section id="server">
-          <h1>Daten lesen und schreiben vom Server</h1>
+          <h1>Server Access</h1>
+          <em>Read and write data from a backend (REST/HTTP)</em>
         </section>
 
         <section>
-          <h3>Der Blog-Server</h3>
+          <h3>The blog Backend</h3>
           <p>
-            Der Server ist bereits fertig. Zum Starten:
+            The backend is already implemented. You can started it:
           </p>
           <pre><code>
-                  cd react-training/blog-example/backend
+                  cd react-training/blog-example/backend-rest
                   npm start
                 </code></pre>
-          <p>Der Server ist über Port 7000 erreichbar</p>
+          <p>The server runs on port 7000</p>
           <p>
-            Zum Testen:
+            You can test it in your browser (or wget, curl) with this URL:
             <a href="http://localhost:7000/posts">http://localhost:7000/posts</a>
           </p>
         </section>
 
         <section>
-          <h3>Der Blog-Server</h3>
+          <h3>Background: API of the Blog Backend Server</h3>
           <p>
-            Die Endpunkte:
+            HTTP Endpoints:
           </p>
-          <p><b>GET /posts</b> Alle Blog Posts abfragen</p>
-          <p><b>GET /posts?short</b>: Alle Blog Post IDs und deren Titel</p>
-          <p><b>GET /posts/:id</b> Einen einzelnen Blog Post lesen</p>
+          <p><b>GET /posts</b> Return all blog posts</p>
+          <p><b>GET /posts/:id</b> Read a single blog post</p>
           <p>
-            <b>POST /posts</b> Einen neuen Blog Post anlegen. Als Payload/Body muss ein Objekt mit
-            <code>title</code> und <code>string</code> übertragen werden. Als Ergebnis wird der
-            komplette, neue Blog Post (inklusive ID) zurück gegeben
+            <b>POST /posts</b> Create a new blog post. Payload must be an object with
+            <code>title</code> and <code>string</code> properties. As result you receive the
+            complete new blog post (including it's unique id and the date)
           </p>
-          <p><b>DELETE /posts/:id</b> Einen Blog-Post löschen</p>
+          <p><b>DELETE /posts/:id</b> Remove a blog post</p>
           <p>
-            Außerdem kann allen Requests der URL Parameter<b>?slow</b> übergeben werden, um die
-            Antwort künstlich zu verlangsamen (wenn ihr z.B. mit Wartezuständen arbeiten wollt)
+            You can add the query parameter <b>?slow</b> to all backend URLs to simulate a long
+            running server operation (for example if you want to see loading states in your
+            application)
           </p>
+        </section>
+
+        <section id="t4">
+          <h1>Part IV</h1>
+          <h2>Reading and writing data from a server</h2>
+          <a href="code/schritte/3-remote/public/index.html" target="_blank">Ziel-Anwendung</a>
+        </section>
+
+        <section>
+          <h3>Challanges</h3>
+          <ol>
+            <li>How do we access a remote API?</li>
+            <li>How do we deal with asynchronous code in React?</li>
+          </ol>
         </section>
 
         <section>
           <h3>Server-Calls</h3>
-          <p>React macht keine Angabe, wie Server-Calls (technisch) gemacht werden</p>
-          <p>
-            Häufig in React verwendet:
-            <a href="https://developer.mozilla.org/de/docs/Web/API/Fetch_API">fetch</a> API
-          </p>
+          <ul>
+            <li>React is not opinonated about how to do server calls</li>
+            <li class="fragment">
+              Often used in React applications: <b>fetch</b> API
+              <ul>
+                <li>Standard browser API for executing HTTP requests</li>
+                <li>
+                  <a href="http://caniuse.com/#search=fetch" target="_blank">wide support</a>
+                </li>
+                <li>
+                  Specification:
+                  <a href="https://fetch.spec.whatwg.org/" target="_blank"
+                    >https://fetch.spec.whatwg.org/</a
+                  >
+                </li>
+                <li>
+                  Polyfill for older browsers:
+                  <a href="https://github.com/github/fetch" target="_blank"
+                    >https://github.com/github/fetch</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
         </section>
 
         <section>
-          <h3>Beispiel: fetch</h3>
-          <p>Daten lesen per GET</p>
+          <h3>Example: fetch</h3>
+          <p>Read data with HTTP GET using async/await</p>
           <pre><code class="javascript" contenteditable data-trim>
-          // Für GET Zugriff reicht es, die URL anzugeben:
+          // For GET simply specify the URL:
           try {
-            const response = await fetch('http://localhost:7000/api/greetings')
+            const response = await fetch('http://localhost:7000/posts')
             const json = await response.json();
             // ...
           } (catch ex) {
@@ -937,7 +1014,7 @@ function App() {
           }
           </code></pre>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-// Alternative mit Promise:
+// or use JavaScript Promise API:
 
 fetch('http://localhost:7000/posts')
   .then(response => response.json())
@@ -946,22 +1023,24 @@ fetch('http://localhost:7000/posts')
 </code></pre>
         </section>
         <section>
-          <h3>Beispiel #2: fetch</h3>
-          <p>Daten lesen per POST</p>
+          <h3>Example #2: fetch</h3>
+          <p>Read data with HTTP POST</p>
           <div class="fragment">
             <p>
-              <code>fetch</code> erwartet als zweiten Parameter ein Objekt mit
-              Konfigurationsparametern, u.a:
+              <code>fetch</code> expects a second parameter containing an object with configuration:
             </p>
 
             <ul>
               <li>
-                <code>method</code>: gibt die HTTP Methode an ( <code>PUT</code>, <code>POST</code>,
-                <code>DELETE</code>, ...)
+                <code>method</code>: specifies the HTTP method to use (<code>PUT</code>,
+                <code>POST</code>, <code>DELETE</code>, ...)
               </li>
-              <li><code>headers</code>: Objekt mit HTTP Headern für den Request</li>
-              <li><code>body</code>: Der Request-Payload (als String)</li>
+              <li>
+                <code>headers</code>: HTTP headers for the request (for example Authorization)
+              </li>
+              <li><code>body</code>: The request payload (as string)</li>
             </ul>
+            <p>The return value is the same as we've seen with GET</p>
           </div>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
 const response = await fetch(url, {
@@ -976,24 +1055,187 @@ const response = await fetch(url, {
     </code></pre>
         </section>
 
+        <section data-state="es6-exkurs">
+          <h2>Background: Promises and async/await</h2>
+        </section>
+
         <section>
-          <h3>fetch im Detail</h3>
+          <h3>Promises</h3>
+          <p>
+            A <b>promise</b> object represents the eventual result of an asynchronous operation (or
+            its failure)
+          </p>
+
+          <pre class="fragment"><code class="javascript" contenteditable>
+              // A Promise that prints 'Klaus' after one second:
+              new Promise(
+                resolve => setTimeout( () => resolve("Klaus"), 1000)
+              ).then(name => console.log(name))
+                </code></pre>
+        </section>
+
+        <section>
+          <h3>Chained execution</h3>
+
+          <pre><code class="javascript" contenteditable>
+// A Promise that resolves the string 'Klaus' after one second:
+const promise = new Promise(
+  resolve => setTimeout( () => resolve("Klaus"), 1000)
+)
+  </code></pre>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable>// 'then' always returns another Promise!
+const promise2 = promise.then(name => `Hello, ${name}`);</code></pre>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable>promise2.then(greeting => console.log(greeting));
+// Output after one second: "Hello, Klaus"
+  </code></pre>
+        </section>
+        <section>
+          <h3>Errors will interrrupt the promise chain</h3>
+          <h4>But you <b>must</b> do something to get informed: catch()</h4>
+        </section>
+
+        <section>
+          <h3>Catch in cases of an error</h3>
+          <pre><code class="javascript" contenteditable>
+  const promise = new Promise( /* as seen above */ )
+    .then(name => {throw new Error("Unexpected Error") })
+    .then(greeting => console.log(greeting));
+    .catch(error => console.error(`Greeting failed: ${error}`))
+  
+    // Output: Greeting failed: Unexpected error
+    </code></pre>
+        </section>
+
+        <section>
+          <h3>More on Promises</h3>
+          <h4 class="fragment">Create a promise</h4>
+          <pre class="fragment"><code class="javascript" contenteditable>
+const p = new Promise(resolve => { ... }, error => { ... });            
+  </code></pre>
+          <h4 class="fragment">Creation II</h4>
+          <pre class="fragment"><code class="javascript" contenteditable>
+// Will be resolved immediatley 
+const p = Promise.resolve("Klaus");            
+</code></pre>
+          <h4 class="fragment">Awaiting multiple Promises</h4>
+          <pre class="fragment"><code class="javascript" contenteditable>
+Promise.all( [p1, p2] )
+  .then( (result1, result2) => {
+    console.log(`All promises resolved: ${result1} ${result2}`);
+  });
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Promises: asynchronous control flow</h3>
+          <pre><code class="javascript" contenteditable>
+console.log("1");
+
+const p = new Promise.resolve("Klaus")
+    .then(name => `Hello, ${name}`)
+    .then(greeting => console.log(greeting));
+
+console.log("2");    
+    </code></pre>
+          <p>Question to you: how does the console output looks like? 🤔</p>
+        </section>
+
+        <section>
+          <h2>async / await</h2>
+          <p>"wrapper" around promises</p>
+          <p>Allows you to write asynchronous code in a "linear" style</p>
+          <ul class="fragment">
+            <li>Since ECMASCript 2017 Standard</li>
+          </ul>
+        </section>
+        <section data-state="es6-exkurs">
+          <h3>async / await</h3>
+          <p><code>await</code> waits until a Promise gets resolved</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+    function greet(name) { return new Promise(...); }
+    
+    // await can only be used in 'async'-functions:
+    async function sayWhat(name) {
+      const greeting = await greet(name);
+    
+      // greeting is a string!
+      console.log(greeting); // => Hello, ...
+    }
+                      </code></pre>
+        </section>
+        <section>
+          <h3>async / await</h3>
+          <p><code>async</code> declares a function as an "async function"</p>
+          <p class="fragment">
+            An <code>async</code> functions &nbsp; <b>always</b> returns a Promise
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+  async function greet(name) {
+    return `Hello, ${name}`;
+  }
+  
+  const greeting = greet('Klaus');
+  
+  // greeting is a Promise!
+  console.log(greeting instanceof Promise); // => true
+  console.log(greeting) // => Promise {&lt;resolved>: "Hello, Klaus"}
+                  </code></pre>
+          <p class="fragment"><code>async</code> function as fat arrow function:</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+  const greet = async (name) => `Hello, ${name}`;                
+    
+  const greeting = greet('Klaus');
+    
+  // greeting is a promise!
+  console.log(greeting instanceof Promise); // => true
+  console.log(greeting) // => Promise {&lt;resolved>: "Hello, Klaus"}
+                    </code></pre>
+        </section>
+
+        <section data-state="es6-exkurs">
+          <h3>async / await</h3>
+          <p>
+            Instead of <code>then</code> or <code>catch</code> you can simply chain multiple
+            <code>await</code> statements and use try/catch for exception handling:
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+  // Return promises
+  async function loadUser(username) { . . . };
+  async function loadProfileDate(userId) { . . .};
+  
+  async function loadData() {
+    try {
+      const user = await loadUser('klaus');
+      const profile = await loadProfileData(user.userId);
+    } catch (e) {
+      console.error("Something failed")
+    }
+  }
+                      </code></pre>
+        </section>
+
+        <section>
+          <h3>fetch: Details</h3>
 
           <pre><code class="javascript" contenteditable data-trim>
   try {
-    // 1. fetch gibt ein Promise zurück, dass mit dem
-    // Response-Objekt aufgelöst wird, wenn die Antwort vom Server
-    // kommt
+    // 1. fetch returns a Promise, that will be resolved with a
+    // Response object when the answer from the server comes in
     const response = await fetch('http://localhost:7000/posts');
   
-    // 2. das Response Objekt enthält eine json() Funktion,
-    // die das geparse JSON aus der Antwort zurückliefert
+    // 2. the Response object contains "meta data" about the Response
+    // (for ex. http status code) and functions the read the payload,
+    // for example from JSON:
     const posts = await response.json();
   
-    // WAS MACHEN WIR MIT DER ANTWORT?
+    // btw: What do we do with the answer here in our React application?
     // ???
   } catch (err) {
-    // 4. Falls etwas schief geht, Fehler loggen
+    // 4. In case something goes wrong, log error
     console.error('request failed', err);
   }
   
@@ -1004,84 +1246,102 @@ const response = await fetch(url, {
         </section>
 
         <section>
-          <h3>useEffect-Hook</h3>
-          <em
-            >In der Render-Phase einer Komponente (das ist die Ausführung der Komponenten-Funktion)
-            darfst Du keine Seiteneffekte (z.B. Server-Zugriffe) machen.</em
-          >
+          <h3>When will we load the data (blog posts) for our application?</h3>
+        </section>
+
+        <section>
+          <h3 class="todo">Initiales Laden von Daten</h3>
+
           <p>
-            Der useEffekt-Hook erlaubt es dir aber, Seiteneffekte zu definierten (späteren)
-            Zeitpunkten auszuführen
+            Schritt-für-Schritt (<code
+              >code/workspace-live-coding, vorher schritte/2-hierarchy reinkopieren</code
+            >)
           </p>
         </section>
+
         <section>
-          <h3>useEffect-Hook</h3>
+          <h3>Fetch-on-Render</h3>
+          <p>We can trigger the server call when rendering our component</p>
+          <p>
+            Until the data is available (during the server call) we show a loading indicator to the
+            user
+          </p>
+        </section>
+
+        <section>
+          <h3>Side-effects</h3>
+          <p>
+            Server calls are <b>side-effects</b> (other examples: manipulating the DOM, opening a
+            WebSocket)
+          </p>
+          <p>Side-effeects are forbidden during the render phase of a component!</p>
+        </section>
+
+        <section>
+          <h3>useEffekt-Hook</h3>
+          <p>
+            <em
+              >With useEffect you can register an effect (function) that is run after rendering</em
+            >
+          </p>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            function App(props) {
+              React.useEffect( 
+                () => console.log("I will run after EACH render")
+              );
+            }
+          </code></pre>
 
           <div class="fragment">
-            <p>
-              Als 1. Parameter übergibst Du eine Callback-Funktion, die deinen Code enthält. Dieser
-              darf Seiteneffekte enthalten, z.B. einen fetch-Aufruf
-            </p>
+            2. Parameter (array) determines, when the Hooks will run ("dependencies")
 
             <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                function App(props) {
-                  React.useEffect( 
-                    () => console.log("Ich werde nach JEDEM Rendern ausgeführt")
-                  );
-                }
-              </code></pre>
+              function App(props) {
+                React.useEffect( 
+                  () => console.log("I will run only once after 1st rendering"),
+                  []
+                );
+              }
+            </code></pre>
           </div>
 
           <div class="fragment">
-            2. Parameter (Array) gibt an, wann der Effekt ausgeführt werden soll:
+            Only run after 1st rendering an when postId changes:
 
             <pre class="fragment"><code class="javascript" contenteditable data-trim>
                 function App(props) {
-                  React.useEffect( 
-                    () => console.log("Ich werde nur nach 1. Rendern ausgeführt"),
-                    []
+                  React.useEffect(
+                    () => console.log("..."), 
+                    [props.postId]) 
                   );
                 }
               </code></pre>
-          </div>
-
-          <div class="fragment">
-            Nach 1. Rendern ausführen und wenn sich das postId-Property ändert:
-
-            <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                  function BlogPost(props) {
-                    React.useEffect(
-                      () => console.log("..."), 
-                      [props.postId]
-                    );
-                  }
-                </code></pre>
           </div>
         </section>
 
         <section>
           <h3>useEffect Hook</h3>
 
-          <p>Zwei Parameter:</p>
+          <p>Two parameters:</p>
           <ol>
             <li class="fragment">
-              Callback-Funktion, die aufgerufen wenn entsprechendes Ereignis eintritt (z.B.
-              initiales Rendern abgeschlossen)
+              A callback function, that is called after the rendering
             </li>
             <li class="fragment">
-              Ein Array mit Abhängigkeiten:
+              An Array with <b>dependencies</b>:
               <ul>
                 <li class="fragment">
-                  Wenn kein Array angegeben wird, wird der Effekt nach jedem Rendern ausgeführt
-                  (Achtung! Endlosschleife möglich)
+                  If you skip this argument, your function will executed after
+                  <b>each rendering</b>. Be careful about endless recursions
                 </li>
                 <li class="fragment">
-                  Wenn ein leeres Array angegeben wird, wird der Effekt nur nach dem 1. Rendern
-                  ausgeführt
+                  If the dependencies array is empty, the effect will run only once, after the first
+                  rendering of your component
                 </li>
                 <li class="fragment">
-                  Wenn Werte angegeben werden, wird der Effekt ausgeführt, wenn sich mind. 1 Wert
-                  zwischen zwei Render-Zyklen verändert hat
+                  If there are values in the array the effect will run after the 1st rendering and
+                  after any rendering when one of the values have been changed in between
                 </li>
               </ul>
             </li>
@@ -1089,12 +1349,12 @@ const response = await fetch(url, {
         </section>
 
         <section>
-          <h3>Initiales Laden von Daten</h3>
+          <h3>Example: Initial loading of data</h3>
 
           <div>
             <p>
-              <code>useEffect</code> und (<code>useState</code>) werden verwendet um Daten nach dem
-              1. Rendern zu laden:
+              <code>useEffect</code> und (<code>useState</code>) will be used to load data after 1.
+              rendering
             </p>
             <pre><code class="javascript" contenteditable data-trim>
                 function App() {
@@ -1116,36 +1376,43 @@ const response = await fetch(url, {
         </section>
 
         <section>
-          <h3>Initiales Laden von Daten</h3>
+          <h3>Example: Initial loading of data #2</h3>
 
-          <p>Lifecycle des gezeigten Beispiels:</p>
+          <p>Lifecycle of this example (App component):</p>
           <ol>
-            <li>Komponenten-Funktion wird ausgeführt (Komponente wird "gerendert")</li>
-            <li>State mit leerem Array initialisiert</li>
-            <li>Effekt zum Laden der Daten wird registriert</li>
-            <li>
-              UI-Code wird zurückgegeben (leere Liste mit Posts, da noch keine Daten geladen sind)
+            <li class="fragment">
+              Component function App is executed (Component will be "rendered")
             </li>
-            <li>React erzeugt den nativen DOM für die UI</li>
-            <li>Der registrierte Effekt wird ausgeführt, der Server-Call gestartet</li>
-            <li>Der Server-Call kommt zurück, die Daten werden in den State gesetzt</li>
-            <li>
-              Durch das Setzen des States, wird die Komponente erneut gerendert, also wird die
-              Komponenten-Funktion neu aufgerufen
+            <li class="fragment">State is initialized with an empty array</li>
+            <li class="fragment">The effect (loading the data) is registered</li>
+            <li class="fragment">
+              UI-Code is returned by the function (in this case an empty lists, as no posts have
+              been loaded yet)
             </li>
-            <li>Der State ist nun das Array mit den geladenen Daten</li>
-            <li>Der Effekt wird nicht erneut registriert (leeres Array als 2. Parameter)</li>
-            <li>Die Komponente liefert nun die UI für die geladene Liste zurück</li>
+            <li class="fragment">React creates the native DOM for the UI</li>
+            <li class="fragment">React runs the registered Effect, the Server-Call starts</li>
+            <li class="fragment">
+              Somewhen later: the server call returns, the received data are set into the state
+            </li>
+            <li class="fragment">
+              Updating the state leads to re-rendering of the App component. React invokes the
+              function again.
+            </li>
+            <li class="fragment">The App's state is now the array with the received data</li>
+            <li class="fragment">The effect won't run again (empty array as 2. parameter)</li>
+            <li class="fragment">
+              The component returns the UI for the populated list with blog posts
+            </li>
           </ol>
         </section>
 
         <section>
-          <h3>Speichern von Daten</h3>
-          <p>Zum Beispiel als Folge einer Benutzerinteraktion:</p>
-          <p class="fragment">Im Event-Handler dürfen wir direkt Seiteneffekte nutzen</p>
+          <h3>Saving of data</h3>
+          <p>For example after a user interaction:</p>
+          <p class="fragment">Inside an Event Handler it is allowed to use side effects!</p>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
 function App(props) {
-  // laden, wie gesehen
+  // load, as seen
   React.useEffect( ... );
 
   function addPost(post) {
@@ -1163,37 +1430,91 @@ function App(props) {
 
   return
     ...
-      &lt;CreatePostForm onAdd={newPost => addPost(newPost)} />
+      &lt;AddPost onAdd={newPost => addPost(newPost)} />
     ...
 }
                 </code></pre>
         </section>
 
-        <section id="t-router">
-          <h2>Client-seitiges Routing</h2>
-
-          <p>Beispiel: code/blog-example/beispiele/04_blog-app-mit-router</p>
+        <section>
+          <h2 class="todo">Übung: Laden und Speichern der Daten von/auf einem Server</h2>
+          <p>
+            <em
+              >Entwickle auf Basis von fetch eine Version des GreetingControllers, der die Daten auf
+              dem Server laden und dort wieder speichern kann</em
+            >
+          </p>
+          <p>
+            Der Server ist bereits fertig. Zum Starten:
+          </p>
+          <pre><code>
+                cd react-training/code/server
+                npm start
+              </code></pre>
+          <p>Der Server ist über Port 7000 erreichbar</p>
+          <p>
+            Zum Testen:
+            <a href="http://localhost:7000/greetings">http://localhost:7000/greetings</a>
+          </p>
         </section>
         <section>
-          <h2>Warum Routing?</h2>
+          <h3 class="todo">Schritte</h3>
+          <ol class="x-list">
+            <li class="fragment">
+              Kopiere <code>code/material/3-remote/GreetingController.js</code> in deinen
+              Arbeitsbereich
+            </li>
+
+            <li class="fragment">
+              Die Serverzugriffe sollen in <code>loadGreetings</code> und
+              <code>saveGreeting</code> erfolgen
+              <ul>
+                <li>Dort sind bereits entsprechende TODOs für dich eingetragen</li>
+                <li>
+                  Die URL des Backends steht in der Konstante <code>BACKEND_URL</code>. <br /><code
+                    >const BACKEND_URL = "http://localhost:7000/greetings";</code
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- <li class="fragment">
+              Optional 1: Füge der loadGreetings-Methode eine Fehlerbehandlung zu. (Du kannst das
+              Backend stoppen, um einen Fehler zu provozieren). Kannst Du eine Fehlermeldung in der
+              UI anzeigen?
+            </li>
+            <li class="fragment">
+              Optional 2: Kannst Du die saveGreeting-Funktion so extrahieren, dass sie außerhalb der
+              GreetingController-Komponente stehen kann?
+            </li> -->
+          </ol>
+        </section>
+
+        <section id="t-router">
+          <h2>Client-side Routing</h2>
+
+          <p>Example: code/blog-example/steps/6-router</p>
+        </section>
+        <section>
+          <h2>Why routing?</h2>
           <span>
             <p>
-              Mappen von URLs auf Komponenten
+              Map URLs to Components
               <br />
-              <span style="font-size: 80%">(Navigation findet ohne Server-Roundtrip statt)</span>
+              <span style="font-size: 80%"
+                >(Navigation through the application without server round-trips!)</span
+              >
             </p>
           </span>
           <span>
             <p>
-              Komponenten halten (Teil) des Zustandes der Anwendung
+              URLs can contain state of the application
               <br />
               <span style="font-size: 80%"
-                >Welche "Seite" ist sichtbar (Blog Liste, Formular oder Einzelansicht)?</span
+                >What "Page" is visible (Blog List, Add Form or Blog Post)?</span
               >
               <br />
-              <span style="font-size: 80%"
-                >Welche Daten werden dafür geladen (z.B. Blog Post Id)</span
-              >
+              <span style="font-size: 80%">Which blog post should be rendered (postId)</span>
             </p>
           </span>
         </section>
@@ -1202,28 +1523,32 @@ function App(props) {
           <h2>React Router</h2>
           <ul>
             <li>
-              Aktuelle Version 5.1:
+              Current version 5.1:
               <a href="https://reacttraining.com/react-router/" target="_blank">
                 https://reacttraining.com/react-router/</a
               >
             </li>
-            <li>Kein Bestandteil von React</li>
-            <li>Sehr häufig verwendet (de-facto Standard)</li>
-            <li>(Erst) seit Version 5.1 mit Hooks API (useParams, useLocation, useHistory)</li>
+            <li>Not part of React</li>
+            <li>but de-facto Standard</li>
+            <li>Since Version 5.1 with Hooks API (useParams, useLocation, useHistory)</li>
           </ul>
         </section>
         <section>
-          <h3>Das Router-Objekt</h3>
+          <h3>The Router Object</h3>
           <p class="fragment">
-            Top-Level-Objekt, das einmalig (oben) in der Komponenten Hierarchie eingebunden werden
-            muss
+            Top-Level object, that needs to be included at the top of the application's component
+            hierarchy
           </p>
           <p class="fragment">
-            Mehrere Ausprägungen zum Arbeiten mit den URL und der Browser History:
+            Mulitple implementations that differ how they interact with URL and browser history:
           </p>
           <ul>
-            <li class="fragment"><b>HashRouter</b>: codiert Pfad in angehängten Hash (#/post/1)</li>
-            <li class="fragment"><b>BrowserRouter</b>: codiert Pfad direkt in URL (/post/1)</li>
+            <li class="fragment">
+              <b>HashRouter</b>: adds the path after appended hash (#/post/1)
+            </li>
+            <li class="fragment">
+              <b>BrowserRouter</b>: puts the path directly in the URL (/post/1)
+            </li>
           </ul>
           <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
       import {HashRouter as Router} from "react-router-dom";
@@ -1235,25 +1560,23 @@ function App(props) {
         </section>
 
         <section>
-          <h3>Welche Komponente soll für einen Pfad gerendert werden</h3>
-          <p class="fragment">Das <code>Route</code>-Objekt mappt Pfade auf Komponenten</p>
+          <h3>Which component should be rendered for a path?</h3>
+          <p class="fragment">The <code>Route</code> object maps paths to components</p>
           <ul>
             <li class="fragment">
-              Wird verwendet, wo Pfad-abhängig Komponenten ausgewählt werden sollen
+              Can be used whereever you want to select a component based on a path
               <ul>
                 <li>
-                  vergleichbar mit intelligentem <code>if</code>/ <code>switch</code> statement
+                  comparable with an "intelligent" <code>if</code> or <code>switch</code> statement
                 </li>
-                <li>
-                  <b>Kann überall in der Anwendung</b> verwendet werden (auf allen
-                  Hierarchie-Ebenenen)
-                </li>
+                <li>can be used everywhere in your components</li>
               </ul>
             </li>
             <li class="fragment">
-              Mit <code>path</code> wird der Pfad übergeben, für den die Route matchen soll
+              Use the <code>path</code> attribute to specify the path that should match when the
+              component should be rendered
             </li>
-            <li class="fragment">Als Children wird die Komponente angegeben</li>
+            <li class="fragment">Specify the component as children of the Route component</li>
           </ul>
           <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
       import {HashRouter as Router, Route} from "react-router-dom";
@@ -1269,38 +1592,40 @@ function App(props) {
         </section>
 
         <section>
-          <h3>Hintergrund: Pfade</h3>
+          <h3>Background: Paths</h3>
           <p>
-            In Routen werden <b>Pfade</b> angegeben, die mit der aktuellen URL verglichen werden
+            In the Route component you specify a <b>path</b>, that is compared against the current
+            URL
           </p>
 
           <ul>
             <li>
-              Pfade sind per Default gültig für Teilstrings, aber mit <code>exact</code> kann das
-              Verhalten verändert werden
+              Paths by default are valid for parts of strings, but you can change the behaviour by
+              adding <code>exact</code>
             </li>
-            <li>Eine Route ohne <code>path</code> matcht immer</li>
+            <li>A Route without <code>path</code> matches always</li>
           </ul>
           <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-      // trifft zu für / und /greeting
+      // matches  / and /post
       &lt;Route path="/">...&lt;/Route>
       
-      // trifft nur zu für /
+      // matches only /
       &lt;Route path="/" exact>...&lt;/Route>
       
-      // passt auf JEDE URL:
+      // matches any URL:
       &lt;Route>...&lt;/Route>
       
               </code></pre>
           <ul>
-            <li class="fragment">Kann variable Segmente enthalten:</li>
+            <li class="fragment">A Path can contain variable segments:</li>
           </ul>
           <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
       &lt;Route path="/posts/:postId">&lt;BlogPostPage/>&lt;/Route>
            </code> </pre>
           <ul>
             <li class="fragment">
-              Werte der variablen Parameter werden mit useParams in der Komponente abgefragt:
+              Values of the variables can be read using the <code>useParams</code> hook in your
+              component:
             </li>
           </ul>
           <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
@@ -1309,18 +1634,19 @@ function App(props) {
                 function BlogPostPage() {
                   const params = useParams();
 
-                  // params.postId enthält den variablen Wert aus der URL
+                  // params.postId contains the id from the URL
                 </code></pre>
         </section>
         <section>
           <h3>Switch</h3>
           <ul>
             <li class="fragment">
-              Wenn mehrere path-Ausdrücke matchen, werden mehrere Komponenten gerendert (z.B. "/"
-              und "/post")
+              If multiple path expression match, multiple components will be rendered (for example
+              "/" and "/post")
             </li>
             <li class="fragment">
-              <code>Switch</code> sorgt dafür, dass nur die erste Komponente im Block gerendert wird
+              <code>Switch</code> ensures that only the für component will be rendered (like regular
+              switch with a break after each case)
             </li>
           </ul>
           <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
@@ -1332,7 +1658,7 @@ function App(props) {
             &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
             &lt;Route path="/" exact>&lt;BlogListPage/>&lt;/Route>
       
-            // "No match": ohne Pfad
+            // "No match": without path
             &lt;Route>&lt;NotFoundPage/>&lt;/Route>
       
           &lt;/Switch>
@@ -1345,15 +1671,20 @@ function App(props) {
 
         <section>
           <h3>Links</h3>
-          <p>Mit <code>Link</code> und <code>NavLink</code> können Links erzeugt werden</p>
+          <p>
+            Using the <code>Link</code> or <code>NavLink</code> component you can create HTML links
+          </p>
           <ul>
-            <li>Mit <code>to</code> wird das Ziel angegeben</li>
-            <li>Gerendert wird per default ein <code>a</code> Element</li>
-            <li>URL wird entsprechend der History (Browser oder Hash) erzeugt</li>
+            <li>Use <code>to</code> to specify the target path</li>
+            <li>Link creates an <code>a</code> HTML element</li>
             <li>
-              Mit <code>activeClassName</code> und <code>activeStyle</code> auf
-              <code>NavLink</code> können Styles übergeben werden, die angewendet werden, wenn der
-              Link der aktiven Route entspricht
+              "Local" URLs will be rendered according to the selected Router implementation (with
+              hash or without)
+            </li>
+            <li>
+              With <code>activeClassName</code> and <code>activeStyle</code> on
+              <code>NavLink</code> you can specify styles and classnames that get applied if the
+              current route is the same route as specified in "to" ("active" route)
             </li>
           </ul>
 
@@ -1362,20 +1693,21 @@ function App(props) {
       
       &lt;Link to='/'>Show all Posts&lt;/Link>
       
-      // Erzeugtes 'a' Element erhält 'highlight' CSS-Klasse, wenn die aktive Route
+      // Generted 'a' element contains 'highlight' CSS class, when it's the active route
       &lt;NavLink to='/add' activeClassName="highlight">Add Post&lt;/NavLink>
       
               </code></pre>
         </section>
 
         <section>
-          <h3>Das history-Objekt</h3>
-          <p>Mit dem <code>history</code>-Objekt kann mit der Browser History interagiert werden</p>
+          <h3>The history-Objekt</h3>
+          <p>The <code>history</code> object can be used to interact with the Browser history</p>
           <p>
-            Mit der History kann auf andere URLs gesprungen werden oder die Location abgefragt
-            werden
+            You can jump to another location or get the current location from the browser
           </p>
-          <p class="fragment">Komponenten bekommen das history-Objekt über den useHistory Hook</p>
+          <p class="fragment">
+            The history object is available using the <code>useHistory</code> hook from React Router
+          </p>
           <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
       import { useHistory } from "react-router";
 
@@ -1385,12 +1717,8 @@ function App(props) {
         function onAdd(newBlogPost) {
            ...
 
-           // gehe zu neuer URL
+           // go to new URL
            history.push("/"); 
-
-           // Alternativ: gehe zu neuer URL, lösche aber aktuelle aus 
-           // History im Browser
-           history.replace("/...") 
         }
 
         return ...;
@@ -1399,8 +1727,8 @@ function App(props) {
         </section>
 
         <section>
-          <h2>Geschafft 😊</h2>
-          <h3>Vielen Dank für Eure Teilnahme!</h3>
+          <h2>That's all! 😊</h2>
+          <h3>Thanks a lot for your participation!</h3>
           <p>
             Kontakt:
           </p>
