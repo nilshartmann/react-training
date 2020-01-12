@@ -202,10 +202,10 @@
   
     return (
       &lt;div>
-        &lt;input onChange={event => setTitle(event.target.value)} value={title} />
-  
-        &lt;p>Title: {greeting}&lt;/p>
-        &lt;button onClick={() => setTitle("")}>Clear&lt;/button>
+        &lt;label>
+          Title
+          &lt;input onChange={event => setTitle(event.target.value)} value={title} />
+        &lt;/label>
       &lt;/div>
     );
   }
@@ -287,6 +287,73 @@
         <section data-state="js-exkurs">
           <h2>Webpack and Babel</h2>
           <img src="slides/images/webpack-und-babel.png" style="height:600px" />
+        </section>
+
+         <section>
+          <h3>Das Beispiel-Projekt</h3>
+          <p>Workspace</p>
+          <ul class="x-list">
+            <li style="margin-bottom:40px"><code>2019_training_september.html</code> Slides im Root-Verzeichnis</li>
+            <li style="margin-bottom:40px">
+              <code>code/<b>workspace</b></code
+              >: Verzeichnis für Eure Übungen<br />👉&nbsp;Empfehlung: dieses Verzeichnis in VS Code/IDE
+              öffnen
+            </li>
+            <li>
+              <code>code/<b>material</b></code
+              >: Code als Ausgangspunkt für Übungen
+            </li>
+            <li>
+              <code>code/<b>schritte</b></code
+              >: Fertige Stände nach den einzelnen Teilen
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Exercise #1: Hello-World</h2>
+          <h3>
+            <em>Get familiar with the tools and write your first React component</em>
+          </h3>
+        </section>
+        <section>
+          <h3>Step #1: Start the tool chain (if not already running)</h3>
+
+          <ol style="font-size: 85%">
+            <li>
+              <code>cd blog-example/workspace</code>
+            </li>
+            <li>
+              <code>npm install</code>
+            </li>
+
+            <li>
+              <code>npm start</code>
+            </li>
+
+            <li>
+              Your browser should be opened automatically at <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>
+            </li>
+
+            <li>If you see "Hello, World", everything is fine!</li>
+          </ol>
+
+        </section>
+        <section>
+          <h3>Step #2: Your first React component</h3>
+          <em>Build the first mini step of your PostEditor component</em>
+          <ul>
+            <li>
+              Replace the "static" component in <code>PostEditor.js</code> with the React Code from the
+              previous slides. 
+            </li>
+            <li>The Component should be called <b>PostEditor</b></li>
+            <li>It should have a state (title) and an input field for that state</li>
+            <li><em>Optional: do some experiments with the component, change things like:</em>
+              <ul><li>The text entered should be displayed in uppercase only</li>
+                <li>If the text field is empty a message should be displayed</li>
+              </ul>
+            </li>
+          </ul>
         </section>
 
         <section id="t2">
