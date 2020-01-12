@@ -73,7 +73,7 @@ Chaos law hope endless ocean virtues ascetic. Transvaluation deceptions intentio
   }
 ];
 
-let counter = allPosts.length + 1;
+let counter = allPosts.length + 1000;
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "OPTIONS,GET,PUT,POST,PATCH,DELETE");
@@ -138,6 +138,18 @@ app.post("/posts", (req, res) => {
     id: String(counter++),
     date: new Date().toJSON()
   };
+
+  if (post.title.startsWith("slow")) {
+    // slow down greetings with a
+    // to show async problems in App
+
+    setTimeout(() => {
+      allPosts = [newPost, ...allPosts];
+      res.status(201).json(newPost);
+    }, 10000);
+
+    return;
+  }
 
   allPosts = [newPost, ...allPosts];
 

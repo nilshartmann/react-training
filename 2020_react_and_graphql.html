@@ -70,26 +70,26 @@
           <h2>Agenda</h2>
           <ul style="font-size: 85%">
             <li>
-              <a href="#/t1">Teil I: React Overview and Tooling</a>
+              <a href="#/t1">Part I: React Overview and Tooling</a>
             </li>
             <li>
-              <a href="#/t2">Teil II: React Components</a>
+              <a href="#/t2">Part II: React Components</a>
             </li>
             <li>
-              <a href="#/t3">Teil III: React Components: Hierarchies and Applications</a>
+              <a href="#/t3">Part III: React Components: Hierarchies and Applications</a>
             </li>
             <li style="margin-bottom: 20px">
-              <a href="#/server">Teil IV: Daten lesen und schreiben vom Server</a>
+              <a href="#/server">Part IV: Reading and writing data from a server (http)</a>
             </li>
             <li>
-              <a href="#/t-test">Teil V: Testen von React Anwendungen</a>
+              <a href="#/t-test">Part V: Testing React Applications (Overview)</a>
             </li>
             <li>
-              <a href="#/t-typescript">Teil VI: React Anwendungen mit TypeScript entwickeln</a>
+              <a href="#/t-typescript">Part VI: React Applications with TypeScript</a>
             </li>
             <li>
               <a href="#/t-router"
-                >Teil VII: Client-seitiges Routing mit React Router (Überblick)</a
+                >Teil VII: Client-side Routing with React Router (Overview)</a
               >
             </li>
 
@@ -1127,8 +1127,8 @@ function App() {
 
         <section id="server">
           <h1>Server Access</h1>
-          <em>Read and write data from a backend (REST/HTTP)</em>
-          <code>blog-example/steps/4-remote</code>
+          <em>Reading and writing data from a backend (REST/HTTP)</em>
+          <p><code>blog-example/steps/4-remote</code></p>
         </section>
 
         <!-- <section>
@@ -1146,7 +1146,7 @@ function App() {
             <a href="http://localhost:7000/posts">http://localhost:7000/posts</a>
           </p>
         </section> -->
-
+        <!--
         <section>
           <h3>Background: API of the Blog Backend Server</h3>
           <p>
@@ -1166,13 +1166,7 @@ function App() {
             application)
           </p>
         </section>
-
-        <section id="t4">
-          <h1>Part IV</h1>
-          <h2>Reading and writing data from a server</h2>
-          <a href="code/schritte/3-remote/public/index.html" target="_blank">Ziel-Anwendung</a>
-        </section>
-
+-->
         <section>
           <h3>Challanges</h3>
           <ol>
@@ -1268,7 +1262,7 @@ const response = await fetch(url, {
           <h2>Background: Promises and async/await</h2>
         </section>
 
-        <section>
+        <section data-state="es6-exkurs">
           <h3>Promises</h3>
           <p>
             A <b>promise</b> object represents the eventual result of an asynchronous operation (or
@@ -1283,7 +1277,7 @@ const response = await fetch(url, {
                 </code></pre>
         </section>
 
-        <section>
+        <section data-state="es6-exkurs">
           <h3>Chained execution</h3>
 
           <pre><code class="javascript" contenteditable>
@@ -1302,12 +1296,12 @@ const promise2 = promise.then(name => `Hello, ${name}`);</code></pre>
 // Output after one second: "Hello, Klaus"
   </code></pre>
         </section>
-        <section>
+        <section data-state="es6-exkurs">
           <h3>Errors will interrrupt the promise chain</h3>
           <h4>But you <b>must</b> do something to get informed: catch()</h4>
         </section>
 
-        <section>
+        <section data-state="es6-exkurs">
           <h3>Catch in cases of an error</h3>
           <pre><code class="javascript" contenteditable>
   const promise = new Promise( /* as seen above */ )
@@ -1319,7 +1313,7 @@ const promise2 = promise.then(name => `Hello, ${name}`);</code></pre>
     </code></pre>
         </section>
 
-        <section>
+        <section data-state="es6-exkurs">
           <h3>More on Promises</h3>
           <h4 class="fragment">Create a promise</h4>
           <pre class="fragment"><code class="javascript" contenteditable>
@@ -1339,7 +1333,7 @@ Promise.all( [p1, p2] )
 </code></pre>
         </section>
 
-        <section>
+        <section data-state="es6-exkurs">
           <h3>Promises: asynchronous control flow</h3>
           <pre><code class="javascript" contenteditable>
 console.log("1");
@@ -1353,7 +1347,7 @@ console.log("2");
           <p>Question to you: how does the console output looks like? 🤔</p>
         </section>
 
-        <section>
+        <section data-state="es6-exkurs">
           <h2>async / await</h2>
           <p>"wrapper" around promises</p>
           <p>Allows you to write asynchronous code in a "linear" style</p>
@@ -1376,7 +1370,7 @@ console.log("2");
     }
                       </code></pre>
         </section>
-        <section>
+        <section data-state="es6-exkurs">
           <h3>async / await</h3>
           <p><code>async</code> declares a function as an "async function"</p>
           <p class="fragment">
@@ -1459,13 +1453,9 @@ console.log("2");
         </section>
 
         <section>
-          <h3 class="todo">Initiales Laden von Daten</h3>
-
-          <p>
-            Schritt-für-Schritt (<code
-              >code/workspace-live-coding, vorher schritte/2-hierarchy reinkopieren</code
-            >)
-          </p>
+          <h3>Loading (and saving) data</h3>
+          <p>👉Step-by-Step</p>
+          <p style="font-size: small;"><code>steps/3-hierarchy</code></p>
         </section>
 
         <section>
@@ -1645,10 +1635,14 @@ function App(props) {
                 </code></pre>
         </section>
 
+         <section>
+          <h3>Managing state with data from server</h3>
+
+          <p>👉Let's look at an example. What happens here?</p>
+         </section>
+
         <section>
           <h3>Stale data</h3>
-          <p class="todo">BEISPIEL ERZEUGEN UND HIER ZUNÄCHST ZEIGEN</p>
-          <p>What can happen here?</p>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
 function App(props) {
   const [posts, setPosts] = React.useState([]);
@@ -1656,13 +1650,10 @@ function App(props) {
   React.useEffect( /* load ... */ );
 
   function addPost(post) {
-    fetch("http://localhost:7000/posts", {
-      /* ... */
-    })
+    fetch("http://localhost:7000/posts", { /* ... */ }
       .then(response => response.json())
       .then(newPost => setPosts([newPost, ...posts]));
   }
-
 
   return
     ...
@@ -1677,66 +1668,54 @@ function App(props) {
             state
           </p>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                            function Counter(props) {
-                              const [count, setCounter] = React.useState(0);
-
-                              &lt;button onClick={
-                                () => setCounter(currentCount => currentCount + 1)}>Plus&lt;/button>
-                            }
+function App(props) {
+  const [posts, setPosts] = React.useState([]]);
+  function addPost(post) {
+    fetch("http://localhost:7000/posts", { /* ... */ })
+      .then(response => response.json())
+      .then(newPost => setPosts(allPosts => ([newPost, ...allPosts])));
+  }
+}
                           </code></pre>
         </section>
 
         <section>
-          <h2 class="todo">Übung: Laden und Speichern der Daten von/auf einem Server</h2>
+          <h2>Exercise: Loading and Saving data on a server</h2>
           <p>
             <em
-              >Entwickle auf Basis von fetch eine Version des GreetingControllers, der die Daten auf
-              dem Server laden und dort wieder speichern kann</em
+              >Implement an enhanced version of the <code>App</code> component that is able to
+              load and store data using <code>fetch</code>.</em
             >
           </p>
           <p>
-            Der Server ist bereits fertig. Zum Starten:
+            The backend is already implemented. You can started it:
           </p>
           <pre><code>
-                cd react-training/code/server
-                npm start
-              </code></pre>
-          <p>Der Server ist über Port 7000 erreichbar</p>
+                  cd react-training/blog-example/backend-rest
+                  npm start
+                </code></pre>
+          <p>The server runs on port 7000</p>
           <p>
-            Zum Testen:
-            <a href="http://localhost:7000/greetings">http://localhost:7000/greetings</a>
+            You can test it in your browser (or wget, curl) with this URL:
+            <a href="http://localhost:7000/posts">http://localhost:7000/posts</a>
           </p>
-        </section>
+        </section> 
         <section>
-          <h3 class="todo">Schritte</h3>
+          <h3>Steps</h3>
           <ol class="x-list">
             <li class="fragment">
-              Kopiere <code>code/material/3-remote/GreetingController.js</code> in deinen
-              Arbeitsbereich
+              Use your own <code>App.js</code> file and add code for loading and saving data
+              or copy <code>blog-example/material/4-remote/App.js</code> in your own
+              src-folder
             </li>
 
             <li class="fragment">
-              Die Serverzugriffe sollen in <code>loadGreetings</code> und
-              <code>saveGreeting</code> erfolgen
-              <ul>
-                <li>Dort sind bereits entsprechende TODOs für dich eingetragen</li>
-                <li>
-                  Die URL des Backends steht in der Konstante <code>BACKEND_URL</code>. <br /><code
-                    >const BACKEND_URL = "http://localhost:7000/greetings";</code
-                  >
-                </li>
-              </ul>
-            </li>
-
-            <!-- <li class="fragment">
-              Optional 1: Füge der loadGreetings-Methode eine Fehlerbehandlung zu. (Du kannst das
-              Backend stoppen, um einen Fehler zu provozieren). Kannst Du eine Fehlermeldung in der
-              UI anzeigen?
+              There are TODOs with further informations (that might help you also when using your own <code>App</code> file)
             </li>
             <li class="fragment">
-              Optional 2: Kannst Du die saveGreeting-Funktion so extrahieren, dass sie außerhalb der
-              GreetingController-Komponente stehen kann?
-            </li> -->
+              Optional: add a new state, that tracks wether the server request is running or not. If it's running show a "Please wait"
+              message for the user. (Add <code>?slow</code> to the endpoint URL to simulate slow server responses)
+            </li>
           </ol>
         </section>
 
@@ -2031,15 +2010,14 @@ it("it should switch between views", async () => {
         <section id="t-typescript">
           <h1>Teil VI</h1>
           <h2>React applications with TypeScript</h2>
-          <h3>Themen</h3>
-          <ul>
+          <ol>
             <li>
               <a href="#/t-typescript-grundlagen">TypeScript Basics</a>
             </li>
             <li>
               <a href="#/t-typescript-react">React applications with TypeScript</a>
             </li>
-          </ul>
+          </ol>
         </section>
 
         <section id="t-typescript-grundlagen">
@@ -2057,6 +2035,9 @@ it("it should switch between views", async () => {
           </ul>
         </section>
 
+        <section>
+          <h3>👉TypeScript hands-on</h3>
+        </section>
         <section>
           <h3>TypeScript Basics</h3>
           <p>Type declarations are written after the identifier</p>
