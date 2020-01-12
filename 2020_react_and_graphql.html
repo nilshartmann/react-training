@@ -79,7 +79,7 @@
               <a href="#/t3">Teil III: React Components: Hierarchies and Applications</a>
             </li>
             <li style="margin-bottom: 20px">
-              <a href="#/t4">Teil IV: Daten lesen und schreiben vom Server</a>
+              <a href="#/server">Teil IV: Daten lesen und schreiben vom Server</a>
             </li>
             <li>
               <a href="#/t-test">Teil V: Testen von React Anwendungen</a>
@@ -809,31 +809,28 @@ function PostEditor(props) {
         </section>
 
         <section>
-          <h2>Excercise 2: Post-Editor for our Application </h2>
-          <em
-            ><b
-              >Enhance your component with new features</b
-            ></em
-          >
+          <h2>Excercise 2: Post-Editor for our Application</h2>
+          <em><b>Enhance your component with new features</b></em>
         </section>
         <section>
           <h3>Steps</h3>
           <h4>Enhance your existing component from the last exercise</h4>
           <ol class="x-list">
+            <li>In addition to "title", you need another input field, called <code>body</code>.</li>
             <li>
-              In addition to "title", you need another input field, called <code>body</code>. 
-            </li>
-            <li>
-              Add a "clear"-Button, that clears both input fields. The property for the event
-              on the button is called <code>onClick</code>.
-              <ul><li>
-              The "clear"-Button should be disabled as long as one of the input fields is empty.
-              To disable a button element, you can set it's <code>disabled</code> property to <code>true</code>.
-              </li><li>
-              After the button has been pressed and the input has been cleared, transfer the 
-              focus to the first input field (<code>title</code>)
-              </li>
-            </ul>
+              Add a "clear"-Button, that clears both input fields. The property for the event on the
+              button is called <code>onClick</code>.
+              <ul>
+                <li>
+                  The "clear"-Button should be disabled as long as one of the input fields is empty.
+                  To disable a button element, you can set it's <code>disabled</code> property to
+                  <code>true</code>.
+                </li>
+                <li>
+                  After the button has been pressed and the input has been cleared, transfer the
+                  focus to the first input field (<code>title</code>)
+                </li>
+              </ul>
             </li>
           </ol>
         </section>
@@ -1089,44 +1086,41 @@ function App() {
   </code></pre>
         </section>
 
-        <section class="todo">
+        <section>
           <h2>Excercise #3: Build a complete "application"</h2>
           <p>
             <em>
-              Füge deinen bestehenden Detail-View <code>GreetingDetail</code> und einen Master-View
-              über eine Controller-Komponente zusammen</em
+              Integrate your existing <code>PostEditor</code> and a new
+              <code>PostList</code> component with the <code>App</code> component</em
             >
           </p>
         </section>
         <section>
-          <h3>Schritte</h3>
+          <h3>Steps</h3>
           <ol>
             <li>
-              kopiere das Material aus <code>code/material/2-hierarchy</code> in deinen src-Ordner
+              copy the material from <code>blog-example/material/3-hierarchy/src</code> in your src
+              folder
               <span style="font-size:85%"
-                >(oder dein fertiges <code>GreetingDetail</code> verwenden)</span
+                >(you can use your own <code>PostEditor</code> or use the one from
+                material/3-hierarchy)</span
               >
             </li>
 
             <li>
-              erweitere den <code>GreetingController</code>, so dass dein
-              <code>GreetingDetail</code> angezeigt wird, wenn der Benutzer den Add-Button klickt:
-              <ul>
-                <li>
-                  dort gibt es bereits einen Kommentar, der dir die richtige Stelle anzeigt und
-                  weitere Details enthält
-                </li>
-                <li>übergib einen Callback der <code>addGreeting</code> nutzt</li>
-              </ul>
+              Enhance the <code>App</code> component, so that is displays the
+              <code>PostEditor</code> if the user klicks the <code>Add</code> Button.
+              <p>- In <code>App.js</code> there is a TODO comment with further information</p>
             </li>
             <li>
-              im deinem <code>GreetingDetail</code> brauchst du einen neuen Knopf, der mit dem neuen
-              Gruß den Callback aufruft
+              In your <code>PostEditor</code> you need a Save button, that inkoves the callback
+              function, that <code>App</code> passed to it via properties (<code>onSave</code>).
+              <br />See todo in
+              <code>blog-example/material/3-hierarchy/src/PostEditor.js</code>
             </li>
             <li style="font-size:75%">
-              <b>Optional:</b> Füge dem GreetingDetail einen <b>neuen</b> Knopf "Abbrechen" hinzu,
-              mit dem nur der Master wieder angezeigt wird (der eingegebene Gruße wird nicht
-              gespeichert)
+              <b>Optional:</b> Add a <b>new</b> Button "Cancel" to your PostEditor, that only opens
+              again the PostList (but does not save the values in PostEditor)
             </li>
           </ol>
         </section>
@@ -1134,9 +1128,10 @@ function App() {
         <section id="server">
           <h1>Server Access</h1>
           <em>Read and write data from a backend (REST/HTTP)</em>
+          <code>blog-example/steps/4-remote</code>
         </section>
 
-        <section>
+        <!-- <section>
           <h3>The blog Backend</h3>
           <p>
             The backend is already implemented. You can started it:
@@ -1150,7 +1145,7 @@ function App() {
             You can test it in your browser (or wget, curl) with this URL:
             <a href="http://localhost:7000/posts">http://localhost:7000/posts</a>
           </p>
-        </section>
+        </section> -->
 
         <section>
           <h3>Background: API of the Blog Backend Server</h3>
