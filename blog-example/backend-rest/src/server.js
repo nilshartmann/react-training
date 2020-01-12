@@ -8,7 +8,7 @@ let allPosts = [
   {
     id: "8",
     date: "2019-10-23T18:25:43.511Z",
-    title: "Some notes from me",
+    title: "Consider async/await over promises",
     body: `I also believe it's important for every member to be involved and invested in our company and this is one way to do so. Curate.
         Guerrilla marketing we don't want to boil the ocean we need to leverage our synergies touch base
         The sprint is over please use "solutionise" instead of solution ideas! :)
@@ -28,7 +28,7 @@ let allPosts = [
   {
     id: "6",
     date: "2019-06-12T14:10:22.666Z",
-    title: "Prejudice abstract derive victorious",
+    title: "Do's and don'ts when using React Router",
     body: `Burying marvelous good against spirit passion reason. Value hope superiority derive hatred justice eternal-return zarathustra revaluation fearful christianity faith abstract hope.
 Depths transvaluation joy fearful sea. Prejudice god merciful hope intentions sexuality oneself revaluation contradict christianity war philosophy passion. Convictions of of free insofar battle intentions ascetic decieve derive good. Madness sexuality deceptions faithful christianity victorious.
 Will victorious self against madness holiest right against ultimate reason revaluation god decieve. Inexpedient law eternal-return convictions sexuality love play marvelous enlightenment joy. Ultimate reason evil christian pinnacle endless contradict. Snare love horror overcome ascetic revaluation enlightenment derive sea overcome. Derive of horror disgust truth revaluation deceptions play disgust god morality abstract passion pious. Against dead reason faithful ocean hope abstract of pinnacle.
@@ -37,7 +37,7 @@ Chaos law hope endless ocean virtues ascetic. Transvaluation deceptions intentio
   {
     id: "5",
     date: "2019-07-07T12:22:22.666Z",
-    title: "Experiences short bursts of poo-phoria",
+    title: "Gotchas of React Hooks API",
     body: `Eat all the power cords get scared by sudden appearance of cucumber for howl uncontrollably for no reason yet i cry and cry and cry unless you pet me, and then maybe i cry just for fun pooping rainbow while flying in a toasted bread costume in space. 
     Meow for food, then when human fills food dish, take a few bites of food and continue meowing behind the couch, so sit in a box for hours but find a way to fit in tiny box you have cat to be kitten me right meow for make meme, make cute face.
 `
@@ -45,7 +45,7 @@ Chaos law hope endless ocean virtues ascetic. Transvaluation deceptions intentio
   {
     id: "4",
     date: "2019-07-12T13:22:22.666Z",
-    title: "Aliqua tempor in venison pork belly",
+    title: "GraphQL primer",
     body: `Swine bresaola porchetta drumstick. 
     Doner flank pork, burgdoggen jerky venison bresaola corned beef landjaeger t-bone hamburger pastrami tenderloin. 
     Short ribs chuck andouille cow t-bone doner ribeye tail bacon shank meatloaf pork tenderloin capicola frankfurter. 
@@ -54,7 +54,7 @@ Chaos law hope endless ocean virtues ascetic. Transvaluation deceptions intentio
   {
     id: "2",
     date: "2019-08-23T18:25:43.511Z",
-    title: "Some notes from me",
+    title: "Writing React applications using TypeScript",
     body: `I also believe it's important for every member to be involved and invested in our company and this is one way to do so. Curate.
         Guerrilla marketing we don't want to boil the ocean we need to leverage our synergies touch base
         The sprint is over please use "solutionise" instead of solution ideas! :)
@@ -64,7 +64,7 @@ Chaos law hope endless ocean virtues ascetic. Transvaluation deceptions intentio
   {
     id: "1",
     date: "2019-09-22T14:12:21.511Z",
-    title: "To be or not to be",
+    title: "Modern Frontend Development",
     body: `Self law truth moral will gains. Marvelous self burying battle virtues eternal-return.
         Chaos of madness ultimate moral moral play victorious faith ubermensch pious will.
         Zarathustra will burying christianity enlightenment decrepit christian ocean gains. Good ocean strong  grandeur free superiority zarathustra selfish inexpedient reason.

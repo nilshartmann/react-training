@@ -88,9 +88,7 @@
               <a href="#/t-typescript">Part VI: React Applications with TypeScript</a>
             </li>
             <li>
-              <a href="#/t-router"
-                >Teil VII: Client-side Routing with React Router (Overview)</a
-              >
+              <a href="#/t-router">Teil VII: Client-side Routing with React Router (Overview)</a>
             </li>
 
             <li style="margin-top: 30px">
@@ -310,7 +308,7 @@
             </li>
             <li class="fragment">
               <code>blog-example/<b>material</b></code
-              >: Code als Ausgangspunkt für Übungen
+              >: Code for some of the exercises 
             </li>
             <li class="fragment">
               <code>blog-example/<b>steps</b></code
@@ -331,37 +329,37 @@
         <section>
           <h3>Step #1: Start the tool chain (if not already running)</h3>
 
-          <ol style="font-size: 85%">
+          <ol class="fragment" style="font-size: 85%">
             <li>
               <code>cd blog-example/workspace</code>
             </li>
-            <li>
+            <li class="fragment">
               <code>npm install</code>
             </li>
 
-            <li>
+            <li class="fragment">
               <code>npm start</code>
             </li>
 
-            <li>
+            <li class="fragment">
               Your browser should be opened automatically at
               <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>
             </li>
 
-            <li>If you see "Hello, World", everything is fine!</li>
+            <li class="fragment">If you see "Hello, World", everything is fine!</li>
           </ol>
         </section>
         <section>
           <h3>Step #2: Your first React component</h3>
           <em>Build the first mini step of your PostEditor component</em>
           <ul>
-            <li>
+            <li class="fragment">
               Replace the "static" component in <code>PostEditor.js</code> with the React Code from
               the previous slides.
             </li>
-            <li>The Component should be called <b>PostEditor</b></li>
-            <li>It should have a state (title) and an input field for that state</li>
-            <li>
+            <li class="fragment">The Component should be called <b>PostEditor</b></li>
+            <li class="fragment">It should have a state (title) and an input field for that state</li>
+            <li class="fragment">
               <em>Optional: do some experiments with the component, change things like:</em>
               <ul>
                 <li>The text entered should be displayed in uppercase only</li>
@@ -1635,11 +1633,11 @@ function App(props) {
                 </code></pre>
         </section>
 
-         <section>
+        <section>
           <h3>Managing state with data from server</h3>
 
           <p>👉Let's look at an example. What happens here?</p>
-         </section>
+        </section>
 
         <section>
           <h3>Stale data</h3>
@@ -1683,8 +1681,8 @@ function App(props) {
           <h2>Exercise: Loading and Saving data on a server</h2>
           <p>
             <em
-              >Implement an enhanced version of the <code>App</code> component that is able to
-              load and store data using <code>fetch</code>.</em
+              >Implement an enhanced version of the <code>App</code> component that is able to load
+              and store data using <code>fetch</code>.</em
             >
           </p>
           <p>
@@ -1699,22 +1697,23 @@ function App(props) {
             You can test it in your browser (or wget, curl) with this URL:
             <a href="http://localhost:7000/posts">http://localhost:7000/posts</a>
           </p>
-        </section> 
+        </section>
         <section>
           <h3>Steps</h3>
           <ol class="x-list">
             <li class="fragment">
-              Use your own <code>App.js</code> file and add code for loading and saving data
-              or copy <code>blog-example/material/4-remote/App.js</code> in your own
-              src-folder
+              Use your own <code>App.js</code> file and add code for loading and saving data or copy
+              <code>blog-example/material/4-remote/App.js</code> in your own src-folder
             </li>
 
             <li class="fragment">
-              There are TODOs with further informations (that might help you also when using your own <code>App</code> file)
+              There are TODOs with further informations (that might help you also when using your
+              own <code>App</code> file)
             </li>
             <li class="fragment">
-              Optional: add a new state, that tracks wether the server request is running or not. If it's running show a "Please wait"
-              message for the user. (Add <code>?slow</code> to the endpoint URL to simulate slow server responses)
+              Optional: add a new state, that tracks wether the server request is running or not. If
+              it's running show a "Please wait" message for the user. (Add <code>?slow</code> to the
+              endpoint URL to simulate slow server responses)
             </li>
           </ol>
         </section>
@@ -2010,6 +2009,7 @@ it("it should switch between views", async () => {
         <section id="t-typescript">
           <h1>Teil VI</h1>
           <h2>React applications with TypeScript</h2>
+          <p>Example: code/blog-example/steps/6-typescript</p>
           <ol>
             <li>
               <a href="#/t-typescript-grundlagen">TypeScript Basics</a>
@@ -2444,12 +2444,12 @@ function PostEditor(props) {
         <section>
           <h2>useRef</h2>
           <p>
-            <code>useRef</code> returns a container for data of any type. <br />The contained type
-            must be specified using a type parameter
+            <code>useRef</code> returns a generic container for data of any type. <br />The
+            contained type must be specified using a type parameter
           </p>
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
   function PostEditor(props) {
-    const inputRef = React.useRef&lt;HTMLInputElement>(null);
+    const inputRef = React.useRef&lt;HTMLInputElement|null>(null);
     // inputRef.current can either be HTMLInputElement or null
 
     function reset() {
@@ -2462,60 +2462,60 @@ function PostEditor(props) {
   }
             </code></pre>
         </section>
-        <section class="todo">
-          <h2>Übung: Typsichere React-Komponenten</h2>
+        <section>
+          <h2>Exercise: Type-safe React components</h2>
           <h3>
-            <em>Vervollständige die Typ-Informationen der Anwendung</em>
+            <em>Add type informations to existing react components</em>
           </h3>
           <div style="font-size: 80%">
+            <div class="fragment">
             <p>
               <b>WORKSPACE:</b>
             </p>
             <p>
-              Bitte arbeite in dem neuen Workspace <code><b>code/workspace-typescript</b></code
-              >, der die Anwendung aus dem letzten Schritt enthält, aber in TypeScript implementiert
+              Please use the workspace <code><b>blog-example/workspace-typescript</b></code
+              >. <br/>It contains the latest app version, but prepared for TypeScript.
             </p>
+          </div>
+           <div class="fragment">
             <p>
-              <b>VORBEREITUNG:</b>
+              <b>PREPARATION:</b>
             </p>
             <ol class="x-list">
-              <li>Beende deinen laufenden Webpack Dev Server! (Strg/Ctrl/Cmd+C)</li>
+              <li>Stop your running "npm run" process (frontend) using ctrl+c</li>
               <li>
-                Starte den neuen Dev Server mit TypeScript (statt Babel) in
-                <b>code/workspace-typescript</b>:
-                <pre><code>npm start</code></pre>
+                Run <code><b>npm install</b></code> in
+                <code>blog-example/workspace-typescript</code>
+              </li>
+              <li>
+                Run <code><b>npm start</b></code> in <code>blog-example/workspace-typescript</code>
               </li>
             </ol>
           </div>
+          </div>
         </section>
         <section>
-          <h3>Aufgabe 1: Typ-Informationen ergänzen</h3>
+          <h3>Exercise 1: Add type informations</h3>
           <ol style="font-size:80%" class="x-list">
             <li class="fragment">
-              <b>Ergänze die Typ-Informationen in useInput</b> (Vorher umbenennen
-              <code>useApi.js</code> in <code>useApi.tsx</code>. Sobald Du die Datei umbenennst,
-              sollten Compile-Fehler angezeigt werden)
+              Add missing type informations in <code>PostList.js</code> and <code>PostEditor.js</code>
             </li>
-            <li class="fragment">
-              <b>Ergänze die Typ-Informationen in GreetingDetail</b> (Vorher umbenennen
-              <code>GreetingDetail.js</code> in <code>GreetingDetail.tsx</code>. Sobald Du die Datei
-              umbenennst, sollten Compile-Fehler angezeigt werden)
-            </li>
+            <li class="fragment">Before modifying one of the files, rename it to <code>.tsx</code> and restart "npm run"</li>
+            <li class="fragment">You can find more instructions inside the files
           </ol>
 
-          <h3 class="fragment">Aufgabe 2: Neuen Mode im GreetingController einführen</h3>
+          <h3 class="fragment">Exercise 2: Add new View mode in App</h3>
           <ol style="font-size:80%" class="x-list">
             <li class="fragment">
-              Nach dem Speichern eines neuen Greetings soll ein neuer "Feedback-View" mit einer
-              Meldung erscheinen (statt Master), in der steht "Gruß wurde gespeichert" (o.ä.).
+              After saving a new Blog Post, a new view should be presented to the users (showing a message like "Your post have been saved")
             </li>
             <li class="fragment">
-              Zusätzlich zu der Meldung soll der View einen "OK"-Button anzeigen.
+              In addition to the info message the new view should have an "OK"-Button
             </li>
             <li class="fragment">
-              Wenn der OK-Button geklickt wird, soll wieder zum Master gewechselt werden:
+              When the user clicks the OK-Button the <code>PostList</code> should be displayed:
               <br /><code class="fragment"
-                >MASTER --onAdd--> DETAIL --onSave--> FEEDBACK --onOk--> MASTER</code
+                >LIST --onAdd--> EDIT --onSave--> FEEDBACK --onOk--> LIST</code
               >
             </li>
           </ol>
@@ -2524,7 +2524,7 @@ function PostEditor(props) {
         <section id="t-router">
           <h2>Client-side Routing</h2>
 
-          <p>Example: code/blog-example/steps/6-router</p>
+          <p>Example: code/blog-example/steps/7-router</p>
         </section>
         <section>
           <h2>Why routing?</h2>

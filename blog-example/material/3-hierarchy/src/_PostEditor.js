@@ -5,7 +5,7 @@ export default function PostEditor() {
   const [body, setBody] = React.useState("");
 
   const titleRef = React.useRef();
-  const cancelDisabled = !title && !body;
+  const clearDisabled = !title && !body;
 
   function clear() {
     setTitle("");
@@ -27,7 +27,7 @@ export default function PostEditor() {
         <textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
       </label>
 
-      <button disabled={cancelDisabled} onClick={clear}>
+      <button disabled={clearDisabled} onClick={clear}>
         Clear
       </button>
       {/*
