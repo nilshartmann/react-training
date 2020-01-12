@@ -3,11 +3,32 @@
   // for the documentation about the tasks.json format
   "version": "2.0.0",
   "tasks": [
-    {
-			"label": "Start Greeting Backend Server",
+     {
+      "label": "02 Start Blog REST Server",
       "type": "npm",
-      "script": "backend",
-      "problemMatcher": []
+      "script": "start",
+      "problemMatcher": [],
+      "path": "blog-example/backend-rest",
+      "options": {
+        "cwd": "${workspaceRoot}/blog-example/backend-rest"
+      },
+      "presentation": {
+        "group": "backend"
+      }
+    },
+    {
+      "label": "01 Start Blog GRAPHQL Server",
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": [],
+      "path": "${workspaceRoot}/blog-example/backend-graphql",
+      "options": {
+        "cwd": "${workspaceRoot}/blog-example/backend-graphql"
+      },
+      "presentation": {
+        "group": "backend"
+      }
     }
+   
   ]
 }

@@ -16,6 +16,14 @@ function tokenFor(userId) {
   return token;
 }
 
+function buildTeaser({ body }, maxLength) {
+  if (body.length <= maxLength) {
+    return body;
+  }
+
+  return body.substring(0, maxLength) + "...";
+}
+
 const resolvers = {
   Query: {
     ping: (_, { msg }) => `Hello, ${msg || "World"}`,
@@ -24,7 +32,8 @@ const resolvers = {
     users: () => datastore.getAllUsers()
   },
   BlogPost: {
-    user: blogPost => datastore.getUser(blogPost.userId)
+    user: blogPost => datastore.getUser(blogPost.userId),
+    teaser: (blogPost, { maxLength = 30 }) => buildTeaser(blogPost, maxLength)
   },
   Mutation: {
     login: (_, { login, password }) => {

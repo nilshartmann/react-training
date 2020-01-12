@@ -6,6 +6,26 @@ const app = express();
 app.use(bodyParser.json());
 let allPosts = [
   {
+    id: "8",
+    date: "2019-10-23T18:25:43.511Z",
+    title: "Some notes from me",
+    body: `I also believe it's important for every member to be involved and invested in our company and this is one way to do so. Curate.
+        Guerrilla marketing we don't want to boil the ocean we need to leverage our synergies touch base
+        The sprint is over please use "solutionise" instead of solution ideas! :)
+        Push back digitalize yet enough to wash your face, or low-hanging fruit horsehead offer, for Bob called an all-hands this afternoon that ipo will be a game-changer.
+        `
+  },
+  {
+    id: "7",
+    date: "2019-11-22T14:12:21.511Z",
+    title: "Learning React...",
+    body: `Self law truth moral will gains. Marvelous self burying battle virtues eternal-return.
+        Chaos of madness ultimate moral moral play victorious faith ubermensch pious will.
+        Zarathustra will burying christianity enlightenment decrepit christian ocean gains. Good ocean strong  grandeur free superiority zarathustra selfish inexpedient reason.
+        Decrepit ultimate chaos.
+        `
+  },
+  {
     id: "6",
     date: "2019-06-12T14:10:22.666Z",
     title: "Prejudice abstract derive victorious",
@@ -30,17 +50,6 @@ Chaos law hope endless ocean virtues ascetic. Transvaluation deceptions intentio
     Doner flank pork, burgdoggen jerky venison bresaola corned beef landjaeger t-bone hamburger pastrami tenderloin. 
     Short ribs chuck andouille cow t-bone doner ribeye tail bacon shank meatloaf pork tenderloin capicola frankfurter. 
     Andouille hamburger pastrami, cow bacon kielbasa chicken pancetta sirloin landjaeger pork belly.`
-  },
-  {
-    id: "3",
-    date: "2019-07-15T12:21:22.666Z",
-    title: "Ghupft wia gsprunga weida auszutzeln nackata do legst di nieda? ",
-    body: `Zidern hob Sepp, Resi eam do legst di nieda baddscher a liabs Deandl des is hoid aso eam Weibaleid. Nia need nackata Biakriagal wolpern naa Marterl mogsd a Bussal. 
-    San nia und Prosd, wuid gscheit oans, zwoa, gsuffa a so a Schmarn Haberertanz scheans? 
-    Oans ned Haberertanz Schneid i mog di fei umananda, Hetschapfah spernzaln sog i. 
-    Hawadere midananda luja da, hog di hi, Gamsbart da hi i mog di fei. Oans Deandlgwand do Blosmusi ned woar, da. 
-    Wea nia ausgähd, kummt nia hoam luja griasd eich midnand Lewakaas baddscher i moan oiwei hinter’m Berg san a no Leit de: Kirwa Kneedl i mog di fei Namidog Ramasuri des is hoid aso do, Bladl? 
-    Bitt Spuiratz aasgem, wo hi anbandeln Heimatland obacht glacht ognudelt.`
   },
   {
     id: "2",

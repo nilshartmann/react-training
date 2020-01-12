@@ -24,6 +24,7 @@ export default function PostList(props: PostListProps) {
           <article className="Container">
             <p className="Date">{formattedDate(p.date)}</p>
             <h1>{p.title}</h1>
+            {p.teaser} <span>Read more</span>
           </article>
         </Link>
       ))}

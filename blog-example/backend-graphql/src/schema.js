@@ -2,6 +2,8 @@ module.exports = `
 type BlogPost {
   id: ID!
   title: String!
+  # Returns the first n-th chars of the body
+  teaser(maxLength: Int): String
   date: String!
 
   body: String!

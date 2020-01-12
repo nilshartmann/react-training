@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>React and GraphQL Training</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="stylesheet" href="slides/styles.css" />
+    <script src="slides/export.js"></script>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-state="title">
+          <h2 class="title" style="font-size:7rem">
+            <b>React &amp; GraphQL</b>
+          </h2>
+
+          <h4>
+            <span class="transparent-bg">
+              <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a> |
+              <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+            </span>
+          </h4>
+
+          <p style="margin-top:4rem"></p>
+          <div>
+            <h3><span class="transparent-bg">Preparation</span></h3>
+            <p>
+              <span class="transparent-bg"
+                >git clone https://github.com/nilshartmann/react-training</span
+              >
+            </p>
+            <p><span class="transparent-bg">cd react-training/blog-example/workspace</span></p>
+            <p><span class="transparent-bg">npm install</span></p>
+          </div>
+
+          <p>
+            <span class="transparent-bg">Slides: react-training/2020_react_and_graphql.html</span>
+          </p>
+        </section>
+        <section>
+          <h2>Nils Hartmann</h2>
+          <p>
+            <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a> /
+            <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+          <p><em>Freelance software developer, trainer and coach from Hamburg </em></p>
+
+          <div style="display:flex;justify-content:center">
+            <div>
+              <p>Java</p>
+              <p>JavaScript, TypeScript</p>
+              <p>React</p>
+              <p>Single-Page-Applications</p>
+              <p>GraphQL</p>
+            </div>
+          </div>
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+                <h3><a href="https://reactbuch.de">https://reactbuch.de</a>                </h3>
+              <a href="https://reactbuch.de"><img src='slides/images/react-buch-v2.png' style="max-height: 650px;">    </a>
+              <p>🎅 2., überarbeitete und erweiterte Auflage, Dezember 2019 🤶</p>
+            </textarea
+          >
+        </section>
+        <section>
+          <h2>Agenda</h2>
+          <div>
+            <ul style="font-size: 85%">
+              <li class="todo">
+                <a href="#/example-app">Das Beispiel</a> <br />Die Beispiel-Anwendung, der
+                -Workspace und mögliche Erweiterungen
+              </li>
+              <li>
+                <a href="#/reactgrundlagen">React Grundlagen</a>
+                <br />Komponenten, JSX, State und Properties
+              </li>
+              <li>
+                <a href="#/server">Arbeiten mit einem Server (REST)</a>
+                <br />useEffect, fetch
+              </li>
+
+              <li>
+                <a href="#/t-router">Client-seitiges Routing</a>
+                <br />React Router
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="example-app">
+          <h1>Example Application</h1>
+          <h2>and training workspace</h2>
+        </section>
+
+        <section>
+          <h3>Example Application</h3>
+          <a target="_blank" href="http://localhost:3000">
+            <img src="blog-example/blog-example.png" style="height:650px" />
+          </a>
+        </section>
+
+        <section>
+          <h3 class="todo">Weiter hinten! Preparation</h3>
+          <p>
+            git clone https://github.com/nilshartmann/react-training
+          </p>
+          <p>
+            cd react-training/blog-example/workspace
+          </p>
+
+          <p>
+            npm install
+          </p>
+
+          <p></p>
+
+          <p>
+            npm start
+          </p>
+
+          <p></p>
+
+          <p>Open in your browser: http://localhost:3000</p>
+
+          <p>
+            Slides: https://nils.buzz/techlab
+          </p>
+        </section>
+
+        <section>
+          <h3>Der Beispiel-Workspace</h3>
+          <p>Im Verzeichnis <b>blog-example/workspace</b> ist schon alles vorbereitet</p>
+          <p>
+            Du kannst dort mit <b>npm install</b> und <b>npm start</b> die (leere) Anwendung starten
+          </p>
+          <p>
+            In der Datei App.js kannst Du deine Anwendung implementieren <br />Dazu bitte in
+            index.js die App-Komponente importieren (siehe Kommentare dort)
+          </p>
+          <p>
+            Wenn Du Änderungen machst, wird die Anwendung automatisch gebaut und im Browser
+            aktualisiert
+          </p>
+        </section>
+
+        <section>
+          <h3>Tool-Chain starten</h3>
+
+          <ol style="font-size: 85%">
+            <li>
+              <code>cd code/blog-example/workspace</code>
+            </li>
+
+            <li>
+              <code>npm start</code>
+            </li>
+
+            <li>
+              Öffne <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> im
+              Browser
+            </li>
+
+            <li>Wenn auf der Seite 'Hello, World' steht, ist alles gut</li>
+          </ol>
+
+          <img style="height:400px" src="slides/images/screenshot-npm-start-cra.png" />
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>React Devtools</h2>
+          <em>React Developer Tools for Chrome and Firefox</em>
+          <p>Inspect your React Application at Runtime</p>
+
+          <ul>
+            <li>
+              <a
+                href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en"
+                target="_blank"
+                >Chrome</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://addons.mozilla.org/en-US/firefox/addon/react-devtools/"
+                target="_blank"
+                >Firefox</a
+              >
+            </li>
+          </ul>
+
+          <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h3>create-react-app</h3>
+          <a
+            href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents"
+            target="_blank"
+            >User Guide</a
+          >
+          <p>Can be used to create new React projects</p>
+          <p>
+            Contains complete configuration of all needed tools like Webpack, Babel, TypeScript, ...
+          </p>
+          <p>Example: npx create-react-app NAME_OF_YOUR_PROJECT --template typescript</p>
+        </section>
+
+        <!-- <section>
+          <h2>Übung 1: React Hello-World</h2>
+          <h3>
+            <em>Mach dich mit den Werkzeugen vertraut und schreib deine erste React-Komponente</em>
+          </h3>
+        </section>
+        <section>
+          <h3>Das Beispiel-Projekt</h3>
+          <p>Workspace</p>
+          <ul class="x-list">
+            <li style="margin-bottom:40px">
+              <code>2019_react_wdc_hh.html</code> Slides im Root-Verzeichnis
+            </li>
+            <li style="margin-bottom:40px">
+              <code>code/<b>workspace</b></code
+              >: Verzeichnis für Eure Übungen<br />👉&nbsp;Empfehlung: dieses Verzeichnis in VS
+              Code/IDE öffnen
+            </li>
+            <li>
+              <code>code/<b>material</b></code
+              >: Code als Ausgangspunkt für Übungen
+            </li>
+            <li>
+              <code>code/<b>schritte</b></code
+              >: Fertige Stände nach den einzelnen Teilen
+            </li>
+          </ul>
+        </section> -->
+
+        <section id="reactgrundlagen">
+          <h1>React Basics</h1>
+        </section>
+
+        <section>
+          <h2>React Documentation</h2>
+          <p>
+            <a href="https://reactjs.org/docs/hello-world.html">
+              https://reactjs.org/docs/hello-world.html
+            </a>
+          </p>
+        </section>
+
+        <section>
+          <h3>React Components</h3>
+          <img src="slides/images/komponente.png" style="height:400px" />
+          <ul>
+            <li class="fragment">contain <b>State, Logic und UI</b></li>
+            <li class="fragment">
+              <b>no template language</b>
+            </li>
+            <li class="fragment">written in a <b>declarativede</b> way</li>
+            <li class="fragment">
+              will always be <b>completely re-rendered</b> on data change (no 2-way-data-binding)
+            </li>
+            <li class="fragment">will be aggregated to <b>complete applications</b></li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>React Components</h3>
+          <ul>
+            <li class="fragment">
+              Components are written either as <b>JS functions with "Hooks"</b> or as <b>ES6 classes</b>
+              <ul>
+                <li>Hooks is newer React API (since Version 16.8, February 2019) an "future of React"</li>
+                <li>Classes still widespread in existing code, documentation, tutorials etc</li>
+              </ul>
+            </li>
+
+            <li class="fragment">
+              No Template Language
+              <ul>
+                <li>We write our UI completely in JavaScript</li>
+                <li>React provides a language add-on for JavaScript allowing you to write HTML-like in JS (called JSX)</li>
+                <li>(Isn't that a template language?)
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Our first component: Hello, World!</h3>
+          <ul>
+            <li>Example Step-by-Step (<code>blog-example/workspace</code>)</li>
+          </ul>
+        </section>
+
+        <section id="interaktiv-hellomessage">
+          <h3>Hello World React</h3>
+          <code>HelloWorld.js</code>
+          <pre><code data-trim contenteditable>
+  import React from "react";
+  
+  export default function HelloWorld(props) {
+    const [title, setTitle] = React.useState(props.initialTitle || "");
+  
+    return (
+      &lt;div>
+        &lt;input onChange={event => setTitle(event.target.value)} value={title} />
+  
+        &lt;p>Eingegebener Titel: {greeting}&lt;/p>
+        &lt;button onClick={() => setTitle("")}>Clear&lt;/button>
+      &lt;/div>
+    );
+  }
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Aufruf</h3>
+          <div class="fragment">
+            <p>
+              <code>index.html</code>
+            </p>
+            <pre><code data-trim contenteditable>
+  &lt;html>
+    &lt;-- ... -->
+    &lt;body>
+      <div id="root"></div>
+    &lt;/body>
+  &lt;/html>
+  </code></pre>
+          </div>
+          <div class="fragment">
+            <p>
+              <code>index.js</code>
+            </p>
+            <pre><code data-trim contenteditable class="javascript">
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  
+  import HelloWorld from './HelloWorld';
+  
+  ReactDOM.render(&lt;HelloWorld initialTitle="Moin moin"/>, 
+    document.getElementById('root')
+  );
+  </code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>React: JSX</h3>
+          <ul>
+            <li style="font-size: 80%" class="fragment">
+              Wird wie HTML hingeschrieben, inkl Attribute:
+              <pre><code class="xml" contenteditable data-trim>
+&lt;div>&lt;input type="text"/>&lt;/div>
+                    </code></pre>
+            </li>
+            <li style="font-size: 80%" class="fragment">
+              Achtung! <code>class</code>-Attribut heißt <code>className</code>:
+              <pre><code class="xml" contenteditable data-trim>
+                        &lt;h1 className="title">...&lt;/h1>
+                    </code></pre>
+            </li>
+            <li style="font-size: 80%" class="fragment">
+              Attribute, die keine Strings sind, müssen in {} eingeschlossen werden:
+              <pre><code class="xml" contenteditable data-trim>
+&lt;Counter label="Count" count={7} showValues={true} />
+                    </code></pre>
+            </li>
+            <li style="font-size: 80%" class="fragment">
+              Kann pures JavaScript enthalten, eingeschlossen in {}:
+              <pre><code class="xml" contenteditable data-trim>
+const title = 'Hello, World';
+&lt;h1>{title.toUpperCase()}&lt;/h1>
+                    </code></pre>
+            </li>
+
+            <li style="font-size: 80%" class="fragment">
+              CSS-Eigenschaften werden als Objekt übergeben in Camel-Case-Notation:
+              <pre><code class="xml" contenteditable data-trim>
+const styles = { marginLeft: '10px', border: '1px solid red' };
+&lt;h1 style={styles}>...&lt;/h1>
+                    </code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>React: JSX #2</h3>
+          <ul>
+            <li style="font-size: 80%" class="fragment">
+              Fragmente (rendern selber kein Element in den DOM, nur ihre Kind-Elemente):
+              <pre><code class="xml" contenteditable data-trim>
+function Choice() { 
+  return &lt;&gt;
+    &lt;li>Yes&lt;/li> 
+    &lt;li>No&lt;/li>
+  &lt;/>              
+}  
+                    </code></pre>
+            </li>
+            <li style="font-size: 80%" class="fragment">
+              null, false oder boolean, um nichts zu rendern:
+              <pre><code class="xml" contenteditable data-trim>
+function ErrorMessage(props) {
+  if (!props.msg) {
+    return null; // oder false oder true
+  }
+
+  return <h1>Fehler: {props.msg}</h1>;
+}              
+                    </code></pre>
+            </li>
+
+            <li style="font-size: 80%" class="fragment">
+              Kommentare
+              <pre><code class="xml" contenteditable data-trim>
+  function MyComponent() {
+    return <div>
+      { /* hier ist javascript, deswegen block-kommentare erlaubt */ }
+    </div>;
+  }              
+                      </code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>React: Properties und Zustand</h3>
+          <ul class="fragment">
+            <li>
+              <b>Properties</b> werden der Komponente von <b>außen</b> übergeben (und nicht
+              verändert)
+            </li>
+            <li class="fragment">
+              <b>Zustand (State)</b> ist eine <b>innere</b> Eigenschaft der Komponente (die
+              verändert werden kann)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Properties ("Props") einer Komponente</h3>
+
+          <ul>
+            <li class="fragment">
+              sind Objekte mit Key-Value-Paaren
+            </li>
+            <li class="fragment">
+              werden als 1. Methoden-Parameter an Komponente übergeben
+            </li>
+            <li class="fragment">dürfen nicht verändert werden</li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            function Header(props) {
+                return (
+                  &lt;h1 style={{color: props.titleColor}}>{props.title}&lt;/h1>
+                );
+              }
+            }
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+// Mit Destructuring
+function Header({titleColor, title}) {
+    return (
+      &lt;h1 style={{color: titleColor}}>{title}&lt;/h1>
+    );
+  }
+}
+                </code></pre>
+        </section>
+
+        <section>
+          <h3>Zustand einer Komponente: useState-Hook</h3>
+          <ul>
+            <li>Beispiel: Inhalt eines Eingabefelds, Daten vom Server, Menu offen oder zu</li>
+            <li class="fragment"><b>Werte</b> üblicherweise immutable</li>
+            <li class="fragment">Arbeiten mit Zustand über <b>useState</b>-Hook</li>
+            <li class="fragment">
+              useState liefert Array mit zwei Werten zurück: aktuellen Zustand, und setter-Funktion
+              um Zustand zu verändern
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+function HelloWorld(props) {
+  const [title, setTitle] = React.useState(props.initialTitle);
+
+  return &lt;input onChange={e => setTitle(e.target.value) value={title} />;
+}
+                  </code></pre>
+          <ul>
+            <li class="fragment">
+              Aufruf des Setters <b>löst erneutes rendern der <i>gesamten</i> Komponente aus</b>
+            </li>
+            <li class="fragment">
+              Es können mehrere States erzeugt werden, durch Verwendung mehrerer useState-Aufrufe
+            </li>
+            <li class="fragment">
+              <b>Zustand</b> ist eines der <b>zentralen</b> Konzepte von React
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>React Hooks</h3>
+          <em>Mit React Hooks kann sich eine Komponente in Zustand und Lebenszyklus "einhaken"</em>
+          <ul>
+            <li class="fragment">
+              Hooks sind "normale" Funktionen, müssen aber mit <code>use</code> beginnen (useState,
+              useEffect, ...)
+            </li>
+            <li class="fragment">
+              Beispiel: Importieren und verwenden von Hooks
+
+              <pre><code class="javascript" contenteditable data-trim>
+                import React from "react";
+
+                function HelloWorld(props) {
+                  const [title, setTitle] = React.useState(props.initialTitle);
+                  // ...
+                }
+                                  </code></pre>
+              <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                                      import React, { useState } from "react";
+                      
+                                      function HelloWorld(props) {
+                                        const [title, setTitle] = useState(props.initialTitle);
+                                        // ...
+                                      }
+                                                        </code></pre>
+
+              <ul>
+                <li class="fragment">
+                  (<code>React</code> muss immer <b>importiert</b> werden, wenn JSX verwendet wird!)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>React Hooks</h3>
+          <em>Es gibt einige Regeln zu beachten, bei der Verwendung von Hooks 👆</em>
+          <p style="font-size:75%;margin-top:0">
+            <a href="https://reactjs.org/docs/hooks-rules.html"
+              >(https://reactjs.org/docs/hooks-rules.html)</a
+            >
+          </p>
+          <div class="fragment">
+            <p>Einschränkungen:</p>
+            <ul>
+              <li class="fragment">
+                Hooks können nur in Funktionskomponenten (und anderen Hooks) aufgerufen werden
+              </li>
+              <li class="fragment">
+                Hooks müssen immer in derselben Reihenfolge und auf Top-Level-Ebene verwendet werden
+                <ul>
+                  <li>Verboten z.B. in Schleifen, if-Abfragen oder in anderen Funktionen</li>
+                </ul>
+              </li>
+              <li class="fragment">
+                Es gibt ein
+                <a href="https://www.npmjs.com/package/eslint-plugin-react-hooks">ESLint Plug-in</a>
+                zur korrekten Verwendung der Hooks
+              </li>
+            </ul>
+          </div>
+          <p class="fragment">
+            <em
+              >Der Hooks-Mechanismus basiert intern darauf, dass React sich die Reihenfolge der
+              <code>useXyz</code>-Aufrufe merkt!</em
+            >
+          </p>
+        </section>
+        <section>
+          <h3>React Hooks</h3>
+
+          <em>Beispiele für korrekte und unerlaubte Verwendung</em>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              // ERLAUBT:
+              function HelloWorld(props) {
+                const [greeting, setGreeting] = React.useState(props.initialGreeting);
+                const [name, setName] = React.useState(props.initialName);
+                // ...
+              }
+                                </code></pre>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                                    // ERLAUBT:
+                                    function HelloWorld(props) {
+                                      const [greeting, setGreeting] = React.useState(props.initialGreeting);
+                                      const uppercaseGreeting = greeting.toUpperCase(); 
+                                      const [name, setName] = React.useState(props.initialName);
+                                      // ...
+                                    }
+                                                      </code></pre>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                                    // VERBOTEN:
+                                    function HelloWorld(props) {
+                                      const [greeting, setGreeting] = React.useState(props.initialGreeting);
+                                      if (greeting !== null) {
+                                        const [name, setName] = React.useState(props.initialName);
+                                      }
+                                      // ...
+                                    }
+                                                      </code></pre>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                          // VERBOTEN:
+                          function HelloWorld(props) {
+                            const [greeting, setGreeting] = React.useState(props.initialGreeting);
+                            if (greeting === null) {
+                              return <h1>Please enter greeting first</h1>;
+                            }
+                            // ...
+                          }
+                                            </code></pre>
+        </section>
+        <section>
+          <h3>React Hooks</h3>
+          <em>Beispiele für korrekte und unerlaubte Verwendung #2</em>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              // VERBOTEN 
+              function HelloWorld(props) {
+                function initState() {
+                  return React.useState(props.initialGreeting);
+                }
+                const [greeting, setGreeting] = initState();
+              }
+            </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                // VERBOTEN (initState ist 'normale' Funktion)
+                function initState() {
+                  return React.useState(props.initialGreeting);
+                }
+
+                function HelloWorld(props) {
+                  // wäre erlaubt, wenn initState 'useInitState' hieße
+                  const [greeting, setGreeting] = initState();
+                }
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Render Zyklus</h3>
+          <img src="slides/images/render-cycle.png" height="550px" />
+        </section>
+
+        <section>
+          <h3>Virtual DOM</h3>
+          <p>"Rendern" hat leider doppelte Bedeutung!</p>
+          <img src="slides/images/vdom.png" style="height:650px" />
+        </section>
+
+        <section>
+          <h3>Listen</h3>
+          <p>JSX bietet nichts für Listen</p>
+          <p>
+            Ausgabe typischerweise über
+            <code>Array.map()</code>
+          </p>
+          <p>Elemente einer Liste brauchen einen eindeutigen Key</p>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+const posts = [
+  { id: 0, title: 'Hello World', body: 'Lorem ipsum' },
+  { id: 1, title: 'React in a Nutshell', body: 'Lets get started with React' }
+];
+
+function PostList(props) {
+  return {props.posts.map(post => (
+    &lt;div key={post.id}>
+        &lt;h1>{post.title}&lt;/h1>
+        &lt;p>{post.body}&lt;/p>
+    &lt;/div>
+  )}
+}
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Komponentenhierarchien</h2>
+        </section>
+        <section>
+          <h3>Datenfluss in React-Anwendungen</h3>
+          <ol>
+            <li>
+              In React-Anwendungen werden Komponenten zu Anwendungen in Hierarchien zusammengesteckt
+            </li>
+            <li>
+              Innerhalb einer Hierarchie wird immer nur in eine Richtung kommuniziert:
+              Eltern-Komponenten übergeben Properties an ihre Kinder
+            </li>
+            <li>
+              Mit den Properties werden Daten von "oben" nach "unten" gereicht (ggf. über mehr als
+              eine Hierarchie-Ebene)
+            </li>
+            <li>Über Properties können auch Callback-Funktionen nach unten gereicht werden.</li>
+            <li>
+              Eine Kind-Komponente kann diese Funktion dann aufrufen, und der Eltern Komponente
+              darüber ein Signal geben <br />(so, wie wir das schon beim onChange-Property des
+              input-Felds gesehen haben)
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Smart und Dumb-Komponenten #1</h3>
+
+          <p>
+            Zur Erinnerung: in React bauen wir Komponenten. Komponenten bestehen aus Logik, Zustand
+            und UI (HTML-Elemente und Styling)
+          </p>
+          <p>
+            Ein bekanntes Muster ist, die Komponenten in zwei Arten aufzuteilen:
+            <b>Smart (oder Controller)</b>- und <b>Dumb oder (Presentation-)</b>-Komponenten
+          </p>
+          <p>Technisch sind die Komponenten identisch, also "normale" React-Komponenten</p>
+          <p>Nur ihre <b>Aufgabe</b> ist anders definiert...</p>
+        </section>
+
+        <section>
+          <h3>Smart und Dumb-Komponenten #2</h3>
+          <p>Smart-Komponenten enthalten Logik und Zustand</p>
+          <p>Dumb-Komponenten sind nur zur Darstellung der Daten</p>
+          <p>
+            Smart-Komponenten reichen Zustand in die Dumb-Komponenten. Diese zeigen den Zustand an
+          </p>
+          <p>
+            Smart-Komponenten reichen Callback-Funktion als Event-Handler an die Dumb-Komponenten
+          </p>
+          <p>
+            Wenn in Dumb-Komponenten ein Ereignis eintritt (z.B. Button-Click oder Texteingabe),
+            wird eine Callback-Funktion aufgerufen
+          </p>
+          <p>
+            Die Callback-Funktion wird dann in der Smart-Komponente aufgerufen und die Verarbeitung
+            ausgeführt
+          </p>
+          <p>
+            Die Smart-Komponente setzt ihren Zustand neu, und rendert sich und ihre Kinder (die
+            Dumb-Komponenten) neu
+          </p>
+        </section>
+
+        <section data-markdown data-transition="none">
+          <textarea data-template>
+    ### Kommunikation zwischen beliebigen Anwendungsteilen
+    
+    <img src='slides/images/smart-dumb-1.png' height="600">
+                    </textarea
+          >
+        </section>
+
+        <section data-markdown data-transition="none">
+          <textarea data-template>
+    ### Kommunikation zwischen beliebigen Anwendungsteilen
+    
+    <img src='slides/images/smart-dumb-2.png' height="600">
+                    </textarea
+          >
+        </section>
+
+        <section data-markdown data-transition="none">
+          <textarea data-template>
+    ### Kommunikation zwischen beliebigen Anwendungsteilen
+    
+    <img src='slides/images/smart-dumb-3.png' height="600">
+                    </textarea
+          >
+        </section>
+
+        <section data-markdown data-markdown data-transition="none">
+          <textarea data-template>
+    ### Kommunikation zwischen beliebigen Anwendungsteilen
+    
+    <img src='slides/images/datenfluss-4.png' height="550">
+    
+    Klarer Daten- und Kontroll-Fluss    
+                      </textarea
+          >
+        </section>
+
+        <section>
+          <h3>Beispiel</h3>
+
+          <p>
+            Unsere Smart-Komponente hält eine Liste von Blog-Posts und steuert, welche Ansicht aktiv
+            ist
+          </p>
+          <p>Die Smart-Komponente gibt die Liste der Blog-Posts an die BlogList zum Anzeigen</p>
+          <p>
+            Die Smart-Komponente gibt jeweils eine Callback-Funktion an die BlogList und die AddForm
+          </p>
+
+          <pre><code>
+function App() {
+  const [posts, setPosts] = React.useState([]);
+  const [view, setView] = React.useState("list");
+
+  function addPost(newPost) {
+    // Neuen Post hinzufügen
+    setPosts([...posts, newPost]);
+
+    // Wieder Liste anzeigen
+    setView("list");
+  }
+
+  if (view === "list") {
+    return &lt;BlogList posts={posts} onAdd={() => setView("addForm")} />
+  }
+
+  return &lt;AddForm onAdd={addPost} />
+
+}            
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Beispiel #2</h3>
+
+          <p>
+            Die BlogList zeigt die übergebene Liste nur an und informiert die App, wenn auf den
+            "Add"-Button gedrückt wurde
+          </p>
+          <p>Die App kann dann die andere Komponente (AddForm) anzeigen</p>
+
+          <pre><code>
+  function BlogList(props) {
+
+    return &lt;div>
+      // ... Liste anzeigen ...
+      &lt;button onClick={props.onAdd}>Add Blog Post&lt;/button>
+    &lt;/div>;
+  }            
+  </code></pre>
+        </section>
+
+        <section>
+          <h3>Beispiel #3</h3>
+
+          <p>
+            Die AddForm erfasst einen neuen BlogPost und übergibt diesen der Callback-Funktion, so
+            dass die App-Komponente ihn in die Liste der BlogPosts (State) einfügen kann
+          </p>
+          <pre><code>
+  function AddForm(props) {
+    const [title, setTitle] = React.useState("");
+    const [body, setBody] = React.useState("");
+
+    function addPost() {
+      const newPost = {
+        title, body
+      }
+
+      // App-Komponente informieren
+      props.onAdd(newPost);
+    }
+
+    return &lt;div>
+      // ... Formular rendern ...
+      &lt;button onClick={addPost}>Save Post&lt;/button>
+    &lt;/div>;
+  }            
+  </code></pre>
+        </section>
+
+        <section id="server">
+          <h1>Daten lesen und schreiben vom Server</h1>
+        </section>
+
+        <section>
+          <h3>Der Blog-Server</h3>
+          <p>
+            Der Server ist bereits fertig. Zum Starten:
+          </p>
+          <pre><code>
+                  cd react-training/blog-example/backend
+                  npm start
+                </code></pre>
+          <p>Der Server ist über Port 7000 erreichbar</p>
+          <p>
+            Zum Testen:
+            <a href="http://localhost:7000/posts">http://localhost:7000/posts</a>
+          </p>
+        </section>
+
+        <section>
+          <h3>Der Blog-Server</h3>
+          <p>
+            Die Endpunkte:
+          </p>
+          <p><b>GET /posts</b> Alle Blog Posts abfragen</p>
+          <p><b>GET /posts?short</b>: Alle Blog Post IDs und deren Titel</p>
+          <p><b>GET /posts/:id</b> Einen einzelnen Blog Post lesen</p>
+          <p>
+            <b>POST /posts</b> Einen neuen Blog Post anlegen. Als Payload/Body muss ein Objekt mit
+            <code>title</code> und <code>string</code> übertragen werden. Als Ergebnis wird der
+            komplette, neue Blog Post (inklusive ID) zurück gegeben
+          </p>
+          <p><b>DELETE /posts/:id</b> Einen Blog-Post löschen</p>
+          <p>
+            Außerdem kann allen Requests der URL Parameter<b>?slow</b> übergeben werden, um die
+            Antwort künstlich zu verlangsamen (wenn ihr z.B. mit Wartezuständen arbeiten wollt)
+          </p>
+        </section>
+
+        <section>
+          <h3>Server-Calls</h3>
+          <p>React macht keine Angabe, wie Server-Calls (technisch) gemacht werden</p>
+          <p>
+            Häufig in React verwendet:
+            <a href="https://developer.mozilla.org/de/docs/Web/API/Fetch_API">fetch</a> API
+          </p>
+        </section>
+
+        <section>
+          <h3>Beispiel: fetch</h3>
+          <p>Daten lesen per GET</p>
+          <pre><code class="javascript" contenteditable data-trim>
+          // Für GET Zugriff reicht es, die URL anzugeben:
+          try {
+            const response = await fetch('http://localhost:7000/api/greetings')
+            const json = await response.json();
+            // ...
+          } (catch ex) {
+            console.error('request failed', ex)
+          }
+          </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+// Alternative mit Promise:
+
+fetch('http://localhost:7000/posts')
+  .then(response => response.json())
+  .then(json => /* ... */)
+  .catch(ex => console.error('request failed', ex));
+</code></pre>
+        </section>
+        <section>
+          <h3>Beispiel #2: fetch</h3>
+          <p>Daten lesen per POST</p>
+          <div class="fragment">
+            <p>
+              <code>fetch</code> erwartet als zweiten Parameter ein Objekt mit
+              Konfigurationsparametern, u.a:
+            </p>
+
+            <ul>
+              <li>
+                <code>method</code>: gibt die HTTP Methode an ( <code>PUT</code>, <code>POST</code>,
+                <code>DELETE</code>, ...)
+              </li>
+              <li><code>headers</code>: Objekt mit HTTP Headern für den Request</li>
+              <li><code>body</code>: Der Request-Payload (als String)</li>
+            </ul>
+          </div>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(payload)
+})
+// ... 
+    </code></pre>
+        </section>
+
+        <section>
+          <h3>fetch im Detail</h3>
+
+          <pre><code class="javascript" contenteditable data-trim>
+  try {
+    // 1. fetch gibt ein Promise zurück, dass mit dem
+    // Response-Objekt aufgelöst wird, wenn die Antwort vom Server
+    // kommt
+    const response = await fetch('http://localhost:7000/posts');
+  
+    // 2. das Response Objekt enthält eine json() Funktion,
+    // die das geparse JSON aus der Antwort zurückliefert
+    const posts = await response.json();
+  
+    // WAS MACHEN WIR MIT DER ANTWORT?
+    // ???
+  } catch (err) {
+    // 4. Falls etwas schief geht, Fehler loggen
+    console.error('request failed', err);
+  }
+  
+  </code></pre>
+          <p>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API Doku</a>
+          </p>
+        </section>
+
+        <section>
+          <h3>useEffect-Hook</h3>
+          <em
+            >In der Render-Phase einer Komponente (das ist die Ausführung der Komponenten-Funktion)
+            darfst Du keine Seiteneffekte (z.B. Server-Zugriffe) machen.</em
+          >
+          <p>
+            Der useEffekt-Hook erlaubt es dir aber, Seiteneffekte zu definierten (späteren)
+            Zeitpunkten auszuführen
+          </p>
+        </section>
+        <section>
+          <h3>useEffect-Hook</h3>
+
+          <div class="fragment">
+            <p>
+              Als 1. Parameter übergibst Du eine Callback-Funktion, die deinen Code enthält. Dieser
+              darf Seiteneffekte enthalten, z.B. einen fetch-Aufruf
+            </p>
+
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                function App(props) {
+                  React.useEffect( 
+                    () => console.log("Ich werde nach JEDEM Rendern ausgeführt")
+                  );
+                }
+              </code></pre>
+          </div>
+
+          <div class="fragment">
+            2. Parameter (Array) gibt an, wann der Effekt ausgeführt werden soll:
+
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                function App(props) {
+                  React.useEffect( 
+                    () => console.log("Ich werde nur nach 1. Rendern ausgeführt"),
+                    []
+                  );
+                }
+              </code></pre>
+          </div>
+
+          <div class="fragment">
+            Nach 1. Rendern ausführen und wenn sich das postId-Property ändert:
+
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                  function BlogPost(props) {
+                    React.useEffect(
+                      () => console.log("..."), 
+                      [props.postId]
+                    );
+                  }
+                </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>useEffect Hook</h3>
+
+          <p>Zwei Parameter:</p>
+          <ol>
+            <li class="fragment">
+              Callback-Funktion, die aufgerufen wenn entsprechendes Ereignis eintritt (z.B.
+              initiales Rendern abgeschlossen)
+            </li>
+            <li class="fragment">
+              Ein Array mit Abhängigkeiten:
+              <ul>
+                <li class="fragment">
+                  Wenn kein Array angegeben wird, wird der Effekt nach jedem Rendern ausgeführt
+                  (Achtung! Endlosschleife möglich)
+                </li>
+                <li class="fragment">
+                  Wenn ein leeres Array angegeben wird, wird der Effekt nur nach dem 1. Rendern
+                  ausgeführt
+                </li>
+                <li class="fragment">
+                  Wenn Werte angegeben werden, wird der Effekt ausgeführt, wenn sich mind. 1 Wert
+                  zwischen zwei Render-Zyklen verändert hat
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Initiales Laden von Daten</h3>
+
+          <div>
+            <p>
+              <code>useEffect</code> und (<code>useState</code>) werden verwendet um Daten nach dem
+              1. Rendern zu laden:
+            </p>
+            <pre><code class="javascript" contenteditable data-trim>
+                function App() {
+                  const [posts, setPosts] = React.useState([]);
+                
+                  React.useEffect(() => {
+                    fetch("http://localhost:7000/posts")
+                      .then(response => response.json())
+                      .then(json => setPosts(json));
+                  }, []);
+
+                  return {posts.map(p => (
+                    &lt;Post key={p.id} post={p} />
+                  ))}
+                }
+                
+                </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>Initiales Laden von Daten</h3>
+
+          <p>Lifecycle des gezeigten Beispiels:</p>
+          <ol>
+            <li>Komponenten-Funktion wird ausgeführt (Komponente wird "gerendert")</li>
+            <li>State mit leerem Array initialisiert</li>
+            <li>Effekt zum Laden der Daten wird registriert</li>
+            <li>
+              UI-Code wird zurückgegeben (leere Liste mit Posts, da noch keine Daten geladen sind)
+            </li>
+            <li>React erzeugt den nativen DOM für die UI</li>
+            <li>Der registrierte Effekt wird ausgeführt, der Server-Call gestartet</li>
+            <li>Der Server-Call kommt zurück, die Daten werden in den State gesetzt</li>
+            <li>
+              Durch das Setzen des States, wird die Komponente erneut gerendert, also wird die
+              Komponenten-Funktion neu aufgerufen
+            </li>
+            <li>Der State ist nun das Array mit den geladenen Daten</li>
+            <li>Der Effekt wird nicht erneut registriert (leeres Array als 2. Parameter)</li>
+            <li>Die Komponente liefert nun die UI für die geladene Liste zurück</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Speichern von Daten</h3>
+          <p>Zum Beispiel als Folge einer Benutzerinteraktion:</p>
+          <p class="fragment">Im Event-Handler dürfen wir direkt Seiteneffekte nutzen</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+function App(props) {
+  // laden, wie gesehen
+  React.useEffect( ... );
+
+  function addPost(post) {
+    fetch("http://localhost:7000/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(post)
+    })
+      .then(response => response.json())
+      .then(newPost => setPosts([newPost, ...posts]));
+  }
+
+
+  return
+    ...
+      &lt;CreatePostForm onAdd={newPost => addPost(newPost)} />
+    ...
+}
+                </code></pre>
+        </section>
+
+        <section id="t-router">
+          <h2>Client-seitiges Routing</h2>
+
+          <p>Beispiel: code/blog-example/beispiele/04_blog-app-mit-router</p>
+        </section>
+        <section>
+          <h2>Warum Routing?</h2>
+          <span>
+            <p>
+              Mappen von URLs auf Komponenten
+              <br />
+              <span style="font-size: 80%">(Navigation findet ohne Server-Roundtrip statt)</span>
+            </p>
+          </span>
+          <span>
+            <p>
+              Komponenten halten (Teil) des Zustandes der Anwendung
+              <br />
+              <span style="font-size: 80%"
+                >Welche "Seite" ist sichtbar (Blog Liste, Formular oder Einzelansicht)?</span
+              >
+              <br />
+              <span style="font-size: 80%"
+                >Welche Daten werden dafür geladen (z.B. Blog Post Id)</span
+              >
+            </p>
+          </span>
+        </section>
+
+        <section>
+          <h2>React Router</h2>
+          <ul>
+            <li>
+              Aktuelle Version 5.1:
+              <a href="https://reacttraining.com/react-router/" target="_blank">
+                https://reacttraining.com/react-router/</a
+              >
+            </li>
+            <li>Kein Bestandteil von React</li>
+            <li>Sehr häufig verwendet (de-facto Standard)</li>
+            <li>(Erst) seit Version 5.1 mit Hooks API (useParams, useLocation, useHistory)</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Das Router-Objekt</h3>
+          <p class="fragment">
+            Top-Level-Objekt, das einmalig (oben) in der Komponenten Hierarchie eingebunden werden
+            muss
+          </p>
+          <p class="fragment">
+            Mehrere Ausprägungen zum Arbeiten mit den URL und der Browser History:
+          </p>
+          <ul>
+            <li class="fragment"><b>HashRouter</b>: codiert Pfad in angehängten Hash (#/post/1)</li>
+            <li class="fragment"><b>BrowserRouter</b>: codiert Pfad direkt in URL (/post/1)</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router} from "react-router-dom";
+      
+      const app = &lt;Router>&lt;App/>&lt;/Router>;
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Welche Komponente soll für einen Pfad gerendert werden</h3>
+          <p class="fragment">Das <code>Route</code>-Objekt mappt Pfade auf Komponenten</p>
+          <ul>
+            <li class="fragment">
+              Wird verwendet, wo Pfad-abhängig Komponenten ausgewählt werden sollen
+              <ul>
+                <li>
+                  vergleichbar mit intelligentem <code>if</code>/ <code>switch</code> statement
+                </li>
+                <li>
+                  <b>Kann überall in der Anwendung</b> verwendet werden (auf allen
+                  Hierarchie-Ebenenen)
+                </li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Mit <code>path</code> wird der Pfad übergeben, für den die Route matchen soll
+            </li>
+            <li class="fragment">Als Children wird die Komponente angegeben</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router, Route} from "react-router-dom";
+      
+      const app = &lt;Router>
+        &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
+        &lt;Route path="/add">&lt;AddPostPage onAdd={...} />&lt;/Route>
+        &lt;Route path="/" exact>&lt;BlogListPage />&lt;/Route>
+      &lt;/Router>;
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Hintergrund: Pfade</h3>
+          <p>
+            In Routen werden <b>Pfade</b> angegeben, die mit der aktuellen URL verglichen werden
+          </p>
+
+          <ul>
+            <li>
+              Pfade sind per Default gültig für Teilstrings, aber mit <code>exact</code> kann das
+              Verhalten verändert werden
+            </li>
+            <li>Eine Route ohne <code>path</code> matcht immer</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      // trifft zu für / und /greeting
+      &lt;Route path="/">...&lt;/Route>
+      
+      // trifft nur zu für /
+      &lt;Route path="/" exact>...&lt;/Route>
+      
+      // passt auf JEDE URL:
+      &lt;Route>...&lt;/Route>
+      
+              </code></pre>
+          <ul>
+            <li class="fragment">Kann variable Segmente enthalten:</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      &lt;Route path="/posts/:postId">&lt;BlogPostPage/>&lt;/Route>
+           </code> </pre>
+          <ul>
+            <li class="fragment">
+              Werte der variablen Parameter werden mit useParams in der Komponente abgefragt:
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                import { useParams } from "react-router";
+
+                function BlogPostPage() {
+                  const params = useParams();
+
+                  // params.postId enthält den variablen Wert aus der URL
+                </code></pre>
+        </section>
+        <section>
+          <h3>Switch</h3>
+          <ul>
+            <li class="fragment">
+              Wenn mehrere path-Ausdrücke matchen, werden mehrere Komponenten gerendert (z.B. "/"
+              und "/post")
+            </li>
+            <li class="fragment">
+              <code>Switch</code> sorgt dafür, dass nur die erste Komponente im Block gerendert wird
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router, Route, Switch} from "react-router-dom";
+      
+      const app = (
+        &lt;Router>
+          &lt;Switch>
+            &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
+            &lt;Route path="/" exact>&lt;BlogListPage/>&lt;/Route>
+      
+            // "No match": ohne Pfad
+            &lt;Route>&lt;NotFoundPage/>&lt;/Route>
+      
+          &lt;/Switch>
+        &lt;/Router>
+      );
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Links</h3>
+          <p>Mit <code>Link</code> und <code>NavLink</code> können Links erzeugt werden</p>
+          <ul>
+            <li>Mit <code>to</code> wird das Ziel angegeben</li>
+            <li>Gerendert wird per default ein <code>a</code> Element</li>
+            <li>URL wird entsprechend der History (Browser oder Hash) erzeugt</li>
+            <li>
+              Mit <code>activeClassName</code> und <code>activeStyle</code> auf
+              <code>NavLink</code> können Styles übergeben werden, die angewendet werden, wenn der
+              Link der aktiven Route entspricht
+            </li>
+          </ul>
+
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {Link, NavLink} from "react-router-dom";
+      
+      &lt;Link to='/'>Show all Posts&lt;/Link>
+      
+      // Erzeugtes 'a' Element erhält 'highlight' CSS-Klasse, wenn die aktive Route
+      &lt;NavLink to='/add' activeClassName="highlight">Add Post&lt;/NavLink>
+      
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Das history-Objekt</h3>
+          <p>Mit dem <code>history</code>-Objekt kann mit der Browser History interagiert werden</p>
+          <p>
+            Mit der History kann auf andere URLs gesprungen werden oder die Location abgefragt
+            werden
+          </p>
+          <p class="fragment">Komponenten bekommen das history-Objekt über den useHistory Hook</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import { useHistory } from "react-router";
+
+      function App() {
+        const history = useHistory();
+
+        function onAdd(newBlogPost) {
+           ...
+
+           // gehe zu neuer URL
+           history.push("/"); 
+
+           // Alternativ: gehe zu neuer URL, lösche aber aktuelle aus 
+           // History im Browser
+           history.replace("/...") 
+        }
+
+        return ...;
+      }
+              </code></pre>
+        </section>
+
+        <section>
+          <h2>Geschafft 😊</h2>
+          <h3>Vielen Dank für Eure Teilnahme!</h3>
+          <p>
+            Kontakt:
+          </p>
+          <p>Mail: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a></p>
+          <p>
+            Web: <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a>
+          </p>
+          <p>
+            Twitter: <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+        </section>
+      </div>
+    </div>
+
+    <script src="slides/reveal.js/lib/js/head.min.js"></script>
+    <script src="slides/reveal.js/js/reveal.js"></script>
+    <script src="slides/reveal.js/lib/jquery-2.2.4.js"></script>
+    <script src="slides/reveal-config.js"></script>
+  </body>
+</html>

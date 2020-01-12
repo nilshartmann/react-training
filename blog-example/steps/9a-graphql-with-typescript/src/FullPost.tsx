@@ -9,7 +9,7 @@ type PostProps = {
   post: PostPageQuery_post;
 };
 
-export default function Post({ post }: PostProps) {
+export default function FullPost({ post }: PostProps) {
   return (
     <article className="Container">
       <p className="Date">{formattedDate(post.date)}</p>

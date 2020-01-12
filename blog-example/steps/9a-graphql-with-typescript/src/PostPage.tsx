@@ -1,5 +1,5 @@
 import React from "react";
-import Post from "./Post";
+import FullPost from "./FullPost";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
@@ -55,7 +55,7 @@ export default function PostPage() {
       <Link className="Button" to="/">
         Home
       </Link>
-      <Post post={data.post} />
+      <FullPost post={data.post} />
     </>
   );
 }

@@ -10,6 +10,10 @@ export interface PostListQuery_posts {
   __typename: "BlogPost";
   id: string;
   title: string;
+  /**
+   * Returns the first n-th chars of the body
+   */
+  teaser: string | null;
   date: string;
 }
 

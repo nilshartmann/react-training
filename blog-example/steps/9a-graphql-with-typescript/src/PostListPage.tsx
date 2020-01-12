@@ -10,6 +10,7 @@ const POST_LIST_QUERY = gql`
     posts {
       id
       title
+      teaser(maxLength: 20)
       date
     }
   }
