@@ -193,11 +193,11 @@
 
         <section id="interaktiv-hellomessage">
           <h3>Hello World React</h3>
-          <code>HelloWorld.js</code>
+          <code>PostEditor.js</code>
           <pre><code data-trim contenteditable>
   import React from "react";
   
-  export default function HelloWorld(props) {
+  export default function PostEditor(props) {
     const [title, setTitle] = React.useState("");
   
     return (
@@ -235,9 +235,9 @@
   import React from 'react';
   import ReactDOM from 'react-dom';
   
-  import HelloWorld from './HelloWorld';
+  import PostEditor from './PostEditor';
   
-  ReactDOM.render(&lt;HelloWorld />, 
+  ReactDOM.render(&lt;PostEditor />, 
     document.getElementById('root')
   );
   </code></pre>
@@ -289,23 +289,36 @@
           <img src="slides/images/webpack-und-babel.png" style="height:600px" />
         </section>
 
-         <section>
-          <h3>Das Beispiel-Projekt</h3>
+        <section>
+          <h3>The Example Project</h3>
           <p>Workspace</p>
           <ul class="x-list">
-            <li style="margin-bottom:40px"><code>2019_training_september.html</code> Slides im Root-Verzeichnis</li>
             <li style="margin-bottom:40px">
-              <code>code/<b>workspace</b></code
-              >: Verzeichnis für Eure Übungen<br />👉&nbsp;Empfehlung: dieses Verzeichnis in VS Code/IDE
-              öffnen
+              <code>2020_react_and_graphql.html</code>: This slides (root folder)
             </li>
-            <li>
-              <code>code/<b>material</b></code
+            <li class="fragment" style="margin-bottom:40px">
+              <code>2020_js_introduction.html</code>: JS Intro Slides from tuesday
+            </li>
+            <li class="fragment" style="margin-bottom:40px">
+              All Code we need is inside the <code><b>blog-example</b></code> subfolder
+            </li>
+
+            <li class="fragment" style="margin-bottom:40px">
+              <code>blog-example/<b>workspace</b></code
+              >: Folder for your exercises <br />👉&nbsp;<b>Recommandation</b>: only open this file
+              in VS Code (or your IDE)
+            </li>
+            <li class="fragment">
+              <code>blog-example/<b>material</b></code
               >: Code als Ausgangspunkt für Übungen
             </li>
-            <li>
-              <code>code/<b>schritte</b></code
-              >: Fertige Stände nach den einzelnen Teilen
+            <li class="fragment">
+              <code>blog-example/<b>steps</b></code
+              >: Final source code after each training part
+            </li>
+            <li class="fragment">
+              <code>blog-example/steps/XX/<b>build/index.html</b></code
+              >: The built application for a step (just open index.html in your browser)
             </li>
           </ul>
         </section>
@@ -331,25 +344,27 @@
             </li>
 
             <li>
-              Your browser should be opened automatically at <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>
+              Your browser should be opened automatically at
+              <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>
             </li>
 
             <li>If you see "Hello, World", everything is fine!</li>
           </ol>
-
         </section>
         <section>
           <h3>Step #2: Your first React component</h3>
           <em>Build the first mini step of your PostEditor component</em>
           <ul>
             <li>
-              Replace the "static" component in <code>PostEditor.js</code> with the React Code from the
-              previous slides. 
+              Replace the "static" component in <code>PostEditor.js</code> with the React Code from
+              the previous slides.
             </li>
             <li>The Component should be called <b>PostEditor</b></li>
             <li>It should have a state (title) and an input field for that state</li>
-            <li><em>Optional: do some experiments with the component, change things like:</em>
-              <ul><li>The text entered should be displayed in uppercase only</li>
+            <li>
+              <em>Optional: do some experiments with the component, change things like:</em>
+              <ul>
+                <li>The text entered should be displayed in uppercase only</li>
                 <li>If the text field is empty a message should be displayed</li>
               </ul>
             </li>
@@ -750,7 +765,7 @@ function HelloWorld(props) {
           </p>
           <p>Example: calling <code>focus()</code> on an element?</p>
 
-          <p class="todo">Live Coding</p>
+          <p>👉 Let's look into our code (Live Coding)</p>
         </section>
         <section>
           <h3>References to native DOM</h3>
@@ -794,45 +809,31 @@ function PostEditor(props) {
         </section>
 
         <section>
-          <h2>Übung 2: Detail-Ansicht für unsere Gruß-Anwendung</h2>
+          <h2>Excercise 2: Post-Editor for our Application </h2>
           <em
             ><b
-              >Erzeuge eine Komponente mit der man einen Namen und eine Grußformel eingeben kann</b
+              >Enhance your component with new features</b
             ></em
           >
         </section>
         <section>
-          <h3>Schritte</h3>
-          <h4>Erweitere deine erste React-Komponente im workspace-Ordner</h4>
+          <h3>Steps</h3>
+          <h4>Enhance your existing component from the last exercise</h4>
           <ol class="x-list">
             <li>
-              benenne deine HelloMessage-Komponente (und das HelloMessage-Modul) in
-              <code>GreetingDetail</code> um
-            </li>
-
-            <li>
-              du brauchst zwei Eingabefelder, die <code>name</code> und <code>greeting</code> im
-              Zustand der Komponente setzen
-            </li>
-
-            <li>
-              Erweitere deine Komponente so, dass man von außen Properties übergeben kann, die den
-              Zustand initialisieren (<code>initialGreeting</code> und <code>initialName</code>)
+              In addition to "title", you need another input field, called <code>body</code>. 
             </li>
             <li>
-              Füge einen "Clear"-Button hinzu, der den Inhalt beider Eingabefelder löscht. Das
-              entsprechende Event auf dem Button heißt <code>onClick</code>. <br />Nach dem Löschen
-              der Eingabefelder sollte der Focus auf das erste Eingabefeld (<code>name</code>)
-              gesetzt werden
-            </li>
-            <li>
-              REFERENZ FÜR FOCUS:
-              <pre><code>const inputRef = React.useRef();
-function clear() { set...(); inputRef.current.focus(); }              
-// ...
-&lt;input type="..." ref={inputRef} ... />
-&lt;button onClick={clear}>Clear&lt;/button>                
-              </code></pre>
+              Add a "clear"-Button, that clears both input fields. The property for the event
+              on the button is called <code>onClick</code>.
+              <ul><li>
+              The "clear"-Button should be disabled as long as one of the input fields is empty.
+              To disable a button element, you can set it's <code>disabled</code> property to <code>true</code>.
+              </li><li>
+              After the button has been pressed and the input has been cleared, transfer the 
+              focus to the first input field (<code>title</code>)
+              </li>
+            </ul>
             </li>
           </ol>
         </section>
@@ -2292,8 +2293,8 @@ it("it should switch between views", async () => {
         <section>
           <h2>String Literal Types</h2>
           <p>
-            Using a String Literal Type, you can specify with exact strings a type can have. 
-            That allows you to build enum-like constructs.
+            Using a String Literal Type, you can specify with exact strings a type can have. That
+            allows you to build enum-like constructs.
           </p>
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
 

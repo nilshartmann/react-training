@@ -4,9 +4,13 @@ export default function PostEditor() {
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
 
+  const titleRef = React.useRef();
+  const cancelDisabled = !title && !body;
+
   function clear() {
     setTitle("");
     setBody("");
+    titleRef.current.focus();
   }
 
   return (
@@ -15,7 +19,7 @@ export default function PostEditor() {
 
       <label>
         Title
-        <input value={title} onChange={e => setTitle(e.currentTarget.value)} />
+        <input ref={titleRef} value={title} onChange={e => setTitle(e.currentTarget.value)} />
       </label>
 
       <label>
@@ -23,7 +27,9 @@ export default function PostEditor() {
         <textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
       </label>
 
-      <button onClick={clear}>Clear</button>
+      <button disabled={cancelDisabled} onClick={clear}>
+        Clear
+      </button>
     </div>
   );
 }

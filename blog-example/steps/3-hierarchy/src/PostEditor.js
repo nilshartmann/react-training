@@ -4,12 +4,15 @@ export default function PostEditor(props) {
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
 
+  const titleRef = React.useRef();
+  const cancelDisabled = !title && !body;
+  const saveButtonDisabled = !title || !body;
+
   function clear() {
     setTitle("");
     setBody("");
+    titleRef.current.focus();
   }
-
-  const saveButtonDisabled = !title || !body;
 
   return (
     <div className="Container">
@@ -25,7 +28,9 @@ export default function PostEditor(props) {
         <textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
       </label>
 
-      <button onClick={clear}>Clear</button>
+      <button disabled={cancelDisabled} onClick={clear}>
+        Clear
+      </button>
       <button
         disabled={saveButtonDisabled}
         onClick={() => {
