@@ -1,37 +1,25 @@
 import React from "react";
 import PostList from "./PostList";
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-import { PostListQuery } from "./querytypes/PostListQuery";
-import { assertDataPresent } from "./types";
 
-const POST_LIST_QUERY = gql`
-  query PostListQuery {
-    posts {
-      id
-      title
-      teaser(maxLength: 20)
-      date
-    }
-  }
-`;
+// TODO 1:
+// Define a GraphQL query that reads all needed data for the PostListPage
+// with the gql tag function
+
+// Fields needed from each post: id, title, teaser, date
+// you can try the query in the GraphQL Playground http://localhost:4000
+
+// After you have written your query with the gql function,
+// generate the needed types for it:
+//  npm run codegen
+//
+// you can also "npm run codegen:watch" that types will automatically
+// by re-generated when you save a file
 
 export default function PostListPage() {
-  const { loading, error, data } = useQuery<PostListQuery>(POST_LIST_QUERY, {
-    fetchPolicy: "cache-and-network"
-  });
-
-  if (loading) {
-    return <h1>Loading, please wait...</h1>;
-  }
-
-  if (error) {
-    return <h1>GraphQL Failed: {error.toString()}</h1>;
-  }
-
-  // data is either PostListQuery or undefined
-  assertDataPresent(data);
-
-  // data is now PostListQuery
-  return <PostList posts={data.posts} />;
+  // TODO 2: Implement this component
+  // ----------------------
+  // Use useQuery to run your query
+  // show a simple message when the data is loading or an error occured
+  // if the data has been loaded successfully, pass it to PostList component
+  return <PostList posts={[]} />;
 }

@@ -46,15 +46,16 @@ export default function PostEditorPage() {
     NewBlogPostMutationVariables
   >(NEW_BLOGPOST_MUTATION);
 
-  async function savePost(post: NewBlogPost) {
+  if (!authState) {
+    return <Redirect to="/login" />;
+  }
+
+  function savePost(post: NewBlogPost) {
     mutate({
       variables: {
         postData: post
       }
     });
-  }
-  if (!authState) {
-    return <Redirect to="/login" />;
   }
 
   const errorMessage = error ? error.toString() : data?.newPost.error;
