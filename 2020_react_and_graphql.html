@@ -88,7 +88,11 @@
               <a href="#/t-typescript">Part VI: React Applications with TypeScript</a>
             </li>
             <li>
-              <a href="#/t-router">Teil VII: Client-side Routing with React Router (Overview)</a>
+              <a href="#/t-router">Part VII: Client-side Routing with React Router (Overview)</a>
+            </li>
+
+                        <li style="margin-top: 30px">
+              <a href="#/t-graphql">Part VIII: GraphQL Clients with Apollo React</a>
             </li>
 
             <li style="margin-top: 30px">
@@ -2768,9 +2772,346 @@ function PostEditor(props) {
               </code></pre>
         </section>
 
+         <section id="t-graphql">
+          <h2>GraphQL Clients with Apollo React</h2>
+
+          <p>Example: code/blog-example/steps/9a-graphql-with-typescript</p>
+        </section>
+
+        <section>
+          <h3>Contents</h3>
+<ol>
+          <li>GraphQL concepts</li>
+          <li>GraphQL clients with React</li>
+</ol>
+        </section>
+
+        <section>
+          <h2>GraphQL</h2>
+          <h3>"GraphQL is a <em>query language for APIs</em> and a <em>runtime for fulfilling those queries</em> with your existing data"
+          </h3>
+          <p><a href="https://graphql.org">https://graphql.org</a></p>
+          <p class="fragment">Second part is your server. We don't have a look at server-side implementations in this training</p>
+        </section>
+
+         <section>
+          <h2>Apollo</h2>
+          <h3>"A community building flexible open source <em>tools for GraphQL</em>."</h3>
+          <p><a href="https://github.com/apollographql">https://github.com/apollographql</a></p>
+          <p class="fragment">Apollo Server: framework for GraphQL servers written in JavaScript<br/>
+          The example server is written using Apollo Server</p>
+          <p class="fragment"><a href="">Apollo Client</a>: library for building GraphQL clients</p>
+          <p class="fragment"><a href="https://www.apollographql.com/docs/react/api/react-apollo/">Apollo Client (React)</a> is the implementation for React clients</p>
+          <p class="fragment">De-facto Standard for React GraphQL Clients (other popular one: <a href="https://relay.dev/">Relay</a>)
+        </section>
+
+        <section>
+          <h3>Why GraphQL?</h3>
+          <p>Clients can query for the exact data they need</p>
+          <p>That allows very flexible architectures and decoupling between client and server</p>
+          <p>They ask for <b>data</b> not for <b>endpoints</b></p>
+          <p>That might reduce network traffic</p>
+          <p>You got "end-to-end" typesafety (GraphQL APIs must have a schema!)</p>
+          <p>You get a full toolstack</p>
+        </section>
+
+        <section>
+          <h3 class="todo">Toolstack</h3>
+          <p>GraphiQL / Playground</p>
+          <p>Code Generator</p>
+          <p>IDE support</p>
+          <p>apollo devtools for chrome</p>
+        </section>
+
+        <section>
+          <h3>Apollo</h3>
+        </section>
+
+        <section>
+          <h3>GraphQL</h3>
+          <h2>Query language</h2>
+        </section>
+
+        <section>
+          <h3>Query Language</h3>
+          
+          <pre class="fragment"><code class="graphql">
+{
+  posts {
+    id
+    title
+    user {
+      name
+    }
+  }
+}
+          </code></pre>
+
+          <p><b>Structured</b> language for requesting data from an API</p>
+          <p>Looks like JSON, but is a string</p>
+          <p>Requested are <b>fields</b> of (nested) objects</p>
+        </section>
+
+        <section>
+          <h3>Query Language</h3>
+          
+          <pre class="fragment"><code class="graphql">
+{
+  # postId is an argument
+  post(postId: "P1") {
+    id
+    title
+    user {
+      name
+    }
+  }
+}
+          </code></pre>
+
+          <p>Fields can have <b>arguments</b> (making them look like methods)</p>
+        </section>        
+
+        
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Query Language: Responses</h3>
+          <img src="slides/images/graphql/query-response.png" />
+
+          <p>Structure of a response matches the structure of the query</p>
+          <p>A client already knows how the answer will look like when writing the query</p>
+        </section>
+        
+        <!-- ============================================================================= -->
+        <section>
+          <h3>GraphQL: what is possible with an API?</h3>
+          <p>Every GraphQL API is described in a schema</p>
+          <p>A schema defines <b>Objects</b>. Objects have <b>Fields</b>.</p>
+          <p>A Field has a <b>Type</b></p>
+          <p>A type can either be scalar (ID, String, Int, Boolean) or another Object</p>
+          <p>A type can also be a <b>List/Array</b> of another type</p>
+          <p>Each field can be set to <b>mandatory</b> to indicate that you always get a value
+            if you query the field (not-null)</p>
+            <p>There is a reflection-like API that allows quering the schema information using GraphQL</p>
+            <p>👉Let's have a look: <code>backend-graphql/src/schema.js</code></p>
+          </section>
+
+          <section>
+            <h3>Query Language: Operations</h3>
+            <p>A <b>operation</b> describes, what the client want to do</p>
+            <p>Operations: <code>query</code> (default), <code>mutation</code> or <code>subscription</code></p>
+            
+            <pre class="fragment"><code class="graphql">
+# "query" is the operation type
+# GetPost is the operation name (optional)
+
+query GetPost {
+  post(postId: "P1") {
+    id
+    title
+    teaser
+    user {
+      name
+    }
+  }
+}              
+            </code></pre>
+          </section>
+          <section>
+            <h3>Query Language: Variables</h3>
+            <p>Operations can define variables that can be re-used in the query</p>
+            <p>Makes writing reusable queries easier (like a prepared statement for a database)</p>
+            
+            <pre class="fragment"><code class="graphql">
+# $postId is a variable here
+# You can name them as you like but the need to prefixed with $
+# You must also specify their type
+# It's value must be set with each query invocation
+
+query GetPost($postId: ID!) {
+  post(postId: $postId) {
+    id
+    title
+    teaser
+    user {
+      name
+    }
+  }
+}              
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Query Language: Mutations</h3>
+            <p>A mutation can be used to <b>modifiy</b> data on the server</p>
+            <p>(like HTTP POST, PATCH, PUT, DELETE with REST)</p>
+            <p>As with a query, you select the fields from the response that you want to have</p>
+            
+            <pre class="fragment"><code class="graphql">
+mutation CreatePlogPost($newPost: NewBlogPost!) {
+  createBlogPost(postData: $newPost) { 
+    error 
+    blogPost { id title date body }
+  }
+}           
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Query language: Aliases</h3>
+            <p>You can rename a field in the response using an <b>Alias</b></p>
+            <p>Useful if you have name conflicts or field names that doesn't make sense in your use-case</p>
+            <pre class="fragment"><code class="graphql">
+mutation CreatePlogPost($newPost: NewBlogPost!) {
+  newPost: createBlogPost(postData: $newPost) { 
+    error 
+    blogPost { 
+        id 
+        title 
+        publicationDate: date 
+        body 
+      }
+  }
+}
+</code></pre>            
+            <img class="fragment" src="slides/images/graphql/field-aliases.png" height="300px"/>
+          </section>
+
+          <section>
+            <h3>Query Language: Subscriptions</h3>
+            <p>With subscriptions, you can <b>subscribe</b> for <b>events</b> from the server</p>
+            
+            <pre class="fragment"><code class="graphql">
+subscription {
+  likedPost: onNewLike(postId: "P1") {
+    id
+    title
+    likes
+  }
+}           
+            </code></pre>
+          </section>
+          <section>
+            <h3>GraphQL: Query execution</h3>
+            <p>GraphQL queries are <b>always</b> executed using HTTP POST requests!</p>
+            <p>Query and Variables are sent in the body</p>
+            <p>There is a single endpoint that executed the queries (not multiple as with REST)</p>
+            
+            <pre class="fragment"><code class="bash">
+$ curl -X POST -H "Content-Type: application/json" \
+    -d '{"query":"{ posts { title } }"}' \
+    http://localhost:4000/
+
+
+{"data":
+  {"posts": [
+    {"title": "Creating GraphQL Frontends"},
+    {"title ": "Implementing a React App"}
+   ]}
+}              
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>GraphQL: Response from server</h3>
+            <p>Always HTTP Status 200 (with a very few exceptions)</p>
+            <p>Errors are handled using domain-specific error fields (for example)</p>
+            <p>Response is a JSON object with up to three fields:</p>
+            <div class="fragment">
+            <pre ><code class="javascript">
+{
+  {"errors": 
+    [
+      { "message": "Could not read User with ID 123",
+        "locations": [ . . . ],
+        "path": [ "post", "user" ]
+      }
+    ]
+  },
+
+  {"data": {"posts": [ . . . ] },
+
+  {"extensions": { . . . }
+}
+
+            </code></pre>
+            <p><b>errors</b> is set if an (unhandled) server error occures (like invalid data)</p>
+            <p><b>data</b>: the result of the query (as seen before)</p>
+            <p><b>extensions</b>: for server-specific informations (debuging/tracing etc). Vendor-specific!</p>
+          </div>
+          </section>
+
+          <section>
+            <h3>Exercise #1: Let's get started with GraphQL queries</h3>
+
+            <div class="fragment">
+            <p>Start the GraphQL backend:</p>
+            <ol>
+              <li>Go into <code><b>blog-example/backend-graphql</b></code></li>
+              <li><code>npm install</code></li>
+              <li><code>npm start</code></li>
+            </ol>
+          </div>
+
+          <div class="fragment">
+            <p>Open the GraphQL Playground at <a href="http://localhost:4000">http://localhost:4000</a></p>
+          </div>
+          <div class="fragment">
+            <p>Run some queries:</p>
+            <ul>
+              <li>Request the IDs of all Blog Post</li>
+              <li>Request a single Blog Post using its ID. Query its title, its likes and the name of it's author (user)
+                </li>
+                <li>Add a Like to the blog post (via mutation). Read the new number of likes from the response</li>
+              </ul>
+              <p>Inside the playground you get completion and docs on the right side</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>GraphQL Clients with React and Apollo</h2>
+        </section>
+
+        <section>
+          <h3>GraphQL Clients with React but WITHOUT Apollo</h3>
+          <p class="todo">Eventuell Workspace vorbereiten
+          <p>👉How would you implement a GraphQL client with React using all the things we learned during the past days? 🤔</p>
+        </section>
+
+        <section>
+          
+          <pre><code class="javascript">
+import React from "react";
+
+function BlogListPage() {
+  const [posts, setPosts] = React.useState([]);
+
+  React.useEffect( () => {
+    fetch("/graphql", {
+      method: "POST",
+      body: JSON.stringify({
+        query:  "{ posts { id title } }"
+      })
+    })
+    .then(res => res.json)
+    .then(json => setPosts(res.data))
+  }, [])
+
+  if (!posts) { return "Please wait"}
+  return &lt;PostList posts={posts} />;
+}
+          </code></pre>
+          <p>Will this code work?</p>
+          <p>What features are missing?</p>
+          <p>What could be improved?</p>
+          
+        </section>
+
+
+
         <section>
           <h2>That's all! 😊</h2>
           <h3>Thanks a lot for your participation!</h3>
+          <h3>Good luck with React!</h3>
           <p>
             Contact:
           </p>
