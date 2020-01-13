@@ -20,7 +20,7 @@
       <div class="slides">
         <section data-state="title">
           <h2>
-            <b>JavaScript Introduction</b>
+            <b>JavaScript, React, TypeScript &amp; GraphQL</b>
           </h2>
           <h4>
             <span class="transparent-bg">
@@ -33,34 +33,84 @@
               >
             </span>
           </h4>
-          <p>
-            <span class="transparent-bg">Slides: react-training/2020_js_introduction.html</span>
+          <p style="margin-top:4rem"></p>
+          <div>
+            <h3><span class="transparent-bg">Vorbereitung</span></h3>
+            <p>
+              <span class="transparent-bg"
+                >git clone https://github.com/nilshartmann/react-training</span
+              >
+            </p>
+            <p><span class="transparent-bg">or: cd react-training &amp;&amp; git pull</span></p>
+          </div>
+          <p style="margin-top:4rem">
+            <span class="transparent-bg"
+              >Slides: <code>react-training/2020_js_introduction.html</code></span
+            >
           </p>
+        </section>
+
+        <section>
+          <h3>
+            <b>JavaScript, React, TypeScript &amp; GraphQL</b>
+          </h3>
+          <h2>Overall Agenda</h2>
+          <ol>
+            <li>Day one: JavaScript basics</li>
+            <li>Day two and three: React (including TypeScript)</li>
+            <li>Day four: GraphQL Clients with React</li>
+          </ol>
+          <p><b>Every time</b>: Questions and discussions!</p>
+          <p>We adjust speed, agenda, topics covered etc., by your needs and wishes</p>
+        </section>
+
+        <section>
+          <h2>Nils Hartmann</h2>
+          <p>
+            <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a> /
+            <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+          <p><em>Freelance software developer, trainer and coach from Hamburg </em></p>
+
+          <div style="display:flex;justify-content:center">
+            <div>
+              <p>Java</p>
+              <p>JavaScript, TypeScript</p>
+              <p>React</p>
+              <p>Single-Page-Applications</p>
+              <p>GraphQL</p>
+            </div>
+            <div style="margin-left:15px">
+              <a href="https://reactbuch.de"
+                ><img
+                  style="max-height:450px"
+                  src="slides/images/react-buch-v2.jpg"
+                /><br />https://reactbuch.de</a
+              >
+              <br />
+            </div>
+          </div>
         </section>
 
         <!-- ============================================================================= -->
         <section>
-          <h3>Agenda</h3>
+          <h3>Agenda for today</h3>
 
           <ol>
             <li><a href="#p_jsintro">JS Inroduction (basics of the language)</a></li>
             <li><a href="#p_webdev">Web Development with JavaScript</a></li>
           </ol>
+          <p>
+            <span class="transparent-bg">Slides: react-training/2020_js_introduction.html</span>
+          </p>
           <p><b>Every time</b>: Questions and discussions!</p>
         </section>
         <section data-markdown>
           <textarea data-template>
+<p>Who feels like this when thinking about JavaScript programming? 🙋‍♀️🙋‍♂️</p>
 <img style="height: 800px" src="slides/images/screenshot-tweet-the-javascript.png" />
-<p><a class="small" href="https://twitter.com/lukaseder/status/787216648642109441">https://twitter.com/lukaseder/status/787216648642109441</a></p>
+<p><a style="font-size:small" href="https://twitter.com/lukaseder/status/787216648642109441">https://twitter.com/lukaseder/status/787216648642109441</a></p>
           </textarea>
-        </section>
-
-        <section>
-          <h2>JavaScript in practice</h2>
-
-          <p>Verzeichnis: <code>code/workspace</code></p>
-
-          <p class="todo">Mit nodemon außerhalb des Browsers ?</p>
         </section>
 
         <section>
@@ -171,14 +221,8 @@ if ("" === false) {
 
         <!-- ============================================================================= -->
         <section>
-          <p class="todo">hinter objekte?</p>
-          <h3>Control flow</h3>
-          // über object iterieren mit for of und for in // über array iterieren mit for
-        </section>
-
-        <section>
           <h3>Control flow #2</h3>
-          <p>Otherwise similiar to C#/Java</p>
+          <p>Similiar to C#/Java</p>
           <p>if / else</p>
           <p>switch / case / default</p>
           <p>while / do</p>
@@ -244,6 +288,8 @@ function greet(msg) { ... }
 const greetSomeone = greet;
 greetSomeone("World"); // Hello, World
 
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
 // function as parameter
 function printer(msgGeneratorFn) {
   console.log(msgGeneratorFn())
@@ -274,9 +320,10 @@ printer(helloWorld);
   terrible("World");
   // TypeError: awful is not a function
   </code></pre>
-          <h3 class="fragement">
-            In JavaScript you can change and remove almost everything from everywhere
-          </h3>
+          <p class="fragement">
+            Beware: In JavaScript you can change and remove almost everything from everywhere due to
+            the dynamic type system!
+          </p>
         </section>
 
         <!-- ============================================================================= -->
@@ -428,19 +475,19 @@ printer(() => greet("World"));
           <p class="fragment">What about these?</p>
 
           <pre class="fragment"><code class="javascript">
-            if (0) { console.log("zero"); } // 🤔
+            if (0) { console.log("will this be shown?"); } // 🤔
           </code></pre>
 
           <pre class="fragment"><code class="javascript">
-            if ("") { console.log("empty"); } // 🤔
+            if ("") { console.log("will this be shown?"); } // 🤔
           </code></pre>
 
           <pre class="fragment"><code class="javascript">
-            if ([]) { console.log("empty"); } // 🤔
+            if ([]) { console.log("will this be shown?"); } // 🤔
           </code></pre>
 
           <pre class="fragment"><code class="javascript">
-            if ({}) { console.log("empty"); } // 🤔
+            if ({}) { console.log("will this be shown?"); } // 🤔
           </code></pre>
         </section>
 
@@ -959,7 +1006,31 @@ lemmy.name // // Lemmy
         <!-- ============================================================================= -->
         <!-- ============================================================================= -->
 
+        <section>
+          <h3>Exercise #3: Modules</h3>
+
+          <p>Preparation</p>
+          <ol>
+            <li class="fragment">Go to <code>code/js-intro/exercises/03_modules</code></li>
+            <li class="fragment">Run <code>npx http-server</code> inside that folder</li>
+            <li class="fragment">
+              Access the example page with <a href="http://localhost:8080">http://localhost:8080</a>
+            </li>
+          </ol>
+          <p class="fragment">
+            Move verify, verifyAll and the rule functions to their own module(s)
+          </p>
+          <p class="fragment">
+            TODOs in <code><b>code/js-intro/exercises/03_modules</b></code>
+          </p>
+          <p class="fragment">
+            Remember: in <code>import</code> statements you have to add the <code>.js</code> suffix
+            to your filenames.
+          </p>
+        </section>
+
         <section id="p_webdev">
+          <h1>Part II</h1>
           <h2>Web Development with JavaScript</h2>
         </section>
 
@@ -1320,14 +1391,9 @@ button {  font-size: 20px; }
             <li class="fragment">
               <b>ESlint</b>: ensures static code quality (like spaces vs tabs 🥳)
             </li>
-            <li class="fragment">
-              <b>Prettier</b>: popular code formatter
-            </li>
+            <li class="fragment"><b>Prettier</b>: popular code formatter</li>
           </ul>
         </section>
-
-        
-
       </div>
     </div>
 

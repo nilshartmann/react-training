@@ -49,7 +49,7 @@ function verify(candidate, rules) {
   if (!rules) {
     return true;
   }
-  for (rule of rules) {
+  for (let rule of rules) {
     if (!rule(candidate)) return false;
   }
 

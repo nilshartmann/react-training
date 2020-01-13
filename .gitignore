@@ -1,5 +1,6 @@
 node_modules
 npm-debug.log
 code/**/package.json
+!code/js-intro/**/package.json
 .idea/
 .agenda/
