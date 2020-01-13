@@ -3096,7 +3096,7 @@ function BlogListPage() {
     .then(json => setPosts(res.data))
   }, [])
 
-  if (!posts) { return "Please wait"}
+  if (!posts) { return "Please wait" }
   return &lt;PostList posts={posts} />;
 }
           </code></pre>
@@ -3106,6 +3106,286 @@ function BlogListPage() {
           
         </section>
 
+        <section>
+          <h3>Apollo Client</h3>
+          <p><a href="https://www.apollographql.com/docs/react/">https://www.apollographql.com/docs/react/</a></p>
+          <p>React Hooks (and components) to work with GraphQL backends</p>
+          <p>Provides a <b>global cache</b> that ensures consistent presentation of data across your whole application</p>
+        </section>
+        <section>
+          <h3>Apollo Client</h3>
+          <p>The <code>ApolloClient</code> is a singleton, responsible for the communication with the backend</p>
+          <p>It also manages the <b>cache</b>, <b>authentication</b>, <b>central error handling</b> and so on</p>
+
+          
+          <pre class="fragment"><code class="javascript">
+import ApolloClient from "apollo-client";
+
+const client = new ApolloClient({
+  link: new HttpLink({uri: "http://..."}),
+  cache: new InMemoryCache()
+}};
+          </code></pre>
+        </section>
+          
+          <!-- ============================================================================= -->
+          <section>
+            <h3>Apollo Boost</h3>
+            <p>Apollo Client is a modularized solution, can be hard to configure</p>
+            <p>Apollo Boost provides a default configuration (with default modules etc)</p>
+            <p class="todo">URL</p>
+            
+            <pre class="fragment"><code class="javascript">
+// this example code is not much simpler, but
+// it adds a lot of required dependencies
+import ApolloClient from "apollo-boost";
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000",
+});
+
+            </code></pre>
+
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Apollo Client</h3>
+          <p>The Apollo Hooks needs access to the client object</p>
+          <p>The Client object must be "provided" to your application (component hierarchy)</p>
+          <p>Surround your own components on top-level with <code>ApolloProvider</code></p>
+
+<pre class="fragment"><code class="javascript">
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "@apollo/react-hooks";
+
+const client = ...;
+
+ReactDOM.render(
+  &lt;ApolloProvider client={client}>
+    &lt;App />
+  &lt;ApolloProvider>,
+  document.getElementById("root")
+);
+</code></pre>
+<p class="fragment">Apollo Provider uses <a class="todo" href="">React Context API</a> internally</p>
+        </section>
+        
+        <section>
+          <h3>Queries</h3>
+          <p>Queries will be written in an external file or inline using the <code>gql</code> "tag function"</p>
+          <p>The gql function returns a "document object" containing the parsed query</p>
+
+<pre><code class="javascript">
+import { gql } from "apollo-boost";
+
+const POST_LIST_QUERY = gql`
+  query PostListQuery {
+    posts {
+      id
+      title
+      teaser(maxLength: 20)
+      date
+    }
+  }
+`;
+</code></pre>
+
+<p class="fragment">Note: <a href="https://prettier.io">Prettier</a> can format the GraphQL code inside gql!</p>
+<p class="fragment">The TypeScript code generater uses the gql tag to find GraphQL queries in your source code</p>
+        </section>
+
+        
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useQuery: Execute a Query</h3>
+          <p>The useQuery hook runs a query and provides the result and metadata</p>
+
+<pre><code class="javascript">
+function BlogListPage() {
+  const { loading, error, data } = useQuery(POST_LIST_QUERY);
+
+  if (loading) {
+    return <h1>Loading, please wait...</h1>;
+  }
+
+  if (error) {
+    return <h1>GraphQL Failed: {error.toString()}</h1>;
+  }
+
+  // data is now PostListQuery
+  return <PostList posts={data.posts} />;
+}
+  
+</code></pre>
+          
+        
+        </section>
+
+        
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Lifecycle of useQuery</h3>
+          <ol>
+            <li>useQuery triggers your request and returns an object, where <code>loading</code> is set to true</li>
+            <li>Your component will be re-rendered and you can use loading to show user information</li>
+            <li>The response comes in, useQuery forces a re-rendering of your component</li>
+            <li>useQuery now returns either <code>error</code> or <code>data</code>, loading is false now</li>
+            <li>You can update your UI according to this information</li>
+            <li>If the request was successful, Apollo updates also the Cache</li>
+            <li>All visbible components that receive data from the cache (using useQuery) are updated</li>
+          </ol>
+        </section>
+        
+        <section>
+          <h3>useQuery: Variables</h3>
+          <p>You can declare variables in your query.</p>
+          <p>useQuery can receive an argument with options for a query</p>
+          <p>With this object you can set your variables for a query</p>
+
+<pre  class="fragment"><code class="javascript">
+const POST_PAGE_QUERY = gql`
+  query PostPageQuery($postId: ID!) {
+    post(postId: $postId) {
+      id  title date
+      body user { name }
+    }
+  }
+`;
+</code></pre>
+<pre class="fragment"><code class="javascript">
+function PostPage() {
+  // Receive postId from URL params
+  const { postId } = useParams();
+
+  const { loading, error, data } = useQuery(POST_PAGE_QUERY,
+    {
+      variables: { postId }
+    }
+  );
+  // ...
+}
+</code></pre>
+
+        </section>
+            
+            <!-- ============================================================================= -->
+            <section>
+              <h3>useQuery: Control the Cache #1</h3>
+
+              <p>If a component re-renders, by default useQuery <b>does not</b> executes the query <b>again</b>
+                if it finds the result in it's internal cache
+              </p>
+              <p>👉 Let's inspect network requests when opening blog posts</p>
+              <p class="fragment">With a <code><b>fetchPolicy</b></code> you can change this behaviour</p>
+
+<pre class="fragment"><code class="javascript">
+ function PostPage() {
+  // Receive postId from URL params
+  const { postId } = useParams();
+
+  const { loading, error, data } = useQuery(POST_PAGE_QUERY,
+    {
+      variables: { postId },
+      fetchPolicy: "network-only"
+    }
+  );
+  // ...
+} 
+</code></pre>
+<p class="fragment">Allowed values: cache-first (default), cache-and-network, network-only, cache-only, no-cache</p>
+            </section>
+            
+
+<!-- ============================================================================= -->
+<section>
+  <h3>Typesafe Queries with TypeScript</h3>
+
+  <p>GraphQL APIs providing a Schema with objects, fields and types</p>
+  <p>useQuery can receive a type parameter that describes the query response and the variables</p>
+  <p>TypeScript then "knows" how the response looks and can provide code assistant and syntax checking</p>
+  <p>The types for a query can be genereated, using the <a href="" class="todo">Apollo CLI</a></p>
+  <p>👉Let's have a look how this works!<br/>Change a Query<br/>Change the schema</p>
+</section>
+
+
+<!-- ============================================================================= -->
+<section>
+  <h3>Typesafe Queries with TypeScript</h3>
+  <p>The type of the query response and the variables are specified using a type parameter on useQuery:</p>
+
+<pre><code class="javascript">
+  function PostPage() {
+  // ...
+  const { loading, error, data } = useQuery&lt;PostPageQuery, PostPageQueryVariables>
+  (POST_PAGE_QUERY,   { variables: { postId } });
+</code></pre>
+
+<p>TypeScript ensures correct usage of the variables</p>
+<p>You must check if data is not null, because <code>loading</code>, <code>error</code> and <code>data</code>
+  are all optional
+</p>
+<p>If loading is false and error is falsy, you know, data is available, but TypeScript does not know!</p>  
+
+
+<pre class="fragment"><code class="javascript">
+const { loading, error, data } = useQuery(...);
+
+  if (loading) { return <h1>Loading, please wait...</h1>; }
+
+  if (error) {return <h1>GraphQL Failed: {error.toString()}</h1>; }
+
+  if (!data) { return <h1>Invalid response</h1> }
+
+  // TypeScript now knows, data is set here
+  // do something with data
+</code></pre>
+
+</section>
+
+
+<!-- ============================================================================= -->
+<section class="todo">
+  <h3>Exercise #2: Running a Query</h3>
+
+  <p>Vorbereitung:</p>
+  <p>WORKSPACE ohne POST LIST UND OHNE ADD POST</p>
+  <p>Apollo Dev Tools installieren</p>
+  <p>Backend starten (sollte schon laufen)</p>
+  <p>workspace-graphql npm install npm start</p>
+  <p>Code Generator starten im watch modus</p>
+
+  <p>BlogListPage implementieren</p>
+  <p>Netzwerkverkehr beobachten</p>
+  <p>Wie sieht Apollo Cache aus?</p>
+
+</section>
+
+<section>
+  <h3>Apollo GraphQL: Mutations</h3>
+  <p>Mutations can be used to modify data on the server</p>
+  <p>Running a Mutation is similiar to running a query</p>
+  <p>Hook: useMutation</p>
+  <p>The useMutation hooks returns an array, consisting of two entries:</p>
+  <p>1. A function to actually run the mutation (e.g. after user interaction)</p>
+  <p>2. The result object as known from useQuery</p> 
+  <p>(comparable to useState)</p>
+
+
+</section>
+<section>
+  <h3>Exercise #3: A Mutation</h3>
+  <p>AddBlogPost Form implementieren</p>
+  <p>Wie verhält sich der Cache?</p>
+
+  <p>Was können wir tun?</p>
+  <p>Cache Policy</p>
+  <p>Refetch</p>
+  <p>Zeitgesteuert</p>
+  <p>Cache per API modifizieren</p>
+
+</section>
+
 
 
         <section>
@@ -3113,7 +3393,7 @@ function BlogListPage() {
           <h3>Thanks a lot for your participation!</h3>
           <h3>Good luck with React!</h3>
           <p>
-            Contact:
+            If you have question, don't hestitate to contact me:
           </p>
           <p>Mail: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a></p>
           <p>
