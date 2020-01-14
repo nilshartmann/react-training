@@ -1,6 +1,5 @@
 import React from "react";
 import PostList from "./PostList";
-import PostEditor from "./_PostEditor";
 import mockPosts from "./mock";
 
 function App() {
@@ -24,7 +23,23 @@ function App() {
     return <PostList posts={posts} onAddPost={() => setView("ADD")} />;
   }
 
-  return <PostEditor onSavePost={savePost} />;
+  /*
+      TODO:
+
+      1. Return your existing PostEditor component here (instead of null)
+          - Add a callback function to your PostEditor that invokes the "savePost"-function (see above)
+            when add is clicked in the PostEditor
+
+      2. Add the add-Button in your PostEditor component 
+
+      Optional:
+
+      3. Add a cancel button to your PostEditor that closes the Editor and displays the
+         List again (don't save any data)
+
+    */
+
+  return null;
 }
 
 export default App;

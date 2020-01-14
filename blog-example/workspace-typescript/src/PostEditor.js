@@ -6,8 +6,10 @@ import React from "react";
 //    (you might have to re-run "npm start" afterwards. Cancel the running process with Ctrl+C)
 //
 // 2. Create a Type for the props object.
-//    - Remeber: the props object consists of one entry: a callback-function called "onSave"
-//    - The callback function takes one parameter: the new blog post
+//    - Remeber: the props object consists of the entries:
+//       - a callback - function called "onSave"
+//       - initialTitle and initialBody (strings). Are they mandatory or optional?
+//    - The 'onSave'-callback function takes one parameter: the new blog post
 //      - The new Blog post consists of title and body (both strings).
 //      - A type for new Blog post is already defined in "../types". You can import the type
 //        using ES6 import as you would import a function or class
@@ -16,8 +18,8 @@ import React from "react";
 // 4. Add a type argument to the useRef call (<HTMLInputElement|null>)
 
 export default function PostEditor(props) {
-  const [title, setTitle] = React.useState("");
-  const [body, setBody] = React.useState("");
+  const [title, setTitle] = React.useState(props.initialTitle || "");
+  const [body, setBody] = React.useState(props.initialBody || "");
 
   const titleRef = React.useRef(null);
   const clearDisabled = !title && !body;

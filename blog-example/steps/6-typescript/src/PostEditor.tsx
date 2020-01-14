@@ -3,11 +3,14 @@ import { NewBlogPost } from "./types";
 
 type PostEditorProps = {
   onSavePost(post: NewBlogPost): void;
+
+  initialTitle?: string;
+  initialBody?: string;
 };
 
 export default function PostEditor(props: PostEditorProps) {
-  const [title, setTitle] = React.useState("");
-  const [body, setBody] = React.useState("");
+  const [title, setTitle] = React.useState(props.initialTitle || "");
+  const [body, setBody] = React.useState(props.initialBody || "");
 
   const titleRef = React.useRef<HTMLInputElement | null>(null);
   const clearDisabled = !title && !body;
