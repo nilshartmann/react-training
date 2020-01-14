@@ -10,16 +10,6 @@ console.log("Please edit index.js");
 //         (greet), that returns a formatted greeting string
 //         (using both 'name' and 'phrase' property)
 //
-function createGreeting(name, phrase = "Hello") {
-  return {
-    name,
-    phrase,
-
-    greet() {
-      return `${this.phrase}, ${this.name}`;
-    }
-  };
-}
 
 // EXAMPLE:
 // const c = createGreeting("Klaus", "Hello");
@@ -32,17 +22,11 @@ function createGreeting(name, phrase = "Hello") {
 // The function should:
 //   - return a copy of object
 //   - on the copy there should be a new property (with key and value);
-function updateObject(object, key, value) {
-  return {
-    ...object,
-    [key]: value
-  };
-}
 
-console.log(
-  'RESULT, expected: { name: "Klaus", age: 32 } => ',
-  updateObject({ name: "Klaus" }, "age", 32)
-);
+// console.log(
+//   'RESULT, expected: { name: "Klaus", age: 32 } => ',
+//   updateObject({ name: "Klaus" }, "age", 32)
+// );
 
 // STEP 3: Create a function 'merge', that takes two parameters:
 //    - a source object
@@ -52,12 +36,6 @@ console.log(
 //
 // Example:
 // merge({name: "Klaus"}, {age: 32}) => { name: Klaus, age: 32}
-function merge(source, target) {
-  return {
-    ...source,
-    ...target
-  };
-}
 
 const susi = {
   name: "Susi",
@@ -69,8 +47,8 @@ const address = {
   street: "Mainstreet"
 };
 
-const result = merge(susi, address);
-console.log("RESULT", result); // { name: Susi, age: 32, city: "Freiburg", street: "Mainstreet"}
+// const result = merge(susi, address);
+// console.log("RESULT", result); // { name: Susi, age: 32, city: "Freiburg", street: "Mainstreet"}
 
 // STEP 4: Working with immutable data structures
 // Write a "birthday" function that takes to arguments:
@@ -83,16 +61,6 @@ console.log("RESULT", result); // { name: Susi, age: 32, city: "Freiburg", stree
 //    - if the object has more properties than "name" and "age", these other properties
 //      should of course be copied to the new object
 // - all other objects should remain the same
-function birthday(persons, name) {
-  return persons.map(p =>
-    p.name === name
-      ? {
-          ...p,
-          age: p.age + 1
-        }
-      : p
-  );
-}
 
 // TEST
 // Given this persons object:
@@ -103,7 +71,7 @@ const persons = [
 ];
 
 // When
-const res1 = birthday(persons, "Klaus");
+// const res1 = birthday(persons, "Klaus");
 // Then EXPECTED RESULT:
 // [
 //   { name: "Klaus", age: 33 },
@@ -112,7 +80,7 @@ const res1 = birthday(persons, "Klaus");
 // ]
 
 // When
-const res2 = birthday(persons, "Susi");
+// const res2 = birthday(persons, "Susi");
 // Then EXPECTED RESULT:
 // Note: as "persons" should not be modified during the previous call to birthday,
 // in this result, Klaus is now 32 again, Susi now 35 but still living in Freiburg!
