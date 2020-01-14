@@ -35,7 +35,7 @@
           </h4>
           <p style="margin-top:4rem"></p>
           <div>
-            <h3><span class="transparent-bg">Vorbereitung</span></h3>
+            <h3><span class="transparent-bg">Preparation</span></h3>
             <p>
               <span class="transparent-bg"
                 >git clone https://github.com/nilshartmann/react-training</span
@@ -335,7 +335,7 @@ const greet = (msg) => {
 }
 
 // or:
-const greet => "Hello, " + msg;
+const greet = msg => "Hello, " + msg;
 
 greet("World"); // Hello, World
 greet(null), // Hello, null
@@ -344,7 +344,7 @@ greet(); // Hello, undefined
 </code></pre>
           <pre class="fragment"><code class="javascript">
 // Again: functions are "1st-class-citizens":
-const greet => "Hello, " + msg;
+const greet = msg => "Hello, " + msg;
 
 function printer(msgGeneratorFn) {
   console.log(msgGeneratorFn())
