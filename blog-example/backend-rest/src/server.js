@@ -156,6 +156,41 @@ app.post("/posts", (req, res) => {
   res.status(201).json(newPost);
 });
 
+app.put("/posts", (req, res) => {
+  const post = req.body;
+  if (!post) {
+    return res.status(400).json({ error: "Post must be defined" });
+  }
+
+  if (!post.id) {
+    return res.status(400).json({ error: "post.id must be defined" });
+  }
+
+  if (!post.title) {
+    return res.status(400).json({ error: "post.title must be defined" });
+  }
+
+  if (!post.body) {
+    return res.status(400).json({ error: "post.body must be defined" });
+  }
+
+  let updatedPost = null;
+
+  allPosts = allPosts.map(p => {
+    if (p.id === post.id) {
+      updatedPost = { ...p, title: post.title, body: post.body };
+      return updatedPost;
+    }
+    return p;
+  });
+
+  if (!updatedPost) {
+    return res.status(404).json({ error: `Post with id ${post.id} not found` });
+  }
+
+  res.status(201).json(updatedPost);
+});
+
 app.delete("/posts/:id", (req, res) => {
   const postId = req.params.id;
   allPosts = allPosts.filter(p => p.id !== postId);
