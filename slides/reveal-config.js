@@ -11,6 +11,7 @@ Reveal.addEventListener("ready", function(event) {
 
 // open all externals link in new tab
 $('a:not([href^="#"])').attr("target", "_blank");
+$("pre code").attr("contenteditable", "true");
 
 // Full list of configuration options available at:
 // https://github.com/hakimel/reveal.js#configuration
