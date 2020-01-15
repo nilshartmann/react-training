@@ -1149,6 +1149,274 @@ function App() {
           </ol>
         </section>
 
+         <!-- ANFANG KLASSEN -->
+        <section>
+          <h2>React: Componets as ES6 classes</h2>
+          <ul>
+            <li class="fragment">Example without Error Boundary: <code>?with-error-handler</code>: blog-example/steps/3a-hierarchy-errorhandler</li>
+            <li class="fragment">Example with Error Boundary (development): blog-example/steps/3a-hierarchy-errorhandler</li>
+            <li class="fragment">Example with Error Boundary (prod): blog-example/steps/3a-hierarchy-errorhandler/build/</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Error Boundaries</h3>
+          <em
+            >When React renders a component and during rendering an error occures, the 
+            <b>whole applications</b> is removed from the DOM by React</em
+          >
+          <p class="fragment">Error Boundaries are like <b>try-catch</b> but for components</p>
+          <ul>
+            <li class="fragment">
+              ...add them somewhere in your hierarchy, all errors underneath in your hierarchy are caught
+            </li>
+            <li class="fragment">...in case of an error you can show a message to your users</li>
+            <li class="fragment">...are regular React components, but</li>
+            <li class="fragment">...have to be implementes as ES6 class components</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Components as classes</h3>
+
+          <p>Instead of <b>useState</b>: use this.state and this.setState()</p>
+          <p>Properties are available as instance variable <code>this.props</code></p>
+
+          <pre><code data-trim contenteditable>
+      import React from "react";
+      
+      export default class PostEditor extends React.Component {
+      
+        constructor(props) {
+          super(props);
+      
+          this.state = {
+            title: props.initialTitle,
+            body: props.initialBody
+          };
+        }
+      
+        render() {
+          return (
+            &lt;div>
+              &lt;input 
+                value={this.state.title} 
+                onChange=
+                  {event => this.setState({title: event.target.value})}
+              />
+              &lt;input 
+                    value={this.state.body} 
+                    onChange=
+                      {event => this.setState({body: event.target.value})}
+              />
+            &lt;/div>
+          );
+        }
+      }</code></pre>
+        </section>
+
+        <section>
+          <h3>React: Rendering</h3>
+          <span class="fragment">
+            <p>
+              <em>Every React component class needs a <code>render</code>-method:</em>
+            </p>
+
+            <ul>
+              <li>is run on first rendering and after each state change</li>
+            </ul>
+          </span>
+        </section>
+
+        <section>
+          <h3>Properties of a component</h3>
+          <ul class="fragment">
+            <li>Properties are passed via the constructor</li>
+            <li>
+              Access properties with
+              <code>this.props</code>
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              class Header extends React.Component {
+                constructor(props) {
+                  super(props);
+                }
+  
+                render() {
+                  return (
+                    &lt;h1 style={{color: this.props.titleColor}}>{this.props.title}&lt;/h1>
+                  );
+                }
+              }
+              </code></pre>
+
+          <ul class="fragment">
+            <li>Remember: component as function</li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                    function Header(props) {
+                        return (
+                          &lt;h1 style={{color: this.props.titleColor}}>{this.props.title}&lt;/h1>
+                        )
+                    }
+                    </code></pre>
+        </section>
+
+        <section>
+          <h3>State of a class component</h3>
+          <ul>
+            <li class="fragment">
+              <b>Initialize</b> in constructor using <code>this.state={}</code>
+            </li>
+            <li class="fragment"><b>Read</b> state with <code>this.state</code></li>
+            <li class="fragment">
+              <b>Set</b> state using
+              <code>this.setState()</code>
+              <ul class="fragment">
+                <li><b>Attention:</b> no "real" setter</li>
+                <li class="fragment">Merges old and new state (differs from useState)</li>
+                <li class="fragment">Runs asynchron</li>
+                <li class="fragment">
+                  <b>Leads to re-rending of the <i>whole</i> component (as with useState)</b>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+       
+
+        <section>
+          <h3>Example: Error Boundary</h3>
+          <p class="fragment">
+            <b>getDerivedStateFromError</b> and <b>componentDidCatch</b> are invoked by React
+            in case of an error
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              class ErrorHandler extends React.Component {
+                constructor(props) {
+                  super(props);
+                  this.state = { error: null };
+                }
+              
+                static getDerivedStateFromError(error) {
+                  return { error: error.toString() };
+                }
+              
+                componentDidCatch(error, info) {
+                  console.error("uups... we caught an error", error, info);
+                }
+              
+                render() {
+                  if (this.state.error) {
+                    return (
+                      &lt;div>
+                        &lt;h1>An error occured!&lt;/h1>
+                        &lt;pre>{this.state.error}&lt;/pre>
+                        &lt;button onClick={() => this.setState({ error: null })}>Try again&lt;/button>
+                      &lt;/div>
+                    );
+                  }
+                  return this.props.children;
+                }
+              }
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Example: Error Boundary</h3>
+          <h4>Lifecycle</h4>
+
+          <div style="display:flex">
+            <pre><code class="javascript" contenteditable data-trim>
+                  class ErrorHandler extends React.Component {
+                    constructor(props) {
+                      super(props);
+                      this.state = { error: null };
+                    }
+                  
+                    static getDerivedStateFromError(error) {
+                      return { error: error.toString() };
+                    }
+                  
+                    componentDidCatch(error, info) {
+                      console.error("uups... we caught an error", error, info);
+                    }
+                  
+                    render() {
+                      if (this.state.error) {
+                        return (
+                      &lt;div>
+                         &lt;h1>An error occured!&lt;/h1>
+                        &lt;pre>{this.state.error}&lt;/pre>
+                        &lt;button onClick={() => this.setState({ error: null })}>Try again&lt;/button>
+                      &lt;/div>
+                        );
+                      }
+                      return this.props.children;
+                    }
+                  }
+                </code></pre>
+
+            <ol>
+              <li class="fragment">
+                Component gets instantiated, constructor is called, state initialized (error = null)
+              </li>
+              <li class="fragment">
+                Component will be rendered. As <code>this.state.error</code> is not set,
+               the children will be rendered
+              </li>
+              <li class="fragment">An error occures somewhere in your tree</li>
+              <li class="fragment">
+                <code>componentDidCatch</code> is invoked (you can use it
+                to log the error for example)
+              </li>
+              <li class="fragment">
+                <code>getDerivedStateFromError</code> ist called and returns a new (partial) state
+                <br />(Other parts of the state are untouched)
+              </li>
+              <li class="fragment">
+                Component will be rendered again. As <code>this.state.error</code> is set now,
+                the error message is shown including the button
+              </li>
+              <li class="fragment">
+                After clicking the button, <code>this.state.error</code> will be set to null again
+              </li>
+              <li class="fragment">
+                Component will be rendered again (<code>setState</code>). As
+                <code>this.state.error</code> is null again, the children will be rendered again.
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <section>
+          <h3>Example: Error Boundary</h3>
+          <p>Usage</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                import React from "react";
+                import ReactDOM from "react-dom";
+                
+                import ErrorHandler from "./ErrorHandler";
+                import App from "./GreAppetingController";
+                
+                ReactDOM.render(
+                  &lt;ErrorHandler>
+                    &lt;App />
+                  &lt;/ErrorHandler>,
+                  document.getElementyById("root")
+                );
+              </code></pre>
+
+          <p class="fragment">
+            You can use as many error handlers as you want in your application
+          </p>
+          <p class="fragment">
+            Recommandation: use at least one on top level
+          </p>
+        </section>
+
         <section id="server">
           <h1>Server Access</h1>
           <em>Reading and writing data from a backend (REST/HTTP)</em>
