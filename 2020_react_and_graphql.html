@@ -1915,6 +1915,8 @@ function BlogList() {
   return ...;
 }
 </code></pre>
+<p>The callback function returns a promise (of undefined). That's not allowed,
+  as React expectes a function to be return (or undefined).</p>
         </section>
 
         <section>
@@ -3552,8 +3554,8 @@ $ curl -X POST -H "Content-Type: application/json" \
             <ul>
               <li>Request the IDs of all Blog Post</li>
               <li>
-                Request a single Blog Post using its ID. Query its title, its likes and the name of
-                it's author (user)
+                Request a single Blog Post using its ID. Query its <b>title</b>, its <b>likes</b> and the name of
+                it's author (<b>user</b>)
               </li>
               <li>
                 Add a Like to the blog post (via mutation). Read the new number of likes from the
@@ -3841,7 +3843,7 @@ function PostPage() {
           </p>
           <p>
             The types for a query can be genereated, using the
-            <a href="" class="todo">Apollo CLI</a>
+            <a href="https://github.com/apollographql/apollo-tooling">Apollo CLI</a>
           </p>
           <p>👉Let's have a look how this works!<br />Change a Query<br />Change the schema</p>
         </section>
@@ -3887,41 +3889,72 @@ const { loading, error, data } = useQuery(...);
         </section>
 
         <!-- ============================================================================= -->
-        <section class="todo">
+        <section>
           <h3>Exercise #2: Running a Query</h3>
 
-          <p>Vorbereitung:</p>
-          <p>WORKSPACE ohne POST LIST UND OHNE ADD POST</p>
-          <p>Apollo Dev Tools installieren</p>
-          <p>Backend starten (sollte schon laufen)</p>
-          <p>workspace-graphql npm install npm start</p>
-          <p>Code Generator starten im watch modus</p>
+          <p>Preparation:</p>
+          <p>Install <a href="https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm">Apollo Dev Tools for Chrome</a> </p>
+          <p>Start the backend (if it's not already running): <br/>
+          <code>cd blog-example/backend-graphql</code><br />
+          <code>npm install</code><br />
+          <code>npm start</code>
+        </p>
 
-          <p>BlogListPage implementieren</p>
-          <p>Netzwerkverkehr beobachten</p>
-          <p>Wie sieht Apollo Cache aus?</p>
+          <p><em>Implement the <code>BlogListPage</code> component</em> (TODOs in the file)</p>
+          <p>After you change your GraphQL query with <code>gql</code> please run the code generator to generate the 
+            TypeScript code:<br/>
+            <code>npm run codegen</code>
+          </p>
         </section>
 
         <section>
           <h3>Apollo GraphQL: Mutations</h3>
           <p>Mutations can be used to modify data on the server</p>
-          <p>Running a Mutation is similiar to running a query</p>
-          <p>Hook: useMutation</p>
-          <p>The useMutation hooks returns an array, consisting of two entries:</p>
-          <p>1. A function to actually run the mutation (e.g. after user interaction)</p>
-          <p>2. The result object as known from useQuery</p>
-          <p>(comparable to useState)</p>
+          <p class="fragment">Running a Mutation is similiar to running a query</p>
+          <p class="fragment">Hook: <a href="https://www.apollographql.com/docs/react/data/mutations/#executing-a-mutation"><b>useMutation</b></a></p>
+          <p class="fragment">The useMutation hooks returns an array, consisting of two entries:</p>
+          <p class="fragment">1. A function to actually run the mutation (e.g. after user interaction)</p>
+          <p class="fragment">2. The result object as known from useQuery plus a <code>called</code> flag</p>
+          
+          <pre class="fragment"><code class="javascript">
+function PostEditorPage() {
+  const [mutate, { error, data, called }] = useMutation(NEW_BLOGPOST_MUTATION);
+
+  async function savePost(post) {
+    mutate({
+      variables: {
+        postData: post
+      }
+    });
+  }
+  
+  const errorMessage = error ? ... : null;
+
+  if (called && !errorMessage) {
+    // Mutation has been executed and was successful
+    return &lt;SuccessConfirmation />;
+  }
+  
+  // Mutation hasn't been run or failed with an error
+  return &lt;PostEditor onSavePost={savePost} error={errorMessage} />;
+}
+          </code></pre>
+          
         </section>
         <section>
           <h3>Exercise #3: A Mutation</h3>
-          <p>AddBlogPost Form implementieren</p>
-          <p>Wie verhält sich der Cache?</p>
+          <p>Implement the <code>PostEditorPage</code> component</p>
+        </section>
 
-          <p>Was können wir tun?</p>
-          <p>Cache Policy</p>
-          <p>Refetch</p>
-          <p>Zeitgesteuert</p>
-          <p>Cache per API modifizieren</p>
+        <section>
+          <h3>Upating the Cache</h3>
+          <p>Strategies:</p>
+          <ul>
+            <li><a href="https://www.apollographql.com/docs/react/api/react-apollo/#optionsfetchpolicy">Fetch Policy</a></li>
+            <li><a href="https://www.apollographql.com/docs/react/data/queries/#refetching">Refetch function</a></li>
+            <li><a href="https://www.apollographql.com/docs/react/data/queries/#polling">Polling (every x ms)</a></li>
+            <li>Use the <a href="https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates">Cache API</a> to update the Cache after a Mutation</li>
+          </ul>
         </section>
 
         <section>

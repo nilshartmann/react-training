@@ -41,21 +41,28 @@ function SuccessConfirmation() {
 
 export default function PostEditorPage() {
   const { authState } = useAuth();
-  const [mutate, { error, data, called }] = useMutation<
-    NewBlogPostMutation,
-    NewBlogPostMutationVariables
-  >(NEW_BLOGPOST_MUTATION);
+
+  // TODO: Add the useMutation call
+  //       - You can find the Mutation above (NEW_BLOGPOST_MUTATION)
+  //       - The TypeScript types for the Mutation are already generated
+  //         NewBlogPostMutation and NewBlogPostMutationVariables
+  //       - REMOVE THE FOLLOWING 'let' STATEMENT COMPLETLEY!
+  //       - Extract all needed variables from the result instead:
+  //           - mutate
+  //           - error, data, called
+
+  let error = "",
+    data = { newPost: { error: "" } },
+    called;
 
   if (!authState) {
     return <Redirect to="/login" />;
   }
 
   function savePost(post: NewBlogPost) {
-    mutate({
-      variables: {
-        postData: post
-      }
-    });
+    // TODO: Implement this function
+    //       - It should call the 'mutate' function returned from useMutation
+    //       - you have to set the correct variables ("postData")
   }
 
   const errorMessage = error ? error.toString() : data?.newPost.error;
