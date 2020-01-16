@@ -3613,7 +3613,6 @@ $ curl -X POST -H "Content-Type: application/json" \
 
         <section>
           <h3>GraphQL Clients with React but WITHOUT Apollo</h3>
-          <p class="todo">Eventuell Workspace vorbereiten</p>
           <p>
             👉How would you implement a GraphQL client with React using all the things we learned
             during the past days? 🤔
@@ -3865,6 +3864,19 @@ function PostPage() {
           </p>
         </section>
 
+
+<!-- ============================================================================= -->
+<section>
+  <h3>The Apollo Cache</h3>
+  <p><em>Apollo normalizes your data before putting it into the cache:</em></p>
+  <p>For each object returned by a query (no matter what level), it extracts its <b>typename</b></p>
+    <p>The <code>__typename</code> is automatically added to all of your queries by Apollo!</p>
+    <p>For each object returned by q query it extracts its <b>id</b></p>
+    <p>If your <b>id</b> field is not <b>id</b>, you have to tell Apollo the name of your id-Field (e.g. primaryKey)</p>
+    <p><b>Recommandation:</b> <em>Always</em> include your id field in any object you query!</p>
+</section> 
+
+
         <!-- ============================================================================= -->
         <section>
           <h3>Typesafe Queries with TypeScript</h3>
@@ -3976,7 +3988,7 @@ const { loading, error, data } = useQuery(...);
             1. A function to actually run the mutation (e.g. after user interaction)
           </p>
           <p class="fragment">
-            2. The result object as known from useQuery plus a <code>called</code> flag
+            2. The result object as known from <code>useQuery</code> plus a <code>called</code> flag
           </p>
 
           <pre class="fragment"><code class="javascript">
@@ -4010,7 +4022,7 @@ function PostEditorPage() {
 
         <section>
           <h3>Upating the Cache</h3>
-          <p>Strategies:</p>
+          <p>Some strategies:</p>
           <ul>
             <li>
               <a
@@ -4152,12 +4164,80 @@ function BlogListPage() {
           </ul>
         </section>
 
-        <section class="todo">
+        <section>
+          <h3>After a Mutation... Cache might be updated</h3>
+          <p class="fragment">If your mutation returns an object that is already in the cache,
+            this object gets updated automatically</p>
+            <p class="fragment">Example: You <b>update</b> an existing Blog Post and as the result of
+              Mutation you receive the update blog post</p>
+              
+              <pre class="fragment"><code class="javascript">
+const UPDATE_POST = gql`
+  mutation {
+    updateBlogPost(postId: "P1", newTitle: "...", newBody: "...") {
+      id
+      title
+      body
+    }
+  }
+`         
+              </code></pre>
+              <p class="fragment">Here Apollo can update the existing blog post (P1) in the cache</p>
+        </section>
+
+        <section>
+          <h3>There are cases where Apollo can not update the cache</h3>
+          <p>Example: you add a new item to a list</p>
+          <p>Apollo does not know that the object you created belong to a list</p>
+          <p>Example: you queried for Blog Posts. You run a mutation to add a new Blog Post. <br/>
+            Apollo does not know, that the new Blog Post belongs to the blog posts list</p>
+          </section>
+              
+
+        <section>
           <h3>Cache API</h3>
           <p>You can query the contents of the Cache - using GraphQL!</p>
           <p>You can directly write contents to the cache</p>
-          <p>Api is tricky</p>
         </section>
+
+        <section>
+          <h3>Example: Update the Cache</h3>
+          <p>You can set an <b>update-Function</b> as an option for the <code>useMutation</code> hook</p>
+            <p>This function is invoked by Apollo after the mutation received the response from your server</p>
+            <p>The function receives the cache and the mutation response</p>
+            <p>You can use the cache api to add the new object</p>
+
+<pre class="fragment"><code class="javascript">
+const READ_POSTS_FROM_CACHE = gql`
+  query ReadPosts {
+    posts {
+      id
+    }
+  }
+`;
+
+function PostEditorPage() {
+  function savePost(post: NewBlogPost) {
+    mutate({
+       variables: {...},
+       update: (cache, {data}) => {
+         const { posts } = cache.readQuery({
+          query: READ_POSTS_FROM_CACHE
+        });
+        cache.writeQuery({
+          query: READ_POSTS_FROM_CACHE,
+          data: { posts: posts.concat(data.newPost) }
+        });
+       }
+      })
+    }
+
+    return ...;
+}
+</code></pre>
+            
+</section>
+
 
         <section>
           <h2>That's all! 😊</h2>
