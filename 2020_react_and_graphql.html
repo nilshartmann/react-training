@@ -1149,26 +1149,36 @@ function App() {
           </ol>
         </section>
 
-         <!-- ANFANG KLASSEN -->
+        <!-- ANFANG KLASSEN -->
         <section>
           <h2>React: Componets as ES6 classes</h2>
           <ul>
-            <li class="fragment">Example without Error Boundary: <code>?with-error-handler</code>: blog-example/steps/3a-hierarchy-errorhandler</li>
-            <li class="fragment">Example with Error Boundary (development): blog-example/steps/3a-hierarchy-errorhandler</li>
-            <li class="fragment">Example with Error Boundary (prod): blog-example/steps/3a-hierarchy-errorhandler/build/</li>
+            <li class="fragment">
+              Example without Error Boundary: <code>?with-error-handler</code>:
+              blog-example/steps/3a-hierarchy-errorhandler
+            </li>
+            <li class="fragment">
+              Example with Error Boundary (development):
+              blog-example/steps/3a-hierarchy-errorhandler
+            </li>
+            <li class="fragment">
+              Example with Error Boundary (prod):
+              blog-example/steps/3a-hierarchy-errorhandler/build/
+            </li>
           </ul>
         </section>
 
         <section>
           <h3>Error Boundaries</h3>
           <em
-            >When React renders a component and during rendering an error occures, the 
+            >When React renders a component and during rendering an error occures, the
             <b>whole applications</b> is removed from the DOM by React</em
           >
           <p class="fragment">Error Boundaries are like <b>try-catch</b> but for components</p>
           <ul>
             <li class="fragment">
-              ...add them somewhere in your hierarchy, all errors underneath in your hierarchy are caught
+              ...add them somewhere in your hierarchy, all errors underneath in your hierarchy are
+              caught
             </li>
             <li class="fragment">...in case of an error you can show a message to your users</li>
             <li class="fragment">...are regular React components, but</li>
@@ -1285,13 +1295,11 @@ function App() {
           </ul>
         </section>
 
-       
-
         <section>
           <h3>Example: Error Boundary</h3>
           <p class="fragment">
-            <b>getDerivedStateFromError</b> and <b>componentDidCatch</b> are invoked by React
-            in case of an error
+            <b>getDerivedStateFromError</b> and <b>componentDidCatch</b> are invoked by React in
+            case of an error
           </p>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
               class ErrorHandler extends React.Component {
@@ -1364,21 +1372,21 @@ function App() {
                 Component gets instantiated, constructor is called, state initialized (error = null)
               </li>
               <li class="fragment">
-                Component will be rendered. As <code>this.state.error</code> is not set,
-               the children will be rendered
+                Component will be rendered. As <code>this.state.error</code> is not set, the
+                children will be rendered
               </li>
               <li class="fragment">An error occures somewhere in your tree</li>
               <li class="fragment">
-                <code>componentDidCatch</code> is invoked (you can use it
-                to log the error for example)
+                <code>componentDidCatch</code> is invoked (you can use it to log the error for
+                example)
               </li>
               <li class="fragment">
                 <code>getDerivedStateFromError</code> ist called and returns a new (partial) state
                 <br />(Other parts of the state are untouched)
               </li>
               <li class="fragment">
-                Component will be rendered again. As <code>this.state.error</code> is set now,
-                the error message is shown including the button
+                Component will be rendered again. As <code>this.state.error</code> is set now, the
+                error message is shown including the button
               </li>
               <li class="fragment">
                 After clicking the button, <code>this.state.error</code> will be set to null again
@@ -1915,8 +1923,10 @@ function BlogList() {
   return ...;
 }
 </code></pre>
-<p>The callback function returns a promise (of undefined). That's not allowed,
-  as React expectes a function to be return (or undefined).</p>
+          <p>
+            The callback function returns a promise (of undefined). That's not allowed, as React
+            expectes a function to be return (or undefined).
+          </p>
         </section>
 
         <section>
@@ -3280,10 +3290,14 @@ function PostEditor(props) {
         <section>
           <h3>Why GraphQL?</h3>
           <p class="fragment">Clients can query for the exact data they need</p>
-          <p  class="fragment">That allows very flexible architectures and decoupling between client and server</p>
-          <p  class="fragment">Clients ask for <b>data</b> not for <b>endpoints</b></p>
-          <p  class="fragment">That might reduce network traffic</p>
-          <p  class="fragment">You got "end-to-end" type-safety (GraphQL APIs must have a schema!)</p>
+          <p class="fragment">
+            That allows very flexible architectures and decoupling between client and server
+          </p>
+          <p class="fragment">Clients ask for <b>data</b> not for <b>endpoints</b></p>
+          <p class="fragment">That might reduce network traffic</p>
+          <p class="fragment">
+            You got "end-to-end" type-safety (GraphQL APIs must have a schema!)
+          </p>
         </section>
 
         <section>
@@ -3339,7 +3353,9 @@ function PostEditor(props) {
           <p class="fragment">Every GraphQL API is described in a schema</p>
           <p class="fragment">A schema defines <b>Objects</b>. Objects have <b>Fields</b>.</p>
           <p class="fragment">A Field has a <b>Type</b></p>
-          <p class="fragment">A type can either be scalar (ID, String, Int, Boolean) or another Object</p>
+          <p class="fragment">
+            A type can either be scalar (ID, String, Int, Boolean) or another Object
+          </p>
           <p class="fragment">A type can also be a <b>List/Array</b> of another type</p>
           <p class="fragment">
             Each field can be set to <b>mandatory</b> to indicate that you always get a value if you
@@ -3396,6 +3412,31 @@ query GetPost($postId: ID!) {
     }
   }
 }              
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Fragments</h3>
+          <p>
+            You can use <b>fragments</b> to define re-usable "query parts", if you have to select
+            the same the of fields again and again
+          </p>
+
+          <pre><code class="javascript">
+fragment PostTeaser on Post {
+  id
+  teaser
+  user { name }
+}
+
+query PostList {
+  ...PostTeaser
+}
+
+query PostListWithData {
+  ...PostTeaser
+  date
+}
             </code></pre>
         </section>
 
@@ -3554,8 +3595,8 @@ $ curl -X POST -H "Content-Type: application/json" \
             <ul>
               <li>Request the IDs of all Blog Post</li>
               <li>
-                Request a single Blog Post using its ID. Query its <b>title</b>, its <b>likes</b> and the name of
-                it's author (<b>user</b>)
+                Request a single Blog Post using its ID. Query its <b>title</b>, its
+                <b>likes</b> and the name of it's author (<b>user</b>)
               </li>
               <li>
                 Add a Like to the blog post (via mutation). Read the new number of likes from the
@@ -3645,7 +3686,11 @@ const client = new ApolloClient({
           <h3>Apollo Boost</h3>
           <p>Apollo Client is a modularized solution, can be hard to configure</p>
           <p>Apollo Boost provides a default configuration (with default modules etc)</p>
-          <p><a href="https://www.apollographql.com/docs/react/get-started/#apollo-boost">Documentation</a></p>
+          <p>
+            <a href="https://www.apollographql.com/docs/react/get-started/#apollo-boost"
+              >Documentation</a
+            >
+          </p>
 
           <pre class="fragment"><code class="javascript">
 // this example code is not much simpler, but
@@ -3657,6 +3702,13 @@ const client = new ApolloClient({
 });
 
             </code></pre>
+          <p class="fragment">
+            For more sophisticated configurations, you need to
+            <a href="https://www.apollographql.com/docs/react/migrating/boost-migration/"
+              >migrate away</a
+            >
+            from Apollo Boost to Apollo Client.
+          </p>
         </section>
 
         <!-- ============================================================================= -->
@@ -3680,7 +3732,8 @@ ReactDOM.render(
 );
 </code></pre>
           <p class="fragment">
-            Apollo Provider uses <a ref="https://reactjs.org/docs/context.html">React Context API</a> internally
+            Apollo Provider uses
+            <a ref="https://reactjs.org/docs/context.html">React Context API</a> internally
           </p>
         </section>
 
@@ -3750,7 +3803,9 @@ function BlogListPage() {
             <li class="fragment">
               Your component will be re-rendered and you can use loading to show user information
             </li>
-            <li class="fragment">The response comes in, useQuery forces a re-rendering of your component</li>
+            <li class="fragment">
+              The response comes in, useQuery forces a re-rendering of your component
+            </li>
             <li class="fragment">
               useQuery now returns either <code>error</code> or <code>data</code>, loading is false
               now
@@ -3758,7 +3813,8 @@ function BlogListPage() {
             <li class="fragment">You can update your UI according to this information</li>
             <li class="fragment">If the request was successful, Apollo updates also the Cache</li>
             <li class="fragment">
-              <em>All</em> visible components that receive data from the cache (using useQuery) are updated
+              <em>All</em> visible components that receive data from the cache (using useQuery) are
+              updated
             </li>
           </ol>
         </section>
@@ -3805,26 +3861,7 @@ function PostPage() {
           </p>
           <p>👉 Let's inspect network requests when opening blog posts</p>
           <p class="fragment">
-            With a <code><b>fetchPolicy</b></code> you can change this behaviour
-          </p>
-
-          <pre class="fragment"><code class="javascript">
- function PostPage() {
-  // Receive postId from URL params
-  const { postId } = useParams();
-
-  const { loading, error, data } = useQuery(POST_PAGE_QUERY,
-    {
-      variables: { postId },
-      fetchPolicy: "network-only"
-    }
-  );
-  // ...
-} 
-</code></pre>
-          <p class="fragment">
-            Allowed values: cache-first (default), cache-and-network, network-only, cache-only,
-            no-cache
+            We come back to this later!
           </p>
         </section>
 
@@ -3833,19 +3870,26 @@ function PostPage() {
           <h3>Typesafe Queries with TypeScript</h3>
 
           <p>GraphQL APIs providing a Schema with objects, fields and types</p>
-          <p>
+          <p class="fragment">
             useQuery can receive a type parameter that describes the query response and the
             variables
           </p>
-          <p>
+          <p class="fragment">
             TypeScript then "knows" how the response looks and can provide code assistant and syntax
             checking
           </p>
-          <p>
+          <p class="fragment">
             The types for a query can be genereated, using the
             <a href="https://github.com/apollographql/apollo-tooling">Apollo CLI</a>
           </p>
-          <p>👉Let's have a look how this works!<br />Change a Query<br />Change the schema</p>
+          <p class="fragment">
+            👉Let's have a look how this works!
+          </p>
+          <ol class="fragment">
+            <li>Change a Query</li>
+            <li>Inspect the generated types</li>
+            <li>Change the schema</li>
+          </ol>
         </section>
 
         <!-- ============================================================================= -->
@@ -3863,13 +3907,13 @@ function PostPage() {
   (POST_PAGE_QUERY,   { variables: { postId } });
 </code></pre>
 
-          <p>TypeScript ensures correct usage of the variables</p>
-          <p>
+          <p class="fragment">TypeScript ensures correct usage of the variables</p>
+          <p class="fragment">
             You must check if data is not null, because <code>loading</code>, <code>error</code> and
             <code>data</code>
             are all optional
           </p>
-          <p>
+          <p class="fragment">
             If loading is false and error is falsy, you know, data is available, but TypeScript does
             not know!
           </p>
@@ -3893,16 +3937,26 @@ const { loading, error, data } = useQuery(...);
           <h3>Exercise #2: Running a Query</h3>
 
           <p>Preparation:</p>
-          <p>Install <a href="https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm">Apollo Dev Tools for Chrome</a> </p>
-          <p>Start the backend (if it's not already running): <br/>
-          <code>cd blog-example/backend-graphql</code><br />
-          <code>npm install</code><br />
-          <code>npm start</code>
-        </p>
+          <p>
+            Install
+            <a
+              href="https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm"
+              >Apollo Dev Tools for Chrome</a
+            >
+          </p>
+          <p>
+            Start the backend (if it's not already running): <br />
+            <code>cd blog-example/backend-graphql</code><br />
+            <code>npm install</code><br />
+            <code>npm start</code>
+          </p>
 
-          <p><em>Implement the <code>BlogListPage</code> component</em> (TODOs in the file)</p>
-          <p>After you change your GraphQL query with <code>gql</code> please run the code generator to generate the 
-            TypeScript code:<br/>
+          <p>
+            <em>Implement the <code>BlogListPage</code> component</em> (TODOs in the file)
+          </p>
+          <p>
+            After you change your GraphQL query with <code>gql</code> please run the code generator
+            to generate the TypeScript code:<br />
             <code>npm run codegen</code>
           </p>
         </section>
@@ -3911,11 +3965,20 @@ const { loading, error, data } = useQuery(...);
           <h3>Apollo GraphQL: Mutations</h3>
           <p>Mutations can be used to modify data on the server</p>
           <p class="fragment">Running a Mutation is similiar to running a query</p>
-          <p class="fragment">Hook: <a href="https://www.apollographql.com/docs/react/data/mutations/#executing-a-mutation"><b>useMutation</b></a></p>
+          <p class="fragment">
+            Hook:
+            <a href="https://www.apollographql.com/docs/react/data/mutations/#executing-a-mutation"
+              ><b>useMutation</b></a
+            >
+          </p>
           <p class="fragment">The useMutation hooks returns an array, consisting of two entries:</p>
-          <p class="fragment">1. A function to actually run the mutation (e.g. after user interaction)</p>
-          <p class="fragment">2. The result object as known from useQuery plus a <code>called</code> flag</p>
-          
+          <p class="fragment">
+            1. A function to actually run the mutation (e.g. after user interaction)
+          </p>
+          <p class="fragment">
+            2. The result object as known from useQuery plus a <code>called</code> flag
+          </p>
+
           <pre class="fragment"><code class="javascript">
 function PostEditorPage() {
   const [mutate, { error, data, called }] = useMutation(NEW_BLOGPOST_MUTATION);
@@ -3939,7 +4002,6 @@ function PostEditorPage() {
   return &lt;PostEditor onSavePost={savePost} error={errorMessage} />;
 }
           </code></pre>
-          
         </section>
         <section>
           <h3>Exercise #3: A Mutation</h3>
@@ -3950,11 +4012,151 @@ function PostEditorPage() {
           <h3>Upating the Cache</h3>
           <p>Strategies:</p>
           <ul>
-            <li><a href="https://www.apollographql.com/docs/react/api/react-apollo/#optionsfetchpolicy">Fetch Policy</a></li>
-            <li><a href="https://www.apollographql.com/docs/react/data/queries/#refetching">Refetch function</a></li>
-            <li><a href="https://www.apollographql.com/docs/react/data/queries/#polling">Polling (every x ms)</a></li>
-            <li>Use the <a href="https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates">Cache API</a> to update the Cache after a Mutation</li>
+            <li>
+              <a
+                href="https://www.apollographql.com/docs/react/api/react-apollo/#optionsfetchpolicy"
+                >Fetch Policy</a
+              >
+            </li>
+            <li>
+              <a href="https://www.apollographql.com/docs/react/data/queries/#refetching"
+                >Refetch function</a
+              >
+            </li>
+            <li>
+              <a href="https://www.apollographql.com/docs/react/data/queries/#polling"
+                >Polling (every x ms)</a
+              >
+            </li>
+            <li>
+              Use the
+              <a
+                href="https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates"
+                >Cache API</a
+              >
+              to update the Cache after a Mutation
+            </li>
           </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Fetch Policy #1</h3>
+          <p>
+            Specify a Fetch Policy as option in <code>useQuery</code> that defines when a query is
+            re-run after a rendering of your component
+          </p>
+          <pre class="fragment"><code class="javascript">
+ function PostPage() {
+  // Receive postId from URL params
+  const { postId } = useParams();
+
+  const { loading, error, data } = useQuery(POST_PAGE_QUERY,
+    {
+      variables: { postId },
+      fetchPolicy: "network-only"
+    }
+  );
+  // ...
+} 
+</code></pre>
+        </section>
+        <section>
+          <h3>Fetch Policy #2</h3>
+          <p>Allowed values</p>
+          <ul>
+            <li class="fragment">
+              <b>cache-first</b>: If data is in the cache, use it, otherwise read from backend
+            </li>
+            <li class="fragment">
+              <b>cache-and-network</b>: Use data from cache but always also execute backend request
+              (fast response for user, but also newest data). Might flicker
+            </li>
+            <li class="fragment">
+              <b>network-only</b>: Always run network request, don't use data from cache, but store
+              received data in the cache
+            </li>
+            <li class="fragment">
+              <b>no-cache</b>: Always run networt request, and also don't store data in the cache
+            </li>
+            <li class="fragment">
+              <b>cache-only</b>: Only read data from cache. If data is not found in the cache, you
+              don't get data
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Refetch function</h3>
+          <p>
+            <code>useQuery</code> returns a <b>refetch</b> function that you can invoke to
+            re-execute the query
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+function BlogListPage() {
+  const { loading, error, data, refetch } = useQuery(POST_LIST_QUERY);
+
+  if (loading) {
+    return <h1>Loading, please wait...</h1>;
+  }
+
+  if (error) {
+    return <h1>GraphQL Failed: {error.toString()}</h1>;
+  }
+
+  return &lt;PostList posts={data.posts} onRefetch={refetch}/>;
+}              
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+function PostList({posts, onRefetch}) {
+  return &lt;>
+    &lt;button onClick={onRefetch}>Refresh Posts&lt;/button>
+    ...
+  &lt;/>
+}  
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Polling</h3>
+          <p>
+            You can specifiy a <code>pollInterval</code> as a query option. Apollo than executes the
+            query every x milliseconds
+          </p>
+          <pre class="fragment"><code class="javascript">
+function BlogListPage() {
+  const { loading, error, data, refetch } = useQuery(POST_LIST_QUERY,
+    { pollInterval: 1500 }
+  );
+
+  // ... as seen before
+}              
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Updating Cache after a Mutation</h3>
+
+          <ul>
+            <li>
+              <a href="https://www.apollographql.com/docs/react/data/mutations/#options"
+                >refetch Queries</a
+              >: You can specify a list of queries in <code>useMutation</code> that Apollo runs
+              after the mutation
+            </li>
+            <li>Update the Cache manually (update-function)</li>
+          </ul>
+        </section>
+
+        <section class="todo">
+          <h3>Cache API</h3>
+          <p>You can query the contents of the Cache - using GraphQL!</p>
+          <p>You can directly write contents to the cache</p>
+          <p>Api is tricky</p>
         </section>
 
         <section>
