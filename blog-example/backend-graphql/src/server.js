@@ -155,7 +155,7 @@ const server = new ApolloServer({
     // Playground runs at http://localhost:4000
     settings: {
       "editor.theme": "light",
-      "schema.polling.enable": true
+      "schema.polling.enable": false
     }
   }
 });
