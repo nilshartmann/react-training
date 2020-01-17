@@ -51,12 +51,14 @@ function likePost(postId) {
     throw new Error(`Cannot find BlogPost '${postId}'`);
   }
 
-  posts.set(postId, {
+  const updatedPost = {
     ...post,
     likes: post.likes + 1
-  });
+  };
 
-  return post;
+  posts.set(postId, updatedPost);
+
+  return updatedPost;
 }
 
 function insertPost(userId, { title, body }) {
