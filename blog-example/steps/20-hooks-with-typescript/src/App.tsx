@@ -1,11 +1,11 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import PostPage from "./PostPage";
-import PostListPage from "./PostListPage";
+import PostListPage from "./postlist/PostListPage";
 import NotFoundPage from "./NotFound";
-import PostEditorPage from "./PostEditorPage";
-import LoginPage from "./LoginPage";
 import AppHeader from "./AppHeader";
+import PostPage from "./post/PostPage";
+import LoginPage from "./login/LoginPage";
+import PostEditorPage from "./editor/PostEditorPage";
 
 function App() {
   return (

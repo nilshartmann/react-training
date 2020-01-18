@@ -1,12 +1,19 @@
 import React from "react";
 import moment from "moment";
-import { PostPageQuery_post } from "./querytypes/PostPageQuery";
 function formattedDate(date: string) {
   return moment(date).format("DD.MM.YYYY");
 }
 
 type PostProps = {
-  post: PostPageQuery_post;
+  post: {
+    id: string;
+    date: string;
+    title: string;
+    user: {
+      name: string;
+    };
+    body: string;
+  };
 };
 
 export default function FullPost({ post }: PostProps) {

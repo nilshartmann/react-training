@@ -23,7 +23,10 @@ app.use(bodyParser.json());
 app.use((_, res, next) => {
   res.header("Access-Control-Allow-Methods", "OPTIONS,GET,PUT,POST,PATCH,DELETE");
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
   res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
@@ -100,12 +103,17 @@ app.get("/posts/:id", (req, res) => {
     return res.status(404).json({ error: `Post '${req.params.id}' not found` });
   }
 
-  return res.status(200).json(post);
+  const user = datastore.getUser(post.userId);
+  if (!user) {
+    return res.status(404).json({ error: `Iser '${post.userId}' not found` });
+  }
+
+  return res.status(200).json({ ...post, user });
 });
 
 app.post("/posts", (req, res) => {
   if (authEnabled && !req.user) {
-    return res.status(401).json({ error: "use must be logged in to execute this action" });
+    return res.status(401).json({ error: "You must be logged in to execute this action" });
   }
 
   const post = req.body;

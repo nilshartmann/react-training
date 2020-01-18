@@ -1,5 +1,5 @@
 import React from "react";
-import { NewBlogPost } from "./types";
+import { NewBlogPost } from "../types";
 
 type PostEditorProps = {
   onSavePost(post: NewBlogPost): void;

@@ -1,14 +1,18 @@
 import React from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import { PostListQuery_posts } from "./querytypes/PostListQuery";
 
 function formattedDate(date: string) {
   return moment(date).format("DD.MM.YYYY");
 }
 
 type PostListProps = {
-  posts: PostListQuery_posts[];
+  posts: Array<{
+    id: string;
+    date: string;
+    title: string;
+    teaser: string;
+  }>;
 };
 
 export default function PostList(props: PostListProps) {
