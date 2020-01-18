@@ -1,0 +1,59 @@
+# Get all posts
+GET http://localhost:7000/posts
+
+###
+
+# Add new Post
+
+POST http://localhost:7000/posts
+content-type: application/json
+
+{
+    "title": "My new Blog Post",
+    "body": "Lorem Ipsum"
+}
+
+###
+
+# Update
+PUT http://localhost:7000/posts
+content-type: application/json
+
+{
+  "id": "P6",
+  "title": "Updated Post",
+  "body": "New Body"
+}
+
+### 
+
+# DELETE
+DELETE http://localhost:7000/posts/P7
+
+###
+
+# With Authorization
+GET http://localhost:7000/posts
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVMiIsImlhdCI6MTU3OTM3NzkxOSwiZXhwIjoxODk0OTUzOTE5fQ.BZHU2zh_kt9hda7uDgTj5UfDrWmt0UIPKwkG3a0Cs8E
+
+###
+
+POST http://localhost:7000/posts
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVMiIsImlhdCI6MTU3OTM3NzkxOSwiZXhwIjoxODk0OTUzOTE5fQ.BZHU2zh_kt9hda7uDgTj5UfDrWmt0UIPKwkG3a0Cs8E
+
+{
+    "title": "My new Blog Post",
+    "body": "Lorem Ipsum"
+}
+
+###
+
+# Login
+POST http://localhost:7000/login
+content-type: application/json
+
+{
+    "login": "nils",
+    "password": "hihhihi"
+}

@@ -4,6 +4,19 @@
   "version": "2.0.0",
   "tasks": [
      {
+      "label": "02 Start Blog REST with AUTH Server",
+      "type": "npm",
+      "script": "start:withAuth",
+      "problemMatcher": [],
+      "path": "blog-example/backend-rest",
+      "options": {
+        "cwd": "${workspaceRoot}/blog-example/backend-rest"
+      },
+      "presentation": {
+        "group": "backend"
+      }
+    },
+     {
       "label": "02 Start Blog REST Server",
       "type": "npm",
       "script": "start",
