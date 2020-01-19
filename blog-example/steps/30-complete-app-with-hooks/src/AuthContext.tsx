@@ -1,11 +1,11 @@
 import React from "react";
 
 const defaultContext = {
-  setAuthState(authState: AuthState) {},
+  login(authState: AuthState) {},
   logout() {},
   authState: undefined
 } as {
-  setAuthState(authState: AuthState): void;
+  login(authState: AuthState): void;
   logout(): void;
   authState: AuthState | null | undefined;
 };
@@ -17,6 +17,7 @@ type AuthContextProviderProps = {
 
 export type AuthState = {
   token: string;
+  userId: string;
   username: string;
 };
 
@@ -71,7 +72,7 @@ export default function AuthContextProvider({ children }: AuthContextProviderPro
     <AuthContext.Provider
       value={{
         authState: localState,
-        setAuthState: updateAuthorization,
+        login: updateAuthorization,
         logout: doLogout
       }}
     >

@@ -18,7 +18,7 @@ export default function LoginPage() {
   const history = useHistory();
   const location = useLocation();
   const [mutate, { error, loading }] = useWriteApi<LoginResponse>("http://localhost:7000/login");
-  const { setAuthState } = useAuth();
+  const auth = useAuth();
 
   async function doLogin(login: string, password: string) {
     const { data } = await mutate({ login, password });
@@ -28,9 +28,10 @@ export default function LoginPage() {
     }
 
     const { token, user } = data;
-    setAuthState({
+    auth.login({
       token: token,
-      username: user.name
+      username: user.name,
+      userId: user.id
     });
 
     const redirectAfter = location.state?.redirectAfter || "/add";

@@ -134,6 +134,7 @@ app.get("/posts/:id/metadata", (req, res) => {
     postId: post.id,
     userId: user.id,
     likes: post.likes,
+    publishedAt: post.date,
     username: user.name
   });
 });

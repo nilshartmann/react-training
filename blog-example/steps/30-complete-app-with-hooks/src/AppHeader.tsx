@@ -52,7 +52,9 @@ export default function AppHeader() {
 
   return (
     <header>
-      <h1>React Training Blog</h1>
+      <Link to="/">
+        <h1>React Training Blog</h1>
+      </Link>
       {username ? <UserBadge username={username} onLogout={logout} /> : <LoginButton />}
     </header>
   );

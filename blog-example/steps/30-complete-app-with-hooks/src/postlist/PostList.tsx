@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { linkToPost, formattedDate } from "../utils";
+import { useAuth } from "AuthContext";
 
 type PostListProps = {
   posts: Array<{
@@ -8,11 +9,17 @@ type PostListProps = {
     date: string;
     title: string;
     teaser: string;
+    userId: string;
   }>;
 };
 
-export default function PostList(props: PostListProps) {
-  const posts = props.posts;
+function UserBadge() {
+  return <div className="UserBadge">Your Post!</div>;
+}
+
+export default function PostList({ posts }: PostListProps) {
+  const { authState } = useAuth();
+  const currentUserId = authState?.userId;
 
   return (
     <>
@@ -23,7 +30,10 @@ export default function PostList(props: PostListProps) {
         <Link key={p.id} to={linkToPost(p)}>
           <article className="Container">
             <p className="Date">{formattedDate(p.date)}</p>
-            <h1>{p.title}</h1>
+            <header>
+              <h1>{p.title}</h1>
+              {currentUserId === p.userId && <UserBadge />}
+            </header>
             {p.teaser} <span>Read more</span>
           </article>
         </Link>

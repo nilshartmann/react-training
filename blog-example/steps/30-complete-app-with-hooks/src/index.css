@@ -148,6 +148,31 @@ label {
   margin-right: 1rem;
 }
 
+.You {
+  color: var(--color-primary);
+}
+
+.Container header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--color-main);
+}
+
+.Container header h1 {
+  border-bottom: none;
+  display: inline;
+  width: initial;
+}
+
+.UserBadge {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+  padding: 0.2rem 0.4rem;
+  font-size: 75%;
+  font-weight: bold;
+}
+
 .Sidebar {
   width: 100%;
   margin-top: 1.5rem;
