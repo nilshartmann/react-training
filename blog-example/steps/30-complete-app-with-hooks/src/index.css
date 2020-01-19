@@ -135,7 +135,7 @@ label {
   padding: 14px;
 }
 
-.Layout {
+.Page {
   display: flex;
   align-items: flex-start;
 }
@@ -149,6 +149,7 @@ label {
 }
 
 .Sidebar {
+  width: 100%;
   margin-top: 1.5rem;
   padding: 0.5rem;
   background-color: var(--grey-1);

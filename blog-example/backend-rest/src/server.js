@@ -117,6 +117,27 @@ app.get("/posts/:id", (req, res) => {
   return res.status(200).json({ ...post, user });
 });
 
+/** Some "metadata" (just more data about a post, to provider another endpoint) */
+app.get("/posts/:id/metadata", (req, res) => {
+  const post = datastore.getPost(req.params.id);
+
+  if (!post) {
+    return res.status(404).json({ error: `Post '${req.params.id}' not found` });
+  }
+
+  const user = datastore.getUser(post.userId);
+  if (!user) {
+    return res.status(404).json({ error: `User '${post.userId}' not found` });
+  }
+
+  return res.status(200).json({
+    postId: post.id,
+    userId: user.id,
+    likes: post.likes,
+    username: user.name
+  });
+});
+
 app.post("/posts", (req, res) => {
   if (authEnabled && !req.user) {
     return res.status(401).json({ error: "You must be logged in to execute this action" });

@@ -3,8 +3,10 @@ import PostList from "./PostList";
 import { assertDataPresent } from "../types";
 import useApi from "../api/useReadApi";
 import LoadingIndicator from "../LoadingIndicator";
+import { Page, Main, Sidebar } from "Layout";
+import PostListSidebar from "./PostListSidebar";
 
-export default function PostListPage() {
+function PostListPageMain() {
   const { loading, error, data } = useApi("http://localhost:7000/posts");
 
   if (loading) {
@@ -20,4 +22,17 @@ export default function PostListPage() {
 
   // data is now PostListQuery
   return <PostList posts={data} />;
+}
+
+export default function PostListPage() {
+  return (
+    <Page>
+      <Main>
+        <PostListPageMain />
+      </Main>
+      <Sidebar>
+        <PostListSidebar />
+      </Sidebar>
+    </Page>
+  );
 }

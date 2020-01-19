@@ -4,8 +4,10 @@ import { useParams, Link } from "react-router-dom";
 import useApi from "../api/useReadApi";
 import { assertDataPresent } from "../types";
 import LoadingIndicator from "LoadingIndicator";
+import { Page, Main, Sidebar } from "Layout";
+import PostPageSidebar from "./PostPageSidebar";
 
-export default function PostPage() {
+function PostPageMain() {
   const { postId } = useParams();
 
   if (!postId) {
@@ -31,5 +33,18 @@ export default function PostPage() {
       </Link>
       <FullPost post={data} />
     </>
+  );
+}
+
+export default function PostPage() {
+  return (
+    <Page>
+      <Main>
+        <PostPageMain />
+      </Main>
+      <Sidebar>
+        <PostPageSidebar />
+      </Sidebar>
+    </Page>
   );
 }
