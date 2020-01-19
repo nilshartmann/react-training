@@ -1,8 +1,5 @@
 import React from "react";
-import moment from "moment";
-function formattedDate(date: string) {
-  return moment(date).format("DD.MM.YYYY");
-}
+import { formattedDate } from "utils";
 
 type PostProps = {
   post: {

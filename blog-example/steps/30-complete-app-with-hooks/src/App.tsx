@@ -6,11 +6,11 @@ import AppHeader from "./AppHeader";
 import PostPage from "./post/PostPage";
 import LoginPage from "./login/LoginPage";
 import PostEditorPage from "./editor/PostEditorPage";
+import Sidebar from "sidebar/Sidebar";
 
-function App() {
+function Main() {
   return (
-    <div className="App">
-      <AppHeader />
+    <div className="Main">
       <Switch>
         <Route exact path="/">
           <PostListPage />
@@ -31,6 +31,18 @@ function App() {
           <NotFoundPage />
         </Route>
       </Switch>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div className="App">
+      <AppHeader />
+      <div className="Layout">
+        <Main />
+        <Sidebar />
+      </div>
     </div>
   );
 }
