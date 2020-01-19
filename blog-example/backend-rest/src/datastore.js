@@ -21,9 +21,11 @@ const users = readUsers();
 /** @type {Map<string,BlogPost>} */
 const posts = readPosts();
 
-function getAllPosts() {
+const orderByDate = (p1, p2) => new Date(p2.date) - new Date(p1.date);
+
+function getAllPosts(orderByFn = orderByDate) {
   const allPosts = [...posts.values()];
-  allPosts.sort((p1, p2) => new Date(p2.date) - new Date(p1.date));
+  allPosts.sort(orderByFn);
 
   return allPosts;
 }

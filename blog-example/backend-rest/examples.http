@@ -3,6 +3,11 @@ GET http://localhost:7000/posts
 
 ###
 
+# Get most liked posts
+GET http://localhost:7000/most-liked-posts
+
+###
+
 # Add new Post
 
 POST http://localhost:7000/posts

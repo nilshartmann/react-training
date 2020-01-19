@@ -95,6 +95,12 @@ app.get("/posts", (req, res) =>
     )
 );
 
+app.get("/most-liked-posts", (req, res) => {
+  const orderByLikes = (p1, p2) => p2.likes - p1.likes;
+
+  res.status(200).json(datastore.getAllPosts(orderByLikes).slice(0, 5));
+});
+
 // Return Post with specified id (or 404)
 app.get("/posts/:id", (req, res) => {
   const post = datastore.getPost(req.params.id);
