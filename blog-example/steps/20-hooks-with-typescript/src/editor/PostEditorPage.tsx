@@ -3,6 +3,7 @@ import { useAuth } from "../AuthContext";
 import { Redirect, Link } from "react-router-dom";
 import PostEditor from "./PostEditor";
 import useWriteApi from "../api/useWriteApi";
+import LoadingIndicator from "LoadingIndicator";
 
 function SuccessConfirmation() {
   return (
@@ -30,7 +31,7 @@ export default function PostEditorPage() {
   }
 
   if (loading) {
-    return <h1>Saving....</h1>;
+    return <LoadingIndicator>Saving....</LoadingIndicator>;
   }
 
   return <PostEditor onSavePost={savePost} error={errorMessage} />;

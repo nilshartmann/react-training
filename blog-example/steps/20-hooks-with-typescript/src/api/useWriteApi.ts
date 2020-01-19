@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth } from "../AuthContext";
+import { slowUrl } from "./demo-helper";
 
 type FetchState<T> = {
   called: boolean;
@@ -41,7 +42,7 @@ export default function useWriteApi<T>(
         data: oldState.data
       }));
 
-      const res = await fetch(url, {
+      const res = await fetch(slowUrl(url), {
         method: options.method || "POST",
         headers,
         body: JSON.stringify(payload)

@@ -26,7 +26,7 @@ export default function LoginForm({ error, onLogin }: LoginFormProps) {
         />
       </label>
       <p>(Use any non-empty string as password)</p>
-      {error && <p>{error}</p>}
+      {error && <p className="Error">{error}</p>}
       <button
         onClick={() => {
           onLogin(login, password);

@@ -3,6 +3,7 @@ import FullPost from "./FullPost";
 import { useParams, Link } from "react-router-dom";
 import useApi from "../api/useReadApi";
 import { assertDataPresent } from "../types";
+import LoadingIndicator from "LoadingIndicator";
 
 export default function PostPage() {
   const { postId } = useParams();
@@ -14,7 +15,7 @@ export default function PostPage() {
   const { loading, error, data } = useApi(`http://localhost:7000/posts/${postId}`);
 
   if (loading) {
-    return <h1>Loading, please wait...</h1>;
+    return <LoadingIndicator>Post is loading. Please wait.</LoadingIndicator>;
   }
 
   if (error) {

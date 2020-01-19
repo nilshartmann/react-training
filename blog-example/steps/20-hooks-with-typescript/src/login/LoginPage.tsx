@@ -3,6 +3,7 @@ import LoginForm from "./LoginForm";
 import { useHistory, useLocation } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import useWriteApi from "../api/useWriteApi";
+import LoadingIndicator from "LoadingIndicator";
 
 type LoginErrorResponse = { error: string };
 type LoginSuccessResponse = { token: string; user: { id: string; login: string; name: string } };
@@ -16,7 +17,7 @@ function isSuccess(response?: any): response is LoginSuccessResponse {
 export default function LoginPage() {
   const history = useHistory();
   const location = useLocation();
-  const [mutate, { error }] = useWriteApi<LoginResponse>("http://localhost:7000/login");
+  const [mutate, { error, loading }] = useWriteApi<LoginResponse>("http://localhost:7000/login");
   const { setAuthState } = useAuth();
 
   async function doLogin(login: string, password: string) {
@@ -34,6 +35,10 @@ export default function LoginPage() {
 
     const redirectAfter = location.state?.redirectAfter || "/add";
     history.push(redirectAfter);
+  }
+
+  if (loading) {
+    return <LoadingIndicator>Login... Please wait</LoadingIndicator>;
   }
 
   const errorMessage = error ? ("error" in error ? error.error : error.toString()) : null;
