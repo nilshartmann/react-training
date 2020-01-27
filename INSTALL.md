@@ -31,7 +31,7 @@ git clone https://github.com/nilshartmann/react-training
 2. Testweise die benötigten npm-Pakete installieren:
 
 ```
-cd blog-example/backend
+cd blog-example/backend-rest
 npm install
 
 cd blog-example/workspace
@@ -40,10 +40,10 @@ npm install
 
 ## Schritt 2: Testen, ob Backend funktioniert
 
-1. Im Verzeichnis **blog-example/backend** des Repositories das Backend starten:
+1. Im Verzeichnis **blog-example/backend-rest** des Repositories das Backend starten:
 
 ```
-cd blog-example/backend
+cd blog-example/backend-rest
 npm start
 ```
 
