@@ -5,13 +5,20 @@
 Auf den Teilnehmer Laptops/PCs sollte installiert sein:
 
 - Git (zum installieren des Workspaces)
-- [NodeJS](https://nodejs.org/en/download/) (mind. v10.16) und npm Version 6.9 (ist in der NodeJS Distribution enthalten)
-- Browser (am besten Chrome oder Firefox)
+- [NodeJS](https://nodejs.org/en/download/) (LTS version 12.14) und npm Version 6.13.x (ist in der NodeJS Distribution enthalten)
+- Browser (am besten Firefox oder Chrome)
 - Eine IDE oder ein Texteditor, zum Beispiel:
+  - [Visual Studio Code](https://code.visualstudio.com/)
   - [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) (Ultimate Edition, Evaluationsversion reicht aber)
   - [Webstorm](https://www.jetbrains.com/webstorm/download/) (Evaluationsversion reicht)
-  - [Visual Studio Code](https://code.visualstudio.com/)
-- Die Laptops sollten _auch während des Trainings_ Internet-Zugang haben (s.u.)
+
+Die Laptops sollten _auch während des Trainings_ Internet-Zugang haben (s.u.)
+
+Wenn die Teilnehmer bereits ihren "Lieblingseditor" verwenden, sollen sie diesen gerne weiterverwenden, dann müssen sie während des Trainings nicht auch noch einen neuen Editor erlernen.
+
+**Optional: Browser Erweiterungen für React**
+
+Ich würde empfehlen, die [React Developer Tools](https://github.com/facebook/react/tree/master/packages/react-devtools) zu installieren, die es für Firefox und Chome gibt.
 
 ## Schritt 1: Repository klonen und Pakete installieren
 
@@ -21,46 +28,49 @@ Auf den Teilnehmer Laptops/PCs sollte installiert sein:
 git clone https://github.com/nilshartmann/react-training
 ```
 
-2. Im Root-Verzeichnis des geklonten Repositories die npm Pakete installieren:
+2. Testweise die benötigten npm-Pakete installieren:
 
 ```
+cd blog-example/backend
+npm install
+
+cd blog-example/workspace
 npm install
 ```
 
 ## Schritt 2: Testen, ob Backend funktioniert
 
-1. Im **Root-Verzeichnis** des Repositories das Backend starten:
+1. Im Verzeichnis **blog-example/backend** des Repositories das Backend starten:
 
 ```
-npm run backend
+cd blog-example/backend
+npm start
 ```
 
 Achtung! Das Backend läuft auf **Port 7000**, d.h. dieser Port muss verfügbar sein.
 
 2. Backend testen
 
-- Im Browser (oder per curl, wget oder httpie) aufrufen: http://localhost:7000/greetings
+- Im Browser (oder per curl, wget oder httpie) aufrufen: http://localhost:7000/posts
 - Dort sollte JSON Code zurückkommen
 
-## Schritt 3: Testen, on Frontend/Entwicklungsumgebung funktioniert
+## Schritt 3: Testen, ob das Frontend funktioniert
 
 1. Frontend (Beispiel-Anwendung) starten
 
-Dazu in das Verzeichnis `code/workspace` wechseln und `npm start` ausführen:
+Dazu in das Verzeichnis `blog-example/workspace` wechseln und `npm start` ausführen:
 
 ```
-cd code/workspace
+cd blog-example/workspace
 
 npm start
 ```
 
-Achtung! Das Frontend läuft auf **Port 8080**, dh dieser Port muss verfügbar sein.
+Achtung! Das Frontend läuft auf **Port 3000**, dh dieser Port muss verfügbar sein.
 
-![Starten des Frontends](./slides/images/screenshot_npm_install.png)
+2. Wenn das Frontend gestartet ist, zum testen einmal die Anwendung im Browser aufrufen: [http://localhost:3000](http://localhost:3000). Dort sollte "Hello, World" erscheinen, dann ist der Workspace einsatzbereit.
 
-2. Wenn das Frontend gestartet ist, zum testen einmal die Anwendung im Browser aufrufen: [http://localhost:8080](http://localhost:8080). Dort sollte "Hello, World" erscheinen, dann ist der Workspace einsatzbereit.
-
-![Funktionierendes Frontends](./slides/images/install_frontend.png)
+![Running frontsend](./running-workspace.png)
 
 ## Internet-Zugang
 
