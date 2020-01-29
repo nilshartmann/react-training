@@ -1,24 +1,19 @@
 import React from "react";
 import { NewBlogPost } from "../types";
+import { useDraftPost } from "./DraftPostProvider";
 
 type PostEditorProps = {
   onSavePost(post: NewBlogPost): void;
   error?: string | null | undefined;
-
-  initialTitle?: string;
-  initialBody?: string;
 };
-
 export default function PostEditor(props: PostEditorProps) {
-  const [title, setTitle] = React.useState(props.initialTitle || "");
-  const [body, setBody] = React.useState(props.initialBody || "");
+  const { draftTitle, setDraftTitle, draftBody, setDraftBody, clearDraft } = useDraftPost();
 
   function clear() {
-    setTitle("");
-    setBody("");
+    clearDraft();
   }
 
-  const saveButtonDisabled = !title || !body;
+  const saveButtonDisabled = !draftTitle || !draftBody;
 
   return (
     <div className="Container">
@@ -26,12 +21,12 @@ export default function PostEditor(props: PostEditorProps) {
 
       <label>
         Title
-        <input value={title} onChange={e => setTitle(e.currentTarget.value)} />
+        <input value={draftTitle} onChange={e => setDraftTitle(e.currentTarget.value)} />
       </label>
 
       <label>
         Body
-        <textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
+        <textarea value={draftBody} onChange={e => setDraftBody(e.currentTarget.value)} />
       </label>
 
       {props.error && <p>{props.error}</p>}
@@ -40,9 +35,10 @@ export default function PostEditor(props: PostEditorProps) {
       <button
         disabled={saveButtonDisabled}
         onClick={() => {
+          clearDraft();
           props.onSavePost({
-            title,
-            body
+            title: draftTitle,
+            body: draftBody
           });
         }}
       >
