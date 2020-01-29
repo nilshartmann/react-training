@@ -87,7 +87,7 @@
             </li>
 
             <li>
-              <a href="#/t-redux">Teil VI: Statemanagement: Redux und React Context</a>
+              <a href="#/t-state">Teil VI: Statemanagement:</a> <a href="#/t-redux">Redux</a> und React <a href="#/t-context">Context</a>
             </li>
           </ul>
           <div style="font-size:80%">
@@ -2557,15 +2557,13 @@ function PostEditor(props) {
   return &lt;input onChange={handleChange} value={title} />
 }              
           </code></pre>
-            <p>
               <a
                 href="https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682"
                 target="_blank"
               >
                 <code>target</code> vs
                 <code>currentTarget</code>
-              </a>
-            </p>
+        </a>
           </span>
         </section>
         <section>
@@ -2672,9 +2670,9 @@ function PostEditor(props) {
           </ol>
         </section>
 
-        <section id="t-redux">
+        <section id="t-state">
           <h1>Teil VI</h1>
-          <h1>Zustands-Management mit Redux oder React Context API</h1>
+          <h2>Zustands-Management mit Redux oder React Context API</h2>
         </section>
 
         <section>
@@ -2715,9 +2713,10 @@ function PostEditor(props) {
           </div>
         </section>
 
-        <section>
+        <section id="t-redux">
           <h2>Redux</h2>
           <h3>External Statemanagement</h3>
+          <p class="todo">Beispiel: <code>blog-example/steps/30-complete-app-with-hooks</code></p>
         </section>
 
         <section>
@@ -2941,6 +2940,133 @@ function App() {
           <p>Es gibt unterschiedliche Arten von "State"</p>
 
           <img src="slides/images/three-kinds-of-state.png" style="max-height:650px" />
+        </section>
+
+
+        <section id="t-context">
+          <h2>Context API</h2>
+          <p>Beispiel: <code>blog-example/steps/30-complete-app-with-hooks</code></p>
+        </section>
+
+        <section>
+          <h2>Context...</h2>
+          <p>
+            <em
+              >erlaubt das Durchreichen von Informationen ohne explizites angeben als Properties</em
+            >
+          </p>
+
+          <ul>
+            <li class="fragment">funktioniert nur innerhalb einer Hierarchie-Ebene</li>
+            <li class="fragment">es können beliebg viele (fachliche) Context definiert werden</li>
+            <li class="fragment">besteht aus <code>Provider</code> und <code>Consumer</code></li>
+            <li class="fragment">
+              <a href="https://reactjs.org/docs/context.html" target="_blank">Doku</a>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Context Factory</h2>
+          <p>
+            <em>erzeugt ein Objekt, mit <b>zwei Komponenten</b></em>
+          </p>
+          <ul>
+            <li class="fragment">
+              <code>Provider</code>, stellt Objekt mit Key-Value-Paaren zur Verfügung (der
+              Context-"Value")
+            </li>
+            <li class="fragment">
+              <code>Consumer</code> wird in eigener Komponente verwendet, um auf einen Context
+              zuzugreifen ("versteckt" durch useContext Hook)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                      import react from "React";
+
+                      const AuthContext = React.createContext();
+
+                      // erzeugt:
+                      // AuthContext.Provider 
+                      // AuthContext.Consumer
+                              </code></pre>
+        </section>
+
+        <section>
+          <h2>Context Provider</h2>
+          <p><em>Eine React-Komponente, die einen Context zur Verfüng stellt</em></p>
+          <ul>
+            <li class="fragment">
+              wird innerhalb einer eigenen Komponente in <code>render</code> eingebunden
+            </li>
+            <li class="fragment">Nimmt ein Objekt ("Context") mit beliebigen Werten entgegen</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                      const AuthContext = React.createContext();
+
+                      function AuthProvider() {
+                          const [ currentUser, setCurrentUser ] = React.useState(null);
+                          const contextValue = {
+                            // the current theme
+                            currentUser,
+                      
+                            // function to set new theme
+                            login: name => setCurrentUser(name),
+                            logout: () => setCurrentUser(null)
+                          };
+                      
+                          return &lt;AuthContext.Provider value={contextValue}>
+                            {props.children}
+                          &lt;/AuthContext.Provider>;
+                        }
+                      }                    
+</code></pre>
+        </section>
+
+        <section>
+          <h2>useContext-Hook</h2>
+          <p><em>Zugriff auf die Werte aus dem Context</em></p>
+          <p>In allen Komponenten unterhalb der Provider Komponente, kann mit useContext auf den Kontext zugegriffen werden</p>
+          
+          <pre class="fragment"><code class="javascript">
+function UserBadge() {
+  const { currentUser } = React.useContext(AuthContext);
+
+  return currentUser  ? &lt;h1>Welcome, {currentUser}&lt;h1> : null;
+}            
+          </code></pre>
+
+
+          <p class="fragment">Aufrufen einer Funktion aus dem Context</p>
+          <p class="fragment">Ändert im Context den Zustand der Provider-Komponente</p>
+          <p class="fragment">Alle Konsumer werden neu gerendert</p>
+          <pre class="fragment"><code class="javascript">
+function UserBadge() {
+  const { currentUser, logout } = React.useContext(AuthContext);
+
+  return currentUser  ? 
+    &lt;>&lt;h1>Welcome, {currentUser}&lt;h1>&lt;button onClick={logut}>Logout&lt;/button>&lt;/> 
+    : null;
+}                
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Redux vs Context</h3>
+          <p class="fragment">Redux hat Dev Tools, Time Travelling, Middlewares, globale Actions und Reducers/State</p>
+          <p class="fragment">Redux ist sehr optimiert für Performance (häufige Updates)</p>
+          <p class="fragment">Context von der API her einfacher (aber auch nicht so mächtig)</p>
+          <p class="fragment">Redux lässt feingranularere Auswahl aus dem globalen Zustand zu (verhindert unnötige Renderings)</p>
+        </section>
+
+        <section>
+          <h3>Redux vs Context</h3>
+          <h3><em>Wie entscheiden wir uns?</em></h3>
+          <p class="fragment">Entscheidung 1: Mischform: Redux <b>und</b> Context? Oder: Redux <b>oder</b> Context</p>
+          <p class="fragment">Entscheidung 2: Was kommt wohin?</p>
+          <p class="fragment">Auth-State (eingeloggter Benutzer)</p>
+          <p class="fragment">Api-State: Netzwerk Request(s) laufen gerade</p>
+          <p class="fragment">Draft-Post: editierters, neues, Post</p>
         </section>
 
         <section>
