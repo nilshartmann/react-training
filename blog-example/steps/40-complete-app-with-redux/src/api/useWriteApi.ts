@@ -1,6 +1,6 @@
 import React from "react";
-import { useAuth } from "../auth/AuthContext";
 import { slowUrl } from "./demo-helper";
+import useAppSelector from "useAppSelector";
 
 type FetchState<T> = {
   called: boolean;
@@ -19,7 +19,7 @@ export default function useWriteApi<T>(
     method: "POST"
   }
 ) {
-  const { authState } = useAuth();
+  const token = useAppSelector(state => state.auth?.token);
   const [state, setState] = React.useState<FetchState<T>>({
     loading: false,
     data: null,
@@ -32,8 +32,8 @@ export default function useWriteApi<T>(
       const headers: HeadersInit = {
         "Content-Type": "application/json"
       };
-      if (authState) {
-        headers["Authorization"] = authState.token;
+      if (token) {
+        headers["Authorization"] = token;
       }
 
       setState(oldState => ({

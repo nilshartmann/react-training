@@ -4,7 +4,6 @@ import NotFoundPage from "./NotFound";
 import AppHeader from "./AppHeader";
 import LoadingIndicator from "LoadingIndicator";
 import { slowImport } from "api/demo-helper";
-import DraftPostProvider from "editor/DraftPostProvider";
 
 const PostEditorPage = React.lazy(() =>
   slowImport(() => import(/* webpackChunkName: "PostEditorPage" */ "./editor/PostEditorPage"))
@@ -22,31 +21,29 @@ const LoginPage = React.lazy(() =>
 function App() {
   return (
     <div className="App">
-      <DraftPostProvider>
-        <AppHeader />
-        <React.Suspense fallback={<LoadingIndicator>App is loading...</LoadingIndicator>}>
-          <Switch>
-            <Route exact path="/">
-              <PostListPage />
-            </Route>
-            <Route path="/post/:postId">
-              <PostPage />
-            </Route>
+      <AppHeader />
+      <React.Suspense fallback={<LoadingIndicator>App is loading...</LoadingIndicator>}>
+        <Switch>
+          <Route exact path="/">
+            <PostListPage />
+          </Route>
+          <Route path="/post/:postId">
+            <PostPage />
+          </Route>
 
-            <Route path="/add">
-              <PostEditorPage />
-            </Route>
+          <Route path="/add">
+            <PostEditorPage />
+          </Route>
 
-            <Route path="/login">
-              <LoginPage />
-            </Route>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
 
-            <Route>
-              <NotFoundPage />
-            </Route>
-          </Switch>
-        </React.Suspense>
-      </DraftPostProvider>
+          <Route>
+            <NotFoundPage />
+          </Route>
+        </Switch>
+      </React.Suspense>
     </div>
   );
 }

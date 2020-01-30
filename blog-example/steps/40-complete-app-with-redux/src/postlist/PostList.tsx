@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { linkToPost, formattedDate } from "../utils";
-import { useAuth } from "auth/AuthContext";
+import useAppSelector from "useAppSelector";
 
 type PostListProps = {
   posts: Array<{
@@ -18,8 +18,7 @@ function UserBadge() {
 }
 
 export default function PostList({ posts }: PostListProps) {
-  const { authState } = useAuth();
-  const currentUserId = authState?.userId;
+  const currentUserId = useAppSelector(state => state.auth?.userId);
 
   return (
     <>

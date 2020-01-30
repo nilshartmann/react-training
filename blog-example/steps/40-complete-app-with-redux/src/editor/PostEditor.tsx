@@ -1,16 +1,38 @@
 import React from "react";
 import { NewBlogPost } from "../types";
-import { useDraftPost } from "./DraftPostProvider";
+import useAppSelector from "useAppSelector";
+import { useDispatch } from "react-redux";
+import {
+  SetDraftBodyAction,
+  SetDraftTitleAction,
+  ClearDraftAction,
+  setDraftTitle,
+  setDraftBody,
+  clearDraft
+} from "actions";
+import { Dispatch } from "redux";
 
 type PostEditorProps = {
   onSavePost(post: NewBlogPost): void;
   error?: string | null | undefined;
 };
 export default function PostEditor(props: PostEditorProps) {
-  const { draftTitle, setDraftTitle, draftBody, setDraftBody, clearDraft } = useDraftPost();
+  const draftTitle = useAppSelector(state => state.draftPost.title);
+  const draftBody = useAppSelector(state => state.draftPost.body);
+  const dispatch = useDispatch<
+    Dispatch<SetDraftBodyAction | SetDraftTitleAction | ClearDraftAction>
+  >();
+
+  function doSetTitle(newTitle: string) {
+    dispatch(setDraftTitle(newTitle));
+  }
+
+  function doSetBody(newBody: string) {
+    dispatch(setDraftBody(newBody));
+  }
 
   function clear() {
-    clearDraft();
+    dispatch(clearDraft());
   }
 
   const saveButtonDisabled = !draftTitle || !draftBody;
@@ -21,12 +43,12 @@ export default function PostEditor(props: PostEditorProps) {
 
       <label>
         Title
-        <input value={draftTitle} onChange={e => setDraftTitle(e.currentTarget.value)} />
+        <input value={draftTitle} onChange={e => doSetTitle(e.currentTarget.value)} />
       </label>
 
       <label>
         Body
-        <textarea value={draftBody} onChange={e => setDraftBody(e.currentTarget.value)} />
+        <textarea value={draftBody} onChange={e => doSetBody(e.currentTarget.value)} />
       </label>
 
       {props.error && <p>{props.error}</p>}
@@ -35,7 +57,7 @@ export default function PostEditor(props: PostEditorProps) {
       <button
         disabled={saveButtonDisabled}
         onClick={() => {
-          clearDraft();
+          clear();
           props.onSavePost({
             title: draftTitle,
             body: draftBody

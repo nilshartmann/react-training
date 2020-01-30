@@ -1,18 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { BrowserRouter as Router } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import { Router } from "react-router-dom";
 
 import "./index.css";
 import App from "./App";
 
-import AuthContextProvider from "./auth/AuthContext";
+import configureStore from "./configureStore";
+import { Provider } from "react-redux";
+const history = createBrowserHistory();
+const store = configureStore(history);
 
 ReactDOM.render(
-  <Router>
-    <AuthContextProvider>
+  <Provider store={store}>
+    <Router history={history}>
       <App />
-    </AuthContextProvider>
-  </Router>,
+    </Router>
+  </Provider>,
   document.getElementById("root")
 );

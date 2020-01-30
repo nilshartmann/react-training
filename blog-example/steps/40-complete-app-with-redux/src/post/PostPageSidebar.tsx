@@ -4,13 +4,11 @@ import useReadApi from "../api/useReadApi";
 import LoadingIndicator from "../LoadingIndicator";
 import { assertDataPresent } from "../types";
 import { formattedDate } from "utils";
-import { useAuth } from "auth/AuthContext";
+import useAppSelector from "useAppSelector";
 
 export default function PostPageSidebar() {
   const { postId } = useParams();
-  const { authState } = useAuth();
-
-  const currentUsername = authState?.username;
+  const currentUsername = useAppSelector(state => state.auth?.username);
 
   if (!postId) {
     throw new Error("Param PostId must be defined");

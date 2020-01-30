@@ -1,9 +1,9 @@
 import React from "react";
-import { useAuth } from "../auth/AuthContext";
 import { Redirect, Link } from "react-router-dom";
 import PostEditor from "./PostEditor";
 import useWriteApi from "../api/useWriteApi";
 import LoadingIndicator from "LoadingIndicator";
+import useAppSelector from "useAppSelector";
 
 function SuccessConfirmation() {
   return (
@@ -18,9 +18,9 @@ function SuccessConfirmation() {
 
 export default function PostEditorPage() {
   const [savePost, { loading, error, called }] = useWriteApi("http://localhost:7000/posts");
-  const { authState } = useAuth();
+  const isAuthenticated = useAppSelector(state => state.auth != null);
 
-  if (!authState) {
+  if (!isAuthenticated) {
     return <Redirect to="/login" />;
   }
 

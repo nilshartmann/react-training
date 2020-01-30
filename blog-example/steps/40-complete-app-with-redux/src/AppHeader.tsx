@@ -1,7 +1,9 @@
 import React from "react";
-import { useAuth } from "./auth/AuthContext";
 import { useLocation, Link } from "react-router-dom";
-import { useDraftPost } from "editor/DraftPostProvider";
+import useAppSelector from "useAppSelector";
+import { useDispatch } from "react-redux";
+import { Dispatch } from "redux";
+import { LogoutAction, ClearDraftAction } from "actions";
 
 type UserBadgeProps = {
   username: string;
@@ -53,10 +55,23 @@ function LoginButton() {
 }
 
 export default function AppHeader() {
-  const { authState, logout } = useAuth();
-  const { hasDraft, clearDraft } = useDraftPost();
+  const username = useAppSelector(state => state.auth?.username);
+  const hasDraft = useAppSelector(
+    state => state.draftPost.title !== "" || state.draftPost.body !== ""
+  );
+  const dispatch = useDispatch<Dispatch<LogoutAction | ClearDraftAction>>();
 
-  const username = authState?.username;
+  function doLogout() {
+    dispatch({
+      type: "LOGOUT"
+    });
+  }
+
+  function doClearDraft() {
+    return dispatch({
+      type: "CLEAR_DRAFT"
+    });
+  }
 
   return (
     <header>
@@ -66,8 +81,8 @@ export default function AppHeader() {
       {username ? (
         <UserBadge
           username={username}
-          onLogout={logout}
-          onClearDraft={hasDraft ? clearDraft : null}
+          onLogout={doLogout}
+          onClearDraft={hasDraft ? doClearDraft : null}
         />
       ) : (
         <LoginButton />
