@@ -1,7 +1,7 @@
 import React from "react";
 import LoginForm from "./LoginForm";
 import { useHistory, useLocation } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../auth/AuthContext";
 import useWriteApi from "../api/useWriteApi";
 import LoadingIndicator from "LoadingIndicator";
 

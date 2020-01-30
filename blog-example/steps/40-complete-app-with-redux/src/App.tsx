@@ -16,7 +16,7 @@ const PostPage = React.lazy(() =>
   slowImport(() => import(/* webpackChunkName: "PostPage" */ "./post/PostPage"))
 );
 const LoginPage = React.lazy(() =>
-  slowImport(() => import(/* webpackChunkName: "LoginPage" */ "./auth/LoginPage"))
+  slowImport(() => import(/* webpackChunkName: "LoginPage" */ "./login/LoginPage"))
 );
 
 function App() {
