@@ -87,7 +87,10 @@
             </li>
 
             <li>
-              <a href="#/t-state">Teil VI: Statemanagement:</a> <a href="#/t-redux">Redux</a> und React <a href="#/t-context">Context</a>
+              <a href="#/t-router">Teil: VI: Router</a>
+            </li>
+            <li>
+              <a href="#/t-state">Teil VII: Statemanagement:</a> <a href="#/t-redux">Redux</a> und React <a href="#/t-context">Context</a>
             </li>
           </ul>
           <div style="font-size:80%">
@@ -2664,6 +2667,244 @@ function PostEditor(props) {
               >
             </li>
           </ol>
+        </section>
+
+         <section id="t-router">
+          <h2>Client-side Routing</h2>
+
+          <p>Example: code/blog-example/steps/7-router</p>
+        </section>
+        <section>
+          <h2>Why routing?</h2>
+          <span>
+            <p>
+              Map URLs to Components
+              <br />
+              <span style="font-size: 80%"
+                >(Navigation through the application without server round-trips!)</span
+              >
+            </p>
+          </span>
+          <span>
+            <p>
+              URLs can contain state of the application
+              <br />
+              <span style="font-size: 80%"
+                >What "Page" is visible (Blog List, Add Form or Blog Post)?</span
+              >
+              <br />
+              <span style="font-size: 80%">Which blog post should be rendered (postId)</span>
+            </p>
+          </span>
+        </section>
+
+        <section>
+          <h2>React Router</h2>
+          <ul>
+            <li>
+              Current version 5.1:
+              <a href="https://reacttraining.com/react-router/" target="_blank">
+                https://reacttraining.com/react-router/</a
+              >
+            </li>
+            <li>Not part of React</li>
+            <li>but de-facto Standard</li>
+            <li>Since Version 5.1 with Hooks API (useParams, useLocation, useHistory)</li>
+          </ul>
+        </section>
+        <section>
+          <h3>The Router Object</h3>
+          <p class="fragment">
+            Top-Level object, that needs to be included at the top of the application's component
+            hierarchy
+          </p>
+          <p class="fragment">
+            Mulitple implementations that differ how they interact with URL and browser history:
+          </p>
+          <ul>
+            <li class="fragment">
+              <b>HashRouter</b>: adds the path after appended hash (#/post/1) <br />👉Example: check
+              network request after changing the URL
+            </li>
+            <li class="fragment">
+              <b>BrowserRouter</b>: puts the path directly in the URL (/post/1) <br />(You need to
+              configure your web server accordingly)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router} from "react-router-dom";
+      
+      const app = &lt;Router>&lt;App/>&lt;/Router>;
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Which component should be rendered for a path?</h3>
+          <p class="fragment">The <code>Route</code> object maps paths to components</p>
+          <ul>
+            <li class="fragment">
+              Can be used whereever you want to select a component based on a path
+              <ul>
+                <li>
+                  comparable with an "intelligent" <code>if</code> or <code>switch</code> statement
+                </li>
+                <li>can be used everywhere in your components</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Use the <code>path</code> attribute to specify the path that should match when the
+              component should be rendered
+            </li>
+            <li class="fragment">Specify the component as children of the Route component</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router, Route} from "react-router-dom";
+      
+      const app = &lt;Router>
+        &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
+        &lt;Route path="/add">&lt;AddPostPage onAdd={...} />&lt;/Route>
+        &lt;Route path="/" exact>&lt;BlogListPage />&lt;/Route>
+      &lt;/Router>;
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Background: Paths</h3>
+          <p>
+            In the Route component you specify a <b>path</b>, that is compared against the current
+            URL
+          </p>
+
+          <ul>
+            <li>
+              Paths by default are valid for parts of strings, but you can change the behaviour by
+              adding <code>exact</code>
+            </li>
+            <li>A Route without <code>path</code> matches always</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      // matches  / and /post
+      &lt;Route path="/">...&lt;/Route>
+      
+      // matches only /
+      &lt;Route path="/" exact>...&lt;/Route>
+      
+      // matches any URL:
+      &lt;Route>...&lt;/Route>
+      
+              </code></pre>
+          <ul>
+            <li class="fragment">A Path can contain variable segments:</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      &lt;Route path="/posts/:postId">&lt;BlogPostPage/>&lt;/Route>
+           </code> </pre>
+          <ul>
+            <li class="fragment">
+              Values of the variables can be read using the <code>useParams</code> hook in your
+              component:
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                import { useParams } from "react-router";
+
+                function BlogPostPage() {
+                  const params = useParams();
+
+                  // params.postId contains the id from the URL
+                </code></pre>
+        </section>
+        <section>
+          <h3>Switch</h3>
+          <ul>
+            <li class="fragment">
+              If multiple path expression match, multiple components will be rendered (for example
+              "/" and "/post")
+            </li>
+            <li class="fragment">
+              <code>Switch</code> ensures that only the für component will be rendered (like regular
+              switch with a break after each case)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router, Route, Switch} from "react-router-dom";
+      
+      const app = (
+        &lt;Router>
+          &lt;Switch>
+            &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
+            &lt;Route path="/" exact>&lt;BlogListPage/>&lt;/Route>
+      
+            // "No match": without path
+            &lt;Route>&lt;NotFoundPage/>&lt;/Route>
+      
+          &lt;/Switch>
+        &lt;/Router>
+      );
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Links</h3>
+          <p>
+            Using the <code>Link</code> or <code>NavLink</code> component you can create HTML links
+          </p>
+          <ul>
+            <li>Use <code>to</code> to specify the target path</li>
+            <li>Link creates an <code>a</code> HTML element</li>
+            <li>
+              "Local" URLs will be rendered according to the selected Router implementation (with
+              hash or without)
+            </li>
+            <li>
+              With <code>activeClassName</code> and <code>activeStyle</code> on
+              <code>NavLink</code> you can specify styles and classnames that get applied if the
+              current route is the same route as specified in "to" ("active" route)
+            </li>
+          </ul>
+
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {Link, NavLink} from "react-router-dom";
+      
+      &lt;Link to='/'>Show all Posts&lt;/Link>
+      
+      // Generted 'a' element contains 'highlight' CSS class, when it's the active route
+      &lt;NavLink to='/add' activeClassName="highlight">Add Post&lt;/NavLink>
+      
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>The history-Objekt</h3>
+          <p>The <code>history</code> object can be used to interact with the Browser history</p>
+          <p>
+            You can jump to another location or get the current location from the browser
+          </p>
+          <p class="fragment">
+            The history object is available using the <code>useHistory</code> hook from React Router
+          </p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import { useHistory } from "react-router";
+
+      function App() {
+        const history = useHistory();
+
+        function onAdd(newBlogPost) {
+           ...
+
+           // go to new URL
+           history.push("/"); 
+        }
+
+        return ...;
+      }
+              </code></pre>
         </section>
 
         <section id="t-state">
