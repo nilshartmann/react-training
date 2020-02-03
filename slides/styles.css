@@ -71,6 +71,14 @@ code span.line-number {
   margin-bottom: 10px;
 }
 
+.reveal .xx-list > li {
+  margin-bottom: 20px;
+}
+
+.reveal .bold-code code {
+  font-weight: bold;
+}
+
 .reveal .img-fullsize {
   border: 0;
   box-shadow: 0 0 0 0;

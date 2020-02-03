@@ -83,6 +83,50 @@
           </div>
         </section>
 
+        <section id="vorbereitung">
+          <h3>Vorbereitung / Einrichtung für die Übungen 1/2</h3>
+          <p><em><b>Schritt 1:</b> Klonen und installieren</em></p>
+          <ol class="xx-list bold-code">
+            <li>
+              Repository klonen:<br />
+              <code>git clone https://github.com/nilshartmann/react-training/</code><br/>
+              Die Slides findest Du dann hier: <b>react-training/2020_ct_webdev.html</b>
+            </li>
+            <li>
+              Abhängigkeiten für das Backend installieren:<br />
+              <code>cd react-training/blog-example/backend-rest</code><br />
+              <code>npm install</code>
+            </li>
+            <li>
+              Abhängigkeiten für den JavaScript-Workspace installieren:<br />
+              <code>cd react-training/blog-example/workspace</code><br />
+              <code>npm install</code>
+            </li>
+            <li>
+              Abhängigkeiten für den TypeScript-Workspace installieren:<br />
+              <code>cd react-training/blog-example/workspace-typescript</code><br />
+              <code>npm install</code>
+            </li>
+          </ol>
+        </section>
+
+         <section>
+          <h3>Vorbereitung / Einrichtung für die Übungen 2/2</h3>
+          <p><em><b>Schritt 2:</b> Starten</em></p>
+          <ol class="xx-list bold-code">
+            <li>
+              Starten des Backends (Achtung: Port 7000 muss frei sein!):<br />
+              <code>cd react-training/blog-example/backend-rest</code><br />
+              <code>npm start</code>
+            </li>
+            <li>
+              Starten des JavaScript-Workspaces (Achtung: Port 3000 muss frei sein):<br />
+              <code>cd react-training/blog-example/workspace</code><br />
+              <code>npm start</code>
+            </li>
+          </ol>
+        </section>
+
         <section>
           <h2>Agenda</h2>
           <ul style="font-size: 85%">
@@ -1286,10 +1330,10 @@ function App(props) {
         <section>
           <h2>TypeScript</h2>
           <ol>
-            <li><a href="#/t-typescript-grundlagen">Einführung in TypeScript</li>
-            <li><a href="#/t-typescript-react">React mit TypeScript</li>
-            </ol>
-          </section>
+            <li><a href="#/t-typescript-grundlagen">Einführung in TypeScript</a></li>
+            <li><a href="#/t-typescript-react">React mit TypeScript</a></li>
+          </ol>
+        </section>
 
         <section id="t-typescript-grundlagen">
           <h2>Einführung: Die Sprache TypeScript</h2>
@@ -1300,9 +1344,13 @@ function App(props) {
             >)
           </p>
           <ul>
-            <li  class="fragment">Erweitert JavaScript um ein Typen System</li>
-            <li  class="fragment">Jeder gültige JavaScript Code ist auch gültiger TypeScript Code</li>
-            <li  class="fragment">Mittels des TypeScript Compilers wird aus TS Code JavaScript Code</li>
+            <li class="fragment">Erweitert JavaScript um ein Typen System</li>
+            <li class="fragment">
+              Jeder gültige JavaScript Code ist auch gültiger TypeScript Code
+            </li>
+            <li class="fragment">
+              Mittels des TypeScript Compilers wird aus TS Code JavaScript Code
+            </li>
           </ul>
         </section>
 
