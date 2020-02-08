@@ -15,20 +15,7 @@ console.log("Please edit index.js");
 // const c = createGreeting("Klaus", "Hello");
 // c.greet(); // Hello, Klaus
 
-// STEP 2: Create a function (updateObject), that takes three parameters:
-//   1. an object
-//   2. a key
-//   3. a value
-// The function should:
-//   - return a copy of object
-//   - on the copy there should be a new property (with key and value);
-
-// console.log(
-//   'RESULT, expected: { name: "Klaus", age: 32 } => ',
-//   updateObject({ name: "Klaus" }, "age", 32)
-// );
-
-// STEP 3: Create a function 'merge', that takes two parameters:
+// STEP 2: Create a function 'merge', that takes two parameters:
 //    - a source object
 //    - a target object
 //  Return an object, that consists of a "flat" copy of the two
@@ -50,7 +37,7 @@ const address = {
 // const result = merge(susi, address);
 // console.log("RESULT", result); // { name: Susi, age: 32, city: "Freiburg", street: "Mainstreet"}
 
-// STEP 4: Working with immutable data structures
+// STEP 3: Working with immutable data structures
 // Write a "birthday" function that takes to arguments:
 //     - a have a list with person objects ({name: "...", age: 32 }).
 //     -   (the objects might have more properties, but at least those two)

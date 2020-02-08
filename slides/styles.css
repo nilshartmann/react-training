@@ -42,6 +42,15 @@
   box-shadow: 0 0 0 0;
 }
 
+.streich-kandidat:before {
+  content: "STREICHEN? ";
+}
+
+.streich-kandidat {
+  content: "STREICHEN? ";
+  background-color: hotpink;
+}
+
 .todo:before {
   content: "TODO: ";
 }
