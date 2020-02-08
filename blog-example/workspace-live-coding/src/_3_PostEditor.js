@@ -50,7 +50,7 @@ export function PostList(props) {
 
   return (
     <>
-      <button onClick={props.onAddPost}>Add Post</button>
+      <button>Add Post</button>
       {posts.map(p => (
         <article key={p.id} className="Container">
           <p className="Date">{formattedDate(p.date)}</p>

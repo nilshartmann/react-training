@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import "./index.css";
-import PostEditor, { PostList } from "./_3_PostEditor";
+import PostEditor, { PostList } from "./PostEditor";
 
 import mockPosts from "./mock";
 
