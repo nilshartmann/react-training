@@ -42,13 +42,7 @@ console.log("RESULT isNonEmpty, expected true => ", isNonEmpty("Hello"));
 //     otherwise true
 // Find examples below
 
-// STEP 2a: If the caller of 'verify' does not specify the rules argument
-//           (like: verify("hello")) verify should return true
-
-function verify(candidate, rules) {
-  if (!rules) {
-    return true;
-  }
+function verify(candidate, rules = [isDefined]) {
   for (let rule of rules) {
     if (!rule(candidate)) return false;
   }
@@ -76,17 +70,7 @@ console.log("RESULT expected true => ", verify("", null));
 //    function verifyAll(values, rules) { ... }
 //    verifyAll(["Hello", null], [notEmpty]); // [true, false]
 //
-// STEP 3a:
-//      modify verifyAll: if the first parameter is NOT an array (but a single value)
-//      it should behave at if the first parameter would be a single-item array with that value
-//      Example: verifyAll(values, [isNonEmpty]) === verifyAll(values, isNonEmpty)
 function verifyAll(values, rules) {
-  // 3a
-  if (!Array.isArray(values)) {
-    values = [values];
-  }
-
-  // 3
   return values.map(value => verify(value, rules));
 }
 
@@ -99,11 +83,6 @@ console.log(
   verifyAll(["Hello", null, ""], [isDefined, isNonEmpty])
 );
 console.log("RESULT expected [false] => ", verifyAll([undefined], [isDefined, isNonEmpty]));
-
-// EXAMPLE RESULTS FOR STEP 3a:
-//
-console.log("RESULT expected [true]  => ", verifyAll("Hello", [isNonEmpty]));
-console.log("RESULT expected [false]  => ", verifyAll("", [isNonEmpty]));
 
 // ------------------------------------------------------------------------------------
 // STEP 4: can you implement a "configurable" verifier with a different signature,

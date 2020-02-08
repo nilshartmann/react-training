@@ -1,15 +1,15 @@
 console.log("Please edit index.js");
 
 // TODOs:
-// - Move isDefined and isNonEmpty to own module (one module for BOTH functions)
-// - Move verify and verifyAll to their own modules in a new folder 'verifier'
-//    inside the 'verifier' folder use one module for EACH function, use default export)
-// - Add the required imports in this file, so that console.logs at the end of this
-//   file work
+// - Verschiebe isDefined und isNonEmpty in ein eigenes Modul (EIN Module für BEIDE Funktionen)
+// - Verschiebe verify und verifyAll in ein jeweils eigenes Modul im neuen Verzeichnis  'verifier'.
+//    In dem 'verifier' Verzeichnis verwende für beide Funktionen ein eigenes Modul (default-export)
+// - Füge in dieser Datei die benötigten imports hinzu, so dass die console.log-Ausgaben am Ende
+//    der Datei funktionieren
 //
-// REMEMBER: when importing JS files add the '.js' suffix:
+// ERINNERUNG: wenn Du JS-Dateien importierst, füge die '.js'-Dateiendnung hinzu:
 //   import x from "./x.js";
-// (necessary, as this example runs native in the Browser)
+// (hier nötig, weil das Beispiel in Browser läuft):
 
 function isDefined(candidate) {
   return candidate !== null && candidate !== undefined;

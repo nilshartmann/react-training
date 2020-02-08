@@ -1,28 +1,30 @@
 console.log("Please edit index.js");
 
-// STEP 1: Create a function 'createGreeting' that takes
-//         two params ('name' and 'phrase'), and constructs
-//         an object with it (keys 'name' and 'phrase')
-//         The 2nd. argument ('phrase') should defaul to 'hello'
-//         if not set
-//
-//         The resulting object should contain a function
-//         (greet), that returns a formatted greeting string
-//         (using both 'name' and 'phrase' property)
-//
+// STEP 1: Erzeuge eine Funktion 'createGreeting', die zwei
+//    Parameter entgegen nimmt: 'name' und 'phrase'. Aus diesen
+//    beiden Parametern soll die Funktion ein Objekt erzeugen,
+//    dass die beiden Werte enthält (als Property 'name' und 'phrase')
+//    - Außerdem soll das Objekt eine Funktion enthalten ("greet"),
+//      dass einen formatierten String mit name und phrase zurückliefert
+//   - Wenn der zweite Parameter ('phrase') nicht angegeben ist,
+//     soll automatisch der Wert "Moin" verwendet werden
 
-// EXAMPLE:
+// Beispiel:
 // const c = createGreeting("Klaus", "Hello");
 // c.greet(); // Hello, Klaus
+// const d = createGreeting("Ussi")
+// d.greet(); // Moin, Susi
 
-// STEP 2: Create a function 'merge', that takes two parameters:
-//    - a source object
-//    - a target object
-//  Return an object, that consists of a "flat" copy of the two
-//  objects.
+// SCHRITT 2: Schreibe eine Funktion 'merge', die zwei Parameter entgegen nimmt:
+//    - ein Source-Object
+//    - ein target-Object
+//  Die Funktion soll ein neues Objekt zurückliefern, das aus den Properties
+//   BEIDER Objekte besteht.
 //
-// Example:
+// Beispiel:
 // merge({name: "Klaus"}, {age: 32}) => { name: Klaus, age: 32}
+
+// => SCHREIBE HIER DEINE FUNKTION HIN...
 
 const susi = {
   name: "Susi",
@@ -34,6 +36,7 @@ const address = {
   street: "Mainstreet"
 };
 
+// ... DANACH SOLLTE DAS HIER FUNKTIONIEREN:
 // const result = merge(susi, address);
 // console.log("RESULT", result); // { name: Susi, age: 32, city: "Freiburg", street: "Mainstreet"}
 
