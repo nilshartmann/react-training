@@ -92,22 +92,24 @@
               <a href="#/t-typescript">Teil VI: TypeScript und React</a>
             </li>
 
-            <li><b>Ausblick:</b>
+            <li>
+              <b>Ausblick:</b>
               <ul>
-
-            <li>
-              <a href="#/t-router">Teil: VII: Router</a>
+                <li>
+                  <a href="#/t-router">Teil: VII: Router</a>
+                </li>
+                <li>
+                  <a href="#/t-state">Teil VIII: Statemanagement:</a>
+                  <a href="#/t-redux">Redux</a> und React <a href="#/t-context">Context</a>
+                </li>
+              </ul>
             </li>
-            <li>
-              <a href="#/t-state">Teil VIII: Statemanagement:</a> <a href="#/t-redux">Redux</a> und React <a href="#/t-context">Context</a>
-            </li>
-          </ul></li>
           </ul>
           <div style="font-size:80%">
             <p><b>Jederzeit:</b> Fragen und Diskussionen!</p>
           </div>
         </section>
-          <section id="es6-intro">
+        <section id="es6-intro">
           <h1>ES6 Einführung</h1>
         </section>
 
@@ -599,16 +601,6 @@ const greet = ({firstName, lastName}) => `Hello, ${firstName} ${lastName}`;
         <!-- ============================================================================= -->
 
         <!-- ============================================================================= -->
-        <section>
-          <h3>Teil 1: Übung</h3>
-
-          <p>Datei: <b>code/es6-intro/uebungen/teil-1/teil-1.html</b></p>
-          <p>In der Datei findest Du TODOs</p>
-          <p>
-            Du kannst die Datei mit Doppelklick im Browser öffen (Firefox oder Chrome)
-          </p>
-          <p>Öffne die Browser-Konsole um die Ausgaben zu sehen</p>
-        </section>
 
         <section>
           <h3>Klassen #1</h3>
@@ -3630,11 +3622,13 @@ it("it should switch between views", async () => {
             <li><a href="https://devexpress.github.io/testcafe/">Testcafe</a></li>
             <li><a href="https://cypress.io">Cypress</a></li>
           </ul>
-          <p>Beispiel für Testcafe: <a href="https://github.com/nilshartmann/react-testing-playground">https://github.com/nilshartmann/react-testing-playground</a></p>
-
+          <p>
+            Beispiel für Testcafe:
+            <a href="https://github.com/nilshartmann/react-testing-playground"
+              >https://github.com/nilshartmann/react-testing-playground</a
+            >
+          </p>
         </section>
-
-
 
         <section id="t-typescript">
           <h1>Teil VI</h1>
@@ -3642,7 +3636,7 @@ it("it should switch between views", async () => {
           <p>Example: code/blog-example/steps/6-typescript</p>
         </section>
 
-         <section>
+        <section>
           <h2>TypeScript</h2>
           <ol>
             <li><a href="#/t-typescript-grundlagen">Einführung in TypeScript</a></li>
@@ -3650,7 +3644,7 @@ it("it should switch between views", async () => {
           </ol>
         </section>
 
-         <section id="t-typescript-grundlagen">
+        <section id="t-typescript-grundlagen">
           <h2>Einführung: Die Sprache TypeScript</h2>
           <p class="fragment">
             <em>TypeScript is a superset of JavaScript that compiles to plain JavaScript </em>(
@@ -4057,13 +4051,13 @@ function PostEditor(props) {
   return &lt;input onChange={handleChange} value={title} />
 }              
           </code></pre>
-              <a
-                href="https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682"
-                target="_blank"
-              >
-                <code>target</code> vs
-                <code>currentTarget</code>
-        </a>
+            <a
+              href="https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682"
+              target="_blank"
+            >
+              <code>target</code> vs
+              <code>currentTarget</code>
+            </a>
           </span>
         </section>
         <section>
@@ -4173,7 +4167,7 @@ function PostEditor(props) {
           <h2>Ausblick / Anhang / Ergänzungen</h2>
         </section>
 
-         <section id="t-router">
+        <section id="t-router">
           <h2>Client-side Routing</h2>
 
           <p>Example: code/blog-example/steps/7-router</p>
@@ -4683,7 +4677,6 @@ function App() {
           <img src="slides/images/three-kinds-of-state.png" style="max-height:650px" />
         </section>
 
-
         <section id="t-context">
           <h2>Context API</h2>
           <p>Beispiel: <code>blog-example/steps/30-complete-app-with-hooks</code></p>
@@ -4767,8 +4760,11 @@ function App() {
         <section>
           <h2>useContext-Hook</h2>
           <p><em>Zugriff auf die Werte aus dem Context</em></p>
-          <p>In allen Komponenten unterhalb der Provider Komponente, kann mit useContext auf den Kontext zugegriffen werden</p>
-          
+          <p>
+            In allen Komponenten unterhalb der Provider Komponente, kann mit useContext auf den
+            Kontext zugegriffen werden
+          </p>
+
           <pre class="fragment"><code class="javascript">
 function UserBadge() {
   const { currentUser } = React.useContext(AuthContext);
@@ -4776,7 +4772,6 @@ function UserBadge() {
   return currentUser  ? &lt;h1>Welcome, {currentUser}&lt;h1> : null;
 }            
           </code></pre>
-
 
           <p class="fragment">Aufrufen einer Funktion aus dem Context</p>
           <p class="fragment">Ändert im Context den Zustand der Provider-Komponente</p>
@@ -4794,16 +4789,23 @@ function UserBadge() {
 
         <section>
           <h3>Redux vs Context</h3>
-          <p class="fragment">Redux hat Dev Tools, Time Travelling, Middlewares, globale Actions und Reducers/State</p>
+          <p class="fragment">
+            Redux hat Dev Tools, Time Travelling, Middlewares, globale Actions und Reducers/State
+          </p>
           <p class="fragment">Redux ist sehr optimiert für Performance (häufige Updates)</p>
           <p class="fragment">Context von der API her einfacher (aber auch nicht so mächtig)</p>
-          <p class="fragment">Redux lässt feingranularere Auswahl aus dem globalen Zustand zu (verhindert unnötige Renderings)</p>
+          <p class="fragment">
+            Redux lässt feingranularere Auswahl aus dem globalen Zustand zu (verhindert unnötige
+            Renderings)
+          </p>
         </section>
 
         <section>
           <h3>Redux vs Context</h3>
           <h3><em>Wie entscheiden wir uns?</em></h3>
-          <p class="fragment">Entscheidung 1: Mischform: Redux <b>und</b> Context? Oder: Redux <b>oder</b> Context</p>
+          <p class="fragment">
+            Entscheidung 1: Mischform: Redux <b>und</b> Context? Oder: Redux <b>oder</b> Context
+          </p>
           <p class="fragment">Entscheidung 2: Was kommt wohin?</p>
           <p class="fragment">Auth-State (eingeloggter Benutzer)</p>
           <p class="fragment">Api-State: Netzwerk Request(s) laufen gerade</p>
