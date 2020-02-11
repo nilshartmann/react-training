@@ -19,7 +19,7 @@ export default function PostEditor() {
 
       <label>
         Title
-        <input value={title} onChange={e => setTitle(e.currentTarget.value)} />
+        <input ref={titleRef} value={title} onChange={e => setTitle(e.currentTarget.value)} />
       </label>
 
       <label>
