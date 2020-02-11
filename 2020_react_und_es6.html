@@ -2622,56 +2622,30 @@ function App() {
 
         <section>
           <h3>Beispiel: fetch</h3>
-          <p>Lesen von Daten mit HTTP GET mit async/await</p>
-          <pre><code class="javascript" contenteditable data-trim>
-          // For GET simply specify the URL:
-          try {
-            const response = await fetch('http://localhost:7000/posts')
-            const json = await response.json();
-            // ...
-          } (catch ex) {
-            console.error('request failed', ex)
-          }
-          </code></pre>
+          <p>Lesen von Daten (mit HTTP GET)</p>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-// or use JavaScript Promise API:
+// JavaScript Promise API:
 
 fetch('http://localhost:7000/posts')
   .then(response => response.json())
   .then(json => /* ... */)
   .catch(ex => console.error('request failed', ex));
 </code></pre>
-        </section>
-        <section>
-          <h3>Beispiel #2: fetch</h3>
-          <p>Schreiben von Daten mit HTTP POST</p>
-          <div class="fragment">
-            <p><code>fetch</code> erwartet als 2. Parameter ein Konfigurationsobjekt:</p>
 
-            <ul>
-              <li>
-                <code>method</code>: HTTP Methode (<code>PUT</code>, <code>POST</code>,
-                <code>DELETE</code>, ...)
-              </li>
-              <li><code>headers</code>: HTTP Header für den Request (z.B. Authorization)</li>
-              <li><code>body</code>: Der Payload (als)</li>
-            </ul>
-            <p>Der Returnwert ist derselbe wie bei Get</p>
-          </div>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-const response = await fetch(url, {
-  method: 'POST',
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(payload)
-})
-// ... 
-    </code></pre>
+// async/await API
+try {
+  const response = await fetch('http://localhost:7000/posts')
+  const json = await response.json();
+  // ...
+} (catch ex) {
+  console.error('request failed', ex)
+}
+          </code></pre>
         </section>
+
         <section data-state="es6-exkurs">
-          <h3>Verkettete Ausführung</h3>
+          <h3>Hintergrund: Promises</h3>
 
           <pre><code class="javascript" contenteditable>
 // Ein ausgedachtes Promise, dass "irgendwann" den String "Klaus" zurückgibt
@@ -2684,7 +2658,7 @@ const promise2 = promise.then(name => `Hello, ${name}`);</code></pre>
           <pre
             class="fragment"
           ><code class="javascript" contenteditable>promise2.then(greeting => console.log(greeting));
-// Ausgabe nach einer Sekunde: "Hello, Klaus"
+// Ausgabe "irgendwann": "Hello, Klaus"
   </code></pre>
         </section>
         <section data-state="es6-exkurs">
@@ -2702,40 +2676,6 @@ const promise2 = promise.then(name => `Hello, ${name}`);</code></pre>
   
     // Output: Greeting failed: Unexpected error
     </code></pre>
-        </section>
-
-        <section data-state="es6-exkurs">
-          <h3>Prmoises</h3>
-          <h4 class="fragment">Erzeugen eines Promises</h4>
-          <pre class="fragment"><code class="javascript" contenteditable>
-const p = new Promise(resolve => { ... }, error => { ... });            
-  </code></pre>
-          <h4 class="fragment">Erzeugen eines Promises II</h4>
-          <pre class="fragment"><code class="javascript" contenteditable>
-// Wird sofort aufgelöst
-const p = Promise.resolve("Klaus");            
-</code></pre>
-          <h4 class="fragment">Auf mehrere Promises warten</h4>
-          <pre class="fragment"><code class="javascript" contenteditable>
-Promise.all( [p1, p2] )
-  .then( (result1, result2) => {
-    console.log(`All promises resolved: ${result1} ${result2}`);
-  });
-</code></pre>
-        </section>
-
-        <section data-state="es6-exkurs">
-          <h3>Promises: asynchroner Programmfluss</h3>
-          <pre><code class="javascript" contenteditable>
-console.log("1");
-
-const p = new Promise.resolve("Klaus")
-    .then(name => `Hello, ${name}`)
-    .then(greeting => console.log(greeting));
-
-console.log("2");    
-    </code></pre>
-          <p>Frage: wie sieht die Konsolenausgabe aus? 🤔</p>
         </section>
 
         <section data-state="es6-exkurs">
@@ -2810,6 +2750,33 @@ console.log("2");
     }
   }
                       </code></pre>
+        </section>
+        <section>
+          <h3>Beispiel #2: fetch</h3>
+          <p>Schreiben von Daten mit HTTP POST</p>
+          <div class="fragment">
+            <p><code>fetch</code> erwartet als 2. Parameter ein Konfigurationsobjekt:</p>
+
+            <ul>
+              <li>
+                <code>method</code>: HTTP Methode (<code>PUT</code>, <code>POST</code>,
+                <code>DELETE</code>, ...)
+              </li>
+              <li><code>headers</code>: HTTP Header für den Request (z.B. Authorization)</li>
+              <li><code>body</code>: Der Payload (als)</li>
+            </ul>
+            <p>Der Returnwert ist derselbe wie bei Get</p>
+          </div>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(payload)
+})
+// ... 
+    </code></pre>
         </section>
 
         <section>
