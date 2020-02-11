@@ -2260,18 +2260,18 @@ function App() {
 
         <!-- ANFANG KLASSEN -->
         <section>
-          <h2>React: Components as ES6 classes</h2>
+          <h2>React: Komponenten als ES6 Klassen</h2>
           <ul>
             <li class="fragment">
-              Example without Error Boundary: <code>?with-error-handler</code>:
+              Beispiel mit Fehlerbehandlung: <code>?with-error-handler</code>:
               blog-example/steps/3a-hierarchy-errorhandler
             </li>
             <li class="fragment">
-              Example with Error Boundary (development):
+              Beispiel ohne Fehlerbehandlung (development):
               blog-example/steps/3a-hierarchy-errorhandler
             </li>
             <li class="fragment">
-              Example with Error Boundary (prod):
+              Beispiel mit Fehlerbehandlung (prod):
               blog-example/steps/3a-hierarchy-errorhandler/build/
             </li>
           </ul>
@@ -2304,14 +2304,14 @@ function App() {
           <pre><code data-trim contenteditable>
       import React from "react";
       
-      export default class GreetingDetail extends React.Component {
+      export default class PostEditor extends React.Component {
       
         constructor(props) {
           super(props);
       
           this.state = {
-            name: props.initialName,
-            greeting: props.initialGreeting
+            title: props.initialTitle,
+            body: props.initialBody
           };
         }
       
@@ -2319,14 +2319,14 @@ function App() {
           return (
             &lt;div>
               &lt;input 
-                value={this.state.name} 
+                value={this.state.title} 
                 onChange=
-                  {event => this.setState({name: event.target.value})}
+                  {e => this.setState({title: e.target.value})}
               />
               &lt;input 
-                    value={this.state.greeting} 
-                    onChange=
-                      {event => this.setState({greeting: event.target.value})}
+                value={this.state.body} 
+                onChange=
+                  {e => this.setState({body: e.target.value})}
               />
             &lt;/div>
           );
@@ -2428,12 +2428,12 @@ function App() {
               &lt;input 
                 value={this.state.title} 
                 onChange=
-                  {event => this.setState({title: event.target.value})}
+                  {e => this.setState({title: e.target.value})}
               />
               &lt;input 
-                    value={this.state.body} 
-                    onChange=
-                      {event => this.setState({body: event.target.value})}
+                value={this.state.body} 
+                onChange=
+                  {e => this.setState({body: e.target.value})}
               />
             &lt;/div>
           );
