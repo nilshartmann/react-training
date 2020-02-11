@@ -2036,12 +2036,12 @@ const posts = [
 ];
 
 function PostList(props) {
-  return {props.posts.map(post => (
+  return props.posts.map(post => (
     &lt;div key={post.id}>
         &lt;h1>{post.title}&lt;/h1>
         &lt;p>{post.body}&lt;/p>
     &lt;/div>
-  )}
+  ))
 }
 </code></pre>
         </section>
@@ -2674,10 +2674,8 @@ const response = await fetch(url, {
           <h3>Verkettete Ausführung</h3>
 
           <pre><code class="javascript" contenteditable>
-// A Promise das zum String 'Klaus' nach einer Sekunde aufgelöst wird:
-const promise = new Promise(
-  resolve => setTimeout( () => resolve("Klaus"), 1000)
-)
+// Ein ausgedachtes Promise, dass "irgendwann" den String "Klaus" zurückgibt
+const promise = ...;
   </code></pre>
           <pre
             class="fragment"
