@@ -2616,6 +2616,21 @@ function App() {
             </li>
             <li class="fragment">
               Populäre Alternative: <a href="https://github.com/axios/axios">Axios</a>
+              <ul>
+                <li>Axios basiert auf XMLHttpRequest</li>
+                <li>
+                  Ist Axios tot?
+
+                  <a
+                    href="https://www.reddit.com/r/javascript/comments/cp5qhm/askjs_the_sad_state_of_axios/"
+                  >
+                    The sad state of Axios
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Alternative, auf fetch-basierend: <a href="https://github.com/sindresorhus/ky">ky</a>
             </li>
           </ul>
         </section>
@@ -2952,6 +2967,37 @@ const response = await fetch(url, {
           </div>
         </section>
 
+        <section>
+          <h3>Beispiel: Abbrechen eines laufenden Requests</h3>
+          <p>
+            Die Clean-Up-Funktion kann genutzt werden, um mit einem
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController"
+              >AbortController</a
+            >
+            einen laufenden Request abzubrechen
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+ function App() {
+   const [posts, setPosts] = React.useState([]);
+   
+   React.useEffect(() => {
+     const controller = new AbortController();
+
+     fetch("http://localhost:7000/posts", {
+       signal: controller.signal
+     })
+       .then(response => response.json())
+       .then(json => setPosts(json));
+
+     return () => abortController.abort();
+   }, []);
+
+   return &lt;PostList posts={posts} />
+                
+            </code></pre>
+        </section>
+
         <!-- ============================================================================= -->
         <section>
           <h3>Was ist das Problem mit diesem Code?</h3>
@@ -3093,6 +3139,17 @@ function App(props) {
               simulieren)
             </li>
           </ol>
+        </section>
+
+        <section>
+          <h3>Löschen von POSTs:</h3>
+
+          <pre><code class="javascript">
+            const response = await fetch("http://localhost:7000/posts/" + postId, {
+              method: "DELETE"
+            })
+            // wenn response.ok === true, wurde das Post gelöscht
+          </code></pre>
         </section>
         <section>
           <h3>Hintergrund: API des Backend Servers</h3>
