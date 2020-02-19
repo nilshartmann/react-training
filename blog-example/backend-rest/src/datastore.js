@@ -21,9 +21,10 @@ const users = readUsers();
 /** @type {Map<string,BlogPost>} */
 const posts = readPosts();
 
-const orderByDate = (p1, p2) => new Date(p2.date) - new Date(p1.date);
+const orderByDateNewestFirst = (p1, p2) => new Date(p2.date) - new Date(p1.date);
+const orderByDateOldestFirst = (p1, p2) => new Date(p1.date) - new Date(p2.date);
 
-function getAllPosts(orderByFn = orderByDate) {
+function getAllPosts(orderByFn = orderByDateNewestFirst) {
   const allPosts = [...posts.values()];
   allPosts.sort(orderByFn);
 
@@ -109,5 +110,8 @@ module.exports = {
   updatePost,
   deletePost,
   likePost,
-  getPost
+  getPost,
+
+  orderByDateOldestFirst,
+  orderByDateNewestFirst
 };

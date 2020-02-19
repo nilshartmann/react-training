@@ -34,7 +34,7 @@ app.use((_, res, next) => {
 app.use((req, _res, next) => {
   if (req.query.slow !== undefined) {
     // can't remember why I do this kind of math, but it seems to work 😱
-    const timeout = (Math.floor(Math.random() * 4) + 2) * 250;
+    const timeout = (Math.floor(Math.random() * 4) + 2) * 550;
     console.log(`Slow down ${timeout}ms`);
     setTimeout(next, timeout);
   } else {
@@ -85,15 +85,41 @@ if (authEnabled) {
   });
 }
 
-app.get("/posts", (req, res) =>
-  res
-    .status(200)
-    .json(
-      req.query.short === undefined
-        ? datastore.getAllPosts()
-        : datastore.getAllPosts().map(p => ({ id: p.id, date: p.date, title: p.title }))
-    )
-);
+app.get("/posts", (req, res) => {
+  let result;
+  if (req.query.short !== undefined) {
+    result = datastore.getAllPosts().map(p => ({ id: p.id, date: p.date, title: p.title }));
+  } else if (req.query.full !== undefined) {
+    result = datastore.getAllPosts().map(p => ({
+      ...p,
+      author: datastore.getUser(p.userId).name
+    }));
+  } else {
+    result = datastore.getAllPosts();
+  }
+
+  if (req.query.orderBy === "newestFirst") {
+    result.sort(datastore.orderByDateNewestFirst);
+  } else if (req.query.orderBy === "oldestFirst") {
+    result.sort(datastore.orderByDateOldestFirst);
+  } else if (req.query.orderBy === "author") {
+    result.sort((p1, p2) => {
+      if (!p1.author || !p2.author) {
+        // fallback if author is not requested/found
+        return datastore.orderByDateNewestFirst(p1, p2);
+      }
+
+      const r = p1.author.localeCompare(p2.author);
+      if (r === 0) {
+        return datastore.orderByDateNewestFirst(p1, p2);
+      }
+
+      return r;
+    });
+  }
+
+  res.status(200).json(result);
+});
 
 app.get("/most-liked-posts", (req, res) => {
   const orderByLikes = (p1, p2) => p2.likes - p1.likes;
