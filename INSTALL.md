@@ -36,6 +36,9 @@ npm install
 
 cd blog-example/workspace
 npm install
+
+cd blog-example/workspace-typescript
+npm install
 ```
 
 ## Schritt 2: Testen, ob Backend funktioniert
