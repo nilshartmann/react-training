@@ -40,10 +40,21 @@
               >
             </p>
           </div>
-
-          <p>
-            <span class="transparent-bg">Slides: react-training/2020_03_react.html</span>
-          </p>
+          <p style="margin-top:4rem"></p>
+          <div>
+            <h3><span class="transparent-bg">Slides</span></h3>
+            <p>
+              <span class="transparent-bg">Lokal: react-training/2020_03_react.html</span>
+            </p>
+            <p>
+              <span class="transparent-bg"
+                >oder online:
+                <a href="https://nils.buzz/2020_03_react.html"
+                  >https://nils.buzz/2020_03_react.html</a
+                ></span
+              >
+            </p>
+          </div>
         </section>
         <section>
           <h2>Nils Hartmann</h2>
@@ -67,9 +78,6 @@
         <section>
           <h2>Agenda</h2>
           <ul style="font-size: 85%">
-            <li style="margin-bottom: 20px">
-              <a href="#/es6-intro">Vorab: ES6 Einführung</a>
-            </li>
             <li>
               <a href="#/t1">Teil I: React Einführung</a>
             </li>
@@ -83,1200 +91,18 @@
               <a href="#/t-server">Teil IV: Daten lesen und schreiben vom Server</a>
             </li>
             <li style="margin-bottom: 20px">
-              <a href="#/t-typescript">Teil V: TypeScript und React</a>
+              <a href="#/t-test">Teil V: Testen von React Anwendungen</a>
+            </li>
+            <li style="margin-bottom: 20px">
+              <a href="#/t-typescript">Teil VI: TypeScript und React</a>
             </li>
             <li>
-              <a href="#/t-test">Teil VI: Testen von React Anwendungen</a>
-            </li>
-            <li>
-              <a href="#/t-router">Teil: VII: Router</a>
+              <a href="#/t-router">Teil VII: Router</a>
             </li>
           </ul>
           <div style="font-size:80%">
             <p><b>Jederzeit:</b> Fragen und Diskussionen!</p>
           </div>
-        </section>
-        <section id="es6-intro">
-          <h1>ES6 Einführung</h1>
-        </section>
-
-        <section>
-          <h3>JavaScript Versionen</h3>
-
-          <p class="fragment">
-            <b>ES5</b> erschienen 2009, "Referenzversion", die von allen Browsern (inkl. IE)
-            unterstützt wird
-          </p>
-          <p class="fragment">
-            <b>ES6</b>, <b>ECMAScript 2015</b>, großes Release von 2015,
-            <a href="http://kangax.github.io/compat-table/es6/">sehr viele Neuerungen</a>
-            ("modernes JavaScript")
-          </p>
-          <p class="fragment">
-            <b>ES7, ES8, ES9 / ES2016, ES2017, ES2018, ...</b>: jährliche Releases mit weniger
-            Neuerungen
-          </p>
-          <p class="fragment">
-            <b>ES.Next</b>: "symbolischer" Name für das jeweils nächste Release
-          </p>
-
-          <p class="fragment">
-            Browsersupport für neue JavaScript-Versionen
-            <a href="http://kangax.github.io/compat-table/es6/"
-              >http://kangax.github.io/compat-table/es6/</a
-            >
-          </p>
-        </section>
-
-        <section>
-          <h2>Teil I: Spracherweiterungen und -verbesserungen</h2>
-        </section>
-
-        <!-- ============================================================================= -->
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>let und const als Ersatz für var</h3>
-
-          <pre class="fragment"><code class="javascript">
-    // Variable
-    let alter = 42;
-    alter = 43; // OK
-  </code></pre>
-          <pre class="fragment"><code class="javascript">
-    
-    // Konstante
-    const name = "Nils";
-    name = "Klaus"; // TypeError: invalid assignment to const 'name'
-  </code></pre>
-          <pre class="fragment"><code class="javascript">
-    // Nur Referenzen sind konstant
-    const person = { 
-      name: "Nils"
-    }
-
-    person = "Klaus"; // TypeError: invalid assignment to const 'person'
-    person.name = "Klaus" // OK
-  </code></pre>
-        </section>
-
-        <!-- ==========================================================  -->
-        <section>
-          <h3>let und const als Ersatz für var</h3>
-          <h4>Block Scoping</h4>
-
-          <pre class="fragment"><code class="javascript">
-    // ES5: keine Sichtbarkeiten!
-    for (var i = 0; i < 2; i++) {
-      console.log(i);
-    }
-
-    console.log("Nach for", i); // i ist hier bekannt!
-  </code></pre>
-          <pre class="fragment"><code class="javascript">
-    // mit let (und const) ist j nur in der Schleife sichtbar
-    for (let j = 0; j &lt; 2; j++) {
-      console.log(j);
-    }
-
-    console.log("Nach for", j); // Reference-Error: j is not defined
-         </code></pre>
-        </section>
-
-        <!-- ==========================================================  -->
-        <section>
-          <h3>let und const</h3>
-          <h4>Kein Hoisting</h4>
-          <pre class="fragment"><code class="javascript">
-function A() { 
-  console.log(num); 
-  
-  num = 1; 
-  console.log(num); 
-  
-  var num = 2;
-  console.log(num); 
-}
-
-A(); // Ausgabe: undefined, 1, 2
-    </code></pre>
-          <pre class="fragment"><code class="javascript">
-function B() { 
-  console.log(num); 
-  
-  num = 1;
-  console.log(num);
-  
-  let num = 2;
-  console.log(num); 
-}
-
-B(); // ReferenceError: can't access lexical declaration `num' before initialization
-
-           </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Template Strings</h3>
-          <pre><code class="javascript">
-
-        const name = "Susi";
-
-        const greet = `Hello, ${name}`; // Hello, Susi
-
-        const loudGreet = `Hello, ${name.toUpperCase()}` // Hello, SUSI
-
-        const evenLouder = `Hello, ${name}`.toUpperCase(); // HELLO, SUSI
-
-        // Mehrzeilige Strings erlaubt (Umbrüche bleiben erhalten)
-        const letter = `Dear reader,
-hope, you're doing find.
-Best,
-Paul`        
-      </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Fat Arrow Functions #1</h3>
-          <pre><code class="javascript">
-  const greet = (msg) => {
-    return "Hello, " + msg;
-  }
-  
-  // oder ganz kurz
-  const greet => "Hello, " + msg;
-  
-  // Verhalten wie "normale Funktion"
-  greet("World"); // Hello, World
-  greet(null), // Hello, null
-  greet(); // Hello, undefined
-  
-  </code></pre>
-        </section>
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Fat Arrow Functions #2</h3>
-          <pre><code class="javascript">
-// Mehrere Parameter in Klammern
-const sum = (n1, n2) => n1 + n2;
-
-// Wenn Rückgabe-Wert Objekt ist, in () einschließen
-const createPerson = (last, first) => ({
-  lastName: last,
-  firstName: first
-});
-</code></pre>
-        </section>
-        <!-- ============================================================================= -->
-
-        <section>
-          <h3>JavaScript: Arrays</h3>
-
-          <pre><code class="javascript">
-          const empty = []; 
-          const dinge = [ "a", 123, { name: "Klaus"}, false];
-          </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-          // Ein bestehendes Array um neue Einträge erweitern
-          const abc = ["a", "b", "c"];
-
-          abc.push("d", "e"); // ["a", "b", "c", "d", "e"];
-
-          abc[4]; // e
-          abc.length // 5
-          </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-
-          // Ein NEUES Array erzeugen und das erweitern
-          const three = [1, 2, 3];
-          const five = three.concat(4, 5)
-          // three !== five
-
-          // oder mit Array Destructurierung:
-          const six = [...three, 4, 5, 6]
-            // [1, 2, 3, 4, 5, 6]
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>JavaScript: Arrays</h3>
-          <pre class="fragment"><code class="javascript">
-          // Iterieren
-
-          for (const x of six) {
-            console.log(x);
-          }
-          // 1, 2, 3, 4, 5, 6
-
-          six.forEach(v => console.log(v));
-          // 1, 2, 3, 4, 5, 6
-        </code></pre>
-          <pre class="fragment"><code class="javascript">
-          // Transformieren ("map") eines Arrays
-
-          const multiplied = six.map(v => v * 2);
-          // [2, 4, 6, 8, 10, 12]
-          </code></pre>
-          <pre class="fragment"><code class="javascript">
-
-          const persons = [{ name: "Klaus", age: 32}, { name: "Susi", age: 16}, { name: "Peter", city: "Freiburg"}];
-          const greetings = persons.map(p => "Hello p.name");
-          // ["Hello, Klaus", "Hello Susi", "Hello Peter"];
-          
-          const isAdult = persons.map(p => p.age >= 18);
-          // [true, false, true]
-        </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h2>Übung #1: Arrays and Function</h2>
-          <p>
-            <em
-              >Implementiere eine Funktion die überprüft, ob ein Wert einer Reihe von Bedingungen
-              entspricht</em
-            >
-          </p>
-          <p class="fragment"><code>verify(value, [criteria1, criteria2]);</code></p>
-          <p class="fragment">
-            Ein <b>Criteria</b> ist eine Funktion, die einen Wert entgegennimmt, und prüft, ob
-            dieser einem bestimmten Kriterium (z.B. nicht null) entspricht Example:<br />
-            <code>function notNull(value) { return value !== null}</code>
-          </p>
-          <p class="fragment">
-            Weitere Informationen findest Du in
-            <b><code>code/js-intro/excercises/01_arrays_and_functions/index.js</code></b
-            >. Darin kannst Du auch deinen Code schreiben.
-          </p>
-          <p class="fragment">
-            Du kannst
-            <b><code>code/js-intro/excercises/01_arrays_and_functions/index.html</code></b> in
-            deinem Browser öffnen. Diese Datei führt die <b><code>index.js</code></b
-            >-Datei dann aus.
-          </p>
-          <p class="fragment">Ausgaben auf der Browser-Konsole</p>
-          <p class="fragment">Bei Fragen oder Problemen, kannst Du dich jederzeit melden</p>
-          <p class="fragment">
-            Wenn alle Stricke reißen, findest Du die Lösungen in:
-            <code>code/js-intro/excercises/01_arrays_and_functions/solution/index.js</code>
-          </p>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Erweiterte Objekt-Literale 1</h3>
-          <h4>Shorthand notation</h4>
-
-          <p>ES5:</p>
-
-          <pre><code class="javascript">
-const firstName = "Klaus";
-const lastName = "Müller";
-          
-const person = {
-  firstName: firstName,
-  lastName: lastName,
-  age: 32
-}
-
-
-          </code></pre>
-
-          <p class="fragment">ES6:</p>
-
-          <pre class="fragment"><code class="javascript">
-    const firstName = "Klaus";
-    const lastName = "Müller";
-
-    const person = {
-      firstName,
-      lastName,
-      age: 32
-    }
-</code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Destrukturiering</h3>
-          <h4>Bei Objekten</h4>
-
-          <pre><code class="javascript">
-  const person = {
-    firstName: "Klaus",
-    lastName: "Müller",
-    age: 32
-  }
-
-  const { firstName, lastName } = person;
-  console.log(firstName); // Klaus
-  console.log(lastName); // Müller
-
-            </code></pre>
-          <pre class="fragment"><code class="javascript">
-// Default-Werte
-const { hobby = "Cooking" } = person;
-console.log(hobby); // Cooking
-
-            </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-// Umbenennen
-const { lastName: name } = person;
-console.log(name); // Müller
-
-            </code></pre>
-        </section>
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Destrukturiering</h3>
-          <h4>Beispiel: Mit Funktionsparametern</h4>
-
-          <pre><code class="javascript">
-function greet({firstName, lastName}) {
-  return `Hello, ${firstName} ${lastName}`;
-}
-
-greet({
-  firstName: "Klaus",
-  lastName: "Müller",
-  age: 32
-)};
-
-      </code></pre>
-
-          <h4 class="fragment">Beispiel: Bei Arrow-Funktionen</h4>
-          <pre class="fragment"><code class="javascript">
-const greet = ({firstName, lastName}) => `Hello, ${firstName} ${lastName}`;
-                </code></pre>
-        </section>
-        <!-- ============================================================================= -->
-
-        <section>
-          <h3>Spread Operator</h3>
-          <p>Zerlegt etwas in einzelne Parameter</p>
-          <p>
-            "etwas" muss
-            <a
-              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator"
-              >Iterable</a
-            >
-            sein
-          </p>
-          <p>Iterables zum Beispiel Arrays, Set oder Map</p>
-
-          <pre class="fragment"><code class="javascript">
-            function add(num1, num2) {
-              console.log(num1 + num2);
-            }
-
-            const values = [ 1, 5 ];
-            add([...values]); // 6
-
-          </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Spread Operator</h3>
-          <p>Beispiel: Ersatz für concat</p>
-          <pre class="fragment"><code class="javascript">
-                    const values = [ "a", "b", "c"];
-
-                    const newValues = values.concat("d", "e");
-                    // [ "a", "b", "c", "d", "e"]
-
-                    const newValues2 = values.concat(["d", "e"]);
-                    // [ "a", "b", "c", "d", "e"]
-
-                    const newValues3 = values.concat([["d", "e"]]);
-                    // [ "a", "b", "c", ["d", "e"]]
-                  </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-                      const values = [ "a", "b", "c"];
-  
-                      const newValues = [...values, "d", "e" ];
-                      // [ "a", "b", "c", "d", "e"]
-  
-                      const newValues2 = [...values, ...["d", "e"]);
-                      // [ "a", "b", "c", "d", "e"]
-  
-                      const newValues3 = [...values, ["d", "e"]);
-                      // [ "a", "b", "c", ["d", "e"]]
-                    </code></pre>
-        </section>
-
-        <section>
-          <h3>Spread Operator</h3>
-          <p>Kann Objekte kopieren</p>
-          <pre class="fragment"><code class="javascript">
-    const person = { name: "Klaus", age: 32};
-
-    const newPerson = {...person};
-    // newPerson.name: Klaus, newPerson.age: 32
-  </code></pre>
-          <pre class="fragment"><code class="javascript">
-
-
-    // hintere Werte überschreiben vordere
-    const newPerson = {name: "Peter", ...person};
-    // newPerson.name: Klaus, newPerson.age: 32
-
-     </code></pre>
-          <pre class="fragment"><code class="javascript">
-    // hintere Werte überschreiben vordere
-    const newPerson = {...person, name: "Peter"};
-    // newPerson.name: Peter, newPerson.age: 32
-            </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Spread Operator</h3>
-          <p>Macht nur flache Kopien!</p>
-          <pre class="fragment"><code class="javascript">
-      const person = { name: "Klaus", age: 32, address: { city: "Hamburg"}};
-  
-      const newPerson = {...person};
-      newPerson.address.city = "München";
-
-      newPerson.address.city; // München 😶
-      person.address.city; // München 😶
-    </code></pre>
-
-          <p class="fragment">
-            "Deep Copies" z.B. mit
-            <a href="https://lodash.com/docs/4.17.15#cloneDeep">deepClone von lodash</a>
-          </p>
-        </section>
-
-        <section>
-          <h3>Object.assign()</h3>
-          <p>Ähnlich wie Spread, führt Objekte zusammen</p>
-          <pre class="fragment"><code class="javascript">
-      const person = { name: "Klaus", age: 32};
-  
-      const newPerson = Object.assign({}, person, { city: "Hamburg"});
-      // newPerson.name: Klaus, newPerson.age: 32, newPerson.city: Hamburg
-    </code></pre>
-        </section>
-
-        <section>
-          <h3>Übung #2: Arbeiten mit Objekten</h3>
-          <p>
-            Ordner: <b><code>code/js-intro/exercises/02_objects</code></b>
-          </p>
-          <p>
-            Wie in der vorherigen Übung gibt es eine <b><code>index.js</code></b
-            >-Datei
-          </p>
-          <p>
-            In dieser Datei findest Du wieder TODOs (Hinweis: die einzelnen "Schritte" in dieser
-            Übung sind unabhängig voneinander)
-          </p>
-          <p>
-            Öffne <b><code>02_objects/index.html</code></b> und schreibe deinen Code in
-            <b><code>02_objects/index.js</code></b>
-          </p>
-        </section>
-
-        <!-- ============================================================================= -->
-
-        <!-- ============================================================================= -->
-
-        <section>
-          <h3>Klassen #1</h3>
-
-          <pre class="fragment"><code class="javascript">
-          class Greeter {
-            constructor(phrase) {
-                this.phrase = phrase;
-            }
-
-            greet(name) {
-              return `${this.phrase}, ${name}`
-            }
-            
-            toString() { return `Greeter with phrase ${this.phrase}` ; }
-        }
-      </code></pre>
-          <p class="fragment">
-            Wichtig: beim Zugriff auf Instanz-Member innerhalb der Klasse immer mit
-            <b>this</b> arbeiten!
-          </p>
-          <h4 class="fragment">Verwendung</h4>
-          <pre class="fragment"><code class="javascript">
-
-// Neue Instanz erzeugen
-const p = new Greeter("Hello");
-// Impliziter Aufruf on toString():
-console.log(p + ""); // Person: Susi
-
-// Methoden-Aufruf
-p.greet("Klaus"); // Greeter with phrase Hello 
-
-// Properties verändern
-p.phrase = "Moin";
-p.greet("Susi"); // Moin, Susi
-      </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Klassen #2</h3>
-          <h4>Getter- und Setter-Methoden</h4>
-
-          <pre><code class="javascript">
-              class Person {
-                constructor(name) {
-                    this._name = name;
-                }
-                
-                get name() {
-                    return this._name;
-                }
-                
-                set name(newName) {
-                    this._name = newName;
-                }
-                
-                toString() { return `Person: ${this.name}`; }
-            }
-            
-            const p = new Person("Susi");
-
-           
-          </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-              p.name // Susi (getter-Aufruf)
-              p.name = "Lisa"; // setter-Aufruf
-
-              console.log(p.toString()) // Person: Lisa;
-            </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>JavaScript: Klassen #3</h3>
-          <h4>Vererbung</h4>
-
-          <pre><code class="javascript">
-  class Musician extends Person {
-    constructor(name, instrument) {
-      // super-Aufruf muss immer als Erstes kommen
-      super(name);
-      this._instrument = instrument;
-    }
-  
-    toString() { 
-      // Methoden aus der Oberklasse können mit 'super.' aufgerufen werden
-      return `${super.toString()} plays ${this._instrument}`;
-    }
-  }            
-  
-  const lemmy = new Musician("Lemmy", "Bass");
-  lemmy.toString(); // Person: Lemmy plays Bass
-  lemmy.name // // Lemmy
-  
-  
-            </code></pre>
-        </section>
-        <!-- ============================================================================= -->
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Module</h3>
-          <p>Mit Modulen sind Dateiinhalte nicht mehr global sichtbar</p>
-          <p>Module bestimmen explizit, was außerhalb verwendet werden darf</p>
-          <p>
-            Module geben explizit an, was sie aus anderen Modulen verwenden wollen
-          </p>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Module</h3>
-          <h4>Default Exporte</h4>
-          <p>
-            <em
-              >Objekte, Funktionen, Klassen etc müssen explizit <b>exportiert</b> und
-              <b>importiert</b> werden</em
-            >
-          </p>
-          <p class="fragment">Eine <code>export</code>-Anweisung macht aus einer Datei ein Modul</p>
-
-          <pre class="fragment"><code class="javascript">
-            // src/domain/Person.js
-            export default class Person { ... }
-
-            oder
-
-            class Person { ... }
-            export default Person
-          </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-              // src/domain/Person.js
-              export default function createPerson() { ... }
-  
-              oder
-  
-              function createPerson() { ... }
-              export default createPerson;
-            </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-                Nur EIN Default Export erlaubt;
-                export default function createPerson() { ... }
-                export default class Person { ... } // KONFLIKT
-              </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Module</h3>
-          <h4>Importieren</h4>
-          <p class="fragment">
-            Beim importieren geben wir Pfade(!) an (im Browser auch mit
-            <code>.js</code>-Endung!)
-          </p>
-
-          <pre class="fragment"><code class="javascript">
-              // src/domain/Musician.js
-              import Person from "./Person.js";
-  
-              export default class Musician extends Person { ... }
-            </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-                // src/App.js
-                import Musician from "./domain/Musician.js";
-  
-                const lemmy = new Musician("Lemmy", "Bass");
-              </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Module</h3>
-          <h4>Benannte Exporte</h4>
-          <p class="fragment">
-            Ein Modul kann neben einem Default auch beliebig viele
-            <b>benannte Exporte</b> haben
-          </p>
-
-          <pre class="fragment"><code class="javascript">
-                // src/domain/Person.js
-                export default class Person { ...}
-                export function createPerson() { ... }
-                export function removePerson() { ... }
-              </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-                  // src/domain/Person.js
-                  export default class Person { ...}
-                  function createPerson() { ... }
-                  function removePerson() { ... }
-
-                  export { createPerson, removePerson }
-                </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Module</h3>
-          <h4>Benannte Importe</h4>
-          <pre class="fragment"><code class="javascript">
-                    // src/App.js
-                    import { createPerson } from "./Person.js"
-              </code></pre>
-          <pre class="fragment"><code class="javascript">
-                // Default und benannten Export importieren
-                import Person, { createPerson } from "./Person.js"
-              </code></pre>
-          <pre class="fragment"><code class="javascript">
-                  // Alles importieren
-                  import { * as P } from "./Person.js"
-  
-                  P.createPerson();
-                </code></pre>
-          <pre class="fragment"><code class="javascript">
-                    // Umbennen
-                    import { createPerson as create } from "./Person.js"
-    
-                    create();
-                  </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Module im Browser</h3>
-          <p>
-            Um Module im script-Tag im HTML-Code zu verwenden, muss als dort als type "module"
-            angegeben werden
-          </p>
-
-          <pre class="fragment"><code class="javascript">
-            &lt;html>
-              ...
-              &lt;script type="module">
-                import Musician from "./Musician.js";
-
-                const m = new Musician("Lemmy", "Bass");
-              &lt;/script>
-            &lt;/html>
-          </code></pre>
-          <pre class="fragment">
-(Noch) nicht relevant, da bei React-Anwendungen (und Angular und Vue-Awendungen)
-das Modulsystem beim Build quasi "entfernt" wird (mehr dazu später im React-Teil)</pre
-          >
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Module</h3>
-          <h4>Bundling</h4>
-
-          <p>Nicht alle Browser unterstützen Module nativ</p>
-          <p>
-            Es gibt faktisch mehr als ein Modulsystem (zum Beispiel CommonJS aus Node.JS)
-          </p>
-
-          <p>
-            Mit einem Bundler (z.B.
-            <a href="http://webpack.github.io/">Webpack</a> oder
-            <a href="https://rollup.js.org">Rollup</a>) werden die Module im Build "aufgelöst" und
-            in <b>eine</b> Datei geschrieben
-          </p>
-        </section>
-
-        <section>
-          <h3>Übung #3: Modules</h3>
-
-          <p>Vorbereitung</p>
-          <ol>
-            <li class="fragment">
-              Gehe auf der Kommandozeile in <code>code/js-intro/exercises/03_modules</code>
-            </li>
-            <li class="fragment">Führe <code>npx http-server</code> in dem Ordner aus</li>
-            <li class="fragment">
-              Öffne die Beispiel-Seite mit <a href="http://localhost:8080">http://localhost:8080</a>
-            </li>
-          </ol>
-          <p class="fragment">
-            Verschiebe verify, verifyAll und die rule-Funktionen jeweils in ihre eigenen Module
-          </p>
-          <p class="fragment">
-            TODOs findest Du in <code><b>code/js-intro/exercises/03_modules/index.js</b></code>
-          </p>
-          <p class="fragment">
-            Erinnerung: in <code>import</code>-Anweisungen musst Du die Datei-Endung
-            <code>.js</code>
-            in den importierten Dateien angeben.
-          </p>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Übung: Module</h3>
-          <p>
-            Teile die Beispiel-"Anwendung" aus der Klassen-Übung in Module auf.
-          </p>
-          <p><b>Vorbereitung</b></p>
-          <ol>
-            <li>Wir arbeiten im Verzeichnis <b>code/uebungen/module</b></li>
-            <li>
-              Wenn Du nicht fertig geworden bist, verwende den Lösungsstand aus
-              <b>code/loesungen/klassen/klassen-c.html</b>
-            </li>
-            <li>
-              Du musst in dem Verzeichnis einen HTTP-Server starten, z.B.
-              <code>npx http-server</code>
-            </li>
-          </ol>
-        </section>
-
-        <section id="p_webdev">
-          <h1>Teil II</h1>
-          <h2>Web Development mit JavaScript</h2>
-        </section>
-
-        <section>
-          <h3>Ein einfaches Beispiel...</h3>
-
-          <a href="code/js-intro/03_helloworld/">Hello World</a>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Eine HTML Datei...</h3>
-
-          <pre><code class="html">
-&lt;html>
-  &lt;head>
-    &lt;title>Hello World!&lt;/title>
-  &lt;head>
-  &lt;body>
-    &lt;h1>Hello World-App&lt;/h1>
-
-    &lt;input id="greetInput" />
-    
-    &lt;button id="greetButton" disabled>
-      Greet!
-    &lt;/button>  
-  &lt;/body>
-&lt;/html>
-</code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Web-Entwicklung mit JavaScript</h3>
-          <p>Der Browser erzeugt das Document Object Model (<b>DOM</b>) aus dem HTML-Code</p>
-          <p class="fragment">Browser rendert und stellt den DOM dar</p>
-
-          <p class="fragment">
-            Über JavaScript können nach Elementen im DOM suchen (getElementBy...)
-          </p>
-          <p class="fragment">
-            Wir können Listener an DOM Elemente hängen und auf Ereignisse reagieren (zum Beispiel
-            auf Text, der in einem Input-Feld eingegeben wurde)
-          </p>
-          <p class="fragment">
-            Wir können den DOM auch mit JS <b>verändern</b> (hinzufügen/löschen von Elemente,
-            Attribute verändern, CSS ändern)
-          </p>
-          <p class="fragment">
-            👉 Immer, wenn sich der DOM ändert, wird die Darstellung im Browser geändert
-          </p>
-        </section>
-
-        <section>
-          <h3>Einbinden von JavaScript mit dem <code>script</code> Tag</h3>
-          <p>Beispiel: JavaScript code inline im HTML-Dokument</p>
-          <pre><code class="html">
-&lt;html>
-  &lt;head>...&lt/head>
-  &lt;body>
-    &lt;h1>Hello&lt;/h1>            
-    &lt;script>
-      console.log("Hello World!");
-    &lt;/script>              
-  &lt;/body>
-&lt;/html>  
-          </code></pre>
-
-          <p class="fragment">Beispiel: JavaScript aus externer Datei laden (bevorzugt)</p>
-          <pre class="fragment"><code class="html">
-
-&lt;html>
-  &lt;head>...&lt/head>
-  &lt;body>
-    &lt;h1>Hello&lt;/h1>            
-    &lt;script src="./index.js">&lt;/script>              
-  &lt;/body>
-&lt;/html>
-          </code></pre>
-        </section>
-
-        <section>
-          <h3>JavaScript und der DOM</h3>
-          <p>Auf den DOM kann mit JavaScript zugegriffen werden</p>
-          <pre><code data-trim class="html">
-&lt;html>
-  &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
-  &lt;body>
-    &lt;h1>Hello World-App&lt;/h1>
-    
-    &lt;input id="greetInput" />
-    &lt;button onclick="javascript:greet()">Greet!&lt;/button>
-  &lt;/body>
-  &lt;script>
-    function greet() {
-      const greeting = document.getElementById("greetInput").value;
-      alert(`Your greeting: '${greeting}'`);
-    }
-  &lt;/script>
-&lt;/html>
-</code></pre>
-        </section>
-        <section>
-          <h3>JavaScript und der DOM: Interaktionen und Manipulation des DOM</h3>
-          <pre><code data-trim class="html">
-      &lt;!DOCTYPE html>
-      &lt;html>
-        &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
-        &lt;body>
-          &lt;h1>Hello World-App&lt;/h1>
-      
-          &lt;input id="greetInput" />
-          &lt;button id="greetButton" disabled onclick="javascript:greet()">
-            Greet!
-          &lt;/button>
-        &lt;/body>
-        &lt;script>
-          document.getElementById("greetInput")
-            .addEventListener("input", function(event) {
-              if (event.target.value.length > 0) {
-                document.getElementById("greetButton").disabled = false;
-              } else {
-                document.getElementById("greetButton").disabled = true;
-              }
-            });
-          function greet() {
-            const greeting = document.getElementById("greetInput").value;
-            alert(`Your greeting: '${greeting}'`);
-          }
-        &lt;/script>
-      &lt;/html>
-      
-  </code></pre>
-        </section>
-        <section>
-          <h3>JavaScript und der DOM: Elemente erzeugen</h3>
-          <pre><code data-trim class="html">
-        &lt;!DOCTYPE html>
-        &lt;html>
-          &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
-          &lt;body>
-            ...
-          &lt;/body>
-          &lt;script>
-            // ...
-            function greet() {
-              const greeting = document.getElementById("greetInput").value;
-        
-              const div = document.createElement("p");
-              div.textContent = greeting;
-              document.body.appendChild(div);
-            }
-          &lt;/script>
-        &lt;/html>    </code></pre>
-        </section>
-        <section>
-          <h3>Zur Vollständigkeit: die ganze Anwendung in JavaScript</h3>
-          <pre><code data-trim class="html">
-        &lt;!DOCTYPE html>
-        &lt;html>
-          &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
-          &lt;body />
-          &lt;script>
-              const title = document.createElement("h1");
-              const titleText = document.createTextNode("Hello World");
-              title.appendChild(titleText);
-
-              const greetButton = document.createElement("button");
-              greetButton.innerHTML = "Greet!";
-              greetButton.disabled = true;
-              greetButton.addEventListener("click", event => {
-                const div = document.createElement("p");
-                div.textContent = greetInput.value;
-                document.body.appendChild(div);
-              });
-
-              const greetInput = document.createElement("input");
-              greetInput.addEventListener("input", event => {
-                if (event.target.value.length > 0) {
-                  greetButton.disabled = false;
-                } else {
-                  greetButton.disabled = true;
-                }
-              });
-
-              document.body.appendChild(title);
-              document.body.appendChild(greetInput);
-              document.body.appendChild(greetButton);
-          &lt;/script>
-        &lt;/html>    </code></pre>
-        </section>
-        <section>
-          <h3>Erinnert Euch nochmal an den Code von der vorherigen Slide...</h3>
-          <div class="fragment">
-            <h3>
-              Meinst Du, es macht viel Spaß, Web-Anwendungen mit "Vanilla JS" zu bauen? Drei
-              Optionen:
-            </h3>
-            <div class="choice-of-horror">
-              <label class="fragment"
-                ><input name="xxx" type="radio" class="choices" /><span>Nein</span></label
-              >
-              <label class="fragment"
-                ><input name="xxx" type="radio" class="choices" /><span
-                  >Auf keinen Fall!</span
-                ></label
-              >
-              <label class="fragment"
-                ><input name="xxx" type="radio" class="choices" /><span
-                  >Ich will raus hier!</span
-                ></label
-              >
-            </div>
-          </div>
-        </section>
-        <section>
-          <h2>CSS</h2>
-        </section>
-
-        <section>
-          <h3>Möglichkeiten zur Angabe von CSS-Regeln</h3>
-
-          <p>in einer eigenen .css-Datei</p>
-          <p>einem Style-Tag im HTML-Dokument</p>
-          <p>inline an direkt an einem HTML-Element</p>
-          <p>Per JavaScript (setzen von Klassen, Attributen etc) am DOM</p>
-        </section>
-
-        <section>
-          <h3>Regeln in eigener Datei</h3>
-          <p>styles.css</p>
-          <pre><code class="css">
-/** CSS Class */
-.Title { font-family: Arial, Helvetica, sans-serif; }
-
-/** Element Id */
-#greetInput {  background-color: darkturquoise;  font-size: 32px; }
-
-/** HTML Element */
-button {  font-size: 20px; }
-          </code></pre>
-
-          <pre class="fragment"><code class="html">
-&lt;html>
-  &lt;head>
-    &lt;link href="./styles.css" rel="stylesheet" />
-  &lt;head>
-  &lt;body>
-    <h1 class="Title">Hello World-App</h1>
-
-    &lt;input id="greetInput" />
-    &lt;button>Greet!&lt;button>
-  &lt;body>
-&lt;/html>              
-          </code></pre>
-          <a href="code/js-intro/05_helloworld_with_styles/index.html">Styles Beispiel</a>
-        </section>
-
-        <section>
-          <h3>Style Tag in der HTML-Datei</h3>
-          <p>(einziger Unterschied: wo wird das CSS geschrieben/abgelegt)</p>
-
-          <pre><code class="html">
-&lt;html>
-  &lt;head>
-    &lt;title>Hello World!&lt;title>
-    &lt;style>
-      .Title {
-        font-family: Arial, Helvetica, sans-serif;
-      }
-
-      #greetInput {
-        background-color: darkturquoise;
-        font-size: 32px;
-      }
-
-      button {
-        font-size: 20px;
-      }
-    &lt;style>
-  &lt;head>
-  &lt;body>...unchanged...&lt;/body>
-&lt;/html>  
-          </code></pre>
-
-          <a href="code/js-intro/05a_helloworld_with_styles_element/index.html">Styles Beispiel</a>
-        </section>
-
-        <section>
-          <h3>Inline styles</h3>
-          <p>
-            Styles können direkt am HTML-Element angegeben werden (gilt nicht als "Best Practice")
-          </p>
-
-          <pre><code class="html">
-&lt;html>
-  &lt;head>
-    ...unchanged...
-  &lt;/head>
-  &lt;body>
-   &lt;h1 class="Title" style="background-color:red">Hello World-App&lt;/h1>
-   ...
-  &lt;/body>
-&lt;/html> 
-</code></pre>
-
-          <a href="code/js-intro/05b_helloworld_with_inline_styles/index.html">Styles Beispiel</a>
-        </section>
-
-        <section>
-          <h3>Mit JavaScript</h3>
-          <p>
-            Wir können Styles zur Laufzeit erzeugen:<br />
-            <code>document.createElement("style");</code>
-          </p>
-          <p>
-            Wir können CSS-Klassen von DOM Elementen entfernen und hinzufügen (zum Beispiel als
-            Reaktion auf eine Benutzer-Interaktion)
-          </p>
-          <p>
-            Wir können Inline-Styles an einem DOM-Element verändern, löschen, hinzufügen (ebenfalls
-            nach Benutzer-Interaktion)
-          </p>
-
-          <pre class="fragment"><code class="javascript">
-    document.getElementById("greetInput").addEventListener("input", function(event) {
-      if (event.target.value.length > 0) {
-        document.getElementById("greetInput").classList.add("Success");
-        document.getElementById("greetInput").classList.remove("Failure");
-        document.getElementById("greetButton").disabled = false;
-      } else {
-        document.getElementById("greetButton").disabled = true;
-        document.getElementById("greetInput").classList.add("Failure");
-        document.getElementById("greetInput").classList.remove("Success");
-      }
-    });
-
-    // ...nicht vergessen, die initialen Klassen korrekt zu setzen!
-          </code></pre>
-
-          <a href="code/js-intro/05c_helloworld_dynamic_styles/index.html">Styles Beispiel</a>
-        </section>
-
-        <section>
-          <h3>Was ist mit... jQuery?</h3>
-          <ul>
-            <li>...immer noch die am meisten verwendete JS Bibliothek</li>
-            <li class="fragment">
-              ...fügt(e) wichtige APIs zum DOM hinzu, um die Arbeit damit einfacher zu machen <br />
-              Die wichtigsten API sind mittlerweile in dein DOM Standard aufgenommen
-            </li>
-            <li class="fragment">
-              ...sorgt dafür, dass unterschiedliches Verhalten von Browsern angeglichen wird.
-              <br />Die Differenzen im Browser-Verhalten sind mittlerweile sehr gering
-            </li>
-            <li class="fragment">
-              ...immer noch die "falsche" Abstraktionsebene für "echte" Anwendungen im Browser
-            </li>
-          </ul>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Single-Page-Applications</h3>
-          <ul>
-            <li>...Anwendungen, die <b>komplett</b> im Browser laufen (zumindest Frontend)</li>
-            <li class="fragment">
-              ...die UI wird komplett von JavaScript/DOM gemacht, (nahezu) kein HTML
-            </li>
-            <li class="fragment">...das Backend liefert nur Daten (kein HTML)</li>
-          </ul>
-          <p class="fragment">Spezialisierte Frameworks dafür sind: Angular, React, Vue</p>
-          <h2 class="fragment">Lasst und mit React loslegen! 👀</h2>
         </section>
 
         <section id="t1">
@@ -1384,7 +210,7 @@ button {  font-size: 20px; }
   import React from "react";
   
   export default function PostEditor(props) {
-    const [title, setTitle] = React.useState("");
+    const [title, setTitle] = React.useState(props.initialTitle);
   
     return (
       &lt;div>
@@ -1431,6 +257,165 @@ button {  font-size: 20px; }
         </section>
 
         <section data-state="js-exkurs">
+          <h3>Hintergrund: Arrow Functions</h3>
+        </section>
+        <section data-state="js-exkurs">
+          <h3>Arrow Functions #1</h3>
+          <pre><code class="javascript">
+  const greet = (msg) => {
+    return "Hello, " + msg;
+  }
+  
+  // oder ganz kurz
+  const greet => "Hello, " + msg;
+  
+  // Verhalten wie "normale Funktion"
+  greet("World"); // Hello, World
+  greet(null), // Hello, null
+  greet(); // Hello, undefined
+  
+  </code></pre>
+        </section>
+        <!-- ============================================================================= -->
+        <section data-state="js-exkurs">
+          <h3>Arrow Functions #2</h3>
+          <pre><code class="javascript">
+// Mehrere Parameter in Klammern
+const sum = (n1, n2) => n1 + n2;
+
+// Wenn Rückgabe-Wert Objekt ist, in () einschließen
+const createPerson = (last, first) => ({
+  lastName: last,
+  firstName: first
+});
+</code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section data-state="js-exkurs">
+          <h3>Hintergrund: ES6 Modulsystem</h3>
+          <p>Mit Modulen sind Dateiinhalte nicht mehr global sichtbar</p>
+          <p>Module bestimmen explizit, was außerhalb verwendet werden darf</p>
+          <p>
+            Module geben explizit an, was sie aus anderen Modulen verwenden wollen
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section data-state="js-exkurs">
+          <h3>Module</h3>
+          <h4>Default Exporte</h4>
+          <p>
+            <em
+              >Objekte, Funktionen, Klassen etc müssen explizit <b>exportiert</b> und
+              <b>importiert</b> werden</em
+            >
+          </p>
+          <p class="fragment">Eine <code>export</code>-Anweisung macht aus einer Datei ein Modul</p>
+
+          <pre class="fragment"><code class="javascript">
+            // src/domain/Person.js
+            export default class Person { ... }
+
+            oder
+
+            class Person { ... }
+            export default Person
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              // src/domain/Person.js
+              export default function createPerson() { ... }
+  
+              oder
+  
+              function createPerson() { ... }
+              export default createPerson;
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                Nur EIN Default Export erlaubt;
+                export default function createPerson() { ... }
+                export default class Person { ... } // KONFLIKT
+              </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section data-state="js-exkurs">
+          <h3>Module</h3>
+          <h4>Importieren</h4>
+          <p class="fragment">
+            Beim importieren geben wir Pfade(!) zu einer anderen Datei (= anderes Modul) an
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+              // src/domain/Musician.js
+              import Person from "./Person";
+  
+              export default class Musician extends Person { ... }
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                // src/App.js
+                import Musician from "./domain/Musician";
+  
+                const lemmy = new Musician("Lemmy", "Bass");
+              </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section data-state="js-exkurs">
+          <h3>Module</h3>
+          <h4>Benannte Exporte</h4>
+          <p class="fragment">
+            Ein Modul kann neben einem Default auch beliebig viele
+            <b>benannte Exporte</b> haben
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+                // src/domain/Person.js
+                export default class Person { ...}
+                export function createPerson() { ... }
+                export function removePerson() { ... }
+              </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                  // src/domain/Person.js
+                  export default class Person { ...}
+                  function createPerson() { ... }
+                  function removePerson() { ... }
+
+                  export { createPerson, removePerson }
+                </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section data-state="js-exkurs">
+          <h3>Module</h3>
+          <h4>Benannte Importe</h4>
+          <pre class="fragment"><code class="javascript">
+                    // src/App.js
+                    import { createPerson } from "./Person"
+              </code></pre>
+          <pre class="fragment"><code class="javascript">
+                // Default und benannten Export importieren
+                import Person, { createPerson } from "./Person"
+              </code></pre>
+          <pre class="fragment"><code class="javascript">
+                  // Alles importieren
+                  import { * as P } from "./Person"
+  
+                  P.createPerson();
+                </code></pre>
+          <pre class="fragment"><code class="javascript">
+                    // Umbennen
+                    import { createPerson as create } from "./Person"
+    
+                    create();
+                  </code></pre>
+        </section>
+
+        <section data-state="js-exkurs">
           <h2>React Devtools</h2>
           <em>React Developer Tools für Chrome und Firefox</em>
           <p>Untersuchen einer laufenden React Anwendung</p>
@@ -1468,14 +453,55 @@ button {  font-size: 20px; }
         </section>
 
         <section data-state="js-exkurs">
-          <h2>Webpack und Babel</h2>
+          <h2>Hintergrund: Build-Prozess</h2>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>Tool #1: Compiler</h2>
+          <em
+            ><b>Problem:</b>Nicht alle Browser unterstüzten alle (neuen) JavaScript Features. Und
+            kein JSX.</em
+          >
+          <p class="fragment">
+            <a href="https://kangax.github.io/compat-table/es6/"
+              >ES2015 (ES6) Kompatibilitätstabelle</a
+            >
+          </p>
+
+          <p class="fragment">Compiler übersetzen neuen JavaScript-Code zurück in alten</p>
+          <p class="fragment">
+            Typische Vertreter: <a href="https://babeljs.io/">Babel</a> oder
+            <a href="https://www.typescriptlang.org/">TypeScript</a>
+          </p>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>Tool #2: "Bundler"</h2>
+          <p>
+            <b>Problem:</b> Es existieren mehrere Modulsysteme, Support im Browser nicht vollständig
+          </p>
+          <p class="fragment">Bundler...</p>
+          <ul>
+            <li class="fragment">erzeugen lauffähige JS-Datei(en) mit allen Abhängigkeiten</li>
+            <li class="fragment">unterstützen diverse Modul-Systeme</li>
+            <li class="fragment">können auch mit nicht-JS-Dateien umgehen (z.B. CSS, PNG)</li>
+          </ul>
+          <p class="fragment">
+            Prominenteste Lösung: Webpack (<a href="https://webpack.js.org/"
+              >https://webpack.js.org/</a
+            >)
+          </p>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>Webpack und Babel (oder TypeScript)</h2>
           <img src="slides/images/webpack-und-babel.png" style="height:600px" />
         </section>
 
         <section>
           <h3>Der Trainingsworkspace</h3>
           <ul class="x-list">
-            <li style="margin-bottom:40px"><code>2020_react_zwei_tage.html</code>: Die Slides</li>
+            <li style="margin-bottom:40px"><code>2020_03_react.html</code>: Die Slides</li>
             <li class="fragment" style="margin-bottom:40px">
               Der Code ist im <code><b>blog-example</b></code> Verzeichnis
             </li>
@@ -1665,25 +691,25 @@ function ErrorMessage(props) {
 
         <section>
           <h3>Properties ("Props") einer Komponente</h3>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+&lt;Header titleColor="red" title="Hello" />
+ </code></pre>
 
           <ul>
             <li class="fragment">
-              sind Objekte mit Key-Value-Paaren
+              werden gesammelt als Objekt im 1. Methoden-Parameter an Komponente übergeben
             </li>
-            <li class="fragment">
-              werden als 1. Methoden-Parameter an Komponente übergeben
-            </li>
-            <li class="fragment">dürfen nicht verändert werden</li>
           </ul>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
             function Header(props) {
+                // props: { titleColor: "red", title: "hello" }
+
                 return (
                   &lt;h1 style={{color: props.titleColor}}>{props.title}&lt;/h1>
                 );
               }
             }
             </code></pre>
-
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
 // Mit Destructuring
 function Header({titleColor, title}) {
@@ -1853,17 +879,6 @@ function HelloWorld(props) {
                 const [greeting, setGreeting] = initState();
               }
             </code></pre>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                // VERBOTEN (initState ist 'normale' Funktion)
-                function initState() {
-                  return React.useState(props.initialGreeting);
-                }
-
-                function HelloWorld(props) {
-                  // wäre erlaubt, wenn initState 'useInitState' hieße
-                  const [greeting, setGreeting] = initState();
-                }
-              </code></pre>
         </section>
         <section>
           <h3>useState: Details</h3>
@@ -1892,33 +907,6 @@ function HelloWorld(props) {
         </section>
 
         <section>
-          <h3>useState: Details II</h3>
-
-          <ul>
-            <li>
-              <code>initialValue</code> kann lazy initialisiert werden, mit einer Funktion:
-              <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                        function PostEditor(props) {
-                          const [title, setTitle] = React.useState(() => determineInitialTitle());
-                        }
-                      </code></pre>
-            </li>
-            <li class="fragment">
-              Setter kann mit Funktion aufgerufen werden, dann wird der aktuelle State übergeben,
-              neuer State muss zurückgegeben werden
-              <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                            function Counter(props) {
-                              const [count, setCounter] = React.useState(0);
-
-                              &lt;button onClick={
-                                () => setCounter(currentCount => currentCount + 1)}>Plus&lt;/button>
-                            }
-                          </code></pre>
-            </li>
-          </ul>
-        </section>
-
-        <section>
           <h3>Render Zyklus</h3>
           <img src="slides/images/render-cycle.png" height="550px" />
         </section>
@@ -1930,46 +918,6 @@ function HelloWorld(props) {
         </section>
 
         <section>
-          <h3>Referenzen auf native DOM-Elemente</h3>
-          <p>Beispiel: wie können wir <code>focus()</code> auf einem Element aufrufen?</p>
-
-          <p>👉 Gucken wir uns im Code an (Live Coding)</p>
-        </section>
-        <section>
-          <h3>React: Referenzen auf nativen DOM</h3>
-          <p><em>useRef-Hook</em></p>
-          <ul>
-            <li class="fragment">
-              <code>React.useRef() </code> erzeugt ein allgemeines Referenz-Objekt
-            </li>
-            <li class="fragment">Die Referenz kann bei einer Komponente angegeben werden</li>
-            <li class="fragment">
-              Über das <code>current</code>-Property am Referenz-Objekt erhält man später Zugriff
-              auf das dazugehörige native DOM-Element
-            </li>
-          </ul>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-function PostEditor(props) {
-  const [title, setTitle] = React.useState("");
-  const [body, setBody] = React.useState("");
-
-  const titleInputRef = React.useRef();
-
-  function clear() {
-    setTitle("");
-    setBody("")
-    titleInputRef.current.focus();
-  }
-
-  return &lt;>
-    &lt;input ref={titleInputRef} value="..." onChange="..." />
-    &lt;button onClick={clear}>Clear&lt;button/>
-  &lt;/>
-}         
-</code></pre>
-        </section>
-
-        <section>
           <h2>Übung 2: Post-Editor für unsere Anwendung</h2>
           <em><b>Erweitere deine Komponente um neue Features</b></em>
         </section>
@@ -1978,7 +926,8 @@ function PostEditor(props) {
           <ol class="x-list">
             <li>
               Zusätzlich zum "title", sollte es einen weiteren Zustand und eine Textarea geben:
-              <code>body</code>.
+              <code>body</code>. Ein <code>textarea</code>-Element hat dieselbe API wie ein
+              <code>input</code>-Feld.
             </li>
             <li>
               Füge einen "Clear"-Button hinzu, der beide Eingabefeld leert. Das Property auf dem
@@ -3041,50 +1990,6 @@ function App(props) {
         </section>
 
         <section>
-          <h3>Zustand mit Daten vom Server</h3>
-
-          <p>👉Lasst uns ein Beispiel ansehen. Was passiert hier?</p>
-          <p>(<code>slow</code> als neuen Blog Titel eingeben)</p>
-        </section>
-
-        <section>
-          <h3>Stale data</h3>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-function App(props) {
-  const [posts, setPosts] = React.useState([]);
-
-  React.useEffect( /* load ... */ );
-
-  function addPost(post) {
-    fetch("http://localhost:7000/posts", { /* ... */ }
-      .then(response => response.json())
-      .then(newPost => setPosts([newPost, ...posts]));
-  }
-
-  return
-    ...
-      &lt;AddPost onAdd={newPost => addPost(newPost)} />
-    ...
-}
-                </code></pre>
-          <p class="fragment">setPost verwendet veraltete Daten!</p>
-
-          <p class="fragment">
-            Man kann eine callback-Funktion verwenden, um die jeweils neusten Daten zu erhalten
-          </p>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-function App(props) {
-  const [posts, setPosts] = React.useState([]]);
-  function addPost(post) {
-    fetch("http://localhost:7000/posts", { /* ... */ })
-      .then(response => response.json())
-      .then(newPost => setPosts(allPosts => ([newPost, ...allPosts])));
-  }
-}
-                          </code></pre>
-        </section>
-
-        <section>
           <h2>Übung: Laden und Speichern von Daten auf einem Server</h2>
           <p>
             <em
@@ -3110,141 +2015,12 @@ function App(props) {
           <h3>Schritte</h3>
           <ol class="x-list">
             <li class="fragment">
-              Verwende deine eigene <code>App.js</code> und füge den Code zum Laden und Speichern
-              hinzu oder kopiere dir die Version aus
-              <code>blog-example/material/4-remote/App.js</code> in deinen src-Folder.
+              Kopiere <code>blog-example/material/4-remote/App.js</code> in deinen src-Folder und
+              füge dort den Code zum Laden und Speichern hinzu.
             </li>
 
-            <li class="fragment">
-              Darin sind TODOs enthalten. (die dir auch helfen, wenn Du deine eigene App-Datei
-              verwendest)
-            </li>
-            <li class="fragment">
-              Optional: füge einen Zustand hinzu, der trackt, ob der SErver Request gerade läuft
-              oder nicht. Wenn er läuft, zeige eine Meldung "Please wait" für den Benutzer an. (Du
-              kannst <code>?slow</code> and die URLs zum Server hängen um lange Antwortzeiten zu
-              simulieren)
-            </li>
+            <li class="fragment">In <code>App.js</code> sind TODOs enthalten.</li>
           </ol>
-        </section>
-
-        <section>
-          <h3>Löschen von POSTs:</h3>
-
-          <pre><code class="javascript">
-            const response = await fetch("http://localhost:7000/posts/" + postId, {
-              method: "DELETE"
-            })
-            // wenn response.ok === true, wurde das Post gelöscht
-          </code></pre>
-        </section>
-        <section>
-          <h3>Hintergrund: API des Backend Servers</h3>
-          <p>
-            HTTP Endpoints:
-          </p>
-          <p><b>GET /posts</b> Return all blog posts</p>
-          <p><b>GET /posts/:id</b> Read a single blog post</p>
-          <p>
-            <b>POST /posts</b> Create a new blog post. Payload must be an object with
-            <code>title</code> and <code>string</code> properties. As result you receive the
-            complete new blog post (including it's unique id and the date)
-          </p>
-          <p><b>DELETE /posts/:id</b> Remove a blog post</p>
-          <p>
-            You can add the query parameter <b>?slow</b> to all backend URLs to simulate a long
-            running server operation (for example if you want to see loading states in your
-            application)
-          </p>
-        </section>
-
-        <section>
-          <h3>Custom Hooks</h3>
-
-          <em>Eigene Hooks können für wiederkehrende Aufgaben genutzt werden</em>
-
-          <p class="fragment">
-            Beispiele: Laden von Daten, Arbeiten mit spezialisiertem State, ...
-          </p>
-        </section>
-
-        <section>
-          <h3>Custom Hooks</h3>
-
-          <ul class="x-list">
-            <li class="fragment">
-              ...müssen mit <code>use</code>beginnen
-              <ul>
-                <li>(ansonsten kann der Linter nicht auf mögliche Fehler prüfen!)</li>
-              </ul>
-            </li>
-            <li class="fragment">
-              ...dürfen nur aus anderen (Custom) Hooks und Komponenten aufgerufen werden
-            </li>
-            <li class="fragment">
-              ...erwarten "normale" Funktionsparameter (nicht zwingend ein Objekt wie bei
-              Komponenten)
-            </li>
-            <li class="fragment">...dürfen andere (Custom) Hooks verwenden</li>
-            <li class="fragment">
-              ...beliebiger Rückgabewert möglich (alle Typen erlaubt, auch JSX!)
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Ein Custom Hook zum Laden von Daten</h3>
-          <p><em>Frage an Euch: Wie könnte ein Custom Hook zum Laden von Daten aussehen? </em></p>
-
-          <ul class="fragment">
-            <li>Wie sieht die API für unseren Hook aus? Welche Parameter werden benötigt?</li>
-            <li>Was gibt der Hook zurück?</li>
-          </ul>
-
-          <ul class="fragment">
-            <li>
-              Zugabe: Bekommen wir auch einen Hinweis für den Benutzer hin, wenn Daten geladen
-              werden (Loading Indicator)?
-            </li>
-          </ul>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Beispiel: Ein Custom Hook zum Laden von Daten</h3>
-
-          <pre><code class="javascript">
-import React from "react";
-
-export default function useApi(url, initialValue) {
-  const [isLoading, setLoading] = React.useState(false);
-  const [data, setData] = React.useState(initialValue);
-
-  React.useEffect(
-    () => {
-      async function loadData() {
-        try {
-          setLoading(true);
-          setData(initialValue);
-          const response = await fetch(url);
-          const json = await response.json();
-          setData(json);
-        } catch (err) {
-          console.error("LOADING DATA FAILED:", err);
-          setData(initialValue);
-        } finally {
-          setLoading(false);
-        }
-      }
-      loadData();
-    },
-    // Make sure, this Hook only runs (after initial) when URL changes
-    [url]
-  );
-
-  return [data, setData, isLoading];
-}
-</code></pre>
         </section>
 
         <section id="t-test">
@@ -3431,65 +2207,6 @@ const aMockFn = jest.fn( param => `Hello, ${param}` );
 
 expect(aMockFn).toHaveBeenCalled();
 expect(aMockFn).toHaveBeenCalledWith('World');
-</code></pre>
-          </li>
-          <li class="fragment">
-            Aufrufe: <code>fn.mock.calls</code>
-            <pre><code data-trim contenteditable>
-const mockFn = jest.fn();
-mockFn('Hello', 'World');
-expect(mockFn.mock.calls).toHaveLength(1);
-expect(mockFn.mock.calls[0].toBe(['Hello', 'World']);
-</code></pre>
-          </li>
-          <li class="fragment">
-            Zurücksetzen: Reset
-            <pre><code data-trim contenteditable>
-const mockFn = jest.fn();
-mockFn('Hello', 'World');
-expect(mockFn.mock.calls).toHaveLength(1);
-jest.restAllMocks(); // or: mockFn.mockReset();
-expect(mockFn.mock.calls).toHaveLength(0);
-            </code></pre>
-          </li>
-        </section>
-        <section>
-          <h2>Mock modules</h2>
-          <li class="fragment">
-            Ein Modul mocken:
-            <pre><code data-trim contenteditable>
-// external module:
-jest.mock('react-dom');
-// internal module:
-jest.mock('../../app/myDataService');
-
-// alle Funktionen sind jetzt gemockt,
-// "leere" Implementierung, return undefined)
-</code></pre>
-          </li>
-          <li class="fragment">
-            Implementierung für Mockfunktion:
-            <pre><code data-trim contenteditable>
-jest.mock('../../app/myDataService', () => ({
-  loadData: jest.fn( () => ({data: 'mock data'}) );
-});
-
-console.log(myDataService.loadData());
-// => {data: 'mock data'}
-</code></pre>
-          </li>
-        </section>
-        <section>
-          <h2>Mock modules</h2>
-          <li class="fragment">
-            Funktionen aus gemockten Modulen sind Jest Mock Funktionen
-            <pre><code data-trim contenteditable>
-import myDataService from '../../app/myDataService';
-jest.mock('../../app/myDataService');
-
-// do something in code, that uses my dataservice
-expect(myDataService).toHaveBeenCalled();
-
 </code></pre>
           </li>
         </section>
@@ -4172,9 +2889,6 @@ function PostEditor(props) {
             </li>
           </ol>
         </section>
-        <section>
-          <h2>Ausblick / Anhang / Ergänzungen</h2>
-        </section>
 
         <section id="t-router">
           <h2>Client-side Routing</h2>
@@ -4414,278 +3128,6 @@ function PostEditor(props) {
               </code></pre>
         </section>
 
-        <section id="t-state">
-          <h1>Teil VI</h1>
-          <h2>Zustands-Management mit Redux oder React Context API</h2>
-        </section>
-
-        <section>
-          <h2>Eine typische React-Anwendung in Komponenten</h2>
-          <h3>Frage an Euch: was könnte es für Probleme geben?</h3>
-          <img src="slides/images/typische-react-komponenten-hierarchie.png" style="height:650px" />
-        </section>
-
-        <section>
-          <h3>Problem 1: Über Komponenten verteilter Zustand</h3>
-          <img src="slides/images/verteilter-zustand.png" style="height:650px" />
-          <p>Wo muss ich nach Fehlern suchen? Wo ist die Logik?</p>
-        </section>
-
-        <section>
-          <h3>Problem 2: Getrennte Komponentenhierarchien</h3>
-          <img src="slides/images/zwei-komponenten-hierarchien.png" style="height:650px" />
-          <p>Geht entweder nicht oder "Gott-Komponente" entsteht</p>
-        </section>
-
-        <section>
-          <h3>Problem 3: Gemeinsamer ("globaler") Zustand</h3>
-          <img src="slides/images/gemeinsam-genutzter-state.png" style="height:650px" />
-          <p>Wie kommt Zustand von ganz oben nach ganz unten?</p>
-        </section>
-
-        <section>
-          <h3>Problem 4: UI und Logik vermischt</h3>
-          <img src="slides/images/ui-und-logic-vermischt.png" style="height:650px" />
-          <p>Wiederverwendung? React-unabhängigkeit? Testbarkeit?</p>
-        </section>
-
-        <section>
-          <h3>External Statemanagement</h3>
-          <div class="fragment">
-            <p>Habt ihr Ideen?</p>
-            <p>Wie können wir Zustand und/oder Logik aus den Komponenten befreien?</p>
-          </div>
-        </section>
-
-        <section id="t-redux">
-          <h2>Redux</h2>
-          <h3>External Statemanagement</h3>
-          <p class="todo">Beispiel: <code>blog-example/steps/30-complete-app-with-hooks</code></p>
-        </section>
-
-        <section>
-          <h3>Wiederholung</h3>
-          <h2>Render Cycle in Pure React</h2>
-          <img src="slides/images/redux-01-react-cycle-no-redux.png" style="height:650px" />
-        </section>
-
-        <section>
-          <h2>Redux extrahiert die Verantwortlichkeiten</h2>
-          <img src="slides/images/redux-02-extracting-responsibility.png" style="width: 900px" />
-        </section>
-        <section>
-          <h2>Demo: Redux & Redux Devtools</h2>
-          <a href="http://localhost:8080/" target="_blank">Ziel-Anwendung</a>
-          <p>(npm start in code/schritte/redux/7-redux-complete-app)</p>
-        </section>
-
-        <section>
-          <h2>Redux im Code</h2>
-          <p>(npm start in code/workspace-live-coding-redux)</p>
-        </section>
-
-        <section>
-          <h2>Strukturierter Überblick über alle Redux Teile</h2>
-        </section>
-
-        <section>
-          <h3>Event-Handlers werden Action-Creators</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-export function setFilter(filter) {
-  return {
-    type: SET_FILTER,
-    filter
-  };
-}
-</code></pre>
-          <ul>
-            <li class="fragment">Action-Creators erzeugen Action-Objekte</li>
-            <li class="fragment">
-              Actions sind Kommando-artige Strukturen von Dingen, die die Applikation tun soll
-            </li>
-            <li class="fragment">
-              Über die dispatch-Methode des Stores werden sie an <em>alle</em> Reducer weiter
-              gegeben
-            </li>
-            <li class="fragment">
-              Actions bestehen aus einem Typen und einer beliebigen Nutzlast (payload)
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Action-Creators machen Server-Calls</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-export const loadPost = postId => dispatch => {
-fetch(BACKEND_URL+'/'+postId)
-    .then(response => response.json())
-    .then(post => dispatch({
-        type: ADD_POST,
-        post
-    });
-};
-</code></pre>
-          <ul>
-            <li class="fragment">
-              Die Action wird nicht direkt zurück geliefert, sondern erst später dispatched
-            </li>
-            <li class="fragment">
-              wir bekommen die dispatch Methode als Parameter, mit der wir später die Action
-              dispatchen
-            </li>
-          </ul>
-          <p class="fragment">
-            <strong
-              >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
-              Operationen ausführen dürfen</strong
-            >
-          </p>
-        </section>
-
-        <section>
-          <h3>Ein <em>einziger</em> Store hält den <em>kompletten</em> Zustand</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { rootReducer } from './reducers';
-
-// http://redux.js.org/docs/api/createStore.html
-const store = createStore(
-rootReducer // reducer
-);
-ReactDOM.render(
-&lt;Provider store={store}>
-    &lt;App />
-&lt;/Provider>,
-mountNode
-);
-    </code></pre>
-          <ul>
-            <li class="fragment">Zentraler Teil der Anwendung</li>
-            <li class="fragment">Liefert die bereits bekannte dispatch-Methode</li>
-            <li class="fragment">
-              Der Store wird allen Componenten über die Wrapper-Komponenten <em>Provider</em>
-              zur Verfügung gestellt
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Middleware zwischen Dispatch und Store</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import { applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-
-const store = createStore(
-  rootReducer, // reducer
-  applyMiddleware(thunk) // middleware as enhancer
-);
-    </code></pre>
-          <ul>
-            <li class="fragment">Die Thunk Middleware dient als de-facto-Standard</li>
-            <li class="fragment">
-              Gibt die dispatch-Methode and (asynchrone) Action Creators weiter
-            </li>
-            <li class="fragment">
-              <a href="https://github.com/gaearon/redux-thunk#whats-a-thunk" target="_blank">
-                'A thunk is a function that wraps an expression to delay its evaluation'
-              </a>
-            </li>
-            <li class="fragment">
-              Middleware ist ein fortgeschrittenes Feature und meistens genügt die Thunk Middleware
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Reducers enthalten die Kern-(Business)-Logik</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import {combineReducers} from 'redux';
-
-// http://redux.js.org/docs/api/combineReducers.html
-export const rootReducer = combineReducers({
-posts, // Blog Posts
-auth   // Aktueller Benutzer
-});
-    </code></pre>
-          <ul>
-            <li class="fragment">
-              Reducer sind pure Funktionen, die den alten Zustand und eine Action bekommen und einen
-              neuen Zustand erzeugen
-            </li>
-            <li class="fragment">Oft bearbeitet ein Reducer nur einen Teil des Zustands</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Teil-Reducer</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-const auth = (state = {}, action) => {
-switch (action.type) {
-    case "LOGIN":
-        return { currentUser: action.username };
-    case "LOGOUT":
-        return {};
-    default:
-        return state;
-  }
-};
-    </code></pre>
-          <ul>
-            <li class="fragment">
-              Initialisiert seinen Teilzustand (oft mit einem Default-Parameter)
-            </li>
-            <li class="fragment">Ändert niemals zustand direkt</li>
-            <li class="fragment">
-              Sondern liefert einen neuen Zustand (manchmal teilweise als Kopie)
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>useSelector: Auf den globalen Zustand zugreifen</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import { useSelector } from 'react-redux';
-
-function App() {
-  const currentUser = useSelector(state => state.auth.currentUser);
-  ...
-}
-</code></pre>
-        </section>
-        <section>
-          <h3>useDispatch: Actions auslösen</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-      import { useDispatch } from 'react-redux';
-      
-      import * as actions from './actions';
-      
-      function App() {
-        const dispatch = useDispatch();
-
-        async function login(newUser) {
-          await dispatch(actions.login(newUser));
-        }
-        ...
-      }
-    </code></pre>
-        </section>
-
-        <section>
-          <h2>Zusammenfassung Redux-Architektur</h2>
-          <img
-            src="slides/images/redux-03-resulting-redux-architecture.png"
-            style="max-height:650px"
-          />
-        </section>
-
-        <section>
-          <h3>Lokaler State ist weiterhin erlaubt!</h3>
-          <p>Es gibt unterschiedliche Arten von "State"</p>
-
-          <img src="slides/images/three-kinds-of-state.png" style="max-height:650px" />
-        </section>
-
         <section id="t-context">
           <h2>Context API</h2>
           <p>Beispiel: <code>blog-example/steps/30-complete-app-with-hooks</code></p>
@@ -4794,31 +3236,6 @@ function UserBadge() {
     : null;
 }                
           </code></pre>
-        </section>
-
-        <section>
-          <h3>Redux vs Context</h3>
-          <p class="fragment">
-            Redux hat Dev Tools, Time Travelling, Middlewares, globale Actions und Reducers/State
-          </p>
-          <p class="fragment">Redux ist sehr optimiert für Performance (häufige Updates)</p>
-          <p class="fragment">Context von der API her einfacher (aber auch nicht so mächtig)</p>
-          <p class="fragment">
-            Redux lässt feingranularere Auswahl aus dem globalen Zustand zu (verhindert unnötige
-            Renderings)
-          </p>
-        </section>
-
-        <section>
-          <h3>Redux vs Context</h3>
-          <h3><em>Wie entscheiden wir uns?</em></h3>
-          <p class="fragment">
-            Entscheidung 1: Mischform: Redux <b>und</b> Context? Oder: Redux <b>oder</b> Context
-          </p>
-          <p class="fragment">Entscheidung 2: Was kommt wohin?</p>
-          <p class="fragment">Auth-State (eingeloggter Benutzer)</p>
-          <p class="fragment">Api-State: Netzwerk Request(s) laufen gerade</p>
-          <p class="fragment">Draft-Post: editierters, neues, Post</p>
         </section>
 
         <section>

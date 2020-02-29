@@ -1,6 +1,8 @@
-# Einrichten des Workspaces
+# Vorbereitungen für die React Schulung
 
 ## Voraussetzungen
+
+**Teilnehmer Laptops/PCs**
 
 Auf den Teilnehmer Laptops/PCs sollte installiert sein:
 
@@ -14,11 +16,19 @@ Auf den Teilnehmer Laptops/PCs sollte installiert sein:
 
 Die Laptops sollten _auch während des Trainings_ Internet-Zugang haben (s.u.)
 
-Wenn die Teilnehmer bereits ihren "Lieblingseditor" verwenden, sollen sie diesen gerne weiterverwenden, dann müssen sie während des Trainings nicht auch noch einen neuen Editor erlernen.
+Wenn die Teilnehmer bereits ihren "Lieblingseditor" verwenden, sollen sie diesen gerne verwenden, dann müssen sie während des Trainings nicht auch noch einen neuen Editor erlernen.
 
 **Optional: Browser Erweiterungen für React**
 
 Ich würde empfehlen, die [React Developer Tools](https://github.com/facebook/react/tree/master/packages/react-devtools) zu installieren, die es für Firefox und Chome gibt.
+
+**Ausstattung im Schulungsraum**
+
+- Zum Anschluss meines Notebooks benötige ich einen **HDMI-Eingang am Beamer**. Falls der Beamer einen anderen Anschluss hat, gebt mir bitte vorher Bescheid, damit wir eine Lösung finden.
+
+- Zusätzlich zum Beamer sollte ein Whiteboard und/oder ein Flipchart im Schulungsraum vorhanden sein.
+
+# Installation und Vorbereitung des Workspaces für die Schulung
 
 ## Schritt 1: Repository klonen und Pakete installieren
 
@@ -69,7 +79,7 @@ cd blog-example/workspace
 npm start
 ```
 
-Achtung! Das Frontend läuft auf **Port 3000**, dh dieser Port muss verfügbar sein.
+Achtung! Das Frontend läuft auf **Port 3000**, d.h. dieser Port muss verfügbar sein.
 
 2. Wenn das Frontend gestartet ist, zum testen einmal die Anwendung im Browser aufrufen: [http://localhost:3000](http://localhost:3000). Dort sollte "Hello, World" erscheinen, dann ist der Workspace einsatzbereit.
 
