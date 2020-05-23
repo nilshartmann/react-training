@@ -4,4 +4,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import PostEditor from "./PostEditor";
 
-ReactDOM.render(<PostEditor />, document.getElementById("root"));
+ReactDOM.render(
+  <PostEditor initialTitle="Hello" initialBody="world" />,
+  document.getElementById("root")
+);

@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function PostEditor() {
-  const [title, setTitle] = React.useState("");
-  const [body, setBody] = React.useState("");
+export default function PostEditor(props) {
+  const [title, setTitle] = React.useState(props.initialTitle || "");
+  const [body, setBody] = React.useState(props.initialBody || "");
 
   const titleRef = React.useRef();
   const clearDisabled = !title && !body;

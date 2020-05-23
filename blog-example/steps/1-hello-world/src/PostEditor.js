@@ -1,7 +1,7 @@
 import React from "react";
 
-export default function PostEditor(props) {
-  const [title, setTitle] = React.useState(props.initialTitle);
+export default function PostEditor() {
+  const [title, setTitle] = React.useState("");
 
   return (
     <div className="Container">

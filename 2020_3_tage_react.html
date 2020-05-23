@@ -44,13 +44,13 @@
           <div>
             <h3><span class="transparent-bg">Slides</span></h3>
             <p>
-              <span class="transparent-bg">Lokal: react-training/2020_03_react.html</span>
+              <span class="transparent-bg">Lokal: react-training/2020_3_tage_react.html</span>
             </p>
             <p>
               <span class="transparent-bg"
                 >oder online:
-                <a href="https://nils.buzz/2020_03_react.html"
-                  >https://nils.buzz/2020_03_react.html</a
+                <a href="https://nils.buzz/2020_3_tage_react.html"
+                  >https://nils.buzz/2020_3_tage_react.html</a
                 ></span
               >
             </p>
@@ -71,6 +71,18 @@
               <p>React</p>
               <p>Single-Page-Applications</p>
               <p>GraphQL</p>
+              <p style="margin-top: 20px">
+                <a href="https://reacttraining.dev">Schulungen und Workshops</a>
+              </p>
+            </div>
+            <div style="margin-left:15px">
+              <a href="https://reactbuch.de"
+                ><img
+                  style="max-height:450px"
+                  src="slides/images/react-buch-v2.jpg"
+                /><br />https://reactbuch.de</a
+              >
+              <br />
             </div>
           </div>
         </section>
@@ -209,8 +221,8 @@
           <pre><code data-trim contenteditable>
   import React from "react";
   
-  export default function PostEditor(props) {
-    const [title, setTitle] = React.useState(props.initialTitle);
+  export default function PostEditor() {
+    const [title, setTitle] = React.useState("");
   
     return (
       &lt;div>
@@ -501,7 +513,7 @@ const createPerson = (last, first) => ({
         <section>
           <h3>Der Trainingsworkspace</h3>
           <ul class="x-list">
-            <li style="margin-bottom:40px"><code>2020_03_react.html</code>: Die Slides</li>
+            <li style="margin-bottom:40px"><code>2020_3_tage_react.html</code>: Die Slides</li>
             <li class="fragment" style="margin-bottom:40px">
               Der Code ist im <code><b>blog-example</b></code> Verzeichnis
             </li>
@@ -561,15 +573,11 @@ const createPerson = (last, first) => ({
           <ul>
             <li class="fragment">
               Ersetze den "statischen" Code in in <code>PostEditor.js</code> mit dem React Code aus
-              den vorherigen Slides.
+              den <a href="#interaktiv-hellomessage">vorherigen Slides</a>.
             </li>
             <li class="fragment">Die Komponente soll <b>PostEditor</b> heißen</li>
             <li class="fragment">
               Sie sollte einen Zustand/State (<code>title</code>) und ein Eingabefeld dafür haben
-            </li>
-            <li class="fragment">
-              Der Zustand sollte über <em>Properties</em> von außen vorbelegbar sein
-              (<code>initialTitle</code>)
             </li>
             <li class="fragment">
               <em>Optional: mache ein paar Experimente mit der Komponente, zum Beispiel:</em>
@@ -676,54 +684,8 @@ function ErrorMessage(props) {
         </section>
 
         <section>
-          <h3>React: Properties und Zustand</h3>
-          <ul class="fragment">
-            <li>
-              <b>Properties</b> werden der Komponente von <b>außen</b> übergeben (und nicht
-              verändert)
-            </li>
-            <li class="fragment">
-              <b>Zustand (State)</b> ist eine <b>innere</b> Eigenschaft der Komponente (die
-              verändert werden kann)
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Properties ("Props") einer Komponente</h3>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-&lt;Header titleColor="red" title="Hello" />
- </code></pre>
-
-          <ul>
-            <li class="fragment">
-              werden gesammelt als Objekt im 1. Methoden-Parameter an Komponente übergeben
-            </li>
-          </ul>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-            function Header(props) {
-                // props: { titleColor: "red", title: "hello" }
-
-                return (
-                  &lt;h1 style={{color: props.titleColor}}>{props.title}&lt;/h1>
-                );
-              }
-            }
-            </code></pre>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-// Mit Destructuring
-function Header({titleColor, title}) {
-    return (
-      &lt;h1 style={{color: titleColor}}>{title}&lt;/h1>
-    );
-  }
-}
-                </code></pre>
-        </section>
-
-        <section>
-          <h3>Zustand einer Komponente: useState-Hook</h3>
-          <ul>
+          <h3>Im Detail: Zustand einer Komponente und der useState-Hook</h3>
+          <ul class="fragement">
             <li>Beispiel: Inhalt eines Eingabefelds, Daten vom Server, Menu offen oder zu</li>
             <li class="fragment"><b>Werte</b> üblicherweise immutable</li>
             <li class="fragment">Arbeiten mit Zustand über <b>useState</b>-Hook</li>
@@ -733,8 +695,8 @@ function Header({titleColor, title}) {
             </li>
           </ul>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-function HelloWorld(props) {
-  const [title, setTitle] = React.useState(props.initialTitle);
+function HelloWorld() {
+  const [title, setTitle] = React.useState("");
 
   return &lt;input onChange={e => setTitle(e.target.value) value={title} />;
 }
@@ -765,16 +727,16 @@ function HelloWorld(props) {
               <pre><code class="javascript" contenteditable data-trim>
                 import React from "react";
 
-                function HelloWorld(props) {
-                  const [title, setTitle] = React.useState(props.initialTitle);
+                function HelloWorld() {
+                  const [title, setTitle] = React.useState("");
                   // ...
                 }
                                   </code></pre>
               <pre class="fragment"><code class="javascript" contenteditable data-trim>
                                       import React, { useState } from "react";
                       
-                                      function HelloWorld(props) {
-                                        const [title, setTitle] = useState(props.initialTitle);
+                                      function HelloWorld() {
+                                        const [title, setTitle] = useState("");
                                         // ...
                                       }
                                                         </code></pre>
@@ -828,29 +790,29 @@ function HelloWorld(props) {
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
               // ERLAUBT:
-              function HelloWorld(props) {
-                const [greeting, setGreeting] = React.useState(props.initialGreeting);
-                const [name, setName] = React.useState(props.initialName);
+              function HelloWorld() {
+                const [greeting, setGreeting] = React.useState("");
+                const [name, setName] = React.useState("");
                 // ...
               }
                                 </code></pre>
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
                                     // ERLAUBT:
-                                    function HelloWorld(props) {
-                                      const [greeting, setGreeting] = React.useState(props.initialGreeting);
+                                    function HelloWorld() {
+                                      const [greeting, setGreeting] = React.useState("");
                                       const uppercaseGreeting = greeting.toUpperCase(); 
-                                      const [name, setName] = React.useState(props.initialName);
+                                      const [name, setName] = React.useState("");
                                       // ...
                                     }
                                                       </code></pre>
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
                                     // VERBOTEN:
-                                    function HelloWorld(props) {
-                                      const [greeting, setGreeting] = React.useState(props.initialGreeting);
+                                    function HelloWorld() {
+                                      const [greeting, setGreeting] = React.useState("");
                                       if (greeting !== null) {
-                                        const [name, setName] = React.useState(props.initialName);
+                                        const [name, setName] = React.useState("");
                                       }
                                       // ...
                                     }
@@ -858,8 +820,8 @@ function HelloWorld(props) {
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
                           // VERBOTEN:
-                          function HelloWorld(props) {
-                            const [greeting, setGreeting] = React.useState(props.initialGreeting);
+                          function HelloWorld() {
+                            const [greeting, setGreeting] = React.useState("");
                             if (greeting === null) {
                               return <h1>Please enter greeting first</h1>;
                             }
@@ -872,9 +834,9 @@ function HelloWorld(props) {
           <em>Beispiele für korrekte und unerlaubte Verwendung #2</em>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
               // VERBOTEN 
-              function HelloWorld(props) {
+              function HelloWorld() {
                 function initState() {
-                  return React.useState(props.initialGreeting);
+                  return React.useState("");
                 }
                 const [greeting, setGreeting] = initState();
               }
@@ -885,8 +847,8 @@ function HelloWorld(props) {
           <em>Wird verwendet, um den internen Zustand (State) einer Komponente zu verwalten</em>
 
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                function PostEditor(props) {
-                  const [title, setTitle] = React.useState(initialTitle);
+                function PostEditor() {
+                  const [title, setTitle] = React.useState("");
 
                   // Aufruf von setTitle führt dazu, dass Komponente neu gerendert wird
                   // d.h. diese Funktion (PostEditor) wird erneut ausgeführt
@@ -901,7 +863,7 @@ function HelloWorld(props) {
                     //
                     // FRAGE: - wie häufig wird useState aufgeführt? 
                     //        - was passiert mit initialTitle?
-                    const [title, setTitle] = React.useState(initialTitle);
+                    const [title, setTitle] = React.useState("");
                   }
                 </code></pre>
         </section>
@@ -946,6 +908,139 @@ function HelloWorld(props) {
             </li>
           </ol>
         </section>
+
+        <!-- - - - - - - - - - - - - - - - PROPS HIER ERST - - - - - - - - - - - - - - -  -->
+        <section>
+          <h3>React: Properties</h3>
+          <ul>
+            <li class="fragment">
+              Mit <b>Properties</b> können einer Komponente von <b>außen</b> Werte und Eigenschaften
+              übergeben werden
+
+              <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            function PostEditor() {
+                // type, onChange und value sind Properties!
+
+                return (
+                  &lt;input type="text" onChange={() => ...} value={title}&lt;/h1>
+                );
+              }
+            }
+            </code></pre>
+            </li>
+            <li class="fragment">
+              <b>Properties</b> können innerhalb der Komponente nicht verändert werden
+            </li>
+            <li class="fragment">
+              Zum Vergleich: <b>Zustand (State)</b> ist eine <b>innere</b> Eigenschaft der
+              Komponente (die verändert werden kann)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Properties ("Props") einer Komponente</h3>
+          <ul>
+            <li>Komponenten können beliebig eigene Properties definieren</li>
+            <li class="fragment">
+              Bei der Angabe der Properties bei der Verwendung einer Komponente werden die
+              Properties wie von HTML gewohnt in der Notiation
+              <code>name=value</code> hingeschrieben
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+&lt;PostEditor initialTitle="Hello" initialBody="World" />
+ </code></pre>
+
+          <ul>
+            <li class="fragment">
+              ...alle angegebenen Properties werden "gesammelt" und in <b>einem</b> Objekt im 1.
+              Methoden-Parameter an Komponente übergeben
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            function PostEditor(props) {
+                // props: { initialTitle: "Hello", initialBody: "World" }
+                const [title, setTitle] = React.useState(props.title);
+                const [body, setBody] = React.useState(props.body);
+
+                return ...;
+              }
+            }
+            </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+// Mit Destructuring
+function PostEditor({initialTitle, initialBody}) {
+   const [title, setTitle] = React.useState(title);
+   const [body, setBody] = React.useState(body);
+
+   return ...;
+  }
+}
+                </code></pre>
+        </section>
+
+        <section>
+          <h3>Properties: Typen</h3>
+          <ul>
+            <li>
+              Properties können alle bekannten JavaScript-Typen aufnehmen und sind grundsätzlich
+              optional
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+function UserDetails(props) {
+   return &lt;div>
+     Address: {props.address.street} {props.address.city}
+     Member since: {props.memberSince} years
+     {props.premium ? "Premium" : "Regular"} membership
+     &lt;/div>
+  }
+}
+                </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+// Verwendung
+const address = { street: "Highway", city: "Hamburg" };                   
+
+&lt;UserDetails address={address} memberSince={2} />
+  </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+// oder:
+&lt;UserDetails address={{ street: "Highway", city: "Hamburg" }} memberSince={2} />
+
+                </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h2>Übung: Properties für die PostEditor-Komponente</h2>
+          <em>Die Eingabefelder im PostEditor sollen vorblegbar sein</em>
+        </section>
+        <section>
+          <h3>Schritte</h3>
+          <ol class="x-list">
+            <li>
+              Passe die Signatur der PostEditor-Funktion an, so dass diese Properties entgegen nimmt
+            </li>
+            <li>
+              Modifiziere die useState-Aufrufe, so dass sie als initial Werte die entsprechenden
+              Werte aus den Properties übernehmen (statt Leerstring?)
+            </li>
+            <li>
+              Übergib bei der Verwendung von PostEditor in <code>index.js</code> Initial-Werte für
+              die beiden Properties
+            </li>
+            <li>
+              Wie sieht das Props-Objekt zur Laufzeit aus? Ansehen z.B. in der Browser Console oder
+              React Dev Tools
+            </li>
+            <li>
+              Was passiert, wenn Du die Properties in <code>index.js</code> <b>nicht</b> angibst?
+            </li>
+          </ol>
+        </section>
+
+        <!-- PROPS HIER ERST ENDE -->
 
         <section id="t3">
           <h1>Teil III</h1>
@@ -1156,7 +1251,7 @@ function App() {
         </section>
 
         <section>
-          <h2>Übung #3: Baue eine komplette "Anwendung"</h2>
+          <h2>Übung: Baue eine komplette "Anwendung"</h2>
           <p>
             <em>
               Integriere deine bestehende <code>PostEditor</code>-Komponente und die neue
