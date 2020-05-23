@@ -1051,12 +1051,12 @@ const address = { street: "Highway", city: "Hamburg" };
         <section>
           <h3>Listen</h3>
           <p>JSX hat keine eigenen Konstrukte für Listen</p>
-          <p>
+          <p class="fragment">
             Üblicherweise verwendet man
             <code>Array.map()</code> um eine Liste von Objekten in eine Liste von JSX Elementen zu
             überführen
           </p>
-          <p>
+          <p class="fragment">
             Jedes JSX Element in der Liste benötigt einen <em>List-weit eindeutigen <b>key</b></em>
           </p>
 
@@ -1122,6 +1122,10 @@ function PostList(props) {
           </ol>
         </section>
 
+        <section class="todo">
+          todo: weitere grafiken übernehmen!
+        </section>
+
         <section>
           <h3>Smart und Dumb-Komponenten #1</h3>
 
@@ -1163,6 +1167,9 @@ function PostList(props) {
               >Der "Gesamt-Zustand" der Anwendung bleibt somit immer konsistent!</b
             >
           </p>
+        </section>
+        <section>
+          <img src="slides/images/blogpost-app-hierarchy.png" />
         </section>
 
         <section>
@@ -1809,7 +1816,7 @@ const promise2 = promise.then(name => `Hello, ${name}`);</code></pre>
                 <code>DELETE</code>, ...)
               </li>
               <li><code>headers</code>: HTTP Header für den Request (z.B. Authorization)</li>
-              <li><code>body</code>: Der Payload (als)</li>
+              <li><code>body</code>: Der Payload (als String!)</li>
             </ul>
             <p>Der Returnwert ist derselbe wie bei Get</p>
           </div>
@@ -2048,7 +2055,7 @@ function BlogList() {
   return ...;
 }
 </code></pre>
-          <p>
+          <p class="fragment">
             Die Callback-Funktion liefert ein Promise zurück (wird zu "undefined" aufgelöst)! Das
             ist nicht erlaubt, da React eine Funktion erwartet (oder undefined).
           </p>
