@@ -7,7 +7,7 @@
 Auf den Teilnehmer Laptops/PCs sollte installiert sein:
 
 - Git (zum installieren des Workspaces)
-- [NodeJS](https://nodejs.org/en/download/) (LTS version 12.14) und npm Version 6.13.x (ist in der NodeJS Distribution enthalten)
+- [NodeJS](https://nodejs.org/en/download/) (LTS version 12.16.x) und npm Version 6.14.x (ist in der NodeJS Distribution enthalten)
 - Browser (am besten Firefox oder Chrome)
 - Eine IDE oder ein Texteditor, zum Beispiel:
   - [Visual Studio Code](https://code.visualstudio.com/)
