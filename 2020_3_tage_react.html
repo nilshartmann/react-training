@@ -126,7 +126,7 @@
 
         <section>
           <h3>Beispiel-Anwendung</h3>
-          <a target="_blank" href="blog-example/beispiele/02_blog-app/build/index.html">
+          <a target="_blank" href="http://localhost:3000">
             <img src="blog-example/blog-example.png" style="height:650px" />
           </a>
         </section>
@@ -2125,6 +2125,9 @@ function App(props) {
             </li>
 
             <li class="fragment">In <code>App.js</code> sind TODOs enthalten.</li>
+            <li class="fragment">
+              Optional: Baue einen <em>Refresh</em>-Button, der die Daten neulädt.
+            </li>
           </ol>
         </section>
 
@@ -2541,14 +2544,34 @@ it("it should switch between views", async () => {
   // alternative:
   let languages: Array&lt;string> = ['JavaScript', 'TypeScript'];
   
-  // any
+  // void
+  function log(s: string): void { /* ... */ }
+              </code></pre>
+        </section>
+        <section>
+          <h2>Eingebaute Typen: any und unknown</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // any: kann alle Typen aufnehmen, Typ-Prüfung ist ausgeschaltet
   let theUnknown: any = 'Who cares';
   theUnknown = 666; // ok
   theUnknown = true; // ok
   let a: number = theUnknown; // ok
+  function loadData(): any { return "" // ok }
+  let b:number = loadData(); // ok
   
-  // void
-  function log(s: string): void { /* ... */ }
+              </code></pre>
+        </section>
+        <section>
+          <h2>Eingebaute Typen: any und unknown</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // unknown: kann ebefalls alle Typen aufnehmen, erzwingt aber vor der Verwendung Typ-Prüfung
+  function loadData(): unknown { return "" // ok }
+  let b = loadData(); 
+  b.toUpperCase(); // ERROR
+  if (typeof b === "string") {
+    // b ist jetzt string (typeof ist Laufzeitprüfung!)
+    b.toUpperCase(); // OK
+  }
               </code></pre>
         </section>
         <section>
@@ -2709,7 +2732,7 @@ function printNameOrTitle(obj: Person | Movie) {
   console.log(obj.title); // ERR: Property 'title' does not 
                           // exist on type 'Person | Movie'
  
-  if ("title" in obj) {
+  if ("title" in obj) { // Abfrage ist ein "Type Guard"
     // obj ist Movie hier, title ist definiert
     console.log(obj.title);
   } else {
@@ -2725,28 +2748,67 @@ printNameOrTitle({label: "Save"}); // ERR
           </code></pre>
         </section>
         <section>
-          <h2>String Literal Types</h2>
-          <p>
-            Mit einem String Literal Type kann genau festgelegt werden, welche Ausprägungen ein
-            String annehmen kann. Dadurch sind Enum-ähnliche Konstrukte möglich.
-          </p>
+          <h2>Type Guards</h2>
+          <p>Durch einen Type Guard können Typen "eingeengt" werden</p>
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type Person = { name: string };
+type Movie = { title: string };
 
-type MODE = "MASTER" | "DETAIL" | "ERROR";
+// Wenn diese Funktion true zurueckgibt, nimmt Typescript an,
+// dass das übergebene Argument vom Typ Movie ist
+function isMovie(candidate: any): candidate is Movie {
+  return ("title" in candidate);
+}
 
-const m:MODE = "MASTER"; // OK
-const n:MODE = "FEHLER"; // ERR: Type '"FEHLER"' 
-                         // is not assignable to type 'MODE'.
-
-function getView(m: MODE) {
-  if (m === "NOT_FOUND") {
-     // ERR: This condition will always return 'false' since the 
-     // types 'MODE' and '"NOT_FOUND"' have no overlap.       
-  } else if (m === "DETAIL") {
-      // OK
+function printNameOrTitle(obj: Person | Movie) { 
+  if (isMovie(obj)) {
+    // movie
   }
 }
-            </code></pre>
+    
+          </code></pre>
+        </section>
+        <section>
+          <h2>Type Assertions</h2>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type Person = { name: string };
+type Movie = { title: string };
+
+// Wenn diese Funktion zurueckkehrt (kein Error geworfen wird) nimmt Typescript an,
+// dass das übergebene Argument vom Typ Movie  ist
+function assertIsMovie(candidate: any): asserts candidate is  Movie {
+  if ("title" in candidate) {
+    return;
+  }
+  throw new Error("Candidate is not a movie!")
+}
+
+function printTitle(hopefullyAMovie: any) { 
+  assertPersonIsMovie(hopefullyAMovie)
+  // hopefullyAMovie ist jetzt Movie
+  hopefullyAMovie.title; // OK
+}
+    
+          </code></pre>
+        </section>
+        <section>
+          <h2>String Literal Types</h2>
+          <p>Beispiel: String Aufzählungstyp</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+// Beispiel:             
+type View = "POST_LIST" | "POST_EDITOR";
+
+const s:View = "POST_LIST"; // OK
+const t:View = "POST_LISTE" // FEHLER
+
+function setView(v: VIEW) {
+    if (v === "POST_LIST") { ... } // ok
+    if (v === "POST_LISTE") { ... } // error: immer false
+}
+
+setView("POST_LIST"); //OK
+setView("POST_LISTE"); // ERROR
+          </code></pre>
         </section>
 
         <section id="t-typescript-react">
@@ -3231,6 +3293,32 @@ function PostEditor(props) {
         return ...;
       }
               </code></pre>
+        </section>
+
+        <section>
+          <h2>Übung: Eine neue "Seite" für die Blog-Anwendung</h2>
+          <p>
+            <em
+              >Vervollständige die <code>PostPage</code>-Komponente, die einen einzelnen Blog-Post
+              anzeigt und konfiguriere dafür eine <code>Route</code> in der
+              <code>App</code>-Komponente
+            </em>
+          </p>
+          <ol class="x-list">
+            <li class="fragment">
+              Eventuell in <code>workspace-typescript</code> erneut
+              <code>npm install</code> ausführen
+            </li>
+            <li class="fragment">
+              Kopiere die Dateien aus
+              <code>blog-example/material/7a-router-with-typescript/src</code> in deinen src-Folder
+              (workspace-typescript).
+            </li>
+
+            <li class="fragment">
+              In <code>App.tsx</code> und <code>PostPage.tsx</code> sind TODOs enthalten.
+            </li>
+          </ol>
         </section>
 
         <section id="t-context">
