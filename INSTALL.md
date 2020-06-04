@@ -41,6 +41,9 @@ git clone https://github.com/nilshartmann/react-training
 2. Testweise die benötigten npm-Pakete installieren:
 
 ```
+cd blog-example/backend-graphql
+npm install
+
 cd blog-example/backend-rest
 npm install
 
@@ -51,7 +54,7 @@ cd blog-example/workspace-typescript
 npm install
 ```
 
-## Schritt 2: Testen, ob Backend funktioniert
+## Schritt 2: Testen, ob REST-Backend funktioniert
 
 1. Im Verzeichnis **blog-example/backend-rest** des Repositories das Backend starten:
 
@@ -67,7 +70,23 @@ Achtung! Das Backend läuft auf **Port 7000**, d.h. dieser Port muss verfügbar 
 - Im Browser (oder per curl, wget oder httpie) aufrufen: http://localhost:7000/posts
 - Dort sollte JSON Code zurückkommen
 
-## Schritt 3: Testen, ob das Frontend funktioniert
+## Schritt 3: Testen, ob das GraphQL Backend funktioniert
+
+1. Im Verzeichnis **blog-example/backend-graphql** des Repositories das Backend starten:
+
+```
+cd blog-example/backend-graphql
+npm start
+```
+
+Achtung! Das Backend läuft auf **Port 4000**, d.h. dieser Port muss verfügbar sein.
+
+2. Backend testen
+
+- Im Browser aufrufen: http://localhost:4000
+- Dort sollte die "GraphQL Playground" Web-App aufgehen
+
+## Schritt 4: Testen, ob das Frontend funktioniert
 
 1. Frontend (Beispiel-Anwendung) starten
 
