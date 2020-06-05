@@ -5,7 +5,7 @@
 Please make sure, that the attendees' laptops have following softare installed:
 
 - Git (in order to install the Workspace and pull updates)
-- [NodeJS](https://nodejs.org/en/download/) (LTS version 12.14) und npm Version 6.13.x (part of the NodeJS distribution)
+- [NodeJS](https://nodejs.org/en/download/) (LTS version 12.16.x) und npm Version 6.14.x (part of the NodeJS distribution)
 - Browser (Firefox or Chrome)
 - An IDE or Editor of your choice, for example:
   - [JetBrains Webstorm](https://www.jetbrains.com/webstorm/download/) (evaluation version is sufficient)
@@ -17,8 +17,8 @@ Please make sure, that the attendees' laptops have following softare installed:
 
 - I would recommend to install the [React Developer Tools](https://github.com/facebook/react/tree/master/packages/react-devtools). They're available for [Chrome](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjE14vhq-rmAhVGblAKHbgOC1sQFjAAegQICRAK&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi&usg=AOvVaw3YJDg7kXgeeChgKN88s0Sx) and [Firefox](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
 
-- For developing with Apollo, I'd recommend to install [Apollo Client Tools](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#apollo-client-devtools),
-  which are available for [Chrome only](https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm)
+- For developing with **Apollo GraphQL**, I'd recommend to install [Apollo Client Tools](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#apollo-client-devtools),
+  which are available for [Chrome](https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/apollo-developer-tools/)
 
 ## Step 2: Clone the Git Repository and install dependencies
 
@@ -72,13 +72,10 @@ Attention! The GraphQL server process listens on **port 4000**. Please make sure
 
 - In your browser open following URL: http://localhost:4000
 - The "GraphQL playground" should open
-- Please enter on the left side the following GraphQL query: `query { ping }` and hit the run button (big arrow in the middle).
-- The server should response with "Hello, World"
-- Everything is fine!
 
 ![The GraphQL Playground](./screenshot-playground.png)
 
-## Schritt 3: Verify that the frontend example is working
+## Schritt 4: Verify that the frontend example is working
 
 1. Start the frontend
 

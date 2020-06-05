@@ -20,7 +20,10 @@ Wenn die Teilnehmer bereits ihren "Lieblingseditor" verwenden, sollen sie diesen
 
 **Optional: Browser Erweiterungen für React**
 
-Ich würde empfehlen, die [React Developer Tools](https://github.com/facebook/react/tree/master/packages/react-devtools) zu installieren, die es für Firefox und Chome gibt.
+- Für das Arbeiten mit React empfehle ich, die [React Developer Tools](https://github.com/facebook/react/tree/master/packages/react-devtools) zu installieren. Es gibt sie für [Chrome](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjE14vhq-rmAhVGblAKHbgOC1sQFjAAegQICRAK&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi&usg=AOvVaw3YJDg7kXgeeChgKN88s0Sx) und [Firefox](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
+
+- Für das Arbeiten mit **Apollo GraphQL** gibt es die [Apollo Client Tools](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#apollo-client-devtools), eine Erweiterung für
+  [Chrome](https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm) und [Firefox](https://addons.mozilla.org/en-US/firefox/addon/apollo-developer-tools/)
 
 **Ausstattung im Schulungsraum**
 
@@ -85,6 +88,8 @@ Achtung! Das Backend läuft auf **Port 4000**, d.h. dieser Port muss verfügbar 
 
 - Im Browser aufrufen: http://localhost:4000
 - Dort sollte die "GraphQL Playground" Web-App aufgehen
+
+![The GraphQL Playground](./screenshot-playground.png)
 
 ## Schritt 4: Testen, ob das Frontend funktioniert
 
