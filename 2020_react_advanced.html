@@ -1,0 +1,2408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Advanced React Training</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="stylesheet" href="slides/styles.css" />
+    <script src="slides/export.js"></script>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-state="title">
+          <h2 class="title" style="font-size:7rem">
+            <b>Advanced React Training</b>
+          </h2>
+
+          <h4>
+            <span class="transparent-bg">
+              <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a> |
+              <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+            </span>
+          </h4>
+
+          <p style="margin-top:4rem"></p>
+          <div>
+            <h3><span class="transparent-bg">Preparation</span></h3>
+            <p>
+              <span class="transparent-bg"
+                >git clone https://github.com/nilshartmann/react-training</span
+              >
+            </p>
+            <p><span class="transparent-bg">cd react-training/blog-example/workspace</span></p>
+            <p><span class="transparent-bg">npm install</span></p>
+          </div>
+
+          <p>
+            <span class="transparent-bg">Slides: react-training/2020_react_and_graphql.html</span>
+          </p>
+        </section>
+        <section>
+          <h2>Nils Hartmann</h2>
+          <p>
+            <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a> /
+            <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+          <p><em>Freelance software developer, trainer and coach from Hamburg </em></p>
+
+          <div style="display:flex;justify-content:center">
+            <div>
+              <p>Java</p>
+              <p>JavaScript, TypeScript</p>
+              <p>React</p>
+              <p>Single-Page-Applications</p>
+              <p>GraphQL</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Agenda</h2>
+          <ul style="font-size: 85%">
+            <li>
+              <a href="#/t1">Intro: React Hooks in one hour</a>
+            </li>
+
+            <li>
+              <a href="#/t1">Part I: Testing React Applications</a>
+            </li>
+
+            <li>
+              <a href="#/t2">Part II: React Components</a>
+            </li>
+            <li>
+              <a href="#/t3">Part III: React Components: Hierarchies and Applications</a>
+            </li>
+            <li style="margin-bottom: 20px">
+              <a href="#/server">Part IV: Reading and writing data from a server (http)</a>
+            </li>
+            <li>
+              <a href="#/t-test">Part V: Testing React Applications (Overview)</a>
+            </li>
+            <li>
+              <a href="#/t-typescript">Part VI: React Applications with TypeScript</a>
+            </li>
+            <li>
+              <a href="#/t-router">Part VII: Client-side Routing with React Router (Overview)</a>
+            </li>
+
+            <li style="margin-top: 30px">
+              <a href="#/t-graphql">Part VIII: GraphQL Clients with Apollo React</a>
+            </li>
+
+            <li style="margin-top: 30px">
+              <a href="#/t7">More topics to discuss</a>
+              <ul style="font-size: 85%">
+                <li>Performance optimizations</li>
+                <li>Redux</li>
+                <li>Context API</li>
+              </ul>
+            </li>
+          </ul>
+          <div style="font-size:80%">
+            <p><b>Every time:</b> Questions and discussions!</p>
+          </div>
+        </section>
+
+        <section id="t1">
+          <h1>Intro</h1>
+          <h2>React Hooks in One Hour</h2>
+        </section>
+
+        <section>
+          <h2>Live Coding</h2>
+        </section>
+
+        <!-- todo: test hier -->
+        <section id="t3">
+          <h1>React Patterns for Reusability</h1>
+          <h2>Higher-Order-Components, Render Properties, Custom Hooks</h2>
+        </section>
+
+        <section>
+          <h2>Example: Loading Data in React</h2>
+        </section>
+
+        <section>
+          <h3>Approach #1: Higher-Order-Components</h3>
+
+          <p>Made popular by Redux (?)</p>
+          <p>Typically used in class components</p>
+        </section>
+        <section>
+          <h2>Problems with HOCs</h2>
+          <ul>
+            <li>Hard to understand and to write</li>
+            <li>"magically" added properties</li>
+            <li>wrapper components</li>
+            <li>colliding property names</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Approach #2: Render Properties</h3>
+          <p>Made popular by React Router (?)</p>
+          <p>Used both in class and function components</p>
+        </section>
+        <section>
+          <h3>Variation: Function as Child</h3>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+
+          <em>You can write own ("custom") hooks for common tasks</em>
+
+          <p class="fragment">
+            Examples: Loading data, dealing with native dom (setting title of your browser for
+            example)
+          </p>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+
+          <ul class="x-list">
+            <li class="fragment">
+              ...their names have to start with <code>use</code>
+              <ul>
+                <li>(otherwise the linter cannot check them, because it doesn't recognize them</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              ...can be used in functional components and other hooks
+            </li>
+            <li class="fragment">
+              ...expected "normal" function arguments (not necessary an object as in function
+              component signatures)
+            </li>
+            <li class="fragment">...can invoke other (custom) hooks</li>
+            <li class="fragment">
+              ...you can freely choose any return type (no restrictions)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Example: A custom hook for loading data</h3>
+          <p>
+            <em
+              >Question: how does a custom hook for loading of blog posts (but generalized) could
+              look like? 🤔
+            </em>
+          </p>
+
+          <ul class="fragment">
+            <li>How would the API of the hook look like? What parameters do we need?</li>
+            <li>What will the hook return?</li>
+          </ul>
+
+          <ul class="fragment">
+            <li>
+              Optional: can we add the information, that the server request ist running? So the
+              caller of our hook can display a loading indicator?
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Example: A Custom Hook for loading data</h3>
+
+          <pre><code class="javascript">
+import React from "react";
+
+export default function useApi(url, initialValue) {
+  const [isLoading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState(initialValue);
+
+  React.useEffect(
+    () => {
+      async function loadData() {
+        try {
+          setLoading(true);
+          setData(initialValue);
+          const response = await fetch(url);
+          const json = await response.json();
+          setData(json);
+        } catch (err) {
+          console.error("LOADING DATA FAILED:", err);
+          setData(initialValue);
+        } finally {
+          setLoading(false);
+        }
+      }
+      loadData();
+    },
+    // Make sure, this Hook only runs (after initial) when URL changes
+    [url]
+  );
+
+  return [data, setData, isLoading];
+}
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Consequences</h3>
+          <p>What does HOCs vs Render Properties vs Hooks mean for our components and the architecture of our app</p>
+        </section>
+
+        <section id="t-test">
+          <h1>Part V</h1>
+          <h2>Testing React Applications</h2>
+          <ul style="font-size:85%">
+            <li>
+              Example:
+              <a href="blog-example/steps/4-test/coverage/lcov-report/index.html" target="_blank"
+                >Coverage Report</a
+              >
+            </li>
+          </ul>
+        </section>
+
+        <section data-transition="slide none">
+          <h2>What do we test?</h2>
+          <ul>
+            <li class="fragment">
+              <b>UI-independent logic</b> (for example services, backend calls)
+            </li>
+            <li class="fragment">
+              <b>Rendering</b> (is the list of blog post correctly rendered? is the markup as we
+              want it?)
+            </li>
+            <li class="fragment">
+              <b>Interactions</b> (are my event handlers working and correctly set?)
+            </li>
+            <li class="fragment">
+              <b>Behaviour in the browser</b> (z.B. correct rendering, Browser-spezific JavaScript,
+              Working with browser artefacts, such as history, Title, Scrollbars etc)
+            </li>
+          </ul>
+        </section>
+        <section data-transition="slide none">
+          <h2>What do we test?</h2>
+          <ul>
+            <li style="color: lightgrey">
+              <b>UI-independent logic</b> (for example services, backend calls)
+            </li>
+            <li>
+              <b>Rendering</b> (is the list of blog post correctly rendered? is the markup as we
+              want it?)
+            </li>
+            <li><b>Interactions</b> (are my event handlers working and correctly set?)</li>
+            <li style="color: lightgrey">
+              <b>Behaviour in the browser</b> (z.B. correct rendering, Browser-spezific JavaScript,
+              Working with browser artefacts, such as history, Title, Scrollbars etc)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Jest</h1>
+          <p>
+            <em
+              >"Delightful JavaScript Testing" (
+              <a href="https://jestjs.io/" target="_blank">https://jestjs.io/</a>)</em
+            >
+          </p>
+          <p class="fragment">
+            Complete Test solution for React (and others):
+          </p>
+          <ul class="fragment">
+            <li>Test Runner</li>
+            <li>Specs, Assertions, Mocks</li>
+            <li>Code Coverage</li>
+            <li>"Snapshot testing"</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Jest</h4>
+          <h3>Example: A simple testcase</h3>
+          <pre><code class="javascript" contenteditable data-trim>// sum.js (or sum.ts)
+export const sum = (a,b) => a+b;
+        </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>// sum.test.js
+import {sum} from '../sum.js';
+
+test('sum of 2 and 2 is 4', () => {
+  expect(sum(2, 2)).toBe(4);
+});
+
+test('sum of 2 and 2 is not 3', () => {
+  expect(sum(2, 2)).not.toBe(3);
+});
+            </code></pre>
+        </section>
+        <section>
+          <h4>Jest</h4>
+          <h2>Testcases</h2>
+          <p>
+            <code>test</code> or
+            <code>it</code>
+          </p>
+          <pre><code data-trim contenteditable>test('it should work', () => {
+  expect(...).toBe(...);
+});</code></pre>
+          <pre><code data-trim contenteditable>it('it should also work', () => {
+  expect(...).toBe(...);
+});</code></pre>
+        </section>
+
+        <section>
+          <h4>Jest</h4>
+          <h2>Expectations and Matchers</h2>
+          <div class="fragment">
+            <p>
+              <code>expect()</code> returns an <em>Expectation</em> obects, that contains several
+              <em>Matcher</em> functions:
+            </p>
+            <pre><code data-trim contenteditable>expect(actual).toXyz(expected);
+// for example:
+expect("Hello Jest").toBe("Hello Jest"); // => ok
+        </code></pre>
+          </div>
+          <div class="fragment">
+            <p>Some Matchers</p>
+
+            <pre><code data-trim contenteditable>// Compare identity
+expect(actual).toBe(expected);
+// Compare value:
+expect(actual).toEqual(expected);
+// true / false / null:
+expect(actual).toBeTruthy();
+expect(actual).toBeFalsy();
+expect(actual).toBeNull();
+// Length (Array oder String)
+expect(actual).toHaveLength(123);
+        </code></pre>
+          </div>
+          <p class="fragment">
+            <a href="https://jestjs.io/docs/en/expect">https://jestjs.io/docs/en/expect</a>
+          </p>
+        </section>
+
+        <section>
+          <h4>Jest</h4>
+          <h2>Mock Functions</h2>
+          <ul>
+            <li class="fragment">
+              <code>jest.fn()</code> creates a mock function
+              <pre><code data-trim contenteditable>// Returns undefined when executed
+const aMockFn = jest.fn();
+
+aMockFn("huhu"); // => undefined
+
+expect(aMockFn).toHaveBeenCalled());
+expect(aMockFn.toHaveBeenCalledWith("huhu"));
+                      </code></pre>
+            </li>
+
+            <li class="fragment">
+              Implementation of the mock function can be passed as parameter:
+              <pre><code data-trim contenteditable>
+        const aMockFn = jest.fn( param => `Hello, ${param}` );
+        
+        console.log(aMockFn('World'));
+        // => Hello, World
+                  </code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Testing React Components</h3>
+          <h2>Rendering-only</h2>
+        </section>
+
+        <section>
+          <h3>React Test Renderer</h3>
+          <p>
+            <a href="https://www.npmjs.com/package/react-test-renderer"
+              >https://www.npmjs.com/package/react-test-renderer</a
+            >
+          </p>
+          <p>Renders React Components into JSON Objekts (without DOM):</p>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
+
+const component = renderer.create(
+  &lt;PostList posts={somePosts} />
+);
+
+console.log(component.toJSON());
+            </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+        { type: 'div',
+          props: {},
+          children:  [
+            { type: 'buton', props: {}, children: [Object] },
+            { type: 'article', props: [Object], children: [Object] },
+            { type: 'article', props: [Object], children: [Object] }
+          ]
+        }
+            </code></pre>
+        </section>
+        <section>
+          <h3>"Snapshot Testing" with Jest</h3>
+          <p>
+            <code>expect(obj).toMatchSnapshot()</code> compares a JSON-Object with a stored object
+            in a file:
+          </p>
+          <ul>
+            <li class="fragment">
+              At <b>first</b> execution: Snapshot-File will be created (
+              <a href="slides/images/jest-snapshot-file.png" target="_blank">Example</a>)
+              <ul>
+                <li class="fragment">Snapshot files will be stored in Git</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              In all <b>following</b> test executions: new snapshot will be created and compared
+              against saved snapshot.
+            </li>
+            <li class="fragment">
+              When Snapshots differ:
+              <ul>
+                <li>
+                  Error including diff (
+                  <a href="slides/images/jest-snapshot-diff.png" target="_blank">Example</a>)
+                </li>
+                <li>
+                  In "watch mode" the snapshot can be updated
+                  <img src="slides/images/jest-snapshot-update.png" />
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Snapshot Testing with Jest and React</h3>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
+        
+test('it should render correctly', () => {
+
+  const somePosts = [ . . . ];
+
+  const component = renderer.create(
+    &lt;PostList posts={somePosts} />
+  );
+
+  expect(component.toJSON()).toMatchSnapshot();
+});
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Testing React Components #2</h3>
+          <h2>Interactions</h2>
+        </section>
+
+        <section>
+          <h3>react-testing-library</h3>
+          <p>
+            <em
+              >Simple and complete React DOM testing utilities that encourage good testing
+              practices." (
+              <a href="https://github.com/testing-library/react-testing-library" target="_blank"
+                >https://github.com/testing-library/react-testing-library</a
+              >)</em
+            >
+          </p>
+          <p>
+            Philosophy: tests are written from a user perspective. To find your elements you want to
+            test, you use properties the user also sees (like labels, etc)
+          </p>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import { render, fireEvent } from "@testing-library/react";
+
+it("it should switch between views", async () => {
+  fetch.mockResponse(JSON.stringify(mockPosts));
+  const { getByText, findByText } = render(&lt;App />);
+  const addPostButton = await findByText("Add Post");
+
+  fireEvent.click(addPostButton);
+
+  // Post Editor should be visible
+  expect(getByText("Create Post")).toBeInTheDocument();
+});
+
+
+            </code></pre>
+        </section>
+
+        <section id="t-typescript">
+          <h1>Teil VI</h1>
+          <h2>React applications with TypeScript</h2>
+          <p>Example: code/blog-example/steps/6-typescript</p>
+          <ol>
+            <li>
+              <a href="#/t-typescript-grundlagen">TypeScript Basics</a>
+            </li>
+            <li>
+              <a href="#/t-typescript-react">React applications with TypeScript</a>
+            </li>
+          </ol>
+        </section>
+
+        <section id="t-typescript-grundlagen">
+          <h2>Background: TypeScript</h2>
+          <p>
+            <em>TypeScript is a superset of JavaScript that compiles to plain JavaScript </em>(
+            <a href="http://www.typescriptlang.org/" target="_blank"
+              >http://www.typescriptlang.org/</a
+            >)
+          </p>
+          <ul>
+            <li>Extends JavaScript by a type system</li>
+            <li>Every valid JavaScript code is also valid TypeScript code</li>
+            <li>TS compiler translates to JavaScript</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>👉TypeScript hands-on</h3>
+        </section>
+        <section>
+          <h3>TypeScript Basics</h3>
+          <p>Type declarations are written after the identifier</p>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // Variables can get type informations
+  let foo: string;
+  foo = 'yo';
+  // Error: number: This type is incompatible with string
+  foo = 10;
+                 </code></pre>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // Functions
+  function sayIt(what: string): string {
+    return `Saying: ${what}`;
+  }
+  
+  sayIt('Klaus'); // ok
+  sayIt(10); // error
+  </code></pre>
+
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // Arrow functions
+  const sayIt = (what: string): string => `Saying: ${what}`;
+  
+  sayIt('Moin');
+  sayIt(123); // Error: Argument of type '123' is not assignable
+              // to parameter of type 'string'.
+  </code></pre>
+        </section>
+
+        <section>
+          <h2>Built-in types</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // string
+  let city: string = 'Hamburg';
+  
+  // boolean
+  let isDone: boolean = false;
+  
+  // number
+  let theAnswer: number = 42;
+  
+  // array (note the [])
+  let cities: string[] = ['Hamburg', 'Barcelona'];
+  // alternative:
+  let languages: Array&lt;string> = ['JavaScript', 'TypeScript'];
+  
+  // any
+  let theUnknown: any = 'Who cares';
+  theUnknown = 666; // ok
+  theUnknown = true; // ok
+  let a: number = theUnknown; // ok
+  
+  // void
+  function log(s: string): void { /* ... */ }
+              </code></pre>
+        </section>
+        <section>
+          <h2>Types can be inferred by TypeScript</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  let city = 'Hamburg'; // city is a string
+  
+  city = 42;
+  // Fehler: [ts] Type '42' is not assignable to type 'string'.
+  </code></pre>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // Function arguments must be specified explicitly
+  // (return type can be inferred)
+  
+  function sayIt(what: string) {
+    return `Saying: ${what}`;
+  }
+  
+  const said: string = sayIt('Hello TypeScript'); // ok
+  const saidItWrong: number = sayIt('Hello TypeScript'); // error!
+  
+  
+  </code></pre>
+        </section>
+
+        <section>
+          <h2>Turn off type checking</h2>
+          <p>
+            With <code>@ts-ignore</code> (as comment) the type checking in the next line will be
+            turned off:
+          </p>
+          <pre><code class="typescript line-numbers" contenteditable data-trim>
+  let city:string = "Hamburg";
+  
+  city = 20259; // error: [ts] Type '20259' is not assignable to type 'string'.
+  
+  // @ts-ignore
+  city = 20259; // ok                
+  </code></pre>
+          <p class="fragment">
+            Should be used with care! Only in "difficult" scenarios, for example when type
+            definitions of an external library are broken.
+          </p>
+        </section>
+        <section>
+          <h2>null and undefined</h2>
+          <div class="fragment">
+            <p>
+              <code>null</code> and <code>undefined</code> are own types. Variables are not nullable
+              by default!
+            </p>
+            <pre><code class="typescript line-numbers" contenteditable data-trim>
+  let city:string = null; //Type 'null' is not assignable to type 'string'.
+  
+  let optionalCity:string|null = null; // OK
+              </code></pre>
+          </div>
+          <div class="fragment">
+            <pre><code class="typescript line-numbers" contenteditable data-trim>
+    let city:string = undefined; //Type 'undefined' is not assignable to type 'string'.
+    
+    let optionalCity:string|undefined = undefined; // OK
+    let optionalCity:string|undefined|null = null; // OK
+                </code></pre>
+          </div>
+          <div class="fragment">
+            <p>
+              Optional parameters and properties can be marked as optional with a ?-sign
+            </p>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  function greet(name: string, greeting?: string) {
+    console.log(`${greeting || 'Hello'}, {name}`);
+  }
+  
+  greet('Susi', 'Moin')// Moin, Susi
+  
+  // 2. Parameter is optional:
+  greet('Klaus'); // Hello, Klaus
+  
+  greet('Peter', null); // Argument of type 'null' is not assignable
+                        // to parameter of type 'string | undefined'.
+              </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h2>Own types</h2>
+          <p>
+            With <code>type</code> and <code>interface</code> you can describe the shape/structure
+            of your own objects. Type and Interface are almost the same.
+          </p>
+
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+  // Komplexer Typ
+  interface Person {
+    name: string; // Pflicht
+    livesIn?: string; // Optional
+  }
+
+  // or 
+  type Person = { name: string; livesIn?: string; }
+  
+  const susi: Person = { // OK
+    name: 'Klaus',
+    livesIn: 'Hamburg'
+  };
+  const klaus: Person = { // OK (livesIn is optional)
+    name: 'Klaus'
+  }
+  
+  const helmut: Person = {} // Error: Property 'name' is missing
+  
+  const lukas: Person = {
+    name: 'Lukas',
+    profession: 'Train driver'
+  } // Error: 'profession' does not exist in type 'Person'.
+                 </code></pre>
+        </section>
+
+        <section>
+          <h2>Own types II</h2>
+          <p>You can also describe functions on your types</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+            // Complex Type
+            type Person {
+              name: string; // mandatory
+              greet(greeting: string): string;
+            }
+
+            const p:Person = {
+              name: "Klaus",
+              greet(greeting: string) { 
+                return `${greeting}, ${this.name}`
+              }
+            }
+            p.greet("Hello"); // OK
+            p.greet(123); // ERR: Argument of type '123' is not 
+                          // assignable to parameter of type 'string'.
+
+            const wrong:Person = {
+              name: "Susi", // OK
+              greet(greeting: number) { return "hello" } 
+                // ERR: Type '(greeting: number) => string' is not assignable to 
+                //      type '(greeting: string) => string'.
+                //      Types of parameters 'greeting' and 'greeting' are incompatible.
+                //      Type 'string' is not assignable to type 'number'.
+            }
+                           </code></pre>
+        </section>
+
+        <section>
+          <h2>Type compatibility</h2>
+          <em
+            >In TypeScript two Types are considered equal when they have the <b>same structure</b>
+            ("structural typing"). That differs from C#/Java.
+          </em>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+  interface Book {
+    title: string
+  }
+  
+  interface Movie {
+    title: string
+  }
+  
+  const book:Book = { title: "React introduction" };
+  const movie:Movie = book; // OK, even Book !== Movie
+                 </code></pre>
+        </section>
+
+        <section>
+          <h2>String Literal Types</h2>
+          <p>
+            Using a String Literal Type, you can specify with exact strings a type can have. That
+            allows you to build enum-like constructs.
+          </p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+
+type VIEW = "LIST" | "DETAIL" | "ERROR";
+
+const m:VIEW = "LIST"; // OK
+const n:VIEW = "NOT_FOUND"; // ERR: Type '"NOT_FOUND"' 
+                         // is not assignable to type 'VIEW'.
+
+function getView(m: VIEW) {
+  if (m === "NOT_FOUND") {
+     // ERR: This condition will always return 'false' since the 
+     // types 'VIEW' and '"NOT_FOUND"' have no overlap.       
+  } else if (m === "DETAIL") {
+      // OK
+  }
+}
+            </code></pre>
+        </section>
+        <section>
+          <h2>Mapped Types</h2>
+          <p>Using mapped types you can construct new types based on others:</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>              
+type Person = { name: string; lastname: string};
+
+const p:Person = {
+    name: "Klaus",
+    lastname: "mueller"
+}
+
+p.lastname = "Meier"; // OK
+
+// ReadonlyPerson ist ein "mapped type"
+type ReadonlyPerson = Readonly&lt;Person>;
+
+const p2:ReadonlyPerson = {
+    name: "Klaus",
+    lastname: "mueller"
+}
+
+p2.name = "Karl"; // Cannot assign to 'name' because it is a read-only property.
+</code></pre>
+        </section>
+        <section id="t-typescript-react">
+          <h2>React Applications with TypeScript</h2>
+          <em>State and Properties of components can be described using TypeScript</em>
+          <p class="fragment">
+            Attention! TypeScript-Files, that contain JSX <b>have to</b> end with <code>.tsx</code>!
+          </p>
+
+          <p class="fragment">👉 Let's see how this works (<code>workspace-typescript</code>)</p>
+        </section>
+        <section>
+          <h2>Type-safety in function components</h2>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type PostListProps = {
+  posts: BlogPost[];
+  onAddPost(): void;
+};
+            </code></pre>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+    function BlogList(props: PostListProps) {
+      props.posts.length // OK
+      
+      props.post // compile ERROR: Property 'post' does not exist on type 'PostListProps'.
+      props.onAddPost("huhu"); // compile ERROR: Expected 0 arguments, but got 1.
+    }
+    
+            </code></pre>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+    // With Destructuring
+    function BlogList({posts, onAddPost}: GreetingMasterProps) => {
+      // ...
+    }
+    
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Typ-safe usage of components</h3>
+
+          <div class="fragment">
+            <p>Code Completion</p>
+            <img style="height: 200px" src="slides/images/screenshot-ts-code_completion.png" />
+          </div>
+
+          <div class="fragment">
+            <p>Unknown property</p>
+            <img style="height: 200px" src="slides/images/screenshot-ts-error-01.png" />
+          </div>
+
+          <div class="fragment">
+            <p>Wrong usage of a property</p>
+            <img style="height: 200px" src="slides/images/screenshot-ts-error-02.png" />
+          </div>
+        </section>
+
+        <section>
+          <h3>Type-safety in useState</h3>
+          <p>The type of the state from useState can be inferred by TypeScript</p>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type PostEditorProps = {  onSavePost(post: NewBlogPost): void; };
+function PostEdior(props: PostEditorProps) {
+  const [title, setTitle] = React.useState("");
+
+  // greeting is string, because initial value is a string
+  setGreeting("huhu"); // OK
+  setGreeting(666); // ERROR (wrong Type)
+  setGreeting(null); // ERROR (wrong Type)
+}
+            </code></pre>
+          <div class="fragment">
+            <p>You can also specify it explicitly</p>
+            <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type VIEW = "LIST" | "ADD";
+
+function App() {
+  const [view, setView] = React.useState&lt;VIEW>("LIST");
+
+  // Mode ist either string "MODE_MASTER" or "MODE_DETAIL"
+  // setMode only accepts the string "MODE_MASTER" and "MODE_DETAIL" 
+
+  setMode("NOT_FOUND"); // compile error
+  setMode(null); // compile error
+}
+                            </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h2>React Events in TypeScript</h2>
+          <p>
+            Events in React are all instances of <code>React.SyntheticEvent</code> which wrapps the
+            native DOM events
+          </p>
+          <p class="fragment">
+            The type for the events expects the type of the html element it is fired from (source of
+            the event) as a type argument.
+          </p>
+          <p class="fragment">TypeScript then knows the properties and functions of the event</p>
+          <span class="fragment">
+            <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+function PostEditor(props) {
+  const [title, setTitle] = React.useState("");
+
+  function handleChange(e: React.SyntheticEvent&lt;HTMLInputElement>) {
+    setTitle(e.currentTaget.value);
+  }
+
+  return &lt;input onChange={handleChange} value={title} />
+}              
+          </code></pre>
+            <p>
+              <a
+                href="https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682"
+                target="_blank"
+              >
+                <code>target</code> vs
+                <code>currentTarget</code>
+              </a>
+            </p>
+          </span>
+        </section>
+        <section>
+          <h2>useRef</h2>
+          <p>
+            <code>useRef</code> returns a generic container for data of any type. <br />The
+            contained type must be specified using a type parameter
+          </p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+  function PostEditor(props) {
+    const inputRef = React.useRef&lt;HTMLInputElement|null>(null);
+    // inputRef.current can either be HTMLInputElement or null
+
+    function reset() {
+      inputRef.current.focus(); // ERR: current might be null
+      
+      if (inputRef.current) {
+        inputRef.current.focus(); // OK
+      }
+    }
+  }
+            </code></pre>
+        </section>
+        <section>
+          <h2>Exercise: Type-safe React components</h2>
+          <h3>
+            <em>Add type informations to existing react components</em>
+          </h3>
+          <div style="font-size: 80%">
+            <div class="fragment">
+              <p>
+                <b>WORKSPACE:</b>
+              </p>
+              <p>
+                Please use the workspace <code><b>blog-example/workspace-typescript</b></code
+                >. <br />It contains the latest app version, but prepared for TypeScript.
+              </p>
+            </div>
+            <div class="fragment">
+              <p>
+                <b>PREPARATION:</b>
+              </p>
+              <ol class="x-list">
+                <li>Stop your running "npm run" process (frontend) using ctrl+c</li>
+                <li>
+                  Run <code><b>npm install</b></code> in
+                  <code>blog-example/workspace-typescript</code>
+                </li>
+                <li>
+                  Run <code><b>npm start</b></code> in
+                  <code>blog-example/workspace-typescript</code>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3>Exercise 1: Add type informations</h3>
+          <ol style="font-size:80%" class="x-list">
+            <li class="fragment">
+              Add missing type informations in <code>PostList.js</code> and
+              <code>PostEditor.js</code>
+            </li>
+            <li class="fragment">
+              Before modifying one of the files, rename it to <code>.tsx</code> and restart "npm
+              run"
+            </li>
+            <li class="fragment">You can find more instructions inside the files</li>
+          </ol>
+
+          <h3 class="fragment">Exercise 2: Add new View mode in App</h3>
+          <ol style="font-size:80%" class="x-list">
+            <li class="fragment">
+              After saving a new Blog Post, a new view should be presented to the users (showing a
+              message like "Your post have been saved")
+            </li>
+            <li class="fragment">
+              In addition to the info message the new view should have an "OK"-Button
+            </li>
+            <li class="fragment">
+              When the user clicks the OK-Button the <code>PostList</code> should be displayed:
+              <br /><code class="fragment"
+                >LIST --onAdd--> EDIT --onSave--> FEEDBACK --onOk--> LIST</code
+              >
+            </li>
+          </ol>
+        </section>
+
+        <section id="t-router">
+          <h2>Client-side Routing</h2>
+
+          <p>Example: code/blog-example/steps/7-router</p>
+        </section>
+        <section>
+          <h2>Why routing?</h2>
+          <span>
+            <p>
+              Map URLs to Components
+              <br />
+              <span style="font-size: 80%"
+                >(Navigation through the application without server round-trips!)</span
+              >
+            </p>
+          </span>
+          <span>
+            <p>
+              URLs can contain state of the application
+              <br />
+              <span style="font-size: 80%"
+                >What "Page" is visible (Blog List, Add Form or Blog Post)?</span
+              >
+              <br />
+              <span style="font-size: 80%">Which blog post should be rendered (postId)</span>
+            </p>
+          </span>
+        </section>
+
+        <section>
+          <h2>React Router</h2>
+          <ul>
+            <li>
+              Current version 5.1:
+              <a href="https://reacttraining.com/react-router/" target="_blank">
+                https://reacttraining.com/react-router/</a
+              >
+            </li>
+            <li>Not part of React</li>
+            <li>but de-facto Standard</li>
+            <li>Since Version 5.1 with Hooks API (useParams, useLocation, useHistory)</li>
+          </ul>
+        </section>
+        <section>
+          <h3>The Router Object</h3>
+          <p class="fragment">
+            Top-Level object, that needs to be included at the top of the application's component
+            hierarchy
+          </p>
+          <p class="fragment">
+            Mulitple implementations that differ how they interact with URL and browser history:
+          </p>
+          <ul>
+            <li class="fragment">
+              <b>HashRouter</b>: adds the path after appended hash (#/post/1) <br />👉Example: check
+              network request after changing the URL
+            </li>
+            <li class="fragment">
+              <b>BrowserRouter</b>: puts the path directly in the URL (/post/1) <br />(You need to
+              configure your web server accordingly)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router} from "react-router-dom";
+      
+      const app = &lt;Router>&lt;App/>&lt;/Router>;
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Which component should be rendered for a path?</h3>
+          <p class="fragment">The <code>Route</code> object maps paths to components</p>
+          <ul>
+            <li class="fragment">
+              Can be used whereever you want to select a component based on a path
+              <ul>
+                <li>
+                  comparable with an "intelligent" <code>if</code> or <code>switch</code> statement
+                </li>
+                <li>can be used everywhere in your components</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Use the <code>path</code> attribute to specify the path that should match when the
+              component should be rendered
+            </li>
+            <li class="fragment">Specify the component as children of the Route component</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router, Route} from "react-router-dom";
+      
+      const app = &lt;Router>
+        &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
+        &lt;Route path="/add">&lt;AddPostPage onAdd={...} />&lt;/Route>
+        &lt;Route path="/" exact>&lt;BlogListPage />&lt;/Route>
+      &lt;/Router>;
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Background: Paths</h3>
+          <p>
+            In the Route component you specify a <b>path</b>, that is compared against the current
+            URL
+          </p>
+
+          <ul>
+            <li>
+              Paths by default are valid for parts of strings, but you can change the behaviour by
+              adding <code>exact</code>
+            </li>
+            <li>A Route without <code>path</code> matches always</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      // matches  / and /post
+      &lt;Route path="/">...&lt;/Route>
+      
+      // matches only /
+      &lt;Route path="/" exact>...&lt;/Route>
+      
+      // matches any URL:
+      &lt;Route>...&lt;/Route>
+      
+              </code></pre>
+          <ul>
+            <li class="fragment">A Path can contain variable segments:</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      &lt;Route path="/posts/:postId">&lt;BlogPostPage/>&lt;/Route>
+           </code> </pre>
+          <ul>
+            <li class="fragment">
+              Values of the variables can be read using the <code>useParams</code> hook in your
+              component:
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                import { useParams } from "react-router";
+
+                function BlogPostPage() {
+                  const params = useParams();
+
+                  // params.postId contains the id from the URL
+                </code></pre>
+        </section>
+        <section>
+          <h3>Switch</h3>
+          <ul>
+            <li class="fragment">
+              If multiple path expression match, multiple components will be rendered (for example
+              "/" and "/post")
+            </li>
+            <li class="fragment">
+              <code>Switch</code> ensures that only the für component will be rendered (like regular
+              switch with a break after each case)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router, Route, Switch} from "react-router-dom";
+      
+      const app = (
+        &lt;Router>
+          &lt;Switch>
+            &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
+            &lt;Route path="/" exact>&lt;BlogListPage/>&lt;/Route>
+      
+            // "No match": without path
+            &lt;Route>&lt;NotFoundPage/>&lt;/Route>
+      
+          &lt;/Switch>
+        &lt;/Router>
+      );
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Links</h3>
+          <p>
+            Using the <code>Link</code> or <code>NavLink</code> component you can create HTML links
+          </p>
+          <ul>
+            <li>Use <code>to</code> to specify the target path</li>
+            <li>Link creates an <code>a</code> HTML element</li>
+            <li>
+              "Local" URLs will be rendered according to the selected Router implementation (with
+              hash or without)
+            </li>
+            <li>
+              With <code>activeClassName</code> and <code>activeStyle</code> on
+              <code>NavLink</code> you can specify styles and classnames that get applied if the
+              current route is the same route as specified in "to" ("active" route)
+            </li>
+          </ul>
+
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {Link, NavLink} from "react-router-dom";
+      
+      &lt;Link to='/'>Show all Posts&lt;/Link>
+      
+      // Generted 'a' element contains 'highlight' CSS class, when it's the active route
+      &lt;NavLink to='/add' activeClassName="highlight">Add Post&lt;/NavLink>
+      
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>The history-Objekt</h3>
+          <p>The <code>history</code> object can be used to interact with the Browser history</p>
+          <p>
+            You can jump to another location or get the current location from the browser
+          </p>
+          <p class="fragment">
+            The history object is available using the <code>useHistory</code> hook from React Router
+          </p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import { useHistory } from "react-router";
+
+      function App() {
+        const history = useHistory();
+
+        function onAdd(newBlogPost) {
+           ...
+
+           // go to new URL
+           history.push("/"); 
+        }
+
+        return ...;
+      }
+              </code></pre>
+        </section>
+
+        <section id="t-graphql">
+          <h2>GraphQL Clients with Apollo React</h2>
+        </section>
+
+        <section>
+          <h2>A typical React application composed of components</h2>
+          <h3>
+            My Question: what for problems can occur using this approach/architecture in larger)
+            applications? 🤔
+          </h3>
+          <img src="slides/images/typische-react-komponenten-hierarchie.png" style="height:650px" />
+        </section>
+
+        <section>
+          <h3>Problem 1: State spread across multiple components</h3>
+          <img src="slides/images/verteilter-zustand.png" style="height:650px" />
+          <p>
+            Even if we separate our components in smart and dumb components we will have a couple of
+            components with state and logic
+          </p>
+        </section>
+
+        <section>
+          <h3>Problem 2: Separated component hierarchies</h3>
+          <img src="slides/images/zwei-komponenten-hierarchien.png" style="height:650px" />
+          <p>Does not work or results in a "god-component"</p>
+        </section>
+
+        <section>
+          <h3>Problem 3: Shared ("globale") State</h3>
+          <img src="slides/images/gemeinsam-genutzter-state.png" style="height:650px" />
+          <p>How does the state reaches the bottom across multiple levels?</p>
+        </section>
+
+        <section>
+          <h3>Problem 4: UI and logic tied together</h3>
+          <img src="slides/images/ui-und-logic-vermischt.png" style="height:650px" />
+          <p>Reusability? React-independence? Testability?</p>
+        </section>
+
+        <section>
+          <h3>External Statemanagement</h3>
+          <p class="fragment">Idea: Move the state out of your component hierarchy ("external")</p>
+          <p class="fragment">Prominent solutions:</p>
+          <ul>
+            <li class="fragment"><a href="https://redux.js.org/">Redux</a></li>
+            <li class="fragment">
+              <a href="https://reactjs.org/docs/context.html">React Context API</a> (maybe not
+              really external)
+            </li>
+            <li class="fragment"><a href="https://mobx.js.org/README.html">MobX</a></li>
+            <li class="fragment">Apollo GraphQL (not GraphQL itself)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>The Blog Application with Apollo GraphQL</h3>
+
+          <p>👉 Example: code/blog-example/steps/9a-graphql-with-typescript</p>
+        </section>
+        <section>
+          <h3>Contents</h3>
+          <ol>
+            <li>GraphQL concepts</li>
+            <li>GraphQL clients with React</li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>GraphQL</h2>
+          <h3>
+            "GraphQL is a <em>query language for APIs</em> and a
+            <em>runtime for fulfilling those queries</em> with your existing data"
+          </h3>
+          <p><a href="https://graphql.org">https://graphql.org</a></p>
+          <p class="fragment">
+            Second part is your server. We don't have a look at server-side implementations in this
+            training
+          </p>
+        </section>
+
+        <section>
+          <h2>Apollo</h2>
+          <h3>"A community building flexible open source <em>tools for GraphQL</em>."</h3>
+          <p><a href="https://github.com/apollographql">https://github.com/apollographql</a></p>
+          <p class="fragment">
+            Apollo Server: framework for GraphQL servers written in JavaScript<br />
+            The example server is written using Apollo Server
+          </p>
+          <p class="fragment"><a href="">Apollo Client</a>: library for building GraphQL clients</p>
+          <p class="fragment">
+            <a href="https://www.apollographql.com/docs/react/api/react-apollo/"
+              >Apollo Client (React)</a
+            >
+            is the implementation for React clients
+          </p>
+          <p class="fragment">
+            De-facto Standard for React GraphQL Clients (other popular one:
+            <a href="https://relay.dev/">Relay</a>)
+          </p>
+        </section>
+
+        <section>
+          <h3>Why GraphQL?</h3>
+          <p class="fragment">Clients can query for the exact data they need</p>
+          <p class="fragment">
+            That allows very flexible architectures and decoupling between client and server
+          </p>
+          <p class="fragment">Clients ask for <b>data</b> not for <b>endpoints</b></p>
+          <p class="fragment">That might reduce network traffic</p>
+          <p class="fragment">
+            You got "end-to-end" type-safety (GraphQL APIs must have a schema!)
+          </p>
+        </section>
+
+        <section>
+          <h3>Query Language</h3>
+
+          <pre><code class="graphql">
+{
+  posts {
+    id
+    title
+    user {
+      name
+    }
+  }
+}
+          </code></pre>
+          <p><b>Structured</b> language for requesting data from an API</p>
+          <p>Looks like JSON, but is a string</p>
+          <p>Requested are <b>fields</b> of (nested) objects</p>
+        </section>
+
+        <section>
+          <h3>Query Language</h3>
+
+          <pre><code class="graphql">
+{
+  # postId is an argument
+  post(postId: "P1") {
+    id
+    title
+    user {
+      name
+    }
+  }
+}
+          </code></pre>
+
+          <p>Fields can have <b>arguments</b> (making them look like methods)</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Query Language: Responses</h3>
+          <img src="slides/images/graphql/query-response.png" />
+
+          <p>Structure of a response matches the structure of the query</p>
+          <p>A client already knows how the answer will look like when writing the query</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>GraphQL: Description of the API</h3>
+          <p class="fragment">Every GraphQL API is described in a schema</p>
+          <p class="fragment">A schema defines <b>Objects</b>. Objects have <b>Fields</b>.</p>
+          <p class="fragment">A Field has a <b>Type</b></p>
+          <p class="fragment">
+            A type can either be scalar (ID, String, Int, Boolean) or another Object
+          </p>
+          <p class="fragment">A type can also be a <b>List/Array</b> of another type</p>
+          <p class="fragment">
+            Each field can be set to <b>mandatory</b> to indicate that you always get a value if you
+            query the field (not-null)
+          </p>
+          <p class="fragment">
+            There is a reflection-like API that allows quering the schema information using GraphQL
+          </p>
+          <p class="fragment">👉Let's have a look: <code>backend-graphql/src/schema.js</code></p>
+        </section>
+
+        <section>
+          <h3>Query Language: Operations</h3>
+          <p>A <b>operation</b> describes, what the client want to do</p>
+          <p>
+            Operations: <code>query</code> (default), <code>mutation</code> or
+            <code>subscription</code>
+          </p>
+
+          <pre class="fragment"><code class="graphql">
+# "query" is the operation type
+# GetPost is the operation name (optional)
+
+query GetPost {
+  post(postId: "P1") {
+    id
+    title
+    teaser
+    user {
+      name
+    }
+  }
+}              
+            </code></pre>
+        </section>
+        <section>
+          <h3>Query Language: Variables</h3>
+          <p>Operations can define variables that can be re-used in the query</p>
+          <p>Makes writing reusable queries easier (like a prepared statement for a database)</p>
+
+          <pre class="fragment"><code class="graphql">
+# $postId is a variable here
+# You can name them as you like but the need to prefixed with $
+# You must also specify their type
+# It's value must be set with each query invocation
+
+query GetPost($postId: ID!) {
+  post(postId: $postId) {
+    id
+    title
+    teaser
+    user {
+      name
+    }
+  }
+}              
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Fragments</h3>
+          <p>
+            You can use <b>fragments</b> to define re-usable "query parts", if you have to select
+            the same the of fields again and again
+          </p>
+
+          <pre><code class="javascript">
+fragment PostTeaser on Post {
+  id
+  teaser
+  user { name }
+}
+
+query PostList {
+  ...PostTeaser
+}
+
+query PostListWithData {
+  ...PostTeaser
+  date
+}
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Query Language: Mutations</h3>
+          <p>A mutation can be used to <b>modifiy</b> data on the server</p>
+          <p>(like HTTP POST, PATCH, PUT, DELETE with REST)</p>
+          <p>As with a query, you select the fields from the response that you want to have</p>
+
+          <pre class="fragment"><code class="graphql">
+mutation CreatePlogPost($newPost: NewBlogPost!) {
+  createBlogPost(postData: $newPost) { 
+    error 
+    blogPost { id title date body }
+  }
+}           
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Query language: Aliases</h3>
+          <p>You can rename a field in the response using an <b>Alias</b></p>
+          <p>
+            Useful if you have name conflicts or field names that doesn't make sense in your
+            use-case
+          </p>
+          <pre class="fragment"><code class="graphql">
+mutation CreatePlogPost($newPost: NewBlogPost!) {
+  newPost: createBlogPost(postData: $newPost) { 
+    error 
+    blogPost { 
+        id 
+        title 
+        publicationDate: date 
+        body 
+      }
+  }
+}
+</code></pre>
+          <img class="fragment" src="slides/images/graphql/field-aliases.png" height="300px" />
+        </section>
+
+        <section>
+          <h3>Query Language: Subscriptions</h3>
+          <p>With subscriptions, you can <b>subscribe</b> for <b>events</b> from the server</p>
+
+          <pre class="fragment"><code class="graphql">
+subscription {
+  likedPost: onNewLike(postId: "P1") {
+    id
+    title
+    likes
+  }
+}           
+            </code></pre>
+        </section>
+        <section>
+          <h3>GraphQL: Query execution</h3>
+          <p>GraphQL queries are <b>always</b> executed using HTTP POST requests!</p>
+          <p>Query and Variables are sent in the body</p>
+          <p>There is a single endpoint that executed the queries (not multiple as with REST)</p>
+
+          <pre class="fragment"><code class="bash">
+$ curl -X POST -H "Content-Type: application/json" \
+    -d '{"query":"{ posts { title } }"}' \
+    http://localhost:4000/
+
+
+{"data":
+  {"posts": [
+    {"title": "Creating GraphQL Frontends"},
+    {"title ": "Implementing a React App"}
+   ]}
+}              
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>GraphQL: Response from server</h3>
+          <p>Always HTTP Status 200 (with a very few exceptions)</p>
+          <p>Errors are handled using domain-specific error fields (for example)</p>
+          <p>Response is a JSON object with up to three fields:</p>
+          <div class="fragment">
+            <pre><code class="javascript">
+{
+  {"errors": 
+    [
+      { "message": "Could not read User with ID 123",
+        "locations": [ . . . ],
+        "path": [ "post", "user" ]
+      }
+    ]
+  },
+
+  {"data": {"posts": [ . . . ] },
+
+  {"extensions": { . . . }
+}
+
+            </code></pre>
+            <p><b>errors</b> is set if an (unhandled) server error occures (like invalid data)</p>
+            <p><b>data</b>: the result of the query (as seen before)</p>
+            <p>
+              <b>extensions</b>: for server-specific informations (debuging/tracing etc).
+              Vendor-specific!
+            </p>
+          </div>
+        </section>
+        <section>
+          <h3>Toolstack</h3>
+          <p>
+            <a href="https://github.com/graphql/graphiql">GraphiQL</a> /
+            <a href="https://github.com/prisma-labs/graphql-playground">Playground</a>
+          </p>
+          <p>
+            Code Generator
+            <a href="https://github.com/apollographql/apollo-tooling">from Apollo</a> /
+            <a href="https://graphql-code-generator.com/">for various languages</a>
+          </p>
+          <p>
+            IDE support for
+            <a
+              href="https://marketplace.visualstudio.com/items?itemName=apollographql.vscode-apollo"
+              >Apollo and VS Code</a
+            >
+          </p>
+          <p>
+            Apollo Client Developer Tools (<a
+              href="https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm"
+              >Chrome only</a
+            >)
+          </p>
+        </section>
+        <section>
+          <h3>Exercise #1: Let's get started with GraphQL queries</h3>
+
+          <div class="fragment">
+            <p>Start the GraphQL backend:</p>
+            <ol>
+              <li>
+                Go into <code><b>blog-example/backend-graphql</b></code>
+              </li>
+              <li><code>npm install</code></li>
+              <li><code>npm start</code></li>
+            </ol>
+          </div>
+
+          <div class="fragment">
+            <p>
+              Open the GraphQL Playground at
+              <a href="http://localhost:4000">http://localhost:4000</a>
+            </p>
+          </div>
+          <div class="fragment">
+            <p>Run some queries:</p>
+            <ul>
+              <li>Request the IDs of all Blog Post</li>
+              <li>
+                Request a single Blog Post using its ID. Query its <b>title</b>, its
+                <b>likes</b> and the name of it's author (<b>user</b>)
+              </li>
+              <li>
+                Add a Like to the blog post (via mutation). Read the new number of likes from the
+                response
+              </li>
+            </ul>
+            <p>Inside the playground you get completion and docs on the right side</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>GraphQL Clients with React and Apollo</h2>
+        </section>
+
+        <section>
+          <h3>GraphQL Clients with React but WITHOUT Apollo</h3>
+          <p>
+            👉How would you implement a GraphQL client with React using all the things we learned
+            during the past days? 🤔
+          </p>
+        </section>
+
+        <section>
+          <pre><code class="javascript">
+import React from "react";
+
+function BlogListPage() {
+  const [posts, setPosts] = React.useState([]);
+
+  React.useEffect( () => {
+    fetch("/graphql", {
+      method: "POST",
+      body: JSON.stringify({
+        query:  "{ posts { id title } }"
+      })
+    })
+    .then(res => res.json())
+    .then(json => setPosts(res.data))
+  }, [])
+
+  if (!posts) { return "Please wait" }
+  return &lt;PostList posts={posts} />;
+}
+          </code></pre>
+          <p>Will this code work?</p>
+          <p>What features are missing?</p>
+          <p>What could be improved?</p>
+        </section>
+
+        <section>
+          <h3>Apollo Client</h3>
+          <p>
+            <a href="https://www.apollographql.com/docs/react/"
+              >https://www.apollographql.com/docs/react/</a
+            >
+          </p>
+          <p>React Hooks (and components) to work with GraphQL backends</p>
+          <p>
+            Provides a <b>global cache</b> that ensures consistent presentation of data across your
+            whole application
+          </p>
+        </section>
+        <section>
+          <h3>Apollo Client</h3>
+          <p>
+            The <code>ApolloClient</code> is a singleton, responsible for the communication with the
+            backend
+          </p>
+          <p>
+            It also manages the <b>cache</b>, <b>authentication</b>,
+            <b>central error handling</b> and so on
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+import ApolloClient from "apollo-client";
+
+const client = new ApolloClient({
+  link: new HttpLink({uri: "http://..."}),
+  cache: new InMemoryCache()
+}};
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Apollo Boost</h3>
+          <p>Apollo Client is a modularized solution, can be hard to configure</p>
+          <p>Apollo Boost provides a default configuration (with default modules etc)</p>
+          <p>
+            <a href="https://www.apollographql.com/docs/react/get-started/#apollo-boost"
+              >Documentation</a
+            >
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+// this example code is not much simpler, but
+// it adds a lot of required dependencies
+import ApolloClient from "apollo-boost";
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000",
+});
+
+            </code></pre>
+          <p class="fragment">
+            For more sophisticated configurations, you need to
+            <a href="https://www.apollographql.com/docs/react/migrating/boost-migration/"
+              >migrate away</a
+            >
+            from Apollo Boost to Apollo Client.
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Apollo Client</h3>
+          <p>The Apollo Hooks needs access to the client object</p>
+          <p>The Client object must be "provided" to your application (component hierarchy)</p>
+          <p>Surround your own components on top-level with <code>ApolloProvider</code></p>
+
+          <pre class="fragment"><code class="javascript">
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "@apollo/react-hooks";
+
+const client = ...;
+
+ReactDOM.render(
+  &lt;ApolloProvider client={client}>
+    &lt;App />
+  &lt;ApolloProvider>,
+  document.getElementById("root")
+);
+</code></pre>
+          <p class="fragment">
+            Apollo Provider uses
+            <a ref="https://reactjs.org/docs/context.html">React Context API</a> internally
+          </p>
+        </section>
+
+        <section>
+          <h3>Queries</h3>
+          <p>
+            Queries will be written in an external file or inline using the <code>gql</code> "tag
+            function"
+          </p>
+          <p>The gql function returns a "document object" containing the parsed query</p>
+
+          <pre><code class="javascript">
+import { gql } from "apollo-boost";
+
+const POST_LIST_QUERY = gql`
+  query PostListQuery {
+    posts {
+      id
+      title
+      teaser(maxLength: 20)
+      date
+    }
+  }
+`;
+</code></pre>
+
+          <p class="fragment">
+            Note: <a href="https://prettier.io">Prettier</a> can format the GraphQL code inside gql!
+          </p>
+          <p class="fragment">
+            The TypeScript code generater uses the gql tag to find GraphQL queries in your source
+            code
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useQuery: Execute a Query</h3>
+          <p>The useQuery hook runs a query and provides the result and metadata</p>
+
+          <pre><code class="javascript">
+function BlogListPage() {
+  const { loading, error, data } = useQuery(POST_LIST_QUERY);
+
+  if (loading) {
+    return <h1>Loading, please wait...</h1>;
+  }
+
+  if (error) {
+    return <h1>GraphQL Failed: {error.toString()}</h1>;
+  }
+
+  return &lt;PostList posts={data.posts} />;
+}
+  
+</code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Lifecycle of useQuery</h3>
+          <ol>
+            <li class="fragment">
+              useQuery triggers your request and returns an object, where <code>loading</code> is
+              set to true
+            </li>
+            <li class="fragment">
+              Your component will be re-rendered and you can use loading to show user information
+            </li>
+            <li class="fragment">
+              The response comes in, useQuery forces a re-rendering of your component
+            </li>
+            <li class="fragment">
+              useQuery now returns either <code>error</code> or <code>data</code>, loading is false
+              now
+            </li>
+            <li class="fragment">You can update your UI according to this information</li>
+            <li class="fragment">If the request was successful, Apollo updates also the Cache</li>
+            <li class="fragment">
+              <em>All</em> visible components that receive data from the cache (using useQuery) are
+              updated
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>useQuery: Variables</h3>
+          <p>You can declare variables in your query.</p>
+          <p>useQuery can receive an argument with options for a query</p>
+          <p>With this object you can set your variables for a query</p>
+
+          <pre class="fragment"><code class="javascript">
+const POST_PAGE_QUERY = gql`
+  query PostPageQuery($postId: ID!) {
+    post(postId: $postId) {
+      id  title date
+      body user { name }
+    }
+  }
+`;
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+function PostPage() {
+  // Receive postId from URL params
+  const { postId } = useParams();
+
+  const { loading, error, data } = useQuery(POST_PAGE_QUERY,
+    {
+      variables: { postId }
+    }
+  );
+  // ...
+}
+</code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useQuery: Control the Cache #1</h3>
+
+          <p>
+            If a component re-renders, by default useQuery <b>does not</b> executes the query
+            <b>again</b>
+            if it finds the result in it's internal cache
+          </p>
+          <p>👉 Let's inspect network requests when opening blog posts</p>
+          <p class="fragment">
+            We come back to this later!
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>The Apollo Cache</h3>
+          <p><em>Apollo normalizes your data before putting it into the cache:</em></p>
+          <p>
+            For each object returned by a query (no matter what level), it extracts its
+            <b>typename</b>
+          </p>
+          <p>
+            The <code>__typename</code> is automatically added to all of your queries by Apollo!
+          </p>
+          <p>For each object returned by q query it extracts its <b>id</b></p>
+          <p>
+            If your <b>id</b> field is not <b>id</b>, you have to tell Apollo the name of your
+            id-Field (e.g. primaryKey)
+          </p>
+          <p>
+            <b>Recommandation:</b> <em>Always</em> include your id field in any object you query!
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Typesafe Queries with TypeScript</h3>
+
+          <p>GraphQL APIs providing a Schema with objects, fields and types</p>
+          <p class="fragment">
+            useQuery can receive a type parameter that describes the query response and the
+            variables
+          </p>
+          <p class="fragment">
+            TypeScript then "knows" how the response looks and can provide code assistant and syntax
+            checking
+          </p>
+          <p class="fragment">
+            The types for a query can be genereated, using the
+            <a href="https://github.com/apollographql/apollo-tooling">Apollo CLI</a>
+          </p>
+          <p class="fragment">
+            👉Let's have a look how this works!
+          </p>
+          <ol class="fragment">
+            <li>Change a Query</li>
+            <li>Inspect the generated types</li>
+            <li>Change the schema</li>
+          </ol>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Typesafe Queries with TypeScript</h3>
+          <p>
+            The type of the query response and the variables are specified using a type parameter on
+            useQuery:
+          </p>
+
+          <pre><code class="javascript">
+  function PostPage() {
+  // ...
+  const { loading, error, data } = useQuery&lt;PostPageQuery, PostPageQueryVariables>
+  (POST_PAGE_QUERY,   { variables: { postId } });
+</code></pre>
+
+          <p class="fragment">TypeScript ensures correct usage of the variables</p>
+          <p class="fragment">
+            You must check if data is not null, because <code>loading</code>, <code>error</code> and
+            <code>data</code>
+            are all optional
+          </p>
+          <p class="fragment">
+            If loading is false and error is falsy, you know, data is available, but TypeScript does
+            not know!
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+const { loading, error, data } = useQuery(...);
+
+  if (loading) { return <h1>Loading, please wait...</h1>; }
+
+  if (error) {return <h1>GraphQL Failed: {error.toString()}</h1>; }
+
+  if (!data) { return <h1>Invalid response</h1> }
+
+  // TypeScript now knows, data is set here
+  // do something with data
+</code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Exercise #2: Running a Query</h3>
+
+          <p>Preparation:</p>
+          <p>
+            Install
+            <a
+              href="https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm"
+              >Apollo Dev Tools for Chrome</a
+            >
+          </p>
+          <p>
+            Start the backend (if it's not already running): <br />
+            <code>cd blog-example/backend-graphql</code><br />
+            <code>npm install</code><br />
+            <code>npm start</code>
+          </p>
+
+          <p>Use folder: <b>blog-example/workspace-graphql</b></p>
+
+          <p>
+            <code>npm install</code><br />
+            <code>npm start</code>
+          </p>
+          <p>
+            <em
+              >Implement the <code><b>PostListPage</b></code> component</em
+            >
+            (TODOs in the file)
+          </p>
+          <p>
+            After you change your GraphQL query with <code>gql</code> please run the code generator
+            to generate the TypeScript code:<br />
+            <code>npm run codegen:watch</code>
+          </p>
+        </section>
+
+        <section>
+          <h3>Apollo GraphQL: Mutations</h3>
+          <p>Mutations can be used to modify data on the server</p>
+          <p class="fragment">Running a Mutation is similiar to running a query</p>
+          <p class="fragment">
+            Hook:
+            <a href="https://www.apollographql.com/docs/react/data/mutations/#executing-a-mutation"
+              ><b>useMutation</b></a
+            >
+          </p>
+          <p class="fragment">The useMutation hooks returns an array, consisting of two entries:</p>
+          <p class="fragment">
+            1. A function to actually run the mutation (e.g. after user interaction)
+          </p>
+          <p class="fragment">
+            2. The result object as known from <code>useQuery</code> plus a <code>called</code> flag
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+function PostEditorPage() {
+  const [mutate, { error, data, called }] = useMutation(NEW_BLOGPOST_MUTATION);
+
+  async function savePost(post) {
+    mutate({
+      variables: {
+        postData: post
+      }
+    });
+  }
+  
+  const errorMessage = error ? ... : null;
+
+  if (called && !errorMessage) {
+    // Mutation has been executed and was successful
+    return &lt;SuccessConfirmation />;
+  }
+  
+  // Mutation hasn't been run or failed with an error
+  return &lt;PostEditor onSavePost={savePost} error={errorMessage} />;
+}
+          </code></pre>
+        </section>
+        <section>
+          <h3>Exercise #3: A Mutation</h3>
+          <p>Implement the <code>PostEditorPage</code> component</p>
+        </section>
+
+        <section>
+          <h3>Upating the Cache</h3>
+          <p>Some strategies:</p>
+          <ul>
+            <li>
+              <a
+                href="https://www.apollographql.com/docs/react/api/react-apollo/#optionsfetchpolicy"
+                >Fetch Policy</a
+              >
+            </li>
+            <li>
+              <a href="https://www.apollographql.com/docs/react/data/queries/#refetching"
+                >Refetch function</a
+              >
+            </li>
+            <li>
+              <a href="https://www.apollographql.com/docs/react/data/queries/#polling"
+                >Polling (every x ms)</a
+              >
+            </li>
+            <li>
+              Use the
+              <a
+                href="https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates"
+                >Cache API</a
+              >
+              to update the Cache after a Mutation
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Fetch Policy #1</h3>
+          <p>
+            Specify a Fetch Policy as option in <code>useQuery</code> that defines when a query is
+            re-run after a rendering of your component
+          </p>
+          <pre class="fragment"><code class="javascript">
+ function PostPage() {
+  // Receive postId from URL params
+  const { postId } = useParams();
+
+  const { loading, error, data } = useQuery(POST_PAGE_QUERY,
+    {
+      variables: { postId },
+      fetchPolicy: "network-only"
+    }
+  );
+  // ...
+} 
+</code></pre>
+        </section>
+        <section>
+          <h3>Fetch Policy #2</h3>
+          <p>Allowed values</p>
+          <ul>
+            <li class="fragment">
+              <b>cache-first</b>: If data is in the cache, use it, otherwise read from backend
+            </li>
+            <li class="fragment">
+              <b>cache-and-network</b>: Use data from cache but always also execute backend request
+              (fast response for user, but also newest data). Might flicker
+            </li>
+            <li class="fragment">
+              <b>network-only</b>: Always run network request, don't use data from cache, but store
+              received data in the cache
+            </li>
+            <li class="fragment">
+              <b>no-cache</b>: Always run networt request, and also don't store data in the cache
+            </li>
+            <li class="fragment">
+              <b>cache-only</b>: Only read data from cache. If data is not found in the cache, you
+              don't get data
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Refetch function</h3>
+          <p>
+            <code>useQuery</code> returns a <b>refetch</b> function that you can invoke to
+            re-execute the query
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+function BlogListPage() {
+  const { loading, error, data, refetch } = useQuery(POST_LIST_QUERY);
+
+  if (loading) {
+    return <h1>Loading, please wait...</h1>;
+  }
+
+  if (error) {
+    return <h1>GraphQL Failed: {error.toString()}</h1>;
+  }
+
+  return &lt;PostList posts={data.posts} onRefetch={refetch}/>;
+}              
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+function PostList({posts, onRefetch}) {
+  return &lt;>
+    &lt;button onClick={onRefetch}>Refresh Posts&lt;/button>
+    ...
+  &lt;/>
+}  
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Polling</h3>
+          <p>
+            You can specifiy a <code>pollInterval</code> as a query option. Apollo than executes the
+            query every x milliseconds
+          </p>
+          <pre class="fragment"><code class="javascript">
+function BlogListPage() {
+  const { loading, error, data, refetch } = useQuery(POST_LIST_QUERY,
+    { pollInterval: 1500 }
+  );
+
+  // ... as seen before
+}              
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Updating Cache after a Mutation</h3>
+
+          <ul>
+            <li>
+              <a href="https://www.apollographql.com/docs/react/data/mutations/#options"
+                >refetch Queries</a
+              >: You can specify a list of queries in <code>useMutation</code> that Apollo runs
+              after the mutation
+            </li>
+            <li>Update the Cache manually (update-function)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>After a Mutation... Cache might be updated</h3>
+          <p class="fragment">
+            If your mutation returns an object that is already in the cache, this object gets
+            updated automatically
+          </p>
+          <p class="fragment">
+            Example: You <b>update</b> an existing Blog Post and as the result of Mutation you
+            receive the update blog post
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+const UPDATE_POST = gql`
+  mutation {
+    updateBlogPost(postId: "P1", newTitle: "...", newBody: "...") {
+      id
+      title
+      body
+    }
+  }
+`         
+              </code></pre>
+          <p class="fragment">Here Apollo can update the existing blog post (P1) in the cache</p>
+        </section>
+
+        <section>
+          <h3>There are cases where Apollo can not update the cache</h3>
+          <p>Example: you add a new item to a list</p>
+          <p>Apollo does not know that the object you created belong to a list</p>
+          <p>
+            Example: you queried for Blog Posts. You run a mutation to add a new Blog Post. <br />
+            Apollo does not know, that the new Blog Post belongs to the blog posts list
+          </p>
+        </section>
+
+        <section>
+          <h3>Cache API</h3>
+          <p>You can query the contents of the Cache - using GraphQL!</p>
+          <p>You can directly write contents to the cache</p>
+        </section>
+
+        <section>
+          <h3>Example: Update the Cache</h3>
+          <p>
+            You can set an <b>update-Function</b> as an option for the <code>useMutation</code> hook
+          </p>
+          <p>
+            This function is invoked by Apollo after the mutation received the response from your
+            server
+          </p>
+          <p>The function receives the cache and the mutation response</p>
+          <p>You can use the cache api to add the new object</p>
+
+          <pre class="fragment"><code class="javascript">
+const READ_POSTS_FROM_CACHE = gql`
+  query ReadPosts {
+    posts {
+      id
+    }
+  }
+`;
+
+function PostEditorPage() {
+  function savePost(post: NewBlogPost) {
+    mutate({
+       variables: {...},
+       update: (cache, {data}) => {
+         const { posts } = cache.readQuery({
+          query: READ_POSTS_FROM_CACHE
+        });
+        cache.writeQuery({
+          query: READ_POSTS_FROM_CACHE,
+          data: { posts: posts.concat(data.newPost) }
+        });
+       }
+      })
+    }
+
+    return ...;
+}
+</code></pre>
+        </section>
+
+        <section>
+          <h2>That's all! 😊</h2>
+          <h3>Thanks a lot for your participation!</h3>
+          <h3>Good luck with React!</h3>
+          <p>
+            If you have question, don't hestitate to contact me:
+          </p>
+          <p>Mail: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a></p>
+          <p>
+            Web: <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a>
+          </p>
+          <p>
+            Twitter: <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+        </section>
+      </div>
+    </div>
+
+    <script src="slides/reveal.js/lib/js/head.min.js"></script>
+    <script src="slides/reveal.js/js/reveal.js"></script>
+    <script src="slides/reveal.js/lib/jquery-2.2.4.js"></script>
+    <script src="slides/reveal-config.js"></script>
+  </body>
+</html>
