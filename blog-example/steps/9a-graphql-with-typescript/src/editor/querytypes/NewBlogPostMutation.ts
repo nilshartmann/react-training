@@ -2,7 +2,7 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { NewBlogPost } from "./../global-query-types";
+import { NewBlogPost } from "./../../global-query-types";
 
 // ====================================================
 // GraphQL mutation operation: NewBlogPostMutation

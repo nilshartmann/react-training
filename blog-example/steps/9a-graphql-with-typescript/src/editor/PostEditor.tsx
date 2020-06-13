@@ -1,5 +1,5 @@
 import React from "react";
-import { NewBlogPost } from "./types";
+import { NewBlogPost } from "../types";
 
 type PostEditorProps = {
   onSavePost(post: NewBlogPost): void;
@@ -26,12 +26,12 @@ export default function PostEditor(props: PostEditorProps) {
 
       <label>
         Title
-        <input value={title} onChange={e => setTitle(e.currentTarget.value)} />
+        <input value={title} onChange={(e) => setTitle(e.currentTarget.value)} />
       </label>
 
       <label>
         Body
-        <textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
+        <textarea value={body} onChange={(e) => setBody(e.currentTarget.value)} />
       </label>
 
       {props.error && <p>{props.error}</p>}
@@ -42,7 +42,7 @@ export default function PostEditor(props: PostEditorProps) {
         onClick={() => {
           props.onSavePost({
             title,
-            body
+            body,
           });
         }}
       >

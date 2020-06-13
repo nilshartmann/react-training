@@ -3,7 +3,7 @@ import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import LoginForm from "./LoginForm";
 import { LoginMutation, LoginMutationVariables } from "./querytypes/LoginMutation";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../AuthContext";
 import { useHistory, useLocation } from "react-router-dom";
 
 const LOGIN_MUTATION = gql`
@@ -30,7 +30,7 @@ export default function LoginPage() {
 
   async function doLogin(login: string, password: string) {
     const { data } = await mutate({
-      variables: { login, password }
+      variables: { login, password },
     });
 
     if (!data || !data.login || data.login.error) {
@@ -40,7 +40,7 @@ export default function LoginPage() {
     const { token, user } = data.login;
     setAuthState({
       token: token!,
-      username: user!.name
+      username: user!.name,
     });
 
     const redirectAfter = location.state?.redirectAfter || "/add";

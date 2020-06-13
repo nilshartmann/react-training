@@ -4,7 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
-import { assertDataPresent } from "./types";
+import { assertDataPresent } from "../types";
 import { PostPageQuery, PostPageQueryVariables } from "./querytypes/PostPageQuery";
 
 const POST_PAGE_QUERY = gql`
@@ -32,8 +32,8 @@ export default function PostPage() {
     POST_PAGE_QUERY,
     {
       variables: {
-        postId
-      }
+        postId,
+      },
     }
   );
   if (loading) {

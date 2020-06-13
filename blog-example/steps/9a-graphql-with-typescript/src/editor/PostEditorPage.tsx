@@ -1,13 +1,13 @@
 import React from "react";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../AuthContext";
 import { Redirect, Link } from "react-router-dom";
-import { NewBlogPost } from "./types";
+import { NewBlogPost } from "../types";
 import PostEditor from "./PostEditor";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import {
   NewBlogPostMutation,
-  NewBlogPostMutationVariables
+  NewBlogPostMutationVariables,
 } from "./querytypes/NewBlogPostMutation";
 
 const NEW_BLOGPOST_MUTATION = gql`
@@ -49,8 +49,8 @@ export default function PostEditorPage() {
   async function savePost(post: NewBlogPost) {
     mutate({
       variables: {
-        postData: post
-      }
+        postData: post,
+      },
     });
   }
   if (!authState) {

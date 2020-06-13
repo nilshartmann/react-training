@@ -19,7 +19,7 @@ export default function PostList(props: PostListProps) {
       <Link className="Button" to="/add">
         Add Post
       </Link>
-      {posts.map(p => (
+      {posts.map((p) => (
         <Link key={p.id} to={`/post/${p.id}`}>
           <article className="Container">
             <p className="Date">{formattedDate(p.date)}</p>

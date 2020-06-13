@@ -3,7 +3,7 @@ import PostList from "./PostList";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { PostListQuery } from "./querytypes/PostListQuery";
-import { assertDataPresent } from "./types";
+import { assertDataPresent } from "../types";
 
 const POST_LIST_QUERY = gql`
   query PostListQuery {
@@ -18,7 +18,7 @@ const POST_LIST_QUERY = gql`
 
 export default function PostListPage() {
   const { loading, error, data } = useQuery<PostListQuery>(POST_LIST_QUERY, {
-    fetchPolicy: "cache-and-network"
+    fetchPolicy: "cache-and-network",
   });
 
   if (loading) {
