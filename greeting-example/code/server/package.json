@@ -1,0 +1,10 @@
+{
+  "name": "react-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "../../node_modules/.bin/jest",
+    "test:watch": "../../node_modules/.bin/jest --watch"
+  }
+}
