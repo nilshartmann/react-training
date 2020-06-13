@@ -20,7 +20,7 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
         <section data-state="title">
-          <h2 class="title" style="font-size:7rem">
+          <h2 class="title" style="font-size: 7rem;">
             <b>Advanced React Training</b>
           </h2>
 
@@ -31,7 +31,7 @@
             </span>
           </h4>
 
-          <p style="margin-top:4rem"></p>
+          <p style="margin-top: 4rem;"></p>
           <div>
             <h3><span class="transparent-bg">Preparation</span></h3>
             <p>
@@ -55,7 +55,7 @@
           </p>
           <p><em>Freelance software developer, trainer and coach from Hamburg </em></p>
 
-          <div style="display:flex;justify-content:center">
+          <div style="display: flex; justify-content: center;">
             <div>
               <p>Java</p>
               <p>JavaScript, TypeScript</p>
@@ -68,7 +68,7 @@
 
         <section>
           <h2>Agenda</h2>
-          <ul style="font-size: 85%">
+          <ul style="font-size: 85%;">
             <li>
               <a href="#/t1">Intro: React Hooks in one hour</a>
             </li>
@@ -83,7 +83,7 @@
             <li>
               <a href="#/t3">Part III: React Components: Hierarchies and Applications</a>
             </li>
-            <li style="margin-bottom: 20px">
+            <li style="margin-bottom: 20px;">
               <a href="#/server">Part IV: Reading and writing data from a server (http)</a>
             </li>
             <li>
@@ -96,20 +96,20 @@
               <a href="#/t-router">Part VII: Client-side Routing with React Router (Overview)</a>
             </li>
 
-            <li style="margin-top: 30px">
+            <li style="margin-top: 30px;">
               <a href="#/t-graphql">Part VIII: GraphQL Clients with Apollo React</a>
             </li>
 
-            <li style="margin-top: 30px">
+            <li style="margin-top: 30px;">
               <a href="#/t7">More topics to discuss</a>
-              <ul style="font-size: 85%">
+              <ul style="font-size: 85%;">
                 <li>Performance optimizations</li>
                 <li>Redux</li>
                 <li>Context API</li>
               </ul>
             </li>
           </ul>
-          <div style="font-size:80%">
+          <div style="font-size: 80%;">
             <p><b>Every time:</b> Questions and discussions!</p>
           </div>
         </section>
@@ -123,145 +123,10 @@
           <h2>Live Coding</h2>
         </section>
 
-        <!-- todo: test hier -->
-        <section id="t3">
-          <h1>React Patterns for Reusability</h1>
-          <h2>Higher-Order-Components, Render Properties, Custom Hooks</h2>
-        </section>
-
-        <section>
-          <h2>Example: Loading Data in React</h2>
-        </section>
-
-        <section>
-          <h3>Approach #1: Higher-Order-Components</h3>
-
-          <p>Made popular by Redux (?)</p>
-          <p>Typically used in class components</p>
-        </section>
-        <section>
-          <h2>Problems with HOCs</h2>
-          <ul>
-            <li>Hard to understand and to write</li>
-            <li>"magically" added properties</li>
-            <li>wrapper components</li>
-            <li>colliding property names</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Approach #2: Render Properties</h3>
-          <p>Made popular by React Router (?)</p>
-          <p>Used both in class and function components</p>
-        </section>
-        <section>
-          <h3>Variation: Function as Child</h3>
-        </section>
-
-        <section>
-          <h3>Custom Hooks</h3>
-
-          <em>You can write own ("custom") hooks for common tasks</em>
-
-          <p class="fragment">
-            Examples: Loading data, dealing with native dom (setting title of your browser for
-            example)
-          </p>
-        </section>
-
-        <section>
-          <h3>Custom Hooks</h3>
-
-          <ul class="x-list">
-            <li class="fragment">
-              ...their names have to start with <code>use</code>
-              <ul>
-                <li>(otherwise the linter cannot check them, because it doesn't recognize them</li>
-              </ul>
-            </li>
-            <li class="fragment">
-              ...can be used in functional components and other hooks
-            </li>
-            <li class="fragment">
-              ...expected "normal" function arguments (not necessary an object as in function
-              component signatures)
-            </li>
-            <li class="fragment">...can invoke other (custom) hooks</li>
-            <li class="fragment">
-              ...you can freely choose any return type (no restrictions)
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Example: A custom hook for loading data</h3>
-          <p>
-            <em
-              >Question: how does a custom hook for loading of blog posts (but generalized) could
-              look like? 🤔
-            </em>
-          </p>
-
-          <ul class="fragment">
-            <li>How would the API of the hook look like? What parameters do we need?</li>
-            <li>What will the hook return?</li>
-          </ul>
-
-          <ul class="fragment">
-            <li>
-              Optional: can we add the information, that the server request ist running? So the
-              caller of our hook can display a loading indicator?
-            </li>
-          </ul>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Example: A Custom Hook for loading data</h3>
-
-          <pre><code class="javascript">
-import React from "react";
-
-export default function useApi(url, initialValue) {
-  const [isLoading, setLoading] = React.useState(false);
-  const [data, setData] = React.useState(initialValue);
-
-  React.useEffect(
-    () => {
-      async function loadData() {
-        try {
-          setLoading(true);
-          setData(initialValue);
-          const response = await fetch(url);
-          const json = await response.json();
-          setData(json);
-        } catch (err) {
-          console.error("LOADING DATA FAILED:", err);
-          setData(initialValue);
-        } finally {
-          setLoading(false);
-        }
-      }
-      loadData();
-    },
-    // Make sure, this Hook only runs (after initial) when URL changes
-    [url]
-  );
-
-  return [data, setData, isLoading];
-}
-</code></pre>
-        </section>
-
-        <section>
-          <h3>Consequences</h3>
-          <p>What does HOCs vs Render Properties vs Hooks mean for our components and the architecture of our app</p>
-        </section>
-
         <section id="t-test">
-          <h1>Part V</h1>
+          <h1>Part I</h1>
           <h2>Testing React Applications</h2>
-          <ul style="font-size:85%">
+          <ul style="font-size: 85%;">
             <li>
               Example:
               <a href="blog-example/steps/4-test/coverage/lcov-report/index.html" target="_blank"
@@ -293,7 +158,7 @@ export default function useApi(url, initialValue) {
         <section data-transition="slide none">
           <h2>What do we test?</h2>
           <ul>
-            <li style="color: lightgrey">
+            <li style="color: lightgrey;">
               <b>UI-independent logic</b> (for example services, backend calls)
             </li>
             <li>
@@ -301,7 +166,7 @@ export default function useApi(url, initialValue) {
               want it?)
             </li>
             <li><b>Interactions</b> (are my event handlers working and correctly set?)</li>
-            <li style="color: lightgrey">
+            <li style="color: lightgrey;">
               <b>Behaviour in the browser</b> (z.B. correct rendering, Browser-spezific JavaScript,
               Working with browser artefacts, such as history, Title, Scrollbars etc)
             </li>
@@ -527,6 +392,7 @@ test('it should render correctly', () => {
             Philosophy: tests are written from a user perspective. To find your elements you want to
             test, you use properties the user also sees (like labels, etc)
           </p>
+          <p class="todo">anderes beispiel, am besten nur editor</p>
           <pre
             class="fragment"
           ><code class="javascript" contenteditable data-trim>import { render, fireEvent } from "@testing-library/react";
@@ -546,761 +412,153 @@ it("it should switch between views", async () => {
             </code></pre>
         </section>
 
-        <section id="t-typescript">
-          <h1>Teil VI</h1>
-          <h2>React applications with TypeScript</h2>
-          <p>Example: code/blog-example/steps/6-typescript</p>
-          <ol>
-            <li>
-              <a href="#/t-typescript-grundlagen">TypeScript Basics</a>
-            </li>
-            <li>
-              <a href="#/t-typescript-react">React applications with TypeScript</a>
-            </li>
-          </ol>
+        <section>
+          <h3>Testing with fetch</h3>
+          <p>Challenges:</p>
+          <ul>
+            <li>Asynchronous code (not limited to fetch)</li>
+            <li>Server mocking</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Dealing with asynchronous code</h3>
         </section>
 
-        <section id="t-typescript-grundlagen">
-          <h2>Background: TypeScript</h2>
-          <p>
-            <em>TypeScript is a superset of JavaScript that compiles to plain JavaScript </em>(
-            <a href="http://www.typescriptlang.org/" target="_blank"
-              >http://www.typescriptlang.org/</a
-            >)
-          </p>
+        <section id="t3">
+          <h1>React Patterns for Reusability</h1>
+          <h2>Higher-Order-Components, Render Properties, Custom Hooks</h2>
+        </section>
+
+        <section>
+          <h2>Example: Loading Data in React</h2>
+        </section>
+
+        <section>
+          <h3>Approach #1: Higher-Order-Components</h3>
+
+          <p>Made popular by Redux (?)</p>
+          <p>Typically used in class components</p>
+        </section>
+        <section>
+          <h2>Problems with HOCs</h2>
           <ul>
-            <li>Extends JavaScript by a type system</li>
-            <li>Every valid JavaScript code is also valid TypeScript code</li>
-            <li>TS compiler translates to JavaScript</li>
+            <li>Hard to understand and to write</li>
+            <li>"magically" added properties</li>
+            <li>wrapper components</li>
+            <li>colliding property names</li>
           </ul>
         </section>
 
         <section>
-          <h3>👉TypeScript hands-on</h3>
+          <h3>Approach #2: Render Properties</h3>
+          <p>Made popular by React Router (?)</p>
+          <p>Used both in class and function components</p>
         </section>
         <section>
-          <h3>TypeScript Basics</h3>
-          <p>Type declarations are written after the identifier</p>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // Variables can get type informations
-  let foo: string;
-  foo = 'yo';
-  // Error: number: This type is incompatible with string
-  foo = 10;
-                 </code></pre>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // Functions
-  function sayIt(what: string): string {
-    return `Saying: ${what}`;
-  }
-  
-  sayIt('Klaus'); // ok
-  sayIt(10); // error
-  </code></pre>
-
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // Arrow functions
-  const sayIt = (what: string): string => `Saying: ${what}`;
-  
-  sayIt('Moin');
-  sayIt(123); // Error: Argument of type '123' is not assignable
-              // to parameter of type 'string'.
-  </code></pre>
+          <h3>Variation: Function as Child</h3>
         </section>
 
         <section>
-          <h2>Built-in types</h2>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // string
-  let city: string = 'Hamburg';
-  
-  // boolean
-  let isDone: boolean = false;
-  
-  // number
-  let theAnswer: number = 42;
-  
-  // array (note the [])
-  let cities: string[] = ['Hamburg', 'Barcelona'];
-  // alternative:
-  let languages: Array&lt;string> = ['JavaScript', 'TypeScript'];
-  
-  // any
-  let theUnknown: any = 'Who cares';
-  theUnknown = 666; // ok
-  theUnknown = true; // ok
-  let a: number = theUnknown; // ok
-  
-  // void
-  function log(s: string): void { /* ... */ }
-              </code></pre>
-        </section>
-        <section>
-          <h2>Types can be inferred by TypeScript</h2>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  let city = 'Hamburg'; // city is a string
-  
-  city = 42;
-  // Fehler: [ts] Type '42' is not assignable to type 'string'.
-  </code></pre>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // Function arguments must be specified explicitly
-  // (return type can be inferred)
-  
-  function sayIt(what: string) {
-    return `Saying: ${what}`;
-  }
-  
-  const said: string = sayIt('Hello TypeScript'); // ok
-  const saidItWrong: number = sayIt('Hello TypeScript'); // error!
-  
-  
-  </code></pre>
-        </section>
+          <h3>Custom Hooks</h3>
 
-        <section>
-          <h2>Turn off type checking</h2>
-          <p>
-            With <code>@ts-ignore</code> (as comment) the type checking in the next line will be
-            turned off:
-          </p>
-          <pre><code class="typescript line-numbers" contenteditable data-trim>
-  let city:string = "Hamburg";
-  
-  city = 20259; // error: [ts] Type '20259' is not assignable to type 'string'.
-  
-  // @ts-ignore
-  city = 20259; // ok                
-  </code></pre>
+          <em>You can write own ("custom") hooks for common tasks</em>
+
           <p class="fragment">
-            Should be used with care! Only in "difficult" scenarios, for example when type
-            definitions of an external library are broken.
+            Examples: Loading data, dealing with native dom (setting title of your browser for
+            example)
           </p>
         </section>
-        <section>
-          <h2>null and undefined</h2>
-          <div class="fragment">
-            <p>
-              <code>null</code> and <code>undefined</code> are own types. Variables are not nullable
-              by default!
-            </p>
-            <pre><code class="typescript line-numbers" contenteditable data-trim>
-  let city:string = null; //Type 'null' is not assignable to type 'string'.
-  
-  let optionalCity:string|null = null; // OK
-              </code></pre>
-          </div>
-          <div class="fragment">
-            <pre><code class="typescript line-numbers" contenteditable data-trim>
-    let city:string = undefined; //Type 'undefined' is not assignable to type 'string'.
-    
-    let optionalCity:string|undefined = undefined; // OK
-    let optionalCity:string|undefined|null = null; // OK
-                </code></pre>
-          </div>
-          <div class="fragment">
-            <p>
-              Optional parameters and properties can be marked as optional with a ?-sign
-            </p>
-            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  function greet(name: string, greeting?: string) {
-    console.log(`${greeting || 'Hello'}, {name}`);
-  }
-  
-  greet('Susi', 'Moin')// Moin, Susi
-  
-  // 2. Parameter is optional:
-  greet('Klaus'); // Hello, Klaus
-  
-  greet('Peter', null); // Argument of type 'null' is not assignable
-                        // to parameter of type 'string | undefined'.
-              </code></pre>
-          </div>
-        </section>
 
         <section>
-          <h2>Own types</h2>
-          <p>
-            With <code>type</code> and <code>interface</code> you can describe the shape/structure
-            of your own objects. Type and Interface are almost the same.
-          </p>
+          <h3>Custom Hooks</h3>
 
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  // Komplexer Typ
-  interface Person {
-    name: string; // Pflicht
-    livesIn?: string; // Optional
-  }
-
-  // or 
-  type Person = { name: string; livesIn?: string; }
-  
-  const susi: Person = { // OK
-    name: 'Klaus',
-    livesIn: 'Hamburg'
-  };
-  const klaus: Person = { // OK (livesIn is optional)
-    name: 'Klaus'
-  }
-  
-  const helmut: Person = {} // Error: Property 'name' is missing
-  
-  const lukas: Person = {
-    name: 'Lukas',
-    profession: 'Train driver'
-  } // Error: 'profession' does not exist in type 'Person'.
-                 </code></pre>
-        </section>
-
-        <section>
-          <h2>Own types II</h2>
-          <p>You can also describe functions on your types</p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-            // Complex Type
-            type Person {
-              name: string; // mandatory
-              greet(greeting: string): string;
-            }
-
-            const p:Person = {
-              name: "Klaus",
-              greet(greeting: string) { 
-                return `${greeting}, ${this.name}`
-              }
-            }
-            p.greet("Hello"); // OK
-            p.greet(123); // ERR: Argument of type '123' is not 
-                          // assignable to parameter of type 'string'.
-
-            const wrong:Person = {
-              name: "Susi", // OK
-              greet(greeting: number) { return "hello" } 
-                // ERR: Type '(greeting: number) => string' is not assignable to 
-                //      type '(greeting: string) => string'.
-                //      Types of parameters 'greeting' and 'greeting' are incompatible.
-                //      Type 'string' is not assignable to type 'number'.
-            }
-                           </code></pre>
-        </section>
-
-        <section>
-          <h2>Type compatibility</h2>
-          <em
-            >In TypeScript two Types are considered equal when they have the <b>same structure</b>
-            ("structural typing"). That differs from C#/Java.
-          </em>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  interface Book {
-    title: string
-  }
-  
-  interface Movie {
-    title: string
-  }
-  
-  const book:Book = { title: "React introduction" };
-  const movie:Movie = book; // OK, even Book !== Movie
-                 </code></pre>
-        </section>
-
-        <section>
-          <h2>String Literal Types</h2>
-          <p>
-            Using a String Literal Type, you can specify with exact strings a type can have. That
-            allows you to build enum-like constructs.
-          </p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-
-type VIEW = "LIST" | "DETAIL" | "ERROR";
-
-const m:VIEW = "LIST"; // OK
-const n:VIEW = "NOT_FOUND"; // ERR: Type '"NOT_FOUND"' 
-                         // is not assignable to type 'VIEW'.
-
-function getView(m: VIEW) {
-  if (m === "NOT_FOUND") {
-     // ERR: This condition will always return 'false' since the 
-     // types 'VIEW' and '"NOT_FOUND"' have no overlap.       
-  } else if (m === "DETAIL") {
-      // OK
-  }
-}
-            </code></pre>
-        </section>
-        <section>
-          <h2>Mapped Types</h2>
-          <p>Using mapped types you can construct new types based on others:</p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>              
-type Person = { name: string; lastname: string};
-
-const p:Person = {
-    name: "Klaus",
-    lastname: "mueller"
-}
-
-p.lastname = "Meier"; // OK
-
-// ReadonlyPerson ist ein "mapped type"
-type ReadonlyPerson = Readonly&lt;Person>;
-
-const p2:ReadonlyPerson = {
-    name: "Klaus",
-    lastname: "mueller"
-}
-
-p2.name = "Karl"; // Cannot assign to 'name' because it is a read-only property.
-</code></pre>
-        </section>
-        <section id="t-typescript-react">
-          <h2>React Applications with TypeScript</h2>
-          <em>State and Properties of components can be described using TypeScript</em>
-          <p class="fragment">
-            Attention! TypeScript-Files, that contain JSX <b>have to</b> end with <code>.tsx</code>!
-          </p>
-
-          <p class="fragment">👉 Let's see how this works (<code>workspace-typescript</code>)</p>
-        </section>
-        <section>
-          <h2>Type-safety in function components</h2>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-type PostListProps = {
-  posts: BlogPost[];
-  onAddPost(): void;
-};
-            </code></pre>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-    function BlogList(props: PostListProps) {
-      props.posts.length // OK
-      
-      props.post // compile ERROR: Property 'post' does not exist on type 'PostListProps'.
-      props.onAddPost("huhu"); // compile ERROR: Expected 0 arguments, but got 1.
-    }
-    
-            </code></pre>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-    // With Destructuring
-    function BlogList({posts, onAddPost}: GreetingMasterProps) => {
-      // ...
-    }
-    
-            </code></pre>
-        </section>
-
-        <section>
-          <h3>Typ-safe usage of components</h3>
-
-          <div class="fragment">
-            <p>Code Completion</p>
-            <img style="height: 200px" src="slides/images/screenshot-ts-code_completion.png" />
-          </div>
-
-          <div class="fragment">
-            <p>Unknown property</p>
-            <img style="height: 200px" src="slides/images/screenshot-ts-error-01.png" />
-          </div>
-
-          <div class="fragment">
-            <p>Wrong usage of a property</p>
-            <img style="height: 200px" src="slides/images/screenshot-ts-error-02.png" />
-          </div>
-        </section>
-
-        <section>
-          <h3>Type-safety in useState</h3>
-          <p>The type of the state from useState can be inferred by TypeScript</p>
-          <pre
-            class="fragment"
-          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-type PostEditorProps = {  onSavePost(post: NewBlogPost): void; };
-function PostEdior(props: PostEditorProps) {
-  const [title, setTitle] = React.useState("");
-
-  // greeting is string, because initial value is a string
-  setGreeting("huhu"); // OK
-  setGreeting(666); // ERROR (wrong Type)
-  setGreeting(null); // ERROR (wrong Type)
-}
-            </code></pre>
-          <div class="fragment">
-            <p>You can also specify it explicitly</p>
-            <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-type VIEW = "LIST" | "ADD";
-
-function App() {
-  const [view, setView] = React.useState&lt;VIEW>("LIST");
-
-  // Mode ist either string "MODE_MASTER" or "MODE_DETAIL"
-  // setMode only accepts the string "MODE_MASTER" and "MODE_DETAIL" 
-
-  setMode("NOT_FOUND"); // compile error
-  setMode(null); // compile error
-}
-                            </code></pre>
-          </div>
-        </section>
-
-        <section>
-          <h2>React Events in TypeScript</h2>
-          <p>
-            Events in React are all instances of <code>React.SyntheticEvent</code> which wrapps the
-            native DOM events
-          </p>
-          <p class="fragment">
-            The type for the events expects the type of the html element it is fired from (source of
-            the event) as a type argument.
-          </p>
-          <p class="fragment">TypeScript then knows the properties and functions of the event</p>
-          <span class="fragment">
-            <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-function PostEditor(props) {
-  const [title, setTitle] = React.useState("");
-
-  function handleChange(e: React.SyntheticEvent&lt;HTMLInputElement>) {
-    setTitle(e.currentTaget.value);
-  }
-
-  return &lt;input onChange={handleChange} value={title} />
-}              
-          </code></pre>
-            <p>
-              <a
-                href="https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682"
-                target="_blank"
-              >
-                <code>target</code> vs
-                <code>currentTarget</code>
-              </a>
-            </p>
-          </span>
-        </section>
-        <section>
-          <h2>useRef</h2>
-          <p>
-            <code>useRef</code> returns a generic container for data of any type. <br />The
-            contained type must be specified using a type parameter
-          </p>
-          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-  function PostEditor(props) {
-    const inputRef = React.useRef&lt;HTMLInputElement|null>(null);
-    // inputRef.current can either be HTMLInputElement or null
-
-    function reset() {
-      inputRef.current.focus(); // ERR: current might be null
-      
-      if (inputRef.current) {
-        inputRef.current.focus(); // OK
-      }
-    }
-  }
-            </code></pre>
-        </section>
-        <section>
-          <h2>Exercise: Type-safe React components</h2>
-          <h3>
-            <em>Add type informations to existing react components</em>
-          </h3>
-          <div style="font-size: 80%">
-            <div class="fragment">
-              <p>
-                <b>WORKSPACE:</b>
-              </p>
-              <p>
-                Please use the workspace <code><b>blog-example/workspace-typescript</b></code
-                >. <br />It contains the latest app version, but prepared for TypeScript.
-              </p>
-            </div>
-            <div class="fragment">
-              <p>
-                <b>PREPARATION:</b>
-              </p>
-              <ol class="x-list">
-                <li>Stop your running "npm run" process (frontend) using ctrl+c</li>
-                <li>
-                  Run <code><b>npm install</b></code> in
-                  <code>blog-example/workspace-typescript</code>
-                </li>
-                <li>
-                  Run <code><b>npm start</b></code> in
-                  <code>blog-example/workspace-typescript</code>
-                </li>
-              </ol>
-            </div>
-          </div>
-        </section>
-        <section>
-          <h3>Exercise 1: Add type informations</h3>
-          <ol style="font-size:80%" class="x-list">
+          <ul class="x-list">
             <li class="fragment">
-              Add missing type informations in <code>PostList.js</code> and
-              <code>PostEditor.js</code>
-            </li>
-            <li class="fragment">
-              Before modifying one of the files, rename it to <code>.tsx</code> and restart "npm
-              run"
-            </li>
-            <li class="fragment">You can find more instructions inside the files</li>
-          </ol>
-
-          <h3 class="fragment">Exercise 2: Add new View mode in App</h3>
-          <ol style="font-size:80%" class="x-list">
-            <li class="fragment">
-              After saving a new Blog Post, a new view should be presented to the users (showing a
-              message like "Your post have been saved")
-            </li>
-            <li class="fragment">
-              In addition to the info message the new view should have an "OK"-Button
-            </li>
-            <li class="fragment">
-              When the user clicks the OK-Button the <code>PostList</code> should be displayed:
-              <br /><code class="fragment"
-                >LIST --onAdd--> EDIT --onSave--> FEEDBACK --onOk--> LIST</code
-              >
-            </li>
-          </ol>
-        </section>
-
-        <section id="t-router">
-          <h2>Client-side Routing</h2>
-
-          <p>Example: code/blog-example/steps/7-router</p>
-        </section>
-        <section>
-          <h2>Why routing?</h2>
-          <span>
-            <p>
-              Map URLs to Components
-              <br />
-              <span style="font-size: 80%"
-                >(Navigation through the application without server round-trips!)</span
-              >
-            </p>
-          </span>
-          <span>
-            <p>
-              URLs can contain state of the application
-              <br />
-              <span style="font-size: 80%"
-                >What "Page" is visible (Blog List, Add Form or Blog Post)?</span
-              >
-              <br />
-              <span style="font-size: 80%">Which blog post should be rendered (postId)</span>
-            </p>
-          </span>
-        </section>
-
-        <section>
-          <h2>React Router</h2>
-          <ul>
-            <li>
-              Current version 5.1:
-              <a href="https://reacttraining.com/react-router/" target="_blank">
-                https://reacttraining.com/react-router/</a
-              >
-            </li>
-            <li>Not part of React</li>
-            <li>but de-facto Standard</li>
-            <li>Since Version 5.1 with Hooks API (useParams, useLocation, useHistory)</li>
-          </ul>
-        </section>
-        <section>
-          <h3>The Router Object</h3>
-          <p class="fragment">
-            Top-Level object, that needs to be included at the top of the application's component
-            hierarchy
-          </p>
-          <p class="fragment">
-            Mulitple implementations that differ how they interact with URL and browser history:
-          </p>
-          <ul>
-            <li class="fragment">
-              <b>HashRouter</b>: adds the path after appended hash (#/post/1) <br />👉Example: check
-              network request after changing the URL
-            </li>
-            <li class="fragment">
-              <b>BrowserRouter</b>: puts the path directly in the URL (/post/1) <br />(You need to
-              configure your web server accordingly)
-            </li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-      import {HashRouter as Router} from "react-router-dom";
-      
-      const app = &lt;Router>&lt;App/>&lt;/Router>;
-      
-      ReactDOM.render(app, document.getElementById(...));
-              </code></pre>
-        </section>
-
-        <section>
-          <h3>Which component should be rendered for a path?</h3>
-          <p class="fragment">The <code>Route</code> object maps paths to components</p>
-          <ul>
-            <li class="fragment">
-              Can be used whereever you want to select a component based on a path
+              ...their names have to start with <code>use</code>
               <ul>
-                <li>
-                  comparable with an "intelligent" <code>if</code> or <code>switch</code> statement
-                </li>
-                <li>can be used everywhere in your components</li>
+                <li>(otherwise the linter cannot check them, because it doesn't recognize them</li>
               </ul>
             </li>
             <li class="fragment">
-              Use the <code>path</code> attribute to specify the path that should match when the
-              component should be rendered
-            </li>
-            <li class="fragment">Specify the component as children of the Route component</li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-      import {HashRouter as Router, Route} from "react-router-dom";
-      
-      const app = &lt;Router>
-        &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
-        &lt;Route path="/add">&lt;AddPostPage onAdd={...} />&lt;/Route>
-        &lt;Route path="/" exact>&lt;BlogListPage />&lt;/Route>
-      &lt;/Router>;
-      
-      ReactDOM.render(app, document.getElementById(...));
-              </code></pre>
-        </section>
-
-        <section>
-          <h3>Background: Paths</h3>
-          <p>
-            In the Route component you specify a <b>path</b>, that is compared against the current
-            URL
-          </p>
-
-          <ul>
-            <li>
-              Paths by default are valid for parts of strings, but you can change the behaviour by
-              adding <code>exact</code>
-            </li>
-            <li>A Route without <code>path</code> matches always</li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-      // matches  / and /post
-      &lt;Route path="/">...&lt;/Route>
-      
-      // matches only /
-      &lt;Route path="/" exact>...&lt;/Route>
-      
-      // matches any URL:
-      &lt;Route>...&lt;/Route>
-      
-              </code></pre>
-          <ul>
-            <li class="fragment">A Path can contain variable segments:</li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-      &lt;Route path="/posts/:postId">&lt;BlogPostPage/>&lt;/Route>
-           </code> </pre>
-          <ul>
-            <li class="fragment">
-              Values of the variables can be read using the <code>useParams</code> hook in your
-              component:
-            </li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-                import { useParams } from "react-router";
-
-                function BlogPostPage() {
-                  const params = useParams();
-
-                  // params.postId contains the id from the URL
-                </code></pre>
-        </section>
-        <section>
-          <h3>Switch</h3>
-          <ul>
-            <li class="fragment">
-              If multiple path expression match, multiple components will be rendered (for example
-              "/" and "/post")
+              ...can be used in functional components and other hooks
             </li>
             <li class="fragment">
-              <code>Switch</code> ensures that only the für component will be rendered (like regular
-              switch with a break after each case)
+              ...expected "normal" function arguments (not necessary an object as in function
+              component signatures)
+            </li>
+            <li class="fragment">...can invoke other (custom) hooks</li>
+            <li class="fragment">
+              ...you can freely choose any return type (no restrictions)
             </li>
           </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-      import {HashRouter as Router, Route, Switch} from "react-router-dom";
-      
-      const app = (
-        &lt;Router>
-          &lt;Switch>
-            &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
-            &lt;Route path="/" exact>&lt;BlogListPage/>&lt;/Route>
-      
-            // "No match": without path
-            &lt;Route>&lt;NotFoundPage/>&lt;/Route>
-      
-          &lt;/Switch>
-        &lt;/Router>
-      );
-      
-      ReactDOM.render(app, document.getElementById(...));
-              </code></pre>
         </section>
 
         <section>
-          <h3>Links</h3>
+          <h3>Example: A custom hook for loading data</h3>
           <p>
-            Using the <code>Link</code> or <code>NavLink</code> component you can create HTML links
+            <em
+              >Question: how does a custom hook for loading of blog posts (but generalized) could
+              look like? 🤔
+            </em>
           </p>
-          <ul>
-            <li>Use <code>to</code> to specify the target path</li>
-            <li>Link creates an <code>a</code> HTML element</li>
-            <li>
-              "Local" URLs will be rendered according to the selected Router implementation (with
-              hash or without)
-            </li>
-            <li>
-              With <code>activeClassName</code> and <code>activeStyle</code> on
-              <code>NavLink</code> you can specify styles and classnames that get applied if the
-              current route is the same route as specified in "to" ("active" route)
-            </li>
+
+          <ul class="fragment">
+            <li>How would the API of the hook look like? What parameters do we need?</li>
+            <li>What will the hook return?</li>
           </ul>
 
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-      import {Link, NavLink} from "react-router-dom";
-      
-      &lt;Link to='/'>Show all Posts&lt;/Link>
-      
-      // Generted 'a' element contains 'highlight' CSS class, when it's the active route
-      &lt;NavLink to='/add' activeClassName="highlight">Add Post&lt;/NavLink>
-      
-              </code></pre>
+          <ul class="fragment">
+            <li>
+              Optional: can we add the information, that the server request ist running? So the
+              caller of our hook can display a loading indicator?
+            </li>
+          </ul>
         </section>
 
+        <!-- ============================================================================= -->
         <section>
-          <h3>The history-Objekt</h3>
-          <p>The <code>history</code> object can be used to interact with the Browser history</p>
-          <p>
-            You can jump to another location or get the current location from the browser
-          </p>
-          <p class="fragment">
-            The history object is available using the <code>useHistory</code> hook from React Router
-          </p>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-      import { useHistory } from "react-router";
+          <h3>Example: A Custom Hook for loading data</h3>
 
-      function App() {
-        const history = useHistory();
+          <pre><code class="javascript">
+import React from "react";
 
-        function onAdd(newBlogPost) {
-           ...
+export default function useApi(url, initialValue) {
+  const [isLoading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState(initialValue);
 
-           // go to new URL
-           history.push("/"); 
+  React.useEffect(
+    () => {
+      async function loadData() {
+        try {
+          setLoading(true);
+          setData(initialValue);
+          const response = await fetch(url);
+          const json = await response.json();
+          setData(json);
+        } catch (err) {
+          console.error("LOADING DATA FAILED:", err);
+          setData(initialValue);
+        } finally {
+          setLoading(false);
         }
-
-        return ...;
       }
-              </code></pre>
+      loadData();
+    },
+    // Make sure, this Hook only runs (after initial) when URL changes
+    [url]
+  );
+
+  return [data, setData, isLoading];
+}
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Consequences</h3>
+          <p>
+            What does HOCs vs Render Properties vs Hooks mean for our components and the
+            architecture of our app
+          </p>
         </section>
 
         <section id="t-graphql">
@@ -1313,12 +571,15 @@ function PostEditor(props) {
             My Question: what for problems can occur using this approach/architecture in larger)
             applications? 🤔
           </h3>
-          <img src="slides/images/typische-react-komponenten-hierarchie.png" style="height:650px" />
+          <img
+            src="slides/images/typische-react-komponenten-hierarchie.png"
+            style="height: 650px;"
+          />
         </section>
 
         <section>
           <h3>Problem 1: State spread across multiple components</h3>
-          <img src="slides/images/verteilter-zustand.png" style="height:650px" />
+          <img src="slides/images/verteilter-zustand.png" style="height: 650px;" />
           <p>
             Even if we separate our components in smart and dumb components we will have a couple of
             components with state and logic
@@ -1327,19 +588,19 @@ function PostEditor(props) {
 
         <section>
           <h3>Problem 2: Separated component hierarchies</h3>
-          <img src="slides/images/zwei-komponenten-hierarchien.png" style="height:650px" />
+          <img src="slides/images/zwei-komponenten-hierarchien.png" style="height: 650px;" />
           <p>Does not work or results in a "god-component"</p>
         </section>
 
         <section>
           <h3>Problem 3: Shared ("globale") State</h3>
-          <img src="slides/images/gemeinsam-genutzter-state.png" style="height:650px" />
+          <img src="slides/images/gemeinsam-genutzter-state.png" style="height: 650px;" />
           <p>How does the state reaches the bottom across multiple levels?</p>
         </section>
 
         <section>
           <h3>Problem 4: UI and logic tied together</h3>
-          <img src="slides/images/ui-und-logic-vermischt.png" style="height:650px" />
+          <img src="slides/images/ui-und-logic-vermischt.png" style="height: 650px;" />
           <p>Reusability? React-independence? Testability?</p>
         </section>
 
@@ -1356,6 +617,11 @@ function PostEditor(props) {
             <li class="fragment"><a href="https://mobx.js.org/README.html">MobX</a></li>
             <li class="fragment">Apollo GraphQL (not GraphQL itself)</li>
           </ul>
+        </section>
+
+        <section>
+          <h3>Part XYZ/</h3>
+          <h2>GraphQL</h2>
         </section>
 
         <section>
