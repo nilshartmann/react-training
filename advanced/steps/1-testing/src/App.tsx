@@ -2,36 +2,39 @@ import React from "react";
 import PostList from "./PostList";
 import PostEditor from "./PostEditor";
 import { NewBlogPost, BlogPost } from "./types";
+import { readPosts, writePosts } from "./api";
+import LoadingIndicator from "./LoadingIndicator";
 
 type VIEW = "LIST" | "ADD";
 
 function App() {
   const [posts, setPosts] = React.useState<BlogPost[]>([]);
   const [view, setView] = React.useState<VIEW>("LIST");
+  const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
-    fetch("http://localhost:7000/posts")
-      .then(response => response.json())
+    setLoading(true);
+    readPosts()
       .then(json => {
+        setLoading(false);
         setPosts(json);
       })
       .catch(err => console.error("Loading data failed: " + err));
   }, []);
 
   function savePost(post: NewBlogPost) {
-    fetch("http://localhost:7000/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(post)
-    })
-      .then(response => response.json())
+    setLoading(true);
+    writePosts(post)
       .then(newPost => {
+        setLoading(false);
         setPosts([newPost, ...posts]);
         setView("LIST");
       })
       .catch(err => console.error("Saving failed: " + err));
+  }
+
+  if (loading) {
+    return <LoadingIndicator>Posts are loading. Please wait.</LoadingIndicator>;
   }
 
   if (view === "LIST") {

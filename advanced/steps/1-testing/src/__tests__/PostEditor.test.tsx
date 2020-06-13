@@ -1,37 +1,52 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import PostEditor from "../PostEditor";
 
 test("save button enablement", () => {
-  const { getByText, getByLabelText } = render(<PostEditor onSavePost={jest.fn()} />);
-  const titleInput = getByLabelText("Title");
-  const bodyInput = getByLabelText("Body");
+  render(<PostEditor onSavePost={jest.fn()} />);
 
-  // should be disabled
-  expect(getByText(/Save Post/i)).toBeDisabled();
+  const titleInput = screen.getByLabelText("Title");
+  const bodyInput = screen.getByLabelText("Body");
+  const saveButton = screen.getByRole("button", { name: "Save Post" });
+
+  // Save Button should be disabled
+  expect(saveButton).toBeDisabled();
 
   // enter Title...
-  fireEvent.change(titleInput, { target: { value: "New Title" } });
+  userEvent.type(titleInput, "New Title");
 
   // should still be disabled
-  expect(getByText(/Save Post/i)).toBeDisabled();
+  expect(saveButton).toBeDisabled();
 
   // enter body
-  fireEvent.change(bodyInput, { target: { value: "New Body" } });
+  userEvent.type(bodyInput, "New Body");
+
   // ...now the button should be enabled
-  expect(getByText(/Save Post/i)).toBeEnabled();
+  expect(saveButton).toBeEnabled();
 });
 
+function getTextField(label: string): HTMLInputElement | HTMLTextAreaElement {
+  const textField = screen.getByLabelText(label);
+  expect(
+    textField instanceof HTMLInputElement || textField instanceof HTMLTextAreaElement
+  ).toBeTruthy();
+
+  return textField as HTMLInputElement | HTMLTextAreaElement;
+}
+
 test("clear button", () => {
-  const { getByText, getByLabelText } = render(<PostEditor onSavePost={jest.fn()} />);
-  const clearButton = getByText(/Clear/i);
-  const titleInput = getByLabelText("Title") as HTMLInputElement;
-  const bodyInput = getByLabelText("Body") as HTMLTextAreaElement;
+  render(<PostEditor onSavePost={jest.fn()} />);
+
+  const clearButton = screen.getByRole("button", { name: "Clear" });
+  const titleInput = getTextField("Title");
+  const bodyInput = getTextField("Body");
 
   // enter form
-  fireEvent.change(titleInput, { target: { value: "New Title" } });
-  fireEvent.change(bodyInput, { target: { value: "New Body" } });
-  fireEvent.click(clearButton);
+  userEvent.type(titleInput, "New Title");
+  userEvent.type(bodyInput, "New Body");
+
+  userEvent.click(clearButton);
 
   expect(titleInput.value).toBe("");
   expect(bodyInput.value).toBe("");
@@ -39,15 +54,16 @@ test("clear button", () => {
 
 test("add post button callback", () => {
   const savePostFn = jest.fn();
-  const { getByText, getByLabelText } = render(<PostEditor onSavePost={savePostFn} />);
-  const saveButton = getByText(/Save Post/i);
-  const titleInput = getByLabelText("Title");
-  const bodyInput = getByLabelText("Body");
+  render(<PostEditor onSavePost={savePostFn} />);
+  const saveButton = screen.getByRole("button", { name: "Save Post" });
+  const titleInput = getTextField("Title");
+  const bodyInput = getTextField("Body");
 
   // enter form
-  fireEvent.change(titleInput, { target: { value: "New Title" } });
-  fireEvent.change(bodyInput, { target: { value: "New Body" } });
-  fireEvent.click(saveButton);
+  userEvent.type(titleInput, "New Title");
+  userEvent.type(bodyInput, "New Body");
+  userEvent.click(saveButton);
+
   expect(savePostFn).toHaveBeenCalled();
   expect(savePostFn).toHaveBeenCalledWith({ title: "New Title", body: "New Body" });
 });
