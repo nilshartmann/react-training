@@ -137,13 +137,23 @@ app.get("/posts/:id", (req, res) => {
 
   const user = datastore.getUser(post.userId);
   if (!user) {
-    return res.status(404).json({ error: `Iser '${post.userId}' not found` });
+    return res.status(404).json({ error: `User '${post.userId}' not found` });
   }
 
   return res.status(200).json({ ...post, user });
 });
 
-/** Some "metadata" (just more data about a post, to provider another endpoint) */
+app.get("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  const user = datastore.getUser(userId);
+  if (!user) {
+    return res.status(404).json({ error: `User '${userId}' not found` });
+  }
+
+  return res.status(200).json(user);
+});
+
+/** Some "metadata" (just more data about a post, to provide another endpoint) */
 app.get("/posts/:id/metadata", (req, res) => {
   const post = datastore.getPost(req.params.id);
 

@@ -65,7 +65,7 @@ My money's in that office, right? If she start giving me some bullshit about it 
 
 Now that we know who you are, I know who I am. I'm not a mistake! It all makes sense! In a comic, you know how you can tell who the arch-villain's going to be? He's the exact opposite of the hero. And most times they're friends, like you and me! I should've known way back when... You know why, David? Because of the kids. They called me Mr Glass.
 ---
-title: Keep calm and learn GraphQL!
+title: Keep calm and learn React!
 date: 2020-01-10T15:03:04.529Z
 user: U5
 Pommy ipsum air one's dirty linen fork out plum pudding the lakes, naff gallivanting around ridicule knows bugger all about nowt. Jolly full English breakast proper alright geezer chaps at the boozer, football bog roll ended up brown bread. Proper knackered collywobbles Geordie I'm off to Bedfordshire wellies, knee high to a grasshopper i'll be a monkey's uncle a tad curtain twitching grub's up jolly hockey sticks, a cracking slappers and meat and two veg. 
