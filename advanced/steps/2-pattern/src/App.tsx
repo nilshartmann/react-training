@@ -1,6 +1,6 @@
 import React from "react";
 import LoadingIndicator from "./LoadingIndicator";
-import { BlogLoaderWithHook, UserLoaderWithHook } from "./DataLoadersWithHook";
+import { BlogLoader, UserLoader } from "./SpecializedLoader";
 import DataLoaderRenderProps from "./DataLoaderRenderProps";
 import withDataLoader from "./withDataLoader";
 import { BlogPost, User } from "./types";
@@ -13,8 +13,8 @@ type LOADER = "Hook (not reusable)" | "Render Props" | "HOC" | "Custom Hook";
 function HookExample() {
   return (
     <>
-      <BlogLoaderWithHook />
-      <UserLoaderWithHook />
+      <BlogLoader />
+      <UserLoader />
     </>
   );
 }

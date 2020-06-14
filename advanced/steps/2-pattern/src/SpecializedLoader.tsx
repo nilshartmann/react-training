@@ -5,7 +5,7 @@ import { demoFetch } from "./api";
 import SinglePost from "./SinglePost";
 import SingleUser from "./SingleUser";
 
-export function BlogLoaderWithHook() {
+export function BlogLoader() {
   const [post, setPost] = React.useState<BlogPost | null>(null);
   const [loading, setLoading] = React.useState(false);
 
@@ -27,7 +27,7 @@ export function BlogLoaderWithHook() {
   return <SinglePost title="Blog Post (Hook Example)" post={post} />;
 }
 
-export function UserLoaderWithHook() {
+export function UserLoader() {
   const [user, setUser] = React.useState<User | null>(null);
   const [loading, setLoading] = React.useState(false);
 
