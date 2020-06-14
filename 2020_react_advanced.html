@@ -78,6 +78,10 @@
             </li>
 
             <li>
+              <a href="#/t-pattern">Part II: Pattern (HOCs, Render Properties, Custom Hooks)</a>
+            </li>
+
+            <li>
               <a href="#/t2">Part II: React Components</a>
             </li>
             <li>
@@ -424,28 +428,185 @@ it("it should switch between views", async () => {
           <h3>Dealing with asynchronous code</h3>
         </section>
 
-        <section id="t3">
-          <h1>React Patterns for Reusability</h1>
-          <h2>Higher-Order-Components, Render Properties, Custom Hooks</h2>
+        <section id="t-pattern">
+          <h1>Part II</h1>
+          <h2>Pattern (Higher-Order-Components, Render Properties, Custom Hooks)</h2>
         </section>
 
         <section>
-          <h2>Example: Loading Data in React</h2>
+          <h3>Example: Loading Data in React</h3>
+          <p>Naive and "specialized" implementation, no reuse, just for loading a Blog Post...</p>
+
+          <pre class="fragment"><code class="javascript">
+            export function BlogLoader() {
+              const [post, setPost] = React.useState&lt;BlogPost | null>(null);
+              const [loading, setLoading] = React.useState(false);
+            
+              React.useEffect(() => {
+                setLoading(true);
+                demoFetch("http://localhost:7000/posts/P7")
+                  .then(response => response.json())
+                  .then(json => {
+                    setLoading(false);
+                    setPost(json);
+                  })
+                  .catch(err => console.error("Loading data failed: " + err));
+              }, []);
+            
+              if (loading || !post) {
+                return &lt;LoadingIndicator>Post is loading. Please wait.&lt;/LoadingIndicator>;
+              }
+            
+              return &lt;SinglePost title="Blog Post (Hook Example)" post={post} />;
+            }            
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Example: Loading Data in React</h3>
+          <p>Requirements</p>
+          <ul>
+            <li>We fetch data from a specified URL</li>
+            <li>While data is loading, a Loading Indicator should be shown</li>
+            <li>When the data has been loaded it should be rendered by a specified component</li>
+            <li>Should be typesafe (TypeScript)</li>
+            <li>Code should be reusable and work from and with different components</li>
+            <li>The target component can receive additional props</li>
+          </ul>
         </section>
 
         <section>
           <h3>Approach #1: Higher-Order-Components</h3>
-
+          <p>
+            <em
+              >A higher-order component is a function that takes a component and returns a new
+              component.</em
+            >(<a href="https://reactjs.org/docs/higher-order-components.html">Docs</a>)
+          </p>
           <p>Made popular by Redux (?)</p>
-          <p>Typically used in class components</p>
+          <p>Typically used with class components (?)</p>
         </section>
+
+        <section>
+          <h3>Higher-Order Components (HOC)</h3>
+          <p class="fragment">
+            The Higher-Order-Component is responsible for the <b>rendering</b> of a wrapped
+            component
+          </p>
+          <ul class="fragment">
+            <li>The HOC can delay (or skip at all) rendering of the wrapped component</li>
+            <li>The HOC can access all props</li>
+            <li>
+              The HOC can add properties for the wrapped component or can remove some
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Example: Higher-Order Components (HOC)</h3>
+          <p>
+            We have a Component (SinglePost) that displays a Post. The component has no idea where
+            the data comes from
+          </p>
+          <p>There is a HOC'd version of the component that is responsible for loading the data</p>
+          <p>As a user of the HOC'd version it is transparent that dataloading is done</p>
+
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      
+    // SinglePost (displays a single blog post):
+    function SinglePost({title, post}: { title: string, post: BlogPost}) {
+      return &lt;article>...render post...&lt;/article>;
+    }
+      
+    // wrap with our dataloader HOC
+    export default withDataLoader("post", SinglePost);
+    </code></pre>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    // Usage (Note: SinglePost is the HOC'd component)
+
+    import SinglePost from "./SinglePost";
+    // we have an additional property (url) here that is NOT defined on SinglePost,
+    // on the other hand we have no post-Property here, that is required on the original SinglePost 
+    // component... 
+
+    &lt;SinglePost title="Single Post HOC" url="http://..." />
+                                      </code></pre>
+        </section>
+        <section>
+          <h3>Example: Higher-Order Components (HOC)</h3>
+          <p>Step 1: A simple HOC...</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      
+      // Step 1: simply wrap a component (no extra functionality, demo only).
+      function withDataLoader(RawComponent) {
+        return function DataLoader(props) {
+            // Use {...this.props} to forward all properties that the HOC received
+            // to the target (raw) component
+            return &lt;RawComponent {...this.props} />
+          }
+        }
+                                      </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+function MyComponent() { ... }          
+// same as MyComponent, only with a wrapper around it
+const WrappedComponent = withDataLoader(MyComponent);
+        </code></pre>
+        </section>
+
+        <section>
+          <h3>Example: Higher-Order Components (HOC)</h3>
+          <p>Step 2: Implement the HOC</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    function withDataLoader(RawComponent) {
+      return function DataLoader(props) {
+        const [data, setData] = React.useState&lt;T | null>(null);
+        const [loading, setLoading] = React.useState(false);
+
+        React.useEffect( () => fetch(props.url).then(...data logic as seen... ));
+
+        if (loading) { return &lt;LoadingIndicator /> }
+
+        // invoke target component
+        return &lt;RawComponent {...props} data={data} />
+      }
+    }
+      
+                                          </code></pre>
+        </section>
+        <section>
+          <h3>Example: Higher-Order Components (HOC)</h3>
+          <p>Step 3: Using the HOC</p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    import withDataLoader from ". . .";
+    
+    // SinglePost does not know anything about a url, only the post and the title
+    function SinglePost({post, title}) { . . .};
+    
+    export default withDataLoader(SinglePost);
+                                            </code></pre>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+    import SinglePost from ". . .";
+    
+    // When using the HOC'd SinglePost we pass in the URL but NOT the post!
+    // 
+    &lt;SinglePost url="..." title="A single post" />
+                                            </code></pre>
+        </section>
+
         <section>
           <h2>Problems with HOCs</h2>
           <ul>
             <li>Hard to understand and to write</li>
             <li>"magically" added properties</li>
             <li>wrapper components</li>
-            <li>colliding property names</li>
+            <li>
+              colliding property names (our component takes a 'post' and 'user' property, but the
+              HOC passes a 'data' property 😢)
+            </li>
+            <p>
+              Hard to type when adding properties (TypeScript), esp. when adding and removing
+              properties
+            </p>
           </ul>
         </section>
 
@@ -454,8 +615,136 @@ it("it should switch between views", async () => {
           <p>Made popular by React Router (?)</p>
           <p>Used both in class and function components</p>
         </section>
+
         <section>
-          <h3>Variation: Function as Child</h3>
+          <h3>Example: Data Loader</h3>
+          <p>Step 1: The Loading Indicator</p>
+          <p>Remember: you can pass React components as properties to other components</p>
+
+          <pre class="fragment"><code class="javascript">
+            function DataLoader({ loadingComponent }) {
+              const [data, setData] = React.useState&lt;T | null>(null);
+              const [loading, setLoading] = React.useState(false);
+      
+              React.useEffect( () => fetch(props.url).then(...data logic as seen... ));
+      
+              if (loading) { 
+                return loadingComponent;
+              }
+              ...
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // Usage
+            function App() {
+              return &lt;DataLoader loadingComponent={&lt;LoadingIndicator/>} />
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Example: Data Loader</h3>
+          <p>Step 2: The Data</p>
+          <p class="fragment">How about this?</p>
+          <pre class="fragment"><code class="javascript">
+          // Usage
+          function App() {
+            return &lt;DataLoader loadingComponent={&lt;LoadingIndicator/>} 
+            dataComponent={&lt;SinglePost />}
+            />
+          }
+        </code></pre>
+          <p class="fragment">
+            How does <b>DataLoader</b> pass the loaded Post to <b>SinglePost</b>?
+          </p>
+        </section>
+
+        <section>
+          <h3>Example: Data Loader</h3>
+          <p>Step 2: The Data</p>
+          <p>How about this?</p>
+          <pre><code class="javascript">
+          // Usage
+          function App() {
+
+            function renderDataComponent(post) {
+              return &lt;SinglePost post={post} />
+            }
+
+            return &lt;DataLoader 
+               loadingComponent={&lt;LoadingIndicator/>} 
+               renderDataComponent={renderDataComponent}
+            />
+          }
+        </code></pre>
+          <p class="fragment">
+            What if we pass a callback function to <b>DataLoader</b> that gets the loaded data and
+            returns the <b>SinglePost</b> for it?
+          </p>
+        </section>
+        <section>
+          <h3>Example: Data Loader</h3>
+          <p>Step 2: The Data</p>
+          <pre><code class="javascript">
+            function DataLoader({ loadingComponent, renderDataComponent }) {
+              const [data, setData] = React.useState&lt;T | null>(null);
+              const [loading, setLoading] = React.useState(false);
+      
+              React.useEffect( () => fetch(props.url).then(...data logic as seen... ));
+      
+              if (loading) { 
+                return loadingComponent;
+              }
+
+              return renderDataComponent(data);
+            }        </code></pre>
+          <p>
+            Now we can load the data, pass it to the callback function (<b>renderDataComponent</b>)
+            and render the returned component!
+          </p>
+          <p class="fragment">
+            Property 'renderDataComponent' is called a <b>render property</b> (because it renders a
+            component)
+          </p>
+        </section>
+
+        <section>
+          <h3>Example: Data Loader</h3>
+          <p>Step 2: Variation: Function as Children</p>
+          <p>What about this one?</p>
+          <pre><code class="javascript">
+            // Usage
+          function App() {
+            return &lt;DataLoader loadingComponent={&lt;LoadingIndicator/>}> 
+                 { post => &lt;SinglePost post={post} /> }
+                &lt;DataLoader/>
+            }
+          }        </code></pre>
+          <p class="fragment">
+            <b>children</b> is a regular property and thus can be used as a render property too!
+          </p>
+        </section>
+
+        <section>
+          <h3>Example: Data Loader</h3>
+          <pre><code class="javascript">
+            function DataLoader({ loadingComponent, children }) {
+              const [data, setData] = React.useState&lt;T | null>(null);
+              const [loading, setLoading] = React.useState(false);
+      
+              React.useEffect( () => fetch(props.url).then(...data logic as seen... ));
+      
+              if (loading) { 
+                return loadingComponent;
+              }
+
+              // children is a function!
+              return children(data);
+            }        </code></pre>
+          <p class="fragment">
+            You can use a named property, the children or both - depending on your needs.
+          </p>
         </section>
 
         <section>
@@ -493,64 +782,53 @@ it("it should switch between views", async () => {
           </ul>
         </section>
 
-        <section>
-          <h3>Example: A custom hook for loading data</h3>
-          <p>
-            <em
-              >Question: how does a custom hook for loading of blog posts (but generalized) could
-              look like? 🤔
-            </em>
-          </p>
-
-          <ul class="fragment">
-            <li>How would the API of the hook look like? What parameters do we need?</li>
-            <li>What will the hook return?</li>
-          </ul>
-
-          <ul class="fragment">
-            <li>
-              Optional: can we add the information, that the server request ist running? So the
-              caller of our hook can display a loading indicator?
-            </li>
-          </ul>
-        </section>
-
         <!-- ============================================================================= -->
         <section>
           <h3>Example: A Custom Hook for loading data</h3>
 
           <pre><code class="javascript">
-import React from "react";
-
-export default function useApi(url, initialValue) {
-  const [isLoading, setLoading] = React.useState(false);
-  const [data, setData] = React.useState(initialValue);
-
-  React.useEffect(
-    () => {
-      async function loadData() {
-        try {
-          setLoading(true);
-          setData(initialValue);
-          const response = await fetch(url);
-          const json = await response.json();
-          setData(json);
-        } catch (err) {
-          console.error("LOADING DATA FAILED:", err);
-          setData(initialValue);
-        } finally {
-          setLoading(false);
-        }
-      }
-      loadData();
-    },
-    // Make sure, this Hook only runs (after initial) when URL changes
-    [url]
-  );
-
-  return [data, setData, isLoading];
-}
+            export default function useLoader&lt;T>(url: string) {
+              const [data, setData] = React.useState&lt;T | null>(null);
+              const [loading, setLoading] = React.useState(false);
+            
+              React.useEffect(() => {
+                setLoading(true);
+                demoFetch(url)
+                  .then(response => response.json())
+                  .then(json => {
+                    setLoading(false);
+                    setData(json);
+                  })
+                  .catch(err => console.error("Loading data failed: " + err));
+              }, [url]);
+            
+              if (loading || !data) {
+                return { loading: true };
+              }
+            
+              return {
+                loading: false,
+                data
+              };
+            }
 </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Usage of Custom Hook</h3>
+
+          <pre class="fragment"><code class="javascript">
+            function App() {
+              const postData = useLoader&lt;BlogPost>("http://localhost:7000/posts/P7");
+
+              if (postData.loading) {
+                return &lt;LoadingIndicator>Post Loading...&lt;/LoadingIndicator>;
+              }
+            
+              return &lt;SinglePost title="Blog Post (Custom Hook)" post={postData.data} />;
+            }            
+          </code></pre>
         </section>
 
         <section>
@@ -559,6 +837,9 @@ export default function useApi(url, initialValue) {
             What does HOCs vs Render Properties vs Hooks mean for our components and the
             architecture of our app
           </p>
+        </section>
+        <section>
+          <h3>Patterns can be mixed</h3>
         </section>
 
         <section id="t-graphql">
