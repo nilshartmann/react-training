@@ -1178,41 +1178,73 @@ const WrappedComponent = withDataLoader(MyComponent);
         </section>
 
         <section>
-          <h2>Redux im Code</h2>
-          <p>(npm start in code/workspace-live-coding-redux)</p>
+          <h2>Redux step-by-step</h2>
+          <p>(npm start in workspace-redux)</p>
         </section>
 
         <section>
-          <h2>Strukturierter Überblick über alle Redux Teile</h2>
+          <h2>All parts of Redux</h2>
         </section>
 
         <section>
-          <h3>Event-Handlers werden Action-Creators</h3>
+          <h3>Action Creators</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-export function setFilter(filter) {
+export function setBlogListSort(sortBy, direction) {
   return {
-    type: SET_FILTER,
-    filter
+    type: "SET_BLOGLIST_SORT",
+    sortBy,
+    direction,
   };
 }
 </code></pre>
           <ul>
-            <li class="fragment">Action-Creators erzeugen Action-Objekte</li>
+            <li class="fragment">Action-Creators create action objects</li>
             <li class="fragment">
-              Actions sind Kommando-artige Strukturen von Dingen, die die Applikation tun soll
+              They should hide the internal action structure from your application (it's
+              questionable if it's worth the effort)
             </li>
             <li class="fragment">
-              Über die dispatch-Methode des Stores werden sie an <em>alle</em> Reducer weiter
-              gegeben
+              Actions are simple JavaScript objects that should describe Events that happend in your
+              application (questionable, some say they should express what the application should
+              do)
             </li>
             <li class="fragment">
-              Actions bestehen aus einem Typen und einer beliebigen Nutzlast (payload)
+              Using the <code>dispatch</code> function they are forwarded to <em>all</em> Reducers
+              (<em>all</em> reducers receive <em>all</em> actions)
+            </li>
+            <li class="fragment">
+              Actions contain a <b>type</b> and a <b>payload</b>. The payload is userdefined, Redux
+              doesn't care.
             </li>
           </ul>
         </section>
 
         <section>
-          <h3>Action-Creators machen Server-Calls</h3>
+          <h3>Dispatching Actions</h3>
+          <ul>
+            <li class="fragment">
+              Actions will be dispatched using the <code>dispatch</code> function that is returned
+              by the <code>useDispatch</code> hook
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+import { useDispatch } from "react-redux"
+
+function LogoutForm() {
+  const dispatch = useDispatch();
+
+  function handleLogout() {
+    dispatch(logoutAction());
+  }
+
+  return &lt;button onClick={handleLogoutClickEvent}>Logout&lt;/button>;
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Action creators can be used for async code (e.g. data fetching)</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
 export const loadPost = postId => dispatch => {
 fetch(BACKEND_URL+'/'+postId)
@@ -1225,23 +1257,23 @@ fetch(BACKEND_URL+'/'+postId)
 </code></pre>
           <ul>
             <li class="fragment">
-              Die Action wird nicht direkt zurück geliefert, sondern erst später dispatched
+              An action creator does not return the action but a <em>thunk function</em> that
+              <b>later</b> dispatches the action
             </li>
             <li class="fragment">
-              wir bekommen die dispatch Methode als Parameter, mit der wir später die Action
-              dispatchen
+              The returned <em>thunk function</em> will be invoked by redux immediatley. The
+              <em>thunk function</em> receives the <code>dispatch</code>-function
+            </li>
+            <li class="fragment">
+              Inside the <em>thunk function</em> we can use the dispatch function to dispatch one or
+              more events (for example: loadingDataStarted, dataReceived)
             </li>
           </ul>
-          <p class="fragment">
-            <strong
-              >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
-              Operationen ausführen dürfen</strong
-            >
-          </p>
         </section>
 
         <section>
-          <h3>Ein <em>einziger</em> Store hält den <em>kompletten</em> Zustand</h3>
+          <h3>There is <em>only one</em> store, that contains the <em>whole</em> (Redux) state</h3>
+          <p>Disclaimer: not all of your app state needs to be in redux</p>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -1249,27 +1281,24 @@ import { rootReducer } from './reducers';
 
 // http://redux.js.org/docs/api/createStore.html
 const store = createStore(
-rootReducer // reducer
+  rootReducer // reducer
 );
+
 ReactDOM.render(
-&lt;Provider store={store}>
+  &lt;Provider store={store}>
     &lt;App />
-&lt;/Provider>,
-mountNode
+  &lt;/Provider>,
+  document.getElementById("...")
 );
     </code></pre>
           <ul>
-            <li class="fragment">Zentraler Teil der Anwendung</li>
-            <li class="fragment">Liefert die bereits bekannte dispatch-Methode</li>
             <li class="fragment">
-              Der Store wird allen Componenten über die Wrapper-Komponenten <em>Provider</em>
-              zur Verfügung gestellt
+              The store will be made available to all components via the <em>Provider</em> component
             </li>
           </ul>
         </section>
-
         <section>
-          <h3>Middleware zwischen Dispatch und Store</h3>
+          <h3>Middleware between Dispatch and Store</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
 import { applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -1280,43 +1309,59 @@ const store = createStore(
 );
     </code></pre>
           <ul>
-            <li class="fragment">Die Thunk Middleware dient als de-facto-Standard</li>
             <li class="fragment">
-              Gibt die dispatch-Methode and (asynchrone) Action Creators weiter
+              Allows you to 'plug-in' between a dispatched action and the store
             </li>
+            <li class="fragment">Often used for logging or for thunk actions</li>
             <li class="fragment">
-              <a href="https://github.com/gaearon/redux-thunk#whats-a-thunk" target="_blank">
-                'A thunk is a function that wraps an expression to delay its evaluation'
-              </a>
-            </li>
-            <li class="fragment">
-              Middleware ist ein fortgeschrittenes Feature und meistens genügt die Thunk Middleware
+              Middleware is an advanced feature that you might not need very often (beside thunk
+              middleware)
             </li>
           </ul>
         </section>
+        <section>
+          <h3>Sum up</h3>
+          <ol>
+            <li class="fragment">We create an Action, using an Action Creator</li>
+            <li class="fragment">The action will be passed through all middlewares</li>
+            <li class="fragment">If no middleware vetoes, the Action reaches the Store</li>
+            <li class="fragment">The store dispatches the Action to all Reducers</li>
+          </ol>
+        </section>
 
         <section>
-          <h3>Reducers enthalten die Kern-(Business)-Logik</h3>
+          <h3>Reducers contains your business logic</h3>
+          <ul>
+            <li class="fragment">
+              Idea/Recommendation: put as much business logic as possible in reducers
+            </li>
+            <li class="fragment">You can have more than one reducer</li>
+          </ul>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
 import {combineReducers} from 'redux';
 
 // http://redux.js.org/docs/api/combineReducers.html
 export const rootReducer = combineReducers({
-posts, // Blog Posts
-auth   // Aktueller Benutzer
+  posts, // Blog Posts
+  auth,   // Current User
+  options // View Options (Search Order)
 });
     </code></pre>
           <ul>
             <li class="fragment">
-              Reducer sind pure Funktionen, die den alten Zustand und eine Action bekommen und einen
-              neuen Zustand erzeugen
+              Reducers are <em>pure functions</em> that receive their old state and an action. They
+              might handle that action and return a new state.
             </li>
-            <li class="fragment">Oft bearbeitet ein Reducer nur einen Teil des Zustands</li>
+            <li class="fragment">
+              You can have more than one reducer in your app. The return values of all reducers
+              shapes the store. A reducer cannot see the "partial state" ("slice") of another
+              reducer.
+            </li>
           </ul>
         </section>
 
         <section>
-          <h3>Teil-Reducer</h3>
+          <h3>Reducer</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
 const auth = (state = {}, action) => {
 switch (action.type) {
@@ -1331,17 +1376,20 @@ switch (action.type) {
     </code></pre>
           <ul>
             <li class="fragment">
-              Initialisiert seinen Teilzustand (oft mit einem Default-Parameter)
+              A reducer must initialize it's initial state (often with default parameter)
             </li>
-            <li class="fragment">Ändert niemals zustand direkt</li>
             <li class="fragment">
-              Sondern liefert einen neuen Zustand (manchmal teilweise als Kopie)
+              Never mutates the old state, but creates a new one (for example a copy)
+            </li>
+            <li class="fragment">
+              Library <a href="https://github.com/immerjs/immer">immer</a> can help with simplifying
+              immutable code
             </li>
           </ul>
         </section>
 
         <section>
-          <h3>useSelector: Auf den globalen Zustand zugreifen</h3>
+          <h3>useSelector: Access global state</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
 import { useSelector } from 'react-redux';
 
@@ -1350,27 +1398,24 @@ function App() {
   ...
 }
 </code></pre>
-        </section>
-        <section>
-          <h3>useDispatch: Actions auslösen</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-      import { useDispatch } from 'react-redux';
-      
-      import * as actions from './actions';
-      
-      function App() {
-        const dispatch = useDispatch();
-
-        async function login(newUser) {
-          await dispatch(actions.login(newUser));
-        }
-        ...
-      }
-    </code></pre>
+          <ul>
+            <li class="fragment">useSelector takes a <em>selector function</em></li>
+            <li class="fragment">
+              The selector function is invoked by redux and gets the <em>whole state</em> as
+              parameter
+            </li>
+            <li class="fragment">
+              It returns the parts of the state, the component is interessted in
+            </li>
+            <li class="fragment">
+              You can use more than on useSelector call in your component and you should return
+              primitives from your selector function (no objects)
+            </li>
+          </ul>
         </section>
 
         <section>
-          <h2>Zusammenfassung Redux-Architektur</h2>
+          <h2>Summary redux architecture</h2>
           <img
             src="slides/images/redux-03-resulting-redux-architecture.png"
             style="max-height: 650px;"
@@ -1378,120 +1423,20 @@ function App() {
         </section>
 
         <section>
-          <h3>Lokaler State ist weiterhin erlaubt!</h3>
-          <p>Es gibt unterschiedliche Arten von "State"</p>
-
-          <img src="slides/images/three-kinds-of-state.png" style="max-height: 650px;" />
-        </section>
-
-        <section id="t-context">
-          <h2>Context API</h2>
-          <p>Beispiel: <code>blog-example/steps/30-complete-app-with-hooks</code></p>
-        </section>
-
-        <section>
-          <h2>Context...</h2>
-          <p>
-            <em
-              >erlaubt das Durchreichen von Informationen ohne explizites angeben als Properties</em
-            >
-          </p>
-
+          <h3>Local state is still "allowed"!</h3>
+          <p>There are a lot of places where you can hold state</p>
           <ul>
-            <li class="fragment">funktioniert nur innerhalb einer Hierarchie-Ebene</li>
-            <li class="fragment">es können beliebg viele (fachliche) Context definiert werden</li>
-            <li class="fragment">besteht aus <code>Provider</code> und <code>Consumer</code></li>
-            <li class="fragment">
-              <a href="https://reactjs.org/docs/context.html" target="_blank">Doku</a>
-            </li>
+            <li class="fragment">Server and client</li>
+            <li class="fragment">Component State</li>
+            <li class="fragment">Redux</li>
+            <li class="fragment">URL, Session or Local Storage</li>
           </ul>
-        </section>
 
-        <section>
-          <h2>Context Factory</h2>
-          <p>
-            <em>erzeugt ein Objekt, mit <b>zwei Komponenten</b></em>
-          </p>
-          <ul>
-            <li class="fragment">
-              <code>Provider</code>, stellt Objekt mit Key-Value-Paaren zur Verfügung (der
-              Context-"Value")
-            </li>
-            <li class="fragment">
-              <code>Consumer</code> wird in eigener Komponente verwendet, um auf einen Context
-              zuzugreifen ("versteckt" durch useContext Hook)
-            </li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-                      import react from "React";
-
-                      const AuthContext = React.createContext();
-
-                      // erzeugt:
-                      // AuthContext.Provider 
-                      // AuthContext.Consumer
-                              </code></pre>
-        </section>
-
-        <section>
-          <h2>Context Provider</h2>
-          <p><em>Eine React-Komponente, die einen Context zur Verfüng stellt</em></p>
-          <ul>
-            <li class="fragment">
-              wird innerhalb einer eigenen Komponente in <code>render</code> eingebunden
-            </li>
-            <li class="fragment">Nimmt ein Objekt ("Context") mit beliebigen Werten entgegen</li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-                      const AuthContext = React.createContext();
-
-                      function AuthProvider() {
-                          const [ currentUser, setCurrentUser ] = React.useState(null);
-                          const contextValue = {
-                            // the current theme
-                            currentUser,
-                      
-                            // function to set new theme
-                            login: name => setCurrentUser(name),
-                            logout: () => setCurrentUser(null)
-                          };
-                      
-                          return &lt;AuthContext.Provider value={contextValue}>
-                            {props.children}
-                          &lt;/AuthContext.Provider>;
-                        }
-                      }                    
-</code></pre>
-        </section>
-
-        <section>
-          <h2>useContext-Hook</h2>
-          <p><em>Zugriff auf die Werte aus dem Context</em></p>
-          <p>
-            In allen Komponenten unterhalb der Provider Komponente, kann mit useContext auf den
-            Kontext zugegriffen werden
-          </p>
-
-          <pre class="fragment"><code class="javascript">
-function UserBadge() {
-  const { currentUser } = React.useContext(AuthContext);
-
-  return currentUser  ? &lt;h1>Welcome, {currentUser}&lt;h1> : null;
-}            
-          </code></pre>
-
-          <p class="fragment">Aufrufen einer Funktion aus dem Context</p>
-          <p class="fragment">Ändert im Context den Zustand der Provider-Komponente</p>
-          <p class="fragment">Alle Konsumer werden neu gerendert</p>
-          <pre class="fragment"><code class="javascript">
-function UserBadge() {
-  const { currentUser, logout } = React.useContext(AuthContext);
-
-  return currentUser  ? 
-    &lt;>&lt;h1>Welcome, {currentUser}&lt;h1>&lt;button onClick={logut}>Logout&lt;/button>&lt;/> 
-    : null;
-}                
-          </code></pre>
+          <img
+            class="fragment"
+            src="slides/images/three-kinds-of-state.png"
+            style="max-height: 650px;"
+          />
         </section>
 
         <section>
