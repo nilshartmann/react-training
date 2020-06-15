@@ -5,7 +5,6 @@ type OneProps = {
 };
 
 function One({ value }: OneProps) {
-  console.log("ONE, value: " + value);
   return (
     <div className="Border">
       <h1>One</h1>
@@ -19,7 +18,6 @@ type TwoProps = {
 };
 
 function Two({ value }: TwoProps) {
-  console.log("TWO, value: " + value);
   return (
     <div className="Border">
       <h1>Two</h1>
@@ -31,6 +29,8 @@ function Two({ value }: TwoProps) {
 function App() {
   const [valueOne, setValueOne] = React.useState(0);
   const [valueTwo, setValueTwo] = React.useState(0);
+
+  const two = React.useMemo(() => <Two value={valueTwo} />, [valueTwo]);
 
   function incrementOne() {
     setValueOne(valueOne => valueOne + 1);
@@ -47,7 +47,7 @@ function App() {
       <button onClick={incrementTwo}>Increment Two</button>
       <div style={{ display: "flex" }}>
         <One value={valueOne} />
-        <Two value={valueTwo} />
+        {two}
       </div>
     </div>
   );

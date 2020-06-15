@@ -5,7 +5,6 @@ type OneProps = {
 };
 
 function One({ value }: OneProps) {
-  console.log("ONE, value: " + value);
   return (
     <div className="Border">
       <h1>One</h1>
@@ -16,17 +15,19 @@ function One({ value }: OneProps) {
 
 type TwoProps = {
   value: number;
+  reset: () => void;
 };
 
-function Two({ value }: TwoProps) {
-  console.log("TWO, value: " + value);
+const Two = React.memo(function Two({ value, reset }: TwoProps) {
+  console.log("Render Two, value: " + value);
   return (
     <div className="Border">
       <h1>Two</h1>
       <p>Current: {value}</p>
+      <button onClick={reset}>Reset</button>
     </div>
   );
-}
+});
 
 function App() {
   const [valueOne, setValueOne] = React.useState(0);
@@ -40,6 +41,10 @@ function App() {
     setValueTwo(valueTwo => valueTwo + 1);
   }
 
+  const reset = React.useCallback(function reset() {
+    setValueTwo(0);
+  }, []);
+
   return (
     <div className="Border">
       <h1>App Component</h1>
@@ -47,7 +52,7 @@ function App() {
       <button onClick={incrementTwo}>Increment Two</button>
       <div style={{ display: "flex" }}>
         <One value={valueOne} />
-        <Two value={valueTwo} />
+        <Two value={valueTwo} reset={reset} />
       </div>
     </div>
   );

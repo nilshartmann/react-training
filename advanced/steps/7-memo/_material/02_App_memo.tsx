@@ -5,7 +5,6 @@ type OneProps = {
 };
 
 function One({ value }: OneProps) {
-  console.log("ONE, value: " + value);
   return (
     <div className="Border">
       <h1>One</h1>
@@ -18,15 +17,14 @@ type TwoProps = {
   value: number;
 };
 
-function Two({ value }: TwoProps) {
-  console.log("TWO, value: " + value);
+const Two = React.memo(function Two({ value }: TwoProps) {
   return (
     <div className="Border">
       <h1>Two</h1>
       <p>Current: {value}</p>
     </div>
   );
-}
+});
 
 function App() {
   const [valueOne, setValueOne] = React.useState(0);
