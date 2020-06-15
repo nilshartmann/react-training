@@ -91,6 +91,10 @@
             <li style="margin-top: 30px;">
               <a href="#/t-graphql">Teil V: GraphQL</a>
             </li>
+
+            <li style="margin-top: 30px;">
+              <a href="#/t-memo">Teil VI: Memoization, Performance</a>
+            </li>
           </ul>
           <div style="font-size: 80%;">
             <p><b>Every time:</b> Questions and discussions!</p>
@@ -2594,6 +2598,126 @@ function PostEditorPage() {
     return ...;
 }
 </code></pre>
+        </section>
+
+        <section id="t-memo">
+          <h3>Part VI</h3>
+          <h1>Performance</h1>
+        </section>
+
+        <section>
+          <h3>Performance</h3>
+          <p>Where can the app become slow (or fast)?</p>
+          <ul>
+            <li class="fragment">
+              Bundle-Size: Browser needs to download, parse and interpret your JavaScript.
+              Bottlenecks might be: network performance, CPU
+            </li>
+            <li class="fragment">Runtime: unneccessary computations and re-renderings</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Performance</h3>
+          <p>Each time you change state, all components will be rerendered!</p>
+          <p>There <em>might</em> be some re-renderings that are unneccessary and expensive</p>
+          <pre class="fragment"><code class="javascript">
+function PiCalculator() {
+  const [name, setName] = React.useState("")
+  const [digits, setDigits] = React.useState(10000);
+
+  const pi = calculatePiWithDigits(digits); 
+
+  return &lt;>
+    &lt;input type="text" value={name} onChange={...} />
+    &lt;input type="number" value={digits} onChange={...} />
+    &lt;p>Pi is: {pi}&lt;/p>
+  &lt;/>;
+
+}            
+          </code></pre>
+          <ul>
+            <li class="fragment">Each time you change a digit, pi is re-calculated: fine! 😊</li>
+            <li class="fragment">Each time you change the name, pi is re-calculated: ouch! 😱</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>useMemo</h3>
+          <p>useMemo lets you cache (memoize) a value across several renderings</p>
+          <p>The first parameter specifies a function, that returns the value to be cached</p>
+          <p>With the second paramter you specify dependencies, when the value should be rebuilt</p>
+          <pre class="fragment"><code class="javascript">
+function PiCalculator() {
+  const [name, setName] = React.useState("")
+  const [digits, setDigits] = React.useState(10000);
+
+  // re-calculate pi only if digits have changed
+  const pi = React.useMemo( () => calculatePiWithDigits(digits), [digits] );
+
+  return &lt;>
+    &lt;input type="text" value={name} onChange={...} />
+    &lt;input type="number" value={digits} onChange={...} />
+    &lt;p>Pi is: {pi}&lt;/p>
+  &lt;/>;
+}            
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>A little Refactoring...</h3>
+          <p>Let's move displaying and calculating Pi to its own component</p>
+
+          <pre class="fragment"><code class="javascript">
+            function PiDisplay({digits}) {
+              const pi = calculatePiWithDigits(digits);
+              return &lt;p>Pi is: {pi}&lt;/p>
+            }             
+          </code></pre>
+          <p class="fragment">
+            PiCalculator doesn't know anything about expensive calculations anymore:
+          </p>
+          <pre class="fragment"><code class="javascript">
+            function PiCalculator() {
+              const [name, setName] = React.useState("")
+              const [digits, setDigits] = React.useState(10000);
+            
+              return &lt;>
+                &lt;input type="text" value={name} onChange={...} />
+                &lt;input type="number" value={digits} onChange={...} />
+                
+                &lt;PiDisplay digits={digits} />
+              &lt;/>;
+            
+            }          
+                    </code></pre>
+          <p class="fragment">Again: expensive re-renderings! 😱</p>
+        </section>
+
+        <section>
+          <h3>React.memo</h3>
+          <p>
+            Using React.memo you can create a wrapper around your component that avoids rerendings
+            as long as all properties remain the same between two renderings:
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            const PiDisplay = React.memo(function PiDisplay({digits}) {
+              const pi = calculatePiWithDigits(digits);
+              return &lt;p>Pi is: {pi}&lt;/p>
+            })             
+          </code></pre>
+          <p class="fragment">
+            (PiCalculator unchanged)
+          </p>
+          <p class="fragment">
+            Another example might be a component that takes long to render (large table for
+            example).
+          </p>
+          <p class="fragment">
+            Note: All components that are rendered by PiDisplay (your memo'd component) are also NOT
+            rerenderd!
+          </p>
         </section>
 
         <section>
