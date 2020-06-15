@@ -1154,10 +1154,122 @@ const WrappedComponent = withDataLoader(MyComponent);
           </ul>
         </section>
 
+        <section id="t-context">
+          <h2>Context API</h2>
+          <p>Example: <code>4-context</code></p>
+        </section>
+
+        <section>
+          <h2>Context...</h2>
+          <p>
+            <em
+              >allows you to pass informations down in your component hierarchies but without using
+              properties
+            </em>
+          </p>
+
+          <ul>
+            <li class="fragment">only works inside a component hierarchy</li>
+            <li class="fragment">
+              there can be an unlimited amount of contexts in your application
+            </li>
+            <li class="fragment">consists of <code>Provider</code> and <code>Consumer</code></li>
+            <li class="fragment">
+              <a href="https://reactjs.org/docs/context.html" target="_blank">Documentation</a>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Context Factory</h2>
+          <p>
+            <em>createn an object with <b>two components</b></em>
+          </p>
+          <ul>
+            <li class="fragment">
+              <code>Provider</code>, provides a user-defined object with key-value-pairs in your
+              component hierarchy (the actual Context-"Value")
+            </li>
+            <li class="fragment">
+              <code>Consumer</code> is used inside a component to access the context value. Used
+              with <code>useContext</code> hook
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                      import react from "React";
+
+                      const AuthContext = React.createContext();
+
+                      // creates two components:
+                      // AuthContext.Provider 
+                      // AuthContext.Consumer
+                              </code></pre>
+        </section>
+
+        <section>
+          <h2>Context Provider</h2>
+          <p><em>A React Component, that provides the context value</em></p>
+          <ul>
+            <li class="fragment">
+              will be returned by your own component, that manages the context value
+            </li>
+            <li class="fragment">
+              takes an object ("Context") with user defined values (even functions allowed)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                      const AuthContext = React.createContext();
+
+                      function AuthProvider() {
+                          const [ currentUser, setCurrentUser ] = React.useState(null);
+                          const contextValue = {
+                            // the current theme
+                            currentUser,
+                      
+                            // function to set new theme
+                            login: name => setCurrentUser(name),
+                            logout: () => setCurrentUser(null)
+                          };
+                      
+                          return &lt;AuthContext.Provider value={contextValue}>
+                            {props.children}
+                          &lt;/AuthContext.Provider>;
+                        }
+                      }                    
+</code></pre>
+        </section>
+
+        <section>
+          <h2>useContext-Hook</h2>
+          <p><em>Reads values from the context</em></p>
+          <p>Can be used in all components underneath the provider component</p>
+
+          <pre class="fragment"><code class="javascript">
+function UserBadge() {
+  const { currentUser } = React.useContext(AuthContext);
+
+  return currentUser  ? &lt;h1>Welcome, {currentUser}&lt;h1> : null;
+}            
+          </code></pre>
+
+          <p class="fragment">Changing Context value for example by a provided callback function</p>
+          <p class="fragment">Inside the provider, state changes, provider will be re-rendered</p>
+          <p class="fragment">All conumers are rerendered, app is up-to-date</p>
+          <pre class="fragment"><code class="javascript">
+function UserBadge() {
+  const { currentUser, logout } = React.useContext(AuthContext);
+
+  return currentUser  ? 
+    &lt;>&lt;h1>Welcome, {currentUser}&lt;h1>&lt;button onClick={logut}>Logout&lt;/button>&lt;/> 
+    : null;
+}                
+          </code></pre>
+        </section>
+
         <section id="t-redux">
           <h2>Redux</h2>
           <h3>External Statemanagement</h3>
-          <p class="todo">Beispiel: <code>blog-example/steps/30-complete-app-with-hooks</code></p>
+          <p class="todo">Example: <code>5-redux</code></p>
         </section>
 
         <section>

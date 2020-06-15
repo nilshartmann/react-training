@@ -6,17 +6,19 @@ export type AuthState = {
   username: string;
 };
 
-const defaultContext = {
-  login(authState: AuthState) {},
-  logout() {},
-  authState: undefined
-} as {
+type IAuthContext = {
   login(authState: AuthState): void;
   logout(): void;
   authState: AuthState | null | undefined;
 };
 
-const AuthContext = React.createContext(defaultContext);
+const defaultContext: IAuthContext = {
+  login(authState: AuthState) {},
+  logout() {},
+  authState: undefined
+};
+
+const AuthContext = React.createContext<IAuthContext>(defaultContext);
 type AuthContextProviderProps = {
   children: React.ReactNode;
 };
