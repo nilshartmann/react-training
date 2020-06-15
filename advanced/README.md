@@ -19,15 +19,15 @@
 
 _Die folgenden Beispiele verwenden alle den Router, dh hier **muss** eine kurze Router Einführung folgen_
 
-# graphql
-
-GraphQL, Stand aus blog-example, d.h. mit einloggen, aber ohne Sidebar etc.
-
-Focus: GraphQL (kein Statemanagement)
-
 # Redux
 
 - State-Talk Beispiel verwenden
 - Context-Variante davon nicht sinnvoll
 
 # Memoization
+
+# graphql
+
+GraphQL, Stand aus blog-example, d.h. mit einloggen, aber ohne Sidebar etc.
+
+Focus: GraphQL (kein Statemanagement)
