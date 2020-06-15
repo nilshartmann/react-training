@@ -1,24 +1,29 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateBlogTitle, updateBlogBody } from "actions";
+import { AppState } from "reducers";
 
 type PostEditorProps = {
   onSavePost(): void;
 };
 
 export default function PostEditor(props: PostEditorProps) {
-  const [title, setTitle] = React.useState("");
-  const [body, setBody] = React.useState("");
+  const dispatch = useDispatch();
+
+  const title = useSelector((state: AppState) => state.newBlogPost.title);
+  const body = useSelector((state: AppState) => state.newBlogPost.body);
 
   function updateTitle(e: React.ChangeEvent<HTMLInputElement>) {
-    setTitle(e.currentTarget.value);
+    dispatch(updateBlogTitle(e.currentTarget.value));
   }
 
   function updateBody(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setBody(e.currentTarget.value);
+    dispatch(updateBlogBody(e.currentTarget.value));
   }
 
   function clear() {
-    setTitle("");
-    setBody("");
+    dispatch(updateBlogTitle(""));
+    dispatch(updateBlogBody(""));
   }
 
   const saveButtonDisabled = !title || !body;
