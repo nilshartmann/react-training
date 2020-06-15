@@ -2,7 +2,7 @@
 
 ## Voraussetzungen
 
-**Teilnehmer Laptops/PCs**
+**Für dein Laptop/PC**
 
 Auf deinem Laptop/PC sollte installiert sein:
 
@@ -59,7 +59,7 @@ Achtung! Das Backend läuft auf **Port 7000**, d.h. dieser Port muss verfügbar 
 - Im Browser (oder per curl, wget oder httpie) aufrufen: http://localhost:7000/posts
 - Dort sollte JSON Code zurückkommen
 
-## Schritt 4: Testen, ob das Frontend funktioniert
+## Schritt 3: Testen, ob das Frontend funktioniert
 
 1. Frontend (Beispiel-Anwendung) starten
 
@@ -75,7 +75,7 @@ Achtung! Das Frontend läuft auf **Port 3000**, d.h. dieser Port muss verfügbar
 
 2. Wenn das Frontend gestartet ist, zum testen einmal die Anwendung im Browser aufrufen: [http://localhost:3000](http://localhost:3000). Dort sollte "Hello, World" erscheinen, dann ist der Workspace einsatzbereit.
 
-![Running frontsend](./running-workspace.png)
+![Running frontend](./running-workspace.png)
 
 ## Internet-Zugang
 
