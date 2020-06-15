@@ -102,6 +102,18 @@ app.get("/posts", (req, res) => {
     result.sort(datastore.orderByDateNewestFirst);
   } else if (req.query.orderBy === "oldestFirst") {
     result.sort(datastore.orderByDateOldestFirst);
+  } else if (req.query.orderBy === "date") {
+    if (req.query.direction === "desc") {
+      result.sort(datastore.orderByDateNewestFirst);
+    } else {
+      result.sort(datastore.orderByDateOldestFirst);
+    }
+  } else if (req.query.orderBy === "likes") {
+    if (req.query.direction === "desc") {
+      result.sort((p1, p2) => p1.likes - p2.likes);
+    } else {
+      result.sort((p1, p2) => p2.likes - p1.likes);
+    }
   } else if (req.query.orderBy === "author") {
     result.sort((p1, p2) => {
       if (!p1.author || !p2.author) {
@@ -125,6 +137,21 @@ app.get("/most-liked-posts", (req, res) => {
   const orderByLikes = (p1, p2) => p2.likes - p1.likes;
 
   res.status(200).json(datastore.getAllPosts(orderByLikes).slice(0, 5));
+});
+
+app.get("/recommendations", (req, res) => {
+  const allPosts = datastore.getAllPosts(undefined, req.userId);
+  const recommendations = [];
+
+  function getRandomInt() {
+    return Math.floor(Math.random() * Math.floor(allPosts.length));
+  }
+
+  while (recommendations.length < 5) {
+    recommendations.push(allPosts.splice(getRandomInt(), 1));
+  }
+
+  res.status(200).json(recommendations);
 });
 
 // Return Post with specified id (or 404)
@@ -207,6 +234,30 @@ app.post("/posts", (req, res) => {
   }
 
   res.status(201).json(newPost);
+});
+
+app.post("/posts/:id/like", (req, res) => {
+  const post = datastore.getPost(req.params.id);
+
+  if (!post) {
+    return res.status(404).json({ error: `Post '${req.params.id}' not found` });
+  }
+
+  if (post.id === "P9") {
+    // simluation: error in processing
+    return res.status(200).json({
+      postId: post.id,
+      likedBy: post.likedBy,
+      likes: post.likes,
+    });
+  }
+
+  const likedPost = datastore.likePost(post.id, req.userId);
+  res.status(200).json({
+    postId: likedPost.id,
+    likedBy: likedPost.likedBy,
+    likes: likedPost.likes,
+  });
 });
 
 app.put("/posts", (req, res) => {

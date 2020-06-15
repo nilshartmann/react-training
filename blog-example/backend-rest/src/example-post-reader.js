@@ -4,7 +4,8 @@ function readPosts() {
   const posts = new Map();
   const newPost = () => ({
     id: `P${posts.size + 1}`,
-    body: ""
+    body: "",
+    likedBy: [],
   });
   let currentPost = newPost();
 
@@ -21,7 +22,7 @@ function readPosts() {
     const lines = data.split(/\r?\n/);
 
     // print all lines
-    lines.forEach(line => {
+    lines.forEach((line) => {
       line = line.trim();
       if (line.startsWith("---")) {
         storeCurrentPost();
@@ -32,6 +33,8 @@ function readPosts() {
         currentPost.date = line.substring("date:".length).trim();
       } else if (line.startsWith("user:")) {
         currentPost.userId = line.substring("user:".length).trim();
+      } else if (line.startsWith("published:")) {
+        currentPost.published = line.substring("published:".length).trim() === "true";
       } else if (line === "") {
         currentPost.body = currentPost.body + "\\n";
       } else {
@@ -56,11 +59,11 @@ function readUsers() {
     { id: "U5", login: "lauren", name: "Lauren Jones" },
     { id: "U6", login: "olivia", name: "Olivia Smith" },
     { id: "U7", login: "cathy", name: "Cathy Brown" },
-    { id: "U8", login: "maja", name: "Maja Walsh" }
+    { id: "U8", login: "maja", name: "Maja Walsh" },
   ];
 }
 
 module.exports = {
   readPosts,
-  readUsers
+  readUsers,
 };
