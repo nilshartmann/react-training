@@ -32,19 +32,17 @@
           </h4>
 
           <p style="margin-top: 4rem;"></p>
-          <div>
-            <h3><span class="transparent-bg">Preparation</span></h3>
-            <p>
-              <span class="transparent-bg"
-                >git clone https://github.com/nilshartmann/react-training</span
-              >
-            </p>
-            <p><span class="transparent-bg">cd react-training/blog-example/workspace</span></p>
-            <p><span class="transparent-bg">npm install</span></p>
-          </div>
 
           <p>
-            <span class="transparent-bg">Slides: react-training/2020_react_and_graphql.html</span>
+            <span class="transparent-bg">Slides: react-training/2020_react_advanced.html </span>
+          </p>
+          <p>or</p>
+          <p>
+            <span class="transparent-bg">
+              <a href="https://nilshartmann.github.io/react-training/2020_react_advanced.html"
+                >https://nilshartmann.github.io/react-training/2020_react_advanced.html</a
+              ></span
+            >
           </p>
         </section>
         <section>
@@ -73,7 +71,7 @@
               <a href="#/t1">Intro: React Hooks in one hour</a>
             </li>
 
-            <li>
+            <li style="margin-top: 30px;">
               <a href="#/t1">Part I: Testing React Applications</a>
             </li>
 
@@ -86,37 +84,12 @@
             </li>
 
             <li>
-              <a href="#/t-state">Teil IV: Statemanagement:</a> <a href="#/t-redux">Redux</a> and
-              React <a href="#/t-context">Context</a>
-            </li>
-
-            <li>
-              <a href="#/t2">Part II: React Components</a>
-            </li>
-            <li>
-              <a href="#/t3">Part III: React Components: Hierarchies and Applications</a>
-            </li>
-            <li style="margin-bottom: 20px;">
-              <a href="#/server">Part IV: Reading and writing data from a server (http)</a>
-            </li>
-            <li>
-              <a href="#/t-test">Part V: Testing React Applications (Overview)</a>
-            </li>
-            <li>
-              <a href="#/t-typescript">Part VI: React Applications with TypeScript</a>
+              <a href="#/t-state">Teil IV: Statemanagement:</a> React
+              <a href="#/t-context">Context</a> and <a href="#/t-redux">Redux</a>
             </li>
 
             <li style="margin-top: 30px;">
-              <a href="#/t-graphql">Part VIII: GraphQL Clients with Apollo React</a>
-            </li>
-
-            <li style="margin-top: 30px;">
-              <a href="#/t7">More topics to discuss</a>
-              <ul style="font-size: 85%;">
-                <li>Performance optimizations</li>
-                <li>Redux</li>
-                <li>Context API</li>
-              </ul>
+              <a href="#/t-graphql">Teil V: GraphQL</a>
             </li>
           </ul>
           <div style="font-size: 80%;">
@@ -1187,7 +1160,7 @@ const WrappedComponent = withDataLoader(MyComponent);
         <section>
           <h2>Context Factory</h2>
           <p>
-            <em>createn an object with <b>two components</b></em>
+            <em>creates an object with <b>two components</b></em>
           </p>
           <ul>
             <li class="fragment">
@@ -1273,7 +1246,7 @@ function UserBadge() {
         <section id="t-redux">
           <h2>Redux</h2>
           <h3>External Statemanagement</h3>
-          <p class="todo">Example: <code>5-redux</code></p>
+          <p>Real World Example: <code>5-redux</code></p>
         </section>
 
         <section>
@@ -1290,7 +1263,7 @@ function UserBadge() {
           <h2>Demo: Redux & Redux Devtools</h2>
           <a href="http://localhost:8080/" target="_blank">Application</a>
           <p>(npm run start:withAuth)</p>
-          <p>(npm start in 4-redux)</p>
+          <p>(npm start in 5-redux)</p>
         </section>
 
         <section>
@@ -1537,6 +1510,18 @@ function App() {
             style="max-height: 650px;"
           />
         </section>
+        <section>
+          <h3>Redux Toolkit</h3>
+          <em
+            >"The official, opinionated, batteries-included toolset for efficient Redux
+            development"</em
+          >
+          <ul>
+            <li><a href="https://redux-toolkit.js">https://redux-toolkit.js.org/</a></li>
+            <li>Pre-configured (including thunk and immer)</li>
+            <li>Simplifies implementing action creators and reducers</li>
+          </ul>
+        </section>
 
         <section>
           <h3>Local state is still "allowed"!</h3>
@@ -1584,18 +1569,15 @@ function App() {
         <!-- ######################################### GRAPHQL ############################################## -->
         <!-- ######################################### GRAPHQL ############################################## -->
         <section id="t-graphql">
-          <h1>GraphQL Clients with Apollo React</h1>
-        </section>
-
-        <section>
-          <h3>Part XYZ/</h3>
-          <h2>GraphQL</h2>
+          <h3>Part V</h3>
+          <h1>GraphQL</h1>
+          <h2>Clients with Apollo React</h2>
         </section>
 
         <section>
           <h3>The Blog Application with Apollo GraphQL</h3>
 
-          <p>👉 Example: code/blog-example/steps/9a-graphql-with-typescript</p>
+          <p>👉 Example: steps/6-graphql</p>
         </section>
         <section>
           <h3>Contents</h3>
@@ -1964,14 +1946,7 @@ $ curl -X POST -H "Content-Type: application/json" \
         </section>
 
         <section>
-          <h3>GraphQL Clients with React but WITHOUT Apollo</h3>
-          <p>
-            👉How would you implement a GraphQL client with React using all the things we learned
-            during the past days? 🤔
-          </p>
-        </section>
-
-        <section>
+          <h3>GraphQL Client with React but WITHOUT Apollo</h3>
           <pre><code class="javascript">
 import React from "react";
 
@@ -2254,6 +2229,7 @@ function PostPage() {
             The types for a query can be genereated, using the
             <a href="https://github.com/apollographql/apollo-tooling">Apollo CLI</a>
           </p>
+          <p class="todo">Testen, ob der Generator funktioniert. Wie wird der gestartet?</p>
           <p class="fragment">
             👉Let's have a look how this works!
           </p>
