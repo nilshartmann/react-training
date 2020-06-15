@@ -1,60 +1,52 @@
 import React from "react";
 
-import { CounterContext, CounterContextProvider } from "./CounterContext";
+type OneProps = {
+  value: number;
+};
 
-function Layout() {
-  console.log("layout!");
+function One({ value }: OneProps) {
   return (
     <div className="Border">
-      <h1>Layout Component</h1>
-      <Main />
+      <h1>One</h1>
+      <p>Current: {value}</p>
     </div>
   );
 }
 
-function Main() {
-  console.log("main!");
+type TwoProps = {
+  value: number;
+};
 
+function Two({ value }: TwoProps) {
   return (
     <div className="Border">
-      <h1>Main Component</h1>
-      <div style={{ display: "flex" }}>
-        <Counter />
-        <CounterWithIncrease />
-      </div>
-    </div>
-  );
-}
-
-function CounterWithIncrease() {
-  const { increase, reset } = React.useContext(CounterContext);
-
-  return (
-    <div className="Border">
-      <button onClick={increase}>Increase!</button>
-      <button onClick={reset}>Reset!</button>
-    </div>
-  );
-}
-
-function Counter() {
-  const { count } = React.useContext(CounterContext);
-  console.log("counter");
-
-  return (
-    <div className="Border">
-      <p>Count: {count}</p>
+      <h1>Two</h1>
+      <p>Current: {value}</p>
     </div>
   );
 }
 
 function App() {
+  const [valueOne, setValueOne] = React.useState(0);
+  const [valueTwo, setValueTwo] = React.useState(0);
+
+  function incrementOne() {
+    setValueOne(valueOne => valueOne + 1);
+  }
+
+  function incrementTwo() {
+    setValueTwo(valueTwo => valueTwo + 1);
+  }
+
   return (
     <div className="Border">
       <h1>App Component</h1>
-      <CounterContextProvider>
-        <Layout />
-      </CounterContextProvider>
+      <button onClick={incrementOne}>Increment One</button>
+      <button onClick={incrementTwo}>Increment Two</button>
+      <div style={{ display: "flex" }}>
+        <One value={valueOne} />
+        <Two value={valueTwo} />
+      </div>
     </div>
   );
 }
