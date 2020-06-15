@@ -19,6 +19,8 @@
 
 _Die folgenden Beispiele verwenden alle den Router, dh hier **muss** eine kurze Router Einführung folgen_
 
+# Context
+
 # Redux
 
 - State-Talk Beispiel verwenden
