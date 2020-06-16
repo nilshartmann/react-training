@@ -26,38 +26,31 @@ test("save button enablement", () => {
   expect(saveButton).toBeEnabled();
 });
 
-function getTextField(label: string): HTMLInputElement | HTMLTextAreaElement {
-  const textField = screen.getByLabelText(label);
-  expect(
-    textField instanceof HTMLInputElement || textField instanceof HTMLTextAreaElement
-  ).toBeTruthy();
-
-  return textField as HTMLInputElement | HTMLTextAreaElement;
-}
-
 test("clear button", () => {
   render(<PostEditor onSavePost={jest.fn()} />);
 
   const clearButton = screen.getByRole("button", { name: "Clear" });
-  const titleInput = getTextField("Title");
-  const bodyInput = getTextField("Body");
+  const titleInput = screen.getByLabelText("Title");
+  const bodyInput = screen.getByLabelText("Body");
 
   // enter form
   userEvent.type(titleInput, "New Title");
   userEvent.type(bodyInput, "New Body");
 
+  expect(titleInput).toHaveValue("New Title");
+
   userEvent.click(clearButton);
 
-  expect(titleInput.value).toBe("");
-  expect(bodyInput.value).toBe("");
+  expect(titleInput).toHaveValue("");
+  expect(bodyInput).toHaveValue("");
 });
 
 test("add post button callback", () => {
   const savePostFn = jest.fn();
   render(<PostEditor onSavePost={savePostFn} />);
   const saveButton = screen.getByRole("button", { name: "Save Post" });
-  const titleInput = getTextField("Title");
-  const bodyInput = getTextField("Body");
+  const titleInput = screen.getByLabelText("Title");
+  const bodyInput = screen.getByLabelText("Body");
 
   // enter form
   userEvent.type(titleInput, "New Title");
