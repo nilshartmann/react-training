@@ -72,7 +72,7 @@
             </li>
 
             <li style="margin-top: 30px;">
-              <a href="#/t1">Part I: Testing React Applications</a>
+              <a href="#/t-test">Part I: Testing React Applications</a>
             </li>
 
             <li>
@@ -375,37 +375,172 @@ test('it should render correctly', () => {
           <h3>react-testing-library</h3>
           <p>
             <em
-              >Simple and complete React DOM testing utilities that encourage good testing
-              practices." (
-              <a href="https://github.com/testing-library/react-testing-library" target="_blank"
-                >https://github.com/testing-library/react-testing-library</a
-              >)</em
-            >
+              >"Simple and complete React DOM testing utilities that encourage good testing
+              practices."
+            </em>
+          </p>
+
+          <p>
+            <a href="https://github.com/testing-library/react-testing-library" target="_blank"
+              >https://github.com/testing-library/react-testing-library</a
+            >)
           </p>
           <p>
             Philosophy: tests are written from a user perspective. To find your elements you want to
-            test, you use properties the user also sees (like labels, etc)
+            test, you use properties the user also sees (like labels, aria roles, etc)
           </p>
-          <p class="todo">anderes beispiel, am besten nur editor</p>
-          <pre
-            class="fragment"
-          ><code class="javascript" contenteditable data-trim>import { render, fireEvent } from "@testing-library/react";
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            import { render, screen } from "@testing-library/react";
+            import userEvent from "@testing-library/user-event";
 
-it("it should switch between views", async () => {
-  fetch.mockResponse(JSON.stringify(mockPosts));
-  const { getByText, findByText } = render(&lt;App />);
-  const addPostButton = await findByText("Add Post");
+            it("invokes callback on button click", () => {
+              const onAddPostFn = jest.fn();
+            
+              // Render
+              render(&lt;PostList onAddPost={onAddPostFn} posts={mockPosts} />);
+            
+              // search the button
+              const buttonElement = screen.getByRole("button", { name: "Add Post" });
 
-  fireEvent.click(addPostButton);
-
-  // Post Editor should be visible
-  expect(getByText("Create Post")).toBeInTheDocument();
-});
+              // "click" the button
+              userEvent.click(buttonElement);
+            
+              // make sure it has been invoked
+              expect(onAddPostFn).toHaveBeenCalled();
+            });
 
 
             </code></pre>
         </section>
 
+        <section>
+          <h3>render-Function</h3>
+          <p>
+            You can use the render-Function from testing-library/react to render your component in
+            your test (no browser needed)
+          </p>
+          <p>
+            Just as in real world you can specify properties etc (might be testdata and/or mocks)
+          </p>
+          <p>
+            The render function returns a set of query-functions that can be used to search for
+            elements within the rendered components (deprecated!, see next slide)
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            import { render } from "@testing-library/react";
+
+              // Render a single component
+              render(&lt;PostList onAddPost={onAddPostFn} posts={mockPosts} />);
+          </code></pre>
+          <p class="fragment">Remember when using Components, that needs a "Context"!</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+
+              // Render with surrounding Redux Provider (or Router, your own Context etc.)
+              render(
+                &lt;Provider>
+                  &lt;PostList onAddPost={onAddPostFn} posts={mockPosts} />
+                &lt;/Provider>
+              );
+            </code></pre>
+        </section>
+        <section>
+          <h3>query Functions</h3>
+          <p>
+            To verify and interact with the elements from your component you need to find them 🤓
+          </p>
+          <p>
+            On the global <b>screen</b> object there are many functions defined, that allows you
+            searching for an element
+          </p>
+          <p>
+            The query functions have different <b>suffixes</b>, that describe what they're searching
+            for (a label, a aria-role, ...)
+          </p>
+          <p>
+            The query functions have different <b>prefixes</b> (getBy, queryBy etc) that describes
+            their outcome (i.e. wether they fail if they don't find the object or if they just
+            return nothing)
+          </p>
+          <p>
+            More on this:
+            <a
+              target="_blank"
+              href="https://testing-library.com/docs/react-testing-library/cheatsheet#queries"
+              >React Testing Library Cheatsheet</a
+            >
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+  // EXAMPLES: 
+
+  // search the button (assume there is exactly one, fail otherwise)
+  const buttonElement = screen.getByRole("button", { name: "Add Post" });
+
+  // search the button (return null or ONE button, throws Exception otherwise)
+  const buttonElement = screen.queryByRole("button", { name: "Add Post" });
+
+  // search the button (return all buttons or an empty array)  
+  const buttonElement = screen.queryAllByRole("button", { name: "Add Post" });
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Verify you components</h3>
+          <p>
+            After quering a component you can verify their attributes etc to make sure they're
+            correct
+          </p>
+          <p>
+            The library
+            <a href="https://github.com/testing-library/jest-dom" target="_blank">jest-dom</a> adds
+            DOM-specific matchers for jest.
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+  import { screen } from "@testing-library/react";
+
+  const buttonElement = screen.queryByRole("button", { name: "Add Post" });
+
+  // assert presence of the element (getBy query would maybe make more sense)
+  expect(buttonElement).toBeInTheDocument();
+
+  // assert value of input field
+  expect(titleInput).toHaveValue("Moin moin");
+
+  // assert enablement of a button
+  expect(okButton).toBeDisabled();
+</code></pre>
+          <p class="fragment">All matchers are described on the GitHub page (Link see above)</p>
+        </section>
+        <section>
+          <h3>Interaction</h3>
+          <p>
+            You can interact with the elements from a component by sending events, as the browser
+            would do
+          </p>
+          <p>
+            There's a special library
+            <a href="https://github.com/testing-library/user-event" target="_blank"> user-event</a>,
+            that helps you constructing this events.
+          </p>
+          <p>(In the next release of react-testing-library it will be included)</p>
+
+          <pre class="fragment"><code class="javascript">
+            import userEvent from "@testing-library/user-event";
+            // type somthing into an input field
+            // (with another parameter you can configure how fast typing speed should be etc)
+            userEvent.type(titleInput, "New Title");
+
+            // click a button
+            userEvent.click(clearButton);
+          </code></pre>
+          <p class="fragment">All events can be found on the GitHub page (Link see above)</p>
+
+          <p class="fragment">
+            Note that you don't have to test if an element exists before sending an event; the test
+            will fail with a readable error message, if the element is not available
+          </p>
+        </section>
         <section>
           <h3>Testing with fetch</h3>
           <p>Challenges:</p>
@@ -416,6 +551,160 @@ it("it should switch between views", async () => {
         </section>
         <section>
           <h3>Dealing with asynchronous code</h3>
+        </section>
+
+        <section>
+          <h3>Testing async code</h3>
+          <p>
+            Example: The <b>App</b> components loads data, than it displays the post list. Loading
+            of the data is async code
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            it("should render posts read from backend", () => {
+              render(&lt;App />);
+            
+              // imagine there is an article with title "One"
+              const articleOne = screen.findByRole("heading", { name: "One" });
+
+              expect(articleOne).toBeInTheDocument(); // THIS WON'T WORK!
+            });
+          </code></pre>
+          <p class="fragment">
+            Good news: we can write an async test and waitfor the element until it's loaded
+          </p>
+          <pre class="fragment"><code class="javascript">
+            // not the async function here:
+            it("should render posts read from backend", async () => {
+              render(&lt;App />);
+            
+              // note the await statement here:
+              const articleOne = await screen.findByRole("heading", { name: "One" });
+
+              expect(articleOne).toBeInTheDocument(); // YIPPIE, WORKS
+            });
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Testing fetch</h3>
+          <p>As seen, we're able to test async code</p>
+          <p class="fragment">Do we want to have fetch calls in our code?</p>
+          <p class="fragment">
+            Propably not, because we don't want to depend on a running (and working) server in test
+          </p>
+          <p class="fragment">We want to "mock out" fetch</p>
+        </section>
+
+        <section>
+          <h3>Mocking fetch #1</h3>
+          <p>We can mock whole modules in jest</p>
+          <p class="fragment">We could move our fetch code to an own module an mock that</p>
+
+          <pre class="fragment"><code class="javascript">
+            // api.ts (simplified!)
+            export function readPosts() {
+              return fetch("http://localhost:7000/posts").then(response => response.json());
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // App.tsx:
+
+            import { readPosts } from "./api";
+            function App() {
+              // ...
+              React.useEffect(() => {
+                // use readPosts here:
+                readPosts()
+                  .then(json => {
+                    setLoading(false);
+                    setPosts(json);
+                  })
+                  .catch(err => console.error("Loading data failed: " + err));
+              }, []);
+            }
+          </code></pre>
+        </section>
+        <section>
+          <h3>Mocking a Module</h3>
+          <p>Several ways, this is the simplest one(?)</p>
+
+          <pre class="fragment"><code class="javascript">
+            // App.test.tsx
+
+            const mockPosts = [
+              { id: "1", title: "One Fetch Mock", body: "Lorem ipsum" },
+              { id: "2", title: "Second Post Fetch Mock", body: "Some more content" }
+            ];
+
+            jest.mock("../api", () => ({
+              readPosts: () => Promise.resolve(mockPosts)
+            }));
+
+            it("should render posts read from backend", async () => {
+              render(<App />);
+            
+              // we still need to await, but we don't care about
+              // running server anymore
+              const articleOne = await screen.findByRole("heading", { name: "One" });
+              expect(articleOne).toBeInTheDocument();
+              expect(screen.getByText("Second Post")).toBeInTheDocument();
+            });
+          </code></pre>
+        </section>
+        <section>
+          <h3>Option #2: Mocking fetch</h3>
+          <p>There are several libs that allows you to mock fetch</p>
+          <p>
+            For me
+            <a href="https://www.npmjs.com/package/jest-fetch-mock" target="_blank"
+              >jest-fetch-mock</a
+            >
+            works best
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // App.test.tsx
+            it("should render posts read from backend", async () => {
+              // set the expected response (there are more ways to customize the fetch mock behaviour)
+              fetchMock.mockResponse(JSON.stringify(mockPosts));
+
+              render(<App />);
+            
+              // we're still async, but no "real" fetch anymore
+              const articleOne = await screen.findByRole("heading", { name: "One Fetch Mock" });
+              expect(articleOne).toBeInTheDocument();
+            });
+
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Excercise: write a test for the PostEditor</h2>
+          <p>Steps:</p>
+          <ol>
+            <li class="fragment">
+              Work inside <code>advanced/exercies/1_testing</code>
+              <p>Hint: only open this folder in your IDE</p>
+            </li>
+            <li class="fragment">Run <code>npm install</code> there</li>
+            <li class="fragment">Run <code>npm test</code> there (this process does not stop)</li>
+            <li class="fragment">
+              There is one failing test: the <code>PostEditor.test.tsx</code>.
+            </li>
+            <li class="fragment">Why? Because it's empty! It's up to you to implement the test</li>
+            <li class="fragment">Look inside the file to find more informations</li>
+            <li class="fragment">
+              Note: saving your test file should automatically re-run the tests, other press 'a' on
+              the command line
+            </li>
+            <li class="fragment">
+              In case you need help: ask your co-workers, ask me or find the solution at
+              <code>steps/1_testing</code>
+            </li>
+          </ol>
         </section>
 
         <section id="t-pattern">
@@ -988,38 +1277,21 @@ function App() {
         </section>
 
         <section>
-          <h3>Example #3</h3>
+          <h3>Smart- or dumb?</h3>
+          <p>Let's have a look at our three Pattern...</p>
+          <p>What do you think: How do they fit into this architecture?</p>
 
-          <p>
-            The AddForm component passes the new blog post (its internal state) to the callback
-            function, that it has received from the App component.
-          </p>
-          <pre><code>
-  function AddForm(props) {
-    const [title, setTitle] = React.useState("");
-    const [body, setBody] = React.useState("");
-
-    function addPost() {
-      const newPost = {
-        title, body
-      }
-
-      // Inform the App component about the new blog post
-      props.onAdd(newPost);
-    }
-
-    return &lt;div>
-      // ... Render form ...
-      &lt;button onClick={addPost}>Save Post&lt;/button>
-    &lt;/div>;
-  }            
-  </code></pre>
+          <p class="fragment">HOC</p>
+          <p class="fragment">Render Properties</p>
+          <p class="fragment">Custom Hooks</p>
+          <p></p>
         </section>
 
         <!-- ######################################## ROUTER ################################################ -->
         <!-- ######################################## ROUTER ################################################ -->
         <!-- ######################################## ROUTER ################################################ -->
         <section id="t-router">
+          <h1>Part III</h1>
           <h2>Client-side Routing</h2>
           <h3>Overview of React Router</h3>
         </section>

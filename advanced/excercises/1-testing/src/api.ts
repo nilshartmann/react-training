@@ -1,6 +1,7 @@
 import { NewBlogPost } from "./types";
 
-const slowUrl = (url: string) => `${url}?slow`;
+const slowUrl = (url: string) =>
+  new URLSearchParams(document.location.search).get("slow") !== null ? `${url}?slow` : url;
 
 export function readPosts() {
   return fetch(slowUrl("http://localhost:7000/posts")).then(response => response.json());

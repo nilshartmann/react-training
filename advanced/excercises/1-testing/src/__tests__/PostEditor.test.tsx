@@ -3,67 +3,17 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import PostEditor from "../PostEditor";
 
-test("save button enablement", () => {
-  render(<PostEditor onSavePost={jest.fn()} />);
+// TODO: Write a test for the PostEditor component
 
-  const titleInput = screen.getByLabelText("Title");
-  const bodyInput = screen.getByLabelText("Body");
-  const saveButton = screen.getByRole("button", { name: "Save Post" });
-
-  // Save Button should be disabled
-  expect(saveButton).toBeDisabled();
-
-  // enter Title...
-  userEvent.type(titleInput, "New Title");
-
-  // should still be disabled
-  expect(saveButton).toBeDisabled();
-
-  // enter body
-  userEvent.type(bodyInput, "New Body");
-
-  // ...now the button should be enabled
-  expect(saveButton).toBeEnabled();
-});
-
-function getTextField(label: string): HTMLInputElement | HTMLTextAreaElement {
-  const textField = screen.getByLabelText(label);
-  expect(
-    textField instanceof HTMLInputElement || textField instanceof HTMLTextAreaElement
-  ).toBeTruthy();
-
-  return textField as HTMLInputElement | HTMLTextAreaElement;
-}
-
-test("clear button", () => {
-  render(<PostEditor onSavePost={jest.fn()} />);
-
-  const clearButton = screen.getByRole("button", { name: "Clear" });
-  const titleInput = getTextField("Title");
-  const bodyInput = getTextField("Body");
-
-  // enter form
-  userEvent.type(titleInput, "New Title");
-  userEvent.type(bodyInput, "New Body");
-
-  userEvent.click(clearButton);
-
-  expect(titleInput.value).toBe("");
-  expect(bodyInput.value).toBe("");
-});
-
-test("add post button callback", () => {
-  const savePostFn = jest.fn();
-  render(<PostEditor onSavePost={savePostFn} />);
-  const saveButton = screen.getByRole("button", { name: "Save Post" });
-  const titleInput = getTextField("Title");
-  const bodyInput = getTextField("Body");
-
-  // enter form
-  userEvent.type(titleInput, "New Title");
-  userEvent.type(bodyInput, "New Body");
-  userEvent.click(saveButton);
-
-  expect(savePostFn).toHaveBeenCalled();
-  expect(savePostFn).toHaveBeenCalledWith({ title: "New Title", body: "New Body" });
-});
+// 1. Testcase:
+//    - Render the PostEditor (pass a mock function as 'onSavePost' property)
+//    - Find the title and body input field (for example by their label)
+//    - fill both input fields with a value
+//    - find and click on the save button
+//    - expect that the mock function you used is invoked
+//
+//    Optional:
+//    - make sure save button is only enabled if *both* input fields contain texts
+//    - make sure the parameter passed to your mock function is actually correct
+//      (should be an object with title and body property that contains your input:
+//       { title: "Title from input field", body: "Body from input field"}
