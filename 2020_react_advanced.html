@@ -1046,6 +1046,10 @@ const WrappedComponent = withDataLoader(MyComponent);
             example)
           </p>
         </section>
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>Live: <code>exercises/2_pattern</code></p>
+        </section>
 
         <section>
           <h3>Custom Hooks</h3>
@@ -1082,7 +1086,7 @@ const WrappedComponent = withDataLoader(MyComponent);
             
               React.useEffect(() => {
                 setLoading(true);
-                demoFetch(url)
+                fetch(url)
                   .then(response => response.json())
                   .then(json => {
                     setLoading(false);
@@ -1121,11 +1125,63 @@ const WrappedComponent = withDataLoader(MyComponent);
         </section>
 
         <section>
-          <h3>Consequences</h3>
-          <p>
-            What does HOCs vs Render Properties vs Hooks mean for our components and the
-            architecture of our application?
-          </p>
+          <h2>Excercise!</h2>
+          <h3>Build your own custom hook for data fetching</h3>
+          <p>Steps (1/2):</p>
+          <ol>
+            <li class="fragment">
+              Work inside <code>advanced/exercies/2_pattern</code>
+              <p>Hint: only open this folder in your IDE</p>
+            </li>
+            <li class="fragment">Run <code>npm install</code> there</li>
+            <li class="fragment">Run <code>npm start</code> there (this process does not stop)</li>
+            <li class="fragment">
+              In <code>App.tsx</code> there are three components: <b>BlogLoader</b>,
+              <b>UserLoader</b> and <b>App</b>
+            </li>
+            <li class="fragment">
+              Both <b>BlogLoader</b>, <b>UserLoader</b> fetch data and displays loader indicator
+            </li>
+            <li class="fragment">
+              Build a Custom Hook (<b>useDataLoader</b>) that can load data. While data is loading,
+              the <b>LoadingIndicator</b> component should be shown
+            </li>
+            <li class="fragment">
+              You can build the hook inside <code>App.tsx</code> or in an its own file, that should
+              not make a difference
+            </li>
+            <li class="fragment">
+              Use your custom hook in both <b>BlogLoader</b> and <b>UserLoader</b> component
+            </li>
+          </ol>
+        </section>
+        <section>
+          <h2>Excercise!</h2>
+          <h3>Build your own custom hook for data fetching</h3>
+          <p>Steps (2/2):</p>
+          <ol>
+            <li class="fragment">
+              Note: the <code>demoFetch</code> used in the examples is just a real "fetch" function,
+              only that is "slows down" the server responses to make the LoadingIndicator visible
+            </li>
+            <li class="fragment">
+              When your hook works, think about or discuss with your team members: would it be
+              possible to use your hook directly in <b>SinglePost</b> or
+              <b>SingleUser</b> component? Would that makes sense? What are the pros and cons? What
+              would have that for consequences for your application? For usage? For re-using? For
+              testing?
+            </li>
+            <li class="fragment">
+              If you need help, ask your colleagues, me, or find the solution on the previous
+              slides, in
+              <code>advanced/steps/2_pattern/useLoader.tsx</code> (Custom Hook) and
+              <code>SpecializedLoader.tsx</code> (usage)
+              <p>
+                (The exercise does not use the <code>title</code> property, so steps and excercise
+                differy very slightly)
+              </p>
+            </li>
+          </ol>
         </section>
 
         <!-- ######################################## DUMP PRESENTATION COMPS ################################################ -->
@@ -1604,6 +1660,7 @@ function App() {
 
         <section>
           <h3>Context Api Live Introduction</h3>
+          <p>(excercise/4_context)</p>
         </section>
 
         <section>
@@ -1654,6 +1711,39 @@ function App() {
         </section>
 
         <section>
+          <h2>Context Factory #2</h2>
+          <p>
+            <em>Context can use a default value</em>
+          </p>
+          <ul>
+            <li class="fragment">
+              You can specify a default value, that is returned by the context, if no provider is
+              registered in your app, but (only) consumers.
+            </li>
+            <li class="fragment">
+              This might not often appear in real life, but for example in tests or other "corner
+              cases"
+            </li>
+            <li class="fragment">
+              When using TypeScript the default parameter is required, whether needed or not!
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                      import react from "React";
+
+                      // A default value for the AuthContext...
+                      const defaultValue = {
+                        currentUser: null,
+                        login: () => {}, // no op
+                        logout: () => {} // no op
+                      }
+
+                      // Use the default value when creating the context
+                      const AuthContext = React.createContext(defaultValue);
+                              </code></pre>
+        </section>
+
+        <section>
           <h2>Context Provider</h2>
           <p><em>A React Component, that provides the context value</em></p>
           <ul>
@@ -1690,7 +1780,7 @@ function App() {
           <h2>useContext-Hook</h2>
           <p><em>Reads values from the context</em></p>
           <p>Can be used in all components underneath the provider component</p>
-
+          <p>Takes the object returned by <code>React.createContext</code> as parameter</p>
           <pre class="fragment"><code class="javascript">
 function UserBadge() {
   const { currentUser } = React.useContext(AuthContext);
@@ -1713,10 +1803,43 @@ function UserBadge() {
           </code></pre>
         </section>
 
+        <section>
+          <h2>Excercise!</h2>
+          <h3>Build a Context providing a Counter (as seen in the live coding)</h3>
+          <p>Steps:</p>
+          <ol>
+            <li class="fragment">
+              Work inside <code>advanced/exercies/4_context</code>
+              <p>Hint: only open this folder in your IDE</p>
+            </li>
+            <li class="fragment">Run <code>npm install</code> there</li>
+            <li class="fragment">Run <code>npm start</code> there (this process does not stop)</li>
+            <li class="fragment">
+              In <code>CounterContext.tsx</code> implement the Context-Provider (see TODOs there)
+            </li>
+            <li class="fragment">
+              In <code>App.tsx</code> add your Context-Provider and replace the dummy code in
+              <code>CounterWithIncrease</code> and <code>Counter</code> by using your context (see
+              TODOs there)
+            </li>
+            <li class="fragment">
+              <b>Optional</b>: Can you build a custom hook, that returns the values of your
+              CounterContext? Can you imagine if and why that could make sense in real life?
+            </li>
+            <li class="fragment">
+              If you need help, ask your colleagues or me or find the solution in
+              <code>steps/4a-context-hello-world</code> <br />Note: the context there takes a third
+              function (reset) that we don't need in our exercise
+            </li>
+          </ol>
+        </section>
+
         <section id="t-redux">
           <h2>Redux</h2>
           <h3>External Statemanagement</h3>
-          <p>Real World Example: <code>5-redux</code></p>
+          <p>Real World Example</p>
+          <p>(npm run start:withAuth)</p>
+          <p>(npm start in 5-redux)</p>
         </section>
 
         <section>
@@ -1728,12 +1851,6 @@ function UserBadge() {
         <section>
           <h2>Redux moves responsibilities out of your component...</h2>
           <img src="slides/images/redux-02-extracting-responsibility.png" style="width: 900px;" />
-        </section>
-        <section>
-          <h2>Demo: Redux & Redux Devtools</h2>
-          <a href="http://localhost:8080/" target="_blank">Application</a>
-          <p>(npm run start:withAuth)</p>
-          <p>(npm start in 5-redux)</p>
         </section>
 
         <section>
