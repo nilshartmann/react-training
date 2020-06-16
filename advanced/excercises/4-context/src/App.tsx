@@ -25,18 +25,18 @@ function Main() {
 }
 
 function CounterWithIncrease() {
+  // todo: receive increase from your context !
   function increase() {}
-  function reset() {}
 
   return (
     <div className="Border">
       <button onClick={increase}>Increase!</button>
-      <button onClick={reset}>Reset!</button>
     </div>
   );
 }
 
 function Counter() {
+  // todo: receive count from your context
   const count = 0;
   console.log("counter");
 
@@ -48,6 +48,7 @@ function Counter() {
 }
 
 function App() {
+  // todo: add your context provider
   return (
     <div className="Border">
       <h1>App Component</h1>
