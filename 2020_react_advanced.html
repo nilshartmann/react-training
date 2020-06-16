@@ -76,7 +76,10 @@
             </li>
 
             <li>
-              <a href="#/t-pattern">Part II: Pattern (HOCs, Render Properties, Custom Hooks)</a>
+              <a href="#/t-pattern"
+                >Part II: Pattern (HOCs, Render Properties, Custom Hooks, Dumb and Presentation
+                Components)</a
+              >
             </li>
 
             <li>
@@ -417,7 +420,11 @@ it("it should switch between views", async () => {
 
         <section id="t-pattern">
           <h1>Part II</h1>
-          <h2>Pattern (Higher-Order-Components, Render Properties, Custom Hooks)</h2>
+          <h2>
+            Pattern
+          </h2>
+          <h3>Technique: Higher-Order-Components, Render Properties, Custom Hooks</h3>
+          <h3>Architecture: Dumb and Presentation Components</h3>
         </section>
 
         <section>
@@ -430,8 +437,10 @@ it("it should switch between views", async () => {
               const [loading, setLoading] = React.useState(false);
             
               React.useEffect(() => {
+
                 setLoading(true);
-                demoFetch("http://localhost:7000/posts/P7")
+
+                fetch("http://localhost:7000/posts/P7")
                   .then(response => response.json())
                   .then(json => {
                     setLoading(false);
@@ -451,14 +460,18 @@ it("it should switch between views", async () => {
 
         <section>
           <h3>Example: Loading Data in React</h3>
-          <p>Requirements</p>
+          <p>Requirements for a "generic" DataLoader component</p>
           <ul>
-            <li>We fetch data from a specified URL</li>
-            <li>While data is loading, a Loading Indicator should be shown</li>
-            <li>When the data has been loaded it should be rendered by a specified component</li>
-            <li>Should be typesafe (TypeScript)</li>
-            <li>Code should be reusable and work from and with different components</li>
-            <li>The target component can receive additional props</li>
+            <li class="fragment">We fetch data from a specified URL</li>
+            <li class="fragment">While data is loading, a Loading Indicator should be shown</li>
+            <li class="fragment">
+              When the data has been loaded it should be rendered by a specified component
+            </li>
+            <li class="fragment">Should be typesafe (TypeScript)</li>
+            <li class="fragment">
+              Code should be reusable and work from and with different components
+            </li>
+            <li class="fragment">The target component can receive additional props</li>
           </ul>
         </section>
 
@@ -687,8 +700,8 @@ const WrappedComponent = withDataLoader(MyComponent);
               return renderDataComponent(data);
             }        </code></pre>
           <p>
-            Now we can load the data, pass it to the callback function (<b>renderDataComponent</b>)
-            and render the returned component!
+            Now <b>DataLoader</b> can load the data, pass it to the callback function
+            (<b>renderDataComponent</b>) and render the returned component!
           </p>
           <p class="fragment">
             Property 'renderDataComponent' is called a <b>render property</b> (because it renders a
@@ -824,6 +837,183 @@ const WrappedComponent = withDataLoader(MyComponent);
             What does HOCs vs Render Properties vs Hooks mean for our components and the
             architecture of our application?
           </p>
+        </section>
+
+        <!-- ######################################## DUMP PRESENTATION COMPS ################################################ -->
+        <!-- ######################################## DUMP PRESENTATION COMPS ################################################ -->
+        <!-- ######################################## DUMP PRESENTATION COMPS ################################################ -->
+        <section>
+          <h3>Smart and Dumb-Components #1</h3>
+
+          <p>
+            Reminder: in React we build components. Components consist of logic, state and UI
+            (HTML-Elements and Styling)
+          </p>
+          <p class="fragment">
+            In a well-known pattern components are spilt into "smart" (or "controller") and "dumb"
+            (or "presentation") components.
+          </p>
+          <p class="fragment">
+            Technically both components are identical, both are regular React components
+          </p>
+          <p class="fragment">
+            Only their <b>intended purpose</b> or role is defined differently...
+          </p>
+        </section>
+
+        <section>
+          <h3>Smart and Dumb components #2</h3>
+          <p><b>Smart components</b> contain logic and state, but (almost) no UI</p>
+          <p><b>Dumb components</b> only present/render the data</p>
+          <ol>
+            <li class="fragment">
+              Smart components <b>manage the state</b> and pass it into Dumb components. Dump
+              components <b>render the state</b>.
+            </li>
+            <li class="fragment">
+              Smart components pass callback functions as Event-Handler into the dumb components.
+            </li>
+            <li class="fragment">
+              When an event occures inside a dumb component, (for ex. button click or text input)
+              the dumb components invokes the callback function.
+            </li>
+            <li class="fragment">
+              The callback function is executed inside the context of the smart component (normal
+              closure behaviour) and thus can acess state etc from the smart component.
+            </li>
+            <li class="fragment">
+              Inside the event handler, state of the smart component can be changed. Chaning the
+              state leads to re-rendering of the smart component and all of its children (dumb)
+              components.
+              <br /><b>The app state remains consistent across all components in the hierarchy</b>
+            </li>
+          </ol>
+        </section>
+
+        <section data-markdown data-transition="none">
+          <textarea data-template>
+    ### Communication between several parts of our application
+    
+    <img src='slides/images/smart-dumb-1.png' height="600">
+                    </textarea
+          >
+        </section>
+
+        <section data-markdown data-transition="none">
+          <textarea data-template>
+    ### Communication between several parts of our application
+    
+    <img src='slides/images/smart-dumb-2.png' height="600">
+                    </textarea
+          >
+        </section>
+
+        <section data-markdown data-transition="none">
+          <textarea data-template>
+    ### Communication between several parts of our application
+    
+    <img src='slides/images/smart-dumb-3.png' height="600">
+                    </textarea
+          >
+        </section>
+
+        <section data-markdown data-markdown data-transition="none">
+          <textarea data-template>
+    ### Communication between several parts of our application
+    
+    <img src='slides/images/datenfluss-4.png' height="550">
+    
+    Strict data- and control flow    
+                      </textarea
+          >
+        </section>
+
+        <section>
+          <h3>Example</h3>
+
+          <p>
+            Our <b>smart component</b> holds a list of Blog Posts and deceides, which view is active
+            (Editor or List) ist
+          </p>
+          <p>
+            The smart components passes the list of blog posts to the BlogList component for
+            rendering
+          </p>
+          <p>
+            The smart components passed a callback function to BlogList and AddForm to get informed
+            about events/data changes
+          </p>
+
+          <pre><code>
+function App() {
+  const [posts, setPosts] = React.useState([]);
+  const [view, setView] = React.useState("list");
+
+  function addPost(newPost) {
+    // Add the new post to the state
+    setPosts([...posts, newPost]);
+
+    // switch back to list view
+    setView("list");
+  }
+
+  if (view === "list") {
+    return &lt;BlogList posts={posts} onAdd={() => setView("addForm")} />
+  }
+
+  return &lt;AddForm onAdd={addPost} />
+
+}            
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Example #2</h3>
+
+          <p>
+            The BlogList is responsible for rendering the list of posts only. If the add button gets
+            pressed, the component invokes the callback function (received from the App component).
+          </p>
+          <p>The callback function changes the App state to make the Post Editor visible</p>
+
+          <pre><code>
+  function BlogList(props) {
+
+    return &lt;div>
+      // ... render the blog post list ...
+      &lt;button onClick={props.onAdd}>Add Blog Post&lt;/button>
+    &lt;/div>;
+  }            
+  </code></pre>
+        </section>
+
+        <section>
+          <h3>Example #3</h3>
+
+          <p>
+            The AddForm component passes the new blog post (its internal state) to the callback
+            function, that it has received from the App component.
+          </p>
+          <pre><code>
+  function AddForm(props) {
+    const [title, setTitle] = React.useState("");
+    const [body, setBody] = React.useState("");
+
+    function addPost() {
+      const newPost = {
+        title, body
+      }
+
+      // Inform the App component about the new blog post
+      props.onAdd(newPost);
+    }
+
+    return &lt;div>
+      // ... Render form ...
+      &lt;button onClick={addPost}>Save Post&lt;/button>
+    &lt;/div>;
+  }            
+  </code></pre>
         </section>
 
         <!-- ######################################## ROUTER ################################################ -->
@@ -2685,7 +2875,7 @@ function PiCalculator() {
               return &lt;>
                 &lt;input type="text" value={name} onChange={...} />
                 &lt;input type="number" value={digits} onChange={...} />
-                
+
                 &lt;PiDisplay digits={digits} />
               &lt;/>;
             
@@ -2717,6 +2907,113 @@ function PiCalculator() {
           <p class="fragment">
             Note: All components that are rendered by PiDisplay (your memo'd component) are also NOT
             rerenderd!
+          </p>
+        </section>
+
+        <section>
+          <h3>React.memo</h3>
+          <p>
+            Using React.memo you can create a wrapper around your component that avoids rerendings
+            as long as all properties remain the same between two renderings:
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            const PiDisplay = React.memo(function PiDisplay({digits}) {
+              const pi = calculatePiWithDigits(digits);
+              return &lt;p>Pi is: {pi}&lt;/p>
+            })             
+          </code></pre>
+          <p class="fragment">
+            (PiCalculator unchanged)
+          </p>
+          <p class="fragment">
+            Another example might be a component that takes long to render (large table for
+            example).
+          </p>
+          <p class="fragment">
+            Note: All components that are rendered by PiDisplay (your memo'd component) are also NOT
+            rerenderd!
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Attention! Functions!</h3>
+          <p>When you're using functions as properties (callbacks), also this functions change!</p>
+          <div class="fragment">
+            <p>Let's have a look at an enhanced PiCalculator example:</p>
+            <pre><code class="javascript">
+            function PiCalculator() {
+              const [name, setName] = React.useState("")
+              const [digits, setDigits] = React.useState(10000);
+
+              function reset() { 
+                // ...
+              }
+            
+              return &lt;>
+                &lt;input type="text" value={name} onChange={...} />
+                &lt;input type="number" value={digits} onChange={...} />
+
+                &lt;PiDisplay digits={digits} onResetClick={reset}/>
+              &lt;/>;
+            
+            }    
+          </code></pre>
+          </div>
+          <ul>
+            <li class="fragment">
+              Here <b>reset</b> is a <b>new function</b> each time the component is re-rendered!
+            </li>
+            <li class="fragment">
+              The props check in memo'd PiDisplay is now more or less useless ( as the
+              <code>onResetClick</code> changes on each rendering of the PiCalculator)
+            </li>
+            <li class="fragment">😧🤔</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useCallback</h3>
+          <ul>
+            <li class="fragment">
+              With the <code>useCallback</code> hook we can create a "stale" (memoized) reference
+              for a function
+            </li>
+            <li class="fragment">Same as <code>useMemo</code> but for functions</li>
+            <pre class="fragment"><code class="javascript">
+              function PiCalculator() {
+                const [name, setName] = React.useState("")
+                const [digits, setDigits] = React.useState(10000);
+  
+                const reset = React.useCallback(function reset() { 
+                  // ...
+                }, []);
+              
+                return &lt;>
+                  &lt;input type="text" value={name} onChange={...} />
+                  &lt;input type="number" value={digits} onChange={...} />
+  
+                  &lt;PiDisplay digits={digits} onResetClick={reset}/>
+                &lt;/>;
+              
+              }    
+            </code></pre>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Performance: Hints</h3>
+          <p><em>Do not pre-optimize, optimize only when needed</em></p>
+          <p class="fragment">Focus on your app code and architecture instead</p>
+          <p class="fragment">
+            You can find performance bootlenecks using your Browser tools and/or React Dev Tools
+            (Profiler)
+          </p>
+          <p class="fragment">
+            There are several ways of enhancing performance, for every problem there is a solution
           </p>
         </section>
 
