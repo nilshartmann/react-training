@@ -7,14 +7,12 @@ function formattedDate(date: string) {
 }
 
 type SinglePostProps = {
-  title: string;
   post: BlogPost;
 };
 
-export default function SinglePost({ title, post }: SinglePostProps) {
+export default function SinglePost({ post }: SinglePostProps) {
   return (
     <article className="Container">
-      <h1>{title}</h1>
       <p className="Date">{formattedDate(post.date)}</p>
       <h1>{post.title}</h1>
       <p>{post.body}</p>

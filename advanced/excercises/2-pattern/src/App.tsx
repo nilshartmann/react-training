@@ -1,116 +1,60 @@
 import React from "react";
-import LoadingIndicator from "./LoadingIndicator";
-import { BlogLoader, UserLoader } from "./SpecializedLoader";
-import DataLoaderRenderProps from "./DataLoaderRenderProps";
-import withDataLoader from "./withDataLoader";
 import { BlogPost, User } from "./types";
+import LoadingIndicator from "./LoadingIndicator";
+import { demoFetch } from "./api";
 import SinglePost from "./SinglePost";
 import SingleUser from "./SingleUser";
-import useLoader from "./useLoader";
 
-type LOADER = "Hook (not reusable)" | "Render Props" | "HOC" | "Custom Hook";
+export function BlogLoader() {
+  const [post, setPost] = React.useState<BlogPost | null>(null);
+  const [loading, setLoading] = React.useState(false);
 
-function HookExample() {
-  return (
-    <>
-      <BlogLoader />
-      <UserLoader />
-    </>
-  );
+  React.useEffect(() => {
+    setLoading(true);
+    demoFetch("http://localhost:7000/posts/P7")
+      .then(response => response.json())
+      .then(json => {
+        setLoading(false);
+        setPost(json);
+      })
+      .catch(err => console.error("Loading data failed: " + err));
+  }, []);
+
+  if (loading || !post) {
+    return <LoadingIndicator>Post is loading. Please wait.</LoadingIndicator>;
+  }
+
+  return <SinglePost post={post} />;
 }
 
-function RenderPropsExample() {
-  return (
-    <>
-      <DataLoaderRenderProps<BlogPost>
-        url="http://localhost:7000/posts/P7"
-        loadingStateComponent={<LoadingIndicator>Loading Post...</LoadingIndicator>}
-      >
-        {post => <SinglePost title="Blog Post (Render Props Example)" post={post} />}
-      </DataLoaderRenderProps>
+function UserLoader() {
+  const [user, setUser] = React.useState<User | null>(null);
+  const [loading, setLoading] = React.useState(false);
 
-      <DataLoaderRenderProps<User>
-        url="http://localhost:7000/users/U2"
-        loadingStateComponent={<LoadingIndicator>Loading User...</LoadingIndicator>}
-      >
-        {user => <SingleUser title="User (Render Props Example)" user={user} />}
-      </DataLoaderRenderProps>
-    </>
-  );
-}
+  React.useEffect(() => {
+    setLoading(true);
+    demoFetch("http://localhost:7000/users/U2")
+      .then(response => response.json())
+      .then(json => {
+        setLoading(false);
+        setUser(json);
+      })
+      .catch(err => console.error("Loading data failed: " + err));
+  }, []);
 
-const ConnectedSinglePost = withDataLoader("post", SinglePost);
-const ConnectedSingleUser = withDataLoader("user", SingleUser);
+  if (loading || !user) {
+    return <LoadingIndicator>User is loading. Please wait.</LoadingIndicator>;
+  }
 
-function HOCExample() {
-  return (
-    <>
-      <ConnectedSinglePost url="http://localhost:7000/posts/P7" title="Blog Post (HOC)" />
-      <ConnectedSingleUser url="http://localhost:7000/users/U2" title="User (HOC)" />
-    </>
-  );
-}
-
-function CustomHookExample() {
-  const postData = useLoader<BlogPost>("http://localhost:7000/posts/P7");
-  const userData = useLoader<User>("http://localhost:7000/users/U2");
-
-  return (
-    <>
-      {postData.loading ? (
-        <LoadingIndicator>Post Loading...</LoadingIndicator>
-      ) : (
-        <SinglePost title="Blog Post (Custom Hook)" post={postData.data} />
-      )}
-
-      {userData.loading ? (
-        <LoadingIndicator>User Loading...</LoadingIndicator>
-      ) : (
-        <SingleUser title="User (Custom Hook)" user={userData.data} />
-      )}
-    </>
-  );
+  return <SingleUser user={user} />;
 }
 
 function App() {
-  const [activeLoader, setActiveLoader] = React.useState<LOADER>("Hook (not reusable)");
-
-  function SwitchButton({ label }: { label: LOADER }) {
-    const c = label === activeLoader ? "Active" : undefined;
-    return (
-      <button className={c} onClick={() => setActiveLoader(label)}>
-        {label}
-      </button>
-    );
-  }
-
-  let component: React.ReactNode = "Invalid State " + activeLoader;
-
-  switch (activeLoader) {
-    case "Hook (not reusable)":
-      component = <HookExample />;
-      break;
-    case "Render Props":
-      component = <RenderPropsExample />;
-      break;
-    case "HOC":
-      component = <HOCExample />;
-      break;
-    case "Custom Hook":
-      component = <CustomHookExample />;
-      break;
-  }
-
   return (
-    <>
-      <div className="Container">
-        <SwitchButton label="Hook (not reusable)" />
-        <SwitchButton label="HOC" />
-        <SwitchButton label="Render Props" />
-        <SwitchButton label="Custom Hook" />
-      </div>
-      {component}
-    </>
+    <div>
+      <BlogLoader />
+      <UserLoader />
+    </div>
   );
 }
 
