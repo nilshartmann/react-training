@@ -644,12 +644,13 @@ test('it should render correctly', () => {
             }));
 
             it("should render posts read from backend", async () => {
-              render(<App />);
+              render(&lt;App />);
             
               // we still need to await, but we don't care about
               // running server anymore
               const articleOne = await screen.findByRole("heading", { name: "One" });
               expect(articleOne).toBeInTheDocument();
+
               expect(screen.getByText("Second Post")).toBeInTheDocument();
             });
           </code></pre>
@@ -671,10 +672,11 @@ test('it should render correctly', () => {
               // set the expected response (there are more ways to customize the fetch mock behaviour)
               fetchMock.mockResponse(JSON.stringify(mockPosts));
 
-              render(<App />);
+              render(&lt;App />);
             
               // we're still async, but no "real" fetch anymore
               const articleOne = await screen.findByRole("heading", { name: "One Fetch Mock" });
+
               expect(articleOne).toBeInTheDocument();
             });
 
@@ -2511,21 +2513,21 @@ $ curl -X POST -H "Content-Type: application/json" \
               <a href="http://localhost:4000">http://localhost:4000</a>
             </p>
           </div>
-          <div class="fragment">
-            <p>Run some queries:</p>
-            <ul>
-              <li>Request the IDs of all Blog Post</li>
-              <li>
-                Request a single Blog Post using its ID. Query its <b>title</b>, its
-                <b>likes</b> and the name of it's author (<b>user</b>)
-              </li>
-              <li>
-                Add a Like to the blog post (via mutation). Read the new number of likes from the
-                response
-              </li>
-            </ul>
-            <p>Inside the playground you get completion and docs on the right side</p>
-          </div>
+          <p class="fragment">Run some queries:</p>
+          <ol class="fragment">
+            <li>Request the IDs of all Blog Post</li>
+            <li>
+              Request a single Blog Post using its ID. Query its <b>title</b>, its <b>likes</b> and
+              the name of it's author (<b>user</b>)
+            </li>
+            <li>
+              Add a Like to the blog post (via mutation). Read the new number of likes from the
+              response
+            </li>
+          </ol>
+          <p class="fragment">
+            Hint: Inside the playground you get completion and docs on the right side
+          </p>
         </section>
 
         <section>
@@ -2648,6 +2650,10 @@ ReactDOM.render(
             Apollo Provider uses
             <a ref="https://reactjs.org/docs/context.html">React Context API</a> internally
           </p>
+        </section>
+        <section>
+          <h3>Using GraphQL in your React Application</h3>
+          <p>Live: excercises/graphql</p>
         </section>
 
         <section>
@@ -2837,9 +2843,13 @@ function PostPage() {
 
           <pre><code class="javascript">
   function PostPage() {
-  // ...
-  const { loading, error, data } = useQuery&lt;PostPageQuery, PostPageQueryVariables>
-  (POST_PAGE_QUERY,   { variables: { postId } });
+    // ...
+    const { loading, error, data } = 
+      useQuery&lt;PostPageQuery, PostPageQueryVariables>
+        (POST_PAGE_QUERY, { variables: { postId } });
+    
+    // ...
+  }  
 </code></pre>
 
           <p class="fragment">TypeScript ensures correct usage of the variables</p>
@@ -2871,14 +2881,6 @@ const { loading, error, data } = useQuery(...);
         <section>
           <h3>Exercise #2: Running a Query</h3>
 
-          <p>Preparation:</p>
-          <p>
-            Install
-            <a
-              href="https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm"
-              >Apollo Dev Tools for Chrome</a
-            >
-          </p>
           <p>
             Start the backend (if it's not already running): <br />
             <code>cd blog-example/backend-graphql</code><br />
@@ -2886,7 +2888,7 @@ const { loading, error, data } = useQuery(...);
             <code>npm start</code>
           </p>
 
-          <p>Use folder: <b>blog-example/workspace-graphql</b></p>
+          <p class="fragment">Use folder: <b>advanced/exercises/6_graphql</b></p>
 
           <p>
             <code>npm install</code><br />
