@@ -8,11 +8,16 @@ function App() {
 
   return (
     <div className="App">
-      {view === "Editor" && (
-        <PostEditor onSavePost={() => setView("Confirm")} initialBody="" initialTitle="" />
-      )}
+      {view === "Editor" && <PostEditor onSavePost={() => setView("Confirm")} />}
+      {view === "Confirm" && <Confirm />}
     </div>
   );
+}
+
+function Confirm() {
+  // todo: 1. Read post title from store
+  //       2. display post ("Thanks for submitting post with title <TITLE_FROM_STORE>")
+  return <h1>Todo...</h1>;
 }
 
 export default App;
