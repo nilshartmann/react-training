@@ -4,6 +4,11 @@ type PostEditorProps = {
   onSavePost(): void;
 };
 
+// todo:
+//   - after implementing the action creators, remove the state here
+//   - add useSelector calls to select the title and body from the redux store
+//   - dispatch your updateBlogPostTitle and updateBlogBodyActions when
+//     the input fields change
 export default function PostEditor(props: PostEditorProps) {
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
