@@ -15,23 +15,17 @@ import React from "react";
 //        using ES6 import as you would import a function or class
 
 // 3. Add your type to the PostEditor function signature
-// 4. Add a type argument to the useRef call (<HTMLInputElement|null>)
 
 export default function PostEditor(props) {
   const [title, setTitle] = React.useState(props.initialTitle || "");
   const [body, setBody] = React.useState(props.initialBody || "");
 
-  const titleRef = React.useRef(null);
   const clearDisabled = !title && !body;
   const saveButtonDisabled = !title || !body;
 
   function clear() {
     setTitle("");
     setBody("");
-
-    if (titleRef.current) {
-      titleRef.current.focus();
-    }
   }
 
   return (
@@ -40,7 +34,7 @@ export default function PostEditor(props) {
 
       <label>
         Title
-        <input value={title} ref={titleRef} onChange={e => setTitle(e.currentTarget.value)} />
+        <input value={title} onChange={e => setTitle(e.currentTarget.value)} />
       </label>
 
       <label>
