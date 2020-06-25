@@ -94,6 +94,28 @@
           </div>
         </section>
 
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Zeitplan</h3>
+          <p><b>Donnerstag</b></p>
+          <ul style="font-size: 85%;">
+            <li>
+              9:00 bis 12:00 Uhr
+            </li>
+            <li>Mittagspause</li>
+            <li>13:00 bis 17:00 Uhr</li>
+          </ul>
+          <p><b>Freitag</b></p>
+          <ul style="font-size: 85%;">
+            <li>
+              9:00 bis 12:00 Uhr
+            </li>
+            <li>Mittagspause</li>
+            <li>13:00 bis 16:30 Uhr</li>
+          </ul>
+          <p>Kürze Pausen zwischendurch</p>
+        </section>
+
         <section>
           <h2>Agenda</h2>
           <ul style="font-size: 85%;">
@@ -1089,18 +1111,11 @@ const address = { street: "Highway", city: "Hamburg" };
             </li>
             <li>
               Modifiziere die useState-Aufrufe, so dass sie als initial Werte die entsprechenden
-              Werte aus den Properties übernehmen (statt Leerstring?)
+              Werte aus den Properties übernehmen (statt wie bisher ein Leerstring)
             </li>
             <li>
               Übergib bei der Verwendung von PostEditor in <code>index.js</code> Initial-Werte für
               die beiden Properties
-            </li>
-            <li>
-              Wie sieht das Props-Objekt zur Laufzeit aus? Ansehen z.B. in der Browser Console oder
-              React Dev Tools
-            </li>
-            <li>
-              Was passiert, wenn Du die Properties in <code>index.js</code> <b>nicht</b> angibst?
             </li>
           </ol>
         </section>
@@ -2662,67 +2677,70 @@ function PostEditor(props) {
           </ol>
         </section>
 
-          <section id="t-redux">
-            <h1>Teil VII</h1>
-            <h2>Redux</h2>
-            <h3>External Statemanagement</h3>
-            <p>Real World Example</p>
-            <p>(npm run start:withAuth)</p>
-            <p>(npm start in 5-redux)</p>
-          </section>
-          <section>
-            <h2>Eine typische React-Anwendung in Komponenten</h2>
-            <h3>Frage an Euch: was könnte es für Probleme geben?</h3>
-            <img src="slides/images/typische-react-komponenten-hierarchie.png" style="height:650px" />
-          </section>
-  
-          <section>
-            <h3>Problem 1: Über Komponenten verteilter Zustand</h3>
-            <img src="slides/images/verteilter-zustand.png" style="height:650px" />
-            <p>Wo muss ich nach Fehlern suchen? Wo ist die Logik?</p>
-          </section>
-  
-          <section>
-            <h3>Problem 2: Getrennte Komponentenhierarchien</h3>
-            <img src="slides/images/zwei-komponenten-hierarchien.png" style="height:650px" />
-            <p>Geht entweder nicht oder "Gott-Komponente" entsteht</p>
-          </section>
-  
-          <section>
-            <h3>Problem 3: Gemeinsamer ("globaler") Zustand</h3>
-            <img src="slides/images/gemeinsam-genutzter-state.png" style="height:650px" />
-            <p>Wie kommt Zustand von ganz oben nach ganz unten?</p>
-          </section>
-  
-          <section>
-            <h3>Problem 4: UI und Logik vermischt</h3>
-            <img src="slides/images/ui-und-logic-vermischt.png" style="height:650px" />
-            <p>Wiederverwendung? React-unabhängigkeit? Testbarkeit?</p>
-          </section>
-  
-          <section>
-            <h3>Remember...</h3>
-            <h2>Render Cycle in Pure React</h2>
-            <img src="slides/images/redux-01-react-cycle-no-redux.png" style="height: 650px;" />
-          </section>
-  
-          <section>
-            <h2>Redux moves responsibilities out of your component...</h2>
-            <img src="slides/images/redux-02-extracting-responsibility.png" style="width: 900px;" />
-          </section>
-  
-          <section>
-            <h2>Redux step-by-step</h2>
-            <p>(npm start in workspace-redux)</p>
-          </section>
-  
-          <section>
-            <h2>All parts of Redux</h2>
-          </section>
-  
-          <section>
-            <h3>Action Creators</h3>
-            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+        <section id="t-redux">
+          <h1>Teil VII</h1>
+          <h2>Redux</h2>
+          <h3>External Statemanagement</h3>
+          <p>Real World Example</p>
+          <p>(npm run start:withAuth)</p>
+          <p>(npm start in 5-redux)</p>
+        </section>
+        <section>
+          <h2>Eine typische React-Anwendung in Komponenten</h2>
+          <h3>Frage an Euch: was könnte es für Probleme geben?</h3>
+          <img
+            src="slides/images/typische-react-komponenten-hierarchie.png"
+            style="height: 650px;"
+          />
+        </section>
+
+        <section>
+          <h3>Problem 1: Über Komponenten verteilter Zustand</h3>
+          <img src="slides/images/verteilter-zustand.png" style="height: 650px;" />
+          <p>Wo muss ich nach Fehlern suchen? Wo ist die Logik?</p>
+        </section>
+
+        <section>
+          <h3>Problem 2: Getrennte Komponentenhierarchien</h3>
+          <img src="slides/images/zwei-komponenten-hierarchien.png" style="height: 650px;" />
+          <p>Geht entweder nicht oder "Gott-Komponente" entsteht</p>
+        </section>
+
+        <section>
+          <h3>Problem 3: Gemeinsamer ("globaler") Zustand</h3>
+          <img src="slides/images/gemeinsam-genutzter-state.png" style="height: 650px;" />
+          <p>Wie kommt Zustand von ganz oben nach ganz unten?</p>
+        </section>
+
+        <section>
+          <h3>Problem 4: UI und Logik vermischt</h3>
+          <img src="slides/images/ui-und-logic-vermischt.png" style="height: 650px;" />
+          <p>Wiederverwendung? React-unabhängigkeit? Testbarkeit?</p>
+        </section>
+
+        <section>
+          <h3>Remember...</h3>
+          <h2>Render Cycle in Pure React</h2>
+          <img src="slides/images/redux-01-react-cycle-no-redux.png" style="height: 650px;" />
+        </section>
+
+        <section>
+          <h2>Redux moves responsibilities out of your component...</h2>
+          <img src="slides/images/redux-02-extracting-responsibility.png" style="width: 900px;" />
+        </section>
+
+        <section>
+          <h2>Redux step-by-step</h2>
+          <p>(npm start in workspace-redux)</p>
+        </section>
+
+        <section>
+          <h2>All parts of Redux</h2>
+        </section>
+
+        <section>
+          <h3>Action Creators</h3>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
   export function setBlogListSort(sortBy, direction) {
     return {
       type: "SET_BLOGLIST_SORT",
@@ -2731,38 +2749,38 @@ function PostEditor(props) {
     };
   }
   </code></pre>
-            <ul>
-              <li class="fragment">Action-Creators create action objects</li>
-              <li class="fragment">
-                They should hide the internal action structure from your application (it's
-                questionable if it's worth the effort)
-              </li>
-              <li class="fragment">
-                Actions are simple JavaScript objects that should describe Events that happend in your
-                application (questionable, some say they should express what the application should
-                do)
-              </li>
-              <li class="fragment">
-                Using the <code>dispatch</code> function they are forwarded to <em>all</em> Reducers
-                (<em>all</em> reducers receive <em>all</em> actions)
-              </li>
-              <li class="fragment">
-                Actions contain a <b>type</b> and a <b>payload</b>. The payload is userdefined, Redux
-                doesn't care.
-              </li>
-            </ul>
-          </section>
-  
-          <section>
-            <h3>Dispatching Actions</h3>
-            <ul>
-              <li class="fragment">
-                Actions will be dispatched using the <code>dispatch</code> function that is returned
-                by the <code>useDispatch</code> hook
-              </li>
-            </ul>
-  
-            <pre class="fragment"><code class="javascript">
+          <ul>
+            <li class="fragment">Action-Creators create action objects</li>
+            <li class="fragment">
+              They should hide the internal action structure from your application (it's
+              questionable if it's worth the effort)
+            </li>
+            <li class="fragment">
+              Actions are simple JavaScript objects that should describe Events that happend in your
+              application (questionable, some say they should express what the application should
+              do)
+            </li>
+            <li class="fragment">
+              Using the <code>dispatch</code> function they are forwarded to <em>all</em> Reducers
+              (<em>all</em> reducers receive <em>all</em> actions)
+            </li>
+            <li class="fragment">
+              Actions contain a <b>type</b> and a <b>payload</b>. The payload is userdefined, Redux
+              doesn't care.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Dispatching Actions</h3>
+          <ul>
+            <li class="fragment">
+              Actions will be dispatched using the <code>dispatch</code> function that is returned
+              by the <code>useDispatch</code> hook
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
   import { useDispatch } from "react-redux"
   
   function LogoutForm() {
@@ -2775,11 +2793,11 @@ function PostEditor(props) {
     return &lt;button onClick={handleLogoutClickEvent}>Logout&lt;/button>;
   }
             </code></pre>
-          </section>
-  
-          <section>
-            <h3>Action creators can be used for async code (e.g. data fetching)</h3>
-            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+        </section>
+
+        <section>
+          <h3>Action creators can be used for async code (e.g. data fetching)</h3>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
   export const loadPost = postId => dispatch => {
   fetch(BACKEND_URL+'/'+postId)
       .then(response => response.json())
@@ -2789,26 +2807,26 @@ function PostEditor(props) {
       });
   };
   </code></pre>
-            <ul>
-              <li class="fragment">
-                An action creator does not return the action but a <em>thunk function</em> that
-                <b>later</b> dispatches the action
-              </li>
-              <li class="fragment">
-                The returned <em>thunk function</em> will be invoked by redux immediatley. The
-                <em>thunk function</em> receives the <code>dispatch</code>-function
-              </li>
-              <li class="fragment">
-                Inside the <em>thunk function</em> we can use the dispatch function to dispatch one or
-                more events (for example: loadingDataStarted, dataReceived)
-              </li>
-            </ul>
-          </section>
-  
-          <section>
-            <h3>There is <em>only one</em> store, that contains the <em>whole</em> (Redux) state</h3>
-            <p>Disclaimer: not all of your app state needs to be in redux</p>
-            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+          <ul>
+            <li class="fragment">
+              An action creator does not return the action but a <em>thunk function</em> that
+              <b>later</b> dispatches the action
+            </li>
+            <li class="fragment">
+              The returned <em>thunk function</em> will be invoked by redux immediatley. The
+              <em>thunk function</em> receives the <code>dispatch</code>-function
+            </li>
+            <li class="fragment">
+              Inside the <em>thunk function</em> we can use the dispatch function to dispatch one or
+              more events (for example: loadingDataStarted, dataReceived)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>There is <em>only one</em> store, that contains the <em>whole</em> (Redux) state</h3>
+          <p>Disclaimer: not all of your app state needs to be in redux</p>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
   import { Provider } from 'react-redux';
   import { createStore } from 'redux';
   import { rootReducer } from './reducers';
@@ -2825,15 +2843,15 @@ function PostEditor(props) {
     document.getElementById("...")
   );
       </code></pre>
-            <ul>
-              <li class="fragment">
-                The store will be made available to all components via the <em>Provider</em> component
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h3>Middleware between Dispatch and Store</h3>
-            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+          <ul>
+            <li class="fragment">
+              The store will be made available to all components via the <em>Provider</em> component
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Middleware between Dispatch and Store</h3>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
   import { applyMiddleware } from 'redux';
   import thunk from 'redux-thunk';
   
@@ -2842,36 +2860,36 @@ function PostEditor(props) {
     applyMiddleware(thunk) // middleware as enhancer
   );
       </code></pre>
-            <ul>
-              <li class="fragment">
-                Allows you to 'plug-in' between a dispatched action and the store
-              </li>
-              <li class="fragment">Often used for logging or for thunk actions</li>
-              <li class="fragment">
-                Middleware is an advanced feature that you might not need very often (beside thunk
-                middleware)
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h3>Sum up</h3>
-            <ol>
-              <li class="fragment">We create an Action, using an Action Creator</li>
-              <li class="fragment">The action will be passed through all middlewares</li>
-              <li class="fragment">If no middleware vetoes, the Action reaches the Store</li>
-              <li class="fragment">The store dispatches the Action to all Reducers</li>
-            </ol>
-          </section>
-  
-          <section>
-            <h3>Reducers contains your business logic</h3>
-            <ul>
-              <li class="fragment">
-                Idea/Recommendation: put as much business logic as possible in reducers
-              </li>
-              <li class="fragment">You can have more than one reducer</li>
-            </ul>
-            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+          <ul>
+            <li class="fragment">
+              Allows you to 'plug-in' between a dispatched action and the store
+            </li>
+            <li class="fragment">Often used for logging or for thunk actions</li>
+            <li class="fragment">
+              Middleware is an advanced feature that you might not need very often (beside thunk
+              middleware)
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Sum up</h3>
+          <ol>
+            <li class="fragment">We create an Action, using an Action Creator</li>
+            <li class="fragment">The action will be passed through all middlewares</li>
+            <li class="fragment">If no middleware vetoes, the Action reaches the Store</li>
+            <li class="fragment">The store dispatches the Action to all Reducers</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Reducers contains your business logic</h3>
+          <ul>
+            <li class="fragment">
+              Idea/Recommendation: put as much business logic as possible in reducers
+            </li>
+            <li class="fragment">You can have more than one reducer</li>
+          </ul>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
   import {combineReducers} from 'redux';
   
   // http://redux.js.org/docs/api/combineReducers.html
@@ -2881,22 +2899,22 @@ function PostEditor(props) {
     options // View Options (Search Order)
   });
       </code></pre>
-            <ul>
-              <li class="fragment">
-                Reducers are <em>pure functions</em> that receive their old state and an action. They
-                might handle that action and return a new state.
-              </li>
-              <li class="fragment">
-                You can have more than one reducer in your app. The return values of all reducers
-                shapes the store. A reducer cannot see the "partial state" ("slice") of another
-                reducer.
-              </li>
-            </ul>
-          </section>
-  
-          <section>
-            <h3>Reducer</h3>
-            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+          <ul>
+            <li class="fragment">
+              Reducers are <em>pure functions</em> that receive their old state and an action. They
+              might handle that action and return a new state.
+            </li>
+            <li class="fragment">
+              You can have more than one reducer in your app. The return values of all reducers
+              shapes the store. A reducer cannot see the "partial state" ("slice") of another
+              reducer.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Reducer</h3>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
   const auth = (state = {}, action) => {
   switch (action.type) {
       case "LOGIN":
@@ -2908,23 +2926,23 @@ function PostEditor(props) {
     }
   };
       </code></pre>
-            <ul>
-              <li class="fragment">
-                A reducer must initialize it's initial state (often with default parameter)
-              </li>
-              <li class="fragment">
-                Never mutates the old state, but creates a new one (for example a copy)
-              </li>
-              <li class="fragment">
-                Library <a href="https://github.com/immerjs/immer">immer</a> can help with simplifying
-                immutable code
-              </li>
-            </ul>
-          </section>
-  
-          <section>
-            <h3>useSelector: Access global state</h3>
-            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+          <ul>
+            <li class="fragment">
+              A reducer must initialize it's initial state (often with default parameter)
+            </li>
+            <li class="fragment">
+              Never mutates the old state, but creates a new one (for example a copy)
+            </li>
+            <li class="fragment">
+              Library <a href="https://github.com/immerjs/immer">immer</a> can help with simplifying
+              immutable code
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>useSelector: Access global state</h3>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
   import { useSelector } from 'react-redux';
   
   function App() {
@@ -2932,34 +2950,34 @@ function PostEditor(props) {
     ...
   }
   </code></pre>
-            <ul>
-              <li class="fragment">useSelector takes a <em>selector function</em></li>
-              <li class="fragment">
-                The selector function is invoked by redux and gets the <em>whole state</em> as
-                parameter
-              </li>
-              <li class="fragment">
-                It returns the parts of the state, the component is interessted in
-              </li>
-              <li class="fragment">
-                You can use more than on useSelector call in your component and you should return
-                primitives from your selector function (no objects)
-              </li>
-            </ul>
-          </section>
-  
-          <section>
-            <h3>useSelector #2: TypeScript</h3>
-            <ul>
-              <li class="fragment">
-                You can add a type parameter to <code>useSelector</code>, that describes your global
-                store
-              </li>
-              <li class="fragment">
-                Inside the selector callback function you than have type safety
-              </li>
-            </ul>
-            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+          <ul>
+            <li class="fragment">useSelector takes a <em>selector function</em></li>
+            <li class="fragment">
+              The selector function is invoked by redux and gets the <em>whole state</em> as
+              parameter
+            </li>
+            <li class="fragment">
+              It returns the parts of the state, the component is interessted in
+            </li>
+            <li class="fragment">
+              You can use more than on useSelector call in your component and you should return
+              primitives from your selector function (no objects)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>useSelector #2: TypeScript</h3>
+          <ul>
+            <li class="fragment">
+              You can add a type parameter to <code>useSelector</code>, that describes your global
+              store
+            </li>
+            <li class="fragment">
+              Inside the selector callback function you than have type safety
+            </li>
+          </ul>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
   import { useSelector } from 'react-redux';
   
   function App() {
@@ -2974,45 +2992,44 @@ function PostEditor(props) {
     ...
   }
   </code></pre>
-          </section>
-  
-          <section>
-            <h2>Summary redux architecture</h2>
-            <img
-              src="slides/images/redux-03-resulting-redux-architecture.png"
-              style="max-height: 650px;"
-            />
-          </section>
-          <section>
-            <h3>Redux Toolkit</h3>
-            <em
-              >"The official, opinionated, batteries-included toolset for efficient Redux
-              development"</em
-            >
-            <ul>
-              <li><a href="https://redux-toolkit.js">https://redux-toolkit.js.org/</a></li>
-              <li>Pre-configured (including thunk and immer)</li>
-              <li>Simplifies implementing action creators and reducers</li>
-            </ul>
-          </section>
-  
-          <section>
-            <h3>Local state is still "allowed"!</h3>
-            <p>There are a lot of places where you can hold state</p>
-            <ul>
-              <li class="fragment">Server and client</li>
-              <li class="fragment">Component State</li>
-              <li class="fragment">Redux</li>
-              <li class="fragment">URL, Session or Local Storage</li>
-            </ul>
-  
-            <img
-              class="fragment"
-              src="slides/images/three-kinds-of-state.png"
-              style="max-height: 650px;"
-            />
-          </section>
-          </section>
+        </section>
+
+        <section>
+          <h2>Summary redux architecture</h2>
+          <img
+            src="slides/images/redux-03-resulting-redux-architecture.png"
+            style="max-height: 650px;"
+          />
+        </section>
+        <section>
+          <h3>Redux Toolkit</h3>
+          <em
+            >"The official, opinionated, batteries-included toolset for efficient Redux
+            development"</em
+          >
+          <ul>
+            <li><a href="https://redux-toolkit.js">https://redux-toolkit.js.org/</a></li>
+            <li>Pre-configured (including thunk and immer)</li>
+            <li>Simplifies implementing action creators and reducers</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Local state is still "allowed"!</h3>
+          <p>There are a lot of places where you can hold state</p>
+          <ul>
+            <li class="fragment">Server and client</li>
+            <li class="fragment">Component State</li>
+            <li class="fragment">Redux</li>
+            <li class="fragment">URL, Session or Local Storage</li>
+          </ul>
+
+          <img
+            class="fragment"
+            src="slides/images/three-kinds-of-state.png"
+            style="max-height: 650px;"
+          />
+        </section>
 
         <section>
           <h2>Geschafft! 😊</h2>
