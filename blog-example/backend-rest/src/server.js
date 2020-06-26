@@ -34,7 +34,7 @@ app.use((_, res, next) => {
 app.use((req, _res, next) => {
   if (req.query.slow !== undefined) {
     // can't remember why I do this kind of math, but it seems to work 😱
-    const timeout = (Math.floor(Math.random() * 4) + 2) * 550;
+    const timeout = (Math.floor(Math.random() * 4) + 2) * 200;
     console.log(`Slow down ${timeout}ms`);
     setTimeout(next, timeout);
   } else {
@@ -248,7 +248,7 @@ app.post("/posts/:id/like", (req, res) => {
     return res.status(200).json({
       postId: post.id,
       likedBy: post.likedBy,
-      likes: post.likes,
+      likes: post.likes
     });
   }
 
@@ -256,7 +256,7 @@ app.post("/posts/:id/like", (req, res) => {
   res.status(200).json({
     postId: likedPost.id,
     likedBy: likedPost.likedBy,
-    likes: likedPost.likes,
+    likes: likedPost.likes
   });
 });
 
