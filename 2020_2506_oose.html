@@ -132,10 +132,10 @@
               <a href="#/t-server">Teil IV: Daten lesen und schreiben vom Server</a>
             </li>
             <li style="margin-bottom: 20px;">
-              <a href="#/t-test">Teil V: Testen von React Anwendungen (Überblick)</a>
+              <a href="#/t-typescript">Teil V: TypeScript und React</a>
             </li>
             <li style="margin-bottom: 20px;">
-              <a href="#/t-typescript">Teil VI: TypeScript und React</a>
+              <a href="#/t-test">Teil VI: Testen von React Anwendungen (Überblick)</a>
             </li>
             <li>
               <a href="#/t-redux">Teil VII: Externes Statemanagement mit Redux (Überblick)</a>
@@ -1975,265 +1975,6 @@ export default function useApi(url, initialValue) {
 </code></pre>
         </section>
 
-        <section id="t-test">
-          <h1>Part V</h1>
-          <h2>Testen von React Anwendungen</h2>
-        </section>
-        <section data-transition="slide none">
-          <h2>Was testen wir überhaupt?</h2>
-          <ul>
-            <li class="fragment"><b>UI-unabhängige Logik</b> (z.B. Services, Backend-Calls)</li>
-            <li class="fragment">
-              <b>Rendern</b> (wird meine Greeting-Liste für ein Satz von Greetings korrekt
-              dargestellt)
-            </li>
-            <li class="fragment">
-              <b>Interaktionen</b> (funktionieren meine Event-Listener korrekt)
-            </li>
-            <li class="fragment">
-              <b>Verhalten im Browser</b> (z.B. korrekte Darstellung, Browser-spezifisches
-              JavaScript, Arbeiten mit history, Titelzeile, Scrollbars etc)
-            </li>
-          </ul>
-        </section>
-
-        <section data-transition="slide none">
-          <h2>Was testen wir überhaupt?</h2>
-          <ul>
-            <li style="color: lightgrey;">
-              <b>UI-unabhängige Logik</b>
-            </li>
-            <li>
-              <b>Rendern</b> (wird meine Greeting-Liste für ein Satz von Greetings korrekt
-              dargestellt)
-            </li>
-            <li><b>Interaktionen</b> (funktionieren meine Event-Listener korrekt)</li>
-            <li style="color: lightgrey;">
-              <b>Verhalten im Browser</b> (z.B. korrekte Darstellung, Browser-spezifisches
-              JavaScript, Arbeiten mit history, Titelzeile, Scrollbars etc)
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h1>Jest</h1>
-          <p>
-            <em
-              >"Delightful JavaScript Testing" (
-              <a href="https://jestjs.io/" target="_blank">https://jestjs.io/</a>)</em
-            >
-          </p>
-          <p class="fragment">
-            Vollständiges Test-Framework
-          </p>
-        </section>
-        <section>
-          <h3>Beispiel: Ein einfacher Test</h3>
-          <pre><code class="javascript" contenteditable data-trim>// sum.js (oder sum.ts)
-  export const sum = (a,b) => a+b;
-  </code></pre>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>// sum.test.js
-  import {sum} from '../sum.js';
-  
-  test('sum of 2 and 2 is 4', () => {
-    expect(sum(2, 2)).toBe(4);
-  });
-  
-  test('sum of 2 and 2 is not 3', () => {
-    expect(sum(2, 2)).not.toBe(3);
-  });
-          </code></pre>
-        </section>
-
-        <section>
-          <h2>Expectations und Matcher</h2>
-          <div class="fragment">
-            <p>
-              <code>expect()</code> liefert eine <em>Expectation</em> zurück, auf der
-              <em>Matcher</em> definiert sind:
-            </p>
-            <pre><code data-trim contenteditable>expect(actual).toXyz(expected);
-  // for example:
-  expect("Hello Jest").toBe("Hello Jest"); // => ok
-  </code></pre>
-          </div>
-          <div class="fragment">
-            <p>Einige Matcher</p>
-
-            <pre><code data-trim contenteditable>// Vergleich auf Identität
-  expect(actual).toBe(expected);
-  // Inhaltsvergleich:
-  expect(actual).toEqual(expected);
-  // true / false / null:
-  expect(actual).toBeTruthy();
-  expect(actual).toBeFalsy();
-  expect(actual).toBeNull();
-  // Länge (Array oder String)
-  expect(actual).toHaveLength(123);
-  </code></pre>
-          </div>
-          <p class="fragment">
-            <a href="https://jestjs.io/docs/en/expect">https://jestjs.io/docs/en/expect</a>
-          </p>
-        </section>
-
-        <section>
-          <h2>Mock Funktionen (in Jest)</h2>
-          <ul>
-            <li class="fragment">
-              <code>jest.fn()</code> erzeugt eine Mock-Funktion
-              <pre><code data-trim contenteditable>// Liefert undefined zurück, wenn ausgeführt
-const aMockFn = jest.fn();
-
-aMockFn(); // => undefined
-                    </code></pre>
-            </li>
-          </ul>
-        </section>
-        <section>
-          <h2>Mock Funktionen</h2>
-          <li class="fragment">
-            Aufrufe sicherstellen
-            <pre><code data-trim contenteditable>
-const aMockFn = jest.fn( param => `Hello, ${param}` );
-// use aMockFn somewhere in your code, then assert:
-
-expect(aMockFn).toHaveBeenCalled();
-expect(aMockFn).toHaveBeenCalledWith('World');
-</code></pre>
-          </li>
-        </section>
-
-        <section>
-          <h3>Testen von React Komponenten</h3>
-          <h2>Nur Rendering</h2>
-        </section>
-
-        <section>
-          <h3>React Test Renderer</h3>
-          <p>
-            <a href="https://www.npmjs.com/package/react-test-renderer"
-              >https://www.npmjs.com/package/react-test-renderer</a
-            >
-          </p>
-          <p>Rendert React Komponenten in JSON Objekt (ohne DOM):</p>
-          <pre
-            class="fragment"
-          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
-
-const component = renderer.create(
-  &lt;PostList posts={somePosts} />
-);
-
-console.log(component.toJSON());
-            </code></pre>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-        { type: 'div',
-          props: {},
-          children:  [
-            { type: 'buton', props: {}, children: [Object] },
-            { type: 'article', props: [Object], children: [Object] },
-            { type: 'article', props: [Object], children: [Object] }
-          ]
-        }
-            </code></pre>
-        </section>
-
-        <section>
-          <h3>"Snapshot Testing" mit Jest</h3>
-          <p>
-            <code>expect(obj).toMatchSnapshot()</code> vergleicht ein JSON-Objekt mit einer
-            gespeicherten Datei:
-          </p>
-          <ul>
-            <li class="fragment">
-              Bei <b>erster</b> Ausführung: legt Snapshot-File an (
-              <a href="slides/images/jest-snapshot-file.png" target="_blank">Beispiel</a>)
-              <ul>
-                <li class="fragment">Snapshotdateien werden in Git versioniert</li>
-              </ul>
-            </li>
-            <li class="fragment">
-              Bei <b>folgenden</b> Ausführungen: erzeugt neuen Snapshot und vergleicht mit
-              gespeichtertem Snapshot
-            </li>
-            <li class="fragment">
-              Wenn Snapshots unterschiedlich
-              <ul>
-                <li>
-                  Fehler samt Diff (
-                  <a href="slides/images/jest-snapshot-diff.png" target="_blank">Beispiel</a>)
-                </li>
-                <li>
-                  Im Watch Mode kann Snapshot aktualisiert werden
-                  <img src="slides/images/jest-snapshot-update.png" />
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Snapshot Testing mit Jest und React</h3>
-          <pre
-            class="fragment"
-          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
-        
-test('it should render correctly', () => {
-
-  const somePosts = [ . . . ];
-
-  const component = renderer.create(
-    &lt;PostList posts={somePosts} />
-  );
-
-  expect(component.toJSON()).toMatchSnapshot();
-});
-            </code></pre>
-        </section>
-
-        <section>
-          <h3>Testen von React Komponenten, Teil 2</h3>
-          <h2>Interaktion</h2>
-        </section>
-
-        <section>
-          <h3>react-testing-library</h3>
-          <p>
-            <em
-              >Simple and complete React DOM testing utilities that encourage good testing
-              practices." (
-              <a href="https://github.com/testing-library/react-testing-library" target="_blank"
-                >https://github.com/testing-library/react-testing-library</a
-              >)</em
-            >
-          </p>
-          <p>
-            Philosophie: Tests werden aus "User-Sicht" geschrieben. Man sucht nach Elementen an Hand
-            sichtbarer Eigenschaften, nach denen auch ein User suchen würde (Label, Placeholder etc)
-          </p>
-          <pre
-            class="fragment"
-          ><code class="javascript" contenteditable data-trim>import { render, fireEvent } from "@testing-library/react";
-
-it("it should switch between views", async () => {
-  fetch.mockResponse(JSON.stringify(mockPosts));
-  const { getByText, findByText } = render(&lt;App />);
-  const addPostButton = await findByText("Add Post");
-
-  fireEvent.click(addPostButton);
-
-  // Post Editor should be visible
-  expect(getByText("Create Post")).toBeInTheDocument();
-});
-
-
-            </code></pre>
-          <p class="fragment">
-            Mehr Beispiele in <code>blog-example/steps/5-test/src/__tests__</code>
-          </p>
-        </section>
-
         <section id="t-typescript">
           <h1>Teil VI</h1>
           <h2>React Anwendungen mit TypeScript</h2>
@@ -2767,16 +2508,606 @@ function PostEditor(props) {
         </section>
         <section>
           <h3>Typ Informationen hinzufügen</h3>
+          <p>
+            Füge die fehlenden Typ-Informationen in <code>PostList.js</code> und
+            <code>PostEditor.js</code> hinzu
+          </p>
           <ol style="font-size: 80%;" class="x-list">
             <li class="fragment">
-              Füge die fehlenden Typ-Informationen in <code>PostList.js</code> und
-              <code>PostEditor.js</code> hinzu
+              Benenne <code><b>PostList.js</b></code> in <code>PostList.tsx</code> um und starte
+              <code>npm start</code> neu
+            </li>
+            <li class="fragment">Stelle <code>PostList.tsx</code> auf TypeScript um</li>
+            <li class="fragment">
+              Benenne <code><b>PostEditor.js</b></code> in <code>PostEditor.tsx</code> um und starte
+              <code>npm start</code> neu
+            </li>
+            <li class="fragment">Stelle <code>PostEditor.tsx</code> auf TypeScript um</li>
+            <li class="fragment">Weitere Informationen kannst Du in den Dateien finden.</li>
+          </ol>
+        </section>
+
+        <section id="t-test">
+          <h1>Part I</h1>
+          <h2>Testing React Applications</h2>
+        </section>
+
+        <section data-transition="slide none">
+          <h2>What do we test?</h2>
+          <ul>
+            <li class="fragment">
+              <b>UI-independent logic</b> (for example services, backend calls)
             </li>
             <li class="fragment">
-              Bevor die Dateien anpasst, ändere die Dateiendung zu <code>.tsx</code> and starte "npm
-              start" ggf. neu (manchmal verhakt sich Webpack beim Umbennen von Dateien).
+              <b>Rendering</b> (is the list of blog post correctly rendered? is the markup as we
+              want it?)
             </li>
-            <li class="fragment">Weitere Informationen kannst Du in den Dateien finden.</li>
+            <li class="fragment">
+              <b>Interactions</b> (are my event handlers working and correctly set?)
+            </li>
+            <li class="fragment">
+              <b>Behaviour in the browser</b> (z.B. correct rendering, Browser-spezific JavaScript,
+              Working with browser artefacts, such as history, Title, Scrollbars etc)
+            </li>
+          </ul>
+        </section>
+        <section data-transition="slide none">
+          <h2>What do we test?</h2>
+          <ul>
+            <li style="color: lightgrey;">
+              <b>UI-independent logic</b> (for example services, backend calls)
+            </li>
+            <li>
+              <b>Rendering</b> (is the list of blog post correctly rendered? is the markup as we
+              want it?)
+            </li>
+            <li><b>Interactions</b> (are my event handlers working and correctly set?)</li>
+            <li style="color: lightgrey;">
+              <b>Behaviour in the browser</b> (z.B. correct rendering, Browser-spezific JavaScript,
+              Working with browser artefacts, such as history, Title, Scrollbars etc)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Jest</h1>
+          <p>
+            <em
+              >"Delightful JavaScript Testing" (
+              <a href="https://jestjs.io/" target="_blank">https://jestjs.io/</a>)</em
+            >
+          </p>
+          <p class="fragment">
+            Complete Test solution for React (and others):
+          </p>
+          <ul class="fragment">
+            <li>Test Runner</li>
+            <li>Specs, Assertions, Mocks</li>
+            <li>Code Coverage</li>
+            <li>"Snapshot testing"</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Jest</h4>
+          <h3>Example: A simple testcase</h3>
+          <pre><code class="javascript" contenteditable data-trim>// sum.js (or sum.ts)
+export const sum = (a,b) => a+b;
+        </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>// sum.test.js
+import {sum} from '../sum.js';
+
+test('sum of 2 and 2 is 4', () => {
+  expect(sum(2, 2)).toBe(4);
+});
+
+test('sum of 2 and 2 is not 3', () => {
+  expect(sum(2, 2)).not.toBe(3);
+});
+            </code></pre>
+        </section>
+        <section>
+          <h4>Jest</h4>
+          <h2>Testcases</h2>
+          <p>
+            <code>test</code> or
+            <code>it</code>
+          </p>
+          <pre><code data-trim contenteditable>test('it should work', () => {
+  expect(...).toBe(...);
+});</code></pre>
+          <pre><code data-trim contenteditable>it('it should also work', () => {
+  expect(...).toBe(...);
+});</code></pre>
+        </section>
+
+        <section>
+          <h4>Jest</h4>
+          <h2>Expectations and Matchers</h2>
+          <div class="fragment">
+            <p>
+              <code>expect()</code> returns an <em>Expectation</em> obects, that contains several
+              <em>Matcher</em> functions:
+            </p>
+            <pre><code data-trim contenteditable>expect(actual).toXyz(expected);
+// for example:
+expect("Hello Jest").toBe("Hello Jest"); // => ok
+        </code></pre>
+          </div>
+          <div class="fragment">
+            <p>Some Matchers</p>
+
+            <pre><code data-trim contenteditable>// Compare identity
+expect(actual).toBe(expected);
+// Compare value:
+expect(actual).toEqual(expected);
+// true / false / null:
+expect(actual).toBeTruthy();
+expect(actual).toBeFalsy();
+expect(actual).toBeNull();
+// Length (Array oder String)
+expect(actual).toHaveLength(123);
+        </code></pre>
+          </div>
+          <p class="fragment">
+            <a href="https://jestjs.io/docs/en/expect">https://jestjs.io/docs/en/expect</a>
+          </p>
+        </section>
+
+        <section>
+          <h4>Jest</h4>
+          <h2>Mock Functions</h2>
+          <ul>
+            <li class="fragment">
+              <code>jest.fn()</code> creates a mock function
+              <pre><code data-trim contenteditable>// Returns undefined when executed
+const aMockFn = jest.fn();
+
+aMockFn("huhu"); // => undefined
+
+expect(aMockFn).toHaveBeenCalled());
+expect(aMockFn.toHaveBeenCalledWith("huhu"));
+                      </code></pre>
+            </li>
+
+            <li class="fragment">
+              Implementation of the mock function can be passed as parameter:
+              <pre><code data-trim contenteditable>
+        const aMockFn = jest.fn( param => `Hello, ${param}` );
+        
+        console.log(aMockFn('World'));
+        // => Hello, World
+                  </code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Testing React Components</h3>
+          <h2>Rendering-only</h2>
+        </section>
+
+        <section>
+          <h3>React Test Renderer</h3>
+          <p>
+            <a href="https://www.npmjs.com/package/react-test-renderer"
+              >https://www.npmjs.com/package/react-test-renderer</a
+            >
+          </p>
+          <p>Renders React Components into JSON Objekts (without DOM):</p>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
+
+const component = renderer.create(
+  &lt;PostList posts={somePosts} />
+);
+
+console.log(component.toJSON());
+            </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+        { type: 'div',
+          props: {},
+          children:  [
+            { type: 'buton', props: {}, children: [Object] },
+            { type: 'article', props: [Object], children: [Object] },
+            { type: 'article', props: [Object], children: [Object] }
+          ]
+        }
+            </code></pre>
+        </section>
+        <section>
+          <h3>"Snapshot Testing" with Jest</h3>
+          <p>
+            <code>expect(obj).toMatchSnapshot()</code> compares a JSON-Object with a stored object
+            in a file:
+          </p>
+          <ul>
+            <li class="fragment">
+              At <b>first</b> execution: Snapshot-File will be created (
+              <a href="slides/images/jest-snapshot-file.png" target="_blank">Example</a>)
+              <ul>
+                <li class="fragment">Snapshot files will be stored in Git</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              In all <b>following</b> test executions: new snapshot will be created and compared
+              against saved snapshot.
+            </li>
+            <li class="fragment">
+              When Snapshots differ:
+              <ul>
+                <li>
+                  Error including diff (
+                  <a href="slides/images/jest-snapshot-diff.png" target="_blank">Example</a>)
+                </li>
+                <li>
+                  In "watch mode" the snapshot can be updated
+                  <img src="slides/images/jest-snapshot-update.png" />
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Snapshot Testing with Jest and React</h3>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
+        
+test('it should render correctly', () => {
+
+  const somePosts = [ . . . ];
+
+  const component = renderer.create(
+    &lt;PostList posts={somePosts} />
+  );
+
+  expect(component.toJSON()).toMatchSnapshot();
+});
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Testing React Components #2</h3>
+          <h2>Interactions</h2>
+        </section>
+
+        <section>
+          <h3>react-testing-library</h3>
+          <p>
+            <em
+              >"Simple and complete React DOM testing utilities that encourage good testing
+              practices."
+            </em>
+          </p>
+
+          <p>
+            <a href="https://github.com/testing-library/react-testing-library" target="_blank"
+              >https://github.com/testing-library/react-testing-library</a
+            >)
+          </p>
+          <p>
+            Philosophy: tests are written from a user perspective. To find your elements you want to
+            test, you use properties the user also sees (like labels, aria roles, etc)
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            import { render, screen } from "@testing-library/react";
+            import userEvent from "@testing-library/user-event";
+
+            it("invokes callback on button click", () => {
+              const onAddPostFn = jest.fn();
+            
+              // Render
+              render(&lt;PostList onAddPost={onAddPostFn} posts={mockPosts} />);
+            
+              // search the button
+              const buttonElement = screen.getByRole("button", { name: "Add Post" });
+
+              // "click" the button
+              userEvent.click(buttonElement);
+            
+              // make sure it has been invoked
+              expect(onAddPostFn).toHaveBeenCalled();
+            });
+
+
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>render-Function</h3>
+          <p>
+            You can use the render-Function from testing-library/react to render your component in
+            your test (no browser needed)
+          </p>
+          <p>
+            Just as in real world you can specify properties etc (might be testdata and/or mocks)
+          </p>
+          <p>
+            The render function returns a set of query-functions that can be used to search for
+            elements within the rendered components (deprecated!, see next slide)
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            import { render } from "@testing-library/react";
+
+              // Render a single component
+              render(&lt;PostList onAddPost={onAddPostFn} posts={mockPosts} />);
+          </code></pre>
+          <p class="fragment">Remember when using Components, that needs a "Context"!</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+
+              // Render with surrounding Redux Provider (or Router, your own Context etc.)
+              render(
+                &lt;Provider>
+                  &lt;PostList onAddPost={onAddPostFn} posts={mockPosts} />
+                &lt;/Provider>
+              );
+            </code></pre>
+        </section>
+        <section>
+          <h3>query Functions</h3>
+          <p>
+            To verify and interact with the elements from your component you need to find them 🤓
+          </p>
+          <p>
+            On the global <b>screen</b> object there are many functions defined, that allows you
+            searching for an element
+          </p>
+          <p>
+            The query functions have different <b>suffixes</b>, that describe what they're searching
+            for (a label, a aria-role, ...)
+          </p>
+          <p>
+            The query functions have different <b>prefixes</b> (getBy, queryBy etc) that describes
+            their outcome (i.e. wether they fail if they don't find the object or if they just
+            return nothing)
+          </p>
+          <p>
+            More on this:
+            <a
+              target="_blank"
+              href="https://testing-library.com/docs/react-testing-library/cheatsheet#queries"
+              >React Testing Library Cheatsheet</a
+            >
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+  // EXAMPLES: 
+
+  // search the button (assume there is exactly one, fail otherwise)
+  const buttonElement = screen.getByRole("button", { name: "Add Post" });
+
+  // search the button (return null or ONE button, throws Exception otherwise)
+  const buttonElement = screen.queryByRole("button", { name: "Add Post" });
+
+  // search the button (return all buttons or an empty array)  
+  const buttonElement = screen.queryAllByRole("button", { name: "Add Post" });
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Verify you components</h3>
+          <p>
+            After quering a component you can verify their attributes etc to make sure they're
+            correct
+          </p>
+          <p>
+            The library
+            <a href="https://github.com/testing-library/jest-dom" target="_blank">jest-dom</a> adds
+            DOM-specific matchers for jest.
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+  import { screen } from "@testing-library/react";
+
+  const buttonElement = screen.queryByRole("button", { name: "Add Post" });
+
+  // assert presence of the element (getBy query would maybe make more sense)
+  expect(buttonElement).toBeInTheDocument();
+
+  // assert value of input field
+  expect(titleInput).toHaveValue("Moin moin");
+
+  // assert enablement of a button
+  expect(okButton).toBeDisabled();
+</code></pre>
+          <p class="fragment">All matchers are described on the GitHub page (Link see above)</p>
+        </section>
+        <section>
+          <h3>Interaction</h3>
+          <p>
+            You can interact with the elements from a component by sending events, as the browser
+            would do
+          </p>
+          <p>
+            There's a special library
+            <a href="https://github.com/testing-library/user-event" target="_blank"> user-event</a>,
+            that helps you constructing this events.
+          </p>
+          <p>(In the next release of react-testing-library it will be included)</p>
+
+          <pre class="fragment"><code class="javascript">
+            import userEvent from "@testing-library/user-event";
+            // type somthing into an input field
+            // (with another parameter you can configure how fast typing speed should be etc)
+            userEvent.type(titleInput, "New Title");
+
+            // click a button
+            userEvent.click(clearButton);
+          </code></pre>
+          <p class="fragment">All events can be found on the GitHub page (Link see above)</p>
+
+          <p class="fragment">
+            Note that you don't have to test if an element exists before sending an event; the test
+            will fail with a readable error message, if the element is not available
+          </p>
+        </section>
+        <section>
+          <h3>Testing with fetch</h3>
+          <p>Challenges:</p>
+          <ul>
+            <li>Asynchronous code (not limited to fetch)</li>
+            <li>Server mocking</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Dealing with asynchronous code</h3>
+        </section>
+
+        <section>
+          <h3>Testing async code</h3>
+          <p>
+            Example: The <b>App</b> components loads data, than it displays the post list. Loading
+            of the data is async code
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            it("should render posts read from backend", () => {
+              render(&lt;App />);
+            
+              // imagine there is an article with title "One"
+              const articleOne = screen.findByRole("heading", { name: "One" });
+
+              expect(articleOne).toBeInTheDocument(); // THIS WON'T WORK!
+            });
+          </code></pre>
+          <p class="fragment">
+            Good news: we can write an async test and waitfor the element until it's loaded
+          </p>
+          <pre class="fragment"><code class="javascript">
+            // not the async function here:
+            it("should render posts read from backend", async () => {
+              render(&lt;App />);
+            
+              // note the await statement here:
+              const articleOne = await screen.findByRole("heading", { name: "One" });
+
+              expect(articleOne).toBeInTheDocument(); // YIPPIE, WORKS
+            });
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Testing fetch</h3>
+          <p>As seen, we're able to test async code</p>
+          <p class="fragment">Do we want to have fetch calls in our code?</p>
+          <p class="fragment">
+            Propably not, because we don't want to depend on a running (and working) server in test
+          </p>
+          <p class="fragment">We want to "mock out" fetch</p>
+        </section>
+
+        <section>
+          <h3>Mocking fetch #1</h3>
+          <p>We can mock whole modules in jest</p>
+          <p class="fragment">We could move our fetch code to an own module an mock that</p>
+
+          <pre class="fragment"><code class="javascript">
+            // api.ts (simplified!)
+            export function readPosts() {
+              return fetch("http://localhost:7000/posts").then(response => response.json());
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // App.tsx:
+
+            import { readPosts } from "./api";
+            function App() {
+              // ...
+              React.useEffect(() => {
+                // use readPosts here:
+                readPosts()
+                  .then(json => {
+                    setLoading(false);
+                    setPosts(json);
+                  })
+                  .catch(err => console.error("Loading data failed: " + err));
+              }, []);
+            }
+          </code></pre>
+        </section>
+        <section>
+          <h3>Mocking a Module</h3>
+          <p>Several ways, this is the simplest one(?)</p>
+
+          <pre class="fragment"><code class="javascript">
+            // App.test.tsx
+
+            const mockPosts = [
+              { id: "1", title: "One Fetch Mock", body: "Lorem ipsum" },
+              { id: "2", title: "Second Post Fetch Mock", body: "Some more content" }
+            ];
+
+            jest.mock("../api", () => ({
+              readPosts: () => Promise.resolve(mockPosts)
+            }));
+
+            it("should render posts read from backend", async () => {
+              render(&lt;App />);
+            
+              // we still need to await, but we don't care about
+              // running server anymore
+              const articleOne = await screen.findByRole("heading", { name: "One" });
+              expect(articleOne).toBeInTheDocument();
+
+              expect(screen.getByText("Second Post")).toBeInTheDocument();
+            });
+          </code></pre>
+        </section>
+        <section>
+          <h3>Option #2: Mocking fetch</h3>
+          <p>There are several libs that allows you to mock fetch</p>
+          <p>
+            For me
+            <a href="https://www.npmjs.com/package/jest-fetch-mock" target="_blank"
+              >jest-fetch-mock</a
+            >
+            works best
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // App.test.tsx
+            it("should render posts read from backend", async () => {
+              // set the expected response (there are more ways to customize the fetch mock behaviour)
+              fetchMock.mockResponse(JSON.stringify(mockPosts));
+
+              render(&lt;App />);
+            
+              // we're still async, but no "real" fetch anymore
+              const articleOne = await screen.findByRole("heading", { name: "One Fetch Mock" });
+
+              expect(articleOne).toBeInTheDocument();
+            });
+
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Exercise: write a test for the PostEditor</h2>
+          <p>Steps:</p>
+          <ol>
+            <li class="fragment">
+              Work inside <code>advanced/exercies/1_testing</code>
+              <p>Hint: only open this folder in your IDE</p>
+            </li>
+            <li class="fragment">Run <code>npm install</code> there</li>
+            <li class="fragment">Run <code>npm test</code> there (this process does not stop)</li>
+            <li class="fragment">
+              There is one failing test: the <code>PostEditor.test.tsx</code>.
+            </li>
+            <li class="fragment">Why? Because it's empty! It's up to you to implement the test</li>
+            <li class="fragment">Look inside the file to find more informations</li>
+            <li class="fragment">
+              Note: saving your test file should automatically re-run the tests, other press 'a' on
+              the command line
+            </li>
+            <li class="fragment">
+              In case you need help: ask your co-workers, ask me or find the solution at
+              <code>steps/1_testing</code>
+            </li>
           </ol>
         </section>
 
