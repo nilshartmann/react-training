@@ -7,6 +7,8 @@ const datastore = require("./datastore");
 const app = express();
 
 const authEnabled = process.env.USE_AUTH === "true";
+const slowEnabled = process.env.USE_SLOW === "true";
+
 /** IN REAL LIVE YOU WILL NEVER STORE JWT_SECRET IN YOUR CODE! */
 const JWT_SECRET = "hurzelpurzel";
 
@@ -32,7 +34,7 @@ app.use((_, res, next) => {
 });
 
 app.use((req, _res, next) => {
-  if (req.query.slow !== undefined) {
+  if (req.query.slow !== undefined || slowEnabled) {
     // can't remember why I do this kind of math, but it seems to work 😱
     const timeout = (Math.floor(Math.random() * 4) + 2) * 200;
     console.log(`Slow down ${timeout}ms`);

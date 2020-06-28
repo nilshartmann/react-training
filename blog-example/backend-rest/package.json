@@ -12,6 +12,7 @@
   "scripts": {
     "start": "nodemon src/server.js",
     "start:withAuth": "USE_AUTH=true nodemon src/server.js",
+    "start:slow": "USE_SLOW=true nodemon --inspect src/server.js",
     "start:debug": "nodemon --inspect src/server.js"
   },
   "dependencies": {

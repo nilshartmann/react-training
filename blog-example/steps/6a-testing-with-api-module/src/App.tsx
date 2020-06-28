@@ -1,17 +1,26 @@
 import React from "react";
 import PostList from "./PostList";
 import PostEditor from "./PostEditor";
+import { NewBlogPost, BlogPost } from "./types";
+import { readPosts, writePosts } from "./api";
 import LoadingIndicator from "./LoadingIndicator";
 
-function App() {
-  const [view, setView] = React.useState("LIST");
+type VIEW = "LIST" | "ADD";
 
-  const [fetchState, setFetchState] = React.useState({});
+type FetchState = {
+  posts?: BlogPost[];
+  loading?: boolean;
+  error?: string;
+};
+
+function App() {
+  const [view, setView] = React.useState<VIEW>("LIST");
+
+  const [fetchState, setFetchState] = React.useState<FetchState>({});
 
   React.useEffect(() => {
     setFetchState({ loading: true });
-    fetch("http://localhost:7000/posts")
-      .then(response => response.json())
+    readPosts()
       .then(json => {
         setFetchState({ posts: json });
       })
@@ -20,16 +29,9 @@ function App() {
       });
   }, []);
 
-  function savePost(post) {
+  function savePost(post: NewBlogPost) {
     setFetchState({ posts: fetchState.posts, loading: true });
-    fetch("http://localhost:7000/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(post)
-    })
-      .then(response => response.json())
+    writePosts(post)
       .then(newPost => {
         setFetchState({ posts: [newPost, ...(fetchState.posts || [])] });
         setView("LIST");
