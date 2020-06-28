@@ -1,7 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import { render, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import PostList from "../PostList";
 
@@ -19,13 +20,11 @@ it("invokes callback on button click", () => {
   const onAddPostFn = jest.fn();
 
   // Render
-  const { getByText } = render(<PostList onAddPost={onAddPostFn} posts={mockPosts} />);
+  render(<PostList onAddPost={onAddPostFn} posts={mockPosts} />);
 
   // search the button
-  const buttonElement = getByText(/Add Post/i);
-
-  // click the button
-  fireEvent.click(buttonElement);
+  const buttonElement = screen.getByRole("button", { name: "Add Post" });
+  userEvent.click(buttonElement);
 
   // make sure it has been invoked
   expect(onAddPostFn).toHaveBeenCalled();

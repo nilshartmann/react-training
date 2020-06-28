@@ -1,11 +1,11 @@
+import { enableFetchMocks } from "jest-fetch-mock";
 import React from "react";
-import { wait, render, fireEvent, waitForElement } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import App from "../App";
-import "jest-fetch-mock";
 
 const mockPosts = [
-  { id: "1", title: "One", body: "Lorem ipsum" },
-  { id: "2", title: "Second Post", body: "Some more content" }
+  { id: "1", title: "One Fetch Mock", body: "Lorem ipsum" },
+  { id: "2", title: "Second Post Fetch Mock", body: "Some more content" }
 ];
 
 afterEach(() => {
@@ -13,25 +13,14 @@ afterEach(() => {
 });
 
 it("should render posts read from backend", async () => {
+  enableFetchMocks();
+
   fetchMock.mockResponse(JSON.stringify(mockPosts));
-  const { queryByText, getByText, findByText } = render(<App />);
+  render(<App />);
 
-  // Post are not here yet, as the fetch-Promise is not resolved
-  expect(queryByText("Lorem ipsum")).not.toBeInTheDocument();
+  expect(screen.getByRole("alert")).toBeInTheDocument();
 
-  const lorem = await findByText("Lorem ipsum");
-  expect(lorem).toBeInTheDocument();
-  expect(getByText("Second Post")).toBeInTheDocument();
-  expect(getByText("Add Post")).toBeInTheDocument();
-});
-
-it("it should switch between views", async () => {
-  fetchMock.mockResponse(JSON.stringify(mockPosts));
-  const { getByText, findByText } = render(<App />);
-  const addPostButton = await findByText("Add Post");
-
-  fireEvent.click(addPostButton);
-
-  // Post Editor should be visible
-  expect(getByText("Create Post")).toBeInTheDocument();
+  const articleOne = await screen.findByRole("heading", { name: "One Fetch Mock" });
+  expect(articleOne).toBeInTheDocument();
+  expect(screen.getByText("Second Post Fetch Mock")).toBeInTheDocument();
 });
