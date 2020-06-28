@@ -52,8 +52,8 @@
             <p>
               <span class="transparent-bg"
                 >oder online:
-                <a href="https://nils.buzz/2020_2506_oose.html"
-                  >https://nils.buzz/2020_2506_oose.html</a
+                <a href="https://nils.buzz/2020_3006_zwei_tage.html"
+                  >https://nils.buzz/2020_3006_zwei_tage.html</a
                 ></span
               >
             </p>
@@ -729,61 +729,7 @@ function HelloWorld() {
                   // d.h. diese Funktion (PostEditor) wird erneut ausgeführt
                 }
               </code></pre>
-
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                  function PostEditor(props) {
-
-                    // ANNAHME: Diese Komponente wird zwei mal gerendert 
-                    // (weil setTitle aufgerufen wird, um State zu verändern)
-                    //
-                    // FRAGE: - wie häufig wird useState aufgeführt? 
-                    //        - was passiert mit initialTitle?
-                    const [title, setTitle] = React.useState("");
-                  }
-                </code></pre>
         </section>
-
-        <section>
-          <h3>Render Zyklus</h3>
-          <img src="slides/images/render-cycle.png" height="550px" />
-        </section>
-
-        <section>
-          <h3>Virtual DOM</h3>
-          <p>"Rendern" hat leider doppelte Bedeutung!</p>
-          <img src="slides/images/vdom.png" style="height: 650px;" />
-        </section>
-
-        <section>
-          <h2>Übung 2: Post-Editor für unsere Anwendung</h2>
-          <em><b>Erweitere deine Komponente um neue Features</b></em>
-        </section>
-        <section>
-          <h3>Schritte</h3>
-          <ol class="x-list">
-            <li>
-              Zusätzlich zum "title", sollte es einen weiteren Zustand und eine Textarea geben:
-              <code>body</code>. Ein <code>textarea</code>-Element hat dieselbe API wie ein
-              <code>input</code>-Feld.
-            </li>
-            <li>
-              Füge einen "Clear"-Button hinzu, der beide Eingabefeld leert. Das Property auf dem
-              Button ist <code>onClick</code>.
-              <ul>
-                <li>
-                  Der "clear"-Button sollte disabled sein, solange beide Felder leer sind. Um ein
-                  button-Element zu disablen, kannst Du das <code>disabled</code> Property auf
-                  <code>true</code> setzen.
-                </li>
-                <!-- <li>
-                  Wenn der Clear-Button gedrückt wird, sollte der Focus zurück in das erste
-                  Inputfeld gesetzt werden (<code>title</code>)
-                </li> -->
-              </ul>
-            </li>
-          </ol>
-        </section>
-
         <!-- - - - - - - - - - - - - - - - PROPS HIER ERST - - - - - - - - - - - - - - -  -->
         <section>
           <h3>React: Properties</h3>
@@ -885,17 +831,45 @@ const address = { street: "Highway", city: "Hamburg" };
 
                 </code></pre>
         </section>
+        <section>
+          <h3>Render Zyklus</h3>
+          <img src="slides/images/render-cycle.png" height="550px" />
+        </section>
+
+        <section>
+          <h2>Übung 2: Post-Editor für unsere Anwendung</h2>
+          <em><b>Erweitere deine Komponente um neue Features und Properties</b></em>
+        </section>
+        <section>
+          <h3>Schritte 1/2</h3>
+          <ol class="x-list">
+            <li>
+              Zusätzlich zum "title", sollte es einen weiteren Zustand und eine Textarea geben:
+              <code>body</code>. Ein <code>textarea</code>-Element hat dieselbe API wie ein
+              <code>input</code>-Feld.
+            </li>
+            <li>
+              Füge einen "Clear"-Button hinzu, der beide Eingabefeld leert. Das Property auf dem
+              Button ist <code>onClick</code>.
+              <ul>
+                <li>
+                  Der "clear"-Button sollte disabled sein, solange beide Felder leer sind. Um ein
+                  button-Element zu disablen, kannst Du das <code>disabled</code> Property auf
+                  <code>true</code> setzen.
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </section>
 
         <!-- ============================================================================= -->
         <section>
-          <h2>Übung: Properties für die PostEditor-Komponente</h2>
-          <em>Die Eingabefelder im PostEditor sollen vorblegbar sein</em>
-        </section>
-        <section>
-          <h3>Schritte</h3>
-          <ol class="x-list">
+          <h3>Schritte 2/2</h3>
+          <ol start="3" class="x-list">
             <li>
-              Passe die Signatur der PostEditor-Funktion an, so dass diese Properties entgegen nimmt
+              Passe die Signatur der PostEditor-Funktion an, so dass die Komponente Properties für
+              die initiale Belegung der beiden Eingabefelder (title und body) entgegen nimmt. Die
+              Properties sollen <code>initialTitle</code> bzw. <code>initialBody</code> heißen.
             </li>
             <li>
               Modifiziere die useState-Aufrufe, so dass sie als initial Werte die entsprechenden
@@ -910,6 +884,17 @@ const address = { street: "Highway", city: "Hamburg" };
               die beiden Properties
             </li>
           </ol>
+        </section>
+
+        <section>
+          <h3>Virtual DOM</h3>
+          <p>"Rendern" hat leider doppelte Bedeutung!</p>
+          <img src="slides/images/vdom.png" style="height: 650px;" />
+        </section>
+
+        <section>
+          <h3>Virtual DOM</h3>
+          <p>Beispiel: <code>blog-example/steps/2b-rendering</code></p>
         </section>
 
         <!-- PROPS HIER ERST ENDE -->
