@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
 
-    <title>Single-Page-Anwendungen mit React, Redux und TypeScript</title>
+    <title>React Training</title>
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -20,11 +20,8 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
         <section data-state="title">
-          <h3 class="title" style="font-size: 4rem;">
-            <b>Single-Page-Anwendungen </b>
-          </h3>
           <h2 class="title" style="font-size: 7rem;">
-            <b>mit React, Redux und TypeScript</b>
+            <b>React Training</b>
           </h2>
 
           <h4>
@@ -138,10 +135,11 @@
               <a href="#/t-test">Teil VI: Testen von React Anwendungen</a>
             </li>
             <li style="margin-bottom: 20px;">
-              <a href="#/t-test">Teil VII: Testen von React Anwendungen</a>
+              <a href="#/t-router">Teil: VII: Router</a>
             </li>
             <li>
-              <a href="#/t-redux">Teil VIII: Externes Statemanagement mit Redux (Überblick)</a>
+              <a href="#/t-state">Teil VIII: Statemanagement:</a>
+              React <a href="#/t-context">Context</a> und <a href="#/t-redux">Redux</a>
             </li>
           </ul>
           <div style="font-size: 80%;">
@@ -160,66 +158,6 @@
           <a target="_blank" href="http://localhost:3000">
             <img src="blog-example/blog-example.png" style="height: 650px;" />
           </a>
-        </section>
-
-        <section>
-          <h3>React</h3>
-          <p>
-            <em>Mit React werden üblicherweise <b>Single-Page-Anwendungen</b> (SPA) gebaut</em>
-          </p>
-          <p class="fragment">Single-Page-Anwendungen...</p>
-          <ul class="x-list">
-            <li class="fragment">
-              Technisch auf <b>einer</b> (index.html)-Seite
-              <ul>
-                <li>Aus <b>Benutzersicht</b> kann es durchaus mehrere "Seiten" geben</li>
-                <li class="fragment">
-                  JavaScript ist für Logik und Darstellung alleinverantwortlich
-                </li>
-              </ul>
-            </li>
-            <li class="fragment">Back-Button, Deep Links etc trotzdem möglich</li>
-            <li class="fragment">
-              React kann sich auch auf einem <b>Teil</b> der Seite integrieren
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Single-Page-Anwendungen</h3>
-          <p>Beispiele</p>
-          <ul>
-            <li><a href="https://outlook.live.com" target="_blank">Microsoft Outlook</a></li>
-            <li><a href="https://www.figma.com/" target="_blank">Figma</a></li>
-            <li><a href="https://open.spotify.com/browse/featured" target="_blank">Spotify</a></li>
-          </ul>
-        </section>
-
-        <section>
-          <h4>Architektur</h4>
-          <h3>"Klassische" Web Anwendungen</h3>
-          <img
-            src="slides/images/abb-02a-classic-webapp-architecture.png"
-            style="border: 0; box-shadow: 0 0 0 0; height: 650px;"
-          />
-        </section>
-
-        <section>
-          <h4>Architektur</h4>
-          <h3>"Erweiterte Klassische" Web Anwendungen</h3>
-          <img
-            src="slides/images/webapp_arch_02_jquery.png"
-            style="border: 0; box-shadow: 0 0 0 0; height: 650px;"
-          />
-        </section>
-
-        <section>
-          <h4>Architektur</h4>
-          <h3>Single-Page-Anwendungen</h3>
-          <img
-            src="slides/images/abb-02c-spa-webapp-architecture.png"
-            style="border: 0; box-shadow: 0 0 0 0; height: 650px;"
-          />
         </section>
 
         <section id="react">
@@ -297,7 +235,9 @@
           </ul>
         </section>
         <section>
-          <h3>Unsere erste Komponente: Hello, World!</h3>
+          <h2>Unsere erste React-Komponente</h2>
+          <h3>Sehen wir uns die wichtigsten Konzepte einer React-Komponente im Code an</h3>
+
           <ul>
             <li>Schritt-für-Schritt (<code>blog-example/workspace</code>)</li>
           </ul>
@@ -354,165 +294,6 @@
   );
   </code></pre>
           </div>
-        </section>
-
-        <section data-state="js-exkurs">
-          <h3>Hintergrund: Arrow Functions</h3>
-        </section>
-        <section data-state="js-exkurs">
-          <h3>Arrow Functions #1</h3>
-          <pre><code class="javascript">
-  const greet = (msg) => {
-    return "Hello, " + msg;
-  }
-  
-  // oder ganz kurz
-  const greet => "Hello, " + msg;
-  
-  // Verhalten wie "normale Funktion"
-  greet("World"); // Hello, World
-  greet(null), // Hello, null
-  greet(); // Hello, undefined
-  
-  </code></pre>
-        </section>
-        <!-- ============================================================================= -->
-        <section data-state="js-exkurs">
-          <h3>Arrow Functions #2</h3>
-          <pre><code class="javascript">
-// Mehrere Parameter in Klammern
-const sum = (n1, n2) => n1 + n2;
-
-// Wenn Rückgabe-Wert Objekt ist, in () einschließen
-const createPerson = (last, first) => ({
-  lastName: last,
-  firstName: first
-});
-</code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section data-state="js-exkurs">
-          <h3>Hintergrund: ES6 Modulsystem</h3>
-          <p>Mit Modulen sind Dateiinhalte nicht mehr global sichtbar</p>
-          <p>Module bestimmen explizit, was außerhalb verwendet werden darf</p>
-          <p>
-            Module geben explizit an, was sie aus anderen Modulen verwenden wollen
-          </p>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section data-state="js-exkurs">
-          <h3>Module</h3>
-          <h4>Default Exporte</h4>
-          <p>
-            <em
-              >Objekte, Funktionen, Klassen etc müssen explizit <b>exportiert</b> und
-              <b>importiert</b> werden</em
-            >
-          </p>
-          <p class="fragment">Eine <code>export</code>-Anweisung macht aus einer Datei ein Modul</p>
-
-          <pre class="fragment"><code class="javascript">
-            // src/domain/Person.js
-            export default class Person { ... }
-
-            oder
-
-            class Person { ... }
-            export default Person
-          </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-              // src/domain/Person.js
-              export default function createPerson() { ... }
-  
-              oder
-  
-              function createPerson() { ... }
-              export default createPerson;
-            </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-                Nur EIN Default Export erlaubt;
-                export default function createPerson() { ... }
-                export default class Person { ... } // KONFLIKT
-              </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section data-state="js-exkurs">
-          <h3>Module</h3>
-          <h4>Importieren</h4>
-          <p class="fragment">
-            Beim importieren geben wir Pfade(!) zu einer anderen Datei (= anderes Modul) an
-          </p>
-
-          <pre class="fragment"><code class="javascript">
-              // src/domain/Musician.js
-              import Person from "./Person";
-  
-              export default class Musician extends Person { ... }
-            </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-                // src/App.js
-                import Musician from "./domain/Musician";
-  
-                const lemmy = new Musician("Lemmy", "Bass");
-              </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section data-state="js-exkurs">
-          <h3>Module</h3>
-          <h4>Benannte Exporte</h4>
-          <p class="fragment">
-            Ein Modul kann neben einem Default auch beliebig viele
-            <b>benannte Exporte</b> haben
-          </p>
-
-          <pre class="fragment"><code class="javascript">
-                // src/domain/Person.js
-                export default class Person { ...}
-                export function createPerson() { ... }
-                export function removePerson() { ... }
-              </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-                  // src/domain/Person.js
-                  export default class Person { ...}
-                  function createPerson() { ... }
-                  function removePerson() { ... }
-
-                  export { createPerson, removePerson }
-                </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section data-state="js-exkurs">
-          <h3>Module</h3>
-          <h4>Benannte Importe</h4>
-          <pre class="fragment"><code class="javascript">
-                    // src/App.js
-                    import { createPerson } from "./Person"
-              </code></pre>
-          <pre class="fragment"><code class="javascript">
-                // Default und benannten Export importieren
-                import Person, { createPerson } from "./Person"
-              </code></pre>
-          <pre class="fragment"><code class="javascript">
-                  // Alles importieren
-                  import { * as P } from "./Person"
-  
-                  P.createPerson();
-                </code></pre>
-          <pre class="fragment"><code class="javascript">
-                    // Umbennen
-                    import { createPerson as create } from "./Person"
-    
-                    create();
-                  </code></pre>
         </section>
 
         <section data-state="js-exkurs">
@@ -601,7 +382,7 @@ const createPerson = (last, first) => ({
         <section>
           <h3>Der Trainingsworkspace</h3>
           <ul class="x-list">
-            <li style="margin-bottom: 40px;"><code>2020_2506_oose.html</code>: Die Slides</li>
+            <li style="margin-bottom: 40px;"><code>2020_3006_zwei_tage.html</code>: Die Slides</li>
             <li class="fragment" style="margin-bottom: 40px;">
               Der Code ist im <code><b>blog-example</b></code> Verzeichnis
             </li>
@@ -670,11 +451,15 @@ const createPerson = (last, first) => ({
             </li>
 
             <li class="fragment">
-              <em>Optional:</em>
+              <em>Optional: mache ein paar Experimente mit der Komponente, zum Beispiel:</em>
               <ul>
                 <li>
                   Kannst Du unter dem Eingabefeld den gerade eingegebenen Text ausgeben lassen, so
                   dass dieser immer dem aktuellen Inhalt des Eingabefeldes entspricht?
+                </li>
+                <li>
+                  Wenn das Textfeld leer ist, soll ein Hinweis für den Benutzer ausgegeben werden
+                  ("Bitte Titel eingeben")
                 </li>
               </ul>
             </li>
@@ -907,21 +692,21 @@ function HelloWorld() {
                                       // ...
                                     }
                                                       </code></pre>
-
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                          // VERBOTEN:
-                          function HelloWorld() {
-                            const [greeting, setGreeting] = React.useState("");
-                            if (greeting === null) {
-                              return <h1>Please enter greeting first</h1>;
-                            }
-                            // ...
-                          }
-                                            </code></pre>
         </section>
         <section>
           <h3>React Hooks</h3>
           <em>Beispiele für korrekte und unerlaubte Verwendung #2</em>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            // VERBOTEN:
+            function HelloWorld() {
+              const [greeting, setGreeting] = React.useState("");
+              if (greeting === null) {
+                return <h1>Please enter greeting first</h1>;
+              }
+              // ...
+            }
+                              </code></pre>
+
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
               // VERBOTEN 
               function HelloWorld() {
@@ -1115,6 +900,10 @@ const address = { street: "Highway", city: "Hamburg" };
             <li>
               Modifiziere die useState-Aufrufe, so dass sie als initial Werte die entsprechenden
               Werte aus den Properties übernehmen (statt wie bisher ein Leerstring)
+            </li>
+            <li>
+              Die Komponente sollte weiterhin auch funktionieren, wenn der Aufrufer <em>keine</em>
+              Properties übergibt.
             </li>
             <li>
               Übergib bei der Verwendung von PostEditor in <code>index.js</code> Initial-Werte für
@@ -1377,10 +1166,78 @@ function App() {
         </section>
 
         <section>
-          <h3>Komponenten als Klassen</h3>
+          <h3>React: Rendering</h3>
+          <span class="fragment">
+            <p>
+              <em>Jede React Komponenten-Klasse braucht eine <code>render</code>-Methode:</em>
+            </p>
 
-          <p>Statt <b>useState</b>: State als this.state und this.setState()</p>
-          <p>Properties als this.props</p>
+            <ul>
+              <li>wird aufgerufen beim ersten Rendering und wenn sich der Zustand ändert</li>
+              <li>analog zur Komponente als Funktion</li>
+            </ul>
+          </span>
+        </section>
+
+        <section>
+          <h3>Properties einer Komponente</h3>
+          <ul class="fragment">
+            <li>Properties werden über den Konstruktor in die Komponente hineingereicht</li>
+            <li>
+              Zugriff über
+              <code>this.props</code>
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              class Header extends React.Component {
+                constructor(props) {
+                  super(props);
+                }
+  
+                render() {
+                  return (
+                    &lt;h1 style={{color: this.props.titleColor}}>{this.props.title}&lt;/h1>
+                  );
+                }
+              }
+              </code></pre>
+
+          <ul class="fragment">
+            <li>Zum Vergleich: Komponente als Funktion</li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                    function Header(props) {
+                        return (
+                          &lt;h1 style={{color: this.props.titleColor}}>{this.props.title}&lt;/h1>
+                        )
+                    }
+                    </code></pre>
+        </section>
+
+        <section>
+          <h3>Zustand einer Komponente</h3>
+          <ul>
+            <li class="fragment">
+              <b>Initialisieren</b> im Konstruktor mit <code>this.state={}</code>
+            </li>
+            <li class="fragment">Zustand <b>lesen</b> über <code>this.state</code></li>
+            <li class="fragment">
+              Zustand <b>setzen</b> über
+              <code>this.setState()</code>
+              <ul class="fragment">
+                <li><b>Achtung:</b> kein "reiner" Setter</li>
+                <li class="fragment">Führt alten und neuen Zustand zusammen</li>
+                <li class="fragment">Wird asynchron ausgeführt!</li>
+                <li class="fragment">
+                  <b>Löst erneutes rendern der <i>gesamten</i> Komponente aus</b>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Beispiel: State in Komponente als Klasse</h3>
 
           <pre><code data-trim contenteditable>
       import React from "react";
@@ -1402,31 +1259,17 @@ function App() {
               &lt;input 
                 value={this.state.title} 
                 onChange=
-                  {e => this.setState({title: e.target.value})}
+                  {event => this.setState({title: event.target.value})}
               />
               &lt;input 
-                value={this.state.body} 
-                onChange=
-                  {e => this.setState({body: e.target.value})}
+                    value={this.state.body} 
+                    onChange=
+                      {event => this.setState({body: event.target.value})}
               />
             &lt;/div>
           );
         }
       }</code></pre>
-        </section>
-
-        <section>
-          <h3>React: Rendering</h3>
-          <span class="fragment">
-            <p>
-              <em>Jede React Komponenten-Klasse braucht eine <code>render</code>-Methode:</em>
-            </p>
-
-            <ul>
-              <li>wird aufgerufen beim ersten Rendering und wenn sich der Zustand ändert</li>
-              <li>analog zur Komponente als Funktion</li>
-            </ul>
-          </span>
         </section>
 
         <section id="t-server">
@@ -1472,6 +1315,12 @@ function App() {
                   >
                 </li>
               </ul>
+            </li>
+            <li class="fragement">
+              Ausgereifte Hook API zum Arbeiten mit Server Requests:
+              <a href="https://github.com/tannerlinsley/react-query" target="_blank">
+                React Query</a
+              >
             </li>
           </ul>
         </section>
@@ -1873,6 +1722,7 @@ function App(props) {
 
             <li class="fragment">In <code>App.js</code> sind TODOs enthalten.</li>
             <li class="fragment">
+              Füge einen Loading Indicator hinzu
               <ul>
                 <li>
                   Wenn Du <code>?slow</code> an die URLs im <code>fetch</code>-Aufruf hängst, wird
@@ -1889,6 +1739,45 @@ function App(props) {
             </li>
           </ol>
         </section>
+        <section>
+          <h3>Komplexer Zustand</h3>
+          <p>
+            Wenn eine Komponente mehrere Zustände hält, die nicht unabhängig sind, kannst Du auch
+            ein Objekt als Zustand verwende:
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+function App() {
+  const [fetchState, setFetchState] = React.useState({
+    loading: false,
+    posts: []
+  });
+
+  ...;
+}              
+            </code></pre>
+          <p class="fragment">
+            Wenn Du den Zustand änerst, musst Du ein <b>neues Objekt</b> erzeugen! Das bestehende
+            Objekt darf nicht verändert werden
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+    function App() {
+      const [fetchState, setFetchState] ...;
+
+      // OK:
+      setFetchState({
+        loading: true
+      })
+
+      // FALSCH:
+      fetchState.loading = true;
+      setFechtState(fetchState)
+    }              
+        
+  </code></pre>
+        </section>
+
         <section>
           <h3>Custom Hooks</h3>
 
@@ -1919,23 +1808,6 @@ function App(props) {
             <li class="fragment">...dürfen andere (Custom) Hooks verwenden</li>
             <li class="fragment">
               ...beliebiger Rückgabewert möglich (alle Typen erlaubt, auch JSX!)
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Ein Custom Hook zum Laden von Daten</h3>
-          <p><em>Frage an Euch: Wie könnte ein Custom Hook zum Laden von Daten aussehen? </em></p>
-
-          <ul class="fragment">
-            <li>Wie sieht die API für unseren Hook aus? Welche Parameter werden benötigt?</li>
-            <li>Was gibt der Hook zurück?</li>
-          </ul>
-
-          <ul class="fragment">
-            <li>
-              Zugabe: Bekommen wir auch einen Hinweis für den Benutzer hin, wenn Daten geladen
-              werden (Loading Indicator)?
             </li>
           </ul>
         </section>
@@ -1979,9 +1851,9 @@ export default function useApi(url, initialValue) {
         </section>
 
         <section id="t-typescript">
-          <h1>Teil VI</h1>
+          <h1>Teil V</h1>
           <h2>React Anwendungen mit TypeScript</h2>
-          <p>Example: code/blog-example/steps/6-typescript</p>
+          <p>Example: code/blog-example/steps/5-typescript</p>
         </section>
 
         <section>
@@ -2503,14 +2375,7 @@ function PostEditor(props) {
           </div>
         </section>
         <section>
-          <h3>Übung 1: Typ Informationen hinzufügen</h3>
-          <p>
-            Für diese Übung musst Du im Workspace-Ordner <code>workspace-typescript</code>
-            arbeiten. Darin liegt die Anwendung in einer "halb fertigen" TypeScript-Variante
-          </p>
-        </section>
-        <section>
-          <h3>Typ Informationen hinzufügen</h3>
+          <h3>Übung: Typ Informationen hinzufügen</h3>
           <p>
             Füge die fehlenden Typ-Informationen in <code>PostList.js</code> und
             <code>PostEditor.js</code> hinzu
@@ -2531,7 +2396,7 @@ function PostEditor(props) {
         </section>
 
         <section id="t-test">
-          <h1>Part I</h1>
+          <h1>Part VI</h1>
           <h2>Testing React Applications</h2>
         </section>
 
@@ -3088,40 +2953,303 @@ test('it should render correctly', () => {
           </code></pre>
         </section>
 
+        <!-- ============================================================================= -->
         <section>
-          <h2>Exercise: write a test for the PostEditor</h2>
-          <p>Steps:</p>
-          <ol>
-            <li class="fragment">
-              Work inside <code>advanced/exercies/1_testing</code>
-              <p>Hint: only open this folder in your IDE</p>
-            </li>
-            <li class="fragment">Run <code>npm install</code> there</li>
-            <li class="fragment">Run <code>npm test</code> there (this process does not stop)</li>
-            <li class="fragment">
-              There is one failing test: the <code>PostEditor.test.tsx</code>.
-            </li>
-            <li class="fragment">Why? Because it's empty! It's up to you to implement the test</li>
-            <li class="fragment">Look inside the file to find more informations</li>
-            <li class="fragment">
-              Note: saving your test file should automatically re-run the tests, other press 'a' on
-              the command line
-            </li>
-            <li class="fragment">
-              In case you need help: ask your co-workers, ask me or find the solution at
-              <code>steps/1_testing</code>
-            </li>
-          </ol>
+          <h3>Option #3: Mock Service Worker (MSW)</h3>
+
+          <p><a href="https://github.com/mswjs/msw" target="_blank">MSW</a></p>
+          <p>Mocks real backend calls using a Service Worker</p>
+          <p>fetch-Calls are executed but responded by the service worker mock</p>
+
+          <pre class="fragment"><code class="javascript">
+            // PostList.test.js
+            import { rest } from 'msw'
+            import { setupServer } from 'msw/node'
+            
+            const server = setupServer(
+              rest.get('/posts', (req, res, ctx) => {
+                return res(ctx.json( mockPosts ))
+              }),
+            )
+
+            test("it should render blog list", async () => {
+              render(&lt;PostList />);
+              // ...
+            })
+          </code></pre>
         </section>
 
-        <section id="t-redux">
-          <h1>Teil VII</h1>
-          <h2>Redux</h2>
-          <h3>External Statemanagement</h3>
-          <p>Real World Example</p>
-          <p>(npm run start:withAuth)</p>
-          <p>(npm start in 5-redux)</p>
+        <section>
+          <h2>Übung: Ein Test für den PostEditor</h2>
+          <p>Schritte:</p>
+          <ol>
+            <li class="fragment">Arbeite in <code>blog-example/workspace-typescript</code></li>
+            <li class="fragment">
+              Starte in einem neuen Terminal <code>npm test</code> (der Prozess läuft "ewig")
+            </li>
+            <li class="fragment">
+              Es sollte einen fehlerhaften Test geben:
+              <b><code>PostEditor.test.tsx</code></b
+              >.
+            </li>
+            <li class="fragment">Warum? Weil der noch leer ist 😬!</li>
+            <li class="fragment">
+              Implementiere den fehlenden Test. In der Datei<b><code>PostEditor.test.tsx</code></b>
+              stehen TODOs dafür
+            </li>
+          </ol>
+          <p class="fragment">
+            Hinweis: wenn Du die Datei speicherst, werden die Tests automatisch neu ausgeführt
+            (solange Du
+            <code>npm test</code> noch laufen hast), ansonsten kannst Du "a" auf der Kommandozeile
+            drücken, zum erneuten Ausführen der Tests.
+          </p>
         </section>
+
+        <section id="t-router">
+          <h1>Teil VII</h1>
+          <h2>Client-side Routing</h2>
+
+          <p>Example: blog-example/steps/7a-router-with-typescript</p>
+        </section>
+        <section>
+          <h2>Why routing?</h2>
+          <span>
+            <p>
+              Map URLs to Components
+              <br />
+              <span style="font-size: 80%;"
+                >(Navigation through the application without server round-trips!)</span
+              >
+            </p>
+          </span>
+          <span>
+            <p>
+              URLs can contain state of the application
+              <br />
+              <span style="font-size: 80%;"
+                >What "Page" is visible (Blog List, Add Form or Blog Post)?</span
+              >
+              <br />
+              <span style="font-size: 80%;">Which blog post should be rendered (postId)</span>
+            </p>
+          </span>
+        </section>
+
+        <section>
+          <h2>React Router</h2>
+          <ul>
+            <li>
+              Current version 5.1:
+              <a href="https://reacttraining.com/react-router/" target="_blank">
+                https://reacttraining.com/react-router/</a
+              >
+            </li>
+            <li>Not part of React</li>
+            <li>but de-facto Standard</li>
+            <li>Since Version 5.1 with Hooks API (useParams, useLocation, useHistory)</li>
+          </ul>
+        </section>
+        <section>
+          <h3>The Router Object</h3>
+          <p class="fragment">
+            Top-Level object, that needs to be included at the top of the application's component
+            hierarchy
+          </p>
+          <p class="fragment">
+            Mulitple implementations that differ how they interact with URL and browser history:
+          </p>
+          <ul>
+            <li class="fragment">
+              <b>HashRouter</b>: adds the path after appended hash (#/post/1) <br />👉Example: check
+              network request after changing the URL
+            </li>
+            <li class="fragment">
+              <b>BrowserRouter</b>: puts the path directly in the URL (/post/1) <br />(You need to
+              configure your web server accordingly)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router} from "react-router-dom";
+      
+      const app = &lt;Router>&lt;App/>&lt;/Router>;
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Which component should be rendered for a path?</h3>
+          <p class="fragment">The <code>Route</code> object maps paths to components</p>
+          <ul>
+            <li class="fragment">
+              Can be used whereever you want to select a component based on a path
+              <ul>
+                <li>
+                  comparable with an "intelligent" <code>if</code> or <code>switch</code> statement
+                </li>
+                <li>can be used everywhere in your components</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Use the <code>path</code> attribute to specify the path that should match when the
+              component should be rendered
+            </li>
+            <li class="fragment">Specify the component as children of the Route component</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router, Route} from "react-router-dom";
+      
+      const app = &lt;Router>
+        &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
+        &lt;Route path="/add">&lt;AddPostPage onAdd={...} />&lt;/Route>
+        &lt;Route path="/" exact>&lt;BlogListPage />&lt;/Route>
+      &lt;/Router>;
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Background: Paths</h3>
+          <p>
+            In the Route component you specify a <b>path</b>, that is compared against the current
+            URL
+          </p>
+
+          <ul>
+            <li>
+              Paths by default are valid for parts of strings, but you can change the behaviour by
+              adding <code>exact</code>
+            </li>
+            <li>A Route without <code>path</code> matches always</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      // matches  / and /post
+      &lt;Route path="/">...&lt;/Route>
+      
+      // matches only /
+      &lt;Route path="/" exact>...&lt;/Route>
+      
+      // matches any URL:
+      &lt;Route>...&lt;/Route>
+      
+              </code></pre>
+          <ul>
+            <li class="fragment">A Path can contain variable segments:</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      &lt;Route path="/posts/:postId">&lt;BlogPostPage/>&lt;/Route>
+           </code> </pre>
+          <ul>
+            <li class="fragment">
+              Values of the variables can be read using the <code>useParams</code> hook in your
+              component:
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                import { useParams } from "react-router";
+
+                function BlogPostPage() {
+                  const params = useParams();
+
+                  // params.postId contains the id from the URL
+                </code></pre>
+        </section>
+        <section>
+          <h3>Switch</h3>
+          <ul>
+            <li class="fragment">
+              If multiple path expression match, multiple components will be rendered (for example
+              "/" and "/post")
+            </li>
+            <li class="fragment">
+              <code>Switch</code> ensures that only the für component will be rendered (like regular
+              switch with a break after each case)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router, Route, Switch} from "react-router-dom";
+      
+      const app = (
+        &lt;Router>
+          &lt;Switch>
+            &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
+            &lt;Route path="/" exact>&lt;BlogListPage/>&lt;/Route>
+      
+            // "No match": without path
+            &lt;Route>&lt;NotFoundPage/>&lt;/Route>
+      
+          &lt;/Switch>
+        &lt;/Router>
+      );
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Links</h3>
+          <p>
+            Using the <code>Link</code> or <code>NavLink</code> component you can create HTML links
+          </p>
+          <ul>
+            <li>Use <code>to</code> to specify the target path</li>
+            <li>Link creates an <code>a</code> HTML element</li>
+            <li>
+              "Local" URLs will be rendered according to the selected Router implementation (with
+              hash or without)
+            </li>
+            <li>
+              With <code>activeClassName</code> and <code>activeStyle</code> on
+              <code>NavLink</code> you can specify styles and classnames that get applied if the
+              current route is the same route as specified in "to" ("active" route)
+            </li>
+          </ul>
+
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {Link, NavLink} from "react-router-dom";
+      
+      &lt;Link to='/'>Show all Posts&lt;/Link>
+      
+      // Generted 'a' element contains 'highlight' CSS class, when it's the active route
+      &lt;NavLink to='/add' activeClassName="highlight">Add Post&lt;/NavLink>
+      
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>The history-Objekt</h3>
+          <p>The <code>history</code> object can be used to interact with the Browser history</p>
+          <p>
+            You can jump to another location or get the current location from the browser
+          </p>
+          <p class="fragment">
+            The history object is available using the <code>useHistory</code> hook from React Router
+          </p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import { useHistory } from "react-router";
+
+      function App() {
+        const history = useHistory();
+
+        function onAdd(newBlogPost) {
+           ...
+
+           // go to new URL
+           history.push("/"); 
+        }
+
+        return ...;
+      }
+              </code></pre>
+        </section>
+
+        <section id="t-state">
+          <h1>Teil VIII</h1>
+          <h2>Zustands-Management mit Redux oder React Context API</h2>
+        </section>
+
         <section>
           <h2>Eine typische React-Anwendung in Komponenten</h2>
           <h3>Frage an Euch: was könnte es für Probleme geben?</h3>
@@ -3156,316 +3284,379 @@ test('it should render correctly', () => {
         </section>
 
         <section>
-          <h3>Remember...</h3>
+          <h3>External Statemanagement</h3>
+          <div class="fragment">
+            <p>Habt ihr Ideen?</p>
+            <p>Wie können wir Zustand und/oder Logik aus den Komponenten befreien?</p>
+          </div>
+        </section>
+
+        <section id="t-context">
+          <h2>Context API</h2>
+          <p>Beispiel: <code>blog-example/steps/30-complete-app-with-hooks</code></p>
+        </section>
+
+        <section>
+          <h3>Context Api Live Introduction</h3>
+          <p>(advanced/exercise/4_context)</p>
+        </section>
+
+        <section>
+          <h2>Context...</h2>
+          <p>
+            <em
+              >erlaubt das Durchreichen von Informationen ohne explizites angeben als Properties</em
+            >
+          </p>
+
+          <ul>
+            <li class="fragment">funktioniert nur innerhalb einer Hierarchie-Ebene</li>
+            <li class="fragment">es können beliebg viele (fachliche) Context definiert werden</li>
+            <li class="fragment">besteht aus <code>Provider</code> und <code>Consumer</code></li>
+            <li class="fragment">
+              <a href="https://reactjs.org/docs/context.html" target="_blank">Doku</a>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Context Factory</h2>
+          <p>
+            <em>erzeugt ein Objekt, mit <b>zwei Komponenten</b></em>
+          </p>
+          <ul>
+            <li class="fragment">
+              <code>Provider</code>, stellt Objekt mit Key-Value-Paaren zur Verfügung (der
+              Context-"Value")
+            </li>
+            <li class="fragment">
+              <code>Consumer</code> wird in eigener Komponente verwendet, um auf einen Context
+              zuzugreifen ("versteckt" durch useContext Hook)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                      import react from "React";
+
+                      const AuthContext = React.createContext();
+
+                      // erzeugt:
+                      // AuthContext.Provider 
+                      // AuthContext.Consumer
+                              </code></pre>
+        </section>
+
+        <section>
+          <h2>Context Provider</h2>
+          <p><em>Eine React-Komponente, die einen Context zur Verfüng stellt</em></p>
+          <ul>
+            <li class="fragment">
+              wird innerhalb einer eigenen Komponente in <code>render</code> eingebunden
+            </li>
+            <li class="fragment">Nimmt ein Objekt ("Context") mit beliebigen Werten entgegen</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                      const AuthContext = React.createContext();
+
+                      function AuthProvider() {
+                          const [ currentUser, setCurrentUser ] = React.useState(null);
+                          const contextValue = {
+                            // the current theme
+                            currentUser,
+                      
+                            // function to set new theme
+                            login: name => setCurrentUser(name),
+                            logout: () => setCurrentUser(null)
+                          };
+                      
+                          return &lt;AuthContext.Provider value={contextValue}>
+                            {props.children}
+                          &lt;/AuthContext.Provider>;
+                        }
+                      }                    
+</code></pre>
+        </section>
+
+        <section>
+          <h2>useContext-Hook</h2>
+          <p><em>Zugriff auf die Werte aus dem Context</em></p>
+          <p>
+            In allen Komponenten unterhalb der Provider Komponente, kann mit useContext auf den
+            Kontext zugegriffen werden
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+function UserBadge() {
+  const { currentUser } = React.useContext(AuthContext);
+
+  return currentUser  ? &lt;h1>Welcome, {currentUser}&lt;h1> : null;
+}            
+          </code></pre>
+
+          <p class="fragment">Aufrufen einer Funktion aus dem Context</p>
+          <p class="fragment">Ändert im Context den Zustand der Provider-Komponente</p>
+          <p class="fragment">Alle Konsumer werden neu gerendert</p>
+          <pre class="fragment"><code class="javascript">
+function UserBadge() {
+  const { currentUser, logout } = React.useContext(AuthContext);
+
+  return currentUser  ? 
+    &lt;>&lt;h1>Welcome, {currentUser}&lt;h1>&lt;button onClick={logut}>Logout&lt;/button>&lt;/> 
+    : null;
+}                
+          </code></pre>
+        </section>
+
+        <section id="t-redux">
+          <h2>Redux</h2>
+          <h3>External Statemanagement</h3>
+        </section>
+
+        <section>
+          <h3>Wiederholung</h3>
           <h2>Render Cycle in Pure React</h2>
           <img src="slides/images/redux-01-react-cycle-no-redux.png" style="height: 650px;" />
         </section>
 
         <section>
-          <h2>Redux moves responsibilities out of your component...</h2>
+          <h2>Redux extrahiert die Verantwortlichkeiten</h2>
           <img src="slides/images/redux-02-extracting-responsibility.png" style="width: 900px;" />
         </section>
-
         <section>
-          <h2>Redux step-by-step</h2>
-          <p>(npm start in workspace-redux)</p>
+          <h2>Demo: Redux & Redux Devtools</h2>
+          <a href="http://localhost:8080/" target="_blank">Ziel-Anwendung</a>
+          <p>(npm start in code/schritte/redux/7-redux-complete-app)</p>
         </section>
 
         <section>
-          <h2>All parts of Redux</h2>
+          <h2>Redux im Code</h2>
+          <p>(npm start in advanced/workspace-redux)</p>
         </section>
 
         <section>
-          <h3>Action Creators</h3>
+          <h2>Strukturierter Überblick über alle Redux Teile</h2>
+        </section>
+
+        <section>
+          <h3>Event-Handlers werden Action-Creators</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  export function setBlogListSort(sortBy, direction) {
-    return {
-      type: "SET_BLOGLIST_SORT",
-      sortBy,
-      direction,
-    };
-  }
-  </code></pre>
-          <ul>
-            <li class="fragment">Action-Creators create action objects</li>
-            <li class="fragment">
-              They should hide the internal action structure from your application (it's
-              questionable if it's worth the effort)
-            </li>
-            <li class="fragment">
-              Actions are simple JavaScript objects that should describe Events that happend in your
-              application (questionable, some say they should express what the application should
-              do)
-            </li>
-            <li class="fragment">
-              Using the <code>dispatch</code> function they are forwarded to <em>all</em> Reducers
-              (<em>all</em> reducers receive <em>all</em> actions)
-            </li>
-            <li class="fragment">
-              Actions contain a <b>type</b> and a <b>payload</b>. The payload is userdefined, Redux
-              doesn't care.
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Dispatching Actions</h3>
-          <ul>
-            <li class="fragment">
-              Actions will be dispatched using the <code>dispatch</code> function that is returned
-              by the <code>useDispatch</code> hook
-            </li>
-          </ul>
-
-          <pre class="fragment"><code class="javascript">
-  import { useDispatch } from "react-redux"
-  
-  function LogoutForm() {
-    const dispatch = useDispatch();
-  
-    function handleLogout() {
-      dispatch(logoutAction());
-    }
-  
-    return &lt;button onClick={handleLogoutClickEvent}>Logout&lt;/button>;
-  }
-            </code></pre>
-        </section>
-
-        <section>
-          <h3>Action creators can be used for async code (e.g. data fetching)</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  export const loadPost = postId => dispatch => {
-  fetch(BACKEND_URL+'/'+postId)
-      .then(response => response.json())
-      .then(post => dispatch({
-          type: ADD_POST,
-          post
-      });
+export function setFilter(filter) {
+  return {
+    type: SET_FILTER,
+    filter
   };
-  </code></pre>
+}
+</code></pre>
           <ul>
+            <li class="fragment">Action-Creators erzeugen Action-Objekte</li>
             <li class="fragment">
-              An action creator does not return the action but a <em>thunk function</em> that
-              <b>later</b> dispatches the action
+              Actions sind Kommando-artige Strukturen von Dingen, die die Applikation tun soll
             </li>
             <li class="fragment">
-              The returned <em>thunk function</em> will be invoked by redux immediatley. The
-              <em>thunk function</em> receives the <code>dispatch</code>-function
+              Über die dispatch-Methode des Stores werden sie an <em>alle</em> Reducer weiter
+              gegeben
             </li>
             <li class="fragment">
-              Inside the <em>thunk function</em> we can use the dispatch function to dispatch one or
-              more events (for example: loadingDataStarted, dataReceived)
+              Actions bestehen aus einem Typen und einer beliebigen Nutzlast (payload)
             </li>
           </ul>
         </section>
 
         <section>
-          <h3>There is <em>only one</em> store, that contains the <em>whole</em> (Redux) state</h3>
-          <p>Disclaimer: not all of your app state needs to be in redux</p>
+          <h3>Action-Creators machen Server-Calls</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  import { Provider } from 'react-redux';
-  import { createStore } from 'redux';
-  import { rootReducer } from './reducers';
-  
-  // http://redux.js.org/docs/api/createStore.html
-  const store = createStore(
-    rootReducer // reducer
-  );
-  
-  ReactDOM.render(
-    &lt;Provider store={store}>
-      &lt;App />
-    &lt;/Provider>,
-    document.getElementById("...")
-  );
-      </code></pre>
+export const loadPost = postId => dispatch => {
+fetch(BACKEND_URL+'/'+postId)
+    .then(response => response.json())
+    .then(post => dispatch({
+        type: ADD_POST,
+        post
+    });
+};
+</code></pre>
           <ul>
             <li class="fragment">
-              The store will be made available to all components via the <em>Provider</em> component
+              Die Action wird nicht direkt zurück geliefert, sondern erst später dispatched
+            </li>
+            <li class="fragment">
+              wir bekommen die dispatch Methode als Parameter, mit der wir später die Action
+              dispatchen
             </li>
           </ul>
-        </section>
-        <section>
-          <h3>Middleware between Dispatch and Store</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  import { applyMiddleware } from 'redux';
-  import thunk from 'redux-thunk';
-  
-  const store = createStore(
-    rootReducer, // reducer
-    applyMiddleware(thunk) // middleware as enhancer
-  );
-      </code></pre>
-          <ul>
-            <li class="fragment">
-              Allows you to 'plug-in' between a dispatched action and the store
-            </li>
-            <li class="fragment">Often used for logging or for thunk actions</li>
-            <li class="fragment">
-              Middleware is an advanced feature that you might not need very often (beside thunk
-              middleware)
-            </li>
-          </ul>
-        </section>
-        <section>
-          <h3>Sum up</h3>
-          <ol>
-            <li class="fragment">We create an Action, using an Action Creator</li>
-            <li class="fragment">The action will be passed through all middlewares</li>
-            <li class="fragment">If no middleware vetoes, the Action reaches the Store</li>
-            <li class="fragment">The store dispatches the Action to all Reducers</li>
-          </ol>
+          <p class="fragment">
+            <strong
+              >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
+              Operationen ausführen dürfen</strong
+            >
+          </p>
         </section>
 
         <section>
-          <h3>Reducers contains your business logic</h3>
-          <ul>
-            <li class="fragment">
-              Idea/Recommendation: put as much business logic as possible in reducers
-            </li>
-            <li class="fragment">You can have more than one reducer</li>
-          </ul>
+          <h3>Ein <em>einziger</em> Store hält den <em>kompletten</em> Zustand</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  import {combineReducers} from 'redux';
-  
-  // http://redux.js.org/docs/api/combineReducers.html
-  export const rootReducer = combineReducers({
-    posts, // Blog Posts
-    auth,   // Current User
-    options // View Options (Search Order)
-  });
-      </code></pre>
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { rootReducer } from './reducers';
+
+// http://redux.js.org/docs/api/createStore.html
+const store = createStore(
+rootReducer // reducer
+);
+ReactDOM.render(
+&lt;Provider store={store}>
+    &lt;App />
+&lt;/Provider>,
+mountNode
+);
+    </code></pre>
           <ul>
+            <li class="fragment">Zentraler Teil der Anwendung</li>
+            <li class="fragment">Liefert die bereits bekannte dispatch-Methode</li>
             <li class="fragment">
-              Reducers are <em>pure functions</em> that receive their old state and an action. They
-              might handle that action and return a new state.
-            </li>
-            <li class="fragment">
-              You can have more than one reducer in your app. The return values of all reducers
-              shapes the store. A reducer cannot see the "partial state" ("slice") of another
-              reducer.
+              Der Store wird allen Componenten über die Wrapper-Komponenten <em>Provider</em>
+              zur Verfügung gestellt
             </li>
           </ul>
         </section>
 
         <section>
-          <h3>Reducer</h3>
+          <h3>Middleware zwischen Dispatch und Store</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  const auth = (state = {}, action) => {
-  switch (action.type) {
-      case "LOGIN":
-          return { currentUser: action.username };
-      case "LOGOUT":
-          return {};
-      default:
-          return state;
-    }
-  };
-      </code></pre>
+import { applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+
+const store = createStore(
+  rootReducer, // reducer
+  applyMiddleware(thunk) // middleware as enhancer
+);
+    </code></pre>
           <ul>
+            <li class="fragment">Die Thunk Middleware dient als de-facto-Standard</li>
             <li class="fragment">
-              A reducer must initialize it's initial state (often with default parameter)
+              Gibt die dispatch-Methode and (asynchrone) Action Creators weiter
             </li>
             <li class="fragment">
-              Never mutates the old state, but creates a new one (for example a copy)
+              <a href="https://github.com/gaearon/redux-thunk#whats-a-thunk" target="_blank">
+                'A thunk is a function that wraps an expression to delay its evaluation'
+              </a>
             </li>
             <li class="fragment">
-              Library <a href="https://github.com/immerjs/immer">immer</a> can help with simplifying
-              immutable code
+              Middleware ist ein fortgeschrittenes Feature und meistens genügt die Thunk Middleware
             </li>
           </ul>
         </section>
 
         <section>
-          <h3>useSelector: Access global state</h3>
+          <h3>Reducers enthalten die Kern-(Business)-Logik</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  import { useSelector } from 'react-redux';
-  
-  function App() {
-    const currentUser = useSelector(state => state.auth.currentUser);
-    ...
+import {combineReducers} from 'redux';
+
+// http://redux.js.org/docs/api/combineReducers.html
+export const rootReducer = combineReducers({
+posts, // Blog Posts
+auth   // Aktueller Benutzer
+});
+    </code></pre>
+          <ul>
+            <li class="fragment">
+              Reducer sind pure Funktionen, die den alten Zustand und eine Action bekommen und einen
+              neuen Zustand erzeugen
+            </li>
+            <li class="fragment">Oft bearbeitet ein Reducer nur einen Teil des Zustands</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Teil-Reducer</h3>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+const auth = (state = {}, action) => {
+switch (action.type) {
+    case "LOGIN":
+        return { currentUser: action.username };
+    case "LOGOUT":
+        return {};
+    default:
+        return state;
   }
-  </code></pre>
+};
+    </code></pre>
           <ul>
-            <li class="fragment">useSelector takes a <em>selector function</em></li>
             <li class="fragment">
-              The selector function is invoked by redux and gets the <em>whole state</em> as
-              parameter
+              Initialisiert seinen Teilzustand (oft mit einem Default-Parameter)
             </li>
+            <li class="fragment">Ändert niemals zustand direkt</li>
             <li class="fragment">
-              It returns the parts of the state, the component is interessted in
-            </li>
-            <li class="fragment">
-              You can use more than on useSelector call in your component and you should return
-              primitives from your selector function (no objects)
+              Sondern liefert einen neuen Zustand (manchmal teilweise als Kopie)
             </li>
           </ul>
         </section>
 
         <section>
-          <h3>useSelector #2: TypeScript</h3>
-          <ul>
-            <li class="fragment">
-              You can add a type parameter to <code>useSelector</code>, that describes your global
-              store
-            </li>
-            <li class="fragment">
-              Inside the selector callback function you than have type safety
-            </li>
-          </ul>
+          <h3>useSelector: Auf den globalen Zustand zugreifen</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  import { useSelector } from 'react-redux';
-  
-  function App() {
-    const currentUser = useSelector( 
-      (state: MyAppState) => state.auth.currentUser // OK
-    ); 
-  
-    const invalidUser = useSelector(
-      (state: MyAppState) => state.auth.currentUer // ERR: currentUer not defined
-    ); 
-    
-    ...
-  }
-  </code></pre>
+import { useSelector } from 'react-redux';
+
+function App() {
+  const currentUser = useSelector(state => state.auth.currentUser);
+  ...
+}
+</code></pre>
+        </section>
+        <section>
+          <h3>useDispatch: Actions auslösen</h3>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+      import { useDispatch } from 'react-redux';
+      
+      import * as actions from './actions';
+      
+      function App() {
+        const dispatch = useDispatch();
+
+        async function login(newUser) {
+          await dispatch(actions.login(newUser));
+        }
+        ...
+      }
+    </code></pre>
         </section>
 
         <section>
-          <h2>Summary redux architecture</h2>
+          <h2>Zusammenfassung Redux-Architektur</h2>
           <img
             src="slides/images/redux-03-resulting-redux-architecture.png"
             style="max-height: 650px;"
           />
         </section>
+
         <section>
-          <h3>Redux Toolkit</h3>
-          <em
-            >"The official, opinionated, batteries-included toolset for efficient Redux
-            development"</em
-          >
-          <ul>
-            <li><a href="https://redux-toolkit.js">https://redux-toolkit.js.org/</a></li>
-            <li>Pre-configured (including thunk and immer)</li>
-            <li>Simplifies implementing action creators and reducers</li>
-          </ul>
+          <h3>Lokaler State ist weiterhin erlaubt!</h3>
+          <p>Es gibt unterschiedliche Arten von "State"</p>
+
+          <img src="slides/images/three-kinds-of-state.png" style="max-height: 650px;" />
         </section>
 
         <section>
-          <h3>Local state is still "allowed"!</h3>
-          <p>There are a lot of places where you can hold state</p>
-          <ul>
-            <li class="fragment">Server and client</li>
-            <li class="fragment">Component State</li>
-            <li class="fragment">Redux</li>
-            <li class="fragment">URL, Session or Local Storage</li>
-          </ul>
+          <h3>Redux vs Context</h3>
+          <p class="fragment">
+            Redux hat Dev Tools, Time Travelling, Middlewares, globale Actions und Reducers/State
+          </p>
+          <p class="fragment">Redux ist sehr optimiert für Performance (häufige Updates)</p>
+          <p class="fragment">Context von der API her einfacher (aber auch nicht so mächtig)</p>
+          <p class="fragment">
+            Redux lässt feingranularere Auswahl aus dem globalen Zustand zu (verhindert unnötige
+            Renderings)
+          </p>
+        </section>
 
-          <img
-            class="fragment"
-            src="slides/images/three-kinds-of-state.png"
-            style="max-height: 650px;"
-          />
+        <section>
+          <h3>Redux vs Context</h3>
+          <h3><em>Wie entscheiden wir uns?</em></h3>
+          <p class="fragment">
+            Entscheidung 1: Mischform: Redux <b>und</b> Context? Oder: Redux <b>oder</b> Context
+          </p>
+          <p class="fragment">Entscheidung 2: Was kommt wohin?</p>
+          <p class="fragment">Auth-State (eingeloggter Benutzer)</p>
+          <p class="fragment">Api-State: Netzwerk Request(s) laufen gerade</p>
+          <p class="fragment">Draft-Post: editierters, neues, Post</p>
         </section>
 
         <section>
