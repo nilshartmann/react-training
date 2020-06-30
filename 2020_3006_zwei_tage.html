@@ -178,10 +178,20 @@
               </ul>
             </li>
 
-            <li class="fragment">Bewusste Verstöße gegen Best-Practices
+            <li class="fragment">
+              Bewusste Verstöße gegen Best-Practices
               <ul>
-                <li><a href="https://www.youtube.com/watch?v=x7cQ3mrcKaY" target="_blank">Pete Hunt: Rethinking Best Practices (YouTube)</a></li>
-                <li><a href="https://www.youtube.com/watch?v=DgVS-zXgMTk" target="_blank">Pete Hunt: Rethinking Best Practices, update (YouTube)</a></li>
+                <li>
+                  <a href="https://www.youtube.com/watch?v=x7cQ3mrcKaY" target="_blank"
+                    >Pete Hunt: Rethinking Best Practices (YouTube)</a
+                  >
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/watch?v=DgVS-zXgMTk" target="_blank"
+                    >Pete Hunt: Rethinking Best Practices, update (YouTube)</a
+                  >
+                </li>
+              </ul>
             </li>
           </ul>
         </section>
@@ -707,6 +717,7 @@ function HelloWorld() {
               if (greeting === null) {
                 return <h1>Please enter greeting first</h1>;
               }
+              const [name, setName] = React.useState("");
               // ...
             }
                               </code></pre>
@@ -747,7 +758,7 @@ function HelloWorld() {
                 // type, onChange und value sind Properties!
 
                 return (
-                  &lt;input type="text" onChange={() => ...} value={title}&lt;/h1>
+                  &lt;input type="text" onChange={() => setTitle("...")} value={title}&lt;/h1>
                 );
               }
             }
