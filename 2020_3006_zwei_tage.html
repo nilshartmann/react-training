@@ -2312,8 +2312,12 @@ function App() {
             DOM Events wrappen (und so "ähnlich" aussehen)
           </p>
           <p class="fragment">
-            Der Typ-Parameter für ein Event muss auf den Typ des HTML Elements gesetzt werden, dass
-            das Event auslöst
+            In TypeScript gibt es für die konkreten Events eigene Typen (z.B. ChangeEvent,
+            MouseEvent)
+          </p>
+          <p class="fragment">
+            Die Event-Typen erwarten einen Typ-Parameter, der auf den Typ des HTML Elements gesetzt
+            werden muss, das das Event auslöst
           </p>
           <p class="fragment">
             TypeScript kennt dann die Eigenschaften des Events bei der Verarbeitung
@@ -2323,7 +2327,7 @@ function App() {
 function PostEditor(props) {
   const [title, setTitle] = React.useState("");
 
-  function handleChange(e: React.SyntheticEvent&lt;HTMLInputElement>) {
+  function handleChange(e: React.ChangeEvent&lt;HTMLInputElement>) {
     setTitle(e.currentTaget.value);
   }
 
@@ -2659,6 +2663,11 @@ test('it should render correctly', () => {
             Philosophy: tests are written from a user perspective. To find your elements you want to
             test, you use properties the user also sees (like labels, aria roles, etc)
           </p>
+          <p class="fragment">👉 <code>workspace-typescript</code></p>
+        </section>
+        <section>
+          <h3>react-testing-library</h3>
+          <p>Example</p>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
             import { render, screen } from "@testing-library/react";
             import userEvent from "@testing-library/user-event";
@@ -2924,6 +2933,12 @@ test('it should render correctly', () => {
               expect(screen.getByText("Second Post")).toBeInTheDocument();
             });
           </code></pre>
+          <p class="fragment">
+            Example:
+            <code
+              >blog-example/steps/6a-testing-with-api-module/src/__tests__/App_module_mock.test.tsx</code
+            >
+          </p>
         </section>
         <section>
           <h3>Option #2: Mocking fetch</h3>
@@ -2951,6 +2966,12 @@ test('it should render correctly', () => {
             });
 
           </code></pre>
+          <p class="fragment">
+            Example:
+            <code
+              >blog-example/steps/6a-testing-with-api-module/src/__tests__/App_jest_mock.test.tsx</code
+            >
+          </p>
         </section>
 
         <!-- ============================================================================= -->
@@ -3003,6 +3024,25 @@ test('it should render correctly', () => {
             (solange Du
             <code>npm test</code> noch laufen hast), ansonsten kannst Du "a" auf der Kommandozeile
             drücken, zum erneuten Ausführen der Tests.
+          </p>
+        </section>
+
+        <section>
+          <h2>Browser Tests</h2>
+          <p>Often used:</p>
+          <ul>
+            <li class="fragment">
+              <a href="https://www.selenium.dev/">Selenium - The "classic"</a>
+            </li>
+            <li class="fragment">
+              <a href="https://devexpress.github.io/testcafe/" target="_blank">TestCafe</a> (with
+              support for lots of Browsers including
+              <a href="https://www.browserstack.com/" target="_blank">BrowserStack</a>
+            </li>
+            <li class="fragment"><a href="https://www.cypress.io/" target="_blank">Cypress</a></li>
+          </ul>
+          <p class="fragment">
+            In TestCafe and TypeScript you're writing Test Cases in JavaScript/TypeScript
           </p>
         </section>
 
