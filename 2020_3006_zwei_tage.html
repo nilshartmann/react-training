@@ -3175,9 +3175,12 @@ test('it should render correctly', () => {
       &lt;Route>...&lt;/Route>
       
               </code></pre>
-          <ul>
-            <li class="fragment">A Path can contain variable segments:</li>
-          </ul>
+        </section>
+        <section>
+          <h3>Background: Paths</h3>
+          <p>
+            A Path can contain variable segments:
+          </p>
           <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
       &lt;Route path="/posts/:postId">&lt;BlogPostPage/>&lt;/Route>
            </code> </pre>
@@ -3233,7 +3236,16 @@ test('it should render correctly', () => {
           <p>
             Using the <code>Link</code> or <code>NavLink</code> component you can create HTML links
           </p>
-          <ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+            import {Link, NavLink} from "react-router-dom";
+            
+            &lt;Link to='/'>Show all Posts&lt;/Link>
+            
+            // Generates 'a' element contains 'highlight' CSS class, when it's the active route
+            &lt;NavLink to='/add' activeClassName="highlight">Add Post&lt;/NavLink>
+            
+                    </code></pre>
+          <ul class="fragment">
             <li>Use <code>to</code> to specify the target path</li>
             <li>Link creates an <code>a</code> HTML element</li>
             <li>
@@ -3246,16 +3258,6 @@ test('it should render correctly', () => {
               current route is the same route as specified in "to" ("active" route)
             </li>
           </ul>
-
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-      import {Link, NavLink} from "react-router-dom";
-      
-      &lt;Link to='/'>Show all Posts&lt;/Link>
-      
-      // Generted 'a' element contains 'highlight' CSS class, when it's the active route
-      &lt;NavLink to='/add' activeClassName="highlight">Add Post&lt;/NavLink>
-      
-              </code></pre>
         </section>
 
         <section>
