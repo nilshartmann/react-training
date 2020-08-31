@@ -1,6 +1,7 @@
 import React from "react";
 import PostList from "./PostList";
 import mockPosts from "./mock";
+import PostEditor from "../../../steps/4-remote/src/PostEditor";
 
 function App() {
   const [posts, setPosts] = React.useState(mockPosts);
@@ -26,20 +27,21 @@ function App() {
   /*
       TODO:
 
-      1. Return your existing PostEditor component here (instead of null)
-          - Add a callback function to your PostEditor that invokes the "savePost"-function (see above)
-            when add is clicked in the PostEditor
+      1. Add the add-Button in your PostEditor component 
+            - the add-Button should invoke a callback function from the PostEditor's 
+              properties (onSavePost). 
+            - the callback function should take ONE argument, that is an OBJECT
+              containing the new blog post with 'title' and 'body':
+                onSavePost({ title: ..., body: ... });
 
-      2. Add the add-Button in your PostEditor component 
-
-      Optional:
-
-      3. Add a cancel button to your PostEditor that closes the Editor and displays the
-         List again (don't save any data)
-
+      2. Add a callback function to your PostEditor
+            - the callback function should add the new blog post to your list
+            - You can modify the existing list like this: 
+                const newState = [newPostFromPostEditor, ...posts];
+                setPosts(newState);
     */
 
-  return null;
+  return <PostEditor />;
 }
 
 export default App;
