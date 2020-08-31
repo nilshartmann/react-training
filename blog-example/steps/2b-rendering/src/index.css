@@ -206,11 +206,29 @@ article h1 {
 }
 
 .Border {
-  border: 1px solid gray;
+  border: 0.5px solid gray;
   padding: 0.5rem;
   margin: 0.5rem;
 }
 
 .Flex_1 {
   flex: 1;
+  max-width: 50%;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+textarea, input: {
+  max-width: 100%;
+}
+
+.Text {
+  white-space: pre-wrap; /* CSS3 */
+  white-space: -moz-pre-wrap; /* Firefox */
+  white-space: -pre-wrap; /* Opera <7 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* IE */
 }

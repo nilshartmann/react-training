@@ -1,7 +1,7 @@
 import React from "react";
 
 function Text({ text }) {
-  return <div className="Border">Text: {text}</div>;
+  return <div className="Border Text">Text: {text}</div>;
 }
 
 function Left({ text }) {
@@ -20,6 +20,18 @@ function Right({ text }) {
       <Text text={text} />
     </div>
   );
+}
+
+function Button({ children, ...props }) {
+  return <button {...props}>{children}</button>;
+}
+
+const Input = React.forwardRef(function Input(props, ref) {
+  return <input {...props} ref={ref} />;
+});
+
+function Textarea(props) {
+  return <textarea {...props} />;
 }
 
 export default function PostEditor(props) {
@@ -42,17 +54,17 @@ export default function PostEditor(props) {
 
         <label>
           Title
-          <input ref={titleRef} value={title} onChange={e => setTitle(e.currentTarget.value)} />
+          <Input ref={titleRef} value={title} onChange={e => setTitle(e.currentTarget.value)} />
         </label>
 
         <label>
           Body
-          <textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
+          <Textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
         </label>
 
-        <button disabled={clearDisabled} onClick={clear}>
+        <Button disabled={clearDisabled} onClick={clear}>
           Clear
-        </button>
+        </Button>
 
         <div style={{ display: "flex" }}>
           <Left text={title} />

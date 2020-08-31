@@ -8,5 +8,6 @@
   "editor.formatOnSave": true,
   "xeditor.formatOnSaveTimeout": 5000,
   "html.autoClosingTags": false,
-  "liveServer.settings.port": 5501
+  "liveServer.settings.port": 5501,
+  "breadcrumbs.enabled": false
 }
