@@ -1242,6 +1242,35 @@ const address = { street: "Highway", city: "Hamburg" };
                 </code></pre>
         </section>
 
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Properties: Default-Werte</h3>
+          <p>
+            Properties sind grundsätzlich <b>optional</b>. Default-Werte können angegeben werden:
+          </p>
+          <p>Variante 1: defaultProps</p>
+
+          <pre><code class="javascript">
+            function PostEditor(props) { ... }
+
+            // Default-Werte werden in einem Objekt über 'defaultProps' angegeben
+            MyComponent.defaultProps = {
+              initialTitle: "New Blog Post"
+            }
+          </code></pre>
+
+          <p>Variante 2: Object Destructuring</p>
+          <p>
+            Mit dem Object Destructuring-Operator können Default-Werte angegeben werden, für
+            Eigenschaften, die aus einem Objekt gelesen werden, aber dort nicht definiert (oder
+            undefined) sind:
+          </p>
+
+          <pre><code class="javascript">
+            function PostEditor({initialTitle = "New Blog Post", initialBody}) { ... }
+          </code></pre>
+        </section>
+
         <section>
           <h2>Übung: Properties für die PostEditor-Komponente</h2>
           <em>Die Eingabefelder im PostEditor sollen vorblegbar sein</em>
