@@ -4,13 +4,11 @@ export default function PostEditor() {
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
 
-  const titleRef = React.useRef();
   const clearDisabled = !title && !body;
 
   function clear() {
     setTitle("");
     setBody("");
-    titleRef.current.focus();
   }
 
   return (
@@ -19,7 +17,7 @@ export default function PostEditor() {
 
       <label>
         Title
-        <input ref={titleRef} value={title} onChange={e => setTitle(e.currentTarget.value)} />
+        <input value={title} onChange={e => setTitle(e.currentTarget.value)} />
       </label>
 
       <label>
