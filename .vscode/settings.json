@@ -9,5 +9,7 @@
   "xeditor.formatOnSaveTimeout": 5000,
   "html.autoClosingTags": false,
   "liveServer.settings.port": 5501,
-  "breadcrumbs.enabled": false
+  "breadcrumbs.enabled": false,
+  "editor.occurrencesHighlight": false,
+  "editor.selectionHighlight": false
 }
