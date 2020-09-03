@@ -3025,14 +3025,13 @@ function PostEditor(props) {
             <li class="fragment">Stelle <code>PostEditor.tsx</code> auf TypeScript um</li>
             <li class="fragment">Weitere Informationen kannst Du in den Dateien finden.</li>
           </ol>
-        </section>
-
-        <section>
-          <h3>Übung 2: Neuen View hinzufügen</h3>
-          <em>
-            Nach dem Speichern eines Blog Posts soll ein gänzlich neuer View angezeigt werden, der
-            dem Benutzer eine Meldung anzeigt, dass der Post gespeichert wurde.
-          </em>
+          <h3>Übung 2: Neuer View</h3>
+          <p>
+            <em>
+              Nach dem Speichern eines Blog Posts soll ein gänzlich neuer View angezeigt werden, der
+              dem Benutzer eine Meldung anzeigt, dass der Post gespeichert wurde.
+            </em>
+          </p>
           <ol style="font-size: 80%;" class="x-list">
             <li class="fragment">
               Implementiere eine neue, einfache Komponente, die nur eine Bestätigungsmeldung
@@ -3045,7 +3044,7 @@ function PostEditor(props) {
             <li class="fragment">
               Die neue Komponente soll nach dem Speichern des Posts angezeigt werden. Erst wenn der
               Benutzer auf "OK" klickt, wird wieder die PostList angzeigt:<br />
-              <code>LIST --onAdd--> EDIT --onSave--> FEEDBACK --onOk--> LIST</code>
+              <code>LIST --onAdd--> ADD --onSave--> FEEDBACK --onOk--> LIST</code>
             </li>
           </ol>
         </section>
