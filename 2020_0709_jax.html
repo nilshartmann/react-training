@@ -40,7 +40,7 @@
             <h3><span class="transparent-bg">Installationsanleitung für die Übungen</span></h3>
             <p>
               <span class="transparent-bg"
-                >👉<a href="https://nils.buzz/ct_webdev">https://nils.buzz/ct_webdev</a></span
+                >👉<a href="https://nils.buzz/jax_2020_react.html">https://nils.buzz/jax_2020_react.html</a></span
               >
             </p>
             <p>              <span class="transparent-bg">(wenn noch Zeit ist, sonst später)<span>
@@ -51,26 +51,26 @@
           <h2>Nils Hartmann</h2>
           <p>
             <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a> /
-            Twitter:&nbsp;
             <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
           </p>
           <p><em>Freiberuflicher Software-Entwickler, Berater und Trainer aus Hamburg</em></p>
 
-          <div style="display:flex;justify-content:center">
+          <div style="display: flex; justify-content: center;">
             <div>
               <p>Java</p>
               <p>JavaScript, TypeScript</p>
               <p>React</p>
               <p>Single-Page-Applications</p>
               <p>GraphQL</p>
-              <p style="margin-top: 20px">
+              <p style="margin-top: 20px;">
                 <a href="https://reacttraining.dev">Schulungen und Workshops</a>
               </p>
+              <p>Alle Dienstleistungen <b>auch online!</b></p>
             </div>
-            <div style="margin-left:15px">
+            <div style="margin-left: 15px;">
               <a href="https://reactbuch.de"
                 ><img
-                  style="max-height:450px"
+                  style="max-height: 450px;"
                   src="slides/images/react-buch-v2.jpg"
                 /><br />https://reactbuch.de</a
               >
@@ -86,7 +86,7 @@
             <li>
               Repository klonen:<br />
               <code>git clone https://github.com/nilshartmann/react-training/</code><br/>
-              Die Slides findest Du dann hier: <b>react-training/2020_ct_webdev.html</b>
+              Die Slides findest Du dann hier: <b>https://nils.buzz/jax_2020_react.html</b>
             </li>
             <li>
               Abhängigkeiten für den JavaScript-Workspace installieren:<br />
@@ -137,6 +137,22 @@
           <div style="font-size:80%">
             <p><b>Jederzeit:</b> Fragen und Diskussionen!</p>
           </div>
+        </section>
+
+         <!-- ============================================================================= -->
+         <section>
+          <h3>Zeitplan</h3>
+          <ul class="xx-list">
+            <li>
+             9:00 Uhr bis 10:30
+            </li>
+            <li>30 Minuten Pause</li>
+            <li>11:00 bis 12:30</li>
+            <li>60 Minuten Mittagspause</li>
+            <li>13:30 bis 15:00 Uhr</li>
+            <li>30 Minuten Pause</li>
+            <li>15:30 bis 17:00 Uhr</li>
+          </ul>
         </section>
 
         <section>
@@ -211,7 +227,7 @@
                 <li>Hooks seit React 16.8 (Februar 2019)</li>
                 <li>Klassen (noch?) sehr weit verbreitet in bestehendem Code</li>
               </ul>
-              <p class="fragment">Mehr Hintergründe zu Hooks: <a href="https://www.heise.de/hintergrund/Ein-Jahr-React-Hooks-API-eine-Bilanz-4643554.html">Ein Jahr React Hooks-API (heise Developer)</a></p>
+              <p class="fragment">Mehr Hintergründe zu Hooks: <a href="https://www.heise.de/hintergrund/Ein-Jahr-React-Hooks-API-eine-Bilanz-4643554.html">Artikel: Ein Jahr React Hooks-API</a></p>
             </li>
 
             <li class="fragment">
@@ -327,7 +343,7 @@
         <section>
           <h3>Der Trainingsworkspace</h3>
           <ul class="x-list">
-            <li style="margin-bottom:40px"><code>2020_ct_webdev.html</code>: Die Slides</li>
+            <li style="margin-bottom:40px"><code>jax_2020_react.html</code>: Die Slides</li>
             <li class="fragment" style="margin-bottom:40px">
               Der Code ist im <code><b>blog-example</b></code> Verzeichnis
             </li>
@@ -379,17 +395,23 @@
         </section>
         <section>
           <h3>Schritt #2: Deine erste React-Komponente</h3>
+          <p>
           <em>Der erste kleine Schritt für die PostEditor-Komponente</em>
+          </p>
           <ul>
-            <li class="fragment">
-              Ersetze den "statischen" Code in in <code>PostEditor.js</code> mit dem React Code aus
-              den vorherigen Slides.
+            <li>
+              Ersetze den "statischen" Code in in <code>PostEditor.js</code>
             </li>
-            <li class="fragment">Die Komponente soll <b>PostEditor</b> heißen</li>
+            <li>Die Komponente soll <b>PostEditor</b> heißen</li>
+            <li>
+              Sie soll einen Zustand/State (<code>title</code>) und ein Eingabefeld (<code>input</code>) dafür haben
+            </li>
             <li class="fragment">
-              Sie sollte einen Zustand/State (<code>title</code>) und ein Eingabefeld dafür haben
+              Als Hilfe kannst Du den Code aus den
+              <a href="#interaktiv-hellomessage">vorherigen Slides</a> ansehen oder im Lösungsverzeichnis nachschauen.
             </li>
           </ul>
+          <p style="font-size:85%">(Lösung: <code>blog-example/steps/1-hello-world</code>)</p>
         </section>
 
         <section id="t2">
@@ -428,10 +450,11 @@
                     </code></pre>
             </li>
             <li style="font-size: 80%" class="fragment">
-              Kann JavaScript Ausdrücke enthalten, eingeschlossen in {}:
+              Kann JavaScript <b>Ausdrücke (Expressions)</b> enthalten, eingeschlossen in {}:
               <pre><code class="xml" contenteditable data-trim>
 &lt;h1>{title ? title.toUpperCase() : "New document"}&lt;/h1>
                     </code></pre>
+                    <a style="font-size:70%" href="https://2ality.com/2012/09/expressions-vs-statements.html">(Ausdrücke vs Anweisungen)</a>
             </li>
 
             <li style="font-size: 80%" class="fragment">
@@ -688,17 +711,7 @@ function HelloWorld(props) {
                 const [greeting, setGreeting] = initState();
               }
             </code></pre>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                // VERBOTEN (initState ist 'normale' Funktion)
-                function initState() {
-                  return React.useState(props.initialGreeting);
-                }
-
-                function HelloWorld(props) {
-                  // wäre erlaubt, wenn initState 'useInitState' hieße
-                  const [greeting, setGreeting] = initState();
-                }
-              </code></pre>
+      
         </section>
         <section>
           <h3>Render Zyklus</h3>
@@ -725,15 +738,14 @@ function HelloWorld(props) {
             <li>
               Füge einen "Clear"-Button hinzu, der beide Eingabefeld leert. Das Property auf dem
               Button ist <code>onClick</code>.
-              <ul>
+            </li>
                 <li>
                   <b>Optional:</b> Der "clear"-Button sollte disabled sein, solange beide Felder
                   leer sind. Um ein button-Element zu disablen, kannst Du das
                   <code>disabled</code> Property auf <code>true</code> setzen.
                 </li>
-              </ul>
-            </li>
           </ol>
+          <p style="font-size:85%">(Lösung: <code>blog-example/steps/2-editor</code>)</p>
         </section>
 
         <section id="t3">
@@ -958,7 +970,7 @@ function App() {
           <ol>
             <li>
               kopiere das Material aus <code>blog-example/material/3-hierarchy/src</code> in deinen
-              source Ordner
+              <code>src</code>-Ordner
               <span style="font-size:85%"
                 >(Du kannst deinen eigenen <code>PostEditor</code> verwenden oder den aus
                 material/3-hierarchy)</span
@@ -977,6 +989,7 @@ function App() {
               <code>blog-example/material/3-hierarchy/src/PostEditor.js</code>
             </li>
           </ol>
+          <p style="font-size:85%">(Lösung: <code>blog-example/steps/3-hiearchy)</p>
         </section>
 
         <section id="t-server">
