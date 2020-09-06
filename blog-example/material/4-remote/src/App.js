@@ -22,6 +22,7 @@ function App() {
     //  - convert the post to JSON using JSON.stringify
     //  - the answer you receive is a new blog post.
     //  - add the blog post to the list of existing blogpost in the state
+    //       You can create a new state like this: setPosts([postReadFromApi, ...posts])
     //  - open the LIST view
     //
   }
