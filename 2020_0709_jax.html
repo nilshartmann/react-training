@@ -20,41 +20,53 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
         <section data-state="title">
-          <h3><span class="transparent-bg">Jax Hybrid Mainz/Online</span></h3>
+          <h3><span class="transparent-bg">Jax, September 2020, Hybrid Mainz/Online</span></h3>
           <h2 class="title" style="font-size: 7rem;">
             <b>Single-Page-Anwendungen mit React und TypeScript</b>
           </h2>
 
-          <h4>
+          <h3>
             <span class="transparent-bg">
               <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a> |
               <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
             </span>
-          </h4>
+          </h3>
 
           <p style="margin-top: 4rem;"></p>
           <div>
-            <h3>
-              <span class="transparent-bg"
-                >Slides:
-                <a href="https://react.schule/jax_2020_react.html"
-                  >https://react.schule/jax_2020_react.html</a
-                ></span
-              >
-            </h3>
+            <h4>
+              <span class="transparent-bg">Slides:</span>
+              <p>
+                <span class="transparent-bg"
+                  ><code
+                    ><a href="https://react.schule/jax_2020_react.html"
+                      >https://react.schule/jax_2020_react.html</a
+                    ></code
+                  ></span
+                >
+              </p>
+            </h4>
           </div>
 
           <p style="margin-top: 4rem;"></p>
           <div>
-            <h3><span class="transparent-bg">Installationsanleitung für die Übungen</span></h3>
+            <h4>
+              <span class="transparent-bg">Installationsanleitung für die Übungen:</span>
+              <p>
+                <span class="transparent-bg"
+                  ><code
+                    ><a href="https://react.schule/install-online"
+                      >https://react.schule/install-online</a
+                    ></code
+                  ></span
+                >
+              </p>
+            </h4>
             <p>
-              <span class="transparent-bg"
-                >👉<a href="https://react.schule/install-online"
-                  >https://react.schule/install-online</a
-                ></span
+              <span style="font-size: 85%;" class="transparent-bg"
+                >(wenn noch Zeit ist, sonst später)</span
               >
             </p>
-            <p><span class="transparent-bg">(wenn noch Zeit ist, sonst später)</span></p>
           </div>
         </section>
         <section>
@@ -87,45 +99,6 @@
               <br />
             </div>
           </div>
-        </section>
-
-        <section id="vorbereitung">
-          <h3>Vorbereitung / Einrichtung für die Übungen 1/2</h3>
-          <p>
-            <em><b>Schritt 1:</b> Klonen und installieren</em>
-          </p>
-          <ol class="xx-list bold-code">
-            <li>
-              Repository klonen:<br />
-              <code>git clone https://github.com/nilshartmann/react-training/</code><br />
-              Die Slides findest Du dann hier: <b>https://react.schule/jax_2020_react.html</b>
-            </li>
-            <li>
-              Abhängigkeiten für den JavaScript-Workspace installieren:<br />
-              <code>cd react-training/blog-example/workspace</code><br />
-              <code>npm install</code><br />
-              <code>npm start</code>
-            </li>
-          </ol>
-        </section>
-
-        <section>
-          <h3>Vorbereitung / Einrichtung für die Übungen 2/2</h3>
-          <p>
-            <em><b>Schritt 2:</b> Starten</em>
-          </p>
-          <ol class="xx-list bold-code">
-            <li>
-              Starten des Backends (Achtung: Port 7000 muss frei sein!):<br />
-              <code>cd react-training/blog-example/backend-rest</code><br />
-              <code>npm start</code>
-            </li>
-            <li>
-              Starten des JavaScript-Workspaces (Achtung: Port 3000 muss frei sein):<br />
-              <code>cd react-training/blog-example/workspace</code><br />
-              <code>npm start</code>
-            </li>
-          </ol>
         </section>
 
         <section>
@@ -166,6 +139,7 @@
             <li>13:30 bis 15:00 Uhr</li>
             <li>30 Minuten Pause</li>
             <li>15:30 bis 17:00 Uhr</li>
+            <li>🎉🍻💪</li>
           </ul>
         </section>
 
@@ -253,12 +227,11 @@
             <li class="fragment">
               Keine Templatesprache
               <ul>
-                <li>Wir schreiben unsere UI komplett in JavaScript</li>
+                <li>Wir schreiben unsere UI komplett in JavaScript 😳</li>
                 <li>
-                  React bringt eine Spracherweiterung für JS mit, die es uns erlaubt HTML-artigen
+                  React bringt eine Spracherweiterung für JS mit, die es uns erlaubt, HTML-artigen
                   Code in JavaScript zu schreiben (JSX)
                 </li>
-                <li>(Ist das nicht ein Template?)</li>
               </ul>
             </li>
           </ul>
@@ -363,15 +336,14 @@
         <section>
           <h3>Der Trainingsworkspace</h3>
           <ul class="x-list">
-            <li style="margin-bottom: 40px;"><code>jax_2020_react.html</code>: Die Slides</li>
+            <li style="margin-bottom: 40px;"><code>2020_0709_jax.html</code>: Die Slides</li>
             <li class="fragment" style="margin-bottom: 40px;">
               Der Code ist im <code><b>blog-example</b></code> Verzeichnis
             </li>
 
             <li class="fragment" style="margin-bottom: 40px;">
               <code>blog-example/<b>workspace</b></code
-              >: Verzeichnis für Eure Übungen <br />👉&nbsp;<b>Empfehlung</b>: nur diesen Ordner in
-              IDE/Editor öffnen
+              >: Verzeichnis für Eure Übungen <br />👉&nbsp; nur diesen Ordner in IDE/Editor öffnen
             </li>
             <li class="fragment">
               <code>blog-example/<b>material</b></code
@@ -396,9 +368,7 @@
             <li>
               <code>cd blog-example/workspace</code>
             </li>
-            <li class="fragment">
-              <code>npm install</code>
-            </li>
+            <li class="fragment"><code>npm install</code> (falls nocht nicht gemacht)</li>
 
             <li class="fragment">
               <code>npm start</code>
@@ -419,9 +389,9 @@
             <em>Der erste kleine Schritt für die PostEditor-Komponente</em>
           </p>
           <ul>
-            <li>Ersetze den "statischen" Code in in <code>PostEditor.js</code></li>
-            <li>Die Komponente soll <b>PostEditor</b> heißen</li>
-            <li>
+            <li class="fragment">Ersetze den "statischen" Code in in <code>PostEditor.js</code></li>
+            <li class="fragment">Die Komponente soll <b>PostEditor</b> heißen</li>
+            <li class="fragment">
               Sie soll einen Zustand/State (<code>title</code>) und ein Eingabefeld
               (<code>input</code>) dafür haben
             </li>
@@ -431,7 +401,9 @@
               Lösungsverzeichnis nachschauen.
             </li>
           </ul>
-          <p style="font-size: 85%;">(Lösung: <code>blog-example/steps/1-hello-world</code>)</p>
+          <p class="fragment" style="font-size: 85%;">
+            (Lösung: <code>blog-example/steps/1-hello-world</code>)
+          </p>
         </section>
 
         <section id="t2">

@@ -77,7 +77,13 @@ Achtung! Das Frontend läuft auf **Port 3000**, d.h. dieser Port muss verfügbar
 
 ![Running frontend](./running-workspace.png)
 
-## Internet-Zugang
+# Öffnen des Workspaces in deinem Editor/deiner IDE
+
+Um die Übungen zu machen, solltest Du nur das Verzeichnis `blog-example/workspace` in deinem Lieblingseditor oder deiner Lieblings-IDE öffnen. Bitte öffne **nicht** den **kompletten Workspace**.
+
+Du kannst das Verzeichnis bereits zu Beginn der Schulung öffnen. Wie die Übungen dann ablaufen, erkläre ich natürlich im Laufe der Schulung.
+
+# Internet-Zugang
 
 Da wir vor und während des Trainings ggf. noch Aktualisierungen installieren müssen, bitte sicherstellen, dass auch während des Trainings auf deinem Computer der Internet-Zugang (logisch, online-Schulung 🙃) funktioniert - aber auch **für git und npm** (Proxies beachten!)
 
