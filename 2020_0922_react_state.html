@@ -217,6 +217,8 @@ const newPerson = {
 
     <section>
       <h3>Arbeiten mit immutable Objekten (ES6)</h3>
+
+      <h3 class="fragment">Verändern von Objekten in Arrays</h3>
       
       <pre class="fragment"><code class="javascript">
         // Verändern von Arrays:
@@ -227,19 +229,18 @@ const newPerson = {
           }
           return oldEntry; // unverändert
         });
-        
+
+        // newArray ist eine Kopie, mit ggf. veränderten Einträgen
       </code></pre>
 
-      <pre class="fragment"><code class="javascript">
-        // Eintraege entfernen aus Arrays:
+      <h3 class="fragment">Einträge aus Arrays entfernen</h3>
 
+      <pre class="fragment"><code class="javascript">
         const newArray = oldArray.filter(oldEntry => oldEntry.id === idToBeRemoved);
 
         // newArray ist eine Kopie ohne die rausgefilterten Eintraege
         
       </code></pre>
-
-    
     </section>
     
         
