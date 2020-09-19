@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>React hands-on: Statemanagement</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="stylesheet" href="slides/styles.css" />
+    <script src="slides/export.js"></script>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-state="title">
+          <h2 class="title" style="font-size: 7rem;">
+            <b>React hands-on</b>
+          </h2>
+          <h3>
+            Statemanagement
+          </h3>
+
+          <h4>
+            <span class="transparent-bg">
+              <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a> |
+              <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+            </span>
+          </h4>
+
+          <p style="margin-top: 4rem;"></p>
+          <div>
+            <h3><span class="transparent-bg">Vorbereitung</span></h3>
+            <p>
+              <span class="transparent-bg"
+                >git clone https://github.com/nilshartmann/react-training</span
+              >
+            </p>
+          </div>
+          <p style="margin-top: 4rem;"></p>
+          <div>
+            <h3><span class="transparent-bg">Slides</span></h3>
+            <p>
+              <span class="transparent-bg">Lokal: react-training/2020_3_tage_react.html</span>
+            </p>
+            <p>
+              <span class="transparent-bg"
+                >oder online:
+                <a href="https://nils.buzz/3_tage_react.html"
+                  >https://nils.buzz/3_tage_react.html</a
+                ></span
+              >
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <img src="slides/images/Deckblatt_devmedia_Trainings.png" />
+        </section>
+
+        <section>
+          <h2>Nils Hartmann</h2>
+          <p>
+            <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a> /
+            <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+          <p><em>Freiberuflicher Software-Entwickler, Berater und Trainer aus Hamburg</em></p>
+
+          <div style="display: flex; justify-content: center;">
+            <div>
+              <p>Java</p>
+              <p>JavaScript, TypeScript</p>
+              <p>React</p>
+              <p>Single-Page-Applications</p>
+              <p>GraphQL</p>
+              <p style="margin-top: 20px;">
+                <a href="https://reacttraining.dev">Schulungen und Workshops</a>
+              </p>
+            </div>
+            <div style="margin-left: 15px;">
+              <a href="https://reactbuch.de"
+                ><img
+                  style="max-height: 450px;"
+                  src="slides/images/react-buch-v2.jpg"
+                /><br />https://reactbuch.de</a
+              >
+              <br />
+            </div>
+          </div>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Zur Erinnerung
+
+            * **State**: Interner Zustand (Model) einer Komponente
+            * **Properties**: Daten, die einer Komponente von außen übergeben werden
+            * Wenn sich **State** ändert, wird die Komponente (und alle Unterkomponenten) neu gerendert
+          </textarea>
+        </section>
+
+        
+        <!-- ============================================================================= -->
+        <section>
+          <h3>State</h3>
+          <ul><li class="fragment">Darf nicht verändert werden</ul></li>
+        
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+            function UserEditor() {
+              const [user, setUser] = React.useState({ name: "Klaus", age: 32});
+
+              function onSetAge(newAge) {
+                // ???
+                user.age = newAge;
+              }
+
+              return &lt;input value={user.age} onChange={e => onSetAge(e.target.value)} />
+            }
+                        </code></pre>
+      </section>
+
+       <!-- ============================================================================= -->
+       <section>
+        <h3>State</h3>
+        <ul><li class="fragment">Darf nicht verändert werden</ul></li>
+      
+        <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+          function UserEditor() {
+            const [user, setUser] = React.useState({ name: "Klaus", age: 32});
+
+            function onSetAge(newAge) {
+              // ???
+              user.age = newAge;
+              // ???
+              setUser(user);
+            }
+
+            return &lt;input value={user.age} onChange={e => onSetAge(e.target.value)} />
+          }
+                      </code></pre>
+    </section>
+
+    <section>
+      <h3>Initialisieren von State</h3>
+      <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+        function UserEditor() {
+          const [user, setUser] = React.useState({ name: "Klaus", age: 32});
+
+          // ...
+        }
+                    </code></pre>
+
+
+                    <h3 class="fragment">(Lazy) Initialisieren über Callback-Funktion</h3>
+                    <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+                      function UserEditor() {
+                        // Uebergebene Funktion muss Seiteneffekt-frei sein!
+                        const [user, setUser] = React.useState( () => newUserObject() );
+              
+                        // ...
+                      }
+                                  </code></pre>
+    </section>
+
+    <section>
+      <h3>Arbeiten mit immutable Objekten (ES6)</h3>
+      <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+        // Objekt-Spread-Operator zum Kopieren und verändern
+
+        const newObject = {
+          ...oldObject, // altes Objekt hier "einfügen"
+          updatedProperty: "new value" // (ausgewählte) Werte in NEUEM Objekt verändern
+        }
+                    </code></pre>
+                    <h3 class="fragment">Object-Spread-Operator kopiert nur "flach"</h3>
+                    <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+
+// Beispiel mit Verschachtelung:
+const oldPerson = { name: "Klaus", address: { city: "Berlin", country: "Germany"} };                      
+
+const newPerson = {
+  ...oldPerson, // altes Objekt hier "einfügen"
+
+  // address muss nun auch kopiert werden:
+  address: { ...newPerson.address, city: "Hamburg" } 
+}
+            </code></pre>
+    </section>
+
+    
+    <!-- ============================================================================= -->
+    <section>
+      <h3>Arbeiten mit immutable Objekten (ES6)</h3>
+      
+      <pre class="fragment"><code class="javascript">
+        // Spread-Operator bei Arrays
+
+        const oldArray = [ "b", "c" ];
+
+        // Anfügen eines Elementes
+        const newArray = [
+          "a",  // vorne anfügen
+          ...oldArray, // hier altes Array reinkopieren
+          "c" // hinten anfügen
+        ]
+
+      </code></pre>
+      
+    
+    </section>
+
+    <section>
+      <h3>Arbeiten mit immutable Objekten (ES6)</h3>
+      
+      <pre class="fragment"><code class="javascript">
+        // Verändern von Arrays:
+
+        const newArray = oldArray.map(oldEntry => {
+          if (oldEntry.id === "user-1") { // dieses Element soll verändert werden
+            return { ...oldEntry, name: "Klaus" }
+          }
+          return oldEntry; // unverändert
+        });
+        
+      </code></pre>
+
+      <pre class="fragment"><code class="javascript">
+        // Eintraege entfernen aus Arrays:
+
+        const newArray = oldArray.filter(oldEntry => oldEntry.id === idToBeRemoved);
+
+        // newArray ist eine Kopie ohne die rausgefilterten Eintraege
+        
+      </code></pre>
+
+    
+    </section>
+    
+        
+
+        <section data-markdown>
+          <textarea data-template>
+          - Komponenten wie Text Input etc sind schon fertig
+
+          1. Formular (Form und Contact Editor), state ist statisch und wird dort gehalten. Implementieren: entweder gleich immer oder vorher ES6
+          2. Neue Komponente wird notwendig: Zustand wird nach oben geschoben   
+          
+          3. Rendern unterdrücken: 
+          3. Transformieren vom Zustand (laden => in einzel Zustände verfrachten, als theoretische Idee)
+          
+          </textarea>
+        </section>
+
+        <section>
+          <h2>Geschafft! 😊</h2>
+          <h3>Vielen Dank für Eure Teilnahme!</h3>
+          <h3>Viel Spaß und Erfolg mit React!</h3>
+          <p>
+            Wenn ihr noch Fragen habt, könnt ihr mich erreichen:
+          </p>
+          <p>Mail: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a></p>
+          <p>
+            Web: <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a>
+          </p>
+          <p>
+            Twitter: <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+        </section>
+        <section>
+          <img src="slides/images/Deckblatt-und-Schlussblatt_devmedia_Trainings.png" />
+        </section>
+      </div>
+    </div>
+
+    <script src="slides/reveal.js/lib/js/head.min.js"></script>
+    <script src="slides/reveal.js/js/reveal.js"></script>
+    <script src="slides/reveal.js/lib/jquery-2.2.4.js"></script>
+    <script src="slides/reveal-config.js"></script>
+    <script>
+      const isLocal =
+        window.location.hostname.indexOf("localhost") !== -1 ||
+        window.location.hostname.indexOf("127.0.0.1") !== -1;
+      Reveal.addEventListener("ready", function (event) {
+        $("li").addClass("fragment");
+
+        // make all links open in new tab
+        $("a").attr("target", "_blank");
+
+        if (isLocal) {
+          // only applies to presentation version
+          Reveal.configure({ controls: false });
+        } else {
+          // only applies to public version
+          $(".fragment").removeClass("fragment");
+        }
+      });
+    </script>
+  </body>
+</html>
