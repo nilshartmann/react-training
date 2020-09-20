@@ -352,6 +352,67 @@ const newPerson = {
   </textarea>
 </section>
 
+
+<!-- ============================================================================= -->
+<section>
+  <h3>Beispiel</h3>
+  <pre class="fragment"><code class="javascript">
+    function App() {
+      const [user, setUser] = React.useState(...);
+
+      function handleFullNameChange(newFullName: string) { setUser(...) }
+
+      return &lt;...>
+        &lt;TextInput label="Full Name" value={user.fullName} 
+           onTextChange={handleFullNameChange} />
+      &lt;...>
+    }
+        </code></pre>
+
+        <pre class="fragment"><code class="javascript">
+          // kein eigener State!
+          function TextInput(props) {
+            return &lt;...>
+              &lt;input value={props.value}
+                 onChange={e => props.onTextChange(e.target.value)} />
+            &lt;...>
+          }
+              </code></pre>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+    ### Mögliche Übung
+
+    * **Baue eine _TextInput_-Komponente.** Diese Komponente soll nur ein Wrapper um ein `input`-Element darstellen (also einen Wert entgegennehmen und eine Callback-Funktion, die 
+    aufgerufen wird, wenn der Wert verändert wird). Setze die Komponente anstatt der `input`-Felder ein
+    * **Baue eine _Passwort_-Komponente**. Auch diese Komponente soll nur ein Wrapper um ein `input`-Element darstellen. Allerdings soll sie noch eine Möglichkeit haben, dass man
+    umstellen kann, ob das Passwort sichtbar oder unsichtbar angezeigt wird (`<input type="text" ... />` bzw. `<input type="password"... />`). Dazu kannst Du z.B. eine Checkbox-verwenden
+    (`<input type="checkbox">`) Verwende diese Komponente für die Eingabe von `user.password`.
+
+  </textarea>
+</section>
+
+
+<!-- ============================================================================= -->
+<section>
+  <h3>Rendern unterdrücken</h3>
+  <ul>
+    <li>Wenn sich der Zustand ändert, wird die Komponente und alle darunterliegenden Komponenten erneut gerendert</li>
+    <li>Nicht immer <b>müssen</b> alle Komponenten aus fachlicher Sicht neu gerendert werden</li>
+    <li>Eine Komponente kann "memoiziert" werden, und rendert sich dann nur erneut, wenn mindestens <b>ein</b> Property sich verändert hat (Identitätsvergleich)</li>
+  </ul>
+
+  
+  <pre class="fragment"><code class="javascript">
+    function 
+  </code></pre>
+  
+
+
+</section>
+
+
     
         
 
