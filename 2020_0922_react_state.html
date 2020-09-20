@@ -105,12 +105,13 @@
           </textarea>
         </section>
 
-        
         <!-- ============================================================================= -->
         <section>
           <h3>State</h3>
-          <ul><li class="fragment">Darf nicht verändert werden</ul></li>
-        
+          <ul>
+            <li class="fragment">Darf nicht verändert werden</li>
+          </ul>
+
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
             function UserEditor() {
               const [user, setUser] = React.useState({ name: "Klaus", age: 32});
@@ -123,14 +124,16 @@
               return &lt;input value={user.age} onChange={e => onSetAge(e.target.value)} />
             }
                         </code></pre>
-      </section>
+        </section>
 
-       <!-- ============================================================================= -->
-       <section>
-        <h3>State</h3>
-        <ul><li class="fragment">Darf nicht verändert werden</ul></li>
-      
-        <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>State</h3>
+          <ul>
+            <li class="fragment">Darf nicht verändert werden</li>
+          </ul>
+
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
           function UserEditor() {
             const [user, setUser] = React.useState({ name: "Klaus", age: 32});
 
@@ -144,11 +147,11 @@
             return &lt;input value={user.age} onChange={e => onSetAge(e.target.value)} />
           }
                       </code></pre>
-    </section>
+        </section>
 
-    <section>
-      <h3>Initialisieren von State</h3>
-      <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+        <section>
+          <h3>Initialisieren von State</h3>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
         function UserEditor() {
           const [user, setUser] = React.useState({ name: "Klaus", age: 32});
 
@@ -156,9 +159,8 @@
         }
                     </code></pre>
 
-
-                    <h3 class="fragment">(Lazy) Initialisieren über Callback-Funktion</h3>
-                    <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+          <h3 class="fragment">(Lazy) Initialisieren über Callback-Funktion</h3>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
                       function UserEditor() {
                         // Uebergebene Funktion muss Seiteneffekt-frei sein!
                         const [user, setUser] = React.useState( () => newUserObject() );
@@ -166,11 +168,11 @@
                         // ...
                       }
                                   </code></pre>
-    </section>
+        </section>
 
-    <section>
-      <h3>Arbeiten mit immutable Objekten (ES6)</h3>
-      <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+        <section>
+          <h3>Arbeiten mit immutable Objekten (ES6)</h3>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
         // Objekt-Spread-Operator zum Kopieren und verändern
 
         const newObject = {
@@ -178,8 +180,8 @@
           updatedProperty: "new value" // (ausgewählte) Werte in NEUEM Objekt verändern
         }
                     </code></pre>
-                    <h3 class="fragment">Object-Spread-Operator kopiert nur "flach"</h3>
-                    <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+          <h3 class="fragment">Object-Spread-Operator kopiert nur "flach"</h3>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
 
 // Beispiel mit Verschachtelung:
 const oldPerson = { name: "Klaus", address: { city: "Berlin", country: "Germany"} };                      
@@ -191,14 +193,13 @@ const newPerson = {
   address: { ...newPerson.address, city: "Hamburg" } 
 }
             </code></pre>
-    </section>
+        </section>
 
-    
-    <!-- ============================================================================= -->
-    <section>
-      <h3>Arbeiten mit immutable Objekten (ES6)</h3>
-      
-      <pre class="fragment"><code class="javascript">
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Arbeiten mit immutable Objekten (ES6)</h3>
+
+          <pre class="fragment"><code class="javascript">
         // Spread-Operator bei Arrays
 
         const oldArray = [ "b", "c" ];
@@ -211,16 +212,14 @@ const newPerson = {
         ]
 
       </code></pre>
-      
-    
-    </section>
+        </section>
 
-    <section>
-      <h3>Arbeiten mit immutable Objekten (ES6)</h3>
+        <section>
+          <h3>Arbeiten mit immutable Objekten (ES6)</h3>
 
-      <h3 class="fragment">Verändern von Objekten in Arrays</h3>
-      
-      <pre class="fragment"><code class="javascript">
+          <h3 class="fragment">Verändern von Objekten in Arrays</h3>
+
+          <pre class="fragment"><code class="javascript">
         // Verändern von Arrays:
 
         const newArray = oldArray.map(oldEntry => {
@@ -233,20 +232,18 @@ const newPerson = {
         // newArray ist eine Kopie, mit ggf. veränderten Einträgen
       </code></pre>
 
-      <h3 class="fragment">Einträge aus Arrays entfernen</h3>
+          <h3 class="fragment">Einträge aus Arrays entfernen</h3>
 
-      <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
         const newArray = oldArray.filter(oldEntry => oldEntry.id === idToBeRemoved);
 
         // newArray ist eine Kopie ohne die rausgefilterten Eintraege
         
       </code></pre>
-    </section>
+        </section>
 
-    
- 
-      <section data-markdown>
-        <textarea data-template>
+        <section data-markdown>
+          <textarea data-template>
           ## Immer für Arbeiten mit unveränderlichen Datenstrukturen
 
           <img src="slides/images/immer.png" /> 
@@ -257,22 +254,25 @@ const newPerson = {
           * Immer zeichnet die Änderungen auf
           * Zum Schluss werden die Änderungen auf eine Kopie des alten Objektes angewendet
 
-        </textarea>
-      </section>
+        </textarea
+          >
+        </section>
 
-      
-      <!-- ============================================================================= -->
-      <section>
-        <h3>Immer: produce-Funktion</h3>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Immer: produce-Funktion</h3>
 
-        <p>Die <b>produce</b>-Funktion bekommt ein Objekt übergeben, sowie eine zweite Funktion,
-          die von immer mit einem Draft aufgerufen wird.</p>
+          <p>
+            Die <b>produce</b>-Funktion bekommt ein Objekt übergeben, sowie eine zweite Funktion,
+            die von immer mit einem Draft aufgerufen wird.
+          </p>
           <p>Dieses Draft kann verändert werden</p>
-          <p>Der Rückgabe-Typ der produce-Funktion ist dann eine Kopie des alten Objektes mit
-            den Änderungen, die auf dem Draft vorgenommen wurden.</p>
+          <p>
+            Der Rückgabe-Typ der produce-Funktion ist dann eine Kopie des alten Objektes mit den
+            Änderungen, die auf dem Draft vorgenommen wurden.
+          </p>
 
-            
-            <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
               import produce from "immer";
 
               const person = { name: "Klaus", address: { city: "Berlin", country: "Germany"} };
@@ -287,15 +287,13 @@ const newPerson = {
               newPerson.address // Neues Objekt!
               newPerson.address.city; // Hamburg
             </code></pre>
-      </section>
-      
+        </section>
 
-      
-      <!-- ============================================================================= -->
-      <section>
-        <h3>Beispiel: Immer</h3>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Beispiel: Immer</h3>
 
-        <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
           function handleLastNameChange(newLastName: string) {
               const newUser = produce(user, draft => {
                 // draft kann verändert werden, als ob es ein mutable Objekt sei
@@ -306,7 +304,7 @@ const newPerson = {
           }
         </code></pre>
 
-        <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
           function handleContactTypeChange(contactId: string, newType: string) {
             setUser(
               produce(user, draft => {
@@ -316,28 +314,25 @@ const newPerson = {
             );
           }
         </code></pre>
-      </section>
-      
-    
-         <!-- ============================================================================= -->
-    <section>
-      <h3>Erste Übung: Mit ES6 Operatoren und immer vertraut machen</h3>
+        </section>
 
-* Verzeichnis: **state/workspace**
-* In `App.tsx` die leeren Handler-Funktionen implementieren
-* Du kannst jeweils ES6 Operatoren oder immer verwenden, je nachdem was besser passt
-    
-    </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Erste Übung: Mit ES6 Operatoren und immer vertraut machen</h3>
 
-<!-- ============================================================================= -->
-<section>
-  <h3>Nächster Schritt</h3>
-  <h2>Zustand "verteilen"</h2>
-</section>
+          * Verzeichnis: **state/workspace** * In `App.tsx` die leeren Handler-Funktionen
+          implementieren * Du kannst jeweils ES6 Operatoren oder immer verwenden, je nachdem was
+          besser passt
+        </section>
 
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Nächster Schritt</h3>
+          <h2>Zustand "verteilen"</h2>
+        </section>
 
-<section data-markdown>
-  <textarea data-template>
+        <section data-markdown>
+          <textarea data-template>
     ### Erinnerung:
 
     * **Zustand** wird von Parent-Komponenten nach unten gereicht (über **Properties**)
@@ -349,14 +344,14 @@ const newPerson = {
     * Das Durchreichen von State- und Callbacks ist über mehr als eine Ebene erlaubt (und gewöhnlich)
 
     <img class="fragment" style="height:600px" src="slides/images/state/datenfluss.svg" />
-  </textarea>
-</section>
+  </textarea
+          >
+        </section>
 
-
-<!-- ============================================================================= -->
-<section>
-  <h3>Beispiel</h3>
-  <pre class="fragment"><code class="javascript">
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Beispiel</h3>
+          <pre class="fragment"><code class="javascript">
     function App() {
       const [user, setUser] = React.useState(...);
 
@@ -369,7 +364,7 @@ const newPerson = {
     }
         </code></pre>
 
-        <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
           // kein eigener State!
           function TextInput(props) {
             return &lt;...>
@@ -378,10 +373,10 @@ const newPerson = {
             &lt;...>
           }
               </code></pre>
-</section>
+        </section>
 
-<section data-markdown>
-  <textarea data-template>
+        <section data-markdown>
+          <textarea data-template>
     ### Mögliche Übung
 
     * **Baue eine _TextInput_-Komponente.** Diese Komponente soll nur ein Wrapper um ein `input`-Element darstellen (also einen Wert entgegennehmen und eine Callback-Funktion, die 
@@ -390,21 +385,28 @@ const newPerson = {
     umstellen kann, ob das Passwort sichtbar oder unsichtbar angezeigt wird (`<input type="text" ... />` bzw. `<input type="password"... />`). Dazu kannst Du z.B. eine Checkbox-verwenden
     (`<input type="checkbox">`) Verwende diese Komponente für die Eingabe von `user.password`.
 
-  </textarea>
-</section>
+  </textarea
+          >
+        </section>
 
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Rendern unterdrücken</h3>
+          <ul>
+            <li class="fragment">
+              Wenn sich der Zustand ändert, wird die Komponente und alle darunterliegenden
+              Komponenten erneut gerendert
+            </li>
+            <li class="fragment">
+              Nicht immer <b>müssen</b> alle Komponenten aus fachlicher Sicht neu gerendert werden
+            </li>
+            <li class="fragment">
+              Eine Komponente kann "memoiziert" werden, und rendert sich dann nur erneut, wenn
+              mindestens <b>ein</b> Property sich verändert hat (Identitätsvergleich)
+            </li>
+          </ul>
 
-<!-- ============================================================================= -->
-<section>
-  <h3>Rendern unterdrücken</h3>
-  <ul>
-    <li class="fragment">Wenn sich der Zustand ändert, wird die Komponente und alle darunterliegenden Komponenten erneut gerendert</li>
-    <li class="fragment">Nicht immer <b>müssen</b> alle Komponenten aus fachlicher Sicht neu gerendert werden</li>
-    <li class="fragment">Eine Komponente kann "memoiziert" werden, und rendert sich dann nur erneut, wenn mindestens <b>ein</b> Property sich verändert hat (Identitätsvergleich)</li>
-  </ul>
-
-  
-  <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
     // Nur neu rendern, wenn Properties sich verändert haben
     const InvalidContactDisplay = React.memo(function InvalidContactDisplay(props) {
       return ...;
@@ -413,117 +415,138 @@ const newPerson = {
     // Verwendung wie gewohnt:
     &lt;InvalidContactDisplay contacts={...} />
   </code></pre>
-  <p class="fragment"><b>Achtung!</b>: Diese Optimierungen bitte nicht auf "vorrat" vornehmen, sondern nur, wenn wirklich nötig! Auch das Caching/Memoization hat seinen Preis!</p>
-</section>
+          <p class="fragment">
+            <b>Achtung!</b>: Diese Optimierungen bitte nicht auf "vorrat" vornehmen, sondern nur,
+            wenn wirklich nötig! Auch das Caching/Memoization hat seinen Preis!
+          </p>
+        </section>
 
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Rendern unterdrücken: Stabile Funktionsreferenzen</h3>
+          <ul>
+            <li class="fragment">
+              Wenn eine Komponente sich neu rendert, werden alle darin enthaltenen Funktionen "neu
+              erzeugt"
+            </li>
+            <li class="fragment">
+              Wenn eine solche Funktion als Callback-Funktion an eine memoizierte Komponente
+              übergeben wird, ist sie "verändert", es wird also neu gerendert
+            </li>
+            <li class="fragment">
+              Mit <code>React.useCallback</code> können stabile Funktionsreferenzen erzeugt werden,
+              die über einen Renderzyklus hinaus gültig sind:
+            </li>
+          </ul>
 
-<!-- ============================================================================= -->
-<section>
-  <h3>Rendern unterdrücken: Stabile Funktionsreferenzen</h3>
-  <ul>
-    <li class="fragment">Wenn eine Komponente sich neu rendert, werden alle darin enthaltenen Funktionen "neu erzeugt"</li>
-    <li class="fragment">Wenn eine solche Funktion als Callback-Funktion an eine memoizierte Komponente übergeben wird, ist sie "verändert", es wird also neu gerendert</li>
-    <li class="fragment">Mit <code>React.useCallback</code> können stabile Funktionsreferenzen erzeugt werden, die über einen Renderzyklus hinaus gültig sind:</li>
-  </ul>
-  
-  <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
     function UserInput(props) {
       const handleFullNameChange = React.useCallback(function(...) { ... }, []);
     }
   </code></pre>
 
-  <ul class="fragment">
-    <li>Mit dem zweiten Paramater können - wie bei <code>React.useEffect</code> - Abhängigkeiten angegeben werden, wann die Funktion neu erzeugt werden soll</li>
-  </ul>
-</section>
+          <ul class="fragment">
+            <li>
+              Mit dem zweiten Paramater können - wie bei <code>React.useEffect</code> -
+              Abhängigkeiten angegeben werden, wann die Funktion neu erzeugt werden soll
+            </li>
+          </ul>
+        </section>
 
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Rendern unterdrücken: Stabile Funktionsreferenzen #2</h3>
+          <ul>
+            <li class="fragment">
+              In einer "stabilen" Funktion müsst ihr darauf achten, Werte, die ihr in der Funktion
+              verwendet, als Dependency anzugeben
+            </li>
+            <li class="fragment">
+              Für den Zustand gibt es die Möglichkeit, die Callback-Notation von
+              <code>setState</code> zu verwenden. Damit bekommst Du immer den aktuellen Wert des
+              Zustandes, und brauchst ihn nicht in den Dependencies anzugeben:
+            </li>
+          </ul>
 
-<!-- ============================================================================= -->
-<section>
-  <h3>Rendern unterdrücken: Stabile Funktionsreferenzen #2</h3>
-  <ul>
-    <li class="fragment">In einer "stabilen" Funktion müsst ihr darauf achten, Werte, die ihr in der Funktion verwendet, als Dependency anzugeben</li>
-    <li class="fragment">Für den Zustand gibt es die Möglichkeit, die Callback-Notation von <code>setState</code> zu verwenden. Damit bekommst Du immer den aktuellen Wert
-      des Zustandes, und brauchst ihn nicht in den Dependencies anzugeben:
-    </li>
-    
-    <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
       const handleUpdate = React.useCallback(function()  {
         // der Callback-Funktion wird der aktuelle Zustand übergeben
         // ihr Rückgabewert wird als neuer State gesetzt
         setState(oldState => ...);
       }, []);
     </code></pre>
-</section>
+        </section>
 
-<section data-markdown>
-  <textarea data-template>
+        <section data-markdown>
+          <textarea data-template>
     ### Mögliche Übung: Memoization von Komponenten
 
     * Die `TextInput`-Komponente soll sich nur neu rendern, wenn sich eines ihrer Properties verändert hat
     * Du musst die TextInput-Komponente als "memoizieren"
     * Und die Aufrufe an die Komponente anpassen?
 
-  </textarea>
-</section>
+  </textarea
+          >
+        </section>
 
-
-    <section data-markdown>
-      <textarea data-template>
+        <section data-markdown>
+          <textarea data-template>
         ### Verwaltung von komplexem Zustand
 
         ## Reducer-Funktionen und useReducer-Hook
-      </textarea>
-    </section>
+      </textarea
+          >
+        </section>
 
-    <section data-markdown>
-      <textarea data-template>
+        <section data-markdown>
+          <textarea data-template>
         ### Verwaltung und Änderung von Zustand
 
         * Wir halten den Zustand lokal in einer Komponente
         * Sämtliche Änderungen daran passieren innerhalb der Komponente
         * Mit einer reducer-Funktion kann die Verwaltung des Zustandes aus der Komponente herausgelöst werden
         * Warum sollte man das tun? Ideen? 🤔
-      </textarea>
-    </section>
+      </textarea
+          >
+        </section>
 
-    <section>
-      <h3>useReducer-Hook</h3>
-      <p>Hintergrund: Eine reducer-Funktion...</p>
-      <ul>
-        <li class="fragment">
-          ...erhält einen (vorherigen) Zustand und eine Action als Parameter übergeben
-        </li>
-        <li class="fragment"><b>Actions</b> sind anwendungsspezifische, beliebige JavaScript-Objekte</li>
-        <li class="fragment">...verarbeitet die Action</li>
-        <li class="fragment">...liefert dann den neuen, aktualisierten Zustand zurück</li>
-        <li class="fragment">...muss Seiteneffekt frei sein ("pure function")</li>
-      </ul>
-      <pre class="fragment"><code class="javascript" contenteditable data-trim>
+        <section>
+          <h3>useReducer-Hook</h3>
+          <p>Hintergrund: Eine reducer-Funktion...</p>
+          <ul>
+            <li class="fragment">
+              ...erhält einen (vorherigen) Zustand und eine Action als Parameter übergeben
+            </li>
+            <li class="fragment">
+              <b>Actions</b> sind anwendungsspezifische, beliebige JavaScript-Objekte
+            </li>
+            <li class="fragment">...verarbeitet die Action</li>
+            <li class="fragment">...liefert dann den neuen, aktualisierten Zustand zurück</li>
+            <li class="fragment">...muss Seiteneffekt frei sein ("pure function")</li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
           reducer(old_state, action) => new_state
         </code></pre>
 
-      <p class="fragment">
-        <em
-          >Reducer sind zentrales Konzept von Redux, kommen aber auch in anderen Bereichen vor
-          (z.B. <code>Array.reduce</code>)</em
-        >
-      </p>
-    </section>
+          <p class="fragment">
+            <em
+              >Reducer sind zentrales Konzept von Redux, kommen aber auch in anderen Bereichen vor
+              (z.B. <code>Array.reduce</code>)</em
+            >
+          </p>
+        </section>
 
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Actions</h3>
+          <ul>
+            <li class="fragment">Pure JavaScript-Objekte</li>
+            <li class="fragment">Haben üblicherweise <b>type</b> und <b>payload</b></li>
+            <li class="fragment">Über das <b>type</b>-Property können sie identifiziert werden</li>
+            <li class="fragment">Der <b>Payload</b> enthält Action-spezifische Daten</li>
+          </ul>
 
-    
-    <!-- ============================================================================= -->
-    <section>
-      <h3>Actions</h3>
-      <ul>
-        <li class="fragment">Pure JavaScript-Objekte</li>
-        <li class="fragment">Haben üblicherweise <b>type</b> und <b>payload</b></li>
-        <li class="fragment">Über das <b>type</b>-Property können sie identifiziert werden</li>
-        <li class="fragment">Der <b>Payload</b> enthält Action-spezifische Daten</li>
-      </ul>
-      
-      <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
         const apiRequestStartedAction = {
           type: "requestStarted"; // kein Payload erforderlich
         }
@@ -533,19 +556,22 @@ const newPerson = {
           dataReceived: data  // Action-spezifischer Payload (hier: geladene Daten)
         }
       </code></pre>
-    
-    </section>
-    
-    
-    <!-- ============================================================================= -->
-    <section>
-      <h3>Die reducer-Funktion</h3>
-      <ul>
-        <li class="fragment">Bekommt den vorherigen Zustand übergeben und liefert neuen Zustand zurück (oder den unveränderten alten)</li>
-        <li class="fragment">Zustand ist immutable! Kann mit <code>immer</code> kombiniert werden</li>
-      </ul>
-      
-      <pre class="fragment"><code class="javascript">
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Die reducer-Funktion</h3>
+          <ul>
+            <li class="fragment">
+              Bekommt den vorherigen Zustand übergeben und liefert neuen Zustand zurück (oder den
+              unveränderten alten)
+            </li>
+            <li class="fragment">
+              Zustand ist immutable! Kann mit <code>immer</code> kombiniert werden
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
 function apiReducer(state, action) {
   switch (action.type) {
     case "requestStarted": {
@@ -562,21 +588,34 @@ function apiReducer(state, action) {
   }
 }            
       </code></pre>
-    </section>
+        </section>
 
-    
-    <!-- ============================================================================= -->
-    <section>
-      <h3>useReducer-Hook</h3>
-      <ul>
-        <li class="fragment">Mit dem <b>useReducer</b>-Hook wird die reducer-Funktion in der Komponente registriert</li>
-        <li class="fragment">Der Hook bekommt die reducer-Funktion übergeben und den initialen Zustand (ähnlich wie useState)</li>
-        <li class="fragment">Der Hook liefert ein Array zurück mit zwei Einträgen: dem aktuellen Zustand und der <b>dispatch</b>-Funktion. Auch hier ähnlich wie bei useState: Zustand und Funktion zum Ändern des Zustandes</li>
-        <li class="fragment">Mit der dispatch-Funktion können Actions an den Reducer gesendet werden</li>
-        <li class="fragment">Der reducer aktualisiert verarbeitet die Action, liefert neuen Zustand zurück, Komponente wird neu gerendert (wie bei useState)</li>
-      </ul>
-      
-      <pre class="fragment"><code class="javascript">
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useReducer-Hook</h3>
+          <ul>
+            <li class="fragment">
+              Mit dem <b>useReducer</b>-Hook wird die reducer-Funktion in der Komponente registriert
+            </li>
+            <li class="fragment">
+              Der Hook bekommt die reducer-Funktion übergeben und den initialen Zustand (ähnlich wie
+              useState)
+            </li>
+            <li class="fragment">
+              Der Hook liefert ein Array zurück mit zwei Einträgen: dem aktuellen Zustand und der
+              <b>dispatch</b>-Funktion. Auch hier ähnlich wie bei useState: Zustand und Funktion zum
+              Ändern des Zustandes
+            </li>
+            <li class="fragment">
+              Mit der dispatch-Funktion können Actions an den Reducer gesendet werden
+            </li>
+            <li class="fragment">
+              Der reducer aktualisiert verarbeitet die Action, liefert neuen Zustand zurück,
+              Komponente wird neu gerendert (wie bei useState)
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
         function App() {
           const [apiState, dispatch] = React.useReducer(apiReducer, { status: "loading" });
 
@@ -590,10 +629,10 @@ function apiReducer(state, action) {
 
         }
       </code></pre>
-    </section>
+        </section>
 
-    <section data-markdown>
-      <textarea data-template>
+        <section data-markdown>
+          <textarea data-template>
         ### Mögliche Übung: Reducer-Funktion
 
         _Baue eine Komponente, die Daten mit `fetch` lädt._
@@ -606,15 +645,15 @@ function apiReducer(state, action) {
           * Während die Daten geladen werden, zeige eine "Bitte warten Sie"-Meldung an
           * Wenn die Daten geladen sind, zeige die Komponente mit dem User-Editor an. Diese Komponente sollte nun das User-Objekt als Property entgegennehmen.
           * Sollte die Komponente das User-Objekt direkt verändern? Oder wäre eine Kopie schlauer? 
-      </textarea>
-    </section>
+      </textarea
+          >
+        </section>
 
-    
-    <!-- ============================================================================= -->
-    <section>
-      <h3>Beispiel: fetch</h3>
-      
-      <pre><code class="javascript">
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Beispiel: fetch</h3>
+
+          <pre><code class="javascript">
         function App() {
           React.useEffect(() => {
             // todo: Action auslösen
@@ -630,47 +669,333 @@ function apiReducer(state, action) {
         }
           
       </code></pre>
-      
-    
-    </section>
-    
-
-
-    
-    
-    
-    
-        
+        </section>
 
         <section data-markdown>
           <textarea data-template>
-          - Komponenten wie Text Input etc sind schon fertig
+        ### Nächster Schritt: Globaler Zustand
 
-          1. Formular (Form und Contact Editor), state ist statisch und wird dort gehalten. Implementieren: ES6 ohne "fachliche" Komponenten
-          2. Immer
-          3. text-feld-Komponente bauen (oder contact editor)
-          4. Oben rausziehen (=> neue App-Komponente, mit zweiter Ansicht )
-          5. Diskussion: KOPIEREN der props in den state 
-          7. ggf. reducer (todo: fachliches Beispiel; vielleicht: Anzahl min und max Kontake beschränken, Prüfung in Reducer, ggf. Fehler setzen oder Action nur unterdrücken)
+        * Man kann Zustand in **lokalen Zustand** und **globalen Zustand** einteilen
+        * **Lokaler Zustand** ist Zustand, der "mehr oder weniger" einer Komponente zur Verfügung steht
+        * **Globlaer Zustand** hingegen ist für die ganze Anwendung oder große Teile davon zuständig
+        * Die Übgergänge sind fließend, es gibt keine fixe Definition
 
-              Reducer => Wert initialisieren (INIT_ACTION, nachdem gelesen wurde; neuer Status: DATEN_WERDEN_GELADEN)
+        * Beispiele für globalen Zustand: angemeldeter Benutzer, Theme
+        * Es spricht nichts dagegen, globalen Zustand, mit useState/useReducer zu verwalten, aber...
+        * Du musst ihn mit unter weit nach unten reichen
+        * oder andersrum: er muss sehr weit oben aufgehängt sein, um z.B. für verschiedene Ansichten zur Verfügung zu stehen, oder Ansichtswechsel zu "überleben"
+      </textarea
+          >
+        </section>
 
-          6. Context (THEME, NICHT USER!!!!)
-              => Theme wird in TextInput und Password verwendet; Funktion und Werte bereitstellen, es wird immer alles neu gerendert
-          7. Redux , ggf. user (den Reducer haben wir schon)
-              => Theme 
-          2. Neue Komponente wird notwendig: Zustand wird nach oben geschoben   
-          
-          3. Rendern unterdrücken: 
-          3. Transformieren vom Zustand (laden => in einzel Zustände verfrachten, als theoretische Idee)
-          
+        <section data-markdown>
+          <textarea data-template>
+        ### React Context
+
+        * Der **React Context** ist eine Möglichkeit, globalen Zustand Komponenten zur Verfügung zu stellen, ohne ihn über Properties durchreichen zu müssen
+        * Es gibt dabei eine **Provider** Komponente, die ein beliebiges Objekt, den Kontext, allen unterhalb liegenden Komponenten zur Verfügung stellt
+        * Das Objekt kann Daten und (Callback-)Funktionen enthalten
+        * Das Prinzip ist ähnlich wie wir es schon gesehen haben, nur dass diese Daten nicht explizit per Properties von einer Ebene zur nächsten weitergerreicht werden müssen.
+        Stattdessen findet das Durchreichen transparent statt
+        * Du kannst beliebig viele Kontexte in deiner Anwendung verwenden. Dann hast Du entsprechend mehr Provider-Komponenten.
+      </textarea
+          >
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Context: Factory</h3>
+          <ul>
+            <li class="fragment">Der Provider stellt ein beliebiges Objekt zur Verfügung</li>
+            <li class="fragment">
+              Dafür muss ein Context-Objekt mit <code>React.createContext</code> erzeugt werden.
+              Dieses Objekt enthält die Provider- und die Consumer-Komponente
+            </li>
+            <li class="fragment">(Consumer-Komponente ist mit Hooks API irrelevant)</li>
+          </ul>
+
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+        import react from "React";
+
+        const ThemeContext = React.createContext();
+
+        // erzeugt:
+        // ThemeContext.Provider 
+        // ThemeContext.Consumer (irrelevant mit Hooks API)
+                </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Context: Provider</h3>
+          <ul>
+            <li class="fragment">
+              Die mit <code>createContext</code> erzeugte Provider Komponente erhält ein Objekt als
+              Properties, das sie allen unterhalb liegenden Komponenten (<code>children</code>) zur
+              Verfügung stellt.
+            </li>
+            <li class="fragment">Die Verwendung ist wie eine "normale" Komponente</li>
+            <li class="fragment">
+              Üblicherweise baut man sich eine Komponente darum, die dann auch die Daten hält, die
+              über den Context zur Verfügung gestellt werden sollen
+            </li>
+            <li class="fragment">Auch hierbei handelt es sich um eine "normale" Komponente:</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+        const ThemeContext = React.createContext();
+
+        function ThemeContextProvider(props) {
+          const [themeName, setThemeName] = React.useState();
+
+
+          return &lt;ThemeContext.Provider value={{
+            currentTheme: themeName,
+            setCurrentTheme: setThemeName 
+          }}>
+          {props.children}
+        &lt;/AuthContext.Provider>;
+      }
+</code></pre>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Context: Consumer</h3>
+          <p><em>Zugriff auf die Werte aus dem Context</em></p>
+          <ul>
+            <li class="fragment">
+              In allen Komponenten unterhalb der Provider Komponente, kann mit
+              <code>useContext</code> auf das bereitgestellte Objekt zugegriffen werden
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+function TextInput() {
+const { themeName } = React.useContext(ThemeContext);
+
+return &lt;div className={`theme-${themeName}`}>&lt;input ... />&lt;/div>
+}            
+    </code></pre>
+          <p class="fragment">
+            Wenn der Kontext sich ändert, werden alle Konsumer automatisch neu gerendert
+          </p>
+          <pre class="fragment"><code class="javascript">
+function ThemeChooser() {
+  const { setThemeName } = React.useContext(themeContext);
+  return &lt;div>
+    &lt;button onClick={() => setThemeName("dark")}>Dark Theme&lt;/button>
+    &lt;button onClick={() => setThemeName("light")}>Light Theme&lt;/button>
+    &lt;/div>
+}                
+    </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Custom Hook für Context-Zugriff</h3>
+
+          <ul>
+            <li class="fragment">
+              Du kannst einen Custom Hook für den Zugriff auf deinen Kontext bauen
+            </li>
+            <li class="fragment">
+              Dann ist die Technologie (Context) gekapselt und Du hast eine "fachliche" API
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            // ThemeContext.tsx
+            export function useTheme() {
+              return React.useContext(ThemeContext);
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // ThemeContext.tsx
+            function TextInput(props) {
+              const { themeName } = useTheme();
+              
+              // ...
+            }
+          </code></pre>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Mögliche Übung: React Context
+
+            ## todo: Übung vorbereiten
+          </textarea>
+        </section>
+
+        <section id="t-redux">
+          <h2>Redux</h2>
+          <h3>External Statemanagement</h3>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Externes Statemanagement
+
+            * **Externes** Statemanagement bedeutet, dass der Zustand aus deinen Komponenten herauswandert
+            * Wird haben das exemplarisch bereits bei `useReducer` gesehen
+            * Mit externem Statemanagement wird in der Regel **globaler Zustand** verwaltet
+            * Es gibt mehrere Bibliotheken, die beiden bekanntesten sind:
+              * [Redux](https://redux.js.org/)
+              * [MobX](https://mobx.js.org/README.html)
+            * Beide sind zunächst React-unabhängig und für mehrere Webframeworks verfügbar
+            * D.h. die Logik, die Du damit entwickelst kannst Du prinzipiell auch mit anderen Webframeworks nutzen
+            * Weitere Vertreter: [Recoil](https://recoiljs.org/) ebenfalls von Facebook, [OvermindJS](https://overmindjs.org/), von Codesandbox
+          </textarea>
+        </section>
+
+        <section>
+          <h2>Beispiel: Redux</h2>
+        </section>
+
+        <section>
+          <h2>Redux extrahiert die Verantwortlichkeiten</h2>
+          <img src="slides/images/redux-02-extracting-responsibility.png" style="width: 900px;" />
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Redux: Konzepte
+
+            * **Store**: eine Art "Datenbank", die außerhalb der Komponentenhierachie liegt. Hier ist der globale Zustand untergebracht. Komponenten werden über Veränderungen informiert und können sich re-rendern
+            * **Actions** und **Reducer**: genau wie bei `useReducer` gesehen. Allerdings stehen die in einem Reducer verwalteten Daten der ganzen Anwendung zur Verfügung (und nicht nur einer Komponente)
+            * **Action Creator**: Factory-Funktionen, die Action Objekte erzeugen
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Redux: Reducer
+
+            * Der Store, d.h. der globale Zustand, wird ausschließlich über reducer-Funktionen verwaltet
+            * Die reducer-Funktionen entsprechen von API und Konzept den schon gesehenen reducer-Funktionen von `useReducer`
+            * Jede reducer-Funktion verwaltet einen "Teil-Zustand" des globalen Zustandes. Die reducer können sich untereinander nicht sehen und nicht auf die anderen Teile des gloablen Zustands zugreifen
+            * Wenn Du den Store mit einer Datenbank vergleichst, wäre ein solcher Teilzustand so etwas wie eine Tabelle
+            * Die reducer werden beim Starten der Anwendung in Redux registriert
+            * Im Gegensatz zu `useReducer` wird eine Action in redux nicht an _einen_ Reducer geschickt, sondern an _alle_ Reducer. 
+            * Dadurch ist eine gute Entkopplung möglich: ein Teil der Anwendung informiert über eine Aktion ("User hat sich eingeloggt", "Theme wurde verändert") und alle interessierten
+            Anwendungsteile können darauf reagieren
+          </textarea>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Redux: Actions</h3>
+          <ul>
+            <li class="fragment">Actions sind analog zu den Actions mit <code>useReducer</code></li>
+            <li class="fragment">Actions werden an <b>alle</b> Reducer-Funktionen verteilt</li>
+            <li class="fragment">
+              Zum Auslösen einer Action gibt auch von Redux eine <code>dispatch</code>-Funktion, an
+              die Du mit dem <code>useDispatch</code> Hook von Redux gelangst.
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function ThemeChooser() {
+              const dispatch = useDispatch();
+
+              function handleSetTheme(themeName) {
+                dispatch({ type: "setTheme", payload: { newTheme: themeName } } );
+              }
+
+              return &lt;button onClick={() => handleSetTheme("light")}>Light&lt;/button>
+
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Redux: Zugriff auf den globalen Zustand</h3>
+          <ul>
+            <li class="fragment">
+              Komponenten können aus dem globalen Zustand (Store) die Daten auswählen, die sie
+              benötigen
+            </li>
+            <li class="fragment">
+              Die Hierarchie-Ebene spielt dabei keine Rolle, weil der Zustand außerhalb, "neben" den
+              UI Komponenten liegt
+            </li>
+            <li class="fragment">
+              Nur wenn sich die ausgewählten Daten in einer Kompoente ändern, wird die Komponente
+              neu gerendert
+            </li>
+            <li class="fragment">
+              Der <code>useSelector</code> Hook von Redux erwartet eine Callback-Funktion, die
+              aufgerufen wird, sobald sich <em>irgendetwas</em> im Store verändert hat
+            </li>
+            <li class="fragment">Dieser Callback-Funktion wird der komplette Store übergeben.</li>
+            <li class="fragment">
+              Aus dem Store wählt die Komponente die für sie relevanten Daten aus und liefert sie
+              zurück
+            </li>
+            <li class="fragment">
+              Nur wenn sich diese zurückgelieferten Daten verändert haben, wird die Komponente neu
+              gerendert
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+              function TextInput() {
+                const { themeName } = useSelector(state => state.theme.themeName);
+
+                //  ...
+              }
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useSelector - Details</h3>
+          <ul>
+            <li class="fragment">
+              Um festzustellen, ob sich die ausgewählten Daten verändert haben, prüft Redux auf
+              <b>Identität</b>!
+            </li>
+            <li class="fragment">
+              Es wird deshalb empfohlen, nur einzelne Werte (keine Objekte) aus dem Store
+              auszuwählen - stattdessen mehrere useSelector-Aufrufe machen
+            </li>
+            <li class="fragment">
+              Du kannst natürlich auch "abgeleitete" Daten zurückliefern, Redux vergleicht nur den
+              von dir zurückgelieferten Wert, unabhängig davon, ob er "direkt" aus dem Store kommt
+              oder basierend auf dem Store "berechnet" wurde
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function LoginCounter() {
+              // *Alle* User befinden sich im Store
+              // Der Selector liefert aber nur die Anzahl 
+              // der eingeloggten Benutzer zurück (berechneter/abgeleiteter State)
+              const loggedInUserCount = useSelector(
+                state => state.users.filter(u => u.isLoggedIn).count
+              );
+            }
+          </code></pre>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Redux Toolkit
+
+            * Redux erfordert in der Regel sehr viel Boilerplate Code (bitte nicht in kleineren Anwendungen einsetzen!)
+            * Außerdem ist das Setup und die Konfiguration nicht immer trivial (Redux ist z.B. erweiterbar, welche Erweiterungen brauche ich?)
+            * Auch die Verwendung von TypeScript ist nicht immer trivial
+            * Aus diesen Gründen gibt es das [Redux Toolkit](https://redux-toolkit.js.org/), ein "offzielles" Toolset für Redux-Anwendungen (von den Redux-Leuten selbst)
+            * Das kann die Entwicklung mit Redux vereinfachen
+            * Aber: es bringt zusätzlich zu den Redux "Kernkonzepten" weitere Ideen mit (um die Kernkonzepte zu vereinfachen, zu abstrahieren etc)
+            * Deswegen Empfehlung: erst mit Redux vertraut machen, dann aber im "echten Leben" evtl. auf das Toolkit setzen
           </textarea>
         </section>
 
         <section>
           <h2>Geschafft! 😊</h2>
           <h3>Vielen Dank für Eure Teilnahme!</h3>
-          <h3>Viel Spaß und Erfolg mit React!</h3>
+          <h3>Happy Statemanagement 🍻</h3>
           <p>
             Wenn ihr noch Fragen habt, könnt ihr mich erreichen:
           </p>

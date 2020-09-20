@@ -1,7 +1,9 @@
 import produce from "immer";
+import { ProxyTypeSet } from "immer/dist/internal";
 import React from "react";
 import { v4 as uuid } from "uuid";
 import { IconButton, PasswordInput, TextInput, TrashIcon } from "./Components";
+import { ThemeContext, ThemeContextProvider } from "./ThemeContext";
 import { IContact, IUserData } from "./types";
 import { useRenderCounter } from "./use-render-counter";
 
@@ -42,6 +44,16 @@ function apiReducer(state: ApiState, action: ApiAction): ApiState {
   }
 }
 
+function ThemeChooser() {
+  const { setInputBackground } = React.useContext(ThemeContext);
+  return (
+    <>
+      <button onClick={() => setInputBackground("lightgray")}>Light Gray</button>
+      <button onClick={() => setInputBackground("lightblue")}>Light Blue</button>
+    </>
+  );
+}
+
 export default function App() {
   const [apiState, dispatch] = React.useReducer(apiReducer, {
     status: "started"
@@ -69,7 +81,12 @@ export default function App() {
     return <h1>Please wait</h1>;
   }
 
-  return <UserProfile user={apiState.user} />;
+  return (
+    <ThemeContextProvider>
+      <ThemeChooser />
+      <UserProfile user={apiState.user} />
+    </ThemeContextProvider>
+  );
 }
 
 type UserProfileProps = {

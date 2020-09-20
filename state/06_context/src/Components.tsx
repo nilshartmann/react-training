@@ -1,6 +1,8 @@
 import React from "react";
 import { useRenderCounter } from "./use-render-counter";
 
+import { ThemeContext } from "./ThemeContext";
+
 type TextInputProps = {
   label: string;
   value: string;
@@ -8,10 +10,17 @@ type TextInputProps = {
 };
 export function TextInput(props: TextInputProps) {
   useRenderCounter(props.label);
+
+  const { inputBackground } = React.useContext(ThemeContext);
+
   return (
     <label>
       {props.label}
-      <input value={props.value} onChange={e => props.onTextChange(e.target.value)} />
+      <input
+        style={{ background: inputBackground }}
+        value={props.value}
+        onChange={e => props.onTextChange(e.target.value)}
+      />
     </label>
   );
 }
