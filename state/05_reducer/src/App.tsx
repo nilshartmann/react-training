@@ -2,12 +2,86 @@ import produce from "immer";
 import React from "react";
 import { v4 as uuid } from "uuid";
 import { IconButton, PasswordInput, TextInput, TrashIcon } from "./Components";
-import { mockUser } from "./mocks/empty-user";
 import { IContact, IUserData } from "./types";
 import { useRenderCounter } from "./use-render-counter";
 
-function App() {
-  const [user, setUser] = React.useState<IUserData>(() => mockUser());
+type ApiState =
+  | { status: "started"; user?: IUserData }
+  | {
+      error: string;
+      user?: IUserData;
+      status: "failed";
+    }
+  | { status: "finished"; user: IUserData };
+
+type ApiCallStartedAction = {
+  type: "apiCallStarted";
+};
+type ApiCallFinishedAction = {
+  type: "apiCallFinished";
+  userLoaded: IUserData;
+};
+type ApiCallFailedAction = { type: "apiCallFailed"; error: string };
+
+type ApiAction = ApiCallStartedAction | ApiCallFinishedAction | ApiCallFailedAction;
+
+function apiReducer(state: ApiState, action: ApiAction): ApiState {
+  switch (action.type) {
+    case "apiCallStarted":
+      return {
+        user: state.user,
+        status: "started"
+      };
+    case "apiCallFinished":
+      return {
+        status: "finished",
+        user: action.userLoaded
+      };
+    case "apiCallFailed":
+      return { status: "failed", user: state.user, error: action.error };
+  }
+}
+
+export default function App() {
+  const [apiState, dispatch] = React.useReducer(apiReducer, {
+    status: "started"
+  });
+
+  React.useEffect(() => {
+    dispatch({
+      type: "apiCallStarted"
+    });
+    fetch("/api/user")
+      .then(response => response.json())
+      .then(data => {
+        dispatch({
+          type: "apiCallFinished",
+          userLoaded: data
+        });
+      });
+  }, []);
+
+  if (apiState.status === "failed") {
+    return <h1>Error!</h1>;
+  }
+
+  if (apiState.status === "started") {
+    return <h1>Please wait</h1>;
+  }
+
+  return <UserProfile user={apiState.user} />;
+}
+
+type UserProfileProps = {
+  user: IUserData;
+};
+
+function deepCopy<R>(obj: R): R {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+function UserProfile(props: UserProfileProps) {
+  const [user, setUser] = React.useState<IUserData>(() => deepCopy(props.user)); // ?????
 
   const handleFullNameChange = React.useCallback(function handleFullNameChange(
     newFullName: string
@@ -107,5 +181,3 @@ function XInvalidContactCounter(props: InvalidContactCounterProps) {
 const InvalidContactCounter = React.memo(XInvalidContactCounter);
 
 const MemoTextInput = React.memo(TextInput);
-
-export default App;

@@ -468,6 +468,177 @@ const newPerson = {
 </section>
 
 
+    <section data-markdown>
+      <textarea data-template>
+        ### Verwaltung von komplexem Zustand
+
+        ## Reducer-Funktionen und useReducer-Hook
+      </textarea>
+    </section>
+
+    <section data-markdown>
+      <textarea data-template>
+        ### Verwaltung und Änderung von Zustand
+
+        * Wir halten den Zustand lokal in einer Komponente
+        * Sämtliche Änderungen daran passieren innerhalb der Komponente
+        * Mit einer reducer-Funktion kann die Verwaltung des Zustandes aus der Komponente herausgelöst werden
+        * Warum sollte man das tun? Ideen? 🤔
+      </textarea>
+    </section>
+
+    <section>
+      <h3>useReducer-Hook</h3>
+      <p>Hintergrund: Eine reducer-Funktion...</p>
+      <ul>
+        <li class="fragment">
+          ...erhält einen (vorherigen) Zustand und eine Action als Parameter übergeben
+        </li>
+        <li class="fragment"><b>Actions</b> sind anwendungsspezifische, beliebige JavaScript-Objekte</li>
+        <li class="fragment">...verarbeitet die Action</li>
+        <li class="fragment">...liefert dann den neuen, aktualisierten Zustand zurück</li>
+        <li class="fragment">...muss Seiteneffekt frei sein ("pure function")</li>
+      </ul>
+      <pre class="fragment"><code class="javascript" contenteditable data-trim>
+          reducer(old_state, action) => new_state
+        </code></pre>
+
+      <p class="fragment">
+        <em
+          >Reducer sind zentrales Konzept von Redux, kommen aber auch in anderen Bereichen vor
+          (z.B. <code>Array.reduce</code>)</em
+        >
+      </p>
+    </section>
+
+
+    
+    <!-- ============================================================================= -->
+    <section>
+      <h3>Actions</h3>
+      <ul>
+        <li class="fragment">Pure JavaScript-Objekte</li>
+        <li class="fragment">Haben üblicherweise <b>type</b> und <b>payload</b></li>
+        <li class="fragment">Über das <b>type</b>-Property können sie identifiziert werden</li>
+        <li class="fragment">Der <b>Payload</b> enthält Action-spezifische Daten</li>
+      </ul>
+      
+      <pre class="fragment"><code class="javascript">
+        const apiRequestStartedAction = {
+          type: "requestStarted"; // kein Payload erforderlich
+        }
+
+        const apiRequestFinishedAction = {
+          type: "requesFinished",
+          dataReceived: data  // Action-spezifischer Payload (hier: geladene Daten)
+        }
+      </code></pre>
+    
+    </section>
+    
+    
+    <!-- ============================================================================= -->
+    <section>
+      <h3>Die reducer-Funktion</h3>
+      <ul>
+        <li class="fragment">Bekommt den vorherigen Zustand übergeben und liefert neuen Zustand zurück (oder den unveränderten alten)</li>
+        <li class="fragment">Zustand ist immutable! Kann mit <code>immer</code> kombiniert werden</li>
+      </ul>
+      
+      <pre class="fragment"><code class="javascript">
+function apiReducer(state, action) {
+  switch (action.type) {
+    case "requestStarted": {
+      // vorherigen Zustand teilweise übernehmen
+      return { ...state, status: "loading" };
+    }
+
+    case "requestFinished": {
+      // komplett neuen Zustand zurückliefern
+      return { status: "finished", data: action.dataReceived };
+    }
+
+    return state; // alle anderen Actions: Zustand unverändert zurück
+  }
+}            
+      </code></pre>
+    </section>
+
+    
+    <!-- ============================================================================= -->
+    <section>
+      <h3>useReducer-Hook</h3>
+      <ul>
+        <li class="fragment">Mit dem <b>useReducer</b>-Hook wird die reducer-Funktion in der Komponente registriert</li>
+        <li class="fragment">Der Hook bekommt die reducer-Funktion übergeben und den initialen Zustand (ähnlich wie useState)</li>
+        <li class="fragment">Der Hook liefert ein Array zurück mit zwei Einträgen: dem aktuellen Zustand und der <b>dispatch</b>-Funktion. Auch hier ähnlich wie bei useState: Zustand und Funktion zum Ändern des Zustandes</li>
+        <li class="fragment">Mit der dispatch-Funktion können Actions an den Reducer gesendet werden</li>
+        <li class="fragment">Der reducer aktualisiert verarbeitet die Action, liefert neuen Zustand zurück, Komponente wird neu gerendert (wie bei useState)</li>
+      </ul>
+      
+      <pre class="fragment"><code class="javascript">
+        function App() {
+          const [apiState, dispatch] = React.useReducer(apiReducer, { status: "loading" });
+
+          function loadData() {
+            dispatch({ type: "requestStarted "});
+            // ...Daten laden...
+            dispatch({ type: "requestFinished", dataReceived: "..."});
+          }
+
+          // ...
+
+        }
+      </code></pre>
+    </section>
+
+    <section data-markdown>
+      <textarea data-template>
+        ### Mögliche Übung: Reducer-Funktion
+
+        _Baue eine Komponente, die Daten mit `fetch` lädt._
+        
+          * Du kannst den Endpunkt `/api/user` mit HTTP GET aufrufen, da kommt eine Mock-Antwort (ein valides User-Objekt). Auf der nächsten Slide findest Du
+          ein Beispiel dazu, falls dir `fetch` nicht mehr geläufig ist.
+          * Der Zustand in der Komponente wird in einem Reducer verwaltet.
+          * Der Zustand soll mindestens die beiden API-Status "started" und "finished" unterstützen. Im `finished`-Status soll der Zustand außerdem die geladenen Daten halten.
+          * Du brauchst also auch zwei Actions
+          * Während die Daten geladen werden, zeige eine "Bitte warten Sie"-Meldung an
+          * Wenn die Daten geladen sind, zeige die Komponente mit dem User-Editor an. Diese Komponente sollte nun das User-Objekt als Property entgegennehmen.
+          * Sollte die Komponente das User-Objekt direkt verändern? Oder wäre eine Kopie schlauer? 
+      </textarea>
+    </section>
+
+    
+    <!-- ============================================================================= -->
+    <section>
+      <h3>Beispiel: fetch</h3>
+      
+      <pre><code class="javascript">
+        function App() {
+          React.useEffect(() => {
+            // todo: Action auslösen
+            fetch("/api/user")
+              .then(response => response.json())
+              .then(data => {
+                // todo: Action auslösen
+                // "data" ist ein gültiges User-Objekt
+              });
+          }, []);
+  
+          ...
+        }
+          
+      </code></pre>
+      
+    
+    </section>
+    
+
+
+    
+    
+    
     
         
 
@@ -480,8 +651,14 @@ const newPerson = {
           3. text-feld-Komponente bauen (oder contact editor)
           4. Oben rausziehen (=> neue App-Komponente, mit zweiter Ansicht )
           5. Diskussion: KOPIEREN der props in den state 
-          6. Context
           7. ggf. reducer (todo: fachliches Beispiel; vielleicht: Anzahl min und max Kontake beschränken, Prüfung in Reducer, ggf. Fehler setzen oder Action nur unterdrücken)
+
+              Reducer => Wert initialisieren (INIT_ACTION, nachdem gelesen wurde; neuer Status: DATEN_WERDEN_GELADEN)
+
+          6. Context (THEME, NICHT USER!!!!)
+              => Theme wird in TextInput und Password verwendet; Funktion und Werte bereitstellen, es wird immer alles neu gerendert
+          7. Redux , ggf. user (den Reducer haben wir schon)
+              => Theme 
           2. Neue Komponente wird notwendig: Zustand wird nach oben geschoben   
           
           3. Rendern unterdrücken: 
