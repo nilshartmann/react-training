@@ -398,18 +398,73 @@ const newPerson = {
 <section>
   <h3>Rendern unterdrücken</h3>
   <ul>
-    <li>Wenn sich der Zustand ändert, wird die Komponente und alle darunterliegenden Komponenten erneut gerendert</li>
-    <li>Nicht immer <b>müssen</b> alle Komponenten aus fachlicher Sicht neu gerendert werden</li>
-    <li>Eine Komponente kann "memoiziert" werden, und rendert sich dann nur erneut, wenn mindestens <b>ein</b> Property sich verändert hat (Identitätsvergleich)</li>
+    <li class="fragment">Wenn sich der Zustand ändert, wird die Komponente und alle darunterliegenden Komponenten erneut gerendert</li>
+    <li class="fragment">Nicht immer <b>müssen</b> alle Komponenten aus fachlicher Sicht neu gerendert werden</li>
+    <li class="fragment">Eine Komponente kann "memoiziert" werden, und rendert sich dann nur erneut, wenn mindestens <b>ein</b> Property sich verändert hat (Identitätsvergleich)</li>
   </ul>
 
   
   <pre class="fragment"><code class="javascript">
-    function 
+    // Nur neu rendern, wenn Properties sich verändert haben
+    const InvalidContactDisplay = React.memo(function InvalidContactDisplay(props) {
+      return ...;
+    });
+
+    // Verwendung wie gewohnt:
+    &lt;InvalidContactDisplay contacts={...} />
   </code></pre>
+  <p class="fragment"><b>Achtung!</b>: Diese Optimierungen bitte nicht auf "vorrat" vornehmen, sondern nur, wenn wirklich nötig! Auch das Caching/Memoization hat seinen Preis!</p>
+</section>
+
+
+<!-- ============================================================================= -->
+<section>
+  <h3>Rendern unterdrücken: Stabile Funktionsreferenzen</h3>
+  <ul>
+    <li class="fragment">Wenn eine Komponente sich neu rendert, werden alle darin enthaltenen Funktionen "neu erzeugt"</li>
+    <li class="fragment">Wenn eine solche Funktion als Callback-Funktion an eine memoizierte Komponente übergeben wird, ist sie "verändert", es wird also neu gerendert</li>
+    <li class="fragment">Mit <code>React.useCallback</code> können stabile Funktionsreferenzen erzeugt werden, die über einen Renderzyklus hinaus gültig sind:</li>
+  </ul>
   
+  <pre class="fragment"><code class="javascript">
+    function UserInput(props) {
+      const handleFullNameChange = React.useCallback(function(...) { ... }, []);
+    }
+  </code></pre>
+
+  <ul class="fragment">
+    <li>Mit dem zweiten Paramater können - wie bei <code>React.useEffect</code> - Abhängigkeiten angegeben werden, wann die Funktion neu erzeugt werden soll</li>
+  </ul>
+</section>
 
 
+<!-- ============================================================================= -->
+<section>
+  <h3>Rendern unterdrücken: Stabile Funktionsreferenzen #2</h3>
+  <ul>
+    <li class="fragment">In einer "stabilen" Funktion müsst ihr darauf achten, Werte, die ihr in der Funktion verwendet, als Dependency anzugeben</li>
+    <li class="fragment">Für den Zustand gibt es die Möglichkeit, die Callback-Notation von <code>setState</code> zu verwenden. Damit bekommst Du immer den aktuellen Wert
+      des Zustandes, und brauchst ihn nicht in den Dependencies anzugeben:
+    </li>
+    
+    <pre class="fragment"><code class="javascript">
+      const handleUpdate = React.useCallback(function()  {
+        // der Callback-Funktion wird der aktuelle Zustand übergeben
+        // ihr Rückgabewert wird als neuer State gesetzt
+        setState(oldState => ...);
+      }, []);
+    </code></pre>
+</section>
+
+<section data-markdown>
+  <textarea data-template>
+    ### Mögliche Übung: Memoization von Komponenten
+
+    * Die `TextInput`-Komponente soll sich nur neu rendern, wenn sich eines ihrer Properties verändert hat
+    * Du musst die TextInput-Komponente als "memoizieren"
+    * Und die Aufrufe an die Komponente anpassen?
+
+  </textarea>
 </section>
 
 

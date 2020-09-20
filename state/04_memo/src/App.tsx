@@ -4,17 +4,21 @@ import { v4 as uuid } from "uuid";
 import { IconButton, PasswordInput, TextInput, TrashIcon } from "./Components";
 import { mockUser } from "./mocks/empty-user";
 import { IContact, IUserData } from "./types";
+import { useRenderCounter } from "./use-render-counter";
 
 function App() {
   const [user, setUser] = React.useState<IUserData>(() => mockUser());
 
-  function handleFullNameChange(newFullName: string) {
-    setUser(
+  const handleFullNameChange = React.useCallback(function handleFullNameChange(
+    newFullName: string
+  ) {
+    setUser(user =>
       produce(user, draft => {
         draft.fullName = newFullName;
       })
     );
-  }
+  },
+  []);
 
   function handlePasswordChange(newPassword: string) {
     setUser(
@@ -62,7 +66,7 @@ function App() {
   return (
     <div className="Container">
       <h1>Edit User Details</h1>
-      <TextInput label="Full Name" value={user.fullName} onTextChange={handleFullNameChange} />
+      <MemoTextInput label="Full Name" value={user.fullName} onTextChange={handleFullNameChange} />
       <PasswordInput password={user.password} onPasswordChange={handlePasswordChange} />
 
       <div>
@@ -91,15 +95,17 @@ function App() {
 type InvalidContactCounterProps = {
   contacts: IContact[];
 };
-const InvalidContactCounter = React.memo(function InvalidContactCounter(
-  props: InvalidContactCounterProps
-) {
+function XInvalidContactCounter(props: InvalidContactCounterProps) {
+  useRenderCounter("InvalidContactCounter");
   const contactsWithProblems = props.contacts.filter(contact => contact.type === "").length;
 
   if (contactsWithProblems) {
     return <div>{contactsWithProblems} contacts are not valid</div>;
   }
   return <div>All contacts are valid</div>;
-});
+}
+const InvalidContactCounter = React.memo(XInvalidContactCounter);
+
+const MemoTextInput = React.memo(TextInput);
 
 export default App;

@@ -1,4 +1,5 @@
 import React from "react";
+import { useRenderCounter } from "./use-render-counter";
 
 type TextInputProps = {
   label: string;
@@ -6,6 +7,7 @@ type TextInputProps = {
   onTextChange(newValue: string): void;
 };
 export function TextInput(props: TextInputProps) {
+  useRenderCounter(props.label);
   return (
     <label>
       {props.label}
