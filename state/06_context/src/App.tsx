@@ -1,5 +1,4 @@
 import produce from "immer";
-import { ProxyTypeSet } from "immer/dist/internal";
 import React from "react";
 import { v4 as uuid } from "uuid";
 import { IconButton, PasswordInput, TextInput, TrashIcon } from "./Components";

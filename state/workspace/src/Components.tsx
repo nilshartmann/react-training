@@ -1,19 +1,5 @@
 import React from "react";
 
-type TextInputProps = {
-  label: string;
-  value: string;
-  onTextChange(newValue: string): void;
-};
-export function TextInput(props: TextInputProps) {
-  return (
-    <label>
-      {props.label}
-      <input value={props.value} onChange={e => props.onTextChange(e.target.value)} />
-    </label>
-  );
-}
-
 type IconButtonProps = {
   onClick(): void;
   icon: React.ReactNode;

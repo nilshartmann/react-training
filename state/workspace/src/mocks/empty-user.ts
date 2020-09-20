@@ -1,8 +1,8 @@
 export function mockUser() {
   return {
     id: "user1",
-    firstName: "Klaus",
-    lastName: "Mueller",
+    fullName: "Klaus Mueller",
+    password: "Secret",
     contacts: [
       {
         id: "contact-1",

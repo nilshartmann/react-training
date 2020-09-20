@@ -73,6 +73,12 @@ textarea:focus {
   box-shadow: var(--color-primary) 0px 0px 0px 2px inset;
 }
 
+input[type="checkbox"] {
+  width: auto;
+  transform: scale(1.5);
+  margin-right: 0.5rem;
+}
+
 button {
   background-color: var(--color-white);
   color: var(--color-main);
