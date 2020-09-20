@@ -6,7 +6,7 @@ export type IContact = {
 
 export type IUserData = {
   id: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
+  password: string;
   contacts: IContact[];
 };

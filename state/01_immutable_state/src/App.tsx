@@ -7,13 +7,13 @@ import { IUserData } from "./types";
 function App() {
   const [user, setUser] = React.useState<IUserData>(() => mockUser());
 
-  function handleFirstNameChange(newFirstName: string) {
-    const newUser = { ...user, firstName: newFirstName };
+  function handleFullNameChange(newFullName: string) {
+    const newUser = { ...user, fullName: newFullName };
     setUser(newUser);
   }
 
-  function handleLastNameChange(newLastName: string) {
-    const newUser = { ...user, lastName: newLastName };
+  function handlePasswordChange(newPassword: string) {
+    const newUser = { ...user, password: newPassword };
     setUser(newUser);
   }
 
@@ -56,22 +56,33 @@ function App() {
   return (
     <div className="Container">
       <h1>Edit User Details</h1>
-      <TextInput label="First name" value={user.firstName} onTextChange={handleFirstNameChange} />
-      <TextInput label="Last name" value={user.lastName} onTextChange={handleLastNameChange} />
+      <label>
+        Full Name
+        <input value={user.fullName} onChange={e => handleFullNameChange(e.target.value)} />
+      </label>
+
+      <label>
+        Password
+        <input value={user.password} onChange={e => handlePasswordChange(e.target.value)} />
+      </label>
 
       <div>
         {user.contacts.map(contact => (
           <div key={contact.id} className="f-horizontal">
-            <TextInput
-              label="Type"
-              value={contact.type}
-              onTextChange={type => handleContactTypeChange(contact.id, type)}
-            />
-            <TextInput
-              label="Value"
-              value={contact.value}
-              onTextChange={value => handleContactValueChange(contact.id, value)}
-            />
+            <label>
+              Type
+              <input
+                value={contact.type}
+                onChange={e => handleContactTypeChange(contact.id, e.target.value)}
+              />
+            </label>
+            <label>
+              Value
+              <input
+                value={contact.value}
+                onChange={e => handleContactValueChange(contact.id, e.target.value)}
+              />
+            </label>
             <IconButton onClick={() => handleContactRemove(contact.id)} icon={<TrashIcon />} />
           </div>
         ))}

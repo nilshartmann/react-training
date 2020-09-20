@@ -1,3 +1,4 @@
+import produce, { Draft } from "immer";
 import React from "react";
 import { v4 as uuid } from "uuid";
 import { IconButton, TextInput, TrashIcon } from "./Components";
@@ -7,17 +8,24 @@ import { IUserData } from "./types";
 function App() {
   const [user, setUser] = React.useState<IUserData>(() => mockUser());
 
-  function handleFirstNameChange(newFirstName: string) {
-    const newUser = { ...user, firstName: newFirstName };
-    setUser(newUser);
+  function handleFullNameChange(newFullName: string) {
+    setUser(
+      produce(user, draft => {
+        draft.fullName = newFullName;
+      })
+    );
   }
 
-  function handleLastNameChange(newLastName: string) {
-    const newUser = { ...user, lastName: newLastName };
-    setUser(newUser);
+  function handlePasswordChange(newPassword: string) {
+    setUser(
+      produce(user, draft => {
+        draft.password = newPassword;
+      })
+    );
   }
 
   function handleContactRemove(contactId: string) {
+    // hier kein produce sinnvoll?
     const newUser = {
       ...user,
       contacts: user.contacts.filter(c => c.id !== contactId)
@@ -26,52 +34,61 @@ function App() {
   }
 
   function handleContactTypeChange(contactId: string, newType: string) {
-    const newUser = {
-      ...user,
-      contacts: user.contacts.map(oldContact =>
-        oldContact.id === contactId ? { ...oldContact, type: newType } : oldContact
-      )
-    };
-    setUser(newUser);
+    setUser(
+      produce(user, draft => {
+        const ix = draft.contacts.findIndex(contact => contact.id === contactId);
+        draft.contacts[ix].type = newType;
+      })
+    );
   }
 
   function handleContactValueChange(contactId: string, newValue: string) {
-    const newUser = {
-      ...user,
-      contacts: user.contacts.map(oldContact =>
-        oldContact.id === contactId ? { ...oldContact, value: newValue } : oldContact
-      )
-    };
-    setUser(newUser);
+    setUser(
+      produce(user, draft => {
+        const ix = draft.contacts.findIndex(contact => contact.id === contactId);
+        draft.contacts[ix].value = newValue;
+      })
+    );
   }
 
   function handleContactAdd() {
-    const newUser = {
-      ...user!,
-      contacts: [...user.contacts, { id: uuid(), type: "", value: "" }]
-    };
-    setUser(newUser);
+    setUser(
+      produce(user, draft => {
+        draft.contacts.push({ id: uuid(), type: "", value: "" });
+      })
+    );
   }
 
   return (
     <div className="Container">
       <h1>Edit User Details</h1>
-      <TextInput label="First name" value={user.firstName} onTextChange={handleFirstNameChange} />
-      <TextInput label="Last name" value={user.lastName} onTextChange={handleLastNameChange} />
+      <label>
+        Full Name
+        <input value={user.fullName} onChange={e => handleFullNameChange(e.target.value)} />
+      </label>
+
+      <label>
+        Password
+        <input value={user.password} onChange={e => handlePasswordChange(e.target.value)} />
+      </label>
 
       <div>
         {user.contacts.map(contact => (
           <div key={contact.id} className="f-horizontal">
-            <TextInput
-              label="Type"
-              value={contact.type}
-              onTextChange={type => handleContactTypeChange(contact.id, type)}
-            />
-            <TextInput
-              label="Value"
-              value={contact.value}
-              onTextChange={value => handleContactValueChange(contact.id, value)}
-            />
+            <label>
+              Type
+              <input
+                value={contact.type}
+                onChange={e => handleContactTypeChange(contact.id, e.target.value)}
+              />
+            </label>
+            <label>
+              Value
+              <input
+                value={contact.value}
+                onChange={e => handleContactValueChange(contact.id, e.target.value)}
+              />
+            </label>
             <IconButton onClick={() => handleContactRemove(contact.id)} icon={<TrashIcon />} />
           </div>
         ))}

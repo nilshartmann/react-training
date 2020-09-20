@@ -242,6 +242,116 @@ const newPerson = {
         
       </code></pre>
     </section>
+
+    
+ 
+      <section data-markdown>
+        <textarea data-template>
+          ## Immer für Arbeiten mit unveränderlichen Datenstrukturen
+
+          <img src="slides/images/immer.png" /> 
+
+          * [ImmerJs](https://immerjs.github.io/immer/docs/introduction): _Create the next immutable state tree by simply modifying the current tree_
+          * Konzept: altes Objekt wird in eine Funktion gesteckt, die daraus ein _Draft_ erzeugt
+          * Das _Draft_ wird mit regulären JavaScript APIs verändert, als wenn es mutable wäre
+          * Immer zeichnet die Änderungen auf
+          * Zum Schluss werden die Änderungen auf eine Kopie des alten Objektes angewendet
+
+        </textarea>
+      </section>
+
+      
+      <!-- ============================================================================= -->
+      <section>
+        <h3>Immer: produce-Funktion</h3>
+
+        <p>Die <b>produce</b>-Funktion bekommt ein Objekt übergeben, sowie eine zweite Funktion,
+          die von immer mit einem Draft aufgerufen wird.</p>
+          <p>Dieses Draft kann verändert werden</p>
+          <p>Der Rückgabe-Typ der produce-Funktion ist dann eine Kopie des alten Objektes mit
+            den Änderungen, die auf dem Draft vorgenommen wurden.</p>
+
+            
+            <pre class="fragment"><code class="javascript">
+              import produce from "immer";
+
+              const person = { name: "Klaus", address: { city: "Berlin", country: "Germany"} };
+
+              const newPerson = produce(person, draft => {
+                person.name = "Susi";
+                person.address.city = "Hamburg";
+              })
+
+              newPerson; // Neues Objekt!
+              newPerson.name; // Susi
+              newPerson.address // Neues Objekt!
+              newPerson.address.city; // Hamburg
+            </code></pre>
+      </section>
+      
+
+      
+      <!-- ============================================================================= -->
+      <section>
+        <h3>Beispiel: Immer</h3>
+
+        <pre class="fragment"><code class="javascript">
+          function handleLastNameChange(newLastName: string) {
+              const newUser = produce(user, draft => {
+                // draft kann verändert werden, als ob es ein mutable Objekt sei
+                draft.lastName = newLastName;
+              })
+            );
+            setUser(newUser);
+          }
+        </code></pre>
+
+        <pre class="fragment"><code class="javascript">
+          function handleContactTypeChange(contactId: string, newType: string) {
+            setUser(
+              produce(user, draft => {
+                const ix = draft.contacts.findIndex(contact => contact.id === contactId);
+                draft.contacts[ix].type = newType;
+              })
+            );
+          }
+        </code></pre>
+      </section>
+      
+    
+         <!-- ============================================================================= -->
+    <section>
+      <h3>Erste Übung: Mit ES6 Operatoren und immer vertraut machen</h3>
+
+* Verzeichnis: **state/workspace**
+* In `App.tsx` die leeren Handler-Funktionen implementieren
+* Du kannst jeweils ES6 Operatoren oder immer verwenden, je nachdem was besser passt
+    
+    </section>
+
+<!-- ============================================================================= -->
+<section>
+  <h3>Nächster Schritt</h3>
+  <h2>Zustand "verteilen"</h2>
+</section>
+
+
+<section data-markdown>
+  <textarea data-template>
+    ### Erinnerung:
+
+    * **Zustand** wird von Parent-Komponenten nach unten gereicht (über **Properties**)
+    * Die Unterkomponenten können den Zustand darstellen (oder andere Dinge davon ableiten), aber ihn nicht **verändern**
+    * (Unterkomponenten können zusätzlich eigenen Zustand haben)
+    * Oberkomponenten können außerdem Callback-Funktionen an ihre Unterkomponenten übergeben
+    * Über die Callback-Funktionen können Unterkomponenten den Oberkomponenten Ereignisse schicken
+    * Die Oberkomponente kann auf das Ereignis z.B. mit einer State-Änderung reagieren, so dass Ober- und Unterkomponente neu gerendert werden
+    * Das Durchreichen von State- und Callbacks ist über mehr als eine Ebene erlaubt (und gewöhnlich)
+
+    <img class="fragment" style="height:600px" src="slides/images/state/datenfluss.svg" />
+  </textarea>
+</section>
+
     
         
 
@@ -249,7 +359,13 @@ const newPerson = {
           <textarea data-template>
           - Komponenten wie Text Input etc sind schon fertig
 
-          1. Formular (Form und Contact Editor), state ist statisch und wird dort gehalten. Implementieren: entweder gleich immer oder vorher ES6
+          1. Formular (Form und Contact Editor), state ist statisch und wird dort gehalten. Implementieren: ES6 ohne "fachliche" Komponenten
+          2. Immer
+          3. text-feld-Komponente bauen (oder contact editor)
+          4. Oben rausziehen (=> neue App-Komponente, mit zweiter Ansicht )
+          5. Diskussion: KOPIEREN der props in den state 
+          6. Context
+          7. ggf. reducer (todo: fachliches Beispiel; vielleicht: Anzahl min und max Kontake beschränken, Prüfung in Reducer, ggf. Fehler setzen oder Action nur unterdrücken)
           2. Neue Komponente wird notwendig: Zustand wird nach oben geschoben   
           
           3. Rendern unterdrücken: 
@@ -286,7 +402,8 @@ const newPerson = {
     <script>
       const isLocal =
         window.location.hostname.indexOf("localhost") !== -1 ||
-        window.location.hostname.indexOf("127.0.0.1") !== -1;
+        window.location.hostname.indexOf("127.0.0.1") !== -1 ||
+        window.location.href.startsWith("file:///");
       Reveal.addEventListener("ready", function (event) {
         $("li").addClass("fragment");
 
