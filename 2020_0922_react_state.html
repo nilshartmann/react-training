@@ -47,13 +47,13 @@
           <div>
             <h3><span class="transparent-bg">Slides</span></h3>
             <p>
-              <span class="transparent-bg">Lokal: react-training/2020_3_tage_react.html</span>
+              <span class="transparent-bg">Lokal: react-training/2020_0922_state.html</span>
             </p>
             <p>
               <span class="transparent-bg"
                 >oder online:
-                <a href="https://nils.buzz/3_tage_react.html"
-                  >https://nils.buzz/3_tage_react.html</a
+                <a href="https://react.schule/2020_0922.html"
+                  >https://react.schule/2020_0922.html</a
                 ></span
               >
             </p>
@@ -93,6 +93,22 @@
               <br />
             </div>
           </div>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Agenda
+
+            * **Prio 1: Eure Fragen, Probleme und Wünsche** 
+
+            * State Grundlagen (Wiederholung)
+            * Arbeiten mit komplexem State
+            * React Context API für globalen State
+            * Redux für externen State
+
+            * (Unterschiedliche React-Versionen) 
+            * (Router)
+          </textarea>
         </section>
 
         <section data-markdown>
@@ -316,16 +332,35 @@ const newPerson = {
         </code></pre>
         </section>
 
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Erste Übung: Mit ES6 Operatoren und immer vertraut machen</h3>
+        <section data-markdown>
+          <textarea data-template>
+            ## Hands-on! 👨‍💻
+            ### Der Workspace
 
-          * Verzeichnis: **state/workspace** * In `App.tsx` die leeren Handler-Funktionen
-          implementieren * Du kannst jeweils ES6 Operatoren oder immer verwenden, je nachdem was
-          besser passt
+            * Unser heutiges Arbeitsverzeichnis für Übungen ist `state/workspace`.
+            * darin:
+              * `npm install`
+              * `npm start`
+            
+            * Die Übungen sind alle in TypeScript. 
+              * Für das User "Domain-Objekt" findet ihr Typ-Beschreibung in `types.ts`
+              * Für alle anderen Typen (Properties an neuen Komponenten) müsst ihr Euch keine Mühe geben, und könnt auf `any` zurückfallen 😇  
+
+          </textarea>
         </section>
 
-        <!-- ============================================================================= -->
+        <section data-markdown>
+          <textarea data-template>
+            ### Mögliche Übung: Mit ES6 Operatoren und Immer vertraut machen</h3>
+
+            * Verzeichnis: **state/workspace** 
+            * In `App.tsx` die leeren Handler-Funktionen implementieren 
+            * Du kannst jeweils ES6 Operatoren oder `produce` von immer verwenden, je nachdem was
+            besser passt
+            </textarea
+          >
+        </section>
+
         <section>
           <h3>Nächster Schritt</h3>
           <h2>Zustand "verteilen"</h2>
@@ -823,7 +858,12 @@ function ThemeChooser() {
           <textarea data-template>
             ### Mögliche Übung: React Context
 
-            ## todo: Übung vorbereiten
+            * In der Datei `ThemeContext.tsx` findest Du bereits einen Rumpf für einen Theme-Context
+            * Verfollständige diesen, so dass er eine Farbe und eine setter-Funktion zum Ändern der Farbe bekommt
+            * Passe deine TextInput-Komponente oder ein anderes Input-Feld so an, dass es als Hintergrundfarbe die Farbe aus dem Context verwendet (Property: `style={{backgroundColor: ...}}`)
+            * Implementiere eine neue Komponente `ThemeChooser`, die die setter-Funktion aus dem Context benutzt, um eine andere Farbe einzustellen. Die Komponente kann sehr trivial sein, z.B. 
+            nur ein oder zwei Buttons, um zwischen zwei Farben hin- und herzuschalten
+
           </textarea>
         </section>
 
