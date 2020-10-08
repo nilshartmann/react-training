@@ -20,6 +20,13 @@ Wenn Du bereits einen anderen "Lieblingseditor" verwendest, kannst Du den währe
 
 - Für das Arbeiten mit React empfehle ich, die [React Developer Tools](https://github.com/facebook/react/tree/master/packages/react-devtools) zu installieren. Es gibt sie für [Chrome](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjE14vhq-rmAhVGblAKHbgOC1sQFjAAegQICRAK&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi&usg=AOvVaw3YJDg7kXgeeChgKN88s0Sx) und [Firefox](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
 
+**Während des Trainings**
+
+- Da wir vor und während des Trainings ggf. noch Aktualisierungen installieren müssen, bitte sicherstellen, dass auch während des Trainings auf deinem Computer der Internet-Zugang (logisch, online-Schulung 🙃) funktioniert - aber auch **für git und npm** (Proxies beachten!)
+  - Informationen zum Einrichten eines Proxies für npm findest Du bei Bedarf [zum Beispiel hier](http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/).
+- Ich freue mich, wenn Du während des Trainings deine Kamera an hast, damit wir uns sehen können 🎥. Mikrofon hingegen bitte nur anmachen, wenn Du etwas sagen oder fragen möchtest (was Du natürlich jederzeit darfst!)
+- W-LAN ist bequem, aber gerade bei (langen) Streamings ist ein Kabel-gebundenes Netzwerk stabiler als W-LAN, also im Zweifel lieber das Kabel einstecken 😊
+
 # Installation und Vorbereitung des Workspaces für die Schulung
 
 ## Schritt 1: Repository klonen und Pakete installieren
@@ -82,11 +89,5 @@ Achtung! Das Frontend läuft auf **Port 3000**, d.h. dieser Port muss verfügbar
 Um die Übungen zu machen, solltest Du nur das Verzeichnis `blog-example/workspace` in deinem Lieblingseditor oder deiner Lieblings-IDE öffnen. Bitte öffne **nicht** den **kompletten Workspace**.
 
 Du kannst das Verzeichnis bereits zu Beginn der Schulung öffnen. Wie die Übungen dann ablaufen, erkläre ich natürlich im Laufe der Schulung.
-
-# Internet-Zugang
-
-Da wir vor und während des Trainings ggf. noch Aktualisierungen installieren müssen, bitte sicherstellen, dass auch während des Trainings auf deinem Computer der Internet-Zugang (logisch, online-Schulung 🙃) funktioniert - aber auch **für git und npm** (Proxies beachten!)
-
-Informationen zum Einrichten eines Proxies für npm findest Du [zum Beispiel hier](http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/).
 
 Bei Fragen oder Problemen melde dich bitte bei mir.
