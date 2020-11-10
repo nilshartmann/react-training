@@ -3,39 +3,84 @@
 exports[`renders correctly 1`] = `
 Array [
   <button
+    aria-label="Add Post"
+    className="MuiButtonBase-root MuiFab-root MuiFab-primary"
+    disabled={false}
+    onBlur={[Function]}
     onClick={[MockFunction]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+    type="button"
   >
-    Add Post
+    <span
+      className="MuiFab-label"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+        />
+      </svg>
+    </span>
   </button>,
-  <article
-    className="Container"
+  <div
+    className="MuiPaper-root MuiCard-root makeStyles-Post-1 MuiPaper-elevation1 MuiPaper-rounded"
   >
-    <p
-      className="Date"
+    <div
+      className="MuiCardContent-root"
     >
-      23.08.2019
-    </p>
-    <h1>
-      One
-    </h1>
-    <p>
-      Lorem ipsum
-    </p>
-  </article>,
-  <article
-    className="Container"
+      <span
+        className="MuiTypography-root MuiTypography-overline MuiTypography-gutterBottom"
+      >
+        23.08.2019
+      </span>
+      <h2
+        className="MuiTypography-root MuiTypography-h2 MuiTypography-gutterBottom"
+      >
+        One
+      </h2>
+      <p
+        className="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom"
+      >
+        Lorem ipsum
+      </p>
+    </div>
+  </div>,
+  <div
+    className="MuiPaper-root MuiCard-root makeStyles-Post-1 MuiPaper-elevation1 MuiPaper-rounded"
   >
-    <p
-      className="Date"
+    <div
+      className="MuiCardContent-root"
     >
-      22.09.2019
-    </p>
-    <h1>
-      Second Post
-    </h1>
-    <p>
-      Some more content
-    </p>
-  </article>,
+      <span
+        className="MuiTypography-root MuiTypography-overline MuiTypography-gutterBottom"
+      >
+        22.09.2019
+      </span>
+      <h2
+        className="MuiTypography-root MuiTypography-h2 MuiTypography-gutterBottom"
+      >
+        Second Post
+      </h2>
+      <p
+        className="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom"
+      >
+        Some more content
+      </p>
+    </div>
+  </div>,
 ]
 `;

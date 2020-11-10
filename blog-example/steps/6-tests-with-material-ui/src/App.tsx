@@ -2,7 +2,7 @@ import React from "react";
 import PostList from "./PostList";
 import PostEditor from "./PostEditor";
 import { NewBlogPost, BlogPost } from "./types";
-import LoadingIndicator from "./LoadingIndicator";
+import { CircularProgress } from "@material-ui/core";
 
 type VIEW = "LIST" | "ADD";
 
@@ -47,7 +47,7 @@ function App() {
   }
 
   if (fetchState.loading) {
-    return <LoadingIndicator>Server Request running. Please wait.</LoadingIndicator>;
+    return <CircularProgress />;
   }
 
   if (view === "LIST") {

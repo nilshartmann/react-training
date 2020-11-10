@@ -18,7 +18,7 @@ it("should render posts read from backend", async () => {
   fetchMock.mockResponse(JSON.stringify(mockPosts));
   render(<App />);
 
-  expect(screen.getByRole("alert")).toBeInTheDocument();
+  expect(screen.getByRole("progressbar")).toBeInTheDocument();
 
   const articleOne = await screen.findByRole("heading", { name: "One Fetch Mock" });
   expect(articleOne).toBeInTheDocument();

@@ -1,3 +1,4 @@
+import { Button, Card, CardActions, CardContent, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { NewBlogPost } from "./types";
 
@@ -26,33 +27,54 @@ export default function PostEditor(props: PostEditorProps) {
   }
 
   return (
-    <div className="Container">
-      <h1>Create Post</h1>
+    <Card>
+      <CardContent>
+        <Typography variant="h2">Create Post</Typography>
 
-      <label>
-        Title
-        <input value={title} ref={titleRef} onChange={e => setTitle(e.currentTarget.value)} />
-      </label>
+        <form>
+          <div>
+            <TextField
+              id="titleField"
+              fullWidth
+              label="Title"
+              value={title}
+              ref={titleRef}
+              onChange={e => setTitle(e.currentTarget.value)}
+            />
+          </div>
 
-      <label>
-        Body
-        <textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
-      </label>
+          <div>
+            <TextField
+              id="bodyField"
+              fullWidth
+              multiline
+              label="Body"
+              value={body}
+              rows={8}
+              onChange={e => setBody(e.currentTarget.value)}
+            />
+          </div>
+        </form>
+      </CardContent>
 
-      <button disabled={clearDisabled} onClick={clear}>
-        Clear
-      </button>
-      <button
-        disabled={saveButtonDisabled}
-        onClick={() => {
-          props.onSavePost({
-            title,
-            body
-          });
-        }}
-      >
-        Save Post
-      </button>
-    </div>
+      <CardActions>
+        <Button variant="contained" disabled={clearDisabled} onClick={clear}>
+          Clear
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={saveButtonDisabled}
+          onClick={() => {
+            props.onSavePost({
+              title,
+              body
+            });
+          }}
+        >
+          Save Post
+        </Button>
+      </CardActions>
+    </Card>
   );
 }
