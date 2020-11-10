@@ -58,10 +58,11 @@ export default function PostEditor(props: PostEditorProps) {
       </CardContent>
 
       <CardActions>
-        <Button variant="contained" disabled={clearDisabled} onClick={clear}>
+        <Button id="clearButton" variant="contained" disabled={clearDisabled} onClick={clear}>
           Clear
         </Button>
         <Button
+          id="saveButton"
           variant="contained"
           color="primary"
           disabled={saveButtonDisabled}

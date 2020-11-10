@@ -17,13 +17,19 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "react-test-renderer": "^16.13.1",
+    "testcafe": "^1.9.4",
     "typescript": "^3.7.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "testcafe": "testcafe chrome,safari,firefox testcafe/ -s path=./testcafe/screenshots,takeOnFails=true",
+    "testcafe:watch": "testcafe firefox testcafe/ -L",
+    "testcafe:debug": "testcafe firefox testcafe/ --debug-on-fail",
+    "testcafe:remote": "testcafe remote testcafe/"
+    
   },
   "eslintConfig": {
     "extends": "react-app"
