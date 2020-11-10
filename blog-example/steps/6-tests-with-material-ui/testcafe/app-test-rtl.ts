@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-
+import { screen } from "@testing-library/testcafe";
 fixture`App Browser Test`.page`http://localhost:3000`;
 
 test("Entering new Blog Post", async t => {
@@ -8,11 +8,12 @@ test("Entering new Blog Post", async t => {
 
   // Material UI Components hard to find by "meaningful" attributes,
   // use IDs instead
-  const clearButton = Selector("#clearButton");
-  const saveButton = Selector("#saveButton");
 
-  const titleField = Selector("#titleField");
-  const bodyField = Selector("#bodyField");
+  const clearButton = screen.getByRole("button", { name: "Clear" });
+  const saveButton = screen.getByRole("button", { name: "Save Post" });
+
+  const titleField = screen.getByLabelText("Title");
+  const bodyField = screen.getByLabelText("Body");
 
   // Make sure, Buttons are disabled
   await t.expect(clearButton.hasAttribute("disabled")).ok();
