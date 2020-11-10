@@ -2020,6 +2020,267 @@ function PostEditor(props) {
           <h2>Testing React Applications</h2>
         </section>
 
+        <section>
+          <h2>Exkurs: Material UI</h2>
+
+          <p>Beispiel: <code>steps/6-tests-with-material-ui</code></p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Material UI</h3>
+          <p><a href="https://material-ui.com/">https://material-ui.com/</a></p>
+          <ul>
+            <li class="fragment">
+              React-Komponenten, mit denen Googles Material Design realisiert werden kann
+            </li>
+            <li class="fragment">
+              Viele Basis-Komponenten wie Button, Text-Felder, Typographie etc
+            </li>
+            <li class="fragment">
+              Die Komponenten kümmern sich um das korrekte CSS samt Fonts und Icons, so wie es das
+              Material Design vorsieht
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+function PostList(props) {
+  return &lt;>
+      &lt;Fab color="primary" aria-label="Add Post" onClick={props.onAddPost}>
+        &lt;AddIcon />
+      &lt;/Fab>
+      {posts.map(p => (
+        &lt;Card key={p.id}>
+            &lt;Typography variant="overline">
+              {formattedDate(p.date)}
+            &lt;/Typography>
+            &lt;Typography variant="h2">
+              {p.title}
+            &lt;/Typography>
+            &lt;Typography variant="body1">
+              {p.body}
+            &lt;/Typography>
+        &lt;/Card>
+      ))}
+    &lt;/>
+}
+
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Styling</h3>
+          <ul>
+            <li class="fragment">
+              Grundsätzlich sind die Material UI Komponenten "fertig" gestyled
+            </li>
+            <li class="fragment">
+              Man kann das CSS aber überschreiben, in dem man das <b>class</b>-Property angibt und
+              einen CSS-Klassennamen übergibt
+            </li>
+            <li class="fragment">
+              Um gezielter einzelne Teile einer Komponente zu verändern, kann man eine Reihe von
+              Komponente-spezifischen CSS-Klassen mit dem <code>classes</code>-Property angeben:
+              <pre class="fragment"><code class="javascript">
+&lt;Input classes={{
+  focused: "my-focus-class",
+  disabled: "my-disabled-class"
+}} ... />                
+              </code></pre>
+            </li>
+
+            <li class="fragment">
+              In diesem Fall müsst ihr dafür sorgen, dass <code>my-focus-class</code> und
+              <code>my-disabled-class</code> in Eurem Code irgendwo definiert sind, z.B. in einem
+              externen CSS-Stylesheet
+            </li>
+            <li class="fragment">
+              Wichtig! Die Keys im classes-Objekt sind nicht die tatsächlichen CSS-Klassen, die
+              Material-UI verwenden, sondern logische Namen. Diese sind jeweils in der Komponenten
+              API beschrieben
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Styling #2: CSS-in-JS</h3>
+          <ul>
+            <li class="fragment">
+              Für Material UI spielt es grundsätzlich keine Rolle, wo Euer eigenes CSS herkommt; ihr
+              müsst die Klassennamen nur mit <code>className</code> oder
+              <code>classes</code> angeben.
+            </li>
+            <li class="fragment">
+              Eine Idee für CSS mit React wird <b>CSS-in-JS</b> genannt. Dabei schreibt ihr den
+              CSS-Code direkt in Eurer JavaScript-Anwendung
+            </li>
+            <li class="fragment">
+              Das ist nicht Material UI-spezifisch, wird aber von Material UI untersützt
+            </li>
+            <li class="fragment">
+              Material UI verwendet dazu eine eigene Implementierung, bekannt für diesen Ansatz ist
+              auch <a href="https://styled-components.com/">Styled Components</a>
+            </li>
+            <li class="fragment">
+              Aus Euren in JavaScript geschrieben Styles erzeugt die Bibliothek
+              <code>style</code>-Elemente. Die Styles werden also nicht "inline" auf die Elemente
+              angewandt
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Styling #3: makeStyles und useStyles-Hook</h3>
+          <ul>
+            <li class="fragment">
+              In Material UI könnt ihr Euch eine Hook-Funktion erzeugen lassen, die in Eurer
+              Komponente Referenzen auf den CSS-Code hält
+            </li>
+            <li class="fragment">
+              Diese Hook-Funktion wird mit der Funktion <code>makeStyles</code> erzeugt.
+              <code>makeStyles</code> übergebt ihr ein Objekt mit CSS-Klassen und deren
+              Eigenschaften
+            </li>
+            <li class="fragment">
+              Das Besondere daran ist, dass ihr in den CSS-Eigenschaften JavaScript-Code verwenden
+              könnt (z.B. für Variablen oder Berechnungen)
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript">
+// Eine neue Klasse "MessageBox" definieren
+const useStyles = makeStyles({
+  MessageBox: { 
+    // "reguläre" CSS-Eigenschaft
+    marginBottom: "2rem",
+
+    // Wert für CSS basierend auf Komponeten-Properties,
+    backgroundColor => props.warning ? "orange" : "gren"
+  }
+});
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+
+function MessageBox(props) {
+  const styles = useStyles(props); // Referenz auf die Styles
+
+  // Klasse verwenden (muss keine Material UI-Komponente sein!)
+  return &lt;div className={styles.MessageBox}>...f&lt;/div>
+}
+                  </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Styling #4: Styled Components-Stil</h3>
+
+          <ul>
+            <li class="fragment">
+              Durch die Bibliothek <b>Styled Components</b> ist ein etwas anderer CSS-in-JS-Stil
+              bekannt geworden
+            </li>
+            <li class="fragment">
+              Eine ähnliche API bietet auch Material UI als Alternative zur Hook API an.
+            </li>
+            <li class="fragment">
+              Bei dieser Variante erzeugt man eine neue, gestylte, Komponente aus einer bestehenden.
+            </li>
+            <li class="fragment">
+              Das eigenet sich besonders für wiederverwendbare Basis-Komponenten
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+export const LargeInput = styled(Input)({
+  fontSize: props => props.xxl ? "2rem" : "1rem"
+})
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+// Verwendung wie eine "normale" Komponente
+&lt;LargeInput xxl="true" />            
+                      </code></pre>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Styling: Zusammenfassung</h3>
+          <ul>
+            <li class="fragment">Material UI ist "fertig" gestyled</li>
+            <li class="fragment">
+              Ihr könnt das Aussehen jeder Komponente mit spezifischen CSS-Klassen verändern
+            </li>
+            <li class="fragment">
+              Wo das CSS herkommt bleibt Euch überlassen: "klassisches" externes CSS (ggf. mit
+              SASS/LESS) oder CSS-in-JS
+            </li>
+            <li class="fragment">für CSS-in-JS bringt Material UI eine eigene Bibliothek mit</li>
+            <li class="fragment">
+              (Diese Bibliothek könnt ihr auch ohne MAterial UI verwenden, falls das relevant ist)
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Theming</h3>
+          <ul>
+            <li class="fragment">
+              Mit CSS könnt ihr das Aussehen einzelner Material UI Komponenten beeinflussen
+            </li>
+            <li class="fragment">
+              Mit <b>Theming</b> könnt ihr das "generelle" Design anpassen (Schriftarten, Farben,
+              Abstände etc)
+            </li>
+            <li class="fragment">
+              Um ein Theme zu erstellen, wird die <code>createMuiTheme</code>-Funktion verwendet
+            </li>
+            <li class="fragment">
+              Diese Funktion erlaubt es, beliebige Werte aus dem Default-Theme zu überschreiben und
+              anzupassen
+            </li>
+            <li class="fragment">
+              Das erzeugte Theme wird dann mittels eines ThemeProviders in die Anwendung gereicht:
+
+              <pre class="fragment"><code class="javascript">
+const blogTheme = createMuiTheme({ ... });
+
+return &lt;App>
+  &lt;ThemeProvider theme={blogTheme}>
+    ...alle Komponenten hierunter verwenden automatisch das eingestellte Theme...
+  &lt;/ThemeProvider>
+&lt;/App>;  
+}  
+</code></pre>
+            </li>
+            <li class="fragment">
+              Die Material UI Komponenten verwenden das eingestellt Theme automatisch
+            </li>
+            <li class="fragment">
+              Eigene Komponenten können mit dem <code>useTheme</code> darauf zugreifen und die
+              Informationen auswerten:
+
+              <pre class="fragment"><code class="javascript">
+function BlogList() {
+   const theme = useTheme();
+
+   return &lt;article>&lt;h1 styles={{font: theme.typography.fontWeightBold}}>...&lt;/h1>&lt;/article>; 
+}  
+</code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Fragen?</h3>
+          <p>
+            Habt ihr noch Fragen, zur Material UI Bibliothek, die wir gemeinsam besprechen sollen?
+          </p>
+        </section>
+
+        <section>
+          <h2>Testen</h2>
+        </section>
+
         <section data-transition="slide none">
           <h2>What do we test?</h2>
           <ul>
