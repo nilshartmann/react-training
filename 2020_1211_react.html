@@ -137,7 +137,7 @@
             <li>
               <a href="#/t-state">Teil VIII: Statemanagement:</a>
               React <a href="#/t-context">Context</a>, <a href="#/t-redux">Redux</a> und
-              <a href="">MobX</a>
+              <a href="#/t-mobx">MobX</a>
             </li>
           </ul>
           <div style="font-size: 80%;">
@@ -3637,8 +3637,257 @@ function App() {
           <p class="fragment">Draft-Post: editierters, neues, Post</p>
         </section>
 
+        <section id="t-mobx">
+          <h2>MobX</h2>
+          <h3>External Statemanagement</h3>
+        </section>
+
         <section>
-          <h2>MobX TODO</h2>
+          <h3>MobX</h3>
+          <ul>
+            <li class="fragment">
+              <a href="https://mobx.js.org/README.html">https://mobx.js.org/README.html</a>
+            </li>
+            <li class="fragment">Claim: <b>Simple, scalable state management.</b></li>
+            <li class="fragment">
+              Aktuelle Version und Library für React:
+              <a href="https://mobx.js.org/react-integration.html">mobx-react-lite</a>
+            </li>
+            <li class="fragment">
+              Achtung #1: mobx-react braucht ihr nicht (wenn ihr Hooks API verwendet)
+            </li>
+            <li class="fragment">
+              Achtung #2: Doku teilweise veraltet, die nicht direkt auf mobx.js.org liegt!
+            </li>
+            <li class="fragment">
+              Basiert auf der Idee von "observable State", der von Euren Komponenten "observiert"
+              wird
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>MobX, Beispiel #1</h3>
+          <ul>
+            <li class="fragment">
+              Der Zustand in MobX wird entweder in JavaScript-Objekten oder ES6-Klassen gehalten
+            </li>
+            <li class="fragment">
+              Ihr könnt beides verwenden, ES6-Klassen weiter verbreitet und in der Doku auch
+              empfohlen
+            </li>
+            <li class="fragment">Eine Klasse müsst ihr zum "Observer" machen</li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+class BlogAppState = {
+  blogPosts:Array&lt;BlogPost> = [];
+
+  constructor() {
+    // Diese Instanz "observieren", MobX verfolgt jetzt alle Änderungen
+    makeAutoObservable(this);
+  }
+}        
+
+// Unser globaler Zustand
+const blogAppState = new blogAppState();  
+        </code></pre>
+
+          <ul>
+            <li class="fragment">
+              Eine Komponente kann zum Observer werden, und rendert sich dann bei allen Änderungen
+              an der beobachteten Klasse:
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript">
+const PostList = observer(function PostList() {
+  return &lt;div>
+    {blogAppState.blogPosts.map( p => /* wie gewohnt */ )}
+  &lt;/div>  
+})
+        </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>MobX: Actions</h3>
+          <ul>
+            <li class="fragment">
+              Der Zustand in MobX wird über Actions verändert. Dabei handelt es sich um Methoden an
+              einer Klasse.
+            </li>
+            <li class="fragment">
+              Wenn der Zustand außerhalb einer Action verändert wird, gibt es einen Fehler. Auf
+              diese Weise erzwingt MobX eine gewisse Architektur
+            </li>
+            <li class="fragment">
+              Die Action-Methoden werden per Konvention von <code>makeAutoObservable</code> erkannt,
+              oder ihr gebt sie explizit an
+            </li>
+            <li class="fragment">Das Laden von Daten könnte z.B. eine Action sein:</li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+class BlogAppState = {
+  blogPosts:Array&lt;BlogPost> = [];
+            
+  constructor() { makeAutoObservable(this); }
+
+  async loadPosts() {
+    const await response = fetch("...");
+    const posts = await response.json();
+    this.blogPosts = posts;
+  }
+}
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+// Auslösen:
+function App() {
+  React.useEffect(  () => { blogState.loadPosts() }, []);
+
+  // ...
+}            
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Berechnete Werte: Computed Properties</h3>
+          <ul>
+            <li>
+              MobX kann berechnete Werte cachen. Berechnete Werte basieren auf observierten Daten.
+            </li>
+            <li>
+              Beispiel: Auf Basis der Blog-Post-Liste (beobachtet) und eines Sortierkriteriums
+              (beobachtet) wird eine sortierte Blog-Post-Liste erzeugt. Die sortierte Liste ist ein
+              "berechneter" Wert.
+            </li>
+            <li>
+              Der Wert wird dann nur neuberechnet, wenn sich einer der darin verwendeten Werte
+              ändert (Liste oder Kriterium).
+            </li>
+            <li>Ein Computed Property ist in der Regel eine getter-Methode an einer Klasse</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Berechnete Werte #2</h3>
+          <p>Beispiel</p>
+
+          <pre class="fragment"><code class="javascript">
+class BlogAppState = {
+  blogPosts:Array&lt;BlogPost> = [];
+  orderBy:string = "";
+  currentUser: string = "";
+            
+  constructor() { makeAutoObservable(this); }
+
+  get orderedPosts loadPosts() {
+    const posts = [...blogPosts];
+    posts.sort(orderBy); // vereinfacht
+
+    return posts;
+  }
+}              
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+blogAppState.orderedPosts; // Liste wird initial berechnet
+blogAppState.orderedPosts; // Liste wird NICHT neu berechnet (Cache!)
+
+blogAppState.orderBy = "date";              
+blogAppState.orderedPosts; // Liste wird neu berechnet
+
+blogAppState.currentUser = "Klaus";
+blogAppState.orderedPosts; // Liste wird NICHT berechnet
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Observed Components</h3>
+
+          <ul>
+            <li class="fragment">
+              Eine Komponente, die mit dem State arbeitet, muss ein Observer werden
+            </li>
+            <li class="fragment">
+              Dazu wird sie der <code>observe</code>-Funktion übergeben, die eine eine observed
+              Komponente zurückliefert
+            </li>
+            <li class="fragment">Das ist für den Aufrufer vollständig transparent</li>
+            <li class="fragment">
+              Die observed Komponente wird immer dann neu gerendert, wenn sich einer der Werte
+              verändert, auf die sie zugreift
+            </li>
+            <li class="fragment">
+              Die observed Komponente rendert sich daher auch nicht neu, wenn ihre Parent-Komponente
+              sich neu rendert
+            </li>
+            <li class="fragment">Ausnahme: die Parent-Kompoenten übergibt veränderte Properties</li>
+          </ul>
+          <pre class="fragment"><code class="javascript">
+            const PostList = observer(function PostList() {
+              return &lt;div>
+                {blogAppState.blogPosts.map( p => /* wie gewohnt */ )}
+              &lt;/div>  
+            })  
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Bereitstellen des Zustands</h3>
+
+          <ul>
+            <li>MobX ist es egal, wo der Zustand herkommt; es ist ein beliebiges Observable</li>
+            <li>
+              Typischerweise wird der Zustand in React-Anwendungen über genau einen Context in die
+              Anwendung gereicht
+            </li>
+            <li>
+              Das Context-Objekt wird sich nie ändern, da sich nur die Werte in der Klasse
+              verändern.
+            </li>
+            <li>
+              Deswegen wird eine konsumierende Komponente auch nie neu gerendert, weil sich der
+              Context nicht ändert
+            </li>
+            <li>
+              Deswegen muss die Komponente ein Observer sein; wenn sich ein Wert aus dem Context
+              ändert, rendert MobX neu
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Bereitstellen des Zustands - Beispiel</h3>
+
+          <pre class="fragment"><code class="javascript">
+const context = {
+  blog: new BlogAppState(),
+  auth: new AuthenticationState()
+}
+function StoreProvider({ children }) {
+  return (
+    &lt;StoreContext.Provider value={context}>
+      {children}
+    &lt;/StoreContext.Provider>
+  );
+}
+
+export function useStore() {
+  return React.useContext(StoreContext);
+}
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+const PostList = observe(function PostList() {
+  const { blog } = useStore();
+
+  // PostList wird nur neu gerendert, wenn sich BlogPost-Liste ändert
+  return blog.posts.map(&lt;BlogPost id={...});
+})           
+          </code></pre>
         </section>
 
         <section>
@@ -3648,8 +3897,15 @@ function App() {
             <li class="fragment">Redux eher funktionale Programmierung, MobX eher OO</li>
             <li class="fragment">Viel Freiheiten mit MobX...</li>
             <li class="fragment">...aber auch viel "Magie"</li>
-            <li></li>
-            <li></li>
+            <li class="fragment">
+              In großen Modellen manchmal schwer zu verstehen, was eigentlich wo und wie "observed"
+              wird
+            </li>
+            <li class="fragment">Observer-Komponenten eher untypisch für React (noch)</li>
+            <li class="fragment">Developer Tooling nicht so gut wie Redux</li>
+            <li class="fragment">Doku, StackOverflow etc. deutlich weniger umfänglich als Redux</li>
+            <li class="fragment">👉 Beide Bibliotheken gute Wahl und können verwendet werden</li>
+            <li class="fragment">👉 "Für Redux ist noch niemand entlassen worden"</li>
           </ul>
         </section>
 
