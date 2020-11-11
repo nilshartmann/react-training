@@ -1,61 +1,67 @@
+import { observer } from "mobx-react-lite";
 import React from "react";
 
-import { CounterContext, CounterContextProvider } from "./CounterContext";
+import { StoreProvider, useStore } from "./BlogStore";
 
-function Layout() {
-  console.log("layout!");
-  return (
-    <div className="Border">
-      <h1>Layout Component</h1>
-      <Main />
-    </div>
-  );
-}
+const PostEditor = observer(function PostEditor() {
+  console.log("PostEditor Render");
+  const store = useStore();
 
-function Main() {
-  console.log("main!");
+  function updateTitle(e: React.ChangeEvent<HTMLInputElement>) {
+    store.blogStore.updateTitle(e.currentTarget.value);
+  }
 
-  return (
-    <div className="Border">
-      <h1>Main Component</h1>
-      <div style={{ display: "flex" }}>
-        <Counter />
-        <CounterWithIncrease />
-      </div>
-    </div>
-  );
-}
-
-function CounterWithIncrease() {
-  const { increase, reset } = React.useContext(CounterContext);
+  function updateBody(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    store.blogStore.updateBody(e.currentTarget.value);
+  }
 
   return (
-    <div className="Border">
-      <button onClick={increase}>Increase!</button>
-      <button onClick={reset}>Reset!</button>
+    <div className="Container">
+      <h1>Create Post</h1>
+
+      <label>
+        Title
+        <input value={store.blogStore.title} onChange={updateTitle} />
+      </label>
+
+      <label>
+        Body
+        <textarea value={store.blogStore.body} onChange={updateBody} />
+      </label>
+
+      <p>{store.blogStore.titleLength}</p>
     </div>
   );
-}
+});
 
-function Counter() {
-  const { count } = React.useContext(CounterContext);
-  console.log("counter");
-
+const Post = observer(function Post() {
+  console.log("Render Post!");
+  const store = useStore().blogStore;
   return (
     <div className="Border">
-      <p>Count: {count}</p>
+      <div>{store.title}</div>
+      <PostBody />
     </div>
   );
-}
+});
+
+const PostBody = observer(function PostBody() {
+  console.log("Render PostBody!");
+  const store = useStore().blogStore;
+  return <div className="Border">{store.body}</div>;
+});
 
 function App() {
   return (
-    <div className="Border">
-      <h1>App Component</h1>
-      <CounterContextProvider>
-        <Layout />
-      </CounterContextProvider>
-    </div>
+    <StoreProvider>
+      <div className="Border">
+        <h1>App Component</h1>
+        <div style={{ display: "flex" }}>
+          <PostEditor />
+          <Post />
+        </div>
+      </div>
+    </StoreProvider>
   );
 }
 
