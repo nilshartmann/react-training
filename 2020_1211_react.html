@@ -342,7 +342,7 @@
           >
           <p>Bootstrap von neuen React Anwendung</p>
           <p>Fertige Konfiguration von React und Webpack mit TypeScript, Sass, Linter</p>
-          <p>Beispiel: npx create-react-app --template typescript</p>
+          <p>Beispiel: npx create-react-app --template typescript my_new_app_name</p>
         </section>
 
         <section>
@@ -424,6 +424,10 @@
                   dass dieser immer dem aktuellen Inhalt des Eingabefeldes entspricht?
                 </li>
               </ul>
+            </li>
+            <li class="fragment">
+              Eine mögliche <b>Lösung</b> für diese Aufgabe findest Du in
+              <code>blog-example/steps/1-hello-world</code>
             </li>
           </ul>
         </section>
@@ -846,6 +850,10 @@ const address = { street: "Highway", city: "Hamburg" };
               Übergib bei der Verwendung von PostEditor in <code>index.js</code> Initial-Werte für
               die beiden Properties
             </li>
+            <li class="fragment" style="margin-top: 2rem;">
+              Eine mögliche <b>Lösung</b> für diese Aufgabe findest Du in
+              <code>blog-example/steps/2-editor-mit-props</code>
+            </li>
           </ol>
         </section>
 
@@ -1105,6 +1113,10 @@ function App() {
               (<code>onSave</code>) übergeben wird. <br />Siehe TODO in
               <code>blog-example/material/3-hierarchy/src/PostEditor.js</code>
             </li>
+            <li class="fragment" style="margin-top: 2rem;">
+              Eine mögliche <b>Lösung</b> für diese Aufgabe findest Du in
+              <code>blog-example/steps/3-hierarchy</code>
+            </li>
           </ol>
         </section>
 
@@ -1156,7 +1168,7 @@ function App() {
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
                     function Header(props) {
                         return (
-                          &lt;h1 style={{color: this.props.titleColor}}>{this.props.title}&lt;/h1>
+                          &lt;h1 style={{color: props.titleColor}}>{props.title}&lt;/h1>
                         )
                     }
                     </code></pre>
@@ -1264,13 +1276,12 @@ function App() {
                 </li>
               </ul>
             </li>
-            <li class="fragement">
+            <li class="fragment">
               Alternative:
               <a href="https://github.com/tannerlinsley/react-query" target="_blank">
                 React Query</a
-              > oder <a href="https://swr.vercel.app/" target="_blank">
-                SWR</a
               >
+              oder <a href="https://swr.vercel.app/" target="_blank"> SWR</a>
               (Ausgereifte Hook APIs zum Arbeiten mit Server Requests)
             </li>
             <li class="fragment">
@@ -1696,8 +1707,16 @@ function App(props) {
                 </li>
               </ul>
             </li>
+            <li class="fragment" style="margin-top: 2rem;">
+              Mögliche <b>Lösungen</b> für diese Aufgabe findest Du in
+              <code>blog-example/steps/4-remote</code> und
+              <code>blog-example/step/4-remote-with-loading</code>
+            </li>
           </ol>
         </section>
+
+        <!-- ============================================================================= -->
+
         <section>
           <h3>Komplexer Zustand</h3>
           <p>
@@ -1925,10 +1944,6 @@ function App() {
 
         <section>
           <h2>React Events in TypeScript</h2>
-          <p>
-            Events in React sind Instanzen von <code>React.SyntheticEvent</code>, die die nativen
-            DOM Events wrappen (und so "ähnlich" aussehen)
-          </p>
           <p class="fragment">
             In TypeScript gibt es für die konkreten Events eigene Typen (z.B. ChangeEvent,
             MouseEvent)
@@ -2014,6 +2029,10 @@ function PostEditor(props) {
             </li>
             <li class="fragment">Stelle <code>PostEditor.tsx</code> auf TypeScript um</li>
             <li class="fragment">Weitere Informationen kannst Du in den Dateien finden.</li>
+            <li class="fragment" style="margin-top: 2rem;">
+              Eine mögliche <b>Lösung</b> für diese Aufgabe findest Du in
+              <code>blog-example/steps/5-typescript</code>
+            </li>
           </ol>
         </section>
 
@@ -2912,6 +2931,12 @@ test('it should render correctly', () => {
             <code>npm test</code> noch laufen hast), ansonsten kannst Du "a" auf der Kommandozeile
             drücken, zum erneuten Ausführen der Tests.
           </p>
+          <ul>
+            <li class="fragment" style="margin-top: 2rem;">
+              Eine mögliche <b>Lösung</b> für diese Aufgabe findest Du in
+              <code>blog-example/steps/6-tests</code>
+            </li>
+          </ul>
         </section>
 
         <section>
@@ -2934,7 +2959,9 @@ test('it should render correctly', () => {
           <ul>
             <li class="fragment">Tests werden in JavaScript bzw. TypeScript geschrieben</li>
             <li class="fragment">Out-of-the-box-Support für TypeScript</li>
-            <li class="fragment">Eigene Test API (baut nicht auf bekannten APIs wie Jest auf)</li>
+            <li class="fragment">
+              <b>Eigene Test API</b> (baut <b>nicht</b> auf bekannten APIs wie Jest auf 😢)
+            </li>
             <li class="fragment">
               Es gibt eine
               <a href="https://testing-library.com/docs/testcafe-testing-library/intro/#usage"
@@ -3213,7 +3240,7 @@ await t.debug();
         <!-- ============================================================================= -->
         <section id="t-state">
           <h1>Teil VIII</h1>
-          <h2>Zustands-Management mit Redux oder React Context API</h2>
+          <h2>Zustands-Management mit Context API, Redux und MobX</h2>
         </section>
 
         <section>
@@ -3251,7 +3278,14 @@ await t.debug();
 
         <section id="t-context">
           <h2>Context API</h2>
-          <p>Beispiel: <code>blog-example/steps/30-complete-app-with-hooks</code></p>
+          <p>Beispiele:</p>
+          <ul class="x-list">
+            <li>Blog App mit Hooks: <code>blog-example/steps/30-complete-app-with-hooks</code></li>
+            <li>
+              Context API "Hello World" (Counter Example):
+              <code>advanced/steps/4a-context-hello-world</code>
+            </li>
+          </ul>
         </section>
 
         <section>
@@ -3387,7 +3421,11 @@ function UserBadge() {
 
         <section>
           <h2>Redux im Code</h2>
-          <p>(npm start in advanced/workspace-redux)</p>
+          <p>Hello World-Redux (PostEditor mit Redux)</p>
+          <ul class="x-list">
+            <li>Live Coding/Übung: <code>advanced/workspace-redux</code></li>
+            <li>Lösung: <code>advanced/steps/5a-redux-hello-world</code></li>
+          </ul>
         </section>
 
         <section>
