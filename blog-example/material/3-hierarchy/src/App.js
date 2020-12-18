@@ -1,7 +1,7 @@
 import React from "react";
 import PostList from "./PostList";
 import mockPosts from "./mock";
-import PostEditor from "../../../steps/4-remote/src/PostEditor";
+import PostEditor from "./PostEditor";
 
 function App() {
   const [posts, setPosts] = React.useState(mockPosts);
