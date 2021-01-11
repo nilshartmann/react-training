@@ -23,7 +23,7 @@ Auf deinem Laptop/PC sollte installiert sein:
 - Da wir vor und während des Trainings ggf. noch Aktualisierungen installieren müssen, bitte sicherstellen, dass auch während des Trainings auf deinem Computer der Internet-Zugang (logisch, online-Schulung 🙃) funktioniert - aber auch **für git und npm** (Proxies beachten!)
   - Informationen zum Einrichten eines Proxies für npm findest Du bei Bedarf [zum Beispiel hier](http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/).
 - Ich freue mich, wenn Du während des Trainings deine Kamera an hast, damit wir uns sehen können 🎥. Mikrofon hingegen bitte nur anmachen, wenn Du etwas sagen oder fragen möchtest (was Du natürlich jederzeit darfst!)
-- W-LAN ist bequem, aber gerade bei (langen) Streamings ist ein Kabel-gebundenes Netzwerk stabiler als W-LAN, also im Zweifel lieber das Kabel einstecken 😊
+- W-LAN ist bequem, aber gerade bei (langen) Streamings ist ein Kabel-gebundenes Netzwerk stabiler als W-LAN, also im Zweifel lieber das Kabel einstecken (und W-LAN deaktivieren) 😊
 
 # Installation und Vorbereitung des Workspaces für die Schulung
 
@@ -86,6 +86,6 @@ Achtung! Das Frontend läuft auf **Port 3000**, d.h. dieser Port muss verfügbar
 
 Um die Übungen zu machen, solltest Du nur das Verzeichnis `blog-example/workspace` in deinem Lieblingseditor oder deiner Lieblings-IDE öffnen. Bitte öffne **nicht** den **kompletten Workspace**.
 
-Du kannst das Verzeichnis bereits zu Beginn der Schulung öffnen. Wie die Übungen dann ablaufen, erkläre ich natürlich im Laufe der Schulung.
+Du kannst dieses Verzeichnis (`blog-example/workspace`) bereits zu Beginn der Schulung öffnen. Wie die Übungen dann ablaufen, erkläre ich natürlich im Laufe der Schulung.
 
 Bei Fragen oder Problemen melde dich bitte bei mir.
