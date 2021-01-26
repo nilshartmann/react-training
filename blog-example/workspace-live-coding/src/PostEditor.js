@@ -1,4 +1,4 @@
 // Überblick:
 // State
 // Clear-Button
-// Props
+// Ausgabe der Eingabe

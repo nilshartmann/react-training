@@ -7,11 +7,12 @@ import mockPosts from "./mock";
 //  POST EDITOR
 // ======================================================================================================
 
-export default function PostEditor() {
+export default function PostEditor(props) {
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
 
-  const cancelDisabled = !title && !body;
+  const clearDisabled = !title && !body;
+  const saveButtonDisabled = !title || !body;
 
   function clear() {
     setTitle("");
@@ -26,18 +27,44 @@ export default function PostEditor() {
         Title
         <input value={title} onChange={e => setTitle(e.currentTarget.value)} />
       </label>
+      {title ? (
+        <Message type="info" msg="Title correctly filled"></Message>
+      ) : (
+        <Message type="error" msg="Please enter a title"></Message>
+      )}
 
       <label>
         Body
         <textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
       </label>
+      {body ? (
+        <Message type="info" msg="Body correctly filled"></Message>
+      ) : (
+        <Message msg="Please enter a body"></Message>
+      )}
 
-      <button disabled={cancelDisabled} onClick={clear}>
+      <button disabled={clearDisabled} onClick={clear}>
         Clear
       </button>
-      <button>Save</button>
+      <button
+        disabled={saveButtonDisabled}
+        onClick={() => {
+          props.onSavePost({
+            title,
+            body
+          });
+        }}
+      >
+        Save Post
+      </button>
     </div>
   );
+}
+
+function Message({ msg, type = "error" }) {
+  const style = type === "error" ? { color: "red", fontWeight: "bold" } : { color: "green" };
+
+  return <p style={style}>{msg}</p>;
 }
 
 // ======================================================================================================
