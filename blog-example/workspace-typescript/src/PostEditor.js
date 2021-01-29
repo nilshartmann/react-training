@@ -15,7 +15,6 @@ import React from "react";
 //        using ES6 import as you would import a function or class
 
 // 3. Add your type to the PostEditor function signature
-import React from "react";
 
 export default function PostEditor(props) {
   const [title, setTitle] = React.useState("");
