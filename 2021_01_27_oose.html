@@ -171,7 +171,6 @@
           <p class="fragment">
             Wir machen zwischendurch immer wieder Übungen, in denen ihr selbst programmieren könnt
           </p>
-          )
         </section>
 
         <section id="t1">
@@ -917,25 +916,26 @@ function ErrorMessage(props) {
         <section>
           <h3>Schritte</h3>
           <ol class="x-list">
-            <li>
+            <li class="fragment">
               Das Root-Element deines Formulars soll die CSS Klasse <code>Container</code> bekommen.
               Dadurch sollte sich ihr Aussehen (leicht) verändern
             </li>
-            <li>
+            <li class="fragment">
               Wenn <b>kein Text</b> im Eingabe-Feld steht, soll eine Fehlermeldung ausgegeben werden
               ("Please fill in the title" o.ä.)
               <br />
               Der Fehlertext sollte in fettem Rot ausgegeben werden (CSS-Eigenschaften:
               <code>color: red</code> und <code>font-weight: bold</code>)
             </li>
-            <li>
+            <li class="fragment">
               Wenn <b>mindestens ein Zeichen</b> im Eingabe-Feld steht, soll eine "positive" Message
               erscheinen ("You have filled the title correctly").
               <br />
               Diese positive Nachricht sollte in grün erscheinen (CSS-Eigenschaft:
               <code>color: green</code>)
             </li>
-            <li>Mögliche Lösung in <code>steps/1b-editor-css</code></li>
+            <li class="fragment">Mögliche Lösung in <code>steps/1b-editor-css</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
           </ol>
         </section>
 
@@ -1138,6 +1138,7 @@ function HelloWorld() {
               </ul>
             </li>
             <li>Mögliche Lösung: <code>steps/2-editor</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
           </ol>
         </section>
 
@@ -1310,6 +1311,7 @@ const address = { street: "Highway", city: "Hamburg" };
               aufgerufen wird
             </li>
             <li>Mögliche Lösung: <code>steps/2a-editor-mit-props</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
           </ol>
         </section>
         <!-- PROPS HIER ERST ENDE -->
@@ -1358,6 +1360,7 @@ const address = { street: "Highway", city: "Hamburg" };
         </section>
 
         <section>
+          <h1 style="color: red;">PAUSE BIS 16:10!</h1>
           <h3>Eine Liste für Blog-Posts und ein Editor...</h3>
           <code>blog-example/steps/3-hierarchy</code>
         </section>
@@ -1579,7 +1582,7 @@ function App() {
         <section>
           <h3>Schritte</h3>
           <ol class="xx-list">
-            <li>
+            <li class="fragment">
               kopiere das Material aus <code>blog-example/material/3-hierarchy/src</code> in deinen
               source Ordner
               <span style="font-size: 85%;"
@@ -1588,22 +1591,23 @@ function App() {
               >
             </li>
 
-            <li>
+            <li class="fragment">
               Erweitere die <code>App</code> Komponente, so dass sie den
               <code>PostEditor</code> anzeigt, wenn der User auf den <code>Add</code> Button klickt.
               <p>- In <code>App.js</code> stehen TODOs mit weiteren Infos</p>
             </li>
-            <li>
+            <li class="fragment">
               Im<code>PostEditor</code> benötigst Du einen Save Button, der die übergebene
               Callback-Funktion aufruft, die von der <code>App</code> als Property
               (<code>onSave</code>) übergeben wird. <br />Siehe TODO in
               <code>blog-example/material/3-hierarchy/src/PostEditor.js</code>
             </li>
-            <li style="font-size: 75%;">
+            <li class="fragment" style="font-size: 75%;">
               <b>Optional:</b> Füge einen <b>neuen</b> Button "Cancel" im PostEditor hinzu, der die
               PostList öffnet, ohne das eingebene Post zu speichern.
             </li>
-            <li>Mögliche Lösung: <code>steps/3-hierarchy</code></li>
+            <li class="fragment">Mögliche Lösung: <code>steps/3-hierarchy</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte in Zoom "Hand heben" 🙋‍♀️</li>
           </ol>
         </section>
 
@@ -2426,8 +2430,11 @@ function App(props) {
                 </li>
               </ul>
             </li>
+            <li class="fragment">Mögliche Lösung in <code>steps/4-remote</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
           </ol>
         </section>
+
         <section>
           <h3>Komplexer Zustand</h3>
           <p>
@@ -2466,7 +2473,26 @@ function App() {
         
   </code></pre>
         </section>
+        <section>
+          <h3>Übung komplexer Zustand</h3>
+          <ol class="x-list">
+            <li class="fragment">
+              In deiner <code>App</code>-Komponente hast Du zwei Zustände: <code>posts</code> und
+              <code>loading</code>.
+            </li>
 
+            <li class="fragment">
+              Füge die beiden Zustände zu <em>einem</em> "komplexen" Zustand zusammen. Verwende also
+              ein Objekt im State.
+            </li>
+            <li class="fragment">
+              Bitte denk dran, dass Du das Objekt nicht verändern darfst, sondern es immer erneut
+              erzeugen musst.
+            </li>
+            <li>Mögliche Lösung in <code>steps/4-remote-with-loading</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
+          </ol>
+        </section>
         <section>
           <h3>Custom Hooks</h3>
 
@@ -3103,6 +3129,8 @@ function PostEditor(props) {
               Benutzer auf "OK" klickt, wird wieder die PostList angzeigt:<br />
               <code>LIST --onAdd--> ADD --onSave--> FEEDBACK --onOk--> LIST</code>
             </li>
+            <li class="fragment">Mögliche Lösung in <code>steps/5-typescript</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
           </ol>
         </section>
 
@@ -3754,6 +3782,8 @@ test('it should render correctly', () => {
             <code>npm test</code> noch laufen hast), ansonsten kannst Du "a" auf der Kommandozeile
             drücken, zum erneuten Ausführen der Tests.
           </p>
+          <p class="fragment">Mögliche Lösung in <code>steps/6-test</code></p>
+          <p class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</p>
         </section>
 
         <section>
