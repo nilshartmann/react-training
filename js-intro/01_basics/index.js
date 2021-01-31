@@ -1,23 +1,22 @@
 console.log("Please edit index.js");
 
-// Erzeuge eine Funktion "createPerson", die zwei Parameter entgegennimmt: name und age
+// 1. Schreibe eine 'helloWorld'-Funktion
+//   Die Funktion soll einen Parameter entgegen nehmen, der "name" heißt
+//     - Wenn der übergebene Parameter KEIN String ist,
+//       soll die Funktion einen Leerstring zurückliefern
+//       Den Typ einer Variablen oder eines Parameters kannst Du mit "typeof" ermitteln,
+//       z.B: console.log(typeof "Moin"); // string
 //
-//   Die Funktion soll ein Objekt zurückliefern, dass aus diesen beiden Eigenschaften besteht
+//     - Ansonsten (Parameter ist ein String): liefer einen Gruß (z.B. "Hallo, ...Name..." zurück)
+//       - Verwende Template-Strings, um den Gruß zu erzeugen
 //
-// Erzeuge ein Array, dass drei Personen-Objekte enthält, die Du mittels drei "createPerson"-Aufrufe erzeugst
+// 2. Rufe die Funktion mit unterschiedlichen Werten auf und gib das Ergebnis auf der Konsole aus
+//     - Konsolen-Ausgaben kannst Du mit console.log machen: console.log("...");
+//     - Für den Wert "Susi" sollte "Hallo, Susi" erscheinen
 //
-// Erzeuge eine Funktion, die ein Array von Person-Objekten erwartet: printPersons
-//
-//   Die Funktion solle alle Personen aus dem Array "hübsch" als formatierten String ausgeben
-//     "Person heisst XXX und ist YYY Jahre alt"
-//
-// Rufe die Funktion mit dem Array der drei Personen auf
-//
-// ZUSATZAUFGABE:
-//
-//  Erweitere printPersons um einen zweiten Parameter, "formatName"
-//   - formatName soll eine Funktion sein, die einen String erwartet und einen String zurückliefert
-//   - Beim Erzeugen des "hübschen" Strings soll printPersons nun zur Formatierung des Namen der Person-Objektes
-//     die formatName-Funktion aufrufen und dessen Rückgabewert verwenden (also nicht mehr name direkt verwenden)
-//   - Rufe printPersons nun mit den drei Personen auf und übergib eine Funktion, die den Namen in Großbuchstaben
-//     "formatiert" (string.toUpperCase() kannst Du verwenden, um einen String in Großbuchstaben zu wandeln)
+// 3. Zusatz: wenn der 'name'-Parameter eine Funktion (!) ist,
+//     - rufe diese Funktion in 'helloWorld' auf und verwende dessen Rückgabewert als name
+//       (so dass Verwender von 'helloWorld' entweder direkt einen String übergeben können, oder
+//        eine Funktion, die einen String zurückgibt)
+//     - Teste deine neue helloWorld-Funktion, in dem Du eine Funktion übergibst, die "Susi"
+//       zurückliefert. Das Ergebnis von helloWorld sollte "Hallo, Susi" sein

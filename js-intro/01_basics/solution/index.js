@@ -1,29 +1,31 @@
 console.log("Please edit index.js");
 
-function createPerson(name, age) {
-  return { name, age };
+function helloWorld(name) {
+  if (typeof name !== "string") {
+    return null;
+  }
+
+  return `Hallo, ${name}`;
 }
 
-const klaus = createPerson("Klaus", 42);
-const christian = createPerson("Christian", 48);
-const susi = createPerson("Susi", 39);
+console.log(helloWorld()); // ""
+console.log(helloWorld(null)); // ""
+console.log(helloWorld("Susi")); // Hallo, Susi
 
-const persons = [klaus, christian, susi];
+// ZUSTATZ AUFGABE: ---------------------------------------
+function helloWorldZusatz(name) {
+  if (typeof name === "function") {
+    name = name();
+  }
+  if (typeof name !== "string") {
+    return null;
+  }
 
-// oder "inline":
-// const persons = [createPerson("Klaus", 42),createPerson("Christian", 48) ,createPerson("Susi", 39)];
-
-function printPersons(persons) {
-  persons.forEach(p => console.log(`Person heisst ${p.name} und ist ${p.age} Jahre alt`));
+  return `Hallo, ${name}`;
 }
 
-printPersons(persons);
-
-// ZUSATZAUFGABE (statt "printPersonsAdvanced" kannst Du printPersons erweitern):
-function printPersonsAdvanced(persons, nameFormatter) {
-  persons.forEach(p =>
-    console.log(`Person heisst ${nameFormatter(p.name)} und ist ${p.age} Jahre alt`)
-  );
+function susi() {
+  return "Susi";
 }
 
-printPersonsAdvanced(persons, name => name.toUpperCase());
+console.log(helloWorldZusatz(susi)); // Hallo, Susi
