@@ -1291,6 +1291,149 @@ p.greet("Susi"); // Moin, Susi
           </p>
         </section>
 
+        <section>
+          <h2>Promises</h2>
+        </section>
+
+        <section>
+          <h3>Promises</h3>
+          <p><em>Ein Promise ist ein Versprechen auf einen Wert</em></p>
+          <p>Beispiele: Asynchrone Programmierung, z.B. I/O, Server Requests etc</p>
+          <h4 class="fragment">Wird evtl. erst in der Zukunft eingelöst</h4>
+
+          <pre><code class="javascript" contenteditable>
+// Eine ausgedachte Funktion, die ein Promise, zurückliefert, dass "irgendwann" den String "Klaus" zurückgibt
+const promise = getNameLater();
+  </code></pre>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable>// 'then' gibt IMMER ein Promise zurück
+const promise2 = promise.then(name => `Hello, ${name}`);</code></pre>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable>promise2.then(greeting => console.log(greeting));
+// Ausgabe "irgendwann": "Hello, Klaus"
+  </code></pre>
+        </section>
+
+        <section>
+          <h3>Fehler unterbrechen die Promise-Kette</h3>
+          <h4>Mit <code>catch()</code> kann man den Fehler fangen und darauf reagieren</h4>
+        </section>
+
+        <section>
+          <h3>Catch im Fehlerfall</h3>
+          <pre><code class="javascript" contenteditable>
+  const promise = readValueAsyncAndReturnPromise()
+    .then(name => {throw new Error("Unexpected Error") })
+    .then(greeting => console.log(greeting));
+    .catch(error => console.error(`Greeting failed: ${error}`))
+  
+    // Output: Greeting failed: Unexpected error
+    </code></pre>
+        </section>
+
+        <section>
+          <h2>async / await</h2>
+          <p>"Wrapper" um Promises</p>
+          <p>Erlaubt es, asynchronen Code "linear" hinzuschreiben</p>
+        </section>
+        <section>
+          <h3>async / await</h3>
+          <p><code>await</code> wartet bis ein Promise aufgelöst wird</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+    function greet(name) { return new Promise(...); }
+    
+    // await can only be used in 'async'-functions:
+    async function sayWhat(name) {
+      const greeting = await greet(name);
+    
+      // greeting is a string!
+      console.log(greeting); // => Hello, ...
+    }
+                      </code></pre>
+        </section>
+        <section>
+          <h3>async / await</h3>
+          <p><code>async</code> machen eine Funktion zu einer "async function"</p>
+          <p class="fragment">
+            Eine <code>async</code> Funktion gibt &nbsp; <b>immer</b> ein Promise zurück
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+  async function greet(name) {
+    return `Hello, ${name}`;
+  }
+  
+  const greeting = greet('Klaus');
+  
+  // greeting is a Promise!
+  console.log(greeting instanceof Promise); // => true
+  console.log(greeting) // => Promise {&lt;resolved>: "Hello, Klaus"}
+                  </code></pre>
+          <p class="fragment"><code>async</code> Funktion als Fat Arrow Funktionen:</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+  const greet = async (name) => `Hello, ${name}`;                
+    
+  const greeting = greet('Klaus');
+    
+  // greeting is a promise!
+  console.log(greeting instanceof Promise); // => true
+  console.log(greeting) // => Promise {&lt;resolved>: "Hello, Klaus"}
+                    </code></pre>
+        </section>
+
+        <section>
+          <h3>async / await</h3>
+          <p>
+            Anstatt <code>then</code> oder <code>catch</code>-Ketten kannst Du einfach mehrere
+            <code>await</code> Statements verwenden und try/catch für die Fehlerbehandlung:
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+  // Return promises
+  async function loadUser(username) { . . . };
+  async function loadProfileDate(userId) { . . .};
+  
+  async function loadData() {
+    try {
+      const user = await loadUser('klaus');
+      const profile = await loadProfileData(user.userId);
+    } catch (e) {
+      console.error("Something failed")
+    }
+  }
+                      </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h2>Übung: Promises</h2>
+          <p>
+            <em>Mache dich mit der Promise API vertraut</em>
+          </p>
+
+          <p class="fragment">
+            Die Beschreibung der Übung findest Du in
+            <b><code>js-intro/05_promises/index.js</code></b
+            >. Darin kannst Du auch deinen Code schreiben.
+          </p>
+          <p class="fragment">
+            Du kannst
+            <b><code>js-intro/05_promises/index.html</code></b> in deinem Browser öffnen. Diese
+            Datei führt die <b><code>index.js</code></b
+            >-Datei dann aus.
+          </p>
+          <p class="fragment">
+            Ausgaben auf der Browser-Konsole, nach dem Ändern von <code>index.js</code>, die Seite
+            im Browser neu laden
+          </p>
+          <p class="fragment">Bei Fragen oder Problemen, kannst Du dich jederzeit melden</p>
+          <p class="fragment">
+            Wenn alle Stricke reißen, findest Du eine mögliche Lösung in:
+            <code>js-intro/05_promises/solution/index.js</code>
+          </p>
+          <p class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</p>
+        </section>
+
         <section id="p_webdev">
           <h2>Web Development mit JavaScript</h2>
         </section>
