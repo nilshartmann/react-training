@@ -151,19 +151,6 @@
             </li>
           </ul>
         </section>
-        <section>
-          <h2>Grundsätzliches</h2>
-          <p><b>Jederzeit:</b> Fragen und Diskussionen!</p>
-          <p class="fragment">Motto: Es gibt keine dummen Fragen!</p>
-          <p class="fragment">Bemerkbar machen per Audio, Chat oder Zoom "Reaktion"</p>
-          <p class="fragment">Bonuspunkte für eingeschaltetes Video 🥰</p>
-          <p class="fragment">
-            Ich zeige viel direkt im Editor, aber ihr könnt die Slides als Referenz benutzen
-          </p>
-          <p class="fragment">
-            Wir machen zwischendurch immer wieder Übungen, in denen ihr selbst programmieren könnt
-          </p>
-        </section>
 
         <section id="t1">
           <h1>Teil 1</h1>
@@ -230,11 +217,9 @@
             </li>
             <li class="fragment">werden zu <b>ganzen Anwendungen</b> aggregiert</li>
             <li class="fragment">
-              werden als <b>Funktionen (mit "Hooks" API)</b> oder als
-              <b>ES6 Klasse</b> implementiert
-              <ul>
-                <li>Hooks API seit React 16.8 (Februar 2019)</li>
-                <li>Klassen (noch?) sehr weit verbreitet in bestehendem Code</li>
+              werden als <b>Funktionen (mit "Hooks" API)</b> implementiert
+              <ul class="fragment" style="font-size: smaller;">
+                <li>(Vor 2019 wurden Komponenten als <b>ES6 Klassen</b> implementiert)</li>
               </ul>
             </li>
           </ul>
@@ -305,7 +290,9 @@
         <section>
           <h3>Der Trainingsworkspace</h3>
           <ul class="x-list">
-            <li style="margin-bottom: 40px;"><code>2021_01_27_oose.html</code>: Die Slides</li>
+            <li style="margin-bottom: 40px;">
+              <code>2021_02_08_react_zwei_tage.html</code>: Die Slides
+            </li>
             <li class="fragment" style="margin-bottom: 40px;">
               Der Code ist im <code><b>blog-example</b></code> Verzeichnis
             </li>
@@ -330,12 +317,9 @@
         <section>
           <h3>Schritt #1: Tool Chain starten</h3>
 
-          <ol class="fragment" style="font-size: 85%;">
+          <ol class="fragment x-list" style="font-size: 85%;">
             <li>
               <code>cd blog-example/workspace</code>
-            </li>
-            <li class="fragment">
-              <code>npm install</code>
             </li>
 
             <li class="fragment">
@@ -421,15 +405,6 @@
         </section>
 
         <section>
-          <h2>React Dokumentation</h2>
-          <p>
-            <a href="https://reactjs.org/docs/hello-world.html">
-              https://reactjs.org/docs/hello-world.html
-            </a>
-          </p>
-        </section>
-
-        <section>
           <h3>React: JSX</h3>
           <ul>
             <li style="font-size: 80%;" class="fragment">
@@ -448,13 +423,6 @@
               Attribute, die keine Strings sind, müssen in {} eingeschlossen werden:
               <pre><code class="xml" contenteditable data-trim>
 &lt;Counter label="Count" count={7} showValues={true} />
-                    </code></pre>
-            </li>
-            <li style="font-size: 80%;" class="fragment">
-              Kann pures JavaScript enthalten, eingeschlossen in {}:
-              <pre><code class="xml" contenteditable data-trim>
-const title = 'Hello, World';
-&lt;h1>{title.toUpperCase()}&lt;/h1>
                     </code></pre>
             </li>
 
@@ -507,7 +475,7 @@ function ErrorMessage(props) {
           </ul>
         </section>
 
-        <section>
+        <!-- <section>
           <h2>Übung 1b: Styling für den Post-Editor</h2>
           <em><b>Füge dem Post-Editor etwas CSS hinzu</b></em>
         </section>
@@ -535,7 +503,7 @@ function ErrorMessage(props) {
             <li class="fragment">Mögliche Lösung in <code>steps/1b-editor-css</code></li>
             <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
           </ol>
-        </section>
+        </section> -->
 
         <section>
           <h3>Im Detail: Zustand einer Komponente und der useState-Hook</h3>
@@ -691,28 +659,20 @@ function HelloWorld() {
             <li>
               Zusätzlich zum "title", sollte es einen weiteren Zustand und eine Textarea geben:
               <code>body</code>. Ein <code>textarea</code>-Element hat dieselbe API wie ein
-              <code>input</code>-Feld.
+              <code>input</code>-Feld, du kannst also auch hier mit <code>onChange</code> und
+              <code>value</code> arbeiten.
             </li>
-            <li>
-              Auch dieses Feld sollte eine Fehler- und Positivmeldung haben, wie das Title-Feld
+            <li class="fragment">
+              Füge unter beiden Feldern eine Fehler-Meldung hinzu, wenn das jeweilige Feld leer ist
+              (z.B. "Please fill in Xyz")
             </li>
-            <li>
+            <li class="fragment">Mögliche Lösung: <code>steps/2-editor</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
+            <li class="fragment">
+              <p><b>Optional, falls noch Zeit, ist:</b></p>
               Füge einen "Clear"-Button hinzu, der beide Eingabefeld leert. Das Property auf dem
               Button ist <code>onClick</code>.
-              <ul>
-                <li>
-                  Der "clear"-Button sollte disabled sein, solange beide Felder leer sind. Um ein
-                  button-Element zu disablen, kannst Du das <code>disabled</code> Property auf
-                  <code>true</code> setzen.
-                </li>
-                <!-- <li>
-                  Wenn der Clear-Button gedrückt wird, sollte der Focus zurück in das erste
-                  Inputfeld gesetzt werden (<code>title</code>)
-                </li> -->
-              </ul>
             </li>
-            <li>Mögliche Lösung: <code>steps/2-editor</code></li>
-            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
           </ol>
         </section>
 
@@ -828,8 +788,8 @@ function PostEditor({initialTitle, initialBody}) {
               Schreibe eine neue Komponente (der einfachheithalber direkt in PostEditor.js), die
               eine (Fehler)-Meldung darstellt: <b>Message</b>
             </li>
-            <li>
-              Die Message-Komponente soll zwei Properties aufnehmen:
+            <li class="fragment">
+              Die <b>Message</b>-Komponente soll zwei Properties aufnehmen:
               <ul>
                 <li><code>msg</code>: ein String mit einer Message</li>
                 <li>
@@ -839,18 +799,23 @@ function PostEditor({initialTitle, initialBody}) {
                 </li>
               </ul>
             </li>
-            <li>
+            <li class="fragment">
               Die Komponente soll die übergebene Message aus <code>msg</code> anzeigen: Wenn type
               auf <code>error</code> gestellt ist (oder kein type gesetzt ist), soll die
-              <code>msg</code> als Fehler (rot und fett) bei <code>info</code> in grün.
+              <code>msg</code> als Fehler in roter Schrift (CSS-Eigenschaft
+              <code>color: "red"</code>) ausgegeben werden.
             </li>
-            <li>
-              Verwende die Komponente im PostEditor um die Meldungen unter den beiden Feldern
-              <code>title</code> und <code>body auszugeben</code>
+            <li class="fragment">
+              Verwende die Komponente im PostEditor um die Fehler-Meldungen unter den beiden Feldern
+              <code>title</code> und <code>body auszugeben</code>.
             </li>
 
-            <li>Mögliche Lösung: <code>steps/2a-editor-mit-props</code></li>
+            <li class="fragment">Mögliche Lösung: <code>steps/2a-editor-mit-props</code></li>
             <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
+            <li class="fragment">
+              <b>Optional</b>, wenn noch Zeit ist: gib unter den Feldern eine info-Message aus, wenn
+              in dem Feld etwas drin steht (z.B. "Field filled correctly")
+            </li>
           </ol>
         </section>
         <!-- PROPS HIER ERST ENDE -->
@@ -893,13 +858,12 @@ function PostEditor({initialTitle, initialBody}) {
 
           <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
         </section>
-        <section>
+        <!-- <section>
           <h3>Render Zyklus</h3>
           <img src="slides/images/render-cycle.png" height="550px" />
-        </section>
+        </section> -->
 
         <section>
-          <h1 style="color: red;">PAUSE BIS 16:10!</h1>
           <h3>Eine Liste für Blog-Posts und ein Editor...</h3>
           <code>blog-example/steps/3-hierarchy</code>
         </section>
@@ -1953,7 +1917,7 @@ function App(props) {
             </li>
 
             <li class="fragment">In <code>App.js</code> sind TODOs enthalten.</li>
-            <li class="fragment">
+            <!-- <li class="fragment">
               Füge einen Loading Indicator hinzu
               <ul>
                 <li>
@@ -1969,10 +1933,16 @@ function App(props) {
                   Gib während des laufenden Server-Calls eine Meldung aus ("Bitte warten Sie")
                 </li>
               </ul>
-            </li>
+            </li> -->
             <li class="fragment">Mögliche Lösung in <code>steps/4-remote</code></li>
             <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
           </ol>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Beispiel: Loading Indicator</h3>
+          <p>Wie geben wir dem Benutzer Feedback, dass die Daten gerade geladen werden?</p>
         </section>
 
         <section>
@@ -2647,8 +2617,10 @@ function PostEditor(props) {
             </li>
             <li class="fragment">Stelle <code>PostEditor.tsx</code> auf TypeScript um</li>
             <li class="fragment">Weitere Informationen kannst Du in den Dateien finden.</li>
+            <li class="fragment">Mögliche Lösung in <code>steps/5-typescript</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
           </ol>
-          <h3 class="fragment">Übung 2: Neuer View</h3>
+          <h3 class="fragment">Optional: Neuer View</h3>
           <p class="fragment">
             <em>
               Nach dem Speichern eines Blog Posts soll ein gänzlich neuer View angezeigt werden, der
@@ -2669,8 +2641,6 @@ function PostEditor(props) {
               Benutzer auf "OK" klickt, wird wieder die PostList angzeigt:<br />
               <code>LIST --onAdd--> ADD --onSave--> FEEDBACK --onOk--> LIST</code>
             </li>
-            <li class="fragment">Mögliche Lösung in <code>steps/5-typescript</code></li>
-            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
           </ol>
         </section>
 
@@ -2694,28 +2664,6 @@ function PostEditor(props) {
               Programmfluß etc.?)
             </li>
             <li class="fragment">
-              <b>Verhalten im Browser</b> (z.B. korrekte, pixelgenaue Darstellung,
-              Browser-spezifisches JavaScript, Arbeiten mit Browser-Technologie wie Titelzeile,
-              Session Storage, Scrollbars etc)
-            </li>
-          </ul>
-        </section>
-
-        <section data-transition="slide none">
-          <h2>Was testen wir?</h2>
-          <ul>
-            <li style="color: lightgrey;" class="fragment">
-              <b>UI-unabhängige Logik</b> (zum Beispiel Backend Calls, Berechnungen etc.)
-            </li>
-            <li>
-              <b>Rendering</b> (Ist die Liste der Blog Posts korrekt? Sieht das Markup aus, wie wir
-              uns das vorstellen?)
-            </li>
-            <li>
-              <b>Interaktionen</b> (funktionieren die Event Handler, die Callback-Funktionen, der
-              Programmfluß etc.?)
-            </li>
-            <li style="color: lightgrey;" class="fragment">
               <b>Verhalten im Browser</b> (z.B. korrekte, pixelgenaue Darstellung,
               Browser-spezifisches JavaScript, Arbeiten mit Browser-Technologie wie Titelzeile,
               Session Storage, Scrollbars etc)
@@ -3344,6 +3292,12 @@ test('it should render correctly', () => {
             In TestCafe und Cypress werden die Tests in JavaScript/TypeScript geschrieben, Selenium
             gibt's für mehrere Sprachen
           </p>
+        </section>
+
+        <section>
+          <h1>Ausblick & weitere Themen</h1>
+          <h2>Fragen ?</h2>
+          <h2>Wünsche ?</h2>
         </section>
 
         <section id="t-router">
