@@ -14,9 +14,3 @@ console.log("Please edit index.js");
 //     - Konsolen-Ausgaben kannst Du mit console.log machen: console.log("...");
 //     - Für den Wert "Susi" sollte "Hallo, Susi" erscheinen
 //
-// 3. Zusatz: wenn der 'name'-Parameter eine Funktion (!) ist,
-//     - rufe diese Funktion in 'helloWorld' auf und verwende dessen Rückgabewert als name
-//       (so dass Verwender von 'helloWorld' entweder direkt einen String übergeben können, oder
-//        eine Funktion, die einen String zurückgibt)
-//     - Teste deine neue helloWorld-Funktion, in dem Du eine Funktion übergibst, die "Susi"
-//       zurückliefert. Das Ergebnis von helloWorld sollte "Hallo, Susi" sein

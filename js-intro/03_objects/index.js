@@ -15,27 +15,29 @@ console.log("Please edit index.js");
 // BEISPIELE:
 //    createPerson({name: "Klaus", age: 34}) => { name: "Klaus", age: 34}
 //    createPerson({name: "Susi"}) => { name: "Susi", age: 18}
+//    Nur "name" und "age" aus dem ersten Objekt verwenden:
+//    createPerson({name: "Susi", city: "Freiburg"}) => { name: "Susi", age: 18} // kein city
 //    createPerson({name: "Walter", age: 42 }, { city: "Hamburg", street: "Reeperbahn" }) =
 //                          => { "name": "Walter", age: 42, city: "Hamburg", street: "Reeperbahn" }
 
 // 2. Schreibe eine neue Funktion, "birthday":
 //    - Diese Funktion soll zwei Parameter bekommen:
-//        1. 'persons', ein Array mit Objekten, bestehend aus den zwei Properties "name" und "age"
+//        1. 'persons', ein Array mit Person-Objekten ("name" und "age")
 //        2. 'name', ein String
 //    - Die Funktion soll das Alter (age) aller Personen in dem Array um 1 erhöhen, deren Namen
 //       dem übergebenen "name"-Parameter entspricht
-//       - Das Array soll dabei nicht verändert werden (Kopie!)
-//       - Die person-Objekte in dem Array sollen nicht verändert werden (Kopie!)
-//          - Falls ein Objekt in Array beliebige weitere Properties (nicht nu'name' und 'age') enthält,
+//       - Das übergebene Array soll dabei nicht verändert werden (Kopie anlegen!)
+//       - Die einzelnen person-Objekte innerhalb des Arrays sollen nicht verändert werden (ggf. Kopie anlegen!)
+//          - Falls ein Objekt in Array beliebige weitere Properties (nicht nur 'name' und 'age') enthält,
 //            sollen die zusätzlichen Properties in der Kopie enthalten sein
 //       - Objekte, deren "name" nicht dem übergebenen "name" entspricht sollen unverändert zurückgegeben
-//         werden
+//         werden (keine Kopie, sondern dasselbe Objekt)
 //    BEISPIELE:
 // Bei diesen Personen:
 const persons = [
   { name: "Klaus", age: 32 },
-  { name: "Susi", age: 34, city: "Bonn" },
-  { name: "Walter", age: 45, address: { city: "Hamburg", street: "Reeperbahn" } }
+  { name: "Susi", age: 34, city: "Freiburg" },
+  { name: "Walter", age: 45, address: { city: "Freiburg", street: "Mainstreet" } }
 ];
 
 // Aufruf:

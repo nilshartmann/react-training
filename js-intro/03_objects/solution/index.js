@@ -13,6 +13,13 @@ console.log("susi", susi);
 console.log("walter", walter);
 
 function birthday(persons, name) {
+  // persons.map sorgt dafür, dass wir ein neues
+  // Array erzeugen (übergebenes persons-Array bleibt unverändert)
+
+  // Die jeweiligen person-Objekte werden nur kopiert
+  // und angepasst, wenn ihr name dem übergebenen name
+  // entspricht. Alle anderen Person-Objekte in dem Array
+  // werden direkt zurückgeliefert (keine Notwendigkeit, eine Kopie zu erzeugen)
   return persons.map(p =>
     p.name === name
       ? {

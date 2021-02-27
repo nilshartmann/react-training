@@ -19,7 +19,7 @@ function printPersons(persons) {
 
 printPersons(persons);
 
-// ZUSATZAUFGABE (statt "printPersonsAdvanced" kannst Du deine printPersons-Funktion erweitern):
+// SCHRITT 4: (statt "printPersonsAdvanced" kannst Du deine printPersons-Funktion erweitern):
 function printPersonsAdvanced(persons, formatName) {
   persons.forEach(p => {
     const name = formatName ? formatName(p.name) : p.name;
