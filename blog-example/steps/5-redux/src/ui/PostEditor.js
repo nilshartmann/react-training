@@ -1,15 +1,18 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { clearDraft, setDraftBody, setDraftTitle } from "../redux/editor-slice";
 
 export default function PostEditor(props) {
-  const [title, setTitle] = React.useState("");
-  const [body, setBody] = React.useState("");
+  const dispatch = useDispatch();
+
+  const title = useSelector(state => state.editor.title);
+  const body = useSelector(state => state.editor.body);
 
   const clearDisabled = !title && !body;
   const saveButtonDisabled = !title || !body;
 
   function clear() {
-    setTitle("");
-    setBody("");
+    dispatch(clearDraft());
   }
 
   return (
@@ -18,7 +21,7 @@ export default function PostEditor(props) {
 
       <label>
         Title
-        <input value={title} onChange={e => setTitle(e.currentTarget.value)} />
+        <input value={title} onChange={e => dispatch(setDraftTitle(e.currentTarget.value))} />
       </label>
       {title ? (
         <Message type="info" msg="Title correctly filled"></Message>
@@ -28,7 +31,7 @@ export default function PostEditor(props) {
 
       <label>
         Body
-        <textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
+        <textarea value={body} onChange={e => dispatch(setDraftBody(e.currentTarget.value))} />
       </label>
       {body ? (
         <Message type="info" msg="Body correctly filled"></Message>
@@ -42,10 +45,9 @@ export default function PostEditor(props) {
       <button
         disabled={saveButtonDisabled}
         onClick={() => {
-          props.onSavePost({
-            title,
-            body
-          });
+          const draft = { title, body };
+          dispatch(clearDraft());
+          props.onSavePost(draft);
         }}
       >
         Save Post
