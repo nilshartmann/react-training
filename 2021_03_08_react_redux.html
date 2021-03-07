@@ -2551,31 +2551,70 @@ mountNode
 );
     </code></pre>
         </section>
+
+        
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Redux Dev Tools</h3>
+
+          <p>Die Redux Dev Tools (Browser-Erweiterung) können in der Anwendung beim Konfiguration des Stores ein- oder ausgeschaltet werden</p>
+
+          <ul>
+            <li>
+              <a
+                href="https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=de"
+                target="_blank"
+                >Chrome</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://addons.mozilla.org/de/firefox/addon/reduxdevtools/"
+                target="_blank"
+                >Firefox</a
+              >
+            </li>
+          </ul>
+        
+        </section>
+        
+
         <section>
           <h2>Übung: Der PostEditor mit Redux</h2>
-          <p>Schritte:</p>
+          <p>Vorbereitung:</p>
           <ol>
             <li class="fragment">
-              Work inside <code>advanced/exercies/5_redux</code>
-              <p>Hint: only open this folder in your IDE</p>
+              Workspace <code>blog-example/workspace-redux</code>
             </li>
-            <li class="fragment">Run <code>npm install</code> there</li>
-            <li class="fragment">Run <code>npm start</code> there (this process does not stop)</li>
+            <li class="fragment">Bitte <code>npm install</code> hier ausführen</li>
+            <li class="fragment">danach <code>npm start</code> ausführen (den laufenden Prozess bitte beenden)</li>
+            <li class="fragment">Den Workspace in der IDE/Editor öffnen</li>
+            <li class="fragment">Wenn die Anwendung läuft, bitte "Hand heben" in Teams, dann geht's weiter mit der eigentlichen Übung 🙋‍♀️</li>
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h2>Übung: Der PostEditor mit Redux</h2>
+        <p>Der Workspace enthält zwei Verzeichnisse: <code>ui</code> für Komponenten und <code>redux</code> für Logik.
+          Diese Aufteilung ist <em>nicht empfehlenswert</em> in "echten" Anwendungen (dort bitte nach Fachlichkeit aufteilen),
+          macht uns hier aber das Leben einfacher.
+        <p>Schritte:</p>
+        <ol>
             <li class="fragment">
-              First implement the action creators (in <code>actions.ts</code>);
+              Implementiere in <code>editor-slice.js</code> die Action Creator-Funktionen (siehe dort)
             </li>
-            <li class="fragment">Implement the Reducer function (in <code>reducers.ts</code>)</li>
+            <li class="fragment">Vervollständige die reducer-Funktion</li>
             <li class="fragment">
-              Then migrate <code>PostEditor.tsx</code> so that it reads from redux and dispatches
-              actions to redux
+              Migriere den (nicht funktionierenden) <code>PostEditor</code> so, dass der Draft Post aus dem Redux State
+              gelesen und aktualisiert wird (<code>useSelector</code> und <code>useDispatch</code>)
             </li>
-            <li class="fragment">
-              In all three files there are todos with more hints
+            <li class="fragment">Vervollständige die <code>AppHeader</code>-Komponente, so dass diese den "Clear Draft"-Button anzeigen und
+              auslösen kann
+              <li class="fragment">
+              In den drei Dateien sind todos eingetragen.
             </li>
-            <li class="fragment">
-              If you need help, ask your colleagues or me or find the solution in
-              <code>steps/5a-redux-hello-world</code>
-            </li>
+            <li class="fragment">Mögliche Lösung in <code>steps/5-redux</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Teams 🙋‍♀️</li>
           </ol>
         </section>
         <section>

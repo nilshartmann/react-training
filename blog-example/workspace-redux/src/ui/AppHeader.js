@@ -1,12 +1,13 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { clearDraft } from "../redux/editor-slice";
 import { openList } from "../redux/view-slice";
 
 export default function AppHeader() {
   const dispatch = useDispatch();
 
-  const hasDraft = useSelector(state => state.editor.title !== "" || state.editor.body !== "");
+  // todo: hasDraft soll true sein, wenn entweder der Draft-Title oder der Draft-Body des Editors gesetzt ist (nicht null, nicht Leerstring)
+  const hasDraft = false;
 
   return (
     <header>
