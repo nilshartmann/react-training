@@ -2057,24 +2057,20 @@ function App() {
 import React from "react";
 
 export default function useApi(url, initialValue) {
-  const [isLoading, setLoading] = React.useState(false);
-  const [data, setData] = React.useState(initialValue);
+  const [fetchState, setFetchState] = React.useState({data: initialValue});
 
   React.useEffect(
     () => {
       async function loadData() {
         try {
-          setLoading(true);
-          setData(initialValue);
+          setFetchState({loading: true, data: initialData})
           const response = await fetch(url);
           const json = await response.json();
-          setData(json);
+          setFetchState({data: json})
         } catch (err) {
           console.error("LOADING DATA FAILED:", err);
-          setData(initialValue);
-        } finally {
-          setLoading(false);
-        }
+          setFetchState({error: err.toString()})
+        } 
       }
       loadData();
     },
@@ -2082,7 +2078,7 @@ export default function useApi(url, initialValue) {
     [url]
   );
 
-  return [data, setData, isLoading];
+  return [fetchState.data, fetchState.isLoading];
 }
 </code></pre>
         </section>
@@ -2257,15 +2253,17 @@ function UserBadge() {
 
         <section id="t-redux">
           <h2>External Statemanagement mit Redux</h2>
+          <h3>Demo: Redux & Redux Devtools</h3>
+          <p>👉 steps/5-redux</p>
         </section>
 
-        <section>
+        <!-- <section>
           <h2>Redux</h2>
           <h3></h3>
 
           <p class="todo">Mit Redux aus 2020_0922_react_state.html abgleichen</p>
           <p class="todo">Mit 2020_react_advanced.html abgleichen, DA SIND AUCH ÜBUNGEN DRIN!</p>
-        </section>
+        </section> -->
 
         <section>
           <h3>Wiederholung</h3>
@@ -2276,11 +2274,6 @@ function UserBadge() {
         <section>
           <h2>Redux extrahiert die Verantwortlichkeiten</h2>
           <img src="slides/images/redux-02-extracting-responsibility.png" style="width: 900px;" />
-        </section>
-        <section>
-          <h2>Demo: Redux & Redux Devtools</h2>
-          <a href="http://localhost:8080/" target="_blank">Ziel-Anwendung</a>
-          <p>(npm start in code/schritte/redux/7-redux-complete-app)</p>
         </section>
 
         <section>
@@ -2302,27 +2295,109 @@ function UserBadge() {
             * **Action Creator**: Factory-Funktionen, die Action Objekte erzeugen
           </textarea>
         </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Actions</h3>
+          <ul>
+            <li class="fragment">
+              Pure JavaScript-Objekte, die eine Aktion in der Anwendung beschreiben
+            </li>
+            <li class="fragment">Haben üblicherweise <b>type</b> und <b>payload</b></li>
+            <li class="fragment">Über das <b>type</b>-Property können sie identifiziert werden</li>
+            <li class="fragment">Der <b>Payload</b> enthält Action-spezifische Daten</li>
+          </ul>
 
-        <section data-markdown>
-          <textarea data-template>
-            ### Redux: Reducer
+          <pre class="fragment"><code class="javascript">
+  clearDraftAction = {
+    type: "editor/clearDraft"; // kein Payload erforderlich
+  }
 
-            * Der Store, d.h. der globale Zustand, wird ausschließlich über reducer-Funktionen verwaltet
-            * Die reducer-Funktionen entsprechen von API und Konzept den schon gesehenen reducer-Funktionen von `useReducer`
-            * Jede reducer-Funktion verwaltet einen "Teil-Zustand" des globalen Zustandes. Die reducer können sich untereinander nicht sehen und nicht auf die anderen Teile des gloablen Zustands zugreifen
-            * Wenn Du den Store mit einer Datenbank vergleichst, wäre ein solcher Teilzustand so etwas wie eine Tabelle
-            * Die reducer werden beim Starten der Anwendung in Redux registriert
-            * Im Gegensatz zu `useReducer` wird eine Action in redux nicht an _einen_ Reducer geschickt, sondern an _alle_ Reducer. 
-            * Dadurch ist eine gute Entkopplung möglich: ein Teil der Anwendung informiert über eine Aktion ("User hat sich eingeloggt", "Theme wurde verändert") und alle interessierten
-            Anwendungsteile können darauf reagieren
-          </textarea>
+  setDraftTitleAction = {
+    type: "editor/setDraftTtiel",
+    newTitle: "..."  // Action-spezifischer Payload (hier: der neue Blog-Titel)
+  }
+</code></pre>
+        </section>
+        <section>
+          <h3>Reducer-Funktion #1</h3>
+          <ul>
+            <li class="fragment">
+              ...erhält einen (vorherigen) Zustand und eine <em>Action</em> als Parameter übergeben
+            </li>
+            <li class="fragment">...verarbeitet die Action</li>
+            <li class="fragment">...liefert dann den neuen, aktualisierten Zustand zurück</li>
+            <li class="fragment">...muss Seiteneffekt frei sein ("pure function")</li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+          reducer(old_state, action) => new_state
+        </code></pre>
+
+          <p class="fragment">
+            <em>In React mit useReducer (ohne Redux) einsetzbar</em>
+          </p>
         </section>
 
         <!-- ============================================================================= -->
         <section>
-          <h3>Redux: Actions</h3>
+          <h3>Die reducer-Funktion #2</h3>
           <ul>
-            <li class="fragment">Actions sind analog zu den Actions mit <code>useReducer</code></li>
+            <li class="fragment">
+              Bekommt den vorherigen Zustand übergeben und liefert neuen Zustand zurück (oder den
+              unveränderten alten)
+            </li>
+            <li class="fragment">
+              Zustand ist immutable! Kann mit der
+              <a href="https://github.com/immerjs/immer">Bibliothek "immer"</a> kombiniert werden
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function editorReducer(state = initalDraftPost, action) {
+              switch (action.type) {
+                case "editor/clearDraft":
+                  return initalDraftPost;
+                case "editor/setDraftBody":
+                  return { ...state, body: action.body };
+                case "editor/setDraftTitle":
+                  return { ...state, title: action.title };
+                default:
+                  return state;
+              }
+            }
+      </code></pre>
+        </section>
+
+        <section>
+          <h3>Redux: Store, Reducer und Actions</h3>
+          <ul>
+            <li class="fragment">
+              Der Store, d.h. der globale Zustand, wird ausschließlich über reducer-Funktionen
+              verwaltet
+            </li>
+            <li class="fragment">
+              Jede reducer-Funktion verwaltet einen "Teil-Zustand" des globalen Zustandes. Die
+              reducer können sich untereinander nicht sehen und nicht auf die anderen Teile des
+              gloablen Zustands zugreifen
+            </li>
+            <li class="fragment">
+              Wenn Du den Store mit einer Datenbank vergleichst, wäre ein solcher Teilzustand so
+              etwas wie eine Tabelle
+            </li>
+            <li class="fragment">
+              Die reducer werden beim Starten der Anwendung in Redux registriert
+            </li>
+            <li class="fragment">
+              Dadurch ist eine gute Entkopplung möglich: ein Teil der Anwendung informiert über eine
+              Aktion ("User hat sich eingeloggt", "Theme wurde verändert") und alle interessierten
+              Anwendungsteile können darauf reagieren
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Redux: Actions auslösen</h3>
+          <ul>
             <li class="fragment">Actions werden an <b>alle</b> Reducer-Funktionen verteilt</li>
             <li class="fragment">
               Zum Auslösen einer Action gibt auch von Redux eine <code>dispatch</code>-Funktion, an
@@ -2331,17 +2406,47 @@ function UserBadge() {
           </ul>
 
           <pre class="fragment"><code class="javascript">
-            function ThemeChooser() {
+            function PostEditor() {
               const dispatch = useDispatch();
 
-              function handleSetTheme(themeName) {
-                dispatch({ type: "setTheme", payload: { newTheme: themeName } } );
+              function handleTitleChange(newTitle) {
+                dispatch({ type: "editor/setDraftTitle", title });
               }
 
-              return &lt;button onClick={() => handleSetTheme("light")}>Light&lt;/button>
+              // ...
 
+              &lt;input onChange={(e) => handleTitleChange(e.target.value) />
             }
           </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Action Creator...</h3>
+          <ul>
+            <li class="fragment">...sind "Factory-Funktionen", die Action-Objekte erzeugen</li>
+            <li class="fragment">...sind optional, werden aber nahezu immer verwendet</li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function setDraftTitle(newTitle) {
+              return { 
+                type: "editor/setDraftTitle", 
+                title 
+              };
+            }
+            }
+          </code></pre>
+
+          <p class="fragment">🤔 Wofür könnten Action Creator sinnvoll sein?</p>
+          <ul>
+            <li class="fragment">Stellen sicher, dass Objekte korrekt aussehen</li>
+            <li class="fragment">Verbergen interne Struktur der Actions vor der Anwendung</li>
+            <li class="fragment">Können plausibilitätsprüfungen machen</li>
+            <li class="fragment">
+              Können Daten konvertieren, bevor sie in die Action übernommen werden
+            </li>
+          </ul>
         </section>
 
         <section>
@@ -2375,8 +2480,8 @@ function UserBadge() {
           </ul>
 
           <pre class="fragment"><code class="javascript">
-              function TextInput() {
-                const { themeName } = useSelector(state => state.theme.themeName);
+              function PostEditor() {
+                const draftTitle = useSelector(state => state.editor.draftTitle);
 
                 //  ...
               }
@@ -2393,7 +2498,12 @@ function UserBadge() {
             </li>
             <li class="fragment">
               Es wird deshalb empfohlen, nur einzelne Werte (keine Objekte) aus dem Store
-              auszuwählen - stattdessen mehrere useSelector-Aufrufe machen
+              auszuwählen - stattdessen mehrere useSelector-Aufrufe machen. Bei Objekten musst Du
+              eventuell die
+              <a href="https://react-redux.js.org/api/hooks#equality-comparisons-and-updates"
+                >shallowEqual-Funktion</a
+              >
+              übergeben.
             </li>
             <li class="fragment">
               Du kannst natürlich auch "abgeleitete" Daten zurückliefern, Redux vergleicht nur den
@@ -2403,74 +2513,27 @@ function UserBadge() {
           </ul>
 
           <pre class="fragment"><code class="javascript">
-            function LoginCounter() {
-              // *Alle* User befinden sich im Store
-              // Der Selector liefert aber nur die Anzahl 
-              // der eingeloggten Benutzer zurück (berechneter/abgeleiteter State)
-              const loggedInUserCount = useSelector(
-                state => state.users.filter(u => u.isLoggedIn).count
+            function AppHeader() {
+              // "abgeleiteter" Zustand
+              const hasDraftPost = useSelector(
+                state => state.editor.draftTitle !== "" || state.editor.draftBody !== ""
               );
             }
+
+            // übergebene Selector-Callback-Funktion 
+            //    wird bei JEDER Änderung des Stores ausgeführt
+            // AppHeader wird nur neu gerendert, 
+            //    wenn sich deren RÜCKGABEWERT ändert
           </code></pre>
         </section>
 
         <section>
-          <h3>Event-Handlers werden Action-Creators</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-export function setFilter(filter) {
-  return {
-    type: SET_FILTER,
-    filter
-  };
-}
-</code></pre>
-          <ul>
-            <li class="fragment">Action-Creators erzeugen Action-Objekte</li>
-            <li class="fragment">
-              Actions sind Kommando-artige Strukturen von Dingen, die die Applikation tun soll
-            </li>
-            <li class="fragment">
-              Über die dispatch-Methode des Stores werden sie an <em>alle</em> Reducer weiter
-              gegeben
-            </li>
-            <li class="fragment">
-              Actions bestehen aus einem Typen und einer beliebigen Nutzlast (payload)
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3 class="todo">Hintergrund aus 2019_react_refresher.html übernehmen</h3>
-          <h3>Action-Creators machen Server-Calls</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-export const loadPost = postId => dispatch => {
-fetch(BACKEND_URL+'/'+postId)
-    .then(response => response.json())
-    .then(post => dispatch({
-        type: ADD_POST,
-        post
-    });
-};
-</code></pre>
-          <ul>
-            <li class="fragment">
-              Die Action wird nicht direkt zurück geliefert, sondern erst später dispatched
-            </li>
-            <li class="fragment">
-              wir bekommen die dispatch Methode als Parameter, mit der wir später die Action
-              dispatchen
-            </li>
-          </ul>
+          <h3>Der Store</h3>
+          <p>Ein <em>einziger</em> Store hält den <em>kompletten</em> Zustand</p>
           <p class="fragment">
-            <strong
-              >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
-              Operationen ausführen dürfen</strong
-            >
+            Der Store wird allen Componenten über die Wrapper-Komponente <em>Provider</em>
+            zur Verfügung gestellt
           </p>
-        </section>
-
-        <section>
-          <h3>Ein <em>einziger</em> Store hält den <em>kompletten</em> Zustand</h3>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -2478,7 +2541,7 @@ import { rootReducer } from './reducers';
 
 // http://redux.js.org/docs/api/createStore.html
 const store = createStore(
-rootReducer // reducer
+  rootReducer // reducer
 );
 ReactDOM.render(
 &lt;Provider store={store}>
@@ -2487,181 +2550,243 @@ ReactDOM.render(
 mountNode
 );
     </code></pre>
-          <ul>
-            <li class="fragment">Zentraler Teil der Anwendung</li>
-            <li class="fragment">Liefert die bereits bekannte dispatch-Methode</li>
-            <li class="fragment">
-              Der Store wird allen Componenten über die Wrapper-Komponenten <em>Provider</em>
-              zur Verfügung gestellt
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Middleware zwischen Dispatch und Store</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import { applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-
-const store = createStore(
-  rootReducer, // reducer
-  applyMiddleware(thunk) // middleware as enhancer
-);
-    </code></pre>
-          <ul>
-            <li class="fragment">Die Thunk Middleware dient als de-facto-Standard</li>
-            <li class="fragment">
-              Gibt die dispatch-Methode and (asynchrone) Action Creators weiter
-            </li>
-            <li class="fragment">
-              <a href="https://github.com/gaearon/redux-thunk#whats-a-thunk" target="_blank">
-                'A thunk is a function that wraps an expression to delay its evaluation'
-              </a>
-            </li>
-            <li class="fragment">
-              Middleware ist ein fortgeschrittenes Feature und meistens genügt die Thunk Middleware
-            </li>
-          </ul>
         </section>
         <section>
-          <h3>(Zwischen-)Zusammenfassung</h3>
+          <h2>Übung: Der PostEditor mit Redux</h2>
+          <p>Schritte:</p>
           <ol>
-            <li class="fragment">Wir erzeugen <b>Actions</b> mit einem <b>Action Creator</b></li>
-            <li class="fragment">Die Action wird durch mögliche <b>Middlewares</b> gesendet</li>
             <li class="fragment">
-              Wenn keine Middleware es unterbindet, wird danach die Action an den
-              <b>Store</b> geschickt
+              Work inside <code>advanced/exercies/5_redux</code>
+              <p>Hint: only open this folder in your IDE</p>
             </li>
-            <li class="fragment">Der Store verteilt die Action an alle <b>Reducer</b></li>
+            <li class="fragment">Run <code>npm install</code> there</li>
+            <li class="fragment">Run <code>npm start</code> there (this process does not stop)</li>
+            <li class="fragment">
+              First implement the action creators (in <code>actions.ts</code>);
+            </li>
+            <li class="fragment">Implement the Reducer function (in <code>reducers.ts</code>)</li>
+            <li class="fragment">
+              Then migrate <code>PostEditor.tsx</code> so that it reads from redux and dispatches
+              actions to redux
+            </li>
+            <li class="fragment">
+              In all three files there are todos with more hints
+            </li>
+            <li class="fragment">
+              If you need help, ask your colleagues or me or find the solution in
+              <code>steps/5a-redux-hello-world</code>
+            </li>
           </ol>
         </section>
-
         <section>
-          <h3>Reducers enthalten die Kern-(Business)-Logik</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import {combineReducers} from 'redux';
-
-// http://redux.js.org/docs/api/combineReducers.html
-export const rootReducer = combineReducers({
-posts, // Blog Posts
-auth   // Aktueller Benutzer
-});
-    </code></pre>
+          <h3>Redux</h3>
+          <h2>Asynchrone Actions</h2>
+          <p><em>Problem: Asynchronität, z.B. beim Laden von Daten</em></p>
           <ul>
             <li class="fragment">
-              Reducer sind pure Funktionen, die den alten Zustand und eine Action bekommen und einen
-              neuen Zustand erzeugen
+              Wo unterbringen?
+              <ul>
+                <li>Reducer sind Seiteneffekt-frei!</li>
+                <li>Actions sind nur JavaScript-Objekte (keine Logik)!</li>
+              </ul>
             </li>
-            <li class="fragment">Oft bearbeitet ein Reducer nur einen Teil des Zustands</li>
+            <li class="fragment">
+              Weiteres Problem: fachliche Abläufe meistens komplex(er) als nur eine Action.
+              <ul>
+                <li>
+                  Typisch: Request Start, Request läuft, Request erfolgreich/Request fehlgeschlagen
+                </li>
+              </ul>
+            </li>
+            <li class="fragment">Redux bringt dafür nix mit :-(</li>
+            <li class="fragment">Es gibt aber Antworten: Thunk (Promi?), Saga, Observable</li>
           </ul>
         </section>
-
         <section>
-          <h3>Teil-Reducer</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-const auth = (state = {}, action) => {
-switch (action.type) {
-    case "LOGIN":
-        return { currentUser: action.username };
-    case "LOGOUT":
-        return {};
-    default:
-        return state;
-  }
-};
-    </code></pre>
+          <h3>Redux</h3>
+          <h2>Asynchrone Actions</h2>
+          <em>Grundsätzliche Idee, bei allen Bibliothken (Thunk, Sage, Observable) ähnlich</em>
           <ul>
             <li class="fragment">
-              Initialisiert seinen Teilzustand (oft mit einem Default-Parameter)
-            </li>
-            <li class="fragment">Ändert niemals zustand direkt</li>
-            <li class="fragment">
-              Sondern liefert einen <b>neuen</b> Zustand, der alte darf nicht verändert werden
+              Im <b>Action Creator</b> kann asynchroner Code ausgeführt werden
             </li>
             <li class="fragment">
-              Die Bibliothek
-              <a href="https://immerjs.github.io/immer/docs/introduction">immer</a> kann beim
-              Arbeiten mit unveränderlichen Daten helfen
+              Es können <b>mehrere Actions</b> innerhalb des Action Creators dispatched werden
+            </li>
+            <li class="fragment">
+              Alle genannten Bibliotheken werden über <b>Middlewares</b> eingebunden
             </li>
           </ul>
         </section>
 
         <section>
-          <h3>useSelector: Auf den globalen Zustand zugreifen</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import { useSelector } from 'react-redux';
-
-function App() {
-  const currentUser = useSelector(state => state.auth.currentUser);
-  ...
-}
-</code></pre>
+          <h3>Middleware</h3>
           <ul>
-            <li class="fragment">useSelector erwartet eine <em>selector-Funktion</em></li>
             <li class="fragment">
-              Die selector-Funktion wird von Redux aufgerufen und bekommt den
-              <em>kompletten Zustand</em> als Parameter
+              Eine Middleware-Funktion bekommt alle dispatchen Actions übergeben, bevor sie in den
+              Store gelangen
             </li>
             <li class="fragment">
-              Die Funktion wählt aus dem Zustand den für die Komponente relevanten Teil aus
+              Die Middleware kann die Action annehmen, verändern, ablehnen und/oder weiterleiten
+            </li>
+            <li class="fragment">Typische Anwendungsfälle: Logging, asynchrone Verarbeitung</li>
+            <li class="fragment">
+              Die Middleware-Funktionen werden bei der Konfiguration des Stores angegeben
             </li>
             <li class="fragment">
-              Du kannst mehr als einen useSelector-Aufruf in einer Komponente tätigen. Du solltest
-              nur primitive Werte zurückgeben (keine Objekte). Bei Objekten musst Du eventuell die
-              <a href="https://react-redux.js.org/api/hooks#equality-comparisons-and-updates"
-                >shallowEqual-Funktion</a
-              >
-              übergeben.
+              In der Regel schreibst Du keine Middlewares selbst, sondern verwendest fertige
             </li>
           </ul>
         </section>
 
         <section>
-          <h3>useSelector #2: TypeScript</h3>
-          <ul>
-            <li class="fragment">
-              Du kannst dem <code>useSelector</code>-Hook einen Typ-Parameter übergeen, der die
-              Struktur des globalen Zustands beschreibt
-            </li>
-            <li class="fragment">
-              Dann hast Du in der übergebenen Selector-Funktion Typsicherheit
-            </li>
-          </ul>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import { useSelector } from 'react-redux';
+          <h3>Asynchrone Actions</h3>
+          <em>Beispiel (konzeptionell)</em>
+          <p>
+            Schritt 1: <b>Dispatchen von Actions</b>: Komponente bleibt unverändert, dispatched
+            weiterhin eine Action, die wie eine "normale" Redux Action aussieht
+          </p>
+          <div class="fragment">
+            <pre><code>
+              import { loadPosts } from "./posts-slice";
 
-function App() {
-  const currentUser = useSelector( 
-    (state: MyAppState) => state.auth.currentUser // OK
-  ); 
+              function App() {
+                React.useEffect( 
+                  () => dispatch(loadPosts()),
+                  []
+                );
 
-  const invalidUser = useSelector(
-    (state: MyAppState) => state.auth.currentUer // ERR: currentUer not defined
-  ); 
-  
-  ...
-}
-</code></pre>
+                return ...;
+            }
+          </code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Asynchrone Actions</h3>
+          <em>Beispiel (konzeptionell)</em>
+          <p>
+            Schritt 2: <b>Action Creator</b>: Hier können jetzt weitere Actions, auch asynchron,
+            dispatched werden
+          </p>
+          <pre class="fragment"><code>
+              // asynchroner Action Creator (pseudo code)
+              function loadPosts() {
+
+                dispatchAction "REQUEST_START"
+
+                try {
+                  posts = await loadPostsWithFetch() // ASYNCHRON !!!
+                  dispatchAction "REQUEST_SUCCESS"
+                  dispatchAction "SET_POSTS" posts
+                } catch (err) {
+                  dispatchAction "REQUEST_FAILURE" err
+                }
+              }
+            </code></pre>
         </section>
 
         <section>
-          <h3>useDispatch: Actions auslösen</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-      import { useDispatch } from 'react-redux';
-      
-      import * as actions from './actions';
-      
-      function App() {
-        const dispatch = useDispatch();
-
-        async function login(newUser) {
-          await dispatch(actions.login(newUser));
-        }
-        ...
-      }
-    </code></pre>
+          <h3>Asynchrone Actions</h3>
+          <em>Beispiel (konzeptionell)</em>
+          <p>Schritt 3: <b>Reducer</b>: Unverändert. Reducer empfangen "normale" Actions</p>
         </section>
 
+        <section>
+          <h2>Beispiele für Middlewares zum Arbeiten mit Asynchronität</h2>
+          <ul>
+            <li>
+              <a href="https://github.com/reduxjs/redux-thunk">Redux Thunk</a> (die "offizielle"
+              Lösung)
+            </li>
+
+            <li>Redux Saga</li>
+            <li>Redux Observable</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Redux Thunk</h2>
+          <ul>
+            <li class="fragment">
+              Ein Thunk Action Creator gibt kein Action-Objekt, sondern eine
+              <b>Callback-Funktion</b> zurück. Diese Funktion wird von Redux an die Middlewares
+              weitergegeben. (Redux gibt nahezu alles, was wir dispatch übergeben an die Middlewares
+              bzw. den Store weiter...)
+            </li>
+            <li class="fragment">
+              In der Callback-Funktion ist dann die (asynchrone) Logik untergebracht
+            </li>
+            <li class="fragment">
+              Wenn die Thunk-Middleware eine Funktion entdeckt (und kein Objekt), ruft die
+              Middleware diese Funktion auf, und übergibt eine <code>dispatch</code>- und eine
+              <code>getState</code>-Funktion
+            </li>
+            <li class="fragment">
+              Mit <code>dispatch</code> kann die Callback-Funktion diverse weitere "reguläre" und
+              Thunk-Actions auslösen
+            </li>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+            export function loadPosts() {
+              return (dispatch, getState) => {
+
+                dispatch(postsLoading());
+
+                fetch("http://localhost:7000/posts")
+                  .then(response => response.json())
+                  .then(json => {
+                    dispatch(postLoadingSucceeded(json));
+                  })
+                  .catch(err => {
+                    dispatch(postLoadingFailed(err));
+                  });
+              };
+            }    </code></pre>
+          </ul>
+          <!-- <p class="fragment">
+                <strong
+                  >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
+                  Operationen ausführen dürfen</strong
+                >
+              </p> -->
+        </section>
+        <section>
+          <h2>Redux Thunk</h2>
+          <p>Thunk Actions können nicht nur für asynchone Anwendungsfälle verwendet werden</p>
+          <ul>
+            <li class="fragment">
+              Für Anwendungsfälle in den allgemein mehr als eine Action dispatched werden soll
+            </li>
+            <li class="fragment">
+              Es ist darin erlaubt, beliebige Seiteneffkte auszuführen, z.B. eine uuid generieren
+              oder auf die Uhrzeit zuzugreifen
+            </li>
+            <li class="fragment">
+              Im Gegensatz zum Reducer hat ein Action-Creator Zugriff auf den gesamten State und
+              kann z.B. eine Cache-Funktionaliät implementieren
+            </li>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+            export function loadPostsWithCache() {
+              return (dispatch, getState) => {
+
+                if (getState().posts.posts) {
+                  // Posts sind schon geladen => nicht erneut laden
+                  return;
+                }
+
+
+                dispatch(postsLoading());
+
+                // ...wie gesehen: Posts laden etc.
+              };
+            }    </code></pre>
+          </ul>
+          <!-- <p class="fragment">
+                <strong
+                  >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
+                  Operationen ausführen dürfen</strong
+                >
+              </p> -->
+        </section>
         <section>
           <h2>Zusammenfassung Redux-Architektur</h2>
           <img
@@ -2669,6 +2794,21 @@ function App() {
             style="max-height: 650px;"
           />
         </section>
+        <section>
+          <h3>Lokaler Zustand ist weiterhin erlaubt und erwünscht!</h3>
+          <p>Es gibt diverse Orte, wo Zustand vorkommt!</p>
+          <ul>
+            <li class="fragment">Server und client</li>
+            <li class="fragment">Komponenten lokaler State</li>
+            <li class="fragment">Redux</li>
+            <li class="fragment">URL, Session or Local Storage</li>
+          </ul>
+          <p class="fragment">Zustand immer so nah an dort halten, wo er gebraucht wird</p>
+          <div class="fragment">
+            <img src="slides/images/three-kinds-of-state.png" style="max-height: 650px;" />
+          </div>
+        </section>
+
         <section>
           <h3>Redux Toolkit</h3>
           <p>
@@ -2679,51 +2819,16 @@ function App() {
           </p>
           <ul>
             <li><a href="https://redux-toolkit.js">https://redux-toolkit.js.org/</a></li>
-            <li>Pre-configured (including thunk and immer)</li>
-            <li>Simplifies implementing action creators and reducers</li>
+            <li>Vorkonfiguriertes Setup (inklusive immer für Reducer und Thunk Middleware)</li>
+            <li>
+              Vereinfacht erheblich das Arbeiten mit Reducer, generiert z.B. Action Creator zur
+              Laufzeit
+            </li>
+            <li>Vereinfacht typische Anwendungsfälle wie API Calls</li>
+            <li>
+              Outstanding TypeScript support! Ihr wollt das nicht ohne TypeScript verwenden 😉
+            </li>
           </ul>
-        </section>
-
-        <section>
-          <h3>Local state is still "allowed"!</h3>
-          <p>There are a lot of places where you can hold state</p>
-          <ul>
-            <li class="fragment">Server and client</li>
-            <li class="fragment">Component State</li>
-            <li class="fragment">Redux</li>
-            <li class="fragment">URL, Session or Local Storage</li>
-          </ul>
-
-          <img
-            class="fragment"
-            src="slides/images/three-kinds-of-state.png"
-            style="max-height: 650px;"
-          />
-        </section>
-
-        <section>
-          <h3>Redux vs Context</h3>
-          <p class="fragment">
-            Redux hat Dev Tools, Time Travelling, Middlewares, globale Actions und Reducers/State
-          </p>
-          <p class="fragment">Redux ist sehr optimiert für Performance (häufige Updates)</p>
-          <p class="fragment">Context von der API her einfacher (aber auch nicht so mächtig)</p>
-          <p class="fragment">
-            Redux lässt feingranularere Auswahl aus dem globalen Zustand zu (verhindert unnötige
-            Renderings)
-          </p>
-        </section>
-
-        <section>
-          <h3>Redux vs Context</h3>
-          <h3><em>Wie entscheiden wir uns?</em></h3>
-          <p class="fragment">
-            Entscheidung 1: Mischform: Redux <b>und</b> Context? Oder: Redux <b>oder</b> Context
-          </p>
-          <p class="fragment">Entscheidung 2: Was kommt wohin?</p>
-          <p class="fragment">Auth-State (eingeloggter Benutzer)</p>
-          <p class="fragment">Api-State: Netzwerk Request(s) laufen gerade</p>
-          <p class="fragment">Draft-Post: editierters, neues, Post</p>
         </section>
 
         <section id="t-test">

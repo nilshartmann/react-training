@@ -25,7 +25,6 @@ function addPost(post) {
 }
 
 export function loadPosts() {
-  console.log("POSTS");
   return dispatch => {
     dispatch(postsLoading());
     fetch("http://localhost:7000/posts?slow")
