@@ -3,17 +3,19 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import PostEditor from "../PostEditor";
 
-// TODO: Write a test for the PostEditor component
+// TODO: Schreibe einen Test fuer den PostEditor
 
 // 1. Testcase:
-//    - Render the PostEditor (pass a mock function as 'onSavePost' property)
-//    - Find the title and body input field (for example by their label)
-//    - fill both input fields with a value
-//    - find and click on the save button
-//    - expect that the mock function you used is invoked
+//    - Render den PostEditor und uebergebe ein Mock-Funktion (jest.fn()) als 'onSavePost' property
+//    - Suche das title und body input-Feld (z.B. an Hand ihres Labels ("Title" bzw. "Body"))
+//    - Befuelle beide Felder
+//    - Suche nach dem Save Button
+//    - Simuliere ein Click auf dem Save-Button (userEvent.click)
+//    - stelle mit expect sicher, dass die Callback-Funktion, die Du fuer "onSavePost" uebergeben hast,
+//       - einmal aufgerufen wurde
 //
 //    Optional:
-//    - make sure save button is only enabled if *both* input fields contain texts
-//    - make sure the parameter passed to your mock function is actually correct
-//      (should be an object with title and body property that contains your input:
-//       { title: "Title from input field", body: "Body from input field"}
+//    - Stelle sicher, dass die onSave-Callback-Funktion nicht nur aufgerufen wurde, sondern
+//      dass sie auch die korrekten Parameter uebergeben bekommen hat:
+//      (Zur Erinnerung: das sollte ein Objekt mit 'title' und 'body' und den Werten, die Du im
+//      Test "eingegeben" hast, sein)
