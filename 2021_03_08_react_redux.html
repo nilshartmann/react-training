@@ -110,7 +110,10 @@
             </li>
           </ul>
           <p>Pausen zwischendurch ☕️ 😴</p>
-          <p>Jederzeit gerne per Chat oder Audio beteiligen, Fragen stellen, diskutieren, Feedback geben!</p>
+          <p>
+            Jederzeit gerne per Chat oder Audio beteiligen, Fragen stellen, diskutieren, Feedback
+            geben!
+          </p>
         </section>
 
         <section>
@@ -129,15 +132,15 @@
               <a href="#/t-server">Teil IV: Daten lesen und schreiben vom Server</a>
             </li>
 
-            <li class="fragment"  style="margin-top: 40px;">
+            <li class="fragment" style="margin-top: 40px;">
               <a href="#/t-state">Teil V: Externes Statemanagement mit Redux</a>
             </li>
 
-            <li class="fragment"  style="margin-top: 20px;">
+            <li class="fragment" style="margin-top: 20px;">
               <a href="#/t-test">Teil VI: Testen von React Anwendungen (nur Überblick)</a>
             </li>
 
-            <li class="fragment"  style="margin-top: 40px;">
+            <li class="fragment" style="margin-top: 40px;">
               Ausblick, z.B. <a href="#/t-typescript">TypeScript</a> oder
               <a href="#/t-router">Router</a>
             </li>
@@ -1991,33 +1994,36 @@ function App() {
 
       // FALSCH:
       fetchState.loading = true;
-      setFechtState(fetchState)
+      setFetchState(fetchState)
     }              
         
   </code></pre>
         </section>
-        <!-- <section>
+        <section>
           <h3>Übung komplexer Zustand</h3>
           <ol class="x-list">
             <li class="fragment">
               In deiner <code>App</code>-Komponente hast Du zwei Zustände: <code>posts</code> und
               <code>loading</code>.
             </li>
-
             <li class="fragment">
               Füge die beiden Zustände zu <em>einem</em> "komplexen" Zustand zusammen. Verwende also
               ein Objekt im State.
             </li>
             <li class="fragment">
-              Bitte denk dran, dass Du das Objekt nicht verändern darfst, sondern es immer erneut
-              erzeugen musst.
+              Achte darauf, dass der posts-Eintrag in dem Zustand niemals null oder undefined,
+              sondern immer mindestens ein leeres Array ist. (Auch beim Initialisiern dran denken!)
             </li>
-            <li>Mögliche Lösung in <code>steps/4-remote-with-loading</code></li>
-            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
+            <li class="fragment">
+              Bitte denk immer dran, dass Du das State-Objekt nicht verändern darfst, sondern es
+              immer erneut erzeugen musst.
+            </li>
+            <li class="fragment">Mögliche Lösung in <code>steps/4-remote-with-loading</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Teams 🙋‍♀️</li>
           </ol>
-        </section> -->
+        </section>
         <section>
-          <h3>Custom Hooks</h3>
+          <h3>Exkurs: Custom Hooks</h3>
 
           <em>Eigene Hooks können für wiederkehrende Aufgaben genutzt werden</em>
 
@@ -2027,7 +2033,7 @@ function App() {
         </section>
 
         <section>
-          <h3>Custom Hooks</h3>
+          <h3>Exkurs: Custom Hooks</h3>
 
           <ul class="x-list">
             <li class="fragment">
@@ -2084,9 +2090,208 @@ export default function useApi(url, initialValue) {
 </code></pre>
         </section>
 
+        <section data-markdown>
+          <textarea data-template>
+        ### Verwaltung von komplexem Zustand
+
+        ## Reducer-Funktionen und useReducer-Hook
+      </textarea
+          >
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Verwaltung und Änderung von Zustand</h3>
+
+          <ul>
+            <li class="fragment">Wir halten den Zustand lokal in einer Komponente</li>
+            <li class="fragment">Sämtliche Änderungen daran passieren innerhalb der Komponente</li>
+            <li class="fragment">Was könnte an diesem Ansatz problematisch sein oder werden? 🤔</li>
+          </ul>
+          <ul>
+            <li class="fragment">
+              👉 Mit einer reducer-Funktion kann die Verwaltung des Zustandes aus der Komponente
+              herausgelöst werden
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>useReducer-Hook</h3>
+          <p>Hintergrund: Eine reducer-Funktion...</p>
+          <ul>
+            <li class="fragment">
+              ...erhält einen (vorherigen) Zustand und eine Action als Parameter übergeben
+            </li>
+            <li class="fragment">
+              <b>Actions</b> sind anwendungsspezifische, beliebige JavaScript-Objekte
+            </li>
+            <li class="fragment">...verarbeitet die Action</li>
+            <li class="fragment">...liefert dann den neuen, aktualisierten Zustand zurück</li>
+            <li class="fragment">...muss Seiteneffekt frei sein ("pure function")</li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+          reducer(old_state, action) => new_state
+        </code></pre>
+
+          <p class="fragment">
+            <em
+              >Reducer sind zentrales Konzept von Redux, kommen aber auch in anderen Bereichen vor
+              (z.B. <code>Array.reduce</code>)</em
+            >
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Actions</h3>
+          <ul>
+            <li class="fragment">Pure JavaScript-Objekte</li>
+            <li class="fragment">Haben üblicherweise eine Typ <b>type</b> und <b>Payload</b></li>
+            <li class="fragment">Über das <b>type</b>-Property können sie identifiziert werden</li>
+            <li class="fragment">Der <b>Payload</b> enthält Action-spezifische Daten</li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+        const loadingStartedAction = {
+          type: "loadingStarted"; // kein Payload erforderlich
+        }
+
+        const loadingFinishedAction = {
+          type: "loadingFinished",
+          postsLoaded: posts  // Action-spezifischer Payload (hier: geladene Blogposts)
+        }
+      </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Die reducer-Funktion</h3>
+          <ul>
+            <li class="fragment">
+              Bekommt den vorherigen Zustand übergeben und liefert neuen Zustand zurück (oder den
+              unveränderten alten)
+            </li>
+            <li class="fragment">
+              Zustand ist immutable!
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+function blogPostsReducer(state, action) {
+  switch (action.type) {
+    case "loadingStarted": {
+      // vorherigen Zustand (z.B. bereits geladene Posts) teilweise übernehmen
+      return { posts: state.posts, loading: true };
+    }
+
+    case "loadingFinished": {
+      // komplett neuen Zustand zurückliefern
+      return { loading: false, posts: action.postsLoaded };
+    }
+
+    throw new Error("Invalid action"); // oder Zustand unverändert zurückgegeben
+  }
+}            
+      </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useReducer-Hook</h3>
+          <ul>
+            <li class="fragment">
+              Mit dem <b>useReducer</b>-Hook wird die reducer-Funktion in der Komponente registriert
+            </li>
+            <li class="fragment">
+              Der Hook bekommt die reducer-Funktion übergeben und den initialen Zustand (ähnlich wie
+              useState)
+            </li>
+            <li class="fragment">
+              Der Hook liefert ein Array zurück mit zwei Einträgen: dem aktuellen Zustand und der
+              <b>dispatch</b>-Funktion. Auch hier ähnlich wie bei useState: Zustand und Funktion zum
+              Ändern des Zustandes
+            </li>
+            <li class="fragment">
+              Mit der dispatch-Funktion können Actions an den Reducer gesendet werden
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+        function App() {
+          const [fetchState, dispatch] = React.useReducer(blogPostsReducer, { loading: true, posts: [] });
+
+          function loadData() {
+            dispatch({ type: "loadingStarted"});
+            // ...Daten laden mit fetch, wie bekannt...
+            dispatch({ type: "loadingFinished", postsLoaded: json});
+          }
+
+          function savePost(newPost) {
+            dispatch({ type: "loadingStarted "});
+            // ...Daten speichern mit fetch, wie bekannt...
+            dispatch({ type: "addPost", newPost: savedPost})
+          }
+
+          // ...
+
+        }
+      </code></pre>
+        </section>
+
+        <section>
+          <h2>Übung: eine Reducer-Funktion</h2>
+          <p><em>Verlagere die Logik zur Bearbeitung des Zustands in eine reducer-Funktion</em></p>
+
+          <p>Schritte:</p>
+          <ol>
+            <li class="fragment">
+              In der Datei <code>material/4-reducer/blog-reducer.js</code> findest Du den Rumpf
+              einer reducer-Funktion. Kopiere den Code in deine App.js-Datei und implementiere die
+              Reducer-Funktion
+            </li>
+            <li class="fragment">
+              Ersetze deinen lokalen, komplexen State (fetchState) durch die reducer-Funktion mit
+              dem <code>useReducer</code>-Hook (API Doku
+              <a href="https://reactjs.org/docs/hooks-reference.html#usereducer">useReducer</a>)
+            </li>
+            <li class="fragment">
+              Beim erzeugen des initialen Zustands bitte dran denken, dass posts mit einem leeren
+              Array vorbelegt werden muss.
+            </li>
+            <li class="fragment">
+              Beim Laden und Speichern sollen Actions dispatched werden (die Types und das Format
+              der Actions findest Du auch in der blog-reducer.js-Datei).
+            </li>
+
+            <li class="fragment">Mögliche Lösung in <code>steps/4b-remote-with-reducer</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Teams 🙋‍♀️</li>
+          </ol>
+        </section>
+
         <section id="t-state">
           <h1>Teil V</h1>
           <h2>Externes Statemanagement mit Redux (und Context API als Vergleich)</h2>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Globaler Zustand</h3>
+          <ul>
+            <li class="fragment">
+              Man kann Zustand in *<b>lokalen Zustand</b> und <b>globalen Zustand</b> einteilen
+            </li>
+            <li class="fragment">
+              <b>Lokaler Zustand</b> ist Zustand, der "mehr oder weniger" einer Komponente zur
+              Verfügung steht
+            </li>
+            <li class="fragment">
+              <b>Globaler Zustand</b> hingegen ist für die ganze Anwendung oder große Teile davon
+              zuständig
+            </li>
+            <li class="fragment">Die Übgergänge sind fließend, es gibt keine fixe Definition</li>
+            <li class="fragment">Beispiele für globalen Zustand: angemeldeter Benutzer, Theme</li>
+          </ul>
         </section>
 
         <section>
@@ -2378,7 +2583,8 @@ function UserBadge() {
             <li class="fragment">
               Jede reducer-Funktion verwaltet einen "Teil-Zustand" des globalen Zustandes. Die
               reducer können sich untereinander nicht sehen und nicht auf die anderen Teile des
-              gloablen Zustands zugreifen. Ein Teil-Zustand wird auch als "Slice" bezeichnet (also ein Anwendungsteil)
+              gloablen Zustands zugreifen. Ein Teil-Zustand wird auch als "Slice" bezeichnet (also
+              ein Anwendungsteil)
             </li>
             <li class="fragment">
               Wenn Du den Store mit einer Datenbank vergleichst, wäre ein solcher Teilzustand so
@@ -2553,12 +2759,14 @@ mountNode
     </code></pre>
         </section>
 
-        
         <!-- ============================================================================= -->
         <section>
           <h3>Redux Dev Tools</h3>
 
-          <p>Die Redux Dev Tools (Browser-Erweiterung) können in der Anwendung beim Konfiguration des Stores ein- oder ausgeschaltet werden</p>
+          <p>
+            Die Redux Dev Tools (Browser-Erweiterung) können in der Anwendung beim Konfiguration des
+            Stores ein- oder ausgeschaltet werden
+          </p>
 
           <ul>
             <li>
@@ -2569,49 +2777,56 @@ mountNode
               >
             </li>
             <li>
-              <a
-                href="https://addons.mozilla.org/de/firefox/addon/reduxdevtools/"
-                target="_blank"
+              <a href="https://addons.mozilla.org/de/firefox/addon/reduxdevtools/" target="_blank"
                 >Firefox</a
               >
             </li>
           </ul>
-        
         </section>
-        
 
         <section>
           <h2>Übung: Der PostEditor mit Redux</h2>
           <p>Vorbereitung:</p>
           <ol>
-            <li class="fragment">
-              Workspace <code>blog-example/workspace-redux</code>
-            </li>
+            <li class="fragment">Workspace <code>blog-example/workspace-redux</code></li>
             <li class="fragment">Bitte <code>npm install</code> hier ausführen</li>
-            <li class="fragment">danach <code>npm start</code> ausführen (den laufenden Prozess bitte beenden)</li>
-            <li class="fragment">Den Workspace in der IDE/Editor öffnen</li>
-            <li class="fragment">Wenn die Anwendung läuft, bitte "Hand heben" in Teams, dann geht's weiter mit der eigentlichen Übung 🙋‍♀️</li>
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h2>Übung: Der PostEditor mit Redux</h2>
-        <p>Der Workspace enthält zwei Verzeichnisse: <code>ui</code> für Komponenten und <code>redux</code> für Logik.
-          Diese Aufteilung ist <em>nicht empfehlenswert</em> in "echten" Anwendungen (dort bitte nach Fachlichkeit aufteilen),
-          macht uns hier aber das Leben einfacher.
-        <p>Schritte:</p>
-        <ol>
             <li class="fragment">
-              Implementiere in <code>editor-slice.js</code> die Action Creator-Funktionen (siehe dort)
+              danach <code>npm start</code> ausführen (den laufenden Prozess bitte beenden)
+            </li>
+            <li class="fragment">Den Workspace in der IDE/Editor öffnen</li>
+            <li class="fragment">
+              Wenn die Anwendung läuft, bitte "Hand heben" in Teams, dann geht's weiter mit der
+              eigentlichen Übung 🙋‍♀️
+            </li>
+          </ol>
+        </section>
+        <section>
+          <h2>Übung: Der PostEditor mit Redux</h2>
+          <p>
+            Der Workspace enthält zwei Verzeichnisse: <code>ui</code> für Komponenten und
+            <code>redux</code> für Logik. Diese Aufteilung ist <em>nicht empfehlenswert</em> in
+            "echten" Anwendungen (dort bitte nach Fachlichkeit aufteilen), macht uns hier aber das
+            Leben einfacher.
+          </p>
+
+          <p>Schritte:</p>
+          <ol>
+            <li class="fragment">
+              Implementiere in <code>editor-slice.js</code> die Action Creator-Funktionen (siehe
+              dort)
             </li>
             <li class="fragment">Vervollständige die reducer-Funktion</li>
             <li class="fragment">
-              Migriere den (nicht funktionierenden) <code>PostEditor</code> so, dass der Draft Post aus dem Redux State
-              gelesen und aktualisiert wird (<code>useSelector</code> und <code>useDispatch</code>)
+              Migriere den (nicht funktionierenden) <code>PostEditor</code> so, dass der Draft Post
+              aus dem Redux State gelesen und aktualisiert wird (<code>useSelector</code> und
+              <code>useDispatch</code>)
             </li>
-            <li class="fragment">Vervollständige die <code>AppHeader</code>-Komponente, so dass diese den "Clear Draft"-Button anzeigen und
-              auslösen kann
-              <li class="fragment">
+            <li class="fragment">
+              Vervollständige die <code>AppHeader</code>-Komponente, so dass diese den "Clear
+              Draft"-Button anzeigen und auslösen kann
+            </li>
+
+            <li class="fragment">
               In den drei Dateien sind todos eingetragen.
             </li>
             <li class="fragment">Mögliche Lösung in <code>steps/5-redux</code></li>
@@ -2645,7 +2860,7 @@ mountNode
         <section>
           <h3>Redux</h3>
           <h2>Asynchrone Actions</h2>
-          <em>Grundsätzliche Idee, bei allen Bibliothken (Thunk, Sage, Observable) ähnlich</em>
+          <em>Grundsätzliche Idee, bei allen Bibliotheken (Thunk, Saga, Observable) ähnlich</em>
           <ul>
             <li class="fragment">
               Im <b>Action Creator</b> kann asynchroner Code ausgeführt werden
@@ -3280,6 +3495,40 @@ test('it should render correctly', () => {
           </p>
         </section>
         <section>
+          <h2>Übung: Ein Test für den PostEditor</h2>
+          <p class="fragment">Vorbereitung:</p>
+          <ol>
+            <li class="fragment">
+              Kopiere die Datei <code>PostEditor.js</code> aus <code>material/6-test</code> in dein
+              src-Verzeichnis (Deine Version ggf. sichern)
+            </li>
+          </ol>
+          <p class="fragment">Schritte:</p>
+          <ol>
+            <li class="fragment">
+              Starte in einem neuen Terminal <code>npm test</code> (der Prozess läuft "ewig")
+            </li>
+            <li class="fragment">
+              Es sollte einen fehlerhaften Test geben:
+              <b><code>PostEditor.test.js</code></b
+              >.
+            </li>
+            <li class="fragment">Warum? Weil der noch leer ist 😬!</li>
+            <li class="fragment">
+              Implementiere den fehlenden Test. In der Datei <b><code>PostEditor.test.js</code></b>
+              stehen TODOs dafür
+            </li>
+          </ol>
+          <p class="fragment">
+            Hinweis: wenn Du die Datei speicherst, werden die Tests automatisch neu ausgeführt
+            (solange Du
+            <code>npm test</code> noch laufen hast), ansonsten kannst Du "a" auf der Kommandozeile
+            drücken, zum erneuten Ausführen der Tests.
+          </p>
+          <p class="fragment">Mögliche Lösung in <code>steps/6-test-javascript</code></p>
+          <p class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Teams 🙋‍♀️</p>
+        </section>
+        <section>
           <h3>Testen von fetch-Aufrufen</h3>
           <p>Herausforderungen:</p>
           <ul>
@@ -3471,36 +3720,7 @@ test('it should render correctly', () => {
           </code></pre>
         </section>
 
-        <!-- <section>
-          <h2>Übung: Ein Test für den PostEditor</h2>
-          <p>Schritte:</p>
-          <ol>
-            <li class="fragment">Arbeite in <code>blog-example/workspace-typescript</code></li>
-            <li class="fragment">
-              Starte in einem neuen Terminal <code>npm test</code> (der Prozess läuft "ewig")
-            </li>
-            <li class="fragment">
-              Es sollte einen fehlerhaften Test geben:
-              <b><code>PostEditor.test.tsx</code></b
-              >.
-            </li>
-            <li class="fragment">Warum? Weil der noch leer ist 😬!</li>
-            <li class="fragment">
-              Implementiere den fehlenden Test. In der Datei<b><code>PostEditor.test.tsx</code></b>
-              stehen TODOs dafür
-            </li>
-          </ol>
-          <p class="fragment">
-            Hinweis: wenn Du die Datei speicherst, werden die Tests automatisch neu ausgeführt
-            (solange Du
-            <code>npm test</code> noch laufen hast), ansonsten kannst Du "a" auf der Kommandozeile
-            drücken, zum erneuten Ausführen der Tests.
-          </p>
-          <p class="fragment">Mögliche Lösung in <code>steps/6-test</code></p>
-          <p class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</p>
-        </section> -->
-
-        <!-- <section>
+        <section>
           <h2>Browser Tests</h2>
           <p>Häufig eingesetzt:</p>
           <ul>
@@ -3518,7 +3738,7 @@ test('it should render correctly', () => {
             In TestCafe und Cypress werden die Tests in JavaScript/TypeScript geschrieben, Selenium
             gibt's für mehrere Sprachen
           </p>
-        </section> -->
+        </section>
 
         <section>
           <h1>Ausblick & weitere Themen</h1>
