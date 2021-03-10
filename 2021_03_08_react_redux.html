@@ -3074,7 +3074,10 @@ mountNode
           </p>
           <ul>
             <li><a href="https://redux-toolkit.js">https://redux-toolkit.js.org/</a></li>
-            <li>Vorkonfiguriertes Setup (inklusive immer für Reducer und Thunk Middleware)</li>
+            <li>
+              Vorkonfiguriertes Setup (inklusive
+              <a href="https://github.com/immerjs/immer">immer</a> für Reducer und Thunk Middleware)
+            </li>
             <li>
               Vereinfacht erheblich das Arbeiten mit Reducer, generiert z.B. Action Creator zur
               Laufzeit
@@ -3084,6 +3087,164 @@ mountNode
               Outstanding TypeScript support! Ihr wollt das nicht ohne TypeScript verwenden 😉
             </li>
           </ul>
+        </section>
+
+        <section>
+          <h3>createSlice</h3>
+          <ul>
+            <li class="fragment">
+              Ein "Slice" repräsentiert einen fachnlichen "Schnitt" in Eurer Anwendung
+            </li>
+            <li class="fragment">
+              Ein Slice wird mit der Funktion <code>createSlice</code> erzeugt
+            </li>
+            <li class="fragment">Diese Funktion erwartet ein Konfigurationsobjekt</li>
+            <li class="fragment">
+              Über dieses Objekt können reducer und der initiale Zustand festgelegt werden
+            </li>
+            <li class="fragment">
+              Für jede reducer-Funktion wird per Default ein action-creator automatisch generiert
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            const hello = createSlice({
+              name: "hello",
+              initalState: { name: "world" },
+              reducers: {
+                greet(state, action) {
+                  // ...
+                }
+              }
+            })
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            const dispatch = useDispatch();
+
+            dispatch(hello.actions.greet({
+              name: "World"
+            }))
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>reducer</h3>
+          <ul>
+            <li class="fragment">
+              Wie gesehen, bekommen reducer den slice-State und die Action übergeben
+            </li>
+            <li class="fragment">
+              Die reducer-Funktionen werden mit <b>immer</b> umschlossen, so dass der State dort
+              <b>mutable</b> ist (bzw so aussieht, als ob er mutable ist)
+            </li>
+            <li class="fragment">
+              Der State kann deshalb direkt bearbeitet werden oder es kann ein komplett neues Objekt
+              zurückgegeben werden
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript">
+            const hello = createSlice({
+              // ...
+              reducers: {
+                greet(state, action) {
+                  state.name = action.payload.name;
+                },
+                clear() {
+                  return { name: "" };
+                }
+              }
+            })
+          </code></pre>
+        </section>
+        <section>
+          <h3>reducer und Action Creator</h3>
+          <ul>
+            <li class="fragment">
+              Zu jeder reducer-Funktion wird eine Action-Creator-Funktion erzeugt
+            </li>
+            <li class="fragment">
+              Diese Funktion erwartet einen Parameter: den Action-Payload (oder gar nichts)
+            </li>
+            <li class="fragment">
+              Die Funktionen liegen unterhalb von <code>sliceName.actions</code> und können von dort
+              exportiert werden, so dass die Anwendung darauf Zugriff hat
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            const hello = createSlice({
+              // ...
+              reducers: {
+                
+                greet(state, action) { ... },
+                clear() { ... }
+                }
+              }
+            })   
+          
+            export const { greet, clear } = hello.actions;
+          
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            import { greet } from "./hello-slice";
+
+            // in der Komponente
+            dispatch(greet({name: "Klaus"}));
+
+            // ohne payload
+            dispatch(clear());
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Asynchrone Actions</h3>
+          <ul>
+            <li class="fragment">
+              Die Redux Thunk Middleware ist in Redux Toolkit integriert
+            </li>
+            <li class="fragment">
+              Asynchrone Action Creator können aber nicht als reducer definiert werden, du schreibst
+              sie wie in Redux außerhalb von createSlice hin.
+            </li>
+            <li class="fragment">
+              Mit <a href="https://redux-toolkit.js.org/api/createAsyncThunk">createAsyncThunk</a>
+              kannst Du vereinfachte Thunk-Actions schreiben, die automatisch Lifecycle Actions
+              dispatchen (request started, request failed, ...)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Übung: Redux Toolkit</h2>
+          <p><em>Portiere den editor-slice auf Redux Toolkit (createSlice)</em></p>
+          <p class="fragment">Vorbereitung:</p>
+          <ol>
+            <li class="fragment">
+              Kopiere die Datei <code>store.js</code> aus
+              <code>material/5-redux-toolkit/redux</code> in dein <code>src/redux</code>-Verzeichnis
+              (bestehende Datei überschreiben)
+            </li>
+            <li class="fragment">
+              Kopiere die Datei <code>editor-slice.js</code> aus
+              <code>material/5-redux-toolkit/redux</code> in dein <code>src/redux</code>-Verzeichnis
+              (deine Datei ggf. sichern)
+            </li>
+          </ol>
+          <p class="fragment">Schritte:</p>
+          <ol>
+            <li class="fragment">
+              In editor-slice.js stehen TODOs, du musst die reducer-Funktionen implementieren
+            </li>
+            <li class="fragment">
+              Der Rest der Anwendung sollte danach unverändert laufen. Deswegen achte auf die
+              korrekten Namen der reducer-Funktionen!
+            </li>
+          </ol>
+          <p class="fragment">Mögliche Lösung in <code>steps/5-redux-toolkit</code></p>
+          <p class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Teams 🙋‍♀️</p>
         </section>
 
         <section id="t-test">

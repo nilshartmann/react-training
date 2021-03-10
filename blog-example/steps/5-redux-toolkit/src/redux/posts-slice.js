@@ -1,28 +1,32 @@
-const initialPostsState = {
-  posts: []
-};
+import { createSlice } from "@reduxjs/toolkit";
 
-function postsLoading() {
-  return { type: "posts/loading" };
-}
+const postsSlice = createSlice({
+  name: "posts",
+  initialState: { posts: [], loading: false },
+  reducers: {
+    postsLoading(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    postLoadingFailed(state, action) {
+      state.loading = false;
+      return { error: action.playload.toString(), posts: [] };
+    },
+    postLoadingSucceeded(state, action) {
+      return {
+        posts: action.payload
+      };
+    },
+    addPost(state, action) {
+      state.posts.unshift(action.payload);
+      state.loading = false;
+      state.error = null;
+    }
+  }
+});
 
-function postLoadingFailed(error) {
-  return { type: "posts/loadingFailed", error: error.toString() };
-}
-
-function postLoadingSucceeded(postsLoaded) {
-  return {
-    type: "posts/loadingSucceeded",
-    posts: postsLoaded
-  };
-}
-
-function addPost(post) {
-  return {
-    type: "posts/add",
-    post
-  };
-}
+export default postsSlice.reducer;
+const { postsLoading, postLoadingFailed, postLoadingSucceeded, addPost } = postsSlice.actions;
 
 export function loadPosts() {
   return dispatch => {
@@ -55,32 +59,4 @@ export function savePost(post) {
       })
       .catch(err => dispatch(postLoadingFailed(err)));
   };
-}
-
-export default function postsReducer(state = initialPostsState, action) {
-  switch (action.type) {
-    case "posts/loading":
-      return {
-        loading: true,
-        // preserve posts while loading
-        posts: state.posts
-      };
-    case "posts/loadingFailed": {
-      return {
-        posts: [],
-        error: action.error
-      };
-    }
-    case "posts/add": {
-      return { posts: [action.post, ...state.posts] };
-    }
-
-    case "posts/loadingSucceeded": {
-      return {
-        posts: action.posts
-      };
-    }
-    default:
-  }
-  return state;
 }
