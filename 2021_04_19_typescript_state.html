@@ -488,6 +488,27 @@ async componentDidMount() {
 
         <!-- ============================================================================= -->
         <section>
+          <h3>Funktionskomponenten</h3>
+          <ul>
+            <li class="fragment todo">Slide an andere Stelle!</li>
+            <li class="fragment">Funktionskomponenten gibt es schon länger in React</li>
+            <li class="fragment">Früher auch Stateless Functional Components (SFC) genannt</li>
+            <li class="fragment">
+              Man hatte darin keine Möglichkeit State zu verwenden oder am Lebenszyklus zu
+              partizipieren
+            </li>
+            <li class="fragmnet">
+              Also man konnte eigentlich nur Properties entgegennehmen und etwas rendern
+            </li>
+            <li class="fragment">Warum war diese Art von Komponenten (trotzdem) nützlich? 🤔</li>
+            <li class="fragment">
+              Funktionskomponenten API plus Hooks API = vollwertiger Klassen API Ersatz
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
           <h3>Unterschied Ref, State und Props: was wofür?</h3>
           <ul>
             <li>Properties: Informationen von außen, dürfen nicht verändert werden</li>
@@ -1044,14 +1065,26 @@ function Message({ message }: MessageProps) {
 
         <!-- ============================================================================= -->
         <section>
-          <h3>Stale Data #2</h3>
+          <h3>Stale Data #2 (im Event Handler)</h3>
           <p>Was kann hier passieren?</p>
-          <p class="todo">besseres Beispiel!</p>
-          <p class="fragment">Asynchrones Verhalten und Stale Data im Event Handler</p>
-          <p class="fragment">
-            Einfacher Fall: setState-Callback-Funktion, um aktuellen Wert zu bekommen
+          <p class="todo">
+            Beispiel?!: Laden von Daten bei onClick ("Load more"), das dauert. Daten sollen ans Ende
+            eines Arrays ("loaded users") gehängt werden. Das Array wurde während des LAdens
+            verändert (z.B. per Button gelöscht ("Clear Data"))
           </p>
-          <p class="fragment">Komplizierter Fall: State lesen, ggf. mit Ref (nur besprechen)</p>
+          <p class="fragment">Asynchrones Verhalten und Stale Data im Event Handler</p>
+
+          <p class="fragment">
+            Einfacher Fall: setState-Callback-Funktion, um aktuellen Wert zu bekommen: setUsers(
+            oldUsers => [...oldUsers, newLoadedUser]);
+          </p>
+          <p class="fragment">
+            Komplizierter Fall: State lesen, ggf. mit Ref (nur besprechen, zu kompliziert)
+          </p>
+          <p class="fragment">
+            Hinweis: das kann auch passieren, wenn sich die Properties verändert haben
+            (Result-Formatter!). Was machen wir in diesem Fall? Kündigen! 🤯
+          </p>
           <p class="fragment">
             https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function
           </p>
