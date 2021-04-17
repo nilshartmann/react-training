@@ -63,6 +63,9 @@ textarea {
   border-radius: 0.25rem;
   border: 0;
 }
+input[type="checkbox"] {
+  width: auto;
+}
 
 input:hover,
 input:active,

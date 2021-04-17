@@ -106,11 +106,38 @@
 
             * **Tag 2: React** 
 
-            * State: Wie kommt der State dahin, wo wir ihn hinhaben möchten? Wie können wir den State effizient verändert?
+            * State: Wie kommt der State dahin, wo wir ihn hinhaben möchten? Wie können wir den State effizient verändern?
             * Arbeiten mit HTTP Endpunkten: React Bibliotheken zur Verwaltung von Daten (Übersicht)
             * Performance-Analysen
             * Übersicht: welche Ansätze zum Stylen von Komponenten gibt es?
           </textarea>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Klassen vs Hooks</h3>
+          <ul>
+            <li class="fragment"><em>Gemeinsamkeiten Klassen und Funktionskomponenten</em></li>
+            <li class="fragment">State: neu rendern</li>
+            <li class="fragment">Properties</li>
+            <li class="fragment">Komponente gibt UI zurück</li>
+            <li class="fragment">Lebenszyklus: render und commit-Phase</li>
+            <li class="fragment">Deklarativ</li>
+            <li class="fragment">Klassen und Funktionen können in einer App gemischt werden</li>
+            <li class="fragment">Klassen sind nicht deprecated</li>
+            <li class="fragment">Neue Features evtl. nur für funktionen</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Warum dann Funktionskomponenten?</h3>
+          <ul>
+            <li class="fragment">Einfacher (?) zu implementieren</li>
+            <li class="fragment">
+              "Klassen verwirren Menschen und Computer" (aus dem Blogpost zur Vorstellung der Hooks
+              API)
+            </li>
+            <li class="fragment">Besseres Tooooling möglich</li>
+          </ul>
         </section>
 
         <!-- ============================================================================= -->
@@ -443,6 +470,625 @@ async componentDidMount() {
             
           </code></pre>
           <p class="fragment">Die 1. Suche "überschreibt" das Ergebnis der 2.-Suche!</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Error Boundaries: hier sind Klassen ein Muss!</h3>
+          <p>
+            Um ein <a href="https://reactjs.org/docs/error-boundaries.html">Error Boundary</a> zu
+            implementieren, <b>müsst</b> ihr eine Klasse verwenden. Das geht mit Funktionen nicht!
+          </p>
+          <p>
+            Tipp: Ihr solltet in jedem Fall mind. ein Error Boundary um Eure ganze Anwendung legen,
+            um im Fall der Fälle zumindest eine freundliche Fehlermeldung auszugeben
+          </p>
+          <p class="todo">beispiel!</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Unterschied Ref, State und Props: was wofür?</h3>
+          <ul>
+            <li>Properties: Informationen von außen, dürfen nicht verändert werden</li>
+            <li>
+              State: "Render-relevante" Informationen innerhalb der Komponente. Dürfen verändert
+              werden.
+            </li>
+            <li>
+              Ref: Hält Informationen, die für das Rendern irrelevant sind, aber über mehrere
+              Renderzyklen erhalten bleiben sollen (z.B. eine ID). In Klassen API würden hier
+              Instanz-Variablen verwendet
+            </li>
+          </ul>
+          <p class="todo">
+            Timer Beispiel aus heise-Artikel
+            https://www.heise.de/hintergrund/Ein-Jahr-React-Hooks-API-eine-Bilanz-4643554.html?seite=all
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Funktionskomponenten mit Hooks</h3>
+          <ul>
+            <li class="fragment">
+              Funktionskomponenten gibt es schon lange in React, aber erst mit der Hooks API (16.8)
+              wurden sie gleichwertig zu Klassenkomponenten
+            </li>
+            <li class="fragment">
+              Mit React Hooks kann sich eine Komponente in Zustand und Lebenszyklus "einhaken"
+            </li>
+            <li class="fragment">
+              Hooks machen Funktionskomponenten damit aus Feature-sicht gleichwertig mit
+              Klassenkomponenten
+            </li>
+            <li class="fragment">
+              Es gibt eingebaute Hooks (useState, useEffect etc.) und man kann eigene Hooks
+              schreiben ("Custom Hooks")
+            </li>
+            <li class="fragment">
+              <b
+                >Die Hooks API bzw. eigene Hooks erlauben es Euch, wiederverwenbaren Code zu
+                schreiben</b
+              >, den ihr in diversen Komponenten einsetzen könnt
+            </li>
+            <li class="fragment">
+              Ihr könnt Hooks auch in eigene Module auslagern und anderen Teams/Projekten zur
+              Verfügung stellen
+            </li>
+            <li class="fragment">
+              Hooks sind technisch normale Funktionen, ihr könnt Rückgabewert und Parameter völlig
+              frei wählen
+            </li>
+            <li class="fragment">
+              Hooks setzen das React Prinzip ähnlich wie Komponenten um: wenn in einem Hook etwas
+              geändert wird, wird der Hook und die verwendenden Komponente neu gerendert!
+            </li>
+            <li class="fragment">
+              Ich las mal den Satz: Hooks sind wie Komponenten nur ohne die Begrenzung auf Props als
+              Parameter und UI als Rückgabewert...
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Hook vs Komponente</h3>
+          <p class="todo">Andere Reihenfolge</p>
+
+          <pre class="fragment"><code class="javascript">
+            // eine Komponente...
+            function Dialog(props) {
+              const { title, text } = props;
+              const [visible, setVisible] = React.useState(true);
+
+              if (!visible) { return null; }
+
+              return &lt;div className="Dialog">
+                &lt;h1>{title}&lt;h1>
+                &lt;p>{text}&lt;/p>
+                &lt;button onClick={() => setVisible(false)}>Close&lt;/button>
+            }
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            // ein hook...
+            function useDialog(props) {
+              const { title, text } = props;
+              const [visible, setVisible] = React.useState(true);
+
+              if (!visible) { return null; }
+
+              return &lt;div className="Dialog">
+                &lt;h1>{title}&lt;h1>
+                &lt;p>{text}&lt;/p>
+                &lt;button onClick={() => setVisible(false)}>Close&lt;/button>
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Hooks vs Komponente 2</h3>
+          <pre class="fragment"><code class="javascript">
+            // eine Komponente...
+            function InfoDialog(props) {
+              const { text } = props;
+
+              return &lt;Dialog title="info" text={text} />
+            }
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            // ein hook...
+            function useInfoDialog(props) {
+              // wie sieht der useInfoDialog aus, der den useDialog-Hook verwendet?
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Search-Komponente als Funktion</h3>
+
+          <pre class="fragment"><code class="javascript">
+            function Search({ searchString }) {
+              const [loading, setLoading] = React.useState(false);
+              const [result, setResult] = React.useState();
+            
+              React.useEffect(() => {
+                let cancelled = false;
+                async function search() {
+                  setLoading(true);
+                  const searchResult = await executeSearchApiCall(searchString);
+                  if (cancelled) {
+                    console.log("already cancelled");
+                    return;
+                  }
+                  setLoading(false);
+                  setResult(searchResult);
+                }
+            
+                search();
+            
+                return () => {
+                  cancelled = true;
+                };
+              }, [searchString]);
+            
+              if (loading) {
+                return &lt;h2>Searching...&lt;/h2>;
+              }
+            
+              if (!result) {
+                return null;
+              }
+            
+              return (
+                &lt;div>
+                &lt;h2>Search Result:&lt;/h2>
+                &lt;p>{result}&lt;/p>
+                &lt;/div>
+              );
+            }
+            
+          </code></pre>
+        </section>
+        <section>
+          <h3>Search-Komponente als Funktion</h3>
+
+          <ul>
+            <li class="fragment">
+              Fachlichkeit "Suche durchführen" ist an einer Stelle konzentriert (useEffect-Hook).
+              Wir könnten sie sogar mit einem Custom Hook rausziehen
+            </li>
+            <li class="fragment">
+              Lebenszyklus ist mehr oder weniger sauber abgebildet: Rückgabe-Wert ist die
+              "Aufräum-Funktion", wann der Hook ausgeführt wird, wird mit dem Dependency Array
+              beschrieben
+            </li>
+            <li class="fragment">
+              Wir haben hier zwei States, ob das in diesem Fall besser ist, sei dahin gestellt, denn
+              die beiden State-Einträge sind nicht unabhängig. Wir könnten aber ein Objekt verwenden
+            </li>
+            <li class="fragment">
+              Das Objekt wird mit der setter-Funktion dann komplett gesetzt und nicht
+              zusammengeführt (wie in setState), das ist möglicherweise erwartungskonformer
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Rendering</h3>
+          <p>
+            Wir übergeben eine Callback-Funktion ("resultFormatter"), mit der das Surch-Ergebnis vor
+            der Darstellung formatiert werden soll. Was müssen wir beim Verwenden beachten?
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+                function App() {
+                  function myFormatter(s) { return s.toUpperCase(); }
+
+                  return &lt;Search searchString={...} resultFormatter={myFormatter} />
+                }
+
+                function Search({ searchString, resultFormatter }) {
+                  const [loading, setLoading] = React.useState(false);
+                  const [result, setResult] = React.useState();
+                
+                  React.useEffect(() => {
+                    let cancelled = false;
+                    async function search() {
+                      setLoading(true);
+                      const searchResult = await executeSearchApiCall(searchString);
+                      if (cancelled) {
+                        console.log("already cancelled");
+                        return;
+                      }
+                      setLoading(false);
+    
+                      // Ergebnis formatieren
+                      const formattedResult = resultFormatter(searchResult);
+                      setResult(formattedResult);
+                    }
+                
+                    search();
+                
+                    return () => {
+                      cancelled = true;
+                    };
+                  }, [searchString, resultFormatter]);
+                
+                  if (!result) {
+                    return null;
+                  }
+                
+                 // ab hier unverändert: Loading oder Such-Ergebnis anzeigen
+                }
+                
+              </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Rendering</h3>
+          <ul>
+            <li class="fragment">
+              Wenn eine Komponente sich neu rendert, werden alle Funktionen darin neu "erzeugt", sie
+              sind also "neu"
+            </li>
+            <li class="fragment">
+              Wenn Funktionen im Dependency-Array angegeben werden, führt das dazu, dass der Effekt
+              neu ausgeführt wird
+            </li>
+            <li class="fragment">
+              Das kann richtig oder falsch sein. In unserem Beispiel wollen wir das <b>nicht</b>
+            </li>
+            <li class="fragment">
+              Wir müssen beim Aufrufer dafür sorgen, dass dieser eine "stabile" Funktion übergibt
+            </li>
+            <li class="fragment">
+              Mit <code>useCallback</code> können wir eine Funktion über mehrere Renderzyklen hinweg
+              stabil halten
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function App() {
+              function myFormatter(s) { return s.toUpperCase(); }
+
+              return &lt;Search searchString={...} resultFormatter={myFormatter} />
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>A propos Such-Ergebnis formatieren...</h3>
+          <ul>
+            <li class="fragment">
+              Unabhängig vom technischen Problem: ist unsere Implementierung "gut"?
+            </li>
+            <li class="fragment">
+              Was könnten wir besser machen? Was wäre vielleicht mehr "React-like"?
+            </li>
+            <li class="fragment">
+              Insb: vielleicht soll der Formatter verändert werden, während der Request läuft und
+              nach Request-Ende dann für das Ergebnis verwendet werden?
+            </li>
+          </ul>
+          <ul>
+            <li class="fragment">
+              "Abgeleitete" Daten werden in der Regel in React nicht in den State gelegt
+            </li>
+            <li class="fragment">Man würde wahrscheinlich den formatter beim rendern verwenden</li>
+            <li class="fragment">
+              Vorteil: der formatter ist immer aktuell (beeinflusst aber den Request nicht)
+            </li>
+            <li class="fragment">
+              Keine Inkosistenzen (stellt euch vor, wir setzen den Result-State noch an einer
+              anderen Stelle...
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useCallback-Hook</h3>
+          <ul>
+            <li class="fragment">
+              Auch der useCallback-Hook hat als zweiten Parameter ein Dependency-Array, das
+              bestimmt, wie lange die Callback-Funktion gültig ist
+            </li>
+            <li class="fragment">
+              Im Gegensatz zu useEffect ist das Array hier <b>pflicht</b> und kann nicht weggelassen
+              werden
+            </li>
+            <li class="fragment">Warum gibt es das Array? Was müssen wir darein schreiben?</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Hintergrund: Closures und Stale Data</h3>
+          <p>Folgendes (fehlerhaftes!!!) Beispiel:</p>
+
+          <pre class="fragment"><code class="javascript">
+            function App() {
+              const [search, setSearch] = React.useState("typescript");
+              const [prefix, setPrefix] = React.useState("");
+
+              const resultFormatter = React.useCallback(
+                 function prefixFormatter(s) {return prefix + s}
+              , []);
+
+              return &lt;div>
+                &lt;input value={change} onChange={...} />
+                &lt;input value={prefix} onChange={...} />
+                &lt;Search searchString={search} formatter={resultFormatter} />
+              &lt;div>
+            }
+          </code></pre>
+
+          <ol>
+            <li class="fragment">Search starts with value="typescript" and formatter</li>
+            <li class="fragment">User changes prefix (for example to "a")</li>
+            <li class="fragment">App re-renders</li>
+            <li class="fragment">
+              App invokes Search component with value="typescript" and formatter (same as before)
+            </li>
+            <li class="fragment">Search finishes, formatter is called</li>
+            <li class="fragment">What is prefix now in our formatter function?</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Hintergrund: Closures und Stale Data</h3>
+          <ul>
+            <li class="fragment">
+              In einer Closure werden die Daten aus dem umgebenen Kontext "eingefroren" mit dem
+              Stand, wenn die Closure erzeugt wird
+            </li>
+            <li class="fragment">
+              Die Formatter-Funktion wird also im fehlerhaften Beispiel <b>immer</b> den allerersten
+              prefix zurückliefern
+            </li>
+            <li class="fragment">
+              Wollen wir auf den Prefix zugreifen, müssen wir also eine neue formatter-Funktion
+              erzeugen, wenn sich der Prefix ändert:
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function App() {
+              const [search, setSearch] = React.useState("typescript");
+              const [prefix, setPrefix] = React.useState("");
+
+              const resultFormatter = React.useCallback(
+                 function prefixFormatter(s) {return prefix + s}
+              , [prefix]);
+
+              // ...
+          </code></pre>
+          <ul>
+            <li class="fragment">
+              Das hat (leider) zur Folge, dass nun die Search-Komponente eine neue Funktion erhält
+              und unsere Suche neue ausführt
+            </li>
+            <li class="fragment">Habt ihr andere Ideen, wie wir das Problem lösen könnten?</li>
+            <li class="fragment">
+              👆 Grundsätzlich gilt: <b>React vergleicht per Referenz</b>. Das gilt z.B. auch für
+              <code>useState</code>, <code>useMemo</code> und <code>React.memo</code>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Eine Message-Komponente, die eine Nachricht darstellt, die von selbst nach x Sekunden
+            verschwindet
+          </p>
+          <p class="fragment">Wie können wir die bauen, wenn wir "setTimeout" verwenden?</p>
+          <p class="fragment">
+            Zur Erinnerung
+            <a
+              href="https://developer.mozilla.org/de/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout"
+              >setTimeout</a
+            >-JavaScript-Funktion:
+          </p>
+          <pre class="fragment"><code class="javascript">
+const timerId = setTimeout( 
+  () => console.log("Nach fünf Sekunden"), // 1. Paramter: Callback-Funktion
+  5000 // 2. Parameter: Timeout in ms
+);
+
+// Bei Bedarf, mit clearTimeout den Timer vorzeitig beenden:
+clearTimeout(timerId);
+            </code></pre>
+        </section>
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Eine Message-Komponente, die eine Nachricht darstellt, die von selbst nach x Sekunden
+            verschwindet
+          </p>
+          <p class="fragment">Wie können wir die bauen, wenn wir "setTimeout" verwenden?</p>
+
+          <pre class="fragment"><code class="javascript">
+// Sehr naive Implementierung... Was fehlt hier?            
+function Message({ message }: MessageProps) {
+  const [msgVisible, setMsgVisible] = React.useState(true);
+
+  React.useEffect(() => {
+    setTimeout(() => setMsgVisible(false), 2500);
+  }, []);
+
+  if (!msgVisible) {
+    return null;
+  }
+
+  return &lt;h2>{message}&lt;/h2>;
+}
+
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Eine Message-Komponente, die eine Nachricht darstellt, die von selbst nach x Sekunden
+            verschwindet
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+// Mit Clean-Up-Funktion           
+
+function Message({ message }: MessageProps) {
+  const [msgVisible, setMsgVisible] = React.useState(true);
+
+  React.useEffect(() => {
+    const id = setTimeout(() => setMsgVisible(false), 2500);
+    return () => {
+      clearTimeout(id);
+    };
+  }, []);
+
+  if (!msgVisible) {
+    return null;
+  }
+
+  return &lt;h2>{message}&lt;/h2>;
+}
+
+
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Neue Anforderung: Per Button soll die Message für immer angezeigt werden können, der
+            timeout muss also abgebrochen werden
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+              function Message({ message }: MessageProps) {
+                const [msgVisible, setMsgVisible] = React.useState(true);
+              
+                React.useEffect(() => {
+                  const id = setTimeout(() => setMsgVisible(false), 2500);
+                  return () => {
+                    clearTimeout(id);
+                  };
+                }, []);
+
+                function handleOnClick() {
+                   // ????
+                }
+              
+                if (!msgVisible) {
+                  return null;
+                }
+              
+                return &lt;div>
+                &lt;button onClick={handleOnClick}>Show Message forever&lt;/button>
+                &lt;h2>{message}&lt;/h2>
+                &lt;/div>;
+              }
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <ul>
+            <li class="fragment">
+              In einer "Referenz", die wir mit dem useRef-Hook erzeugen, können wir Daten über
+              Renderzyklen erhalten
+            </li>
+            <li class="fragment">Diese Daten liegen unter <code>ref.current</code></li>
+            <li class="fragment">
+              Das ändern der Daten führt <b>nicht</b> zu einem neu rendern der Komponente!
+            </li>
+            <li class="fragment">
+              Vergleichbar mit einer Instanz-Variablen in einer Klassen Komponente
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Eine Message-Komponente, die eine Nachricht darstellt, die von selbst nach x Sekunden
+            verschwindet
+          </p>
+          <p>Zusatzaufgabe:</p>
+          <ol>
+            <li class="fragment">
+              Die Parent-Komponente rendert die Nachricht-Komponente und übergibt ihr nicht nur eine
+              Message, sondern auch die Dauer, wie lange diese Nachricht angezeigt werden soll, z.B.
+              <b>fünf Sekunden</b>
+            </li>
+            <li class="fragment">
+              Die Parent-Komponente rendert sich nach <b>vier Sekunden</b> erneut, und übergibt nun
+              dieselbe Message, aber mit einer anderen Dauer (z.B. <b>sechs Sekunden</b>)
+            </li>
+            <li class="fragment">
+              Die Message-Komponente soll die Dauer nun anpassen. Von <b>ersten</b> Rendern der
+              Message bis zum Verschwinden, sollen nicht mehr Zeit vergehen als die übergebene Dauer
+              (also im Beispiel: <b>zwei Sekunden</b> nach dem zweiten Aufruf) 🤯
+            </li>
+          </ol>
+          <p class="fragment">Puh... 😮 kriegen wir das gemeinsam hin?</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Stale Data #2</h3>
+          <p>Was kann hier passieren?</p>
+          <p class="todo">besseres Beispiel!</p>
+          <p class="fragment">Asynchrones Verhalten und Stale Data im Event Handler</p>
+          <p class="fragment">
+            Einfacher Fall: setState-Callback-Funktion, um aktuellen Wert zu bekommen
+          </p>
+          <p class="fragment">Komplizierter Fall: State lesen, ggf. mit Ref (nur besprechen)</p>
+          <p class="fragment">
+            https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Data Libraries für React</h3>
+          <ul>
+            <li class="fragment">SWR und React Query und Redux Toolkit Query (und Apollo)</li>
+            <li class="fragment">
+              Anforderungen: Daten laden, Caching samt korrektem Invalidieren..., Requests sollen
+              nicht bei jedem Rendern ausgeführt werden, globales(!) Caching: Daten sollen über
+              Komponetengrenzen und -wechsel erhalten bleiben, Fehlerbehandlung bzw. Abbildung
+              Request-Lebenszyklus...
+            </li>
+            <li class="fragment">
+              fetch: Browser Standard API, Low-Level, keinerlei Abstraktionen, quesi HTTP "pur"
+            </li>
+            <li class="fragment">
+              axios bzw. redaxios: Quasi-standard (aber kein Browser API). Etwas höhrere Abstraktion
+              (z.B. HTTP Fehlercodes werden auf Exceptions gemappt, Payload automatisch von/nach
+              JSON konvertiert). axios benutzt "Ajax", Redaxios selbe API aber basiert auf fetch
+              (sehr kleine lib)
+            </li>
+            <li class="fragment">SWT, React Query und RTK Query, alle React-spezifisch</li>
+            <li class="fragmnet">
+              Die Idee ist bei allen ähnlich und vermutlich von Apollo inspiriert: per Hooks API
+              wird der Lebenszyklzs eines Requests abgebildet.
+            </li>
+            <li class="fragment">Je nach Request Status unterscheidet sich der Rückgabewert</li>
+            <li class="fragmnent">
+              Die gelesenen Daten werden global gecached, deswegen Provider-Kompponente (bzw. Redux
+              bei RTK) notwendig
+            </li>
+            <li class="fragment todo">Beispiele</li>
+          </ul>
         </section>
 
         <!-- ============================================================================= -->
