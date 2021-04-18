@@ -4,6 +4,7 @@ import HooksApp from "./02_hooks/HooksApp";
 import HooksAppRendering from "./03_hooks_rendering/HooksAppRendering";
 import HooksTimer from "./04_hooks_timer/HooksTimer";
 import HooksTimerWithCancel from "./05_hooks_timer_cancel/HooksTimerWithCancel";
+import EventHandlerApp from "./06_event_handler/EventHandlerApp";
 import CustomHookApp from "./10_custom_hook/CustomHookApp";
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
     ["Hook Example Rendering", <HooksAppRendering />],
     ["Hook Timer", <HooksTimer />],
     ["HooksTimerWithCancel", <HooksTimerWithCancel />],
+    ["Event Handler", <EventHandlerApp />],
     ["Custom Hook", <CustomHookApp />]
   ];
 

@@ -643,7 +643,6 @@ async componentDidMount() {
 
         <section>
           <h3>Hook vs Komponente</h3>
-          <p class="todo">Andere Reihenfolge</p>
 
           <pre class="fragment"><code class="javascript">
             // eine Komponente...
@@ -692,6 +691,69 @@ async componentDidMount() {
               // wie sieht der useInfoDialog aus, der den useDialog-Hook verwendet?
             }
           </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h2>useEffect</h2>
+          <h3>im Detail</h3>
+          <p>
+            <em
+              >Im folgenden schauen wir uns den useEffect-Hook etwas genauer an. Dabei werden wir
+              aber auch Themen betrachten, die für React allgemein und andere Hooks relevant
+              sind</em
+            >
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useEffect: clean up-Funktion</h3>
+
+          <pre class="fragment"><code class="javascript">
+            React.useEffect(() => {
+              async function search() {
+                const searchResult = await executeSearchApiCall(searchString);
+                setLoading(false);
+              }
+          
+              search();
+          
+            }, [searchString]);
+          </code></pre>
+
+          <ul>
+            <li class="fragment">Warum können wir nicht den Effect selbst 'async' deklarieren?</li>
+            <li class="fragment">
+              Der Rückgabe-Wert des useEffect-Hooks muss eine Funktion (oder undefined) sein, aber
+              kein Promise!
+            </li>
+            <li class="fragment">
+              async verwandelt jeden Rückgabe-Typ (auch undefined!) in ein Promise
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useEffect: Ausführungszeitpunkt</h3>
+          <ul>
+            <li class="fragment">
+              Grundsätzlich: nach jedem Commit der Komponente (rendern ist abgeschlossen, Komponente
+              im DOM)
+            </li>
+            <li class="fragment">
+              Einschränkbar durch das <b>Dependency-Array</b>:
+              <ul>
+                <li class="fragment">Leeres Array: nur nach erstem Rendern</li>
+                <li class="fragment">
+                  Ansonsten, wenn sich einer der Werte im Array zwischen zwei Renderzyklen verändert
+                  hat
+                </li>
+                <li class="fragment">Werte werden per Referenz verglichen!</li>
+              </ul>
+            </li>
+          </ul>
         </section>
 
         <!-- ============================================================================= -->
@@ -1064,13 +1126,44 @@ function Message({ message }: MessageProps) {
         <!-- ============================================================================= -->
         <section>
           <h3>Stale Data #2 (im Event Handler)</h3>
-          <p>Was kann hier passieren?</p>
-          <p class="todo">
-            Beispiel?!: Laden von Daten bei onClick ("Load more"), das dauert. Daten sollen ans Ende
-            eines Arrays ("loaded users") gehängt werden. Das Array wurde während des LAdens
-            verändert (z.B. per Button gelöscht ("Clear Data"))
-          </p>
+          <p>Eine Komponente, mit der ich Nachrichten laden kann, die in eine Liste eingefügt werden. Mit einem Knopf kann 
+            ich die Liste der geladenen Nachrichten wieder leeren</li>
+          <p class="fragment">Was kann hier passieren?</p>
+
+          <pre class="fragment"><code class="javascript">
+            function EventHandlerApp() {
+              const [messages, setMessages] = React.useState([]);
+            
+              async function loadMore() {
+                const newMessage = await executeApiCall();
+                setMessages([newMessage, ...messages]);
+              }
+            
+              function clear() {
+                setMessages([]);
+              }
+            
+              return (
+                &lt;div>
+                  &lt;button onClick={loadMore}>Load more&lt;/button>
+                  &lt;button onClick={clear}>Clear&lt;/button>
+                  &lt;ul>
+                    {messages.map(msg => (
+                      &lt;li key={msg.key}>{msg.msg}&lt;/li>
+                    ))}
+                    &lt;/ul>
+                    &lt;/div>
+              );
+            }
+          </code></pre>
+          <p class="fragment">Stale Data! Was passiert, wenn loadMore lange dauert, und in der Zwischenzeit clear gedrückt wird?</p>
+        </section>
+
+        <section>
+          <h3>Stale Data #2 (im Event Handler)</h3>
+        
           <p class="fragment">Asynchrones Verhalten und Stale Data im Event Handler</p>
+          <p class="fragment">Lösungen</p>
 
           <p class="fragment">
             Einfacher Fall: setState-Callback-Funktion, um aktuellen Wert zu bekommen: setUsers(
@@ -1106,8 +1199,38 @@ function Message({ message }: MessageProps) {
 
         <section>
           <h3>Custom Hooks</h3>
-          <p class="todo">Beispiel: Daten Laden (auch als Übergang zum nächsten Thema)</p>
-          <p>Beispiel: fetch Hook</p>
+          <p>Ein Beispiel: Daten Laden mit eigenem Hook</p>
+
+          <pre class="fragment"><code class="javascript">
+            function useDataLoader(url, defaultData) {
+              const [loading, setLoading] = React.useState(false);
+              const [result, setResult] = React.useState(defaultData);
+            
+              React.useEffect(() => {
+                let cancelled = false;
+                async function search() {
+                  setLoading(true);
+                  const searchResult = await executeApiCall(url);
+                  if (cancelled) {
+                    return;
+                  }
+                  setLoading(false);
+                  setResult(searchResult);
+                }
+            
+                search();
+            
+                return () => {
+                  cancelled = true;
+                };
+              }, [url]);
+            
+              return {
+                loading,
+                result
+              };
+            }
+          </code></pre>
         </section>
 
         <!-- ============================================================================= -->
@@ -1190,10 +1313,33 @@ function Message({ message }: MessageProps) {
         <section>
           <h3>Custom Hooks</h3>
           <p>
-            Ein erweiterter fetch-Hook: ich möchte in meiner Komponente einen "reload"-Button, der
-            die Daten erneut lädt (also nicht nur "on render")
+            <em
+              >Ein erweiterter fetch-Hook: ich möchte in meiner Komponente einen "reload"-Button,
+              der die Daten erneut lädt (also nicht nur "on render")</em
+            >
           </p>
-          <p>Wie machen wir das?</p>
+          <ul>
+            <li class="fragment">Wie machen wir das?</li>
+            <li class="fragment">Ändern wir die Komponente oder auch den Hook?</li>
+            <li class="fragment">Wie könnte der Rückgabe-Wert des Hooks aussehen?</li>
+            <li class="fragment">Wollt ihr es selbst probieren? Übung?</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: Custom Hook</h3>
+          <p class="todo">Workspace vorbereiten</p>
+          <ul>
+            <li class="fragment">
+              In XXX findest Du einen Workspace, der die ursprüngliche Variante unseres Hooks
+              enthält
+            </li>
+            <li class="fragment">
+              Nach <code>npm install</code> und <code>npm start</code> kannst Du dort die Datei
+              <code>XXX</code> bearbeiten und den Hook um die refetch-Funktionalität erweitern
+            </li>
+          </ul>
         </section>
 
         <section>
@@ -1295,7 +1441,7 @@ function Message({ message }: MessageProps) {
             <li class="fragment">SWT, React Query und RTK Query, alle React-spezifisch</li>
             <li class="fragmnet">
               Die Idee ist bei allen ähnlich und vermutlich von Apollo inspiriert: per Hooks API
-              wird der Lebenszyklzs eines Requests abgebildet.
+              wird der Lebenszyklus eines Requests abgebildet.
             </li>
             <li class="fragment">Je nach Request Status unterscheidet sich der Rückgabewert</li>
             <li class="fragmnent">
