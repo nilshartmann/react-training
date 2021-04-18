@@ -4,6 +4,7 @@ import HooksApp from "./02_hooks/HooksApp";
 import HooksAppRendering from "./03_hooks_rendering/HooksAppRendering";
 import HooksTimer from "./04_hooks_timer/HooksTimer";
 import HooksTimerWithCancel from "./05_hooks_timer_cancel/HooksTimerWithCancel";
+import CustomHookApp from "./10_custom_hook/CustomHookApp";
 
 export default function App() {
   const [example, setExample] = React.useState(-1);
@@ -13,7 +14,8 @@ export default function App() {
     ["Hook Example", <HooksApp />],
     ["Hook Example Rendering", <HooksAppRendering />],
     ["Hook Timer", <HooksTimer />],
-    ["HooksTimerWithCancel", <HooksTimerWithCancel />]
+    ["HooksTimerWithCancel", <HooksTimerWithCancel />],
+    ["Custom Hook", <CustomHookApp />]
   ];
 
   return (

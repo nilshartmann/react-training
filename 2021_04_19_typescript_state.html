@@ -507,6 +507,77 @@ async componentDidMount() {
 
         <!-- ============================================================================= -->
         <section>
+          <h3>Search-Komponente als Funktion</h3>
+
+          <pre class="fragment"><code class="javascript">
+              function Search({ searchString }) {
+                const [loading, setLoading] = React.useState(false);
+                const [result, setResult] = React.useState();
+              
+                React.useEffect(() => {
+                  let cancelled = false;
+                  async function search() {
+                    setLoading(true);
+                    const searchResult = await executeSearchApiCall(searchString);
+                    if (cancelled) {
+                      console.log("already cancelled");
+                      return;
+                    }
+                    setLoading(false);
+                    setResult(searchResult);
+                  }
+              
+                  search();
+              
+                  return () => {
+                    cancelled = true;
+                  };
+                }, [searchString]);
+              
+                if (loading) {
+                  return &lt;h2>Searching...&lt;/h2>;
+                }
+              
+                if (!result) {
+                  return null;
+                }
+              
+                return (
+                  &lt;div>
+                  &lt;h2>Search Result:&lt;/h2>
+                  &lt;p>{result}&lt;/p>
+                  &lt;/div>
+                );
+              }
+              
+            </code></pre>
+        </section>
+        <section>
+          <h3>Search-Komponente als Funktion</h3>
+
+          <ul>
+            <li class="fragment">
+              Fachlichkeit "Suche durchführen" ist an einer Stelle konzentriert (useEffect-Hook).
+              Wir könnten sie sogar mit einem Custom Hook rausziehen
+            </li>
+            <li class="fragment">
+              Lebenszyklus ist mehr oder weniger sauber abgebildet: Rückgabe-Wert ist die
+              "Aufräum-Funktion", wann der Hook ausgeführt wird, wird mit dem Dependency Array
+              beschrieben
+            </li>
+            <li class="fragment">
+              Wir haben hier zwei States, ob das in diesem Fall besser ist, sei dahin gestellt, denn
+              die beiden State-Einträge sind nicht unabhängig. Wir könnten aber ein Objekt verwenden
+            </li>
+            <li class="fragment">
+              Das Objekt wird mit der setter-Funktion dann komplett gesetzt und nicht
+              zusammengeführt (wie in setState), das ist möglicherweise erwartungskonformer
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
           <h3>Unterschied Ref, State und Props: was wofür?</h3>
           <ul>
             <li>Properties: Informationen von außen, dürfen nicht verändert werden</li>
@@ -621,77 +692,6 @@ async componentDidMount() {
               // wie sieht der useInfoDialog aus, der den useDialog-Hook verwendet?
             }
           </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Search-Komponente als Funktion</h3>
-
-          <pre class="fragment"><code class="javascript">
-            function Search({ searchString }) {
-              const [loading, setLoading] = React.useState(false);
-              const [result, setResult] = React.useState();
-            
-              React.useEffect(() => {
-                let cancelled = false;
-                async function search() {
-                  setLoading(true);
-                  const searchResult = await executeSearchApiCall(searchString);
-                  if (cancelled) {
-                    console.log("already cancelled");
-                    return;
-                  }
-                  setLoading(false);
-                  setResult(searchResult);
-                }
-            
-                search();
-            
-                return () => {
-                  cancelled = true;
-                };
-              }, [searchString]);
-            
-              if (loading) {
-                return &lt;h2>Searching...&lt;/h2>;
-              }
-            
-              if (!result) {
-                return null;
-              }
-            
-              return (
-                &lt;div>
-                &lt;h2>Search Result:&lt;/h2>
-                &lt;p>{result}&lt;/p>
-                &lt;/div>
-              );
-            }
-            
-          </code></pre>
-        </section>
-        <section>
-          <h3>Search-Komponente als Funktion</h3>
-
-          <ul>
-            <li class="fragment">
-              Fachlichkeit "Suche durchführen" ist an einer Stelle konzentriert (useEffect-Hook).
-              Wir könnten sie sogar mit einem Custom Hook rausziehen
-            </li>
-            <li class="fragment">
-              Lebenszyklus ist mehr oder weniger sauber abgebildet: Rückgabe-Wert ist die
-              "Aufräum-Funktion", wann der Hook ausgeführt wird, wird mit dem Dependency Array
-              beschrieben
-            </li>
-            <li class="fragment">
-              Wir haben hier zwei States, ob das in diesem Fall besser ist, sei dahin gestellt, denn
-              die beiden State-Einträge sind nicht unabhängig. Wir könnten aber ein Objekt verwenden
-            </li>
-            <li class="fragment">
-              Das Objekt wird mit der setter-Funktion dann komplett gesetzt und nicht
-              zusammengeführt (wie in setState), das ist möglicherweise erwartungskonformer
-            </li>
-          </ul>
         </section>
 
         <!-- ============================================================================= -->
@@ -1108,6 +1108,83 @@ function Message({ message }: MessageProps) {
           <h3>Custom Hooks</h3>
           <p class="todo">Beispiel: Daten Laden (auch als Übergang zum nächsten Thema)</p>
           <p>Beispiel: fetch Hook</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>Diskussion: Rückgabe-Wert: Array oder Object?</p>
+
+          <pre class="fragment"><code class="javascript">
+            function UserList() {
+              // Hook liefert Objekt zurück, Object Destructuring
+              const {data, loading} = useDataLoader("/api/users");
+
+              return ...;
+            }
+
+            function UserList() {
+              // Hook liefert Array zurück => Array Destructuring
+              const [data, loading] = useDataLoader("/api/users");
+
+              return ...;
+            }
+          </code></pre>
+        </section>
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>Diskussion: Rückgabe-Wert: Array oder Object?</p>
+
+          <p>Ein etwas komplexerer Fall...</p>
+          <pre class="fragment"><code class="javascript">
+              function UserWithComments() {
+                // hmmm...?
+                const {data, loading} = useDataLoader("/api/users");
+                const {data, loading} = useDataLoader("/api/comments");
+
+                // data und loading doppelt :-/
+            }
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              function UserWithComments() {
+                // aha!
+                const [users, usersLoading] = useDataLoader("/api/users");
+                const [comments, commentsLoading] = useDataLoader("/api/comments");
+              }
+            </code></pre>
+
+          <p class="fragment">Was könnte hier problematisch sein?</p>
+
+          <pre class="fragment"><code class="javascript">
+              function Users() {
+                // hmmm...?
+                const [data, loading, error, refetch] = useDataLoader("/api/users");
+            }
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              function Users() {
+                // aha!
+                const {data, loading, refetch, error, loading} = useDataLoader("/api/users");
+            }
+            </code></pre>
+
+          <p class="fragment">Und noch eins, benötigt wird nur data und refetch:</p>
+
+          <pre class="fragment"><code class="javascript">
+                function Users() {
+                  // Funktioniert, aber...?
+                  const [data, , , refetch] = useDataLoader("/api/users");
+              }
+              </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                function Users() {
+                  // aha!
+                  const {data, refetch} = useDataLoader("/api/users");
+              }
+              </code></pre>
         </section>
 
         <section>
