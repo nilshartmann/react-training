@@ -3,6 +3,39 @@ export default undefined;
 // type P1 = keyof Person; // name | age
 // type X = Person[name] // string
 
+function buildGreeting() {
+  return {
+    msg: "Hello",
+    person: "Klaus"
+  };
+}
+
+// Can we determine the type from buildGreeting?
+type Greeting = ReturnType<typeof buildGreeting>;
+
+function greet(greeting: Greeting) {
+  console.log(`${greeting.msg}, ${greeting.person}`);
+}
+
+greet(buildGreeting());
+
+// What whould happen if we return either "Hello" or "Goodbye" and have a type
+// that requires this?
+
+type StricterGreeting = {
+  msg: "Hello";
+  person: string;
+};
+
+function stricterGreet(greeting: StricterGreeting) {
+  console.log(`${greeting.msg}, ${greeting.person}`);
+}
+
+// huch?
+stricterGreet(buildGreeting());
+
+// -------------------------------------------------------------------------
+
 type Person = {
   id: string;
   name: string;
@@ -10,15 +43,15 @@ type Person = {
   hobby: string;
 };
 
-async function patchPerson(p: Readonly<Partial<Person>>) {
-  // modifying the object is now forbidden:
-  // p.age = 99;  // ERROR
+type P<O> = {
+  [k in keyof O]?: O[k];
+};
 
-  // send this to our REST API...
-  await fetch("/api/person", {
-    method: "PATCH",
-    body: JSON.stringify(p)
-  });
+class ReactComponent<S> {
+  // TODO: we want to allow a subset of Person
+  setState(s: P<S>) {
+    // we don't care for the implementation
+  }
 }
 
 const klaus = {
@@ -28,13 +61,39 @@ const klaus = {
   hobby: "TypeScript!"
 };
 
-patchPerson(klaus); // OK - all required props set
+const rc = new ReactComponent<Person>();
+
+rc.setState(klaus); // OK - all required props set
 
 const susi = {
   id: "123",
   age: 34
 };
-patchPerson(susi); // OK: patchPerson expects partial type
+rc.setState(susi); // OK: patchPerson expects partial type
+
+// -----------------------------------------------------------------------------------------
+//
+//  Wir haben eine generische validate-Funktion, die ein Objekt entgegen nimmt,
+//     und das Ergebnis der Validierung (true/false) pro Feld zurückgibt
+
+type ValidatedObject<O> = {
+  [k in keyof O]: boolean;
+};
+
+function validate<O>(object: O): ValidatedObject<O> {
+  // @ts-ignore we don't care for the implementation here
+  return null;
+}
+
+const person = {
+  lastname: "Mueller",
+  city: "Hamburg"
+};
+const result = validate(person);
+
+const validLastname: boolean = result.lastname;
+
+const validCity: boolean = result.city;
 
 // -----------------------------------------------------------------------------------------
 

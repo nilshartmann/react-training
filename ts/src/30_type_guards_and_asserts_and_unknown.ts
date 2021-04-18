@@ -22,3 +22,6 @@ function betterFetch() {
 
 // idea 2: how can users of apiFetch distinguish between
 //    ErrorResponse and SuccessResponse
+
+//
+// idea 3: we have a list of Response objects and only want to thave the SuccesResponses

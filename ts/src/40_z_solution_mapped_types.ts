@@ -1,8 +1,10 @@
 export default undefined;
 
 // TASK 🤔:
-// Move in the other direction and build up your type from the bottom instead of reducing them.
-// Start with the given function and use it to end up with the original type of Person again.
+// Move in the other direction and build up your type from the bottom instead of reducing them!
+
+// Start with the given function, extract it's return type (as "NewPerson") and then create a the type Person
+//  that adds the  missing Property (id) to it
 // The following links could be useful
 // - ReturnType: https://www.typescriptlang.org/docs/handbook/utility-types.html#returntypetype
 // - How to extend a type alias:

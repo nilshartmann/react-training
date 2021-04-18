@@ -1,12 +1,12 @@
 export default undefined;
 
-// QUESTION 🤔:
-// how many errors does this file contain? 🙋🙋
+// TODO:
 //
-// To resolve either
-// a) insert "// @ts-check" at the very beginning of the file
-// b) rename to .ts
-// c) copy into playground
+//  - enable TS checking: add
+//     // @ts-check
+//    at the beginning of this file
+//
+//  - fix all errors
 
 /**
  * @param {string} name  The name
