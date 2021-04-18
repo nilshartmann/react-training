@@ -7,10 +7,8 @@
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="stylesheet" href="slides/styles.css" />
     <script src="slides/export.js"></script>
   </head>
@@ -1088,6 +1086,64 @@ function Message({ message }: MessageProps) {
           <p class="fragment">
             https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function
           </p>
+        </section>
+
+        <!-- ============================================================================= -->
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Custom Hooks</h3>
+          <ul>
+            <li class="fragment">
+              Custom Hooks erlauben es, wiederverwenbaren Code zu schreiben und zu teilen
+            </li>
+            <li class="fragment">
+              Habt ihr Beispiele in euren bestehenden Anwendungen? Wo könnten Custom Hooks Sinn
+              machen und helfen?
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+          <p class="todo">Beispiel: Daten Laden (auch als Übergang zum nächsten Thema)</p>
+          <p>Beispiel: fetch Hook</p>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>
+            Problem: (alle) Hooks dürfen nur am Anfang stehen und müssen in selber Reihenfolge
+            gerendert werden
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            function BlogPost({postId}) {
+              const blogPost = useBlogLoader(postId); // ok
+
+              return ...;
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            function BlogPost({postId}) {
+              if (postId !== null) {
+              const blogPost = postId != null ? useBlogLoader(postId) : null; // ????
+              
+              return ...;
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>
+            Problem: (alle) Hooks dürfen nur am Anfang stehen und müssen in selber Reihenfolge
+            gerendert werden
+          </p>
+
+          <p>Warum ist das eigentlich so?</p>
+          <p>Hinweis auf Linter</p>
         </section>
 
         <!-- ============================================================================= -->
