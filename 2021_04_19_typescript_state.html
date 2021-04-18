@@ -19,10 +19,10 @@
       <div class="slides">
         <section data-state="title">
           <h2 class="title" style="font-size: 7rem;">
-            <b>React hands-on</b>
+            <b>React Workshop</b>
           </h2>
           <h3>
-            TypeScript &amp; State
+            TypeScript &amp; Hooks
           </h3>
 
           <h4>
@@ -170,7 +170,7 @@
             <li class="fragment">Deklarativ</li>
             <li class="fragment">Klassen und Funktionen können in einer App gemischt werden</li>
             <li class="fragment">Klassen sind nicht deprecated</li>
-            <li class="fragment">Neue React Features evtl. nur für funktionen</li>
+            <li class="fragment"><b>Neue/künftige</b> React Features u.U. nur für Funktionen</li>
           </ul>
         </section>
         <section>
@@ -201,10 +201,13 @@
                   if (!this.props.searchString) {
                     return;
                   }
+
                   this.setState({
                     loading: true
                   });
+
                   const result = await executeSearchApiCall(this.props.searchString);
+
                   this.setState({
                     result
                   });
@@ -257,6 +260,7 @@
       });
     }
   </code></pre>
+          <p class="fragment">Das Verhalten von <code>setState</code> ist gewöhnungsbedürftig...</p>
         </section>
 
         <!-- ============================================================================= -->
@@ -264,8 +268,7 @@
           <h3>Klassen API</h3>
 
           <p>
-            Welche Probleme hat die folende Implementierung, jetzt mit korrekter
-            "componentDidMount"-Methode?
+            Welche Probleme hat die folende Implementierung, jetzt mit korrektem Setzen des States?
           </p>
 
           <pre class="fragment"><code class="javascript">
@@ -278,10 +281,13 @@
                 if (!this.props.searchString) {
                   return;
                 }
+
                 this.setState({
                   loading: true
                 });
+
                 const result = await executeSearchApiCall(this.props.searchString);
+
                 this.setState({
                   loading: false,
                   result
@@ -344,6 +350,7 @@ async componentDidMount() {
   }            
           </code></pre>
 
+          <p class="fragment">Was ist jetzt schon wieder falsch? 🥺</p>
           <p class="fragment">Endlosschleife! 😱</p>
         </section>
 
@@ -397,6 +404,7 @@ async componentDidMount() {
           <p>Gemeinsame Logik auslagern</p>
 
           <pre class="fragment"><code class="javascript">
+           class Search extends React.Component { 
               async componentDidMount() {
                 this.search();
               }
@@ -423,6 +431,9 @@ async componentDidMount() {
                   loading: false
                 });
               }
+
+              // render...
+           }
             </code></pre>
 
           <p class="fragment">Ganz gut, aber:</p>
@@ -521,6 +532,10 @@ async componentDidMount() {
         <section>
           <h3>Error Boundaries: hier sind Klassen ein Muss!</h3>
           <p>
+            Error Boundaries fangen Fehler beim Rendern auf. Wie eine Art try-catch-Handler, aber
+            fürs Rendern
+          </p>
+          <p>
             Um ein <a href="https://reactjs.org/docs/error-boundaries.html">Error Boundary</a> zu
             implementieren, <b>müsst</b> ihr eine Klasse verwenden. Das geht mit Funktionen nicht!
           </p>
@@ -528,21 +543,19 @@ async componentDidMount() {
             Tipp: Ihr solltet in jedem Fall mind. ein Error Boundary um Eure ganze Anwendung legen,
             um im Fall der Fälle zumindest eine freundliche Fehlermeldung auszugeben
           </p>
-          <p class="todo">beispiel!</p>
         </section>
 
         <!-- ============================================================================= -->
         <section>
           <h3>Funktionskomponenten</h3>
           <ul>
-            <li class="fragment todo">Slide an andere Stelle!</li>
             <li class="fragment">Funktionskomponenten gibt es schon länger in React</li>
             <li class="fragment">Früher auch Stateless Functional Components (SFC) genannt</li>
             <li class="fragment">
               Man hatte darin keine Möglichkeit State zu verwenden oder am Lebenszyklus zu
               partizipieren
             </li>
-            <li class="fragmnet">
+            <li class="fragment">
               Also man konnte eigentlich nur Properties entgegennehmen und etwas rendern
             </li>
             <li class="fragment">Warum war diese Art von Komponenten (trotzdem) nützlich? 🤔</li>
@@ -553,6 +566,10 @@ async componentDidMount() {
         </section>
 
         <!-- ============================================================================= -->
+        <section>
+          <h3>Search-Komponente als Funktion</h3>
+          <p>👉 hooks_und_mehr/hooks_workspace</p>
+        </section>
         <section>
           <h3>Search-Komponente als Funktion</h3>
 
@@ -621,27 +638,6 @@ async componentDidMount() {
               zusammengeführt (wie in setState), das ist möglicherweise erwartungskonformer
             </li>
           </ul>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Unterschied Ref, State und Props: was wofür?</h3>
-          <ul>
-            <li>Properties: Informationen von außen, dürfen nicht verändert werden</li>
-            <li>
-              State: "Render-relevante" Informationen innerhalb der Komponente. Dürfen verändert
-              werden.
-            </li>
-            <li>
-              Ref: Hält Informationen, die für das Rendern irrelevant sind, aber über mehrere
-              Renderzyklen erhalten bleiben sollen (z.B. eine ID). In Klassen API würden hier
-              Instanz-Variablen verwendet
-            </li>
-          </ul>
-          <p class="todo">
-            Timer Beispiel aus heise-Artikel
-            https://www.heise.de/hintergrund/Ein-Jahr-React-Hooks-API-eine-Bilanz-4643554.html?seite=all
-          </p>
         </section>
 
         <!-- ============================================================================= -->
@@ -805,6 +801,24 @@ async componentDidMount() {
 
         <!-- ============================================================================= -->
         <section>
+          <h3>useEffect: Ausführungszeitpunkt</h3>
+
+          <p>Lasst uns das überprüfen: wir bauen ein zweites Eingabefeld in die App-Komponente!</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Rendering</h3>
+          <p>Neue Anforderung: wir möchten das Suchergebnis formatiert zurückbekommen</p>
+          <p>
+            Wir übergeben eine Callback-Funktion ("resultFormatter"), mit der das Surch-Ergebnis vor
+            der Darstellung formatiert werden soll. Was müssen wir beim Verwenden beachten?
+          </p>
+
+          <p>👉 Workspace!</p>
+        </section>
+
+        <section>
           <h3>Rendering</h3>
           <p>
             Wir übergeben eine Callback-Funktion ("resultFormatter"), mit der das Surch-Ergebnis vor
@@ -881,41 +895,11 @@ async componentDidMount() {
 
           <pre class="fragment"><code class="javascript">
             function App() {
-              function myFormatter(s) { return s.toUpperCase(); }
+              const myFormatter = React.useCallback(function myFormatter(s) { return s.toUpperCase(); }, []);
 
               return &lt;Search searchString={...} resultFormatter={myFormatter} />
             }
           </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>A propos Such-Ergebnis formatieren...</h3>
-          <ul>
-            <li class="fragment">
-              Unabhängig vom technischen Problem: ist unsere Implementierung "gut"?
-            </li>
-            <li class="fragment">
-              Was könnten wir besser machen? Was wäre vielleicht mehr "React-like"?
-            </li>
-            <li class="fragment">
-              Insb: vielleicht soll der Formatter verändert werden, während der Request läuft und
-              nach Request-Ende dann für das Ergebnis verwendet werden?
-            </li>
-          </ul>
-          <ul>
-            <li class="fragment">
-              "Abgeleitete" Daten werden in der Regel in React nicht in den State gelegt
-            </li>
-            <li class="fragment">Man würde wahrscheinlich den formatter beim rendern verwenden</li>
-            <li class="fragment">
-              Vorteil: der formatter ist immer aktuell (beeinflusst aber den Request nicht)
-            </li>
-            <li class="fragment">
-              Keine Inkosistenzen (stellt euch vor, wir setzen den Result-State noch an einer
-              anderen Stelle...
-            </li>
-          </ul>
         </section>
 
         <!-- ============================================================================= -->
@@ -932,6 +916,12 @@ async componentDidMount() {
             </li>
             <li class="fragment">Warum gibt es das Array? Was müssen wir darein schreiben?</li>
           </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Ein erweitertes Beispiel</h3>
+          <p>👉 Workspace: Der Formatter bekommt einen konfigurierbaren Prefix</p>
         </section>
 
         <section>
@@ -1007,6 +997,35 @@ async componentDidMount() {
             </li>
           </ul>
         </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>A propos Such-Ergebnis formatieren...</h3>
+          <ul>
+            <li class="fragment">
+              Unabhängig vom technischen Problem: ist unsere Implementierung "gut"?
+            </li>
+            <li class="fragment">
+              Was könnten wir besser machen? Was wäre vielleicht mehr "React-like"?
+            </li>
+            <li class="fragment">
+              Insb: vielleicht soll der Formatter verändert werden, während der Request läuft und
+              nach Request-Ende dann für das Ergebnis verwendet werden?
+            </li>
+          </ul>
+          <ul>
+            <li class="fragment">
+              "Abgeleitete" Daten werden in der Regel in React nicht in den State gelegt
+            </li>
+            <li class="fragment">Man würde wahrscheinlich den formatter beim rendern verwenden</li>
+            <li class="fragment">
+              Vorteil: der formatter ist immer aktuell (beeinflusst aber den Request nicht)
+            </li>
+            <li class="fragment">
+              Keine Inkosistenzen (stellt euch vor, wir setzen den Result-State noch an einer
+              anderen Stelle...
+            </li>
+          </ul>
+        </section>
 
         <!-- ============================================================================= -->
         <section>
@@ -1032,6 +1051,7 @@ const timerId = setTimeout(
 // Bei Bedarf, mit clearTimeout den Timer vorzeitig beenden:
 clearTimeout(timerId);
             </code></pre>
+          <p class="fragment">Eure Ideen? Wollt ihr es selbst probieren oder zusammen?</p>
         </section>
         <section>
           <h3>Mehr zu Hooks</h3>
@@ -1178,6 +1198,10 @@ function Message({ message }: MessageProps) {
             eingefügt werden. Mit einem Knopf kann ich die Liste der geladenen Nachrichten wieder
             leeren
           </p>
+          <p class="fragment">👉 workspace/EventHandlerApp!</p>
+        </section>
+        <section>
+          <h3>Stale Data #2 (im Event Handler)</h3>
           <p class="fragment">Was kann hier passieren?</p>
 
           <pre class="fragment"><code class="javascript">
@@ -1219,15 +1243,29 @@ function Message({ message }: MessageProps) {
           <p class="fragment">Lösungen</p>
 
           <p class="fragment">
-            Einfacher Fall: setState-Callback-Funktion, um aktuellen Wert zu bekommen: setUsers(
-            oldUsers => [...oldUsers, newLoadedUser]);
+            Eine Option: setState-Callback-Funktion, um aktuellen Wert zu bekommen.
           </p>
           <p class="fragment">
-            Komplizierter Fall: State lesen, ggf. mit Ref (nur besprechen, zu kompliziert)
+            Einer State setter-Funktion kann eine Callback-Funktion übergeben erden. Diese wird mit
+            dem jeweils aktuellen State aufgerufen und liefert neuen State zurück
           </p>
+
+          <pre class="fragment"><code class="javascript">
+            const [messages, setMessages] = React.useState([]);
+            function loadMore() {
+              const newMessage = loadNewMessage();
+              setMessages( existingMessages => [newMessage, ...existingMessages]);
+            }
+          </code></pre>
           <p class="fragment">
-            Hinweis: das kann auch passieren, wenn sich die Properties verändert haben
-            (Result-Formatter!). Was machen wir in diesem Fall? Kündigen! 🤯
+            (Alternativ würde auch useReducer gehen, hier wird auch immer der aktuelle State
+            übergeben)
+          </p>
+
+          <p class="fragment">
+            Andere Ideen? Was müssten wir machen, wenn wir auf den State nur lesend zugreifen
+            wollen? Zum Beispiel: Vielleicht haben wir einen zweiten State, den wir benötigen in der
+            loadMore-Funktion, abhängig von diesem soll setMessages ausgeführt werden oder nicht
           </p>
           <p class="fragment">
             https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function
@@ -1248,6 +1286,24 @@ function Message({ message }: MessageProps) {
               machen und helfen?
             </li>
           </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Custom Hook</h3>
+          <p>👉 Workspace, gemeinsam einen Custom Hook bauen</p>
+        </section>
+
+        <section>
+          <h3>Custom Hook</h3>
+          <p>Wollt ihr es auch selbst probieren? 🙋</p>
+          <p class="fragment">
+            Ihr könnt <code>hooks_worksapce/CustomHook.tsx</code> dafür verwenden
+          </p>
+          <p class="fragment">
+            Bitte in <code>hooks_worksapce/index.tsx</code> den Import und die Verwendung
+            entsprechend anpassen
+          </p>
         </section>
 
         <section>
@@ -1375,25 +1431,35 @@ function Message({ message }: MessageProps) {
             <li class="fragment">Wie machen wir das?</li>
             <li class="fragment">Ändern wir die Komponente oder auch den Hook?</li>
             <li class="fragment">Wie könnte der Rückgabe-Wert des Hooks aussehen?</li>
-            <li class="fragment">Wollt ihr es selbst probieren? Übung?</li>
+            <li class="fragment">Wollt ihr es selbst probieren? Übung? 🙋</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>
+            <b
+              >Übung:
+              <em
+                >Ein erweiterter fetch-Hook: ich möchte in meiner Komponente einen "reload"-Button,
+                der die Daten erneut lädt (also nicht nur "on render")</em
+              ></b
+            >
+          </p>
+          <ul>
+            <li class="fragment">
+              Als Start-Punkt könnt ihr <code>hooks_und_mehr/hooks/10_custom_hook</code> verwenden
+            </li>
+            <li class="fragment">
+              Daraus die Datei <code>CustomHookApp.tsx</code> in den Worksapce
+              (<code>hooks_workspace</code>) kopieren und in <code>index.tsx</code> import
+              entsprechend anpassen (s. TODO)
+            </li>
+            <li class="fragment">Die App-Komponente soll dann einen Reload-Button bekommen</li>
           </ul>
         </section>
 
         <!-- ============================================================================= -->
-        <section>
-          <h3>Übung: Custom Hook</h3>
-          <p class="todo">Workspace vorbereiten</p>
-          <ul>
-            <li class="fragment">
-              In XXX findest Du einen Workspace, der die ursprüngliche Variante unseres Hooks
-              enthält
-            </li>
-            <li class="fragment">
-              Nach <code>npm install</code> und <code>npm start</code> kannst Du dort die Datei
-              <code>XXX</code> bearbeiten und den Hook um die refetch-Funktionalität erweitern
-            </li>
-          </ul>
-        </section>
 
         <section>
           <h3>Custom Hooks</h3>
@@ -1413,11 +1479,13 @@ function Message({ message }: MessageProps) {
           <pre class="fragment"><code class="javascript">
             function BlogPost({postId}) {
               if (postId !== null) {
-              const blogPost = postId != null ? useBlogLoader(postId) : null; // ????
+                // DAS geht nicht:
+              const blogPost = postId != null ? useBlogLoader(postId) : null; // 😱😱😱
               
               return ...;
             }
           </code></pre>
+          <p class="fragment">Was machen wir hier? Ideen? 🙋</p>
         </section>
 
         <section>
@@ -1468,7 +1536,6 @@ function Message({ message }: MessageProps) {
           </p>
 
           <p>Warum ist das eigentlich so?</p>
-          <p>Hinweis auf Linter</p>
         </section>
 
         <!-- ============================================================================= -->
