@@ -89,30 +89,75 @@
 
         <section data-markdown>
           <textarea data-template>
-            ### Agenda
+            ### Zeitplan
 
-            * **Tag 1: TypeScript und React** 
+            * 09:30-12:30 
+            * 12:30-13:30 Pause 🍝
+            * 13:30-17:00 
 
-            * TypeScript: Fortgeschrittene Typen
-            * React: Klassen API vs. Hooks API
+            * Einverstanden?
+          </textarea>
+        </section>
+
+        
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Agenda</h3>
+          <ul>
+          <li ><a href="#/typescript">TypeScript</a></li>
+          <li ><a href="#/react-classes-vs-hooks">React Klassen API vs Hooks</a></li>
+          <li ><a href="">React Hooks im Detail</a></li>
+          <li ><a href="#/data-libs">Arbeiten mit HTTP Endpunkten: React Bibliotheken zur Verwaltung von Daten (Übersicht)</a></li>
+          <li ><a href="">Performance-Analysen</a></li>
+          <li ><a href="">Übersicht: welche Ansätze zum Stylen von Komponenten gibt es?</a></li>
+          </ul>
+        </section>
+        
+
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Workshop statt Schulung!
+
+            * Diese beiden Tagen werden auch von Eurer Beteiligung leben 🙋‍♀️🙋‍♂️🙋
+            * Bitte stellt Fragen, äußert Meinungen, berichtet aus Eurem täglichen arbeiten: wo läufts gut, wo schlecht...
+            * Die Agenda ist nur eine grobe Richtschnur
           </textarea>
         </section>
 
         <section data-markdown>
           <textarea data-template>
-            ### Agenda
+            ### Zum Einstieg...
 
-            * **Tag 2: React** 
-
-            * State: Wie kommt der State dahin, wo wir ihn hinhaben möchten? Wie können wir den State effizient verändern?
-            * Arbeiten mit HTTP Endpunkten: React Bibliotheken zur Verwaltung von Daten (Übersicht)
-            * Performance-Analysen
-            * Übersicht: welche Ansätze zum Stylen von Komponenten gibt es?
+            * Bitte überlegt Euch ein, zwei oder auch mehr Sätze zum Thema "React/TypeScript in meiner täglichen Arbeit"
+            * Zum Beispiel: "mir ist gar nicht klar, wie ich dies-oder-jenes mache" oder "mich nervt an React immer wieder, dass...", "ich finde TypeScript prima", oder "was ist useReducer"
+            * Die Sätze schreibt ihr auf das gemeinsame Miro-Board (Link im Chat)
+            * Ihr seid dort anonym, wenn ihr wollt, könnt ihr hinter Eure Sätze auch Euren Namen schreiben (ist aber nicht wichtig)
+            * Das soll keine wisschenschaftliche Arbeit werden, sondern dient nur der Fokussierung und damit ich ungefährt eine Idee habe, wo ihr steht
+            * Wenn Euch im Laufe des Workshops noch was einfällt, schreibt es gerne einfach dazu
+            * Am Ende werfen da nochmal einen Blick drauf
           </textarea>
         </section>
 
+        <section data-markdown id="typescript">
+          <textarea data-template>
+            # TypeScript
+
+            * Komplett im Editor bzw. TS Playground
+            * Verzeichnis im Worksapce: `ts` 
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            # React
+          </textarea>
+        </section>
+
+       
+
         <!-- ============================================================================= -->
-        <section>
+        <section id="react-classes-vs-hooks">
           <h3>Klassen vs Hooks</h3>
           <ul>
             <li class="fragment"><em>Gemeinsamkeiten Klassen und Funktionskomponenten</em></li>
@@ -123,7 +168,7 @@
             <li class="fragment">Deklarativ</li>
             <li class="fragment">Klassen und Funktionen können in einer App gemischt werden</li>
             <li class="fragment">Klassen sind nicht deprecated</li>
-            <li class="fragment">Neue Features evtl. nur für funktionen</li>
+            <li class="fragment">Neue React Features evtl. nur für funktionen</li>
           </ul>
         </section>
         <section>
@@ -134,7 +179,7 @@
               "Klassen verwirren Menschen und Computer" (aus dem Blogpost zur Vorstellung der Hooks
               API)
             </li>
-            <li class="fragment">Besseres Tooooling möglich</li>
+            <li class="fragment">Besseres Tooling möglich (lt. Blogpost)</li>
           </ul>
         </section>
 
@@ -1419,10 +1464,12 @@ function Message({ message }: MessageProps) {
         </section>
 
         <!-- ============================================================================= -->
-        <section>
-          <h3>Data Libraries für React</h3>
-          <ul>
-            <li class="fragment">SWR und React Query und Redux Toolkit Query (und Apollo)</li>
+        <section id="data-libs">
+          <h2>Data Libraries für React</h2>
+        </section>
+
+          <!-- <ul>
+           
             <li class="fragment">
               Anforderungen: Daten laden, Caching samt korrektem Invalidieren..., Requests sollen
               nicht bei jedem Rendern ausgeführt werden, globales(!) Caching: Daten sollen über
@@ -1430,28 +1477,93 @@ function Message({ message }: MessageProps) {
               Request-Lebenszyklus...
             </li>
             <li class="fragment">
-              fetch: Browser Standard API, Low-Level, keinerlei Abstraktionen, quesi HTTP "pur"
+              
             </li>
             <li class="fragment">
-              axios bzw. redaxios: Quasi-standard (aber kein Browser API). Etwas höhrere Abstraktion
-              (z.B. HTTP Fehlercodes werden auf Exceptions gemappt, Payload automatisch von/nach
-              JSON konvertiert). axios benutzt "Ajax", Redaxios selbe API aber basiert auf fetch
-              (sehr kleine lib)
+              
             </li>
             <li class="fragment">SWT, React Query und RTK Query, alle React-spezifisch</li>
-            <li class="fragmnet">
+            <li class="fragment">
               Die Idee ist bei allen ähnlich und vermutlich von Apollo inspiriert: per Hooks API
               wird der Lebenszyklus eines Requests abgebildet.
             </li>
             <li class="fragment">Je nach Request Status unterscheidet sich der Rückgabewert</li>
-            <li class="fragmnent">
+            <li class="fragment">
               Die gelesenen Daten werden global gecached, deswegen Provider-Kompponente (bzw. Redux
               bei RTK) notwendig
             </li>
-            <li class="fragment todo">Beispiele</li>
           </ul>
+        </section> -->
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Basis Libraries
+
+            * fetch: Browser Standard API, Low-Level, keinerlei Abstraktionen, quasi HTTP "pur"
+            * [axios](https://github.com/axios/axios) bzw. [redaxios](https://github.com/developit/redaxios): Quasi-standard (aber kein Browser API). 
+            * Etwas höhere Abstraktion als fetch: HTTP Fehlercodes werden auf Exceptions gemappt, Payload automatisch von/nach
+            JSON konvertiert)
+            * axios benutzt "Ajax", Redaxios selbe API aber basiert auf fetch (sehr kleine lib)
+            * alle React-unabhängig!
+
+            
+          
+            
+          </textarea>
+         
+        </section>
+        
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Beispiel: axios</h3>
+          <pre class="fragment"><code class="javascript">
+            try {
+              const newPost = await axios.post('/blogpost', {
+                title: 'Learning React',
+                body: 'Lorem ipsum'
+              });
+            } catch (e) {
+              // ...
+            }
+          </code></pre>
+        </section>
+        
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Data Libraries für React
+
+            * Was könnten Anforderungen an eine React-spezifische Bibliothek sein?
+            * 👉 Architektur in Miro oder Excalidraw diskutieren
+          </textarea>
         </section>
 
+        <section data-markdown>
+          <textarea data-template>
+            ### Data Libraries für React: Anforderungen
+
+            * Daten laden/schreiben, HTTP GET, POST, PUT, DELETE, ...
+            * Caching samt korrektem Invalidieren...
+            * Requests sollen nicht bei jedem Rendern ausgeführt werden
+            * globales(!) Caching: Daten sollen über Komponetengrenzen und -wechsel erhalten bleiben
+            * Re-fetching?
+            * Fehlerbehandlung
+            * Request-Lebenszyklus: Läuft mein Request noch? (Wie) wurde er beendet? 
+          </textarea>
+        </section>
+
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Data Libraries für React: Typische Vertreter
+
+            * [SWR](https://swr.vercel.app/) und [React Query](https://react-query.tanstack.com/)
+            * Neu für Redux (Beta!): [Redux Toolkit Query](https://rtk-query-docs.netlify.app/)
+            * Erste(?) Lib dieser Art: [Apollo](https://www.apollographql.com/docs/react/) (für GraphQL)
+            * Idee bei allen ähnlich: es gibt einen Custom-Hook, der Daten lädt/schreibt, man bekommt Request Status/Daten zurück, Ergebnisse werden gecached
+            * Man braucht einen Context (bzw. Redux), mit dem gecached wird
+          </textarea>
+        </section>
         <!-- ============================================================================= -->
 
         <section data-markdown>

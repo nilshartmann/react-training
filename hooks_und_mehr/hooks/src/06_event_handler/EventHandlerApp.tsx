@@ -17,7 +17,6 @@ export default function EventHandlerApp() {
   }
 
   function clear() {
-    setLoading(false);
     setMessages([]);
   }
 

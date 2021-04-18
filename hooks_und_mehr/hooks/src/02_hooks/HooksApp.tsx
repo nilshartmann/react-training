@@ -11,6 +11,7 @@ export default function App() {
   return (
     <div>
       <h1>Search...</h1>
+
       <input value={phrase} onChange={handleInputChange} />
       <Search searchString={phrase} />
     </div>
