@@ -1,0 +1,35 @@
+{
+  "name": "typescript-intro",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "license": "MIT",
+  "author": {
+    "email": "nils@nilshartmann.net",
+    "name": "Nils Hartmann",
+    "url": "https://nilshartmann.net"
+  },
+  "description": "A simple starter workspace for TypeScript Development with Visual Studio code",
+  "keywords": [
+    "visual studio code",
+    "typescript",
+    "javascript",
+    "vscode",
+    "starter kit"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "yarn run clean && tsc --watch",
+    "start": "node dist/main.js",
+    "clean": "rimraf dist/",
+    "prettier": "prettier --write \"{src}/**/*.{js,jsx,ts,tsx}\""
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1",
+    "rimraf": "^2.6.2",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13",
+    "tslint": "^5.7.0"
+  }
+}

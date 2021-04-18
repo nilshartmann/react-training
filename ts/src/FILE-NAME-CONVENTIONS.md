@@ -1,0 +1,4 @@
+- **number**\_name.ts: starting point live coding
+- **number_x**\_name.ts: solution live coding
+- **number_y_hands_on**\_name.ts: starting point excercise
+- **number_z_hands_on**\_name.ts: solution excercise
