@@ -1113,6 +1113,15 @@ function Message({ message }: MessageProps) {
         <section>
           <h3>Custom Hooks</h3>
           <p>
+            Ein erweiterter fetch-Hook: ich möchte in meiner Komponente einen "reload"-Button, der
+            die Daten erneut lädt (also nicht nur "on render")
+          </p>
+          <p>Wie machen wir das?</p>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>
             Problem: (alle) Hooks dürfen nur am Anfang stehen und müssen in selber Reihenfolge
             gerendert werden
           </p>
@@ -1130,6 +1139,46 @@ function Message({ message }: MessageProps) {
               if (postId !== null) {
               const blogPost = postId != null ? useBlogLoader(postId) : null; // ????
               
+              return ...;
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>
+            Problem: (alle) Hooks dürfen nur am Anfang stehen und müssen in selber Reihenfolge
+            gerendert werden
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // Option 1: useBlogLoader liefert eine Funktion zurück,
+            //           die das eigentliche Laden durchführt
+            function BlogPost({postId}) {
+              const loadBlog = useBlogLoader();
+              
+              const blogPost = postId !== null ? loadBlog(postId):null; // ok
+
+              return ...;
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // Option 2: useBlogLoader kann mit null umgehen
+            function BlogPost({postId}) {
+              const blogPost = useBlogLoader(null); // ok
+
+              return ...;
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // Option 3: useBlogLoader bekommt 'skip' option
+            //           (wird z.B. in den folgenden Fetch-Bibliotheken so gemacht,
+            //           weil die ohnehin viele Konfigurationsparameter haben)
+            function BlogPost({postId}) {
+              const blogPost = useBlogLoader(postId, { skip: postId === null}); // ok
+
               return ...;
             }
           </code></pre>
