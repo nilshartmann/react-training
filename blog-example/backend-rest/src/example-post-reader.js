@@ -5,12 +5,24 @@ function readPosts() {
   const newPost = () => ({
     id: `P${posts.size + 1}`,
     body: "",
-    likedBy: [],
+    likedBy: []
   });
   let currentPost = newPost();
 
+  let sql = "";
+
+  const sqlString = s => `'${s.replace(/'/g, '"').replace(/\n/g, "")}'`;
+
   const storeCurrentPost = () => {
     posts.set(currentPost.id, currentPost);
+    sql = `
+${sql}
+INSERT INTO posts (user_id, title, date, body) VALUES (${sqlString(
+      currentPost.userId
+    )}, ${sqlString(currentPost.title)}, ${sqlString(currentPost.date)}, ${sqlString(
+      currentPost.body
+    )});    
+    `;
     currentPost = newPost();
   };
 
@@ -22,7 +34,7 @@ function readPosts() {
     const lines = data.split(/\r?\n/);
 
     // print all lines
-    lines.forEach((line) => {
+    lines.forEach(line => {
       line = line.trim();
       if (line.startsWith("---")) {
         storeCurrentPost();
@@ -47,6 +59,8 @@ function readPosts() {
     console.error(err);
   }
 
+  console.log(sql);
+
   return posts;
 }
 
@@ -59,11 +73,11 @@ function readUsers() {
     { id: "U5", login: "lauren", name: "Lauren Jones" },
     { id: "U6", login: "olivia", name: "Olivia Smith" },
     { id: "U7", login: "cathy", name: "Cathy Brown" },
-    { id: "U8", login: "maja", name: "Maja Walsh" },
+    { id: "U8", login: "maja", name: "Maja Walsh" }
   ];
 }
 
 module.exports = {
   readPosts,
-  readUsers,
+  readUsers
 };
