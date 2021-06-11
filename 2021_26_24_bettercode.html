@@ -349,6 +349,255 @@
           </ul>
         </section>
 
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Funktionen</h3>
+          <pre><code class="javascript">
+function greet(msg) {
+  return "Hello, " + msg;
+}
+
+greet("World"); // Hello, World
+greet(null), // Hello, null
+greet(); // Hello, undefined
+
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+// Funktionen sind "1st-class-citizens":
+function greet(msg) { ... }
+
+// ...und können z.B. einer Variablen zugeordnet werden
+const greetSomeone = greet;
+greetSomeone("World"); // Hello, World
+
+    </code></pre>
+          <pre class="fragment"><code class="javascript">
+// Funktionen können als Parameter übergeben werden
+function printer(msgProviderFn) {
+  console.log(msgProviderFn())
+}
+
+// "inline" Funktion
+printer(function(){return "Hello, World"});
+
+function helloWorld() { return  "Hello, World" };
+printer(helloWorld);
+
+</code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Funktionen: Parameter</h3>
+
+          <p class="fragment">
+            Default-Parameter (danach dürfen keine nicht-Default-Parameter kommen
+          </p>
+          )
+
+          <pre class="fragment"><code class="javascript">
+            function add(value, inc = 1) { ... } // ok
+            function add(value = 0, inc = 1) { ... }  // ok
+            function add(value = 0, inc) { ... } // FEHLER
+          </code></pre>
+
+          <p class="fragment">Rest-Parameter nehmen alle verbleibenen, übergebenen Parameter auf</p>
+
+          <pre class="fragment"><code class="javascript">
+            function say(...words) { // words ist ein Array mit allen Parametern } 
+            say("One", "Two");
+
+            function greet(phrase, ...names) { ... }
+            greet("Hello", "World", "Peter", "Susi"); // names ist ein Array mit drei Einträgen
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Funktionen</h3>
+          <p>Achtung, return-Anweisung: Ergebnis direkt hinter return schreiben:</p>
+
+          <pre class="fragment"><code class="javascript">
+              function hello() {
+                return "Hello";
+              }
+              const h = hello(); // "Hello"
+
+              function goodbye() {
+                return 
+                  "Goodbye";
+              }
+
+              const g = goodbye(); // undefined
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // oder:
+              function hello() {
+                return (
+                  "Hello"
+                );
+              }
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Pfeilfunktionen (Arrow Functions)</h3>
+          <p>In vielen Fällen "nur" andere Schreibweise als <code>function</code></p>
+          <pre><code class="javascript">
+  const greet = (msg) => {
+    return "Hello, " + msg;
+  }
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+  // Bei genau einem Parameter kann die Klammer weggelassen werden:
+  const greet = msg => { return "Hello, " + msg }
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+  // Bei keinem oder mehr als einem Parameter muss die Klammer gesetzt werden:
+  const greet = (phrase, msg) => { return phrase + msg }
+  const greetWorld = () => { return "Hello, World" };
+
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+  // bei genau einem Ausdruck, können geschweifte Klammern weggelassen werden:
+  //   Ergebnis des Ausdrucks dann der Rückabgewert der Funktion:
+  const greet => "Hello, " + msg;
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+  // Verhalten wie "normale Funktion"
+  greet("World"); // Hello, World
+  greet(null), // Hello, null
+  greet(); // Hello, undefined
+
+  </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Module</h3>
+          <p>Mit Modulen sind Dateiinhalte nicht mehr global sichtbar</p>
+          <p>Module bestimmen explizit, was außerhalb verwendet werden darf</p>
+          <p>
+            Module geben explizit an, was sie aus anderen Modulen verwenden wollen
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Module</h3>
+          <h4>Default Exporte</h4>
+          <p>
+            <em
+              >Objekte, Funktionen, Klassen etc müssen explizit <b>exportiert</b> und
+              <b>importiert</b> werden</em
+            >
+          </p>
+          <p class="fragment">Eine <code>export</code>-Anweisung macht aus einer Datei ein Modul</p>
+
+          <pre class="fragment"><code class="javascript">
+              // src/domain/Person.js
+              export default class Person { ... }
+  
+              oder
+  
+              class Person { ... }
+              export default Person
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                // src/domain/Person.js
+                export default function createPerson() { ... }
+    
+                oder
+    
+                function createPerson() { ... }
+                export default createPerson;
+              </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                  Nur EIN Default Export erlaubt;
+                  export default function createPerson() { ... }
+                  export default class Person { ... } // KONFLIKT
+                </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Module</h3>
+          <h4>Importieren</h4>
+          <p class="fragment">
+            Beim importieren geben wir Pfade(!) an (im Browser auch mit
+            <code>.js</code>-Endung!)
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+                // src/domain/Musician.js
+                import Person from "./Person.js";
+    
+                export default class Musician extends Person { ... }
+              </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                  // src/App.js
+                  import Musician from "./domain/Musician.js";
+    
+                  const lemmy = new Musician("Lemmy", "Bass");
+                </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Module</h3>
+          <h4>Benannte Exporte</h4>
+          <p class="fragment">
+            Ein Modul kann neben einem Default auch beliebig viele
+            <b>benannte Exporte</b> haben
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+                  // src/domain/Person.js
+                  export default class Person { ...}
+                  export function createPerson() { ... }
+                  export function removePerson() { ... }
+                </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                    // src/domain/Person.js
+                    export default class Person { ...}
+                    function createPerson() { ... }
+                    function removePerson() { ... }
+  
+                    export { createPerson, removePerson }
+                  </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Module</h3>
+          <h4>Benannte Importe</h4>
+          <pre class="fragment"><code class="javascript">
+                      // src/App.js
+                      import { createPerson } from "./Person.js"
+                </code></pre>
+          <pre class="fragment"><code class="javascript">
+                  // Default und benannten Export importieren
+                  import Person, { createPerson } from "./Person.js"
+                </code></pre>
+          <pre class="fragment"><code class="javascript">
+                    // Alles importieren
+                    import { * as P } from "./Person.js"
+    
+                    P.createPerson();
+                  </code></pre>
+          <pre class="fragment"><code class="javascript">
+                      // Umbennen
+                      import { createPerson as create } from "./Person.js"
+      
+                      create();
+                    </code></pre>
+        </section>
+
         <section data-state="js-exkurs">
           <h3>Tooling: create-react-app</h3>
           <a
