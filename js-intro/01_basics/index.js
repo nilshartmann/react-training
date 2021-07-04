@@ -12,5 +12,7 @@ console.log("Please edit index.js");
 //
 // 2. Rufe die Funktion mit unterschiedlichen Werten auf und gib das Ergebnis auf der Konsole aus
 //     - Konsolen-Ausgaben kannst Du mit console.log machen: console.log("...");
-//     - Für den Wert "Susi" sollte "Hallo, Susi" erscheinen
+//     - Für helloWorld("Susi") sollte "Hallo, Susi" erscheinen
+//     - Für helloWorld(2021) sollte "" erscheinen
+//     - Für helloWorld() sollte "" erscheinen
 //
