@@ -1,12 +1,8 @@
 console.log("Please edit index.js");
 
-function createPerson({ name, age = 18 }, additionalData) {
-  return { name, age, ...additionalData };
-}
-
-const klaus = createPerson({ name: "Klaus", age: 34 });
-const susi = createPerson({ name: "Susi" });
-const walter = createPerson({ name: "Walter", age: 42 }, { city: "Hamburg", street: "Reeperbahn" });
+const klaus = { name: "Klaus", age: 34 };
+const susi = { name: "Susi" };
+const walter = { name: "Walter", age: 42, city: "Hamburg", street: "Reeperbahn" };
 
 console.log("klaus", klaus);
 console.log("susi", susi);
