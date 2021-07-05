@@ -891,21 +891,7 @@ person.sayHello();  Hello, undefined 🤪
           <h3>Beispiel: Immutability</h3>
           <p>(Wird später insb. mit Redux relevant)</p>
 
-          <pre class="fragment"><code class="javascript">
-const persons = [
-  { lastname: "Mueller", firstname: Klaus, age: 32 }, 
-  { lastname: "Meier", firstname: Susi, age: 33 }
-]      
-
-// hmm...
-const olderPersons = [
-  {...persons[0], age: persons[0].age + 1},
-  {...persons[1], age: persons[1].age + 1},
-]
-          </code></pre>
-          <p class="fragment">
-            <code>Array.map</code> bildet alle Einträge aus einem Array auf ein neues Array ab
-          </p>
+          <p><code>Array.map</code> bildet alle Einträge aus einem Array auf ein neues Array ab</p>
 
           <pre class="fragment"><code class="javascript">
 const persons = [
@@ -913,7 +899,9 @@ const persons = [
   { lastname: "Meier", firstname: Susi, age: 33 }
 ]      
 
-const olderPersons = persons.map( p => return {...p, age: age + 1 })
+const olderPersons = persons.map( p => {
+  return { ...p, age: p.age + 1 }
+})
           </code></pre>
         </section>
         <section>
@@ -1128,7 +1116,7 @@ const olderPersons = persons.map( p => return {...p, age: age + 1 })
 
           <pre class="fragment"><code class="javascript">
                 // src/App.js
-                import Person from "./domain/createPerson.js";
+                import createPerson from "./domain/Person.js";
 
                 const person = createPerson("Lemmy", "Kilmister");
               </code></pre>
