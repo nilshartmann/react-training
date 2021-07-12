@@ -791,16 +791,13 @@ function PostEditor({initialTitle, initialBody}) {
               <code>style={{color: "red"}}</code>)
             </li>
             <li class="fragment">
-              Verwende die Komponente im PostEditor um die Fehler-Meldungen unter den beiden Feldern
-              <code>title</code> und <code>body</code> auszugeben.
+              Verwende die Komponente im PostEditor, um Meldungen unter den beiden Feldern
+              <code>title</code> und <code>body</code> auszugeben (Error-Message wenn Feld leer,
+              sonst irgendeine Meldung)
             </li>
 
             <li class="fragment">Mögliche Lösung: <code>steps/2a-editor-mit-props</code></li>
             <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
-            <li class="fragment">
-              <b>Optional</b>, wenn noch Zeit ist: gib unter den Feldern eine info-Message aus, wenn
-              in dem Feld etwas drin steht (z.B. "Field filled correctly")
-            </li>
           </ol>
         </section>
 
@@ -2402,20 +2399,23 @@ setView("POST_LISTE"); // ERROR
           </code></pre>
         </section>
 
-         <section>
+        <section>
           <h2>Übung: Hello, TypeScript!</h2>
           <h3>
             <em>Mach dich mit den Grundzügen der Sprache TypeScript vertraut</em>
           </h3>
-          
-              <ol class="x-list">
-                <li>Öffne den TypeScript Playground im Browser (den Link gibts per Chat)</li>
-                <li>Link zu den Slides als Referenz gibt's ebenfalls im Chat</li>
-                <li>Bearbeite die Datei, so dass keine Compile-Fehler mehr vorhanden sind, TODOs siehe dort</li>
-                <li>Lösung in <code>blog-example/material/ts-intro/01_solution_hello_typescript.ts</code></li>
-              </ol>
-            </div>
-          </div>
+
+          <ol class="x-list">
+            <li>Öffne den TypeScript Playground im Browser (den Link gibts per Chat)</li>
+            <li>Link zu den Slides als Referenz gibt's ebenfalls im Chat</li>
+            <li>
+              Bearbeite die Datei, so dass keine Compile-Fehler mehr vorhanden sind, TODOs siehe
+              dort
+            </li>
+            <li>
+              Lösung in <code>blog-example/material/ts-intro/01_solution_hello_typescript.ts</code>
+            </li>
+          </ol>
         </section>
 
         <section id="t-typescript-react">
