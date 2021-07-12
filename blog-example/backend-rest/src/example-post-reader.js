@@ -48,7 +48,7 @@ INSERT INTO posts (user_id, title, date, body) VALUES (${sqlString(
       } else if (line.startsWith("published:")) {
         currentPost.published = line.substring("published:".length).trim() === "true";
       } else if (line === "") {
-        currentPost.body = currentPost.body + "\\n";
+        currentPost.body = currentPost.body + "\n";
       } else {
         currentPost.body = currentPost.body + line;
       }
