@@ -4,8 +4,9 @@ console.log("Please edit index.js");
 //   Die Funktion soll einen Parameter entgegen nehmen, der "name" heißt
 //     - Wenn der übergebene Parameter KEIN String ist,
 //       soll die Funktion einen Leerstring zurückliefern
-//       Den Typ einer Variablen oder eines Parameters kannst Du mit "typeof" ermitteln,
-//       z.B: console.log(typeof "Moin"); // string
+//       Den Typ einer Variablen oder eines Parameters kannst Du mit "typeof" ermitteln.
+//       "typeof" liefert dir einen String zurück, der den Typ angibt
+//       z.B: console.log(typeof "Moin"); // "string"
 //
 //     - Ansonsten (Parameter ist ein String): liefer einen Gruß (z.B. "Hallo, ...Name..." zurück)
 //       - Verwende Template-Strings, um den Gruß zu erzeugen

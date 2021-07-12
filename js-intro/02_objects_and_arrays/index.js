@@ -23,7 +23,7 @@ console.log("Please edit index.js");
 //      den Rückgabe-Wert von 'formatName'
 //   - Wenn formatName NICHT gesetzt ist, soll der Name verwendet werden, so wie er im Person-Objekt angegeben ist
 //   - Rufe printPersons nun mit den zwei Person-Objekten auf und übergib die fertige "nameFormatter"-Funktion
-//   - ZUSATZ: Schreibe die nameFormatter-Funktion als Pfeil-Funktion
+//   - Schreibe die nameFormatter-Funktion als Pfeil-Funktion um
 function createPerson(name, age) {
   // Zurückgeben: ein Person-Objekt mit name und age
 }

@@ -47,15 +47,7 @@
           <div>
             <h3><span class="transparent-bg">Slides</span></h3>
             <p>
-              <span class="transparent-bg">Lokal: 2021_02_08_react_zwei_tage.html</span>
-            </p>
-            <p>
-              <span class="transparent-bg"
-                >oder online:
-                <a href="https://react.schule/2021_02_08.html"
-                  >https://react.schule/2021_02_08.html</a
-                ></span
-              >
+              <span class="transparent-bg">Lokal: 2021_07_13_react_typescript.html</span>
             </p>
           </div>
         </section>
@@ -91,37 +83,7 @@
           </div>
         </section>
 
-        <section>
-          <h2>Und ihr?</h2>
-          <ul>
-            <li>JavaScript/TypeScript? Andere Programmiersprachen?</li>
-            <li>React, Angular, Vue oder andere Bibliothek?</li>
-            <li>Wünsche für dieses Seminar? Besondere Themen oder Interessen?</li>
-          </ul>
-        </section>
-
         <!-- ============================================================================= -->
-        <section>
-          <h3>Zeitplan</h3>
-          <p><b>Montag</b></p>
-          <ul style="font-size: 85%;">
-            <li>
-              9:00 bis 12:30 Uhr
-            </li>
-            <li>Eine Stunde Mittagspause</li>
-            <li>13:30 bis 17:00 Uhr</li>
-          </ul>
-          <p><b>Dienstag</b></p>
-          <ul style="font-size: 85%;">
-            <li>9:00 bis 12:30 Uhr</li>
-            <li>Eine Stunde Mittagspause</li>
-            <li>13:30 bis <b>16:00 Uhr</b></li>
-          </ul>
-          <p>
-            Kürzere Pausen zwischendurch ☕️ 😴
-          </p>
-          <p>(bitte gerne Bescheid geben, wenn zusätzliche Pause benötigt)</p>
-        </section>
 
         <section>
           <h2>Agenda</h2>
@@ -135,19 +97,20 @@
             <li>
               <a href="#/t3">Teil III: React-Komponenten: Hierarchien und Anwendungen</a>
             </li>
-            <li style="margin-bottom: 20px;">
+            <li class="fragment" style="margin-top: 20px;">
               <a href="#/t-server">Teil IV: Daten lesen und schreiben vom Server</a>
             </li>
-            <li style="margin-bottom: 20px;">
-              <a href="#/t-typescript">Teil V: TypeScript und React</a>
+
+            <li class="fragment" style="margin-top: 20px;">
+              <a href="#/t-typescript">Teil V: TypeScript</a>
             </li>
-            <li style="margin-bottom: 40px;">
-              <a href="#/t-test">Teil VI: Testen von React Anwendungen</a>
+
+            <li class="fragment" style="margin-top: 20px;">
+              <a href="#/t-test">Teil VI: Testen von React Anwendungen (Überblick)</a>
             </li>
-            <li>
-              Ausblick, z.B. <a href="#/t-router">Router</a>,
-              <a href="#/t-state">Statemanagement:</a> React
-              <a href="#/t-context">Context API</a> und <a href="#/t-redux">Redux</a>
+
+            <li class="fragment" style="margin-top: 40px;">
+              <a href="#/t-state">Teil VII: Externes Statemanagement mit Redux (Überblick)</a>
             </li>
           </ul>
         </section>
@@ -162,35 +125,6 @@
           <a target="_blank" href="http://localhost:3000">
             <img src="blog-example/blog-example.png" style="height: 650px;" />
           </a>
-        </section>
-
-        <section>
-          <h2>React</h2>
-          <ul>
-            <li class="fragment">Minimales API</li>
-            <li class="fragment">
-              Minimales Feature Set
-              <ul>
-                <li>Ihr könnt/müsst viele Entscheidungen selber treffen</li>
-              </ul>
-            </li>
-
-            <li class="fragment">
-              Bewusste Verstöße gegen Best-Practices
-              <ul>
-                <li>
-                  <a href="https://www.youtube.com/watch?v=x7cQ3mrcKaY" target="_blank"
-                    >Pete Hunt: Rethinking Best Practices (YouTube)</a
-                  >
-                </li>
-                <li>
-                  <a href="https://www.youtube.com/watch?v=DgVS-zXgMTk" target="_blank"
-                    >Pete Hunt: Rethinking Best Practices, update (YouTube)</a
-                  >
-                </li>
-              </ul>
-            </li>
-          </ul>
         </section>
 
         <section>
@@ -291,7 +225,7 @@
           <h3>Der Trainingsworkspace</h3>
           <ul class="x-list">
             <li style="margin-bottom: 40px;">
-              <code>2021_02_08_react_zwei_tage.html</code>: Die Slides
+              <code>2021_07_13_react_typescript.html</code>: Die Slides
             </li>
             <li class="fragment" style="margin-bottom: 40px;">
               Der Code ist im <code><b>blog-example</b></code> Verzeichnis
@@ -316,7 +250,7 @@
         </section>
         <section>
           <h3>Schritt #1: Tool Chain starten</h3>
-
+          <p>Gemeinsam, Schritt-für-Schritt:</p>
           <ol class="fragment x-list" style="font-size: 85%;">
             <li>
               <code>cd blog-example/workspace</code>
@@ -338,7 +272,12 @@
         </section>
         <section>
           <h3>Schritt #2: Deine erste React-Komponente</h3>
-          <em>Der erste kleine Schritt für die PostEditor-Komponente</em>
+          <p>
+            <em
+              >Ein kleiner Schritt für die PostEditor-Komponente, ein großer Schritt für dich auf
+              deinem Weg, React zu lernen!</em
+            >
+          </p>
           <ul>
             <li class="fragment">Ersetze den "statischen" Code in <code>PostEditor.js</code></li>
             <li class="fragment">Die Komponente soll <b>PostEditor</b> heißen</li>
@@ -378,8 +317,8 @@
             >User Guide</a
           >
           <p>Bootstrap von neuen React Anwendung</p>
-          <p>Fertige Konfiguration von React und Webpack mit TypeScript, Sass, Linter</p>
-          <p>Beispiel: npx create-react-app PROJEKTNAME --template typescript</p>
+          <p>Fertige Konfiguration von React u.a. mit Webpack, Hot Reload, Babel und Linter</p>
+          <p>Beispiel: npx create-react-app PROJEKTNAME</p>
         </section>
         <section data-state="js-exkurs">
           <h3>Tooling: Linter</h3>
@@ -452,12 +391,13 @@ function Choice() {
             <li style="font-size: 80%;" class="fragment">
               null, false oder boolean, um nichts zu rendern:
               <pre><code class="xml" contenteditable data-trim>
-function ErrorMessage(props) {
-  if (!props.msg) {
-    return null; // oder false oder true
-  }
+function ErrorMessage() {
+  const hasError = someCondition(); // returns true or false
 
-  return <h1>Fehler: {props.msg}</h1>;
+  return <div>
+    {hasError && "Error!"}
+    {hasError || "Everything fine"}
+  </div>
 }              
                     </code></pre>
             </li>
@@ -471,6 +411,37 @@ function ErrorMessage(props) {
     </div>;
   }              
                       </code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Zustand einer Komponente und der useState-Hook (Zusammenfassung)</h3>
+          <ul class="fragement">
+            <li>Beispiel: Inhalt eines Eingabefelds, Daten vom Server, Menu offen oder zu</li>
+            <li class="fragment"><b>Werte</b> üblicherweise immutable</li>
+            <li class="fragment">Arbeiten mit Zustand über <b>useState</b>-Hook</li>
+            <li class="fragment">
+              useState liefert Array mit zwei Werten zurück: aktuellen Zustand, und setter-Funktion
+              um Zustand zu verändern
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+function HelloWorld() {
+  const [title, setTitle] = React.useState("");
+
+  return &lt;input onChange={e => setTitle(e.target.value) value={title} />;
+}
+                  </code></pre>
+          <ul>
+            <li class="fragment">
+              Aufruf des Setters <b>löst erneutes rendern der <i>gesamten</i> Komponente aus</b>
+            </li>
+            <li class="fragment">
+              Es können mehrere States erzeugt werden, durch Verwendung mehrerer useState-Aufrufe
+            </li>
+            <li class="fragment">
+              <b>Zustand</b> ist eines der <b>zentralen</b> Konzepte von React
             </li>
           </ul>
         </section>
@@ -506,38 +477,11 @@ function ErrorMessage(props) {
         </section> -->
 
         <section>
-          <h3>Im Detail: Zustand einer Komponente und der useState-Hook</h3>
-          <ul class="fragement">
-            <li>Beispiel: Inhalt eines Eingabefelds, Daten vom Server, Menu offen oder zu</li>
-            <li class="fragment"><b>Werte</b> üblicherweise immutable</li>
-            <li class="fragment">Arbeiten mit Zustand über <b>useState</b>-Hook</li>
-            <li class="fragment">
-              useState liefert Array mit zwei Werten zurück: aktuellen Zustand, und setter-Funktion
-              um Zustand zu verändern
-            </li>
-          </ul>
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-function HelloWorld() {
-  const [title, setTitle] = React.useState("");
-
-  return &lt;input onChange={e => setTitle(e.target.value) value={title} />;
-}
-                  </code></pre>
-          <ul>
-            <li class="fragment">
-              Aufruf des Setters <b>löst erneutes rendern der <i>gesamten</i> Komponente aus</b>
-            </li>
-            <li class="fragment">
-              Es können mehrere States erzeugt werden, durch Verwendung mehrerer useState-Aufrufe
-            </li>
-            <li class="fragment">
-              <b>Zustand</b> ist eines der <b>zentralen</b> Konzepte von React
-            </li>
-          </ul>
-        </section>
-        <section>
-          <h3>React Hooks</h3>
-          <em>Mit React Hooks kann sich eine Komponente in Zustand und Lebenszyklus "einhaken"</em>
+          <h3>React Hooks API</h3>
+          <em
+            >Mit der React Hooks API kann sich eine Komponente in Zustand und Lebenszyklus
+            "einhaken"</em
+          >
           <ul>
             <li class="fragment">
               Hooks sind "normale" Funktionen, müssen aber mit <code>use</code> beginnen (useState,
@@ -566,7 +510,7 @@ function HelloWorld() {
           </ul>
         </section>
         <section>
-          <h3>React Hooks</h3>
+          <h3>React Hooks API</h3>
           <em>Es gibt einige Regeln zu beachten, bei der Verwendung von Hooks 👆</em>
           <p style="font-size: 75%; margin-top: 0;">
             <a href="https://reactjs.org/docs/hooks-rules.html"
@@ -626,27 +570,16 @@ function HelloWorld() {
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
                                     // VERBOTEN:
                                     function HelloWorld() {
-                                      const [greeting, setGreeting] = React.useState("");
-                                      if (greeting !== null) {
-                                        const [name, setName] = React.useState("");
+                                      const [title, setTitle] = React.useState("");
+
+                                      function onSaveClick() {
+                                        const [loading, setIsLoading] = React.useState(true);
+                                        // ...
                                       }
+
                                       // ...
                                     }
                                                       </code></pre>
-        </section>
-
-        <section>
-          <h3>useState: Details</h3>
-          <em>Wird verwendet, um den internen Zustand (State) einer Komponente zu verwalten</em>
-
-          <pre class="fragment"><code class="javascript" contenteditable data-trim>
-                function PostEditor() {
-                  const [title, setTitle] = React.useState("");
-
-                  // Aufruf von setTitle führt dazu, dass Komponente neu gerendert wird
-                  // d.h. diese Funktion (PostEditor) wird erneut ausgeführt
-                }
-              </code></pre>
         </section>
 
         <section>
@@ -662,13 +595,22 @@ function HelloWorld() {
               <code>input</code>-Feld, du kannst also auch hier mit <code>onChange</code> und
               <code>value</code> arbeiten.
             </li>
-            <li class="fragment">
+            <!-- <li class="fragment">
               Füge unter beiden Feldern eine Fehler-Meldung hinzu, wenn das jeweilige Feld leer ist
               (z.B. "Please fill in Xyz")
+            </li> -->
+            <li class="fragment">
+              Füge einen "Clear"-Button hinzu, der beide Eingabefeld leert. Das Property auf dem
+              Button ist <code>onClick</code>.
             </li>
             <li class="fragment">Mögliche Lösung: <code>steps/2-editor</code></li>
             <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
           </ol>
+        </section>
+
+        <section id="t3">
+          <h1>Teil III</h1>
+          <h2>React: Hierarchien und Anwendungen</h2>
         </section>
 
         <!-- - - - - - - - - - - - - - - - PROPS HIER ERST - - - - - - - - - - - - - - -  -->
@@ -746,63 +688,111 @@ function PostEditor({initialTitle, initialBody}) {
         <!-- ============================================================================= -->
         <section>
           <h3>Properties: Default-Werte</h3>
-          <p>
-            Properties sind grundsätzlich <b>optional</b>. Default-Werte können angegeben werden:
-          </p>
-          <p>Variante 1: defaultProps</p>
+          <p>Properties sind grundsätzlich <b>optional</b>.</p>
 
-          <pre><code class="javascript">
-            function PostEditor(props) { ... }
-
-            // Default-Werte werden in einem Objekt über 'defaultProps' angegeben
-            MyComponent.defaultProps = {
-              initialTitle: "New Blog Post"
-            }
-          </code></pre>
-
-          <p>Variante 2: Object Destructuring</p>
-          <p>
-            Mit dem Object Destructuring-Operator können Default-Werte angegeben werden, für
-            Eigenschaften, die aus einem Objekt gelesen werden, aber dort nicht definiert (oder
+          <p class="fragment">
+            Mit dem Object Destructuring-Operator können <b>Default-Werte</b> angegeben werden, für
+            Eigenschaften, die aus einem Objekt gelesen werden, aber dort nicht angegeben (bzw.
             undefined) sind:
           </p>
 
-          <pre><code class="javascript">
-            function PostEditor({initialTitle = "New Blog Post", initialBody}) { ... }
+          <pre class="fragment"><code class="javascript">
+            function PostEditor({initialTitle = "New Blog Post", initialBody}) { 
+              const [title, setTitle] = React.useState(initialTitle);
+            }
+
+            // title wird auf "New Blog Post" gesetzt
+            &lt;PostEditor initialBody="Lorem Ipsum" />
           </code></pre>
         </section>
 
+        <!-- ============================================================================= -->
+        <!-- <section>
+          <h3>Properties: propTypes</h3>
+          <p>
+            Mit
+            <a href="https://reactjs.org/docs/typechecking-with-proptypes.html">propTypes</a> können
+            Typen für die Properties beschrieben werden.
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            import PropTypes from 'prop-types';
+
+            PostEditor.propTypes = {
+              initialTitle: PropTypes.string,
+              initialBody: PropTypes.string.isRequired
+            }
+          </code></pre>
+
+          <p class="fragment">
+            Die Überprüfung findet <b>erst zur Laufzeit</b> statt und erzeugt "nur" eine Warnung auf
+            der Konsole.
+          </p>
+
+          <div class="fragment">
+            <p>
+              Empfehlung: lieber echten TypeChecker, z.B.
+              <a href="https://create-react-app.dev/docs/adding-typescript/">TypeScript</a>,
+              verwenden 🙏🙏🙏
+            </p>
+            <ul class="fragment">
+              <li>überprüft bereits zur Entwicklungszeit in der IDE bzw. im CI-Build</li>
+              <li>findet noch weitere Probleme, nicht nur Properties-bezogene Fehler</li>
+              <li>hilft auch bei Code-Completion etc.</li>
+            </ul>
+          </div>
+        </section> -->
+
+        <!-- ============================================================================= -->
+        <!-- <section>
+          <h3>Formular-Bibliotheken</h3>
+
+          <p>Vollständige Lösungen für Formulare inklusive Validierung:</p>
+          <ul>
+            <li><a href="https://react-hook-form.com/">React Hook Form</a></li>
+            <li><a href="https://formik.org/">Formik</a></li>
+          </ul>
+        </section> -->
+        <section>
+          <h3>Virtual DOM</h3>
+          <p>"Rendern" hat leider doppelte Bedeutung!</p>
+          <img src="slides/images/vdom.png" style="height: 650px;" />
+        </section>
+        <section>
+          <h3>Virtual DOM</h3>
+          <p>Beispiel: <code>blog-example/steps/2b-rendering</code></p>
+        </section>
         <section>
           <h2>Übung: Properties für Komponenten</h2>
-          <em>Eine Komponente für (Fehler-)Meldungen</em>
+          <em>Eine Komponente für Meldungen</em>
         </section>
         <section>
           <h3>Schritte</h3>
           <ol class="xx-list">
             <li>
               Schreibe eine neue Komponente (der einfachheithalber direkt in PostEditor.js), die
-              eine (Fehler)-Meldung darstellt: <b>Message</b>
+              eine Meldung darstellt: <b>Message</b>
             </li>
             <li class="fragment">
               Die <b>Message</b>-Komponente soll zwei Properties aufnehmen:
               <ul>
-                <li><code>msg</code>: ein String mit einer Message</li>
+                <li><code>msg</code>: ein String mit einer Nachricht</li>
                 <li>
-                  <code>type</code>: kann entweder der String <code>error</code> oder der String
-                  <code>info</code> sein. Falls nicht gesetzt, sollte <code>error</code> der Default
-                  sein
+                  <code>type</code>: kann entweder der String <code>"error"</code> oder der String
+                  <code>"info"</code> sein. Falls nicht gesetzt, sollte <code>error</code> der
+                  Default sein
                 </li>
               </ul>
             </li>
             <li class="fragment">
-              Die Komponente soll die übergebene Message aus <code>msg</code> anzeigen: Wenn type
+              Die Komponente soll die übergebene Nachricht aus <code>msg</code> anzeigen: Wenn type
               auf <code>error</code> gestellt ist (oder kein type gesetzt ist), soll die
-              <code>msg</code> als Fehler in roter Schrift (CSS-Eigenschaft
-              <code>color: "red"</code>) ausgegeben werden.
+              <code>msg</code> als Fehler in roter Schrift ausgegeben werden (CSS-Eigenschaft
+              <code>style={{color: "red"}}</code>)
             </li>
             <li class="fragment">
               Verwende die Komponente im PostEditor um die Fehler-Meldungen unter den beiden Feldern
-              <code>title</code> und <code>body auszugeben</code>.
+              <code>title</code> und <code>body</code> auszugeben.
             </li>
 
             <li class="fragment">Mögliche Lösung: <code>steps/2a-editor-mit-props</code></li>
@@ -813,23 +803,7 @@ function PostEditor({initialTitle, initialBody}) {
             </li>
           </ol>
         </section>
-        <!-- PROPS HIER ERST ENDE -->
 
-        <section id="t3">
-          <h1>Teil III</h1>
-          <h2>React: Hierarchien und Anwendungen</h2>
-        </section>
-
-        <section>
-          <h3>Virtual DOM</h3>
-          <p>"Rendern" hat leider doppelte Bedeutung!</p>
-          <img src="slides/images/vdom.png" style="height: 650px;" />
-        </section>
-
-        <section>
-          <h3>Virtual DOM</h3>
-          <p>Beispiel: <code>blog-example/steps/2b-rendering</code></p>
-        </section>
         <section data-state="js-exkurs">
           <h2>React Devtools</h2>
           <em>React Developer Tools für Chrome und Firefox</em>
@@ -1430,13 +1404,9 @@ function App() {
         </section>
 
         <section>
-          <h3>Herausforderungen</h3>
+          <h3>Themen</h3>
           <ol>
             <li>Wie machen wir das Laden und Speichern technisch?</li>
-            <li>
-              Wo steht der Code zum initialen Laden der Blog Posts? (beim Start der Anwendung)
-            </li>
-            <li>Wo speichern wir?</li>
             <li>Wie funktioniert asynchrone Verarbeitung in React?</li>
           </ol>
         </section>
@@ -1466,36 +1436,31 @@ function App() {
                 </li>
               </ul>
             </li>
-            <!-- <li class="fragment">
-              Populäre Alternative: <a href="https://github.com/axios/axios">Axios</a>
-              <ul>
-                <li>Axios basiert auf XMLHttpRequest</li>
-                <li>
-                  Ist Axios tot?
-
-                  <a
-                    href="https://www.reddit.com/r/javascript/comments/cp5qhm/askjs_the_sad_state_of_axios/"
-                  >
-                    The sad state of Axios
-                  </a>
-                </li>
-              </ul>
-            </li> -->
-            <!-- <li class="fragment">
-              Alternative, auf fetch-basierend: <a href="https://github.com/sindresorhus/ky">ky</a>
-            </li> -->
-            <li class="fragment">
+          </ul>
+          <ul class="fragment x-list">
+            <li>
+              Populäre Alternative zu fetch: <a href="https://github.com/axios/axios">Axios</a>
+            </li>
+            <li>
+              Axios API, auf fetch-basierend:
+              <a href="https://github.com/developit/redaxios">Redaxios</a>
+            </li>
+            <li>
               Ausgereifte Hook API zum Arbeiten mit Server Requests:
               <a href="https://github.com/tannerlinsley/react-query" target="_blank">
                 React Query</a
               >
               oder <a href="https://swr.vercel.app/">SWR</a>
             </li>
+            <li>
+              Data Fetching für Redux Toolkit (Alpha!):
+              <a href="https://rtk-query-docs.netlify.app/" target="_blank"> RTK Query</a>
+            </li>
           </ul>
         </section>
 
         <section>
-          <h3>Beispiel: fetch</h3>
+          <h3>Die fetch API</h3>
           <p>Lesen von Daten (mit HTTP GET)</p>
           <pre class="fragment"><code class="javascript" contenteditable data-trim>
 // Beispiel mit JavaScript Promises:
@@ -1511,19 +1476,39 @@ fetch('http://localhost:7000/posts')
           <h3>Hintergrund: Promises</h3>
 
           <pre><code class="javascript" contenteditable>
-// Eine ausgedachte Funktion, die ein Promise, zurückliefert, dass "irgendwann" den String "Klaus" zurückgibt
+// Eine ausgedachte Funktion, die ein Promise zurückliefert, 
+// das "irgendwann" den String "Klaus" zurückgibt
 const promise = getNameAsync();
   </code></pre>
           <pre
             class="fragment"
-          ><code class="javascript" contenteditable>// 'then' gibt IMMER ein Promise zurück
-const promise2 = promise.then(name => `Hello, ${name}`);</code></pre>
-          <pre
-            class="fragment"
-          ><code class="javascript" contenteditable>promise2.then(greeting => console.log(greeting));
-// Ausgabe "irgendwann": "Hello, Klaus"
+          ><code class="javascript" contenteditable>promise.then(name => console.log(name));
+// Ausgabe "irgendwann": "Klaus"
   </code></pre>
         </section>
+
+        <section data-state="es6-exkurs">
+          <h3>Hintergrund: Promises</h3>
+          <p>Promises können verkettet werden</p>
+          <pre><code class="javascript" contenteditable>
+
+const promise = getNameAsync()
+
+  // Wird mit dem ersten Wert aufgerufen und gibt neuen Wert zurück
+  .then(name => getGreetingAsync(name)) 
+
+  // wird mit dem zweiten Wert (aus vorherigem then) aufgerufen
+  .then(greeting => console.log(greeting));
+
+  // Ausgabe "irgendwann": 
+  // "Hello, Klaus"
+
+  </code></pre>
+          <p class="fragment">
+            Die <code>then</code>-Funktion gibt <b>immer</b> ein Promise zurück
+          </p>
+        </section>
+
         <section data-state="es6-exkurs">
           <h3>Fehler unterbrechen die Promise-Kette</h3>
           <h4>Mit <code>catch()</code> kann man den Fehler fangen und darauf reagieren</h4>
@@ -1626,7 +1611,7 @@ try {
                       </code></pre>
         </section>
         <section>
-          <h3>Beispiel #2: fetch</h3>
+          <h3>Die fetch API</h3>
           <p>Schreiben von Daten mit HTTP POST</p>
           <div class="fragment">
             <p><code>fetch</code> erwartet als 2. Parameter ein Konfigurationsobjekt:</p>
@@ -1912,7 +1897,7 @@ function App(props) {
             </li>
 
             <li class="fragment">In <code>App.js</code> sind TODOs enthalten.</li>
-            <!-- <li class="fragment">
+            <li class="fragment">
               Füge einen Loading Indicator hinzu
               <ul>
                 <li>
@@ -1921,14 +1906,15 @@ function App(props) {
                   <code>http://localhost:7000/posts?slow</code>
                 </li>
                 <li>
-                  Füge einen neuen Zustand in der App-Komponente hinzu, der festhält, ob ein
-                  Server-Call gerade läuft
+                  Füge einen neuen Zustand (State) in der App-Komponente hinzu, der festhält, ob ein
+                  Server-Call (Daten laden) gerade läuft
                 </li>
                 <li>
-                  Gib während des laufenden Server-Calls eine Meldung aus ("Bitte warten Sie")
+                  Gib während des laufenden Server-Calls (Daten laden) eine Meldung aus ("Please
+                  wait")
                 </li>
               </ul>
-            </li> -->
+            </li>
             <li class="fragment">Mögliche Lösung in <code>steps/4-remote</code></li>
             <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
           </ol>
@@ -1958,7 +1944,7 @@ function App() {
 }              
             </code></pre>
           <p class="fragment">
-            Wenn Du den Zustand änerst, musst Du ein <b>neues Objekt</b> erzeugen! Das bestehende
+            Wenn Du den Zustand änderst, musst Du ein <b>neues Objekt</b> erzeugen! Das bestehende
             Objekt darf nicht verändert werden
           </p>
 
@@ -1973,7 +1959,7 @@ function App() {
 
       // FALSCH:
       fetchState.loading = true;
-      setFechtState(fetchState)
+      setFetchState(fetchState)
     }              
         
   </code></pre>
@@ -1985,21 +1971,24 @@ function App() {
               In deiner <code>App</code>-Komponente hast Du zwei Zustände: <code>posts</code> und
               <code>loading</code>.
             </li>
-
             <li class="fragment">
               Füge die beiden Zustände zu <em>einem</em> "komplexen" Zustand zusammen. Verwende also
               ein Objekt im State.
             </li>
             <li class="fragment">
-              Bitte denk dran, dass Du das Objekt nicht verändern darfst, sondern es immer erneut
-              erzeugen musst.
+              Achte darauf, dass der posts-Eintrag in dem Zustand niemals null oder undefined,
+              sondern immer mindestens ein leeres Array ist. (Auch beim Initialisiern dran denken!)
             </li>
-            <li>Mögliche Lösung in <code>steps/4-remote-with-loading</code></li>
+            <li class="fragment">
+              Bitte denk immer dran, dass Du das State-Objekt nicht verändern darfst, sondern es
+              immer erneut erzeugen musst.
+            </li>
+            <li class="fragment">Mögliche Lösung in <code>steps/4-remote-with-loading</code></li>
             <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
           </ol>
         </section> -->
         <section>
-          <h3>Custom Hooks</h3>
+          <h3>Exkurs: Custom Hooks</h3>
 
           <em>Eigene Hooks können für wiederkehrende Aufgaben genutzt werden</em>
 
@@ -2009,7 +1998,7 @@ function App() {
         </section>
 
         <section>
-          <h3>Custom Hooks</h3>
+          <h3>Exkurs: Custom Hooks</h3>
 
           <ul class="x-list">
             <li class="fragment">
@@ -2040,24 +2029,20 @@ function App() {
 import React from "react";
 
 export default function useApi(url, initialValue) {
-  const [isLoading, setLoading] = React.useState(false);
-  const [data, setData] = React.useState(initialValue);
+  const [fetchState, setFetchState] = React.useState({data: initialValue});
 
   React.useEffect(
     () => {
       async function loadData() {
         try {
-          setLoading(true);
-          setData(initialValue);
+          setFetchState({loading: true, data: initialData})
           const response = await fetch(url);
           const json = await response.json();
-          setData(json);
+          setFetchState({data: json})
         } catch (err) {
           console.error("LOADING DATA FAILED:", err);
-          setData(initialValue);
-        } finally {
-          setLoading(false);
-        }
+          setFetchState({error: err.toString()})
+        } 
       }
       loadData();
     },
@@ -2065,7 +2050,7 @@ export default function useApi(url, initialValue) {
     [url]
   );
 
-  return [data, setData, isLoading];
+  return [fetchState.data, fetchState.isLoading];
 }
 </code></pre>
         </section>
@@ -2415,6 +2400,22 @@ function setView(v: VIEW) {
 setView("POST_LIST"); //OK
 setView("POST_LISTE"); // ERROR
           </code></pre>
+        </section>
+
+         <section>
+          <h2>Übung: Hello, TypeScript!</h2>
+          <h3>
+            <em>Mach dich mit den Grundzügen der Sprache TypeScript vertraut</em>
+          </h3>
+          
+              <ol class="x-list">
+                <li>Öffne den TypeScript Playground im Browser (den Link gibts per Chat)</li>
+                <li>Link zu den Slides als Referenz gibt's ebenfalls im Chat</li>
+                <li>Bearbeite die Datei, so dass keine Compile-Fehler mehr vorhanden sind, TODOs siehe dort</li>
+                <li>Lösung in <code>blog-example/material/ts-intro/01_solution_hello_typescript.ts</code></li>
+              </ol>
+            </div>
+          </div>
         </section>
 
         <section id="t-typescript-react">
@@ -3240,7 +3241,7 @@ test('it should render correctly', () => {
           </code></pre>
         </section>
 
-        <section>
+        <!-- <section>
           <h2>Übung: Ein Test für den PostEditor</h2>
           <p>Schritte:</p>
           <ol>
@@ -3267,7 +3268,7 @@ test('it should render correctly', () => {
           </p>
           <p class="fragment">Mögliche Lösung in <code>steps/6-test</code></p>
           <p class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</p>
-        </section>
+        </section> -->
 
         <section>
           <h2>Browser Tests</h2>
@@ -3289,14 +3290,1011 @@ test('it should render correctly', () => {
           </p>
         </section>
 
+        <section id="t-state">
+          <h1>Teil V</h1>
+          <h2>Externes Statemanagement mit Redux (und Context API als Vergleich)</h2>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Globaler Zustand</h3>
+          <ul>
+            <li class="fragment">
+              Man kann Zustand in <b>lokalen Zustand</b> und <b>globalen Zustand</b> einteilen
+            </li>
+            <li class="fragment">
+              <b>Lokaler Zustand</b> ist Zustand, der "mehr oder weniger" einer Komponente zur
+              Verfügung steht
+            </li>
+            <li class="fragment">
+              <b>Globaler Zustand</b> hingegen ist für die ganze Anwendung oder große Teile davon
+              zuständig
+            </li>
+            <li class="fragment">Die Übgergänge sind fließend, es gibt keine fixe Definition</li>
+            <li class="fragment">Beispiele für globalen Zustand: angemeldeter Benutzer, Theme</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Motivation: Warum externes Statemanagement?</h2>
+          <h3>🤔 Was für Probleme könnte es lokalem State (useState) geben?</h3>
+        </section>
+        <!-- 
+        <section>
+          <h2>Eine typische React-Anwendung in Komponenten</h2>
+          <h3>Frage an Euch: was könnte es für Probleme geben?</h3>
+          <img
+            src="slides/images/typische-react-komponenten-hierarchie.png"
+            style="height: 650px;"
+          />
+        </section>
+
+        <section>
+          <h3>Problem 1: Über Komponenten verteilter Zustand</h3>
+          <img src="slides/images/verteilter-zustand.png" style="height: 650px;" />
+          <p>Wo muss ich nach Fehlern suchen? Wo ist die Logik?</p>
+        </section>
+
+        <section>
+          <h3>Problem 2: Getrennte Komponentenhierarchien</h3>
+          <img src="slides/images/zwei-komponenten-hierarchien.png" style="height: 650px;" />
+          <p>Geht entweder nicht oder "Gott-Komponente" entsteht</p>
+        </section>
+
+        <section>
+          <h3>Problem 3: Gemeinsamer ("globaler") Zustand</h3>
+          <img src="slides/images/gemeinsam-genutzter-state.png" style="height: 650px;" />
+          <p>Wie kommt Zustand von ganz oben nach ganz unten?</p>
+        </section>
+
+        <section>
+          <h3>Problem 4: UI und Logik vermischt</h3>
+          <img src="slides/images/ui-und-logic-vermischt.png" style="height: 650px;" />
+          <p>Wiederverwendung? React-unabhängigkeit? Testbarkeit?</p>
+        </section> -->
+
+        <!-- <section>
+          <h3>External Statemanagement</h3>
+          <div class="fragment">
+            <p>Habt ihr Ideen?</p>
+            <p>Wie können wir Zustand und/oder Logik aus den Komponenten befreien?</p>
+          </div>
+        </section> -->
+
+        <section id="t-context">
+          <h2>Context API</h2>
+          <p>Hintergrund: Context API</p>
+          <p>Kein Statemanagement, aber häufig zusammen erwähnt</p>
+          <p>Überblick: 👉 excalidraw</p>
+        </section>
+
+        <section>
+          <h2>Im Detail: Context API</h2>
+          <p>Beispiel: <code>blog-example/steps/30-complete-app-with-hooks</code></p>
+        </section>
+
+        <section>
+          <h2>Context...</h2>
+          <p>
+            <em
+              >erlaubt das Durchreichen von Informationen ohne explizites angeben als Properties</em
+            >
+          </p>
+
+          <ul>
+            <li class="fragment">funktioniert nur innerhalb einer Hierarchie-Ebene</li>
+            <li class="fragment">es können beliebg viele (fachliche) Context definiert werden</li>
+            <li class="fragment">besteht aus <code>Provider</code> und <code>Consumer</code></li>
+            <li class="fragment">
+              <a href="https://reactjs.org/docs/context.html" target="_blank">Doku</a>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Context Factory</h2>
+          <p>
+            <em>erzeugt ein Objekt, mit <b>zwei Komponenten</b></em>
+          </p>
+          <ul>
+            <li class="fragment">
+              <code>Provider</code>, stellt Objekt mit Key-Value-Paaren zur Verfügung (der
+              Context-"Value")
+            </li>
+            <li class="fragment">
+              <code>Consumer</code> wird in eigener Komponente verwendet, um auf einen Context
+              zuzugreifen ("versteckt" durch useContext Hook)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                      import react from "React";
+
+                      const AuthContext = React.createContext();
+
+                      // erzeugt:
+                      // AuthContext.Provider 
+                      // AuthContext.Consumer
+                              </code></pre>
+        </section>
+
+        <section>
+          <h2>Context Provider</h2>
+          <p><em>Eine React-Komponente, die einen Context zur Verfüng stellt</em></p>
+          <ul>
+            <li class="fragment">
+              wird innerhalb einer eigenen Komponente in <code>render</code> eingebunden
+            </li>
+            <li class="fragment">Nimmt ein Objekt ("Context") mit beliebigen Werten entgegen</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                      const AuthContext = React.createContext();
+
+                      function AuthProvider() {
+                          const [ currentUser, setCurrentUser ] = React.useState(null);
+                          const contextValue = {
+                            // the current theme
+                            currentUser,
+                      
+                            // function to set new theme
+                            login: name => setCurrentUser(name),
+                            logout: () => setCurrentUser(null)
+                          };
+                      
+                          return &lt;AuthContext.Provider value={contextValue}>
+                            {props.children}
+                          &lt;/AuthContext.Provider>;
+                        }
+                      }                    
+</code></pre>
+        </section>
+
+        <section>
+          <h2>useContext-Hook</h2>
+          <p><em>Zugriff auf die Werte aus dem Context</em></p>
+          <p>
+            In allen Komponenten unterhalb der Provider Komponente, kann mit useContext auf den
+            Kontext zugegriffen werden
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+function UserBadge() {
+  const { currentUser } = React.useContext(AuthContext);
+
+  return currentUser  ? &lt;h1>Welcome, {currentUser}&lt;h1> : null;
+}            
+          </code></pre>
+
+          <p class="fragment">Aufrufen einer Funktion aus dem Context</p>
+          <p class="fragment">Ändert im Context den Zustand der Provider-Komponente</p>
+          <p class="fragment">Alle Konsumer werden neu gerendert</p>
+          <pre class="fragment"><code class="javascript">
+function UserBadge() {
+  const { currentUser, logout } = React.useContext(AuthContext);
+
+  return currentUser  ? 
+    &lt;>&lt;h1>Welcome, {currentUser}&lt;h1>&lt;button onClick={logut}>Logout&lt;/button>&lt;/> 
+    : null;
+}                
+          </code></pre>
+        </section>
+
+        <section id="t-redux">
+          <h2>External Statemanagement mit Redux</h2>
+          <h3>Demo: Redux & Redux Devtools</h3>
+          <p>👉 steps/5-redux</p>
+        </section>
+
+        <!-- <section>
+          <h2>Redux</h2>
+          <h3></h3>
+
+          <p class="todo">Mit Redux aus 2020_0922_react_state.html abgleichen</p>
+          <p class="todo">Mit 2020_react_advanced.html abgleichen, DA SIND AUCH ÜBUNGEN DRIN!</p>
+        </section> -->
+
+        <section>
+          <h3>Wiederholung</h3>
+          <h2>Render Cycle in Pure React</h2>
+          <img src="slides/images/redux-01-react-cycle-no-redux.png" style="height: 650px;" />
+        </section>
+
+        <section>
+          <h2>Redux extrahiert die Verantwortlichkeiten</h2>
+          <img src="slides/images/redux-02-extracting-responsibility.png" style="width: 900px;" />
+        </section>
+
+        <section>
+          <h2>Redux im Code</h2>
+          <p>(npm start in advanced/workspace-redux)</p>
+        </section>
+
+        <section>
+          <h2>Strukturierter Überblick über alle Redux Teile</h2>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Redux: Konzepte
+
+            * **Store**: eine Art "Datenbank", die außerhalb der Komponentenhierachie liegt. Hier ist der globale Zustand untergebracht. Komponenten werden über Veränderungen informiert und können sich re-rendern
+            * **Actions**: Einfache JavaScript-Objekte, die beschreiben was in einer Anwendung passiert. Bestehen aus einem Type und einem fachlichen Payload.
+            * **Reducer**-Funktionen: Funktionen, in denen die Logik zur Verarbeitung des Zustands untergebracht ist. Sie erhalten eine Action und einen (alten) Zustand, verarbeiten die Action und liefern neuen Zustand zurück.
+            * **Action Creator**: Factory-Funktionen, die Action Objekte erzeugen
+          </textarea>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Actions</h3>
+          <ul>
+            <li class="fragment">
+              Pure JavaScript-Objekte, die eine Aktion in der Anwendung beschreiben
+            </li>
+            <li class="fragment">Haben üblicherweise <b>type</b> und <b>payload</b></li>
+            <li class="fragment">Über das <b>type</b>-Property können sie identifiziert werden</li>
+            <li class="fragment">Der <b>Payload</b> enthält Action-spezifische Daten</li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+  clearDraftAction = {
+    type: "editor/clearDraft"; // kein Payload erforderlich
+  }
+
+  setDraftTitleAction = {
+    type: "editor/setDraftTtiel",
+    newTitle: "..."  // Action-spezifischer Payload (hier: der neue Blog-Titel)
+  }
+</code></pre>
+        </section>
+        <section>
+          <h3>Reducer-Funktion #1</h3>
+          <ul>
+            <li class="fragment">
+              ...erhält einen (vorherigen) Zustand und eine <em>Action</em> als Parameter übergeben
+            </li>
+            <li class="fragment">...verarbeitet die Action</li>
+            <li class="fragment">...liefert dann den neuen, aktualisierten Zustand zurück</li>
+            <li class="fragment">...muss Seiteneffekt frei sein ("pure function")</li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+          reducer(old_state, action) => new_state
+        </code></pre>
+
+          <p class="fragment">
+            <em>In React mit useReducer (ohne Redux) einsetzbar</em>
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Die reducer-Funktion #2</h3>
+          <ul>
+            <li class="fragment">
+              Bekommt den vorherigen Zustand übergeben und liefert neuen Zustand zurück (oder den
+              unveränderten alten)
+            </li>
+            <li class="fragment">
+              Zustand ist immutable! Kann mit der
+              <a href="https://github.com/immerjs/immer">Bibliothek "immer"</a> kombiniert werden
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function editorReducer(state = initalDraftPost, action) {
+              switch (action.type) {
+                case "editor/clearDraft":
+                  return initalDraftPost;
+                case "editor/setDraftBody":
+                  return { ...state, body: action.body };
+                case "editor/setDraftTitle":
+                  return { ...state, title: action.title };
+                default:
+                  return state;
+              }
+            }
+      </code></pre>
+        </section>
+
+        <section>
+          <h3>Redux: Store, Reducer und Actions</h3>
+          <ul>
+            <li class="fragment">
+              Der Store, d.h. der globale Zustand, wird ausschließlich über reducer-Funktionen
+              verwaltet
+            </li>
+            <li class="fragment">
+              Jede reducer-Funktion verwaltet einen "Teil-Zustand" des globalen Zustandes. Die
+              reducer können sich untereinander nicht sehen und nicht auf die anderen Teile des
+              gloablen Zustands zugreifen. Ein Teil-Zustand wird auch als "Slice" bezeichnet (also
+              ein Anwendungsteil)
+            </li>
+            <li class="fragment">
+              Wenn Du den Store mit einer Datenbank vergleichst, wäre ein solcher Teilzustand so
+              etwas wie eine Tabelle
+            </li>
+            <li class="fragment">
+              Die reducer werden beim Starten der Anwendung in Redux registriert
+            </li>
+            <li class="fragment">
+              Dadurch ist eine gute Entkopplung möglich: ein Teil der Anwendung informiert über eine
+              Aktion ("User hat sich eingeloggt", "Theme wurde verändert") und alle interessierten
+              Anwendungsteile können darauf reagieren
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Redux: Actions auslösen</h3>
+          <ul>
+            <li class="fragment">Actions werden an <b>alle</b> Reducer-Funktionen verteilt</li>
+            <li class="fragment">
+              Zum Auslösen einer Action gibt auch von Redux eine <code>dispatch</code>-Funktion, an
+              die Du mit dem <code>useDispatch</code> Hook von Redux gelangst.
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function PostEditor() {
+              const dispatch = useDispatch();
+
+              function handleTitleChange(newTitle) {
+                dispatch({ type: "editor/setDraftTitle", title });
+              }
+
+              // ...
+
+              &lt;input onChange={(e) => handleTitleChange(e.target.value) />
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Action Creator...</h3>
+          <ul>
+            <li class="fragment">...sind "Factory-Funktionen", die Action-Objekte erzeugen</li>
+            <li class="fragment">...sind optional, werden aber nahezu immer verwendet</li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function setDraftTitle(newTitle) {
+              return { 
+                type: "editor/setDraftTitle", 
+                title 
+              };
+            }
+            }
+          </code></pre>
+
+          <p class="fragment">🤔 Wofür könnten Action Creator sinnvoll sein?</p>
+          <ul>
+            <li class="fragment">Stellen sicher, dass Objekte korrekt aussehen</li>
+            <li class="fragment">Verbergen interne Struktur der Actions vor der Anwendung</li>
+            <li class="fragment">Können plausibilitätsprüfungen machen</li>
+            <li class="fragment">
+              Können Daten konvertieren, bevor sie in die Action übernommen werden
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Redux: Zugriff auf den globalen Zustand</h3>
+          <ul>
+            <li class="fragment">
+              Komponenten können aus dem globalen Zustand (Store) die Daten auswählen, die sie
+              benötigen
+            </li>
+            <li class="fragment">
+              Die Hierarchie-Ebene spielt dabei keine Rolle, weil der Zustand außerhalb, "neben" den
+              UI Komponenten liegt
+            </li>
+            <li class="fragment">
+              Nur wenn sich die ausgewählten Daten in einer Kompoente ändern, wird die Komponente
+              neu gerendert
+            </li>
+            <li class="fragment">
+              Der <code>useSelector</code> Hook von Redux erwartet eine Callback-Funktion, die
+              aufgerufen wird, sobald sich <em>irgendetwas</em> im Store verändert hat
+            </li>
+            <li class="fragment">Dieser Callback-Funktion wird der komplette Store übergeben.</li>
+            <li class="fragment">
+              Aus dem Store wählt die Komponente die für sie relevanten Daten aus und liefert sie
+              zurück
+            </li>
+            <li class="fragment">
+              Nur wenn sich diese zurückgelieferten Daten verändert haben, wird die Komponente neu
+              gerendert
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+              function PostEditor() {
+                const draftTitle = useSelector(state => state.editor.draftTitle);
+
+                //  ...
+              }
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useSelector - Details</h3>
+          <ul>
+            <li class="fragment">
+              Um festzustellen, ob sich die ausgewählten Daten verändert haben, prüft Redux auf
+              <b>Identität</b>!
+            </li>
+            <li class="fragment">
+              Es wird deshalb empfohlen, nur einzelne Werte (keine Objekte) aus dem Store
+              auszuwählen - stattdessen mehrere useSelector-Aufrufe machen. Bei Objekten musst Du
+              eventuell die
+              <a href="https://react-redux.js.org/api/hooks#equality-comparisons-and-updates"
+                >shallowEqual-Funktion</a
+              >
+              übergeben.
+            </li>
+            <li class="fragment">
+              Du kannst natürlich auch "abgeleitete" Daten zurückliefern, Redux vergleicht nur den
+              von dir zurückgelieferten Wert, unabhängig davon, ob er "direkt" aus dem Store kommt
+              oder basierend auf dem Store "berechnet" wurde
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function AppHeader() {
+              // "abgeleiteter" Zustand
+              const hasDraftPost = useSelector(
+                state => state.editor.draftTitle !== "" || state.editor.draftBody !== ""
+              );
+            }
+
+            // übergebene Selector-Callback-Funktion 
+            //    wird bei JEDER Änderung des Stores ausgeführt
+            // AppHeader wird nur neu gerendert, 
+            //    wenn sich deren RÜCKGABEWERT ändert
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Der Store</h3>
+          <p>Ein <em>einziger</em> Store hält den <em>kompletten</em> Zustand</p>
+          <p class="fragment">
+            Der Store wird allen Componenten über die Wrapper-Komponente <em>Provider</em>
+            zur Verfügung gestellt
+          </p>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { rootReducer } from './reducers';
+
+// http://redux.js.org/docs/api/createStore.html
+const store = createStore(
+  rootReducer // reducer
+);
+ReactDOM.render(
+&lt;Provider store={store}>
+    &lt;App />
+&lt;/Provider>,
+mountNode
+);
+    </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Redux Dev Tools</h3>
+
+          <p>
+            Die Redux Dev Tools (Browser-Erweiterung) können in der Anwendung beim Konfiguration des
+            Stores ein- oder ausgeschaltet werden
+          </p>
+
+          <ul>
+            <li>
+              <a
+                href="https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=de"
+                target="_blank"
+                >Chrome</a
+              >
+            </li>
+            <li>
+              <a href="https://addons.mozilla.org/de/firefox/addon/reduxdevtools/" target="_blank"
+                >Firefox</a
+              >
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Übung: Der PostEditor mit Redux</h2>
+          <p>Vorbereitung:</p>
+          <ol>
+            <li class="fragment">Workspace <code>blog-example/workspace-redux</code></li>
+            <li class="fragment">Bitte <code>npm install</code> hier ausführen</li>
+            <li class="fragment">
+              danach <code>npm start</code> ausführen (den laufenden Prozess bitte beenden)
+            </li>
+            <li class="fragment">Den Workspace in der IDE/Editor öffnen</li>
+            <li class="fragment">
+              Wenn die Anwendung läuft, bitte "Hand heben" in Zoom, dann geht's weiter mit der
+              eigentlichen Übung 🙋‍♀️
+            </li>
+          </ol>
+        </section>
+        <section>
+          <h2>Übung: Der PostEditor mit Redux</h2>
+          <p>
+            Der Workspace enthält zwei Verzeichnisse: <code>ui</code> für Komponenten und
+            <code>redux</code> für Logik. Diese Aufteilung ist <em>nicht empfehlenswert</em> in
+            "echten" Anwendungen (dort bitte nach Fachlichkeit aufteilen), macht uns hier aber das
+            Leben einfacher.
+          </p>
+
+          <p>Schritte:</p>
+          <ol>
+            <li class="fragment">
+              Implementiere in <code>editor-slice.js</code> die Action Creator-Funktionen (siehe
+              dort)
+            </li>
+            <li class="fragment">Vervollständige die reducer-Funktion</li>
+            <li class="fragment">
+              Migriere den (nicht funktionierenden) <code>PostEditor</code> so, dass der Draft Post
+              aus dem Redux State gelesen und aktualisiert wird (<code>useSelector</code> und
+              <code>useDispatch</code>)
+            </li>
+            <li class="fragment">
+              Vervollständige die <code>AppHeader</code>-Komponente, so dass diese den "Clear
+              Draft"-Button anzeigen und auslösen kann
+            </li>
+
+            <li class="fragment">
+              In den drei Dateien sind todos eingetragen.
+            </li>
+            <li class="fragment">Mögliche Lösung in <code>steps/5-redux</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
+          </ol>
+        </section>
+        <section>
+          <h3>Redux</h3>
+          <h2>Asynchrone Actions</h2>
+          <p><em>Problem: Asynchronität, z.B. beim Laden von Daten</em></p>
+          <ul>
+            <li class="fragment">
+              Wo unterbringen?
+              <ul>
+                <li>Reducer sind Seiteneffekt-frei!</li>
+                <li>Actions sind nur JavaScript-Objekte (keine Logik)!</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Weiteres Problem: fachliche Abläufe meistens komplex(er) als nur eine Action.
+              <ul>
+                <li>
+                  Typisch: Request Start, Request läuft, Request erfolgreich/Request fehlgeschlagen
+                </li>
+              </ul>
+            </li>
+            <li class="fragment">Redux bringt dafür nix mit :-(</li>
+            <li class="fragment">Es gibt aber Antworten: Thunk (Promi?), Saga, Observable</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Redux</h3>
+          <h2>Asynchrone Actions</h2>
+          <em>Grundsätzliche Idee, bei allen Bibliotheken (Thunk, Saga, Observable) ähnlich</em>
+          <ul>
+            <li class="fragment">
+              Im <b>Action Creator</b> kann asynchroner Code ausgeführt werden
+            </li>
+            <li class="fragment">
+              Es können <b>mehrere Actions</b> innerhalb des Action Creators dispatched werden
+            </li>
+            <li class="fragment">
+              Alle genannten Bibliotheken werden über <b>Middlewares</b> eingebunden
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Middleware</h3>
+          <ul>
+            <li class="fragment">
+              Eine Middleware-Funktion bekommt alle dispatchen Actions übergeben, bevor sie in den
+              Store gelangen
+            </li>
+            <li class="fragment">
+              Die Middleware kann die Action annehmen, verändern, ablehnen und/oder weiterleiten
+            </li>
+            <li class="fragment">Typische Anwendungsfälle: Logging, asynchrone Verarbeitung</li>
+            <li class="fragment">
+              Die Middleware-Funktionen werden bei der Konfiguration des Stores angegeben
+            </li>
+            <li class="fragment">
+              In der Regel schreibst Du keine Middlewares selbst, sondern verwendest fertige
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Asynchrone Actions</h3>
+          <em>Beispiel (konzeptionell)</em>
+          <p>
+            Schritt 1: <b>Dispatchen von Actions</b>: Komponente bleibt unverändert, dispatched
+            weiterhin eine Action, die wie eine "normale" Redux Action aussieht
+          </p>
+          <div class="fragment">
+            <pre><code>
+              import { loadPosts } from "./posts-slice";
+
+              function App() {
+                React.useEffect( 
+                  () => dispatch(loadPosts()),
+                  []
+                );
+
+                return ...;
+            }
+          </code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Asynchrone Actions</h3>
+          <em>Beispiel (konzeptionell)</em>
+          <p>
+            Schritt 2: <b>Action Creator</b>: Hier können jetzt weitere Actions, auch asynchron,
+            dispatched werden
+          </p>
+          <pre class="fragment"><code>
+              // asynchroner Action Creator (pseudo code)
+              function loadPosts() {
+
+                dispatchAction "REQUEST_START"
+
+                try {
+                  posts = await loadPostsWithFetch() // ASYNCHRON !!!
+                  dispatchAction "REQUEST_SUCCESS"
+                  dispatchAction "SET_POSTS" posts
+                } catch (err) {
+                  dispatchAction "REQUEST_FAILURE" err
+                }
+              }
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Asynchrone Actions</h3>
+          <em>Beispiel (konzeptionell)</em>
+          <p>Schritt 3: <b>Reducer</b>: Unverändert. Reducer empfangen "normale" Actions</p>
+        </section>
+
+        <section>
+          <h2>Beispiele für Middlewares zum Arbeiten mit Asynchronität</h2>
+          <ul>
+            <li>
+              <a href="https://github.com/reduxjs/redux-thunk">Redux Thunk</a> (die "offizielle"
+              Lösung)
+            </li>
+
+            <li>Redux Saga</li>
+            <li>Redux Observable</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Redux Thunk</h2>
+          <ul>
+            <li class="fragment">
+              Ein Thunk Action Creator gibt kein Action-Objekt, sondern eine
+              <b>Callback-Funktion</b> zurück. Diese Funktion wird von Redux an die Middlewares
+              weitergegeben. (Redux gibt nahezu alles, was wir dispatch übergeben an die Middlewares
+              bzw. den Store weiter...)
+            </li>
+            <li class="fragment">
+              In der Callback-Funktion ist dann die (asynchrone) Logik untergebracht
+            </li>
+            <li class="fragment">
+              Wenn die Thunk-Middleware eine Funktion entdeckt (und kein Objekt), ruft die
+              Middleware diese Funktion auf, und übergibt eine <code>dispatch</code>- und eine
+              <code>getState</code>-Funktion
+            </li>
+            <li class="fragment">
+              Mit <code>dispatch</code> kann die Callback-Funktion diverse weitere "reguläre" und
+              Thunk-Actions auslösen
+            </li>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+            export function loadPosts() {
+              return (dispatch, getState) => {
+
+                dispatch(postsLoading());
+
+                fetch("http://localhost:7000/posts")
+                  .then(response => response.json())
+                  .then(json => {
+                    dispatch(postLoadingSucceeded(json));
+                  })
+                  .catch(err => {
+                    dispatch(postLoadingFailed(err));
+                  });
+              };
+            }    </code></pre>
+          </ul>
+          <!-- <p class="fragment">
+                <strong
+                  >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
+                  Operationen ausführen dürfen</strong
+                >
+              </p> -->
+        </section>
+        <section>
+          <h2>Redux Thunk</h2>
+          <p>Thunk Actions können nicht nur für asynchone Anwendungsfälle verwendet werden</p>
+          <ul>
+            <li class="fragment">
+              Für Anwendungsfälle in den allgemein mehr als eine Action dispatched werden soll
+            </li>
+            <li class="fragment">
+              Es ist darin erlaubt, beliebige Seiteneffkte auszuführen, z.B. eine uuid generieren
+              oder auf die Uhrzeit zuzugreifen
+            </li>
+            <li class="fragment">
+              Im Gegensatz zum Reducer hat ein Action-Creator Zugriff auf den gesamten State und
+              kann z.B. eine Cache-Funktionaliät implementieren
+            </li>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+            export function loadPostsWithCache() {
+              return (dispatch, getState) => {
+
+                if (getState().posts.posts) {
+                  // Posts sind schon geladen => nicht erneut laden
+                  return;
+                }
+
+
+                dispatch(postsLoading());
+
+                // ...wie gesehen: Posts laden etc.
+              };
+            }    </code></pre>
+          </ul>
+          <!-- <p class="fragment">
+                <strong
+                  >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
+                  Operationen ausführen dürfen</strong
+                >
+              </p> -->
+        </section>
+        <section>
+          <h2>Zusammenfassung Redux-Architektur</h2>
+          <img
+            src="slides/images/redux-03-resulting-redux-architecture.png"
+            style="max-height: 650px;"
+          />
+        </section>
+        <section>
+          <h3>Lokaler Zustand ist weiterhin erlaubt und erwünscht!</h3>
+          <p>Es gibt diverse Orte, wo Zustand vorkommt!</p>
+          <ul>
+            <li class="fragment">Server und client</li>
+            <li class="fragment">Komponenten lokaler State</li>
+            <li class="fragment">Redux</li>
+            <li class="fragment">URL, Session or Local Storage</li>
+          </ul>
+          <p class="fragment">Zustand immer so nah an dort halten, wo er gebraucht wird</p>
+          <div class="fragment">
+            <img src="slides/images/three-kinds-of-state.png" style="max-height: 650px;" />
+          </div>
+        </section>
+
+        <section>
+          <h3>Redux Toolkit</h3>
+          <p>
+            <em
+              >"The official, opinionated, batteries-included toolset for efficient Redux
+              development"</em
+            >
+          </p>
+          <ul>
+            <li><a href="https://redux-toolkit.js">https://redux-toolkit.js.org/</a></li>
+            <li>
+              Vorkonfiguriertes Setup (inklusive
+              <a href="https://github.com/immerjs/immer">immer</a> für Reducer und Thunk Middleware)
+            </li>
+            <li>
+              Vereinfacht erheblich das Arbeiten mit Reducer, generiert z.B. Action Creator zur
+              Laufzeit
+            </li>
+            <li>Vereinfacht typische Anwendungsfälle wie API Calls</li>
+            <li>
+              Outstanding TypeScript support! Ihr wollt das nicht ohne TypeScript verwenden 😉
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>createSlice</h3>
+          <ul>
+            <li class="fragment">
+              Ein "Slice" repräsentiert einen fachnlichen "Schnitt" in Eurer Anwendung
+            </li>
+            <li class="fragment">
+              Ein Slice wird mit der Funktion <code>createSlice</code> erzeugt
+            </li>
+            <li class="fragment">Diese Funktion erwartet ein Konfigurationsobjekt</li>
+            <li class="fragment">
+              Über dieses Objekt können reducer und der initiale Zustand festgelegt werden
+            </li>
+            <li class="fragment">
+              Für jede reducer-Funktion wird per Default ein action-creator automatisch generiert
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            const hello = createSlice({
+              name: "hello",
+              initalState: { name: "world" },
+              reducers: {
+                greet(state, action) {
+                  // ...
+                }
+              }
+            })
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            const dispatch = useDispatch();
+
+            dispatch(hello.actions.greet({
+              name: "World"
+            }))
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>reducer</h3>
+          <ul>
+            <li class="fragment">
+              Wie gesehen, bekommen reducer den slice-State und die Action übergeben
+            </li>
+            <li class="fragment">
+              Die reducer-Funktionen werden mit <b>immer</b> umschlossen, so dass der State dort
+              <b>mutable</b> ist (bzw so aussieht, als ob er mutable ist)
+            </li>
+            <li class="fragment">
+              Der State kann deshalb direkt bearbeitet werden oder es kann ein komplett neues Objekt
+              zurückgegeben werden
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript">
+            const hello = createSlice({
+              // ...
+              reducers: {
+                greet(state, action) {
+                  state.name = action.payload.name;
+                },
+                clear() {
+                  return { name: "" };
+                }
+              }
+            })
+          </code></pre>
+        </section>
+        <section>
+          <h3>reducer und Action Creator</h3>
+          <ul>
+            <li class="fragment">
+              Zu jeder reducer-Funktion wird eine Action-Creator-Funktion erzeugt
+            </li>
+            <li class="fragment">
+              Diese Funktion erwartet einen Parameter: den Action-Payload (oder gar nichts)
+            </li>
+            <li class="fragment">
+              Die Funktionen liegen unterhalb von <code>sliceName.actions</code> und können von dort
+              exportiert werden, so dass die Anwendung darauf Zugriff hat
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            const hello = createSlice({
+              // ...
+              reducers: {
+                
+                greet(state, action) { ... },
+                clear() { ... }
+                }
+              }
+            })   
+          
+            export const { greet, clear } = hello.actions;
+          
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            import { greet } from "./hello-slice";
+
+            // in der Komponente
+            dispatch(greet({name: "Klaus"}));
+
+            // ohne payload
+            dispatch(clear());
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Asynchrone Actions</h3>
+          <ul>
+            <li class="fragment">
+              Die Redux Thunk Middleware ist in Redux Toolkit integriert
+            </li>
+            <li class="fragment">
+              Asynchrone Action Creator können aber nicht als reducer definiert werden, du schreibst
+              sie wie in Redux außerhalb von createSlice hin.
+            </li>
+            <li class="fragment">
+              Mit <a href="https://redux-toolkit.js.org/api/createAsyncThunk">createAsyncThunk</a>
+              kannst Du vereinfachte Thunk-Actions schreiben, die automatisch Lifecycle Actions
+              dispatchen (request started, request failed, ...)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Übung: Redux Toolkit</h2>
+          <p><em>Portiere den editor-slice auf Redux Toolkit (createSlice)</em></p>
+          <p class="fragment">Vorbereitung:</p>
+          <ol>
+            <li class="fragment">
+              Kopiere die Datei <code>store.js</code> aus
+              <code>material/5-redux-toolkit/redux</code> in dein <code>src/redux</code>-Verzeichnis
+              (bestehende Datei überschreiben)
+            </li>
+            <li class="fragment">
+              Kopiere die Datei <code>editor-slice.js</code> aus
+              <code>material/5-redux-toolkit/redux</code> in dein <code>src/redux</code>-Verzeichnis
+              (deine Datei ggf. sichern)
+            </li>
+          </ol>
+          <p class="fragment">Schritte:</p>
+          <ol>
+            <li class="fragment">
+              In editor-slice.js stehen TODOs, du musst die reducer-Funktionen implementieren
+            </li>
+            <li class="fragment">
+              Der Rest der Anwendung sollte danach unverändert laufen. Deswegen achte auf die
+              korrekten Namen der reducer-Funktionen!
+            </li>
+          </ol>
+          <p class="fragment">Mögliche Lösung in <code>steps/5-redux-toolkit</code></p>
+          <p class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</p>
+        </section>
+
         <section>
           <h1>Ausblick & weitere Themen</h1>
           <h2>Fragen ?</h2>
           <h2>Wünsche ?</h2>
+          <ul>
+            <li><a href="#/t-router">Router</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Geschafft! 😊</h2>
+          <h3>Vielen Dank für Eure Teilnahme!</h3>
+          <h3>Viel Spaß und Erfolg mit React!</h3>
+          <p>
+            Wenn ihr noch Fragen habt, könnt ihr mich erreichen:
+          </p>
+          <p>Mail: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a></p>
+          <p>
+            Web: <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a>
+          </p>
+          <p>
+            Twitter: <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
         </section>
 
         <section id="t-router">
-          <h1>Teil VII</h1>
+          <h1>React Router</h1>
           <h2>Client-side Routing</h2>
 
           <p>Example: blog-example/steps/7a-router-with-typescript</p>
@@ -3560,524 +4558,6 @@ test('it should render correctly', () => {
               In <code>App.tsx</code> und <code>PostPage.tsx</code> sind TODOs enthalten.
             </li>
           </ol>
-        </section>
-
-        <section id="t-state">
-          <h1>Teil VIII</h1>
-          <h2>Zustands-Management mit Redux oder React Context API</h2>
-        </section>
-
-        <section>
-          <h2>Eine typische React-Anwendung in Komponenten</h2>
-          <h3>Frage an Euch: was könnte es für Probleme geben?</h3>
-          <img
-            src="slides/images/typische-react-komponenten-hierarchie.png"
-            style="height: 650px;"
-          />
-        </section>
-
-        <section>
-          <h3>Problem 1: Über Komponenten verteilter Zustand</h3>
-          <img src="slides/images/verteilter-zustand.png" style="height: 650px;" />
-          <p>Wo muss ich nach Fehlern suchen? Wo ist die Logik?</p>
-        </section>
-
-        <section>
-          <h3>Problem 2: Getrennte Komponentenhierarchien</h3>
-          <img src="slides/images/zwei-komponenten-hierarchien.png" style="height: 650px;" />
-          <p>Geht entweder nicht oder "Gott-Komponente" entsteht</p>
-        </section>
-
-        <section>
-          <h3>Problem 3: Gemeinsamer ("globaler") Zustand</h3>
-          <img src="slides/images/gemeinsam-genutzter-state.png" style="height: 650px;" />
-          <p>Wie kommt Zustand von ganz oben nach ganz unten?</p>
-        </section>
-
-        <section>
-          <h3>Problem 4: UI und Logik vermischt</h3>
-          <img src="slides/images/ui-und-logic-vermischt.png" style="height: 650px;" />
-          <p>Wiederverwendung? React-unabhängigkeit? Testbarkeit?</p>
-        </section>
-
-        <section>
-          <h3>External Statemanagement</h3>
-          <div class="fragment">
-            <p>Habt ihr Ideen?</p>
-            <p>Wie können wir Zustand und/oder Logik aus den Komponenten befreien?</p>
-          </div>
-        </section>
-
-        <section id="t-context">
-          <h2>Context API</h2>
-          <p>Beispiel: <code>blog-example/steps/30-complete-app-with-hooks</code></p>
-        </section>
-
-        <section>
-          <h3>Context Api Live Introduction</h3>
-          <p>(advanced/exercise/4_context)</p>
-        </section>
-
-        <section>
-          <h2>Context...</h2>
-          <p>
-            <em
-              >erlaubt das Durchreichen von Informationen ohne explizites angeben als Properties</em
-            >
-          </p>
-
-          <ul>
-            <li class="fragment">funktioniert nur innerhalb einer Hierarchie-Ebene</li>
-            <li class="fragment">es können beliebg viele (fachliche) Context definiert werden</li>
-            <li class="fragment">besteht aus <code>Provider</code> und <code>Consumer</code></li>
-            <li class="fragment">
-              <a href="https://reactjs.org/docs/context.html" target="_blank">Doku</a>
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Context Factory</h2>
-          <p>
-            <em>erzeugt ein Objekt, mit <b>zwei Komponenten</b></em>
-          </p>
-          <ul>
-            <li class="fragment">
-              <code>Provider</code>, stellt Objekt mit Key-Value-Paaren zur Verfügung (der
-              Context-"Value")
-            </li>
-            <li class="fragment">
-              <code>Consumer</code> wird in eigener Komponente verwendet, um auf einen Context
-              zuzugreifen ("versteckt" durch useContext Hook)
-            </li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-                      import react from "React";
-
-                      const AuthContext = React.createContext();
-
-                      // erzeugt:
-                      // AuthContext.Provider 
-                      // AuthContext.Consumer
-                              </code></pre>
-        </section>
-
-        <section>
-          <h2>Context Provider</h2>
-          <p><em>Eine React-Komponente, die einen Context zur Verfüng stellt</em></p>
-          <ul>
-            <li class="fragment">
-              wird innerhalb einer eigenen Komponente in <code>render</code> eingebunden
-            </li>
-            <li class="fragment">Nimmt ein Objekt ("Context") mit beliebigen Werten entgegen</li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-                      const AuthContext = React.createContext();
-
-                      function AuthProvider() {
-                          const [ currentUser, setCurrentUser ] = React.useState(null);
-                          const contextValue = {
-                            // the current theme
-                            currentUser,
-                      
-                            // function to set new theme
-                            login: name => setCurrentUser(name),
-                            logout: () => setCurrentUser(null)
-                          };
-                      
-                          return &lt;AuthContext.Provider value={contextValue}>
-                            {props.children}
-                          &lt;/AuthContext.Provider>;
-                        }
-                      }                    
-</code></pre>
-        </section>
-
-        <section>
-          <h2>useContext-Hook</h2>
-          <p><em>Zugriff auf die Werte aus dem Context</em></p>
-          <p>
-            In allen Komponenten unterhalb der Provider Komponente, kann mit useContext auf den
-            Kontext zugegriffen werden
-          </p>
-
-          <pre class="fragment"><code class="javascript">
-function UserBadge() {
-  const { currentUser } = React.useContext(AuthContext);
-
-  return currentUser  ? &lt;h1>Welcome, {currentUser}&lt;h1> : null;
-}            
-          </code></pre>
-
-          <p class="fragment">Aufrufen einer Funktion aus dem Context</p>
-          <p class="fragment">Ändert im Context den Zustand der Provider-Komponente</p>
-          <p class="fragment">Alle Konsumer werden neu gerendert</p>
-          <pre class="fragment"><code class="javascript">
-function UserBadge() {
-  const { currentUser, logout } = React.useContext(AuthContext);
-
-  return currentUser  ? 
-    &lt;>&lt;h1>Welcome, {currentUser}&lt;h1>&lt;button onClick={logut}>Logout&lt;/button>&lt;/> 
-    : null;
-}                
-          </code></pre>
-        </section>
-
-        <section id="t-redux">
-          <h2>Redux</h2>
-          <h3>External Statemanagement</h3>
-        </section>
-
-        <section>
-          <h3>Wiederholung</h3>
-          <h2>Render Cycle in Pure React</h2>
-          <img src="slides/images/redux-01-react-cycle-no-redux.png" style="height: 650px;" />
-        </section>
-
-        <section>
-          <h2>Redux extrahiert die Verantwortlichkeiten</h2>
-          <img src="slides/images/redux-02-extracting-responsibility.png" style="width: 900px;" />
-        </section>
-        <section>
-          <h2>Demo: Redux & Redux Devtools</h2>
-          <a href="http://localhost:8080/" target="_blank">Ziel-Anwendung</a>
-          <p>(npm start in code/schritte/redux/7-redux-complete-app)</p>
-        </section>
-
-        <section>
-          <h2>Redux im Code</h2>
-          <p>(npm start in advanced/workspace-redux)</p>
-        </section>
-
-        <section>
-          <h2>Strukturierter Überblick über alle Redux Teile</h2>
-        </section>
-
-        <section>
-          <h3>Event-Handlers werden Action-Creators</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-export function setFilter(filter) {
-  return {
-    type: SET_FILTER,
-    filter
-  };
-}
-</code></pre>
-          <ul>
-            <li class="fragment">Action-Creators erzeugen Action-Objekte</li>
-            <li class="fragment">
-              Actions sind Kommando-artige Strukturen von Dingen, die die Applikation tun soll
-            </li>
-            <li class="fragment">
-              Über die dispatch-Methode des Stores werden sie an <em>alle</em> Reducer weiter
-              gegeben
-            </li>
-            <li class="fragment">
-              Actions bestehen aus einem Typen und einer beliebigen Nutzlast (payload)
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Action-Creators machen Server-Calls</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-export const loadPost = postId => dispatch => {
-fetch(BACKEND_URL+'/'+postId)
-    .then(response => response.json())
-    .then(post => dispatch({
-        type: ADD_POST,
-        post
-    });
-};
-</code></pre>
-          <ul>
-            <li class="fragment">
-              Die Action wird nicht direkt zurück geliefert, sondern erst später dispatched
-            </li>
-            <li class="fragment">
-              wir bekommen die dispatch Methode als Parameter, mit der wir später die Action
-              dispatchen
-            </li>
-          </ul>
-          <p class="fragment">
-            <strong
-              >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
-              Operationen ausführen dürfen</strong
-            >
-          </p>
-        </section>
-
-        <section>
-          <h3>Ein <em>einziger</em> Store hält den <em>kompletten</em> Zustand</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { rootReducer } from './reducers';
-
-// http://redux.js.org/docs/api/createStore.html
-const store = createStore(
-rootReducer // reducer
-);
-ReactDOM.render(
-&lt;Provider store={store}>
-    &lt;App />
-&lt;/Provider>,
-mountNode
-);
-    </code></pre>
-          <ul>
-            <li class="fragment">Zentraler Teil der Anwendung</li>
-            <li class="fragment">Liefert die bereits bekannte dispatch-Methode</li>
-            <li class="fragment">
-              Der Store wird allen Componenten über die Wrapper-Komponenten <em>Provider</em>
-              zur Verfügung gestellt
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Middleware zwischen Dispatch und Store</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import { applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-
-const store = createStore(
-  rootReducer, // reducer
-  applyMiddleware(thunk) // middleware as enhancer
-);
-    </code></pre>
-          <ul>
-            <li class="fragment">Die Thunk Middleware dient als de-facto-Standard</li>
-            <li class="fragment">
-              Gibt die dispatch-Methode and (asynchrone) Action Creators weiter
-            </li>
-            <li class="fragment">
-              <a href="https://github.com/gaearon/redux-thunk#whats-a-thunk" target="_blank">
-                'A thunk is a function that wraps an expression to delay its evaluation'
-              </a>
-            </li>
-            <li class="fragment">
-              Middleware ist ein fortgeschrittenes Feature und meistens genügt die Thunk Middleware
-            </li>
-          </ul>
-        </section>
-        <section>
-          <h3>(Zwischen-)Zusammenfassung</h3>
-          <ol>
-            <li class="fragment">Wir erzeugen <b>Actions</b> mit einem <b>Action Creator</b></li>
-            <li class="fragment">Die Action wird durch mögliche <b>Middlewares</b> gesendet</li>
-            <li class="fragment">
-              Wenn keine Middleware es unterbindet, wird danach die Action an den
-              <b>Store</b> geschickt
-            </li>
-            <li class="fragment">Der Store verteilt die Action an alle <b>Reducer</b></li>
-          </ol>
-        </section>
-
-        <section>
-          <h3>Reducers enthalten die Kern-(Business)-Logik</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import {combineReducers} from 'redux';
-
-// http://redux.js.org/docs/api/combineReducers.html
-export const rootReducer = combineReducers({
-posts, // Blog Posts
-auth   // Aktueller Benutzer
-});
-    </code></pre>
-          <ul>
-            <li class="fragment">
-              Reducer sind pure Funktionen, die den alten Zustand und eine Action bekommen und einen
-              neuen Zustand erzeugen
-            </li>
-            <li class="fragment">Oft bearbeitet ein Reducer nur einen Teil des Zustands</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Teil-Reducer</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-const auth = (state = {}, action) => {
-switch (action.type) {
-    case "LOGIN":
-        return { currentUser: action.username };
-    case "LOGOUT":
-        return {};
-    default:
-        return state;
-  }
-};
-    </code></pre>
-          <ul>
-            <li class="fragment">
-              Initialisiert seinen Teilzustand (oft mit einem Default-Parameter)
-            </li>
-            <li class="fragment">Ändert niemals zustand direkt</li>
-            <li class="fragment">
-              Sondern liefert einen <b>neuen</b> Zustand, der alte darf nicht verändert werden
-            </li>
-            <li class="fragment">
-              Die Bibliothek
-              <a href="https://immerjs.github.io/immer/docs/introduction">immer</a> kann beim
-              Arbeiten mit unveränderlichen Daten helfen
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>useSelector: Auf den globalen Zustand zugreifen</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import { useSelector } from 'react-redux';
-
-function App() {
-  const currentUser = useSelector(state => state.auth.currentUser);
-  ...
-}
-</code></pre>
-          <ul>
-            <li class="fragment">useSelector erwartet eine <em>selector-Funktion</em></li>
-            <li class="fragment">
-              Die selector-Funktion wird von Redux aufgerufen und bekommt den
-              <em>kompletten Zustand</em> als Parameter
-            </li>
-            <li class="fragment">
-              Die Funktion wählt aus dem Zustand den für die Komponente relevanten Teil aus
-            </li>
-            <li class="fragment">
-              Du kannst mehr als einen useSelector-Aufruf in einer Komponente tätigen. Du solltest
-              nur primitive Werte zurückgeben (keine Objekte). Bei Objekten musst Du eventuell die
-              <a href="https://react-redux.js.org/api/hooks#equality-comparisons-and-updates"
-                >shallowEqual-Funktion</a
-              >
-              übergeben.
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>useSelector #2: TypeScript</h3>
-          <ul>
-            <li class="fragment">
-              Du kannst dem <code>useSelector</code>-Hook einen Typ-Parameter übergeen, der die
-              Struktur des globalen Zustands beschreibt
-            </li>
-            <li class="fragment">
-              Dann hast Du in der übergebenen Selector-Funktion Typsicherheit
-            </li>
-          </ul>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-import { useSelector } from 'react-redux';
-
-function App() {
-  const currentUser = useSelector( 
-    (state: MyAppState) => state.auth.currentUser // OK
-  ); 
-
-  const invalidUser = useSelector(
-    (state: MyAppState) => state.auth.currentUer // ERR: currentUer not defined
-  ); 
-  
-  ...
-}
-</code></pre>
-        </section>
-
-        <section>
-          <h3>useDispatch: Actions auslösen</h3>
-          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-      import { useDispatch } from 'react-redux';
-      
-      import * as actions from './actions';
-      
-      function App() {
-        const dispatch = useDispatch();
-
-        async function login(newUser) {
-          await dispatch(actions.login(newUser));
-        }
-        ...
-      }
-    </code></pre>
-        </section>
-
-        <section>
-          <h2>Zusammenfassung Redux-Architektur</h2>
-          <img
-            src="slides/images/redux-03-resulting-redux-architecture.png"
-            style="max-height: 650px;"
-          />
-        </section>
-        <section>
-          <h3>Redux Toolkit</h3>
-          <p>
-            <em
-              >"The official, opinionated, batteries-included toolset for efficient Redux
-              development"</em
-            >
-          </p>
-          <ul>
-            <li><a href="https://redux-toolkit.js">https://redux-toolkit.js.org/</a></li>
-            <li>Pre-configured (including thunk and immer)</li>
-            <li>Simplifies implementing action creators and reducers</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Local state is still "allowed"!</h3>
-          <p>There are a lot of places where you can hold state</p>
-          <ul>
-            <li class="fragment">Server and client</li>
-            <li class="fragment">Component State</li>
-            <li class="fragment">Redux</li>
-            <li class="fragment">URL, Session or Local Storage</li>
-          </ul>
-
-          <img
-            class="fragment"
-            src="slides/images/three-kinds-of-state.png"
-            style="max-height: 650px;"
-          />
-        </section>
-
-        <section>
-          <h3>Redux vs Context</h3>
-          <p class="fragment">
-            Redux hat Dev Tools, Time Travelling, Middlewares, globale Actions und Reducers/State
-          </p>
-          <p class="fragment">Redux ist sehr optimiert für Performance (häufige Updates)</p>
-          <p class="fragment">Context von der API her einfacher (aber auch nicht so mächtig)</p>
-          <p class="fragment">
-            Redux lässt feingranularere Auswahl aus dem globalen Zustand zu (verhindert unnötige
-            Renderings)
-          </p>
-        </section>
-
-        <section>
-          <h3>Redux vs Context</h3>
-          <h3><em>Wie entscheiden wir uns?</em></h3>
-          <p class="fragment">
-            Entscheidung 1: Mischform: Redux <b>und</b> Context? Oder: Redux <b>oder</b> Context
-          </p>
-          <p class="fragment">Entscheidung 2: Was kommt wohin?</p>
-          <p class="fragment">Auth-State (eingeloggter Benutzer)</p>
-          <p class="fragment">Api-State: Netzwerk Request(s) laufen gerade</p>
-          <p class="fragment">Draft-Post: editierters, neues, Post</p>
-        </section>
-
-        <section>
-          <h2>Geschafft! 😊</h2>
-          <h3>Vielen Dank für Eure Teilnahme!</h3>
-          <h3>Viel Spaß und Erfolg mit React!</h3>
-          <p>
-            Wenn ihr noch Fragen habt, könnt ihr mich erreichen:
-          </p>
-          <p>Mail: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a></p>
-          <p>
-            Web: <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a>
-          </p>
-          <p>
-            Twitter: <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
-          </p>
         </section>
       </div>
     </div>
