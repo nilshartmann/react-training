@@ -779,8 +779,7 @@ function PostEditor({initialTitle, initialBody}) {
                 <li><code>msg</code>: ein String mit einer Nachricht</li>
                 <li>
                   <code>type</code>: kann entweder der String <code>"error"</code> oder der String
-                  <code>"info"</code> sein. Falls nicht gesetzt, sollte <code>error</code> der
-                  Default sein
+                  <code>"info"</code> sein
                 </li>
               </ul>
             </li>
@@ -791,9 +790,10 @@ function PostEditor({initialTitle, initialBody}) {
               <code>style={{color: "red"}}</code>)
             </li>
             <li class="fragment">
-              Verwende die Komponente im PostEditor, um Meldungen unter den beiden Feldern
-              <code>title</code> und <code>body</code> auszugeben (Error-Message wenn Feld leer,
-              sonst irgendeine Meldung)
+              Verwende die Komponente im PostEditor: um eine Fehler-Meldung unter dem Formular
+              auszugeben (z.B. "Bitte füllen Sie das Formular aus") wenn <code>title</code> oder
+              <code>body</code> leer sind bzw. eine Info-Meldung, wenn die beiden Felder gefüllt
+              sind ("Sie haben alle erforderlichen Eingaben getätigt!")
             </li>
 
             <li class="fragment">Mögliche Lösung: <code>steps/2a-editor-mit-props</code></li>

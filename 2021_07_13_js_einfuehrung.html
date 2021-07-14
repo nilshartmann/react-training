@@ -891,14 +891,17 @@ person.sayHello();  Hello, undefined 🤪
 
           <pre class="fragment"><code class="javascript">
 const persons = [
-  { lastname: "Mueller", firstname: Klaus, age: 32 }, 
-  { lastname: "Meier", firstname: Susi, age: 33 }
+  { lastname: "Mueller", firstname: "Klaus", age: 32 }, 
+  { lastname: "Meier", firstname: "Susi", age: 33 }
 ]      
 
 const olderPersons = persons.map( p => {
   return { ...p, age: p.age + 1 }
 })
           </code></pre>
+          <p class="fragment">
+            Im "echten" Leben: <a href="https://immerjs.github.io/immer/">ImmerJS</a>
+          </p>
         </section>
         <section>
           <h2>Übung: Arbeiten mit Objekten</h2>
@@ -1225,7 +1228,7 @@ const olderPersons = persons.map( p => {
           </p>
         </section>
 
-        <!-- =============================================================================
+        <!-- ============================================================================= -->
         <section>
           <h2>Web-Entwicklung mit "vanilla" JavaScript</h2>
 
@@ -1287,7 +1290,7 @@ const olderPersons = persons.map( p => {
               document.body.appendChild(greetButton);
           &lt;/script>
         &lt;/html>    </code></pre>
-        </section> -->
+        </section>
       </div>
     </div>
 
