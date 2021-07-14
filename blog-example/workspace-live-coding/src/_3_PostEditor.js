@@ -46,17 +46,7 @@ export default function PostEditor(props) {
       <button disabled={clearDisabled} onClick={clear}>
         Clear
       </button>
-      <button
-        disabled={saveButtonDisabled}
-        onClick={() => {
-          props.onSavePost({
-            title,
-            body
-          });
-        }}
-      >
-        Save Post
-      </button>
+      <button disabled={saveButtonDisabled}>Save Post</button>
     </div>
   );
 }
