@@ -784,6 +784,14 @@ function PostEditor({initialTitle, initialBody}) {
               </ul>
             </li>
             <li class="fragment">
+              Beispielhafte Verwendung:
+
+              <pre><code class="javascript">
+                &lt;Message type="info" msg="Alles prima!" />
+                &lt;Message type="error" msg="Leider fehlerhaft" /> 
+              </code></pre>
+            </li>
+            <li class="fragment">
               Die Komponente soll die übergebene Nachricht aus <code>msg</code> anzeigen: Wenn type
               auf <code>error</code> gestellt ist (oder kein type gesetzt ist), soll die
               <code>msg</code> als Fehler in roter Schrift ausgegeben werden (CSS-Eigenschaft
