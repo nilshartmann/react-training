@@ -1,8 +1,20 @@
 import React from "react";
+import { NewBlogPost } from "./types";
 
-export default function PostEditor(props) {
-  const [title, setTitle] = React.useState("");
-  const [body, setBody] = React.useState("");
+interface PostEditorProps {
+  initialTitle?: string;
+  initialBody?: string;
+
+  onSavePost(newPost: NewBlogPost): void;
+}
+
+export default function PostEditor({
+  initialBody = "",
+  initialTitle = "",
+  onSavePost
+}: PostEditorProps) {
+  const [title, setTitle] = React.useState(initialTitle);
+  const [body, setBody] = React.useState(initialBody);
 
   const clearDisabled = !title && !body;
   const saveButtonDisabled = !title || !body;
@@ -42,7 +54,7 @@ export default function PostEditor(props) {
       <button
         disabled={saveButtonDisabled}
         onClick={() => {
-          props.onSavePost({
+          onSavePost({
             title,
             body
           });
@@ -54,8 +66,20 @@ export default function PostEditor(props) {
   );
 }
 
-function Message({ msg, type = "error" }) {
-  const style = type === "error" ? { color: "red", fontWeight: "bold" } : { color: "green" };
+// TODO:
+//   - add type for properties.
+//     Remember:
+//       - 'msg' is a mandatory string
+//       - 'type' can only be 'error' or 'info'
+//
+//     The type for the 'style' const is 'React.CSSProperties'
+interface MessageProps {
+  msg: string;
+  type?: "error" | "info";
+}
+function Message({ msg, type = "error" }: MessageProps) {
+  const style: React.CSSProperties =
+    type === "error" ? { color: "red", fontWeight: "bold" } : { color: "green" };
 
   return <p style={style}>{msg}</p>;
 }

@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>React Training</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="stylesheet" href="slides/styles.css" />
+    <script src="slides/export.js"></script>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-state="title">
+          <h2 class="title" style="font-size: 7rem;">
+            <b>React Workshop</b>
+          </h2>
+
+          <h4>
+            <span class="transparent-bg">
+              <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a> |
+              <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+            </span>
+          </h4>
+
+          <p style="margin-top: 4rem;"></p>
+          <div>
+            <h3><span class="transparent-bg">Vorbereitung</span></h3>
+            <p>
+              <span class="transparent-bg"
+                >git clone https://github.com/nilshartmann/react-training</span
+              >
+            </p>
+            <p>
+              <span class="transparent-bg">oder: git pull</span>
+            </p>
+          </div>
+          <p style="margin-top: 4rem;"></p>
+          <div>
+            <h3><span class="transparent-bg">Slides</span></h3>
+            <p>
+              <span class="transparent-bg">Lokal: 2021_07_05_react_redux_typescript.html</span>
+            </p>
+          </div>
+        </section>
+        <section>
+          <img src="slides/images/Deckblatt_devmedia_Trainings.png" />
+        </section>
+        <section>
+          <h2>Nils Hartmann</h2>
+          <p>
+            <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a> /
+            <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+          <p><em>Freiberuflicher Software-Entwickler, Berater und Trainer aus Hamburg</em></p>
+
+          <div style="display: flex; justify-content: center;">
+            <div>
+              <p>Java</p>
+              <p>JavaScript, TypeScript</p>
+              <p>React</p>
+              <p>Single-Page-Applications</p>
+              <p>GraphQL</p>
+              <p style="margin-top: 20px;">
+                <a href="https://reacttraining.dev">Schulungen und Workshops</a>
+              </p>
+              <p>Alle Dienstleistungen <b>auch online!</b></p>
+            </div>
+            <div style="margin-left: 15px;">
+              <a href="https://reactbuch.de"
+                ><img
+                  style="max-height: 450px;"
+                  src="slides/images/react-buch-v2.jpg"
+                /><br />https://reactbuch.de</a
+              >
+              <br />
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================================= -->
+
+        <section>
+          <h2>Agenda</h2>
+          <ul style="font-size: 85%;">
+            <li>
+              <a href="#/t1">Testen von Anwendungen</a>
+            </li>
+
+            <li>
+              <a href="#/t-cra">create-react-app</a>
+            </li>
+          </ul>
+        </section>
+
+        <section id="t-test">
+          <h2>Testen von React Anwendungen</h2>
+        </section>
+
+        <section data-transition="slide none">
+          <h2>Was testen wir?</h2>
+          <ul>
+            <li class="fragment">
+              <b>UI-unabhängige Logik</b> (zum Beispiel Backend Calls, Berechnungen etc.)
+            </li>
+            <li class="fragment">
+              <b>Rendering</b> (Ist die Liste der Blog Posts korrekt? Sieht das Markup aus, wie wir
+              uns das vorstellen?)
+            </li>
+            <li class="fragment">
+              <b>Interaktionen</b> (funktionieren die Event Handler, die Callback-Funktionen, der
+              Programmfluß etc.?)
+            </li>
+            <li class="fragment">
+              <b>Verhalten im Browser</b> (z.B. korrekte, pixelgenaue Darstellung,
+              Browser-spezifisches JavaScript, Arbeiten mit Browser-Technologie wie Titelzeile,
+              Session Storage, Scrollbars etc)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Jest</h1>
+          <p>
+            <em
+              >"Delightful JavaScript Testing" (
+              <a href="https://jestjs.io/" target="_blank">https://jestjs.io/</a>)</em
+            >
+          </p>
+          <p class="fragment">
+            Vollständige Testlösung für React (und andere):
+          </p>
+          <ul class="fragment">
+            <li>Test Runner</li>
+            <li>Specs/Assertions, Mocks</li>
+            <li>Code Coverage</li>
+            <li>"Snapshot testing"</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Jest</h4>
+          <h3>Beispiel: Ein einfacher Testfall</h3>
+          <pre><code class="javascript" contenteditable data-trim>// sum.js (or sum.ts)
+export const sum = (a,b) => a+b;
+        </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>// sum.test.js
+import {sum} from '../sum.js';
+
+test('sum of 2 and 2 is 4', () => {
+  expect(sum(2, 2)).toBe(4);
+});
+
+test('sum of 2 and 2 is not 3', () => {
+  expect(sum(2, 2)).not.toBe(3);
+});
+            </code></pre>
+        </section>
+        <section>
+          <h4>Jest</h4>
+          <h2>Testcases</h2>
+          <p>
+            <code>test</code> oder
+            <code>it</code>
+          </p>
+          <pre><code data-trim contenteditable>test('it should work', () => {
+  expect(...).toBe(...);
+});</code></pre>
+          <pre><code data-trim contenteditable>it('it should also work', () => {
+  expect(...).toBe(...);
+});</code></pre>
+        </section>
+
+        <section>
+          <h4>Jest</h4>
+          <h2>"Expectations" und "Matchers"</h2>
+          <div class="fragment">
+            <p>
+              <code>expect()</code> liefert ein <em>Expectation</em> Objekt zurück, das verschiede
+              <em>Matcher</em> Funktionen bereitstellt:
+            </p>
+            <pre><code data-trim contenteditable>expect(actual).toXyz(expected);
+// for example:
+expect("Hello Jest").toBe("Hello Jest"); // => ok
+        </code></pre>
+          </div>
+          <div class="fragment">
+            <p>Beispiele für Matchers</p>
+
+            <pre><code data-trim contenteditable>// Compare identity
+expect(actual).toBe(expected);
+// Compare value:
+expect(actual).toEqual(expected);
+// true / false / null:
+expect(actual).toBeTruthy();
+expect(actual).toBeFalsy();
+expect(actual).toBeNull();
+// Length (Array oder String)
+expect(actual).toHaveLength(123);
+        </code></pre>
+          </div>
+          <p class="fragment">
+            <a href="https://jestjs.io/docs/en/expect">https://jestjs.io/docs/en/expect</a>
+          </p>
+        </section>
+
+        <section>
+          <h4>Jest</h4>
+          <h2>Mock Funktionen</h2>
+          <ul>
+            <li class="fragment">
+              <code>jest.fn()</code> erzeugt eine Mock-Funktion
+              <pre><code data-trim contenteditable>// Gibt undefined zurück, wenn die Mock-Funktion ausgeführt wird
+const aMockFn = jest.fn();
+
+const x = aMockFn("huhu"); // => undefined
+expect(x).toBeUndefined();
+
+expect(aMockFn).toHaveBeenCalled());
+expect(aMockFn.toHaveBeenCalledWith("huhu"));
+                      </code></pre>
+            </li>
+
+            <li class="fragment">
+              Implementierung der Mock-Funktion kann als Parameter übergeben:
+              <pre><code data-trim contenteditable>
+        const aMockFn = jest.fn( param => `Hello, ${param}` );
+        
+        console.log(aMockFn('World'));
+        // => Hello, World
+                  </code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Ausführen von Tests</h3>
+          <ul>
+            <li>
+              Mit <code>npm test</code> werden alle Tests ausgeführt:
+              <ul>
+                <li>
+                  In allen <code>__tests__</code>-Verzeichnissen (<b>alle!</b> Dateien darin werden
+                  als Test-Datei interpretiert...)
+                </li>
+                <li>Alle <code>*.test.*</code>-Dateien</li>
+              </ul>
+            </li>
+            <li>
+              Test-Dateien werden üblicherweise in dasselbe Verzeichnis gelegt, in dem auch die zu
+              testende Datei liegt oder in ein "__tests__"-Unterverzeichnis direkt darunter
+            </li>
+            <li>
+              Mehr Info:
+              <a href="https://create-react-app.dev/docs/running-tests/#filename-conventions"
+                >CRA Doku</a
+              >
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: Jest</h3>
+          <ul>
+            <li>Wir arbeiten im Verzeichnis <code>blog-example/workspace-test</code></li>
+            <li>Dort findest Du eine React-Anwendung, für die wir Tests entwickeln werden</li>
+            <li>
+              Die Tests kannst Du ausführen mit <code>npm test</code> auf der Kommandozeile. Sobald
+              Du Änderungen im Workspace machst und speicherst, werden die Tests erneut ausgeführt
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+
+        <section>
+          <h3>Übung: Jest</h3>
+
+          <p>Hintergrund: die <code>createPost</code>-Funktion</p>
+
+          <p class="fragment">
+            Die Funktion <code>createPost</code> erstellt aus einem <code>title</code> und
+            <code>body</code>
+            ein Blog-Post-Objekt:
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            const post = createPost("Intro to Jest", "You will learn Jest here");
+            // post:
+            //  {
+            //    title: "Intro to Jest",
+            //    body: "You will learn Jest here"
+            //  }  
+          </code></pre>
+
+          <p class="fragment">
+            Wenn als einziger Parameter <code>null</code> übergeben wird, liefert die Funktion null
+            zurück:
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            const post = createPost(null);
+            // post === null
+          </code></pre>
+
+          <p class="fragment">
+            Zusätzlich kann der Funktion eine "Slug-Generator"-Funktion übergeben werden. Diese
+            Callback-Funktion wird von createPost verwendet, um eine Slug (für eine URL) zu
+            erzeugen. Dafür wird der Callback-Funktion der Post-Titel übergeben. Die Funktion
+            liefert dann einen Slug zurück, der auch ins Post-Objekt aufgenommen wird:
+          </p>
+          <pre class="fragment"><code class="javascript">
+           const post = createPost("Intro to Jest", "You will learn Jest here", 
+                                   title => "/" + title.toLowerCase()
+                                  );
+            // post:
+            //  {
+            //    title: "Intro to Jest",
+            //    body: "You will learn Jest here",
+            //    slug: "/intro to jest"
+            //  }  
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: Jest</h3>
+          <p><em>Implementiere Testfälle für die createPost-Funktion</em></p>
+          <ol>
+            <li>
+              Stelle sicher, dass beim Aufrufen mit zwei String-Parametern das korrekte Post-Objekt
+              erzeugt wird
+            </li>
+            <li>
+              Stelle sicher, dass beim Aufruf mit einem Parameter (<code>null</code>) auch
+              <code>null</code> zurück geliefert wird
+            </li>
+            <li>
+              Schreibe eine Mock-Funktion für den Slug-Generator und rufe createPost damit auf.
+              <ol>
+                <li>Stelle sicher, dass der Slug im Post-Objekt enthalten ist</li>
+                <li>
+                  Stelle sicher, dass deine Generator-(Mock-)Funktion mit dem übergebenen Post-Titel
+                  aufgerufen wurde
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Testen von React Komponenten</h3>
+          <h2>Nur rendern</h2>
+        </section>
+
+        <section>
+          <h3>React Test Renderer</h3>
+          <p>
+            <a href="https://www.npmjs.com/package/react-test-renderer"
+              >https://www.npmjs.com/package/react-test-renderer</a
+            >
+          </p>
+          <p>Rendert React Komponenten in JSON Objekte (ohne DOM):</p>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
+
+const component = renderer.create(
+  &lt;PostList posts={somePosts} />
+);
+
+console.log(component.toJSON());
+            </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+        { type: 'div',
+          props: {},
+          children:  [
+            { type: 'button', props: {}, children: [Object] },
+            { type: 'article', props: [Object], children: [Object] },
+            { type: 'article', props: [Object], children: [Object] }
+          ]
+        }
+            </code></pre>
+        </section>
+        <section>
+          <h3>"Snapshot Testing" mit Jest</h3>
+          <p>
+            <code>expect(obj).toMatchSnapshot()</code> vergleicht ein erzeugtes JSON-Objekt mit
+            einem gespeicherten JSON-Objekt aus einer Datei:
+          </p>
+          <ul>
+            <li class="fragment">
+              Bei der <b>ersten</b> Ausführung: Snapshot-Datei wird angelegt (
+              <a href="slides/images/jest-snapshot-file.png" target="_blank">Beispiel</a>)
+              <ul>
+                <li class="fragment">Die Snapshot-Datei wird nun in Git eingecheckt</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              In den <b>folgenden</b> Test Ausführungen: ein neuer Snapshot wird jeweils erzeugt und
+              mit dem <b>gespeicherten</b> Snapshot verglichen
+            </li>
+            <li class="fragment">
+              Wenn die Snapshots nicht identisch sind:
+              <ul>
+                <li>
+                  Fehler mit Unterschieden (
+                  <a href="slides/images/jest-snapshot-diff.png" target="_blank">Beispiel</a>)
+                </li>
+                <li>
+                  Im "watch mode" von Jest kann der Snapshot aktualisiert werden
+                  <img src="slides/images/jest-snapshot-update.png" />
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Snapshot Tests mit Jest und React</h3>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
+        
+test('it should render correctly', () => {
+
+  const somePosts = [ . . . ];
+
+  const component = renderer.create(
+    &lt;PostList posts={somePosts} />
+  );
+
+  expect(component.toJSON()).toMatchSnapshot();
+});
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Testing React Components #2</h3>
+          <h2>Interaktionen</h2>
+        </section>
+
+        <section>
+          <h3>react-testing-library</h3>
+          <p>
+            <em
+              >"Simple and complete React DOM testing utilities that encourage good testing
+              practices."
+            </em>
+          </p>
+
+          <p>
+            <a href="https://github.com/testing-library/react-testing-library" target="_blank"
+              >https://github.com/testing-library/react-testing-library</a
+            >)
+          </p>
+          <p>
+            Philosophie: Tests werden aus User-Perspektive geschrieben. Das bedeutet, um die zu
+            testenden Elemente zu finden, suchst Du nach Eigenschaften, nach denen auch ein User
+            suchen würde (z.B. Labels, Placeholder etc.)
+          </p>
+          <p class="fragment">👉 <code>workspace-typescript</code></p>
+        </section>
+
+        <section>
+          <h3>Die render-Funktion</h3>
+          <p>
+            Die render-Function aus der react-testing-library wird im Test verwendet, um eine React
+            Komponente (ohne Browser) zu rendern
+          </p>
+          <p>
+            Genauso wie in der Anwendungen können Properties angegeben werden
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            import { render } from "@testing-library/react";
+
+              // Render a single component
+              render(&lt;PostList onAddPost={onAddPostFn} posts={mockPosts} />);
+          </code></pre>
+          <p class="fragment">
+            Dran denken, ggf. Contexte ebenfalls zu erzeugen, falls diese benötigt werden (React
+            Router, Redux etc)!
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+
+              // Render with surrounding Redux Provider (or Router, your own Context etc.)
+              render(
+                &lt;Provider>
+                  &lt;PostList onAddPost={onAddPostFn} posts={mockPosts} />
+                &lt;/Provider>
+              );
+            </code></pre>
+        </section>
+        <section>
+          <h3>query Funktionen</h3>
+          <p>
+            Um die gerenderten HTML-Elemente aus deiner Komponente zu überprüfen und mit ihnen zu
+            interagieren, musst Du sie ersteinmal finden 🤓
+          </p>
+          <p>
+            Auf dem globalen <b>screen</b> Objekt der Testing-Lib sind verschiedene Funktionen
+            definiert, mit denen Du nach Elementen suchen kannst
+          </p>
+          <p>
+            Die query-Funktionen haben unterschiedliche <b>Suffixe</b>, die beschreiben,
+            <b>nach welchem Kriterium</b> Du suchst (nach Label, nach aria-role, ...)
+          </p>
+          <p>
+            Die Funktionen haben außerdem jeweils einen <b>Präfix</b> (getBy, queryBy etc) der
+            beschreibt, die Art des Rückgabewerts der jeweilgen Funktion (z.B. ob sie einen Error
+            wirft oder null zurückgibt, wenn das angefragte Element nicht gefunden wurde)
+          </p>
+          <p>
+            Mehr zu den query-Funktionen:
+            <a
+              target="_blank"
+              href="https://testing-library.com/docs/react-testing-library/cheatsheet#queries"
+              >React Testing Library Cheatsheet</a
+            >
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+  // BEISPIELE: 
+
+  // suche nach einem Button (Annahme: es gibt GENAU EINEN, ansonsten schlägt der Test fehl)
+  const buttonElement = screen.getByRole("button", { name: "Add Post" });
+
+  // suche nach einem Button (gibt null oder EINEN Button, wirft ansonst einen Fehler)
+  const buttonElement = screen.queryByRole("button", { name: "Add Post" });
+
+  // suche nach einem Button (gibt alle gefunden zurück oder ein leeres Array)  
+  const buttonElement = screen.queryAllByRole("button", { name: "Add Post" });
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Überprüfen von Elementen</h3>
+          <p>
+            Wenn Du dein gesuchtes Elemente gefunden hast, kannst Du es überprüfen, ob es deinen
+            Erwartungen entspricht (korrekte Attribute gesetzt etc.)
+          </p>
+          <p>
+            Die Bibliothek
+            <a href="https://github.com/testing-library/jest-dom" target="_blank">jest-dom</a> fügt
+            dazu DOM-spezifiche Matcher für Jest hinzu.
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+  import { screen } from "@testing-library/react";
+
+  const buttonElement = screen.queryByRole("button", { name: "Add Post" });
+
+  // stellt sicher, dass das Element im DOM vorhanden ist (getBy-Query würde hier vielleicht mehr Sinn machen)
+  expect(buttonElement).toBeInTheDocument();
+
+  // sicherstellen, dass ein Eingabefeld einen erwarteten Wert hat
+  expect(titleInput).toHaveValue("Moin moin");
+
+  // sicherstellen, dass ein Button disabled ist
+  expect(okButton).toBeDisabled();
+</code></pre>
+          <p class="fragment">
+            Alle Matcher sind auf der oben verlinkten GitHub Seite dokumentiert
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Playground: Browser-Plugin</h3>
+          <p>
+            Es gibt Browser-Plugins für Chrome und Firefox, mit denen Du Queries ausprobieren
+            kannst:
+          </p>
+          <ul>
+            <li>
+              <a href="https://addons.mozilla.org/de/firefox/addon/testing-playground/">Firefox</a>
+            </li>
+            <li>
+              <a
+                href="https://chrome.google.com/webstore/detail/testing-playground/hejbmebodbijjdhflfknehhcgaklhano"
+                >Chrome</a
+              >
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Debugging</h3>
+
+          <p>Du kannst den gerenderten DOM mit <code>prettyDOM</code> ausgeben:</p>
+
+          <pre class="fragment"><code class="javascript">
+import { prettyDOM, render } from "@testing-library/react";
+
+test('...', () => {
+  render(&lt;MyComponent />);
+
+  console.log(prettyDOM());
+});
+
+  </code></pre>
+
+          <p class="fragment">
+            Du kannst alle aria-Rollen eines Elementes mit <code>logRoles</code> ausgeben:
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+import { logRoles, render } from "@testing-library/react";
+
+test('...', () => {
+  const result = render(&lt;MyComponent />);
+
+  logRoles(result.baseElement);
+
+});     
+   </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: Starten der Anwedung</h3>
+
+          <p>
+            <em
+              >Wir brauchen zum Testen keine laufende Anwendung, wir starten sie aber gemeinsam,
+              damit ihr sie ausprobieren könnt, und wisst, was ihr überhaupt testet</em
+            >
+          </p>
+
+          <ol>
+            <li>
+              Schritt 1: REST-Backend, dazu bitte ein Terminal/eine Shell im Verzeichnis
+              <code>blog-example/backend-rest</code> öffnen
+            </li>
+            <li><code>npm install</code> ausführen</li>
+            <li><code>npm start</code> ausführen</li>
+            <li>
+              Schritt 2: React-Anwendung, dazu bitte ein Terminal/eine Shell im Verzeichnis
+              <code>blog-example/workspace-test</code> öffnen
+            </li>
+            <li><code>npm install</code> ausführen</li>
+            <li><code>npm start</code> ausführen</li>
+            <li>
+              Die Anwendung sollte jetzt auf
+              <a href="http://localhost:3000">http://localhost:3000</a> laufen
+            </li>
+          </ol>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: Rendern von Komponenten und Überprüfen von Elementen</h3>
+
+          <p><em>Schreibe Tests für die PostList-Komponente</em></p>
+          <ol>
+            <li>
+              In der Datei <code>__tests__/PostEditor.test.ts</code> stehen TODOs für Testfälle
+            </li>
+            <li>
+              Mit <code>npm test PostEditor</code> kannst Du die Ausführung der Tests auf diese
+              Datei beschränken.
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Interaktionen</h3>
+          <p>
+            Du kannst mit den Elementen interagieren, in dem Du ihnen Events sendest, genau wie es
+            ein Browser tun würde
+          </p>
+          <p>
+            Es gibt eine weitere Bibliothek,
+            <a href="https://github.com/testing-library/user-event" target="_blank"> user-event</a>,
+            die dir dabei hilft, die Events zu erzeugen.
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            import userEvent from "@testing-library/user-event";
+            // Simuliert die Eingabe in ein Textfeld
+            userEvent.type(titleInput, "New Title");
+
+            // Simuliert den Klick auf einen Button
+            userEvent.click(clearButton);
+          </code></pre>
+          <p class="fragment">
+            Alle Events sind in der
+            <a href="https://testing-library.com/docs/ecosystem-user-event/">Dokumentation</a>
+            beschrieben (Link oben)
+          </p>
+
+          <p class="fragment">
+            Vor dem Versenden eines Events musst Du <b>nicht</b> überprüfen, ob das Element, dem Du
+            das Event senden willst, vorhanden ist. Die Bibliothek gibt sehr sprechende Fehler aus,
+            wenn das Element nicht vorhanden ist
+          </p>
+        </section>
+        <section>
+          <h3>Testen von fetch-Aufrufen</h3>
+          <p>Herausforderungen:</p>
+          <ul>
+            <li>Asynchroner Code (nicht beschränkt auf fetch)</li>
+            <li>Server Zugriffe/Server Mocks</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Behandlung von asynchronem code</h3>
+        </section>
+
+        <section>
+          <h3>Testen von asynchronem Code</h3>
+          <p>
+            Beispiel: Die <b>App</b> Komponente lädt Daten, <em>erst dann</em> stellt sie die
+            PostList dar. Das Laden der Posts ist asynchron.
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            it("should render posts read from backend", () => {
+              render(&lt;App />);
+            
+              // Annahme: es gibt einen Artikel mit dem Title "Learning React"
+              const articleOne = screen.findByRole("heading", { name: "Learning React" });
+
+              expect(articleOne).toBeInTheDocument(); // THIS WON'T WORK!
+            });
+          </code></pre>
+          <p class="fragment">
+            Wir können einen Test als async-funktion schreiben und darin mit <b>await</b> auf ein
+            Element warten
+          </p>
+          <pre class="fragment"><code class="javascript">
+            // Test-Funktion als async-Funktion (beachte 'async'):
+            it("should render posts read from backend", async () => {
+              render(&lt;App />);
+            
+              // Beachte await hier:
+              const articleOne = await screen.findByRole("heading", { name: "Learning React" });
+
+              expect(articleOne).toBeInTheDocument(); // YIPPIE, WORKS
+            });
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Testen von fetch</h3>
+          <p>Wie gesehen, können wir asynchronen Code testen</p>
+          <p class="fragment">Wollen wir fetch-Aufrufe in unserem Code haben, den wir testen?</p>
+          <p class="fragment">
+            Möglicherweise nicht, weil wir bei echten fetch-Aufrufen auch einen echten, laufenden
+            und funktionierenden Server im Test bräuchten
+          </p>
+          <p class="fragment">Stattdessen wollen wir das "echte" fetch mocken</p>
+        </section>
+
+        <section>
+          <h3>Ansatz #1: fetch API mocken</h3>
+          <p>Es gibt mehrere Bibliothken mit fetch-Mocks</p>
+          <p>
+            Für mich funktioniert
+            <a href="https://www.npmjs.com/package/jest-fetch-mock" target="_blank"
+              >jest-fetch-mock</a
+            >
+            am Besten
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // App.test.tsx
+            it("should render posts read from backend", async () => {
+              // setzen des Ergebnisses, das der nächste fetch-Aufruf zurückliefern soll
+              fetchMock.mockResponse(JSON.stringify(mockPosts));
+
+              render(&lt;App />);
+            
+              // Immer noch asynchroner Code, aber kein "echter" fetch-Aufruf mehr,
+              // zurückgegeben wird das oben angegebene Ergebnis
+              const articleOne = await screen.findByRole("heading", { name: "One Fetch Mock" });
+
+              expect(articleOne).toBeInTheDocument();
+            });
+
+          </code></pre>
+          <p class="fragment">
+            Beispiel:
+            <code
+              >blog-example/steps/6a-testing-with-api-module/src/__tests__/App_jest_mock.test.tsx</code
+            >
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Ansatz #2: Mock Service Worker (MSW)</h3>
+
+          <p><a href="https://github.com/mswjs/msw" target="_blank">MSW</a></p>
+          <p>
+            MSW mockt echte Server-Aufrufe mit einem
+            <a href="https://developer.mozilla.org/de/docs/Web/API/Service_Worker_API"
+              >Service Worker</a
+            >
+          </p>
+          <p>
+            fetch-Aufrufe werden "richtig" ausgeführt, aber beantwortet von dem Service Worker Mock
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // PostList.test.js
+            import { rest } from 'msw'
+            import { setupServer } from 'msw/node'
+            
+            const server = setupServer(
+              rest.get('/posts', (req, res, ctx) => {
+                return res(ctx.json( mockPosts ))
+              }),
+            )
+
+            test("it should render blog list", async () => {
+              render(&lt;PostList />);
+              // ...
+            })
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: FetchMock</h3>
+
+          <p>
+            <em
+              >Schreibe einen Test, um die App-Komponente zu testen und mocke dabei die
+              fetch-Funktion</em
+            >
+          </p>
+
+          <ol>
+            <li>Die Test-Datei ist <code>App.test</code>, darin sind TODOs enthalten</li>
+            <li><code>npm test App.test</code>, um den Test auszuführen</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Fetch mocken, Ansatz #3</h3>
+          <p>Wir können <b>komplette Module</b> in Jest mocken</p>
+          <p class="fragment">
+            Wir könnten unseren fetch-Code in ein eigenes Modul schieben und das dann mocken
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // api.ts (fetch vereinfacht!)
+            export function readPosts() {
+              return fetch("http://localhost:7000/posts").then(response => response.json());
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // App.tsx:
+
+            import { readPosts } from "./api";
+            function App() {
+              // ...
+              React.useEffect(() => {
+                // Verwenden von readPosts hier:
+                readPosts()
+                  .then(json => {
+                    setLoading(false);
+                    setPosts(json);
+                  })
+                  .catch(err => console.error("Loading data failed: " + err));
+              }, []);
+            }
+          </code></pre>
+        </section>
+        <section>
+          <h3>Mocken von Modulen in Jest</h3>
+          <p>Es gibt mehrere Varianten. Das hier die einfachste(?)</p>
+
+          <pre class="fragment"><code class="javascript">
+            // App.test.tsx
+
+            const mockPosts = [
+              { id: "1", title: "One Fetch Mock", body: "Lorem ipsum" },
+              { id: "2", title: "Second Post Fetch Mock", body: "Some more content" }
+            ];
+
+            jest.mock("../api", () => ({
+              readPosts: () => Promise.resolve(mockPosts)
+            }));
+
+            it("should render posts read from backend", async () => {
+              render(&lt;App />);
+            
+              // Hier immer noch asnychroner Code (deswegen await), aber:
+              // kein laufender Server mehr benötigt
+              const articleOne = await screen.findByRole("heading", { name: "One" });
+              expect(articleOne).toBeInTheDocument();
+
+              expect(screen.getByText("Second Post")).toBeInTheDocument();
+            });
+          </code></pre>
+          <p class="fragment">
+            Beispiel:
+            <code
+              >blog-example/steps/6a-testing-with-api-module/src/__tests__/App_module_mock.test.tsx</code
+            >
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: Module mit Jest mocken</h3>
+
+          <p><em>Schreibe ein gemocktes Modul für das Laden von Blog-Posts</em></p>
+
+          <ol>
+            <li>Die Test-Datei ist <code>App-with-mock.test</code>, darin sind TODOs enthalten</li>
+            <li><code>npm test App-with-mock</code>, um den Test auszuführen</li>
+          </ol>
+        </section>
+
+        <!-- <section>
+          <h2>Übung: Ein Test für den PostEditor</h2>
+          <p>Schritte:</p>
+          <ol>
+            <li class="fragment">Arbeite in <code>blog-example/workspace-typescript</code></li>
+            <li class="fragment">
+              Starte in einem neuen Terminal <code>npm test</code> (der Prozess läuft "ewig")
+            </li>
+            <li class="fragment">
+              Es sollte einen fehlerhaften Test geben:
+              <b><code>PostEditor.test.tsx</code></b
+              >.
+            </li>
+            <li class="fragment">Warum? Weil der noch leer ist 😬!</li>
+            <li class="fragment">
+              Implementiere den fehlenden Test. In der Datei<b><code>PostEditor.test.tsx</code></b>
+              stehen TODOs dafür
+            </li>
+          </ol>
+          <p class="fragment">
+            Hinweis: wenn Du die Datei speicherst, werden die Tests automatisch neu ausgeführt
+            (solange Du
+            <code>npm test</code> noch laufen hast), ansonsten kannst Du "a" auf der Kommandozeile
+            drücken, zum erneuten Ausführen der Tests.
+          </p>
+          <p class="fragment">Mögliche Lösung in <code>steps/6-test</code></p>
+          <p class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</p>
+        </section> -->
+
+        <section>
+          <h2>Browser Tests</h2>
+          <p>Häufig eingesetzt:</p>
+          <ul>
+            <li class="fragment">
+              <a href="https://www.selenium.dev/">Selenium - The "classic"</a>
+            </li>
+            <li class="fragment">
+              <a href="https://devexpress.github.io/testcafe/" target="_blank">TestCafe</a> (mit
+              Support für sehr viele Browser, u.a. auch Cloud-Service
+              <a href="https://www.browserstack.com/" target="_blank">BrowserStack</a>
+            </li>
+            <li class="fragment"><a href="https://www.cypress.io/" target="_blank">Cypress</a></li>
+          </ul>
+          <p class="fragment">
+            In TestCafe und Cypress werden die Tests in JavaScript/TypeScript geschrieben, Selenium
+            gibt's für mehrere Sprachen
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Projekt-Struktur</h3>
+
+          <p><a href="https://react-file-structure.surge.sh/">???</a></p>
+
+          <ul>
+            <li>React macht relativ wenig Vorgaben</li>
+            <li>
+              Generell gilt:
+              <ul>
+                <li>so einfach wie möglich (insb. Verzeichnis-Struktur)</li>
+                <li>
+                  Dinge, die zusammen gehören, zusammen lassen ("Colocation"). Das gilt z.B. auch
+                  für unterschiedliche Datei-Typen (JS, CSS, Test)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section id="t-cra">
+          <h3>create-react-app</h3>
+
+          <ol>
+            <li>
+              Ist es möglich eine Lösung mit "npx create-react-app my-app --template typescript" zu
+              erstellen und anschließend Anpassungen an die Webpack Konfiguration vorzunehmen? Mir
+              ist nämlich aufgefallen, dass mit diesem Befehl ein Modul "react-scripts" (oder so
+              ähnlich) geladen wird, worin sich vermutlich die Konfigurationen verstecken und wir
+              somit da nicht so einfach etwas ändern können.
+            </li>
+            <li>
+              Wir haben nämlich tatsächlich selten bis gar nicht eine reine React-App, sondern
+              betten diese fast immer auf bestehenden Seiten ein.
+            </li>
+            <li>Was möchtet ihr denn anpassen?</li>
+          </ol>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>create-react-app</h3>
+          <ul>
+            <li>
+              Relativ starr, was Anpassungen angeht. Prinzip: kein Support für alles Mögliche,
+              sondern eine Konfiguration, die auch funktioniert
+            </li>
+            <li>
+              Konfiguration befindet sich in
+              <a
+                href="https://github.com/facebook/create-react-app/tree/main/packages/react-scripts"
+                >react-scripts</a
+              >, dieses Modul kann bei Bedarf aktualisiert werden, ohne den Rest des Projekts zu
+              beeinflussen
+            </li>
+            <li>
+              Es gibt "templates" (z.B. typescript), mit denen kann man das generierte Projekt
+              anpassen, leider aber nicht die Konfiguration 😢
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>create-react-app: Anpassungen</h3>
+          <p>
+            <em
+              >"Anpassungen" beziehen sich in der Regel auf Anpassungen der
+              Webpack-Konfiguration</em
+            >
+          </p>
+          <ol>
+            <li>
+              <b>eject</b>: Löst das react-scripts-Modul auf und kopiert alle Skripte direkt in
+              Euren Workspace. Ihr könnt sie frei anpassen, seid aber von Updates in react-scripts
+              abgekoppelt. Das ist die "offizielle" Lösung.
+            </li>
+            <li>
+              <a href="https://github.com/timarney/react-app-rewired">react-app-rewired</a>: Damit
+              könnt ihr einzelne Konfigurationen anpassen. Fraglich, wie gut das funktioniert, weil
+              create-react-app solche Anpassungen "offiziell" nicht vorsieht. An dieser Idee sind
+              schon andere Tools gescheitert.
+            </li>
+            <li>
+              Ihr forkt das
+              <a
+                href="https://github.com/facebook/create-react-app/tree/main/packages/react-scripts"
+                >create-react-app-Repo</a
+              >
+              und baut Eure eigene Version von react-scripts. Dann seid ihr zwar auch von
+              offiziellen Releases entkoppelt, aber könnt per Git immerhin die Änderungen
+              nachvollziehen und ggf. zu euch mergen
+            </li>
+          </ol>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>create-react-app: Alternativen</h3>
+
+          <ol>
+            <li><a href="https://nx.dev/react">NX</a></li>
+            <li><a href="https://neutrinojs.org/packages/react/">NeutrinoJS</a></li>
+          </ol>
+
+          <ul class="fragment">
+            <li>Beide viel mehr Features als create-react-app</li>
+            <li>
+              NX möglicherweise weiter verbreitet als NeutrinoJS und auch aktivere Entwicklung
+            </li>
+            <li>Beide haben auch Support für Libraries und Mono-Repos</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <script src="slides/reveal.js/lib/js/head.min.js"></script>
+    <script src="slides/reveal.js/js/reveal.js"></script>
+    <script src="slides/reveal.js/lib/jquery-2.2.4.js"></script>
+    <script src="slides/reveal-config.js"></script>
+  </body>
+</html>
