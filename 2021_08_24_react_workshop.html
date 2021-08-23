@@ -91,13 +91,23 @@
         <section>
           <h2>Agenda</h2>
           <ul style="font-size: 85%;">
-            <li>
-              <a href="#/t1">Testen von Anwendungen</a>
+            <li class="fragment">
+              <a href="#/t1">Testen von Anwendungen ("Klassisch" mit Übungen)</a>
             </li>
+          </ul>
 
-            <li>
-              <a href="#/t-cra">create-react-app</a>
+          <p class="fragment">Eher Frage+Antwort, bzw. improvisiert</p>
+          <ul>
+            <li class="fragment">
+              <a href="#/t-objekte"
+                >Wie geht man mit komplexen Objekten oder sogar Arrays derselben in Hooks um?</a
+              >
             </li>
+            <li class="fragment" style="margin-top: 2rem;">
+              <a href="#/t-cra">Anpassen von create-react-app</a>
+            </li>
+            <li class="fragment"><a href="#/t-projektstruktur">Projektstruktur</a></li>
+            <li class="fragment"><a href="#/t-libs">Bibliotheken</a></li>
           </ul>
         </section>
 
@@ -139,10 +149,10 @@
             Vollständige Testlösung für React (und andere):
           </p>
           <ul class="fragment">
-            <li>Test Runner</li>
-            <li>Specs/Assertions, Mocks</li>
-            <li>Code Coverage</li>
-            <li>"Snapshot testing"</li>
+            <li class="fragment">Test Runner</li>
+            <li class="fragment">Specs/Assertions, Mocks</li>
+            <li class="fragment">Code Coverage</li>
+            <li class="fragment">"Snapshot testing"</li>
           </ul>
         </section>
         <section>
@@ -244,21 +254,21 @@ expect(aMockFn.toHaveBeenCalledWith("huhu"));
         <section>
           <h3>Ausführen von Tests</h3>
           <ul>
-            <li>
+            <li class="fragment">
               Mit <code>npm test</code> werden alle Tests ausgeführt:
               <ul>
-                <li>
+                <li class="fragment">
                   In allen <code>__tests__</code>-Verzeichnissen (<b>alle!</b> Dateien darin werden
                   als Test-Datei interpretiert...)
                 </li>
-                <li>Alle <code>*.test.*</code>-Dateien</li>
+                <li class="fragment">Alle <code>*.test.*</code>-Dateien</li>
               </ul>
             </li>
-            <li>
+            <li class="fragment">
               Test-Dateien werden üblicherweise in dasselbe Verzeichnis gelegt, in dem auch die zu
               testende Datei liegt oder in ein "__tests__"-Unterverzeichnis direkt darunter
             </li>
-            <li>
+            <li class="fragment">
               Mehr Info:
               <a href="https://create-react-app.dev/docs/running-tests/#filename-conventions"
                 >CRA Doku</a
@@ -271,9 +281,13 @@ expect(aMockFn.toHaveBeenCalledWith("huhu"));
         <section>
           <h3>Übung: Jest</h3>
           <ul>
-            <li>Wir arbeiten im Verzeichnis <code>blog-example/workspace-test</code></li>
-            <li>Dort findest Du eine React-Anwendung, für die wir Tests entwickeln werden</li>
-            <li>
+            <li class="fragment">
+              Wir arbeiten im Verzeichnis <code>blog-example/workspace-test</code>
+            </li>
+            <li class="fragment">
+              Dort findest Du eine React-Anwendung, für die wir Tests entwickeln werden
+            </li>
+            <li class="fragment">
               Die Tests kannst Du ausführen mit <code>npm test</code> auf der Kommandozeile. Sobald
               Du Änderungen im Workspace machst und speicherst, werden die Tests erneut ausgeführt
             </li>
@@ -336,19 +350,19 @@ expect(aMockFn.toHaveBeenCalledWith("huhu"));
           <h3>Übung: Jest</h3>
           <p><em>Implementiere Testfälle für die createPost-Funktion</em></p>
           <ol>
-            <li>
+            <li class="fragment">
               Stelle sicher, dass beim Aufrufen mit zwei String-Parametern das korrekte Post-Objekt
               erzeugt wird
             </li>
-            <li>
+            <li class="fragment">
               Stelle sicher, dass beim Aufruf mit einem Parameter (<code>null</code>) auch
               <code>null</code> zurück geliefert wird
             </li>
-            <li>
+            <li class="fragment">
               Schreibe eine Mock-Funktion für den Slug-Generator und rufe createPost damit auf.
               <ol>
-                <li>Stelle sicher, dass der Slug im Post-Objekt enthalten ist</li>
-                <li>
+                <li class="fragment">Stelle sicher, dass der Slug im Post-Objekt enthalten ist</li>
+                <li class="fragment">
                   Stelle sicher, dass deine Generator-(Mock-)Funktion mit dem übergebenen Post-Titel
                   aufgerufen wurde
                 </li>
@@ -412,11 +426,11 @@ console.log(component.toJSON());
             <li class="fragment">
               Wenn die Snapshots nicht identisch sind:
               <ul>
-                <li>
+                <li class="fragment">
                   Fehler mit Unterschieden (
                   <a href="slides/images/jest-snapshot-diff.png" target="_blank">Beispiel</a>)
                 </li>
-                <li>
+                <li class="fragment">
                   Im "watch mode" von Jest kann der Snapshot aktualisiert werden
                   <img src="slides/images/jest-snapshot-update.png" />
                 </li>
@@ -581,10 +595,10 @@ test('it should render correctly', () => {
             kannst:
           </p>
           <ul>
-            <li>
+            <li class="fragment">
               <a href="https://addons.mozilla.org/de/firefox/addon/testing-playground/">Firefox</a>
             </li>
-            <li>
+            <li class="fragment">
               <a
                 href="https://chrome.google.com/webstore/detail/testing-playground/hejbmebodbijjdhflfknehhcgaklhano"
                 >Chrome</a
@@ -638,19 +652,19 @@ test('...', () => {
           </p>
 
           <ol>
-            <li>
+            <li class="fragment">
               Schritt 1: REST-Backend, dazu bitte ein Terminal/eine Shell im Verzeichnis
               <code>blog-example/backend-rest</code> öffnen
             </li>
-            <li><code>npm install</code> ausführen</li>
-            <li><code>npm start</code> ausführen</li>
-            <li>
+            <li class="fragment"><code>npm install</code> ausführen</li>
+            <li class="fragment"><code>npm start</code> ausführen</li>
+            <li class="fragment">
               Schritt 2: React-Anwendung, dazu bitte ein Terminal/eine Shell im Verzeichnis
               <code>blog-example/workspace-test</code> öffnen
             </li>
-            <li><code>npm install</code> ausführen</li>
-            <li><code>npm start</code> ausführen</li>
-            <li>
+            <li class="fragment"><code>npm install</code> ausführen</li>
+            <li class="fragment"><code>npm start</code> ausführen</li>
+            <li class="fragment">
               Die Anwendung sollte jetzt auf
               <a href="http://localhost:3000">http://localhost:3000</a> laufen
             </li>
@@ -663,10 +677,10 @@ test('...', () => {
 
           <p><em>Schreibe Tests für die PostList-Komponente</em></p>
           <ol>
-            <li>
+            <li class="fragment">
               In der Datei <code>__tests__/PostEditor.test.ts</code> stehen TODOs für Testfälle
             </li>
-            <li>
+            <li class="fragment">
               Mit <code>npm test PostEditor</code> kannst Du die Ausführung der Tests auf diese
               Datei beschränken.
             </li>
@@ -709,8 +723,8 @@ test('...', () => {
           <h3>Testen von fetch-Aufrufen</h3>
           <p>Herausforderungen:</p>
           <ul>
-            <li>Asynchroner Code (nicht beschränkt auf fetch)</li>
-            <li>Server Zugriffe/Server Mocks</li>
+            <li class="fragment">Asynchroner Code (nicht beschränkt auf fetch)</li>
+            <li class="fragment">Server Zugriffe/Server Mocks</li>
           </ul>
         </section>
         <section>
@@ -843,8 +857,10 @@ test('...', () => {
           </p>
 
           <ol>
-            <li>Die Test-Datei ist <code>App.test</code>, darin sind TODOs enthalten</li>
-            <li><code>npm test App.test</code>, um den Test auszuführen</li>
+            <li class="fragment">
+              Die Test-Datei ist <code>App.test</code>, darin sind TODOs enthalten
+            </li>
+            <li class="fragment"><code>npm test App.test</code>, um den Test auszuführen</li>
           </ol>
         </section>
 
@@ -922,8 +938,10 @@ test('...', () => {
           <p><em>Schreibe ein gemocktes Modul für das Laden von Blog-Posts</em></p>
 
           <ol>
-            <li>Die Test-Datei ist <code>App-with-mock.test</code>, darin sind TODOs enthalten</li>
-            <li><code>npm test App-with-mock</code>, um den Test auszuführen</li>
+            <li class="fragment">
+              Die Test-Datei ist <code>App-with-mock.test</code>, darin sind TODOs enthalten
+            </li>
+            <li class="fragment"><code>npm test App-with-mock</code>, um den Test auszuführen</li>
           </ol>
         </section>
 
@@ -977,55 +995,42 @@ test('...', () => {
         </section>
 
         <!-- ============================================================================= -->
-        <section>
-          <h3>Projekt-Struktur</h3>
+        <section id="t-objekte">
+          <h3>Wie geht man mit komplexen Objekten oder sogar Arrays derselben in Hooks um?</h3>
 
-          <p><a href="https://react-file-structure.surge.sh/">???</a></p>
-
-          <ul>
-            <li>React macht relativ wenig Vorgaben</li>
-            <li>
-              Generell gilt:
-              <ul>
-                <li>so einfach wie möglich (insb. Verzeichnis-Struktur)</li>
-                <li>
-                  Dinge, die zusammen gehören, zusammen lassen ("Colocation"). Das gilt z.B. auch
-                  für unterschiedliche Datei-Typen (JS, CSS, Test)
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <p class="fragment">It depends...</p>
+          <p class="fragment">Können wir konkrete Beispiele finden und besprechen?</p>
         </section>
 
         <!-- ============================================================================= -->
         <section id="t-cra">
-          <h3>create-react-app</h3>
+          <h3>Anpassen von create-react-app</h3>
 
           <ol>
-            <li>
+            <li class="fragment">
               Ist es möglich eine Lösung mit "npx create-react-app my-app --template typescript" zu
               erstellen und anschließend Anpassungen an die Webpack Konfiguration vorzunehmen? Mir
               ist nämlich aufgefallen, dass mit diesem Befehl ein Modul "react-scripts" (oder so
               ähnlich) geladen wird, worin sich vermutlich die Konfigurationen verstecken und wir
               somit da nicht so einfach etwas ändern können.
             </li>
-            <li>
+            <li class="fragment">
               Wir haben nämlich tatsächlich selten bis gar nicht eine reine React-App, sondern
               betten diese fast immer auf bestehenden Seiten ein.
             </li>
-            <li>Was möchtet ihr denn anpassen?</li>
+            <li class="fragment">Was möchtet ihr denn anpassen?</li>
           </ol>
         </section>
 
         <!-- ============================================================================= -->
         <section>
-          <h3>create-react-app</h3>
+          <h3>Anpassen von create-react-app</h3>
           <ul>
-            <li>
+            <li class="fragment">
               Relativ starr, was Anpassungen angeht. Prinzip: kein Support für alles Mögliche,
               sondern eine Konfiguration, die auch funktioniert
             </li>
-            <li>
+            <li class="fragment">
               Konfiguration befindet sich in
               <a
                 href="https://github.com/facebook/create-react-app/tree/main/packages/react-scripts"
@@ -1033,7 +1038,7 @@ test('...', () => {
               >, dieses Modul kann bei Bedarf aktualisiert werden, ohne den Rest des Projekts zu
               beeinflussen
             </li>
-            <li>
+            <li class="fragment">
               Es gibt "templates" (z.B. typescript), mit denen kann man das generierte Projekt
               anpassen, leider aber nicht die Konfiguration 😢
             </li>
@@ -1049,18 +1054,18 @@ test('...', () => {
             >
           </p>
           <ol>
-            <li>
+            <li class="fragment">
               <b>eject</b>: Löst das react-scripts-Modul auf und kopiert alle Skripte direkt in
               Euren Workspace. Ihr könnt sie frei anpassen, seid aber von Updates in react-scripts
               abgekoppelt. Das ist die "offizielle" Lösung.
             </li>
-            <li>
+            <li class="fragment">
               <a href="https://github.com/timarney/react-app-rewired">react-app-rewired</a>: Damit
               könnt ihr einzelne Konfigurationen anpassen. Fraglich, wie gut das funktioniert, weil
               create-react-app solche Anpassungen "offiziell" nicht vorsieht. An dieser Idee sind
               schon andere Tools gescheitert.
             </li>
-            <li>
+            <li class="fragment">
               Ihr forkt das
               <a
                 href="https://github.com/facebook/create-react-app/tree/main/packages/react-scripts"
@@ -1078,21 +1083,176 @@ test('...', () => {
           <h3>create-react-app: Alternativen</h3>
 
           <ol>
-            <li><a href="https://nx.dev/react">NX</a></li>
-            <li><a href="https://neutrinojs.org/packages/react/">NeutrinoJS</a></li>
+            <li class="fragment"><a href="https://nx.dev/react">NX</a></li>
+            <li class="fragment">
+              <a href="https://neutrinojs.org/packages/react/">NeutrinoJS</a>
+            </li>
           </ol>
 
           <ul class="fragment">
-            <li>Beide viel mehr Features als create-react-app</li>
-            <li>
+            <li class="fragment">Beide viel mehr Features als create-react-app</li>
+            <li class="fragment">
               NX möglicherweise weiter verbreitet als NeutrinoJS und auch aktivere Entwicklung
             </li>
-            <li>Beide haben auch Support für Libraries und Mono-Repos</li>
+            <li class="fragment">Beide haben auch Support für Libraries und Mono-Repos</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section id="t-projektstruktur">
+          <h3>Projektstruktur</h3>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Projekt-Struktur</h3>
+          <p><a href="https://react-file-structure.surge.sh/">React File Structure</a></p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Grundsätzliches Prinzip: Colocation</h3>
+
+          <ul>
+            <li class="fragment">
+              Colocation bedeutet, Dinge die zusammengehören, sind auch zusammen
+            </li>
+            <li class="fragment">
+              Das betrifft Source-Code, Tests, CSS etc.
+            </li>
+            <li class="fragment">
+              Das ist ein Grundprinzip von React (z.B. auch: keine Trennung zwischen Template und
+              Logik/Model in einer Komponente)
+            </li>
+            <li class="fragment">
+              Man kann z.B. mehrere Komponenten in eine Datei tun, aber nur eine Komponente
+              öffentlich exportieren. Dann sind die anderen Komponenten Implementierungsdetails.
+              Wenn man daran was ändern muss, muss man aber nicht in diversen Dateien suchen
+
+              <pre class="fragment"><code class="javascript">
+                function BlogTitle() { ... }
+
+                export default function BlogPost() {
+                  return &lt;article>
+                    &lt;BlogTitle />
+                    ...
+                  &lt;/article>  
+                }
+              </code></pre>
+            </li>
           </ul>
         </section>
 
         <!-- ============================================================================= -->
         <section>
+          <h3>Projekt-Struktur: Verzeichnisse</h3>
+
+          <ul>
+            <li class="fragment">
+              Im Zweifel: eher ein Verzeichnis/eine Verzeichnis-Ebene weniger, als mehr (das ist
+              zumindest in Java mit Packages anders)
+            </li>
+            <li class="fragment">
+              In Verzeichnissen nach Fachlichkeit gruppieren (z.B. "blog", "user", "security")
+            </li>
+            <li class="fragment">
+              Ggf. ein Verzeichnis "components" oder "ui", in dem übergreifenden Komponenten
+              abgelegt werden
+            </li>
+            <li class="fragment">
+              Ein "Fach-Verzeichnis", enthält wiederrum alles, was zu der Fachlichkeit gehört
+              (Komponenten, Hooks, TS Types etc.)
+            </li>
+            <li class="fragment">
+              Ein "Fach-Verzeichnis" wäre prinzipiell ein Kandidat zur Extraktion in eine Bibliothek
+            </li>
+          </ul>
+
+          <img src="slides/images/verzeichnisstruktur.png" />
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Verzeichnisse: absolute Importe</h3>
+
+          <ul>
+            <li class="fragment">
+              Ihr könnt in der <code>tsconfig.json</code>-Datei einen "Base-Pfad"
+              (<code>baseUrl</code>) einstellen, z.B. auf <code>src/</code>
+            </li>
+            <li class="fragment">
+              Alle Verzeichnisse und Dateien darunter können dann "absolut" importiert werden:
+
+              <pre class="fragment"><code class="javascript">
+                // src/blog/BlogPage.tsx
+                import Button from "components/Button";
+
+                // src/user/PasswordForm.tsx
+                import Button from "components/Button";
+              </code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>index.tsx als "Fassade"</h3>
+
+          <ul>
+            <li class="fragment">
+              Jeder fachliche Teil in Eurer Anwendung ist in einem eigenen Verzeichnis
+            </li>
+            <li class="fragment">
+              Jedes Verzeichnis hat eine index.tsx-Datei, die die öffentlichen Teile exportiert
+            </li>
+            <li class="fragment">
+              Damit ist festgelegt, welche Teile sichtbar sind für andere und welche nicht
+            </li>
+
+            <li class="fragment">
+              Beim importieren reicht es als Quelle ("from ...") den Verzeichnisnamen anzugeben!
+            </li>
+
+            <li class="fragment">
+              Achtung: Code-Splitting bzw. dynamische Importe funktionieren nur mit Default Exports
+            </li>
+            <li class="fragment">
+              Achtung: Kann man erzwingen, dass man nur aus index.tsx importiert? Vielleicht mit
+              <a
+                href="https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/no-internal-modules.md"
+                >ES Lint Rule</a
+              >?
+            </li>
+            <li class="fragment">
+              Hat auch den Vorteil, dass ihr innerhalb des Verzeichnisses umorganisieren könnt, und
+              nur die index.ts(x)-Datei entsprechend anpassen müsst
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            // blog/index.ts
+            export default BlogPage from './BlogPage';
+ </code></pre>
+          <pre class="fragment"><code class="javascript">
+            // src/index.tsx
+            import BlogPage from "./blog";
+          </code></pre>
+
+          <p class="fragment">Beispiel: Komponenten</p>
+          <pre class="fragment"><code class="javascript">
+            // components/index.ts
+            export Button from './Button';
+            export Header from './Header';
+ </code></pre>
+          <pre class="fragment"><code class="javascript">
+            // src/blog/BlogPage.tsx
+            // (mit absolutem Pfad)
+            import { Button } from "blog";
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section id="t-libs">
           <h3>(Komponenten-)Bibliotheken</h3>
         </section>
 
@@ -1101,14 +1261,16 @@ test('...', () => {
           <h3>Bibliotheken: Herausforderungen</h3>
 
           <ul>
-            <li>Code muss compiliert werden (Babel und/oder TypeScript)</li>
-            <li>Code muss gebundelt werden (Webpack, Rollup, Parcel)</li>
-            <li>Bibliothek muss anderen zur Verfügung gestellt werden (npm Registry)</li>
-            <li>
+            <li class="fragment">Code muss compiliert werden (Babel und/oder TypeScript)</li>
+            <li class="fragment">Code muss gebundelt werden (Webpack, Rollup, Parcel)</li>
+            <li class="fragment">
+              Bibliothek muss anderen zur Verfügung gestellt werden (npm Registry)
+            </li>
+            <li class="fragment">
               Bereitstellen von Sourcen (TypeScript, CSS) für Verwender der Bibliothek zum Debugen
             </li>
-            <li>Workflow: wie könnt ihr die Bibliothek testen/ausprobieren?</li>
-            <li>
+            <li class="fragment">Workflow: wie könnt ihr die Bibliothek testen/ausprobieren?</li>
+            <li class="fragment">
               Workflow: wie könnt ihr die Änderungen in den verwendenden Anwendungen testen bzw.
               dort einbinden
             </li>
@@ -1119,15 +1281,15 @@ test('...', () => {
         <section>
           <h3>Ausgangssituation</h3>
           <ul>
-            <li>
+            <li class="fragment">
               Der Code, der als Bibliothek zur Verfügung gestellt werden soll, liegt in einem
               eigenen Projekt vor
             </li>
-            <li>
+            <li class="fragment">
               Das kann ein eigenes Repository sein, oder ein Verzeichnis in einem bestehenden
               Repository
             </li>
-            <li>Er ist aber nicht Bestandteil einer bestehenden App</li>
+            <li class="fragment">Er ist aber nicht Bestandteil einer bestehenden App</li>
           </ul>
         </section>
 
@@ -1135,34 +1297,36 @@ test('...', () => {
         <section>
           <h3>Bibliotheken: npm Module</h3>
           <ul>
-            <li>
+            <li class="fragment">
               npm-Module können in einer npm-Registry veröffentlicht werden
               <ul>
-                <li>
+                <li class="fragment">
                   öffentliche
                   <a href="https://docs.npmjs.com/cli/v7/using-npm/registry">NPM Registry </a>
                 </li>
-                <li><a href="https://github.com/features/packages">GitHub Packages</a></li>
-                <li>
+                <li class="fragment">
+                  <a href="https://github.com/features/packages">GitHub Packages</a>
+                </li>
+                <li class="fragment">
                   <a href="https://help.sonatype.com/repomanager3/formats/npm-registry">Nexus</a>
                 </li>
-                <li>
+                <li class="fragment">
                   <a href="https://www.jfrog.com/confluence/display/JFROG/npm+Registry"
                     >Artifactory</a
                   >
                 </li>
-                <li>
+                <li class="fragment">
                   <a href="https://verdaccio.org/">Verdaccio</a> (leichtgewichtige
                   Open-Source-Lösung)
                 </li>
-                <li>
+                <li class="fragment">
                   <a href="https://www.pluralsight.com/guides/install-npm-packages-from-gitgithub"
                     >Direkt aus Git(Hub)</a
                   >
                 </li>
               </ul>
             </li>
-            <li>
+            <li class="fragment">
               Veröffentlichen bedeutet im Wesentlichen, das ein Verzeichnis mit Dateien und eine
               package.json-Datei in ein Respository hochgeladen wird
             </li>
@@ -1174,9 +1338,13 @@ test('...', () => {
           <h3>Naiver Ansatz: Source-Dateien veröffentlichen</h3>
 
           <ul>
-            <li>Ihr stellt einfach Euer React-Projekt als npm-Modul zur Verfügung</li>
-            <li>Die Verwender müssen sich dann um das compilieren und bundlen kümmern</li>
-            <li>
+            <li class="fragment">
+              Ihr stellt einfach Euer React-Projekt als npm-Modul zur Verfügung
+            </li>
+            <li class="fragment">
+              Die Verwender müssen sich dann um das compilieren und bundlen kümmern
+            </li>
+            <li class="fragment">
               Insb. für das compilieren ist es evtl. notwendig beim Verwenden die Konfiguration
               anzupassen, da Dateien im <code>node_modules</code>-Ordner nicht compiliert werden
             </li>
@@ -1187,30 +1355,30 @@ test('...', () => {
         <section>
           <h3>Typischer Ansatz: "Fertigen" Code publizieren</h3>
           <ul>
-            <li>
+            <li class="fragment">
               Ihr setzt ein Projekt für die Lib auf, in dem ihr auch Compiler- und Bundler
               konfiguriert
             </li>
-            <li>
+            <li class="fragment">
               Für Bibliotheken wird oftmals <a href="https://rollupjs.org/guide/en/">Rollup</a> oder
               <a href="https://parceljs.org/">Parcel</a> verwendet.
               <a href="https://webpack.js.org/guides/author-libraries/">Webpack</a> geht natürlich
               auch, mit den anderen Ansätzen aber evtl. leichter
             </li>
-            <li>Der compilierte und gebundlete Code wird dann publiziert</li>
-            <li>
+            <li class="fragment">Der compilierte und gebundlete Code wird dann publiziert</li>
+            <li class="fragment">
               Ihr müsst entscheiden, ob ihr als Ziel ES-Modulsystem oder CommonJS verwendet (oder
               beides). Für interne Bibliotheken reicht vermutlich ES-Modulsystem
             </li>
-            <li>
+            <li class="fragment">
               Falls ihr Sass oder LESS oder CSS Modules verwendet, müsst ihr das im Build natürlich
               auch nach CSS übersetzen
             </li>
-            <li>
+            <li class="fragment">
               Ihr könnt im Build Source-Maps (für JS, TS und CSS) erzeugen, damit ihr beim Verwenden
               debuggen könnt
             </li>
-            <li>
+            <li class="fragment">
               Achtung! Einbinden der Source-Maps erfordert bei TS leider einen extra
               <a href="https://webpack.js.org/loaders/source-map-loader/">SourceMap Loader</a> in
               Webpack, der in der aktuellen create-react-app-Version leider nicht konfiguriert ist.
@@ -1227,18 +1395,18 @@ test('...', () => {
         <section>
           <h3>Workflow</h3>
           <ul>
-            <li>Ihr entwickelt die Bibliothek in ihrem Repository</li>
-            <li>
+            <li class="fragment">Ihr entwickelt die Bibliothek in ihrem Repository</li>
+            <li class="fragment">
               Testen könnt ihr die Komponenten z.B. in dem ihr
               <a href="https://storybook.js.org/">Storybook</a> verwendet. Damit könnt ihr auch
               dokumentieren
             </li>
-            <li>Neue Releases könnt ihr mit <code>npm publish</code> erstellen</li>
-            <li>
+            <li class="fragment">Neue Releases könnt ihr mit <code>npm publish</code> erstellen</li>
+            <li class="fragment">
               Die verwendenden Anwendungen können mit <code>npm install</code> die neue Version
               installieren
             </li>
-            <li>(Statt npm geht natürlich auch yarn)</li>
+            <li class="fragment">(Statt npm geht natürlich auch yarn)</li>
           </ul>
         </section>
 
@@ -1247,30 +1415,30 @@ test('...', () => {
           <h3>Workflow: Optimierung</h3>
 
           <ul>
-            <li>
+            <li class="fragment">
               Mit <a href="https://classic.yarnpkg.com/en/docs/cli/link/">yarn link</a> könnt ihr
               die Bibliothek testweise in einer lokalen Anwendung einbinden, ohne sie vorher
               publizieren zu müssen (kürzere Turn-around-Zeiten). Leider etwas instabil der Ansatz
             </li>
-            <li>
+            <li class="fragment">
               Mono-Repo-Ansatz 1: alle Bibliotheken und alle Anwendungen kommen in ein
               Git-Repository (auf oberster Ebene dann verschiedene Verzeichnisse für jede
               Bibliothek, jede Anwendung)
               <ul>
-                <li>
+                <li class="fragment">
                   Die Anwendungen können sofort mit allen Änderungen der Bibliothek getestet werden
                 </li>
-                <li>
+                <li class="fragment">
                   Falls es API-Änderungen an der Bibiothek gibt, können diese in den Anwendungen
                   gleich erfolgen und alles auf einmal committed werden
                 </li>
-                <li>
+                <li class="fragment">
                   Tools: <a href="https://lerna.js.org/">Lerna</a> oder
                   <a href="https://classic.yarnpkg.com/en/docs/workspaces/">Yarn workspaces</a>
                 </li>
               </ul>
             </li>
-            <li>
+            <li class="fragment">
               Mono-Repo-Ansatz 2: selbe Idee, aber mit
               <a href="https://nx.dev/latest/react/structure/creating-libraries">NX</a> umgesetzt
               (mit explizitem Support für
@@ -1279,7 +1447,20 @@ test('...', () => {
             </li>
           </ul>
         </section>
-
+        <section>
+          <h2>Geschafft! 😊</h2>
+          <h3>Vielen Dank für Eure Teilnahme!</h3>
+          <p>
+            Wenn ihr noch Fragen habt, könnt ihr mich erreichen:
+          </p>
+          <p>Mail: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a></p>
+          <p>
+            Web: <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a>
+          </p>
+          <p>
+            Twitter: <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+        </section>
         <!-- ============================================================================= -->
       </div>
     </div>
