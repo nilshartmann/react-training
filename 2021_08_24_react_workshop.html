@@ -1090,6 +1090,197 @@ test('...', () => {
             <li>Beide haben auch Support für Libraries und Mono-Repos</li>
           </ul>
         </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>(Komponenten-)Bibliotheken</h3>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Bibliotheken: Herausforderungen</h3>
+
+          <ul>
+            <li>Code muss compiliert werden (Babel und/oder TypeScript)</li>
+            <li>Code muss gebundelt werden (Webpack, Rollup, Parcel)</li>
+            <li>Bibliothek muss anderen zur Verfügung gestellt werden (npm Registry)</li>
+            <li>
+              Bereitstellen von Sourcen (TypeScript, CSS) für Verwender der Bibliothek zum Debugen
+            </li>
+            <li>Workflow: wie könnt ihr die Bibliothek testen/ausprobieren?</li>
+            <li>
+              Workflow: wie könnt ihr die Änderungen in den verwendenden Anwendungen testen bzw.
+              dort einbinden
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Ausgangssituation</h3>
+          <ul>
+            <li>
+              Der Code, der als Bibliothek zur Verfügung gestellt werden soll, liegt in einem
+              eigenen Projekt vor
+            </li>
+            <li>
+              Das kann ein eigenes Repository sein, oder ein Verzeichnis in einem bestehenden
+              Repository
+            </li>
+            <li>Er ist aber nicht Bestandteil einer bestehenden App</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Bibliotheken: npm Module</h3>
+          <ul>
+            <li>
+              npm-Module können in einer npm-Registry veröffentlicht werden
+              <ul>
+                <li>
+                  öffentliche
+                  <a href="https://docs.npmjs.com/cli/v7/using-npm/registry">NPM Registry </a>
+                </li>
+                <li><a href="https://github.com/features/packages">GitHub Packages</a></li>
+                <li>
+                  <a href="https://help.sonatype.com/repomanager3/formats/npm-registry">Nexus</a>
+                </li>
+                <li>
+                  <a href="https://www.jfrog.com/confluence/display/JFROG/npm+Registry"
+                    >Artifactory</a
+                  >
+                </li>
+                <li>
+                  <a href="https://verdaccio.org/">Verdaccio</a> (leichtgewichtige
+                  Open-Source-Lösung)
+                </li>
+                <li>
+                  <a href="https://www.pluralsight.com/guides/install-npm-packages-from-gitgithub"
+                    >Direkt aus Git(Hub)</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              Veröffentlichen bedeutet im Wesentlichen, das ein Verzeichnis mit Dateien und eine
+              package.json-Datei in ein Respository hochgeladen wird
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Naiver Ansatz: Source-Dateien veröffentlichen</h3>
+
+          <ul>
+            <li>Ihr stellt einfach Euer React-Projekt als npm-Modul zur Verfügung</li>
+            <li>Die Verwender müssen sich dann um das compilieren und bundlen kümmern</li>
+            <li>
+              Insb. für das compilieren ist es evtl. notwendig beim Verwenden die Konfiguration
+              anzupassen, da Dateien im <code>node_modules</code>-Ordner nicht compiliert werden
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Typischer Ansatz: "Fertigen" Code publizieren</h3>
+          <ul>
+            <li>
+              Ihr setzt ein Projekt für die Lib auf, in dem ihr auch Compiler- und Bundler
+              konfiguriert
+            </li>
+            <li>
+              Für Bibliotheken wird oftmals <a href="https://rollupjs.org/guide/en/">Rollup</a> oder
+              <a href="https://parceljs.org/">Parcel</a> verwendet.
+              <a href="https://webpack.js.org/guides/author-libraries/">Webpack</a> geht natürlich
+              auch, mit den anderen Ansätzen aber evtl. leichter
+            </li>
+            <li>Der compilierte und gebundlete Code wird dann publiziert</li>
+            <li>
+              Ihr müsst entscheiden, ob ihr als Ziel ES-Modulsystem oder CommonJS verwendet (oder
+              beides). Für interne Bibliotheken reicht vermutlich ES-Modulsystem
+            </li>
+            <li>
+              Falls ihr Sass oder LESS oder CSS Modules verwendet, müsst ihr das im Build natürlich
+              auch nach CSS übersetzen
+            </li>
+            <li>
+              Ihr könnt im Build Source-Maps (für JS, TS und CSS) erzeugen, damit ihr beim Verwenden
+              debuggen könnt
+            </li>
+            <li>
+              Achtung! Einbinden der Source-Maps erfordert bei TS leider einen extra
+              <a href="https://webpack.js.org/loaders/source-map-loader/">SourceMap Loader</a> in
+              Webpack, der in der aktuellen create-react-app-Version leider nicht konfiguriert ist.
+              Der entsprechende
+              <a href="https://github.com/facebook/create-react-app/pull/8227"
+                >PR ist aber gemerged</a
+              >
+              und müsste in der nächsten Version von create-react-app vorhanden sein 🙏
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Workflow</h3>
+          <ul>
+            <li>Ihr entwickelt die Bibliothek in ihrem Repository</li>
+            <li>
+              Testen könnt ihr die Komponenten z.B. in dem ihr
+              <a href="https://storybook.js.org/">Storybook</a> verwendet. Damit könnt ihr auch
+              dokumentieren
+            </li>
+            <li>Neue Releases könnt ihr mit <code>npm publish</code> erstellen</li>
+            <li>
+              Die verwendenden Anwendungen können mit <code>npm install</code> die neue Version
+              installieren
+            </li>
+            <li>(Statt npm geht natürlich auch yarn)</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Workflow: Optimierung</h3>
+
+          <ul>
+            <li>
+              Mit <a href="https://classic.yarnpkg.com/en/docs/cli/link/">yarn link</a> könnt ihr
+              die Bibliothek testweise in einer lokalen Anwendung einbinden, ohne sie vorher
+              publizieren zu müssen (kürzere Turn-around-Zeiten). Leider etwas instabil der Ansatz
+            </li>
+            <li>
+              Mono-Repo-Ansatz 1: alle Bibliotheken und alle Anwendungen kommen in ein
+              Git-Repository (auf oberster Ebene dann verschiedene Verzeichnisse für jede
+              Bibliothek, jede Anwendung)
+              <ul>
+                <li>
+                  Die Anwendungen können sofort mit allen Änderungen der Bibliothek getestet werden
+                </li>
+                <li>
+                  Falls es API-Änderungen an der Bibiothek gibt, können diese in den Anwendungen
+                  gleich erfolgen und alles auf einmal committed werden
+                </li>
+                <li>
+                  Tools: <a href="https://lerna.js.org/">Lerna</a> oder
+                  <a href="https://classic.yarnpkg.com/en/docs/workspaces/">Yarn workspaces</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              Mono-Repo-Ansatz 2: selbe Idee, aber mit
+              <a href="https://nx.dev/latest/react/structure/creating-libraries">NX</a> umgesetzt
+              (mit explizitem Support für
+              <a href="https://nx.dev/latest/react/react/library">React Bibliotheken</a>). Das ist
+              die all-inklusive-Lösung, aber mit einer Menge an eigenen Konzepten und Ideen.
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
       </div>
     </div>
 
