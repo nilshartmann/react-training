@@ -559,17 +559,17 @@ test('it should render correctly', () => {
         <section>
           <h3>Hintergrund: aria-Rollen</h3>
           <ul>
-            <li>
+            <li class="fragment">
               Um barrierefreie Websites zu bauen, müssen Screenreader und andere
               Assitenz-Technologien in der Lage sein, die Struktur Eurer Anwendung zu verstehen,
               z.B. damit sie einem Benutzer beim Vorlesen mitteilen können, ob ein bestimmtes
               Element ein Button oder ein Inhaltsverzeichnis etc. ist
             </li>
-            <li>
+            <li class="fragment">
               In HTML5 sind u.a. dafür eine ganze Reihe "semantischer" Elemente hinzugekommen (z.B.
               header, nav, footer, main, ...)
             </li>
-            <li>
+            <li class="fragment">
               Mit
               <a
                 href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques"
@@ -577,14 +577,14 @@ test('it should render correctly', () => {
               >
               könnt ihr auch an anderen Elementen festlegen, welche Bedeutung ein Element hat
             </li>
-            <li>
+            <li class="fragment">
               Die HTML-Elemente haben Standard-Rollen, die aber mit <code>role</code> verändert
               werden können
             </li>
-            <li>
+            <li class="fragment">
               Die Rollen könnt ihr im Browser mit den entsprechenden Entwicklungstools ansehen
             </li>
-            <li>
+            <li class="fragment">
               In der react-testing-library könnt ihr mit den <code>byRole</code> Query-Funktionen
               Elemente an Hand ihrer Aria-Rollen suchen. Damit könnt ihr (zumindest in der Theorie)
               sicherstellen, dass Eure Anwendung barrierefrei ist (bzw. diesen Teil der
@@ -714,11 +714,15 @@ test('...', () => {
           <p><em>Schreibe Tests für die PostList-Komponente</em></p>
           <ol>
             <li class="fragment">
-              In der Datei <code>__tests__/PostEditor.test.ts</code> stehen TODOs für Testfälle
+              In der Datei <code>__tests__/PostList.test.ts</code> stehen TODOs für Testfälle
             </li>
             <li class="fragment">
-              Mit <code>npm test PostEditor</code> kannst Du die Ausführung der Tests auf diese
-              Datei beschränken.
+              Mit <code>npm test PostList</code> kannst Du die Ausführung der Tests auf diese Datei
+              beschränken.
+            </li>
+            <li class="fragment">
+              class="fragment">Im Verzeichnis <code>_solutions</code> findest Du jeweils mögliche
+              Lösungen zu den Übungen
             </li>
           </ol>
         </section>
@@ -755,6 +759,22 @@ test('...', () => {
             wenn das Element nicht vorhanden ist
           </p>
         </section>
+
+        <section>
+          <h3>Übung: Rendern von Komponenten und Überprüfen von Elementen</h3>
+
+          <p><em>Schreibe Tests für die PostEditor-Komponente</em></p>
+          <ol>
+            <li class="fragment">
+              In der Datei <code>__tests__/PostEditor.test.ts</code> stehen TODOs für Testfälle
+            </li>
+            <li class="fragment">
+              Mit <code>npm test PostEditor</code> kannst Du die Ausführung der Tests auf diese
+              Datei beschränken.
+            </li>
+          </ol>
+        </section>
+
         <section>
           <h3>Testen von fetch-Aufrufen</h3>
           <p>Herausforderungen:</p>
