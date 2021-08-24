@@ -92,7 +92,7 @@
           <h2>Agenda</h2>
           <ul style="font-size: 85%;">
             <li class="fragment">
-              <a href="#/t1">Testen von Anwendungen ("Klassisch" mit Übungen)</a>
+              <a href="#/t-test">Testen von Anwendungen ("klassisch" mit Übungen)</a>
             </li>
           </ul>
 
@@ -555,7 +555,43 @@ test('it should render correctly', () => {
   const buttonElement = screen.queryAllByRole("button", { name: "Add Post" });
 </code></pre>
         </section>
-
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Hintergrund: aria-Rollen</h3>
+          <ul>
+            <li>
+              Um barrierefreie Websites zu bauen, müssen Screenreader und andere
+              Assitenz-Technologien in der Lage sein, die Struktur Eurer Anwendung zu verstehen,
+              z.B. damit sie einem Benutzer beim Vorlesen mitteilen können, ob ein bestimmtes
+              Element ein Button oder ein Inhaltsverzeichnis etc. ist
+            </li>
+            <li>
+              In HTML5 sind u.a. dafür eine ganze Reihe "semantischer" Elemente hinzugekommen (z.B.
+              header, nav, footer, main, ...)
+            </li>
+            <li>
+              Mit
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques"
+                >ARIA Rollen</a
+              >
+              könnt ihr auch an anderen Elementen festlegen, welche Bedeutung ein Element hat
+            </li>
+            <li>
+              Die HTML-Elemente haben Standard-Rollen, die aber mit <code>role</code> verändert
+              werden können
+            </li>
+            <li>
+              Die Rollen könnt ihr im Browser mit den entsprechenden Entwicklungstools ansehen
+            </li>
+            <li>
+              In der react-testing-library könnt ihr mit den <code>byRole</code> Query-Funktionen
+              Elemente an Hand ihrer Aria-Rollen suchen. Damit könnt ihr (zumindest in der Theorie)
+              sicherstellen, dass Eure Anwendung barrierefrei ist (bzw. diesen Teil der
+              Barrierefreiheit erfüllt)
+            </li>
+          </ul>
+        </section>
         <section>
           <h3>Überprüfen von Elementen</h3>
           <p>
