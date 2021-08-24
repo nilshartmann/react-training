@@ -15,28 +15,6 @@ test("save button enablement", () => {
   //   3. Der Save Post-Button sollte immer noch disabled sein
   //   4. Fülle etwas in das Body-Feld
   //   5. Der Save Post-Button sollte jetzt enabled sein
-  render(<PostEditor onSavePost={jest.fn()} />);
-
-  const titleInput = screen.getByLabelText("Title");
-  const bodyInput = screen.getByLabelText("Body");
-  const saveButton = screen.getByRole("button", {
-    name: "Save Post"
-  });
-
-  // Save Button should be disabled
-  expect(saveButton).toBeDisabled();
-
-  // enter Title...
-  userEvent.type(titleInput, "New Title");
-
-  // should still be disabled
-  expect(saveButton).toBeDisabled();
-
-  // enter body
-  userEvent.type(bodyInput, "New Body");
-
-  // ...now the button should be enabled
-  expect(saveButton).toBeEnabled();
 });
 
 test("clear button", () => {
@@ -52,20 +30,6 @@ test("clear button", () => {
   //   das title-Feld ist jetzt leer
   //   das body-Feld ist jetzt leer
   //   der Save-Button ist disabled
-  render(<PostEditor onSavePost={jest.fn()} initialTitle="Hello" initialBody="World" />);
-
-  const saveButton = screen.getByRole("button", { name: "Save Post" });
-  const clearButton = screen.getByRole("button", { name: "Clear" });
-  const titleInput = screen.getByLabelText("Title");
-  const bodyInput = screen.getByLabelText("Body");
-
-  expect(titleInput).toHaveValue("Hello");
-  expect(bodyInput).toHaveValue("World");
-
-  userEvent.click(clearButton);
-  expect(titleInput).toHaveValue("");
-  expect(bodyInput).toHaveValue("");
-  expect(saveButton).toBeDisabled();
 });
 
 test("save post button callback", () => {
