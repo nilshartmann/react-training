@@ -1,39 +1,40 @@
 console.log("Please edit index.js");
 
-// Schreibe eine neue Funktion, "birthday":
-//    - Diese Funktion soll zwei Parameter bekommen:
-//        1. 'persons', ein Array mit Person-Objekten ("name" und "age")
-//        2. 'name', ein String
-//    - Die Funktion soll das Alter (age) aller Personen in dem Array um 1 erhöhen, deren Namen
-//       dem übergebenen "name"-Parameter entspricht
-//       - Das übergebene Array soll dabei nicht verändert werden (Kopie anlegen!)
-//       - Die einzelnen person-Objekte innerhalb des Arrays sollen nicht verändert werden (ggf. Kopie anlegen!)
-//          - Falls ein Objekt in Array beliebige weitere Properties (nicht nur 'name' und 'age') enthält,
-//            sollen die zusätzlichen Properties in der Kopie enthalten sein
-//       - Objekte, deren "name" nicht dem übergebenen "name" entspricht sollen unverändert zurückgegeben
-//         werden (keine Kopie, sondern dasselbe Objekt)
-//    BEISPIELE:
-// Bei diesen Personen:
+// Write a new function, "birthday":
+//   - This function should get two parameters:
+//     1. 'persons', an array with person objects ("name" and "age")
+//     2. 'name', a string
+//
+//   - The function should increase the age of all persons in the array by 1,
+//     whose names are corresponds to the passed "name" parameter
+//   - The passed array must not be changed (create a copy instead!)
+//   - The individual person objects within the array must not be changed (create a copy if necessary!)
+//   - If an object in the array contains any other properties (not only 'name' and 'age'),
+//     the additional properties should be included in the copy.
+//   - Objects whose "name" does not correspond to the passed "name" should be returned unchanged.
+//     (not a copy, but the same object).
+// EXAMPLES:
+// For these persons:
 const persons = [
   { name: "Klaus", age: 32 },
-  { name: "Susi", age: 34, city: "Freiburg" },
-  { name: "Walter", age: 45, address: { city: "Freiburg", street: "Mainstreet" } }
+  { name: "Susi", age: 34, city: "Hamburg" },
+  { name: "Walter", age: 45, address: { city: "Hamburg", street: "Mainstreet" } }
 ];
 
-// Aufruf:
+// For this:
 // const res1 = birthday(persons, "Klaus");
-// Erwartetes Ergebnis:
+// the return should be:
 // [
 //   { name: "Klaus", age: 33 },
-//   { name: "Susi", age: 34, city: "Freiburg" },
-//   { name: "Walter", age: 45, address:  { city: "Freiburg", street: "Mainstreet" } }
+//   { name: "Susi", age: 34, city: "Hamburg" },
+//   { name: "Walter", age: 45, address:  { city: "Hamburg", street: "Mainstreet" } }
 // ]
 
-// Aufruf:
+// And for this:
 // const res2 = birthday(persons, "Susi");
-// Erwartetes Ergebnis:
+// this should be the result:
 // [
 //   { name: "Klaus", age: 32 },
 //   { name: "Susi", age: 35, city: "Freiburg" },
-//   { name: "Walter", age: 45, address:  { city: "Freiburg", street: "Mainstreet" } }
+//   { name: "Walter", age: 45, address:  { city: "Hamburg", street: "Mainstreet" } }
 // ]

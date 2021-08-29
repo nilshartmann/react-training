@@ -1,35 +1,36 @@
 console.log("Please edit index.js");
 
-// 1. Implementiere die Funktion "createPerson", die zwei Parameter entgegennimmt: name und age
+// 1. implement the function "createPerson", which takes two parameters: name and age
 //
-//   Die Funktion soll ein Person-Objekt zurückliefern, dass aus diesen beiden Eigenschaften besteht,
-//     das Objekt soll also ein 'name' und ein 'age'-Property haben
+//    The function should return a person object consisting of these two properties,
+//      the object shall have a 'name' and an 'age' property.
+//      The default value for age in the returned object should be 18.
 //
-//   Der Default-Wert im zurückgelieferten Objekt für age sollte 18 sein
+// 2. implement the function "printPersons" which takes one parameter: persons
+//    a) persons should be an array of person objects (from step 1)
 //
-// 2. Implementiere die Funktion "printPersons", die ein Parameter entgegennimmt: persons
-//      a) persons soll ein Array von Person-Objekten sein (aus Schritt 1)
+//    b) The function should print all persons from the array persons "nicely" as a formatted string
+//       "Person is called XXX and is YYY years old".
+//       You can use the console.log() function for this.
 //
-//      b) Die Funktion soll alle Personen aus dem Array persons "hübsch" als formatierten String ausgeben
-//         "Person heisst XXX und ist YYY Jahre alt"
-//         Dazu kannst Du die Funktion console.log() verwenden.
+// 3. call the function with an array of two person objects that you created with createPerson
 //
-// 3. Rufe die Funktion mit einem Array von zwei Person-Objekten auf, die Du mit createPerson erzeugt hast
+// 4. extend printPersons with a second - optional - parameter, "formatName".
+//    - formatName should be a function that expects a string and returns a string.
+//    - If formatName is set, the function shall be called to "format" the person's name.
 //
-//  4. Erweitere printPersons um einen zweiten - optionalen - Parameter, "formatName"
-//   - formatName soll eine Funktion sein, die einen String erwartet und einen String zurückliefert
-//   - Wenn formatName gesetzt ist, soll die Funktion aufgerufen werden, um den Namen der Person zu "formatieren"
-//      Dazu ruft printPersons die formatName-Funktion mit dem Namen der Person auf und verwendet dann
-//      den Rückgabe-Wert von 'formatName'
-//   - Wenn formatName NICHT gesetzt ist, soll der Name verwendet werden, so wie er im Person-Objekt angegeben ist
-//   - Rufe printPersons nun mit den zwei Person-Objekten auf und übergib die fertige "nameFormatter"-Funktion
-//   - Schreibe die nameFormatter-Funktion als Pfeil-Funktion um
+//    To do this, printPersons calls the formatName function with the name of the person and then uses
+//      the return value of 'formatName'.
+//    - If formatName is NOT set, use the name as it is given in the Person object.
+//    - Now call printPersons with the two Person objects and pass the completed "nameFormatter" function.
+//    - Rewrite the nameFormatter function as an arrow function
+
 function createPerson(name, age) {
-  // Zurückgeben: ein Person-Objekt mit name und age
+  // return: a person object with name and age
 }
 
 function printPersons(persons) {
-  // Alle übergebenen Person-Objekt formatiert ausgeben
+  // format all given person objects
 }
 
 function nameFormatter(name) {

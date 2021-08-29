@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Einführung in JavaScript</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="stylesheet" href="slides/styles.css" />
+    <script src="slides/export.js"></script>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-state="title">
+          <h2 class="title" style="font-size: 7rem;">
+            <b>Introduction to JavaScript</b>
+          </h2>
+
+          <h4>
+            <span class="transparent-bg">
+              <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a> |
+              <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+            </span>
+          </h4>
+
+          <p style="margin-top: 4rem;"></p>
+          <div>
+            <h3><span class="transparent-bg">Preparation</span></h3>
+            <p>
+              <span class="transparent-bg"
+                >git clone https://github.com/nilshartmann/react-training</span
+              >
+            </p>
+            <p>
+              <span class="transparent-bg">or: git pull</span>
+            </p>
+          </div>
+          <div>
+            <h3><span class="transparent-bg">Slides</span></h3>
+            <p>
+              <span class="transparent-bg"
+                >inside the workspace: <code>2021_09_06_js_intro.html</code></span
+              >
+            </p>
+          </div>
+        </section>
+        <section>
+          <h2>Nils Hartmann</h2>
+          <p>
+            <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a> /
+            <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+          <p><em>Freelance software developer, consultant and trainer from Hamburg</em></p>
+
+          <div style="display: flex; justify-content: center;">
+            <div>
+              <p>Java</p>
+              <p>JavaScript, TypeScript</p>
+              <p>React</p>
+              <p>Single-Page-Applications</p>
+              <p>GraphQL</p>
+              <p style="margin-top: 20px;">
+                <a href="https://reacttraining.dev">Trainings and workshops</a>
+              </p>
+            </div>
+            <div style="margin-left: 15px;">
+              <a href="https://reactbuch.de"
+                ><img
+                  style="max-height: 450px;"
+                  src="slides/images/react-buch-v2.jpg"
+                /><br />https://reactbuch.de</a
+              >
+              <br />
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>What about you?</h2>
+          <ul>
+            <li>Previous knowledge: JavaScript/TypeScript? Other language?</li>
+            <li>Wishes for this training? Special topics or interests?</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Timetable</h3>
+          <p><b>Monday, Tuesday, Wednesday</b></p>
+          <ul class="fragment">
+            <li>
+              9:00am to 12:30pm
+            </li>
+            <li>Lunch break</li>
+            <li>1:30pm to 5:00pm</li>
+            <li>Shorter breaks in between ☕️ 😴</li>
+          </ul>
+          <div class="fragment" style="margin-top: 50px;">
+            <ul>
+              <li>
+                Monday: JavaScript introduction, React basics
+              </li>
+              <li>Tuesday und Wednesday: React</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>Basics</h2>
+          <p><b>Always:</b> Questions and discussions!</p>
+          <p class="fragment">Making yourself heard via audio, chat or Teams</p>
+          <p class="fragment">Bonus points for video on 🥰</p>
+          <p class="fragment">
+            show a lot directly in the editor, but you can use the slides for reference
+          </p>
+          <p class="fragment">
+            We do exercises in between where you can programme yourself
+          </p>
+        </section>
+
+        <section id="es6-intro">
+          <h1>JavaScript introduction</h1>
+        </section>
+
+        <section>
+          <h3>Background: "Modern JavaScript"</h3>
+
+          <p class="fragment">
+            <b>ES5</b> published 2009, "reference version", supported by almost all browsers (even
+            Internet Explorer)
+          </p>
+          <p class="fragment">
+            <b>ES6</b>, <b>ECMAScript 2015</b>, very big release published in 2015, with
+            <a href="http://kangax.github.io/compat-table/es6/"
+              >a lot of changes and new features</a
+            >
+            ("modern JavaScript")
+          </p>
+          <p class="fragment">
+            <b>ES7, ES8, ES9 / ES2016, ES2017, ES2018, ...</b>: yearly releases with only a handful
+            new features
+          </p>
+          <p class="fragment"><b>ES.Next</b>: "symbolic" name for the upcoming release</p>
+
+          <p class="fragment">
+            Browsersupport for new JavaScript versions
+            <a href="http://kangax.github.io/compat-table/es6/"
+              >http://kangax.github.io/compat-table/es6/</a
+            >
+          </p>
+
+          <p class="fragment">
+            Can I use feature Xyz in my browser?
+            <a href="https://caniuse.com">https://caniuse.com</a>
+          </p>
+          <p class="fragment">
+            There a <b>compilers</b> (Babel, TypeScript), that translate "modern" Code back to "old"
+            code for older browsers
+          </p>
+        </section>
+
+        <section>
+          <h3>JavaScript: Execution</h3>
+          <p>JavaScript is usually executed in the browser</p>
+          <p>
+            Most browsers come with very powerful development tools with which JavaScript can be
+            executed directly (to try it out)
+          </p>
+          <ul>
+            <li>
+              Firefox
+              <a href="https://developer.mozilla.org/de/docs/Tools/Web_Konsole">Web console</a>,
+              open with: Ctrl+Shift+K (Mac: Cmd+Shift+K)
+            </li>
+            <li>
+              Chrome
+              <a href="https://developers.google.com/web/tools/chrome-devtools">Dev Tools</a>, open
+              with: Ctrl+Shift+J (Mac: Cmd+Shift+J)
+            </li>
+          </ul>
+          <p>
+            To log something to the console use <code>console.log("Hello World!")</code> in your JS
+            code
+          </p>
+        </section>
+
+        <section>
+          <h3>The JavaScript language</h3>
+          <p>
+            ⚠️&nbsp;<em
+              >JavaScript has been created in
+              <a
+                href="https://thenewstack.io/brendan-eich-on-creating-javascript-in-10-days-and-what-hed-do-differently-today/"
+                >only ten days!</a
+              ></em
+            >&nbsp;👷
+          </p>
+          <pre><code class="javascript">
+// let creates a variable
+let x = "Hallo"; // typeof x === string
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+// dynamic typing (vs static typing in C#, java, ...)
+x = 7; // typeof x === number
+x = false; // typeof x === boolean
+
+x = function() { return "Hallo" } // typeof x === function
+
+x.toUpperCase(); // Ouch 😱
+    </code></pre>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Control flow</h3>
+          <p>Similiar to C#/Java</p>
+          <p>if / else</p>
+          <p>switch / case / default</p>
+          <p>while / do</p>
+          <p>break / continue</p>
+          <p>try / catch</p>
+          <p>Semicolon optional</p>
+          <p>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling"
+              >Reference</a
+            >
+          </p>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Variables: let and const</h3>
+
+          <pre class="fragment"><code class="javascript">
+            // Variable
+            let age = 42;
+            age = 43; // OK
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+
+            // Constant
+            const name = "Susi";
+            name = "Klaus"; // TypeError: invalid assignment to const 'name'
+          </code></pre>
+
+          <p class="fragment">
+            Please no longer use the obsolete <code>var</code> keyword anymore!
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Operators</h3>
+          <pre><code class="javascript">
+// === (triple equal operator) WITHOUT implicit type conversion
+if (42 === 42) {
+  console.log("of course"); // prints: "of course"
+}
+if ("3" === 3) {
+  console.log("makes sense"); // 
+}
+
+if ("" === false) {
+   console.log("hmm..."); //
+}
+            </code></pre>
+          <pre class="fragment"><code class="javascript">
+// == (double equal operator) WITH implicit type conversion
+// ("coercion")
+if (42 == 42) {
+  console.log("of course"); // prints: of course
+}
+if ("3" == 3) {
+  console.log("makes sense"); // prints: makes sense
+}
+if ("" == false) {
+   console.log("hmm..."); // prints: hmm...
+}
+          </code></pre>
+
+          <p class="fragment"><b>Recommendation</b>: always use triple-equal-operator!</p>
+          <p class="fragment">
+            More fun with type coercion:
+            <a href="https://github.com/denysdovhan/wtfjs">WTF JS</a>
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>JavaScript: Data types</h3>
+          <p>Boolean, Null, Undefined, Number, String, Symbol</p>
+
+          <pre><code class="javascript">
+            // typeof returns the type of a variable (as string)
+            console.log(typeof 123); // "number"
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              const check = true; // (typeof check === "boolean")
+              if (check) {
+                console.log("jupp!");
+              }
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              const age = 32; // (typeof age === "number")
+              if (age < 16) {
+                console.log("No Beer, sorry!")
+              }
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              const name = "Klaus"; // typeof name === "string"
+              if (name === "Klaus") { 
+                console.log("Hello, Klaus!");
+              }
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              let value;
+              typeof value === "undefined"
+
+              value = null;
+              typeof value !== "undefined"
+              typeof value === "null"
+
+            </code></pre>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Template Strings</h3>
+          <pre class="fragment"><code class="javascript">
+
+const name = "Susi";
+
+// Template String (with ``)
+const greet = `Hello, ${name}`; // Hello, Susi
+
+const loudGreet = `Hello, ${name.toUpperCase()}` // Hello, SUSI
+
+// Line breaks are preserved:      
+const letter = `Hello, ${name},
+
+thanks for subscribing to our e-mail newsletter.
+
+Yours, Edgar`;       
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Functions</h3>
+          <pre><code class="javascript">
+function greet(msg) {
+  return "Hello, " + msg;
+}
+
+greet("World"); // Hello, World
+greet(null), // Hello, null
+greet(); // Hello, undefined
+
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+// Functions are "1st-class-citizens":
+function greet(msg) { ... }
+
+// ...and can be assigned to a variable:
+const greetSomeone = greet;
+greetSomeone("World"); // Hello, World
+
+    </code></pre>
+          <pre class="fragment"><code class="javascript">
+// Funcations can be passed as arguments to other functions
+function printer(getMessageFn) {
+  console.log(getMessageFn())
+}
+
+// "inline" function
+printer(function() { return "Hello, World"} );
+
+function helloWorld() { return  "Hello, World" };
+printer(helloWorld);
+
+</code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Functions: Parameters</h3>
+
+          <pre class="fragment"><code class="javascript">
+            function add(value, inc = 1) { ... } 
+          </code></pre>
+
+          <p class="fragment">
+            Default-Parameter (After that, no non-default parameters are allowed)
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            function add(value, inc = 1) { ... } // ok
+            function add(value = 0, inc = 1) { ... }  // ok
+            function add(value = 0, inc) { ... } // ERROR
+          </code></pre>
+
+          <p class="fragment">A Rest-Parameter takes up all the remaining arguments</p>
+
+          <pre class="fragment"><code class="javascript">
+            function say(...words) { // words is an array containing all received parameters here } 
+            say("One", "Two");
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            function greet(phrase, ...names) { ... }
+            greet("Hello", "World", "Peter", "Susi"); // names is an array containing two parameters
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Functions</h3>
+          <p>Attention, return statement: return value must be written in the same line:</p>
+
+          <pre class="fragment"><code class="javascript">
+              function hello() {
+                return "Hello";
+              }
+              const h = hello(); // "Hello"
+            </code></pre>
+          <pre class="fragment"><code class="javascript">
+
+              function goodbye() {
+                return 
+                  "Goodbye";    // oh no 😢!
+              }
+
+              const g = goodbye(); // undefined
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // or use braces:
+              function hello() {
+                return (
+                  "Hello"
+                );
+              }
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h2>Excercise: strings and functions</h2>
+          <p>
+            <em>Make yourself familiar with the basics of JavaScript</em>
+          </p>
+
+          <p class="fragment">
+            You can find the description of the exercise in
+            <b><code>js-intro/01_basic/index.js</code></b
+            >. In that file you can also write your code in.
+          </p>
+          <p class="fragment">
+            Please open
+            <b><code>js-intro/01_basic/index.html</code></b> in your browser. This file run the
+            <b><code>index.js</code></b
+            >-file.
+          </p>
+          <p class="fragment">
+            Output is written on the browser console. After changing <code>index.js</code>, please
+            reload the page in the browser
+          </p>
+          <p class="fragment">
+            If you have any questions or problems, please contact me at any time.
+          </p>
+          <p class="fragment">
+            If all else fails, you will find a possible solution in:
+            <code>js-intro/01_basic/solution/index.js</code>
+          </p>
+          <p class="fragment">When you are done, please "raise your hand" in Teams 🙋‍♀️</p>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Arrow functions</h3>
+          <p>In many cases "only" different spelling than <code>function</code></p>
+          <pre><code class="javascript">
+  const greet = (msg) => {
+    return "Hello, " + msg;
+  }
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+  // For exactly one parameter, the bracket can be omitted:
+  const greet = msg => { return "Hello, " + msg }
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+  // If there is no parameter or more than one, the bracket must be set:
+  const greet = (phrase, msg) => { return phrase + msg }
+  const greetWorld = () => { return "Hello, World" };
+
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+  // for exactly one expression, curly brackets can be omitted,
+  //   Result of the expression then becomes the return value of the function:
+  const greet => "Hello, " + msg;
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+  // Invocation and behaviour as a "normal" function
+  greet("World"); // Hello, World
+  greet(null), // Hello, null
+  greet(); // Hello, undefined
+
+  </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+
+        <section>
+          <h3>JavaScript: Arrays</h3>
+
+          <pre><code class="javascript">
+          const empty = [];
+          const things = [ "a", 123, { name: "Klaus"}, false];
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+          // Extend an existing array with new entries
+          const abc = ["a", "b", "c"];
+
+          abc.push("d", "e"); // ["a", "b", "c", "d", "e"];
+
+          abc[4]; // e
+          abc.length // 5
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+
+          // Copy an existing array and extend the copy
+          const three = [1, 2, 3];
+          const five = three.concat(4, 5)
+          // three !== five
+
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>JavaScript: Arrays</h3>
+          <pre class="fragment"><code class="javascript">
+          // Iterate over all items
+
+          for (const x of six) {
+            console.log(x);
+          }
+          // 1, 2, 3, 4, 5, 6
+
+          six.forEach(v => console.log(v));
+          // 1, 2, 3, 4, 5, 6
+        </code></pre>
+          <pre class="fragment"><code class="javascript">
+          // Transforming ("map") arrays
+
+          const multiplied = six.map(v => v * 2);
+          // [2, 4, 6, 8, 10, 12]
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Objects</h3>
+          <p>Objects are written as literal in the form of key-value pairs:</p>
+          <pre><code class="javascript">
+const firstname = "Klaus";
+
+const person = {
+  firstname: firstname,
+  hobby: "Singing"
+  age: 32
+}
+
+console.log(typeof person); // object
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            // firstname und age are "properties" of the person object
+            // Access (read) a property
+            person.firstname // Klaus
+            
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            // Update an existing property
+            person.firstname = "Susi"
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            // Add new property:
+            person.livesIn = "Hamburg"
+            
+            // Remove property from the object:
+            delete person.livesIn;
+            
+            // Access not existing property 
+            person.livesIn // undefined
+                      </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Objects #2</h3>
+          <p class="fragment">ES6 "Shorthand Notation"</p>
+          <pre class="fragment"><code class="javascript">
+            const firstname = "Klaus";
+        
+            const person = {
+              firstname,
+              hobby: "Singing"
+              age: 32
+            }
+        </code></pre>
+
+          <p class="fragment">Reminder: Only references are constant!</p>
+
+          <pre class="fragment"><code class="javascript">
+            const person = {
+              name: "Susi"
+            }
+
+            person = "Klaus"; // TypeError: invalid assignment to const 'person'
+            person.name = "Klaus" // OK
+          </code></pre>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h2>Excercise: Arrays, objects and functions</h2>
+
+          <p class="fragment">
+            You can find the description of the exercise in
+            <b><code>js-intro/02_objects_and_arrays/index.js</code></b
+            >. Please also write your code also in that file.
+          </p>
+          <p class="fragment">
+            Please open
+            <b><code>js-intro/02_objects_and_arrays/index.html</code></b> in your browser. This file
+            runs your code in <b><code>index.js</code></b
+            >.
+          </p>
+          <p class="fragment">
+            Remember to reload your browser to pick up your changes in <code>index.js</code> after
+            saving the file.
+          </p>
+          <p class="fragment">
+            If you have any questions or problems, please contact me at any time.
+          </p>
+          <p class="fragment">
+            If all else fails, you will find a possible solution in:
+            <code>js-intro/02_objects_and_arrays/solution/index.js</code>
+          </p>
+          <p class="fragment">When you are done, please "raise your hand" in Teams 🙋‍♀️</p>
+        </section>
+
+        <section>
+          <h3>More about objects</h3>
+
+          <pre class="fragment"><code class="javascript">
+// Access via Index Notation
+person["first name"]; // Klaus
+
+const what = "first name";
+person[what]; // Klaus
+person[what] = "Susi";
+
+person.firstname; // Susi
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Objects and functions</h3>
+
+          <p>Objects may contain functions as properties</p>
+
+          <pre><code class="javascript">
+const person = {
+  firstname: "Susi",
+  sayHello() { return "Hello, " + this.firstname},
+}
+
+person.sayHello() // Hello, Susi
+</code></pre>
+
+          <!-- <p class="fragment">Warnung vor "this"!</p>
+          <pre class="fragment"><code class="javascript">
+const klaus = { 
+  firstname: "Klaus", 
+  sayHello: person.sayHello
+};
+
+klaus.sayHello() // 🤔
+</code></pre>
+
+          <pre class="fragment"><code class="javascript">
+klaus.sayHello() // Hello, Klaus 😊
+</code></pre>
+
+          <pre class="fragment"><code class="javascript">
+const sayHelloToSusi = person.sayHello;
+sayHelloToSusi(); // 🤔
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+const sayHelloToSusi = person.sayHello;
+sayHelloToSusi(); // Hello, undefined 🤪
+</code></pre> -->
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Objects and arrow functions</h3>
+          <p class="fragment">
+            Arrow functions are <b>not</b> suitable for methods (i.e. for functions on objects):
+          </p>
+          <pre class="fragment"><code class="javascript">
+const person = {
+  firstname: "Susi",
+  sayHello: () => { return "Hello, " + this.firstname }
+}
+
+person.sayHello();  Hello, undefined 🤪
+</code></pre>
+          <p class="fragment">(Functions on objects do not have a "this")</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Destructuring</h3>
+          <p>
+            Using the
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment"
+              >object destructuring</a
+            >
+            operator you can assign values of an object to local variables:
+          </p>
+
+          <pre><code class="javascript">
+              const person = {
+                firstname: "Susi",
+                lastname: "Meier",
+                age: 32
+              };
+
+              const { firstname, age, hobby } = person;
+              console.log(firstname); // Susi
+              console.log(age); // 32
+              console.log(hobby); // undefined
+            </code></pre>
+
+          <p class="fragment">You can even set <em>default values</em>:</p>
+
+          <pre class="fragment"><code class="javascript">
+              const person = {
+                firstname: "Susi",
+                age: 32
+              };
+
+              const { city = "London" } = person;
+              console.log(city); // London
+            </code></pre>
+        </section>
+        <section>
+          <h3>Destructuring #2</h3>
+          <p>You can destructure function arguments:</p>
+
+          <pre><code class="javascript">
+              // Conventional
+              function printPerson(person) {
+                console.log(`${person.firstname} is ${person.age} years old`);
+              }
+
+              printPerson({ firstname: "Susi", age: 32 });
+            </code></pre>
+
+          <p class="fragment">With destructuring:</p>
+
+          <pre class="fragment"><code class="javascript">
+              function printPerson({firstname, age}) {
+                console.log(`${firstname} is ${age} years old`);
+              }
+
+              printPerson({ firstname: "Susi", age: 32 });
+            </code></pre>
+        </section>
+        <section>
+          <h3>Destructuring #3</h3>
+          <p>Assigning default values</p>
+          <pre><code class="javascript">
+             function printPerson({name, age, city="London"}) {
+                 console.log(`${name}, ${age} years, lives in ${city}`);
+             }
+            </code></pre>
+          <p class="fragment">🤔 What is output here? 🤔</p>
+          <pre class="fragment"><code class="javascript">
+             
+              printPerson({name: "susi", age: 32});
+            </code></pre>
+          <pre class="fragment"><code class="javascript">
+  
+              printPerson({name: "susi", age: 32, city: "Freiburg"});
+            </code></pre>
+          <pre class="fragment"><code class="javascript">
+  
+              printPerson({name: "susi", age: 32, city: null});
+            </code></pre>
+          <pre class="fragment"><code class="javascript">
+  
+              printPerson({name: "susi", age: 32, city: undefined});
+            </code></pre>
+          <pre class="fragment"><code class="javascript">
+  
+              printPerson();
+             </code></pre>
+        </section>
+
+        <section>
+          <h3>Object Spread Operator</h3>
+
+          <p>
+            Using the
+            <a
+              href="https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Operators/Spread_syntax"
+              >Spread Operator</a
+            >
+            you can copy all properties of an object to another one:
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            const susi = { firstname: "Susi", age: 32 }
+
+            // (Shallow) copy
+            const copy = { ...person } 
+            // copy: { firstname: "Susi", age: 32}
+
+            copy.age = 33;
+
+            susi.age; // 32
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // Copy and add new property:
+            const person = { firstname: "Susi", age: 32 }
+
+            const employee = { ...person, salary: 695000 }
+            // employee: { firstname: "Susi", age: 32, salary: 695000 }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Destructuring and Spread with arrays</h3>
+          <p>Both operators also work with arrays:</p>
+
+          <pre class="fragment"><code class="javascript">
+            // Spread-Operator
+
+            const cities = ["Hamburg", "London"];
+            const moreCities = [...cities, "Paris"];
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // Destructuring
+            const cities = ["Hamburg", "London", "Paris"];
+            const [hamburg, london] = cities;
+
+            console.log(hamburg); // Hamburg
+            console.log(london); // London
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Example: Immutability</h3>
+          <p>(Becomes relevant later, esp. with Redux)</p>
+
+          <p><code>Array.map</code> maps all items in an array to a new array</p>
+
+          <pre class="fragment"><code class="javascript">
+const persons = [
+  { lastname: "Smith", firstname: "Klaus", age: 32 }, 
+  { lastname: "Meier", firstname: "Susi", age: 33 }
+]      
+
+const olderPersons = persons.map( p => {
+  return { ...p, age: p.age + 1 }
+})
+          </code></pre>
+          <p class="fragment">
+            In "real" live: <a href="https://immerjs.github.io/immer/">ImmerJS</a> makes complicated
+            things simpler.
+          </p>
+        </section>
+        <section>
+          <h2>Excercise: Working with objects</h2>
+
+          <p class="fragment">
+            You can find the description of the exercise in
+            <b><code>js-intro/03_objects/index.js</code></b
+            >. Please also write your code in that file.
+          </p>
+          <p class="fragment">
+            Plase open
+            <b><code>js-intro/03_objects/index.html</code></b> in your browser. It runs the code in
+            <b><code>index.js</code></b
+            >.
+          </p>
+          <p class="fragment">
+            Remember to reload the page in your browser after you made changes to
+            <code>index.js</code> and look for output on the console
+          </p>
+          <p class="fragment">
+            If you have any questions or problems, please contact me at any time.
+          </p>
+          <p class="fragment">
+            If all else fails, you will find a possible solution in:
+            <code>js-intro/03_objects/solution/index.js</code>
+          </p>
+          <p class="fragment">When you are done, please "raise your hand" in Teams 🙋‍♀️</p>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <section>
+            <h3>Truthy und falsy</h3>
+            <p>
+              A value is called
+              <b><a href="https://developer.mozilla.org/de/docs/Glossary/Falsy">falsy</a></b> if it
+              becomes <b>false</b> if it is (implicitly or explicitly) converted to a boolean.
+            </p>
+            <p>
+              On the other hand, a value is
+              <b><a href="https://developer.mozilla.org/de/docs/Glossary/Truthy">truthy</a></b> if
+              it becomes <b>true</b> if it is (implicitly or explicitly) converted to a boolean.
+              (all values, that aren't falsey)
+            </p>
+
+            <pre><code class="javascript">
+            if (true) { console.log("I'm true") } // I'm true
+
+            if ("hello") { console.log("I'm true") } // I'm true
+            
+            if (null) { console.log("I'm falsy") } // 
+
+            if (undefined) { console.log("I'm falsy") } // 
+          </code></pre>
+
+            <p class="fragment">What about these?</p>
+
+            <pre class="fragment"><code class="javascript">
+            if (0) { console.log("will this be shown?"); } // 🤔
+          </code></pre>
+
+            <pre class="fragment"><code class="javascript">
+            if ("") { console.log("will this be shown?"); } // 🤔
+          </code></pre>
+
+            <pre class="fragment"><code class="javascript">
+            if ([]) { console.log("will this be shown?"); } // 🤔
+          </code></pre>
+
+            <pre class="fragment"><code class="javascript">
+            if ({}) { console.log("will this be shown?"); } // 🤔
+          </code></pre>
+          </section>
+        </section>
+
+        <!-- =============================================================================
+        <section>
+          <h3>Weitere Operatoren</h3>
+
+          <p>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR"
+              >OR</a
+            >
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+              const winter = true;
+              const summer = false;
+              const spring = false;
+              const isWinterOrSummer = winter || summer; // true
+              const isSummerOrSpring = summer || spring; // false 
+
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // Mit nicht-boolean-Werten
+            const name = "Peter";
+            const age = 32;
+            const oneOrTheOther = name || age; // Peter
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // Mit nicht-boolean-Werten
+            const name = "";
+            const age = 32;
+            const oneOrTheOther = name || age; // ???
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // OR...?
+            const name = "";
+            const age = 0;
+            const what = name || age; // ????
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Weitere Operatoren</h3>
+          <p>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND"
+              >AND</a
+            >
+          </p>
+          <p>Liefert den zweiten Wert zurück (oder ersten Wert, wenn erster Wert falsy)</p>
+
+          <pre class="fragment"><code class="javascript">
+            const winter = true;
+            const summer = false;
+            const winterAndSummer = winter && summer; // false; 
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            const firstname = "Susi";
+            const lastname = "Meier"
+            const name = firstname && lastname; // Susi
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            const firstname = "";
+            const lastname = "Meier"
+            const firstnameAndLastNameSpecified = firstname && lastname; // "" 😝
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            const firstname = "Abc";
+            const lastname = "Meier"
+            const firstnameAndLastNameSpecified = !!(firstname && lastname); // true 😝
+          </code></pre>
+        </section> -->
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Modules</h3>
+          <p>With modules, file contents are no longer globally visible</p>
+          <p>Modules explicitly determine what may be used outside</p>
+          <p>
+            Modules explicitly state what they want to use from other modules
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Modules</h3>
+          <h4>Default exports</h4>
+          <p>
+            <em>Objects, functions, classes etc must be explicitly <b>exported and imported</b></em>
+          </p>
+          <p class="fragment">An <code>export</code> statement changes a file to a module</p>
+
+          <pre class="fragment"><code class="javascript">
+            // src/domain/Person.js
+            export default function createPerson { ... }
+
+            or
+
+            function createPerson { ... }
+            export default createPerson
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              // src/domain/Person.js
+              export default function createPerson() { ... }
+
+              or
+
+              function createPerson() { ... }
+              export default createPerson;
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                Only one default export is allowed:
+                export default function createPerson() { ... }
+                export default function makePerson { ... } // ERROR
+              </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Modules</h3>
+          <h4>Imports</h4>
+          <p class="fragment">
+            When importing, we specify paths(!)
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+              // src/domain/Person.js
+              export default function createPerson() { ... }
+
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                // src/App.js
+                import createPerson from "./domain/Person.js";
+
+                const person = createPerson("Lemmy", "Kilmister");
+              </code></pre>
+
+          <p class="fragment">👉 In React development you can omit the file extension!</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Modules</h3>
+          <h4>Names exports</h4>
+          <p class="fragment">
+            In addition to a default export, a module can also have any number of
+            <b>named exports</b>
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+                // src/domain/Person.js
+                export default function createPerson { ...}
+
+                export function updatePerson() { ... }
+                export function removePerson() { ... }
+              </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                  // src/domain/Person.js
+                  function createPerson { ...}
+                  function updatePerson() { ... }
+                  function removePerson() { ... }
+
+                  export default createPerson;
+
+                  export { updatePerson, removePerson }
+                </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Modules</h3>
+          <h4>Names imports</h4>
+          <pre class="fragment"><code class="javascript">
+                    // src/App.js
+                    import { removePerson } from "./Person"
+              </code></pre>
+          <pre class="fragment"><code class="javascript">
+                // Importing both default and named export
+                import createPerson, { removePerson } from "./Person.js"
+              </code></pre>
+        </section>
+        <!-- ============================================================================= -->
+        <!-- <section>
+          <h3>Übung: Module</h3>
+
+          <p>Vorbereitung</p>
+          <ol>
+            <li class="fragment">
+              Öffne das Verzeichnis <code>js-intro/04_modules</code> im Terminal
+            </li>
+            <li class="fragment">Führe <code>npx http-server</code> in dem Verzeichnis aus</li>
+            <li class="fragment">
+              Öffne die Seite <a href="http://localhost:8080">http://localhost:8080</a> im Browser
+            </li>
+            <li class="fragment">Wenn Du die Seite geöffnet hast, bitte "Hand heben" in Zoom 🙋‍♀️</li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Übung: Module</h2>
+
+          <p class="fragment">
+            Die Beschreibung der Übung findest Du in
+            <b><code>js-intro/04_modules/index.js</code></b
+            >. Darin kannst Du auch deinen Code schreiben.
+          </p>
+          <p class="fragment">
+            Du kannst
+            <b><code>js-intro/04_modules/index.html</code></b> in deinem Browser öffnen. Diese Datei
+            führt die <b><code>index.js</code></b
+            >-Datei dann aus.
+          </p>
+          <p class="fragment">
+            Ausgaben auf der Browser-Konsole, nach dem Ändern von <code>index.js</code>, die Seite
+            im Browser neu laden
+          </p>
+          <p class="fragment">Bei Fragen oder Problemen, kannst Du dich jederzeit melden</p>
+          <p class="fragment">
+            Wenn alle Stricke reißen, findest Du eine mögliche Lösung in:
+            <code>js-intro/04_modules/solution/</code>
+          </p>
+          <p class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</p>
+        </section> -->
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Module</h3>
+          <h4>Bundling</h4>
+
+          <p>Not all browsers support ES6 modules natively</p>
+          <p>
+            There is in fact more than one module system in JS (for example, CommonJS from Node.JS).
+          </p>
+
+          <p>
+            A module bundler (for ex.
+            <a href="http://webpack.github.io/">Webpack</a> or
+            <a href="https://rollup.js.org">Rollup</a>) "resolves" the modules at build time into
+            <b>one single</b> file and "removes" the module code.
+          </p>
+          <p class="fragment">
+            This also happens in the React build tooling, you don't have to worry about it!
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h2>Web development with "vanilla" JavaScript</h2>
+
+          <p><a href="js-intro/99_01_helloworld/">Hello World</a></p>
+        </section>
+        <section>
+          <h3>Web development with "vanilla" JavaScript: DOM</h3>
+          <p>The browser generates the Document Object Model (<b>DOM</b>) from the HTML code</p>
+          <p class="fragment">Browser renders and displays the DOM</p>
+
+          <p class="fragment">
+            JavaScript can search for elements in the DOM at runtime (getElementBy...)
+          </p>
+          <p class="fragment">
+            We can attach listeners to DOM elements and react to events (for example to text entered
+            in an input field).
+          </p>
+          <p class="fragment">
+            We can also <b>modify</b> the DOM with JS (add/delete elements, change attributes,
+            change CSS)
+          </p>
+          <p class="fragment">
+            👉 Whenever the DOM changes, the display in the browser is updated
+          </p>
+        </section>
+
+        <section>
+          <h3>Example: an application in "vanilla" (or "plain") JavaScript</h3>
+          <pre><code data-trim class="html">
+        &lt;!DOCTYPE html>
+        &lt;html>
+          &lt;head>&lt;title>Hello World!&lt;/title>&lt;/head>
+          &lt;body />
+          &lt;script>
+              const title = document.createElement("h1");
+              const titleText = document.createTextNode("Hello World");
+              title.appendChild(titleText);
+
+              const greetButton = document.createElement("button");
+              greetButton.innerHTML = "Greet!";
+              greetButton.disabled = true;
+              greetButton.addEventListener("click", event => {
+                const div = document.createElement("p");
+                div.textContent = greetInput.value;
+                document.body.appendChild(div);
+              });
+
+              const greetInput = document.createElement("input");
+              greetInput.addEventListener("input", event => {
+                if (event.target.value.length > 0) {
+                  greetButton.disabled = false;
+                } else {
+                  greetButton.disabled = true;
+                }
+              });
+
+              document.body.appendChild(title);
+              document.body.appendChild(greetInput);
+              document.body.appendChild(greetButton);
+          &lt;/script>
+        &lt;/html>    </code></pre>
+        </section>
+      </div>
+    </div>
+
+    <script src="slides/reveal.js/lib/js/head.min.js"></script>
+    <script src="slides/reveal.js/js/reveal.js"></script>
+    <script src="slides/reveal.js/lib/jquery-2.2.4.js"></script>
+    <script src="slides/reveal-config.js"></script>
+  </body>
+</html>

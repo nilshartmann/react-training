@@ -1,19 +1,18 @@
 console.log("Please edit index.js");
 
-// 1. Schreibe eine 'helloWorld'-Funktion
-//   Die Funktion soll einen Parameter entgegen nehmen, der "name" heißt
-//     - Wenn der übergebene Parameter KEIN String ist,
-//       soll die Funktion einen Leerstring zurückliefern
-//       Den Typ einer Variablen oder eines Parameters kannst Du mit "typeof" ermitteln.
-//       "typeof" liefert dir einen String zurück, der den Typ angibt
-//       z.B: console.log(typeof "Moin"); // "string"
+// 1. write a 'helloWorld' function
+//   The function should take a parameter called 'name'
+//   - If the parameter passed is NOT a string, the function should return an empty string.
 //
-//     - Ansonsten (Parameter ist ein String): liefer einen Gruß (z.B. "Hallo, ...Name..." zurück)
-//       - Verwende Template-Strings, um den Gruß zu erzeugen
+//     You can determine the type of a variable or a parameter with "typeof".
+//       "typeof" returns a string that specifies the type.
+//       e.g.: console.log(typeof "Hello"); // "string".
 //
-// 2. Rufe die Funktion mit unterschiedlichen Werten auf und gib das Ergebnis auf der Konsole aus
-//     - Konsolen-Ausgaben kannst Du mit console.log machen: console.log("...");
-//     - Für helloWorld("Susi") sollte "Hallo, Susi" erscheinen
-//     - Für helloWorld(2021) sollte "" erscheinen
-//     - Für helloWorld() sollte "" erscheinen
+//   - Otherwise (parameter is a string): return a greeting (e.g. "Hello, ...name...")
+//   - Use template strings to create the greeting
 //
+// 2. call the function with different values and output the result on the console
+//   - You can do console output with console.log: console.log("...");
+//   - For helloWorld("Susi"), "Hello, Susi" should appear.
+//   - For helloWorld(2021) "" should appear
+//   - For helloWorld() "" should appear
