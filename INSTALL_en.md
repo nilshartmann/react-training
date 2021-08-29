@@ -1,85 +1,74 @@
-# Preparing the React Training Workspace
+# Preparations for the React Online Training
 
-## Requirements
+## Prerequisites
 
-Please make sure, that the attendees' laptops have following softare installed:
+**For your laptop/PC**
 
-- Git (in order to install the Workspace and pull updates)
-- [NodeJS](https://nodejs.org/en/download/) (LTS version 12.16.x) und npm Version 6.14.x (part of the NodeJS distribution)
-- Browser (Firefox or Chrome)
-- An IDE or Editor of your choice, for example:
-  - [JetBrains Webstorm](https://www.jetbrains.com/webstorm/download/) (evaluation version is sufficient)
+Your laptop/PC should have installed:
+
+- Git (to install the workspace).
+- [NodeJS](https://nodejs.org/en/download/) LTS version, currently 14.6 (12.16.x should also work) and npm version included in it
+- Browser (preferably Firefox or Chrome)
+- An IDE or text editor. If you already use a "favourite editor", use it during the training so you don't have to learn a new tool as well. Otherwise, the following tools will work for example:
   - [Visual Studio Code](https://code.visualstudio.com/)
-- if the attendees have a preferred/know IDE or Editor they use it to avoid "fighting" with a new environment during the training.
-- The computers should have working internet access _also during the training_
+  - [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) (Ultimate Edition, but evaluation version is sufficient)
+  - [Webstorm](https://www.jetbrains.com/webstorm/download/) (evaluation version is sufficient)
 
-**Optional: Browser extensions**
+**Optional: Browser Extensions for React**
 
-- I would recommend to install the [React Developer Tools](https://github.com/facebook/react/tree/master/packages/react-devtools). They're available for [Chrome](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjE14vhq-rmAhVGblAKHbgOC1sQFjAAegQICRAK&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi&usg=AOvVaw3YJDg7kXgeeChgKN88s0Sx) and [Firefox](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
+- For working with React, I recommend installing the [React Developer Tools](https://github.com/facebook/react/tree/master/packages/react-devtools). They are available for [Chrome](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjE14vhq-rmAhVGblAKHbgOC1sQFjAAegQICRAK&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi&usg=AOvVaw3YJDg7kXgeeChgKN88s0Sx) and [Firefox](https://addons.mozilla.org/de/firefox/addon/react-devtools/).
 
-- For developing with **Apollo GraphQL**, I'd recommend to install [Apollo Client Tools](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#apollo-client-devtools),
-  which are available for [Chrome](https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/apollo-developer-tools/)
+**During the training**
 
-## Step 2: Clone the Git Repository and install dependencies
+- As we may need to install updates before and during the training, please make sure that internet access (of course, online training 🙃) is working on your computer during the training as well - but also **for git and npm** (consider proxies!).
+  - W-LAN is convenient, but especially for (long) streaming sessions, a wired network is more stable than W-LAN, so if in doubt, plug in the cable (and deactivate W-LAN) 😊
+  - Information about setting up a proxy for npm can be found [for example here](http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/).
+- I am happy if you have your **camera on during the training** so that we can see each other 🎥. Please only turn on the microphone if you want to say or ask something (which you are of course allowed to do at any time!).
 
-1. Clone the repository:
+# Installation and preparation of the workspace for training
+
+## Step 1: Clone the repository and install packages
+
+1. clone the repository:
 
 ```
 git clone https://github.com/nilshartmann/react-training
 ```
 
-2. Install NPM packages inside the following folders:
+2. install the required npm packages as a test:
 
 ```
-cd blog-example/backend
-npm install
-
-cd blog-example/backend-graphql
+cd blog-example/backend-rest
 npm install
 
 cd blog-example/workspace
 npm install
+
+cd blog-example/workspace-typescript
+npm install
 ```
 
-## Step 2: Verify that the demo backend is running
+## Step 2: Test if REST backend works
 
-1. Use npm to start the backend inside the `blog-example/backend` folder:
+1. Start the backend in the directory **blog-example/backend-rest** of the repository:
 
 ```
-cd blog-example/backend
+cd blog-example/backend-rest
 npm start
 ```
 
-Attention! The backend process listens on **port 7000**. Please make sure that this port is available on your machine.
+Attention: The backend runs on **port 7000**, i.e. this port must be available.
 
-2. Test backend
+2. Test the backend
 
-- In your browser (or with curl, wget or httpie) open following URL: http://localhost:7000/posts
-- If your receive JSON data everything is fine 😊
+- Call in the browser (or via curl, wget or httpie): http://localhost:7000/posts
+- This should return JSON code
 
-## Step 3: Verify, that the demo graphql backend is running.
+## Step 3: Test if the frontend works
 
-1. Use npm to start the GraphQL backend inside the `blog-example/backend-graphql` folder:
+1. Start the frontend (example application)
 
-```
-cd blog-example/backend-graphql
-npm start
-```
-
-Attention! The GraphQL server process listens on **port 4000**. Please make sure that this port is available on your machine.
-
-2. Test GraphQL backend
-
-- In your browser open following URL: http://localhost:4000
-- The "GraphQL playground" should open
-
-![The GraphQL Playground](./screenshot-playground.png)
-
-## Schritt 4: Verify that the frontend example is working
-
-1. Start the frontend
-
-Run npm in the folder `blog-example/workspace`:
+To do this, open the directory `blog-example/workspace` and execute `npm start`:
 
 ```
 cd blog-example/workspace
@@ -87,16 +76,16 @@ cd blog-example/workspace
 npm start
 ```
 
-Attention! The frontend is running on **Port 3000**. Please make sure, this port is available on your machine!
+Attention: The frontend runs on **port 3000**, i.e. this port must be available.
 
-2. When the frontend runs, please open [http://localhost:3000](http://localhost:3000) in your browser. If you see "Hello, World", everything is ready! 🎉
+2. Once the frontend has started, open the application in the browser to test it: [http://localhost:3000](http://localhost:3000). "Hello, World" should appear there and the workspace is ready for use now 😊.
 
-![Running frontsend](./running-workspace.png)
+![Running frontend](./running-workspace.png)
 
-## Internet access
+# Open the workspace in your editor/IDE
 
-As we probably have to install before and during the Training updates, please make sure, that your internet connection is working (esp. git and npm).
+For the exercises, you should only open the directory 'blog-example/workspace' in your favourite editor or IDE. Please do **not** open the **complete workspace**.
 
-If your company is using a Proxy, you can find some informations how to use npm behind a proxy [here](http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/).
+You can open this directory (`blog-example/workspace`) already at the beginning of the training. I will of course explain how the exercises work during the training.
 
-If you have any problems or question, please let me know!
+If you have any questions or problems, please contact me.
