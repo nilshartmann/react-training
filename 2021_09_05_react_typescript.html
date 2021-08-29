@@ -1963,21 +1963,22 @@ function App(props) {
 
         <!-- ============================================================================= -->
         <section>
-          <h3>Beispiel: Loading Indicator</h3>
-          <p>Wie geben wir dem Benutzer Feedback, dass die Daten gerade geladen werden?</p>
+          <h3>Example: Loading Indicator</h3>
+          <p>How do we give feedback to the user that the data is loading?</p>
         </section>
 
         <section>
-          <h3>Komplexer Zustand</h3>
+          <h3>"Complex" state"</h3>
           <p>
-            Wenn eine Komponente mehrere Zustände hält, die nicht unabhängig sind, kannst Du auch
-            ein Objekt als Zustand verwenden:
+            If a component holds multiple states that are not independent, you can also use an
+            object as the state:
           </p>
 
           <pre class="fragment"><code class="javascript">
 function App() {
   const [fetchState, setFetchState] = React.useState({
     loading: false,
+    error: "",
     posts: []
   });
 
@@ -1985,8 +1986,8 @@ function App() {
 }              
             </code></pre>
           <p class="fragment">
-            Wenn Du den Zustand änderst, musst Du ein <b>neues Objekt</b> erzeugen! Das bestehende
-            Objekt darf nicht verändert werden
+            If you change the state, you must create a <b>new object</b>! The existing object must
+            not be changed!
           </p>
 
           <pre class="fragment"><code class="javascript">
@@ -2029,42 +2030,45 @@ function App() {
           </ol>
         </section> -->
         <section>
-          <h3>Exkurs: Custom Hooks</h3>
+          <h3>Outlook: Custom Hooks</h3>
 
-          <em>Eigene Hooks können für wiederkehrende Aufgaben genutzt werden</em>
+          <em
+            >Own ("custom") hooks can be used to reuse code (that need to interact with React
+            APIs)</em
+          >
 
           <p class="fragment">
-            Beispiele: Laden von Daten, Arbeiten mit spezialisiertem State, ...
+            Examples: Loading data, working with browser APIs or external libraries
           </p>
         </section>
 
         <section>
-          <h3>Exkurs: Custom Hooks</h3>
+          <h3>Outlook: Custom Hooks</h3>
 
           <ul class="x-list">
             <li class="fragment">
-              ...müssen mit <code>use</code> beginnen
+              ...must start with <code>use</code>
               <ul>
-                <li>(ansonsten kann der Linter nicht auf mögliche Fehler prüfen!)</li>
+                <li>(otherwise the linter cannot check for possible errors!)</li>
               </ul>
             </li>
             <li class="fragment">
-              ...dürfen nur aus anderen (Custom) Hooks und Komponenten aufgerufen werden
+              ...may only be called from other (custom) hooks and function components
             </li>
             <li class="fragment">
-              ...erwarten "normale" Funktionsparameter (nicht zwingend ein Objekt wie bei
-              Komponenten)
+              ...expect "normal" function parameters (not necessarily a properties object as with
+              components)
             </li>
-            <li class="fragment">...dürfen andere (Custom) Hooks verwenden</li>
+            <li class="fragment">...allowed to use other (custom) hooks verwenden</li>
             <li class="fragment">
-              ...beliebiger Rückgabewert möglich (alle Typen erlaubt, auch JSX!)
+              ...any return value possible (might be JSX, but it's not a requirement)
             </li>
           </ul>
         </section>
 
         <!-- ============================================================================= -->
         <section>
-          <h3>Beispiel: Ein Custom Hook zum Laden von Daten</h3>
+          <h3>Example: a custom hook to load data</h3>
 
           <pre><code class="javascript">
 import React from "react";
@@ -2098,49 +2102,53 @@ export default function useApi(url, initialValue) {
 
         <section id="t-typescript">
           <h1>Teil V</h1>
-          <h2>React Anwendungen mit TypeScript</h2>
+          <h2>React applications with TypeScript</h2>
           <p>Example: code/blog-example/steps/5-typescript</p>
         </section>
 
         <section>
           <h2>TypeScript</h2>
           <ol>
-            <li><a href="#/t-typescript-grundlagen">Einführung in TypeScript</a></li>
-            <li><a href="#/t-typescript-react">React mit TypeScript</a></li>
+            <li>
+              <a href="#/t-typescript-grundlagen">TypeScript Basics</a>
+            </li>
+            <li>
+              <a href="#/t-typescript-react">React applications with TypeScript</a>
+            </li>
           </ol>
         </section>
 
         <section id="t-typescript-grundlagen">
-          <h2>Einführung: Die Sprache TypeScript</h2>
-          <p class="fragment">
+          <h2>Background: TypeScript</h2>
+          <p>
             <em>TypeScript is a superset of JavaScript that compiles to plain JavaScript </em>(
             <a href="http://www.typescriptlang.org/" target="_blank"
               >http://www.typescriptlang.org/</a
             >)
           </p>
           <ul>
-            <li class="fragment">Erweitert JavaScript um ein Typen System</li>
-            <li class="fragment">
-              Jeder gültige JavaScript Code ist auch gültiger TypeScript Code
-            </li>
-            <li class="fragment">
-              Mittels des TypeScript Compilers wird aus TS Code JavaScript Code
-            </li>
+            <li>Extends JavaScript by a type system</li>
+            <li>Every valid JavaScript code is also valid TypeScript code</li>
+            <li>TS compiler translates to JavaScript</li>
           </ul>
         </section>
 
         <section>
-          <h3>TypeScript Grundlagen</h3>
-          <p>Typ-Angaben werden hinter einen Bezeichner geschrieben</p>
+          <h3>👉TypeScript hands-on</h3>
+        </section>
+
+        <section>
+          <h3>TypeScript basics</h3>
+          <p>Type declarations are written after the identifier of a variable or argument</p>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // Variablen können Typ-Informationen bekommen
+  // Variables can get type informations
   let foo: string;
   foo = 'yo';
   // Error: number: This type is incompatible with string
   foo = 10;
                  </code></pre>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // Funktionen
+  // Functions: parameters and return values can be described
   function sayIt(what: string): string {
     return `Saying: ${what}`;
   }
@@ -2150,7 +2158,7 @@ export default function useApi(url, initialValue) {
   </code></pre>
 
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // Arrow Funktionen
+  // Arrow functions
   const sayIt = (what: string): string => `Saying: ${what}`;
   
   sayIt('Moin');
@@ -2160,7 +2168,7 @@ export default function useApi(url, initialValue) {
         </section>
 
         <section>
-          <h2>Eingebaute Typen</h2>
+          <h2>Built-in types</h2>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
   // string
   let city: string = 'Hamburg';
@@ -2172,7 +2180,7 @@ export default function useApi(url, initialValue) {
   let theAnswer: number = 42;
   
   // array (note the [])
-  let cities: string[] = ['Hamburg', 'Barcelona'];
+  let cities: string[] = ['Hamburg', 'London'];
   // alternative:
   let languages: Array&lt;string> = ['JavaScript', 'TypeScript'];
   
@@ -2181,9 +2189,9 @@ export default function useApi(url, initialValue) {
               </code></pre>
         </section>
         <section>
-          <h2>Eingebaute Typen: any und unknown</h2>
+          <h2>Built-in types: "any" and "unknown"</h2>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // any: kann alle Typen aufnehmen, Typ-Prüfung ist ausgeschaltet
+  // any: can take all Types, type checking is effectively turned off
   let theUnknown: any = 'Who cares';
   theUnknown = 666; // ok
   theUnknown = true; // ok
@@ -2194,29 +2202,30 @@ export default function useApi(url, initialValue) {
               </code></pre>
         </section>
         <section>
-          <h2>Eingebaute Typen: any und unknown</h2>
+          <h2>Built-in types: "any" and "unknown"</h2>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // unknown: kann ebefalls alle Typen aufnehmen, erzwingt aber vor der Verwendung Typ-Prüfung
+  // unknown: can also take all types, but forces a type check before using the value
   function loadData(): unknown { return "" // ok }
   let b = loadData(); 
   b.toUpperCase(); // ERROR
   if (typeof b === "string") {
-    // b ist jetzt string (typeof ist Laufzeitprüfung!)
+    // b now is a string (typeof is a runtime operator!)
     b.toUpperCase(); // OK
   }
               </code></pre>
         </section>
+
         <section>
-          <h2>Typen können abgeleitet (inferred) werden</h2>
+          <h2>Types can be inferred by TypeScript</h2>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  let city = 'Hamburg'; // city ist ein String
+  let city = 'Hamburg'; // city is a string
   
   city = 42;
   // Fehler: [ts] Type '42' is not assignable to type 'string'.
   </code></pre>
           <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
-  // Explizite Angabe eines Types (parameter)
-  // und abgeleiteter Typ (Return Type der Funktion)
+  // Function arguments must be specified explicitly
+  // (return type can be inferred)
   
   function sayIt(what: string) {
     return `Saying: ${what}`;
@@ -2230,10 +2239,10 @@ export default function useApi(url, initialValue) {
         </section>
 
         <section>
-          <h2>Type Check ausschalten</h2>
+          <h2>Turn off type checking</h2>
           <p>
-            Mit <code>@ts-ignore</code> (als Kommentar) kann wird die Überprüfung der nächsten Zeile
-            ausgeschaltet:
+            With <code>@ts-ignore</code> (as comment) the type checking in the next line will be
+            turned off:
           </p>
           <pre><code class="typescript line-numbers" contenteditable data-trim>
   let city:string = "Hamburg";
@@ -2244,14 +2253,18 @@ export default function useApi(url, initialValue) {
   city = 20259; // ok                
   </code></pre>
           <p class="fragment">
-            Nützlich in corner cases, die nur schwer mit TypeScript abbildbar sind oder bei
-            Migration
+            Should be used with care! Only in "difficult" scenarios, for example when type
+            definitions of an external library are broken.
           </p>
         </section>
+
         <section>
-          <h2>null und undefined</h2>
+          <h2>null and undefined</h2>
           <div class="fragment">
-            <p><code>null</code> muss explizit zugelassen werden <em>(strictNullChecks</em>):</p>
+            <p>
+              <code>null</code> is an own type and must be explicitly specified
+              <em>(strictNullChecks</em>):
+            </p>
             <pre><code class="typescript line-numbers" contenteditable data-trim>
   let city:string = null; //Type 'null' is not assignable to type 'string'.
   
@@ -2259,7 +2272,7 @@ export default function useApi(url, initialValue) {
               </code></pre>
           </div>
           <div class="fragment">
-            <p><code>undefined</code> muss ebenfalls explizit zugelassen werden:</p>
+            <p><code>undefined</code> also is an own type:</p>
             <pre><code class="typescript line-numbers" contenteditable data-trim>
     let city:string = undefined; //Type 'undefined' is not assignable to type 'string'.
     
@@ -2269,8 +2282,8 @@ export default function useApi(url, initialValue) {
           </div>
           <div class="fragment">
             <p>
-              Optionale Parameter können mit ? gekennzeichnet werden (erlauben dann auch
-              <code>undefined</code>)
+              Optional parameters can be marked with ? (they than can also be undefined
+              <code>undefined</code>, a behaviour that can be changed in TS 4.4)
             </p>
             <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
   function greet(name: string, greeting?: string) {
@@ -2289,10 +2302,10 @@ export default function useApi(url, initialValue) {
         </section>
 
         <section>
-          <h2>Eigene Typen</h2>
+          <h2>Own types</h2>
           <p>
-            Mit <code>interface</code> und <code>type</code>können eigene Typen (Objekt-Strukturen)
-            definiert werden:
+            With <code>type</code> and <code>interface</code> you can describe the shape/structure
+            of your own objects. Type and Interface are almost the same.
           </p>
 
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
@@ -2302,14 +2315,14 @@ export default function useApi(url, initialValue) {
     livesIn?: string; // Optional
   }
 
-  // Alternativ (interface und type fast synonym)
+  // or 
   type Person = { name: string; livesIn?: string; }
   
   const susi: Person = { // OK
     name: 'Klaus',
     livesIn: 'Hamburg'
   };
-  const klaus: Person = { // OK (livesIn ist optional)
+  const klaus: Person = { // OK (livesIn is optional)
     name: 'Klaus'
   }
   
@@ -2317,18 +2330,18 @@ export default function useApi(url, initialValue) {
   
   const lukas: Person = {
     name: 'Lukas',
-    profession: 'Lokführer'
+    profession: 'Train driver'
   } // Error: 'profession' does not exist in type 'Person'.
                  </code></pre>
         </section>
 
         <section>
-          <h2>Eigene Typen II</h2>
-          <p>Eigene Objekt-Typen können sowohl "Attribute" als auch Funktionen enthalten:</p>
+          <h2>Own types II</h2>
+          <p>You can also describe functions on your types</p>
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-            // Komplexer Typ
+            // Complex Type
             type Person {
-              name: string; // Pflicht
+              name: string; // mandatory
               greet(greeting: string): string;
             }
 
@@ -2352,9 +2365,10 @@ export default function useApi(url, initialValue) {
             }
                            </code></pre>
         </section>
+
         <section>
           <h2>Union Types</h2>
-          <p>Variablen, Parameter etc. können mehr als einen Typ annehmen:</p>
+          <p>Variables, parameters etc. can take more than one type:</p>
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
 type Person = { name: string };
 type Movie = { title: string };
@@ -2364,11 +2378,11 @@ function printNameOrTitle(obj: Person | Movie) {
   console.log(obj.title); // ERR: Property 'title' does not 
                           // exist on type 'Person | Movie'
  
-  if ("title" in obj) { // Abfrage ist ein "Type Guard"
-    // obj ist Movie hier, title ist definiert
+  if ("title" in obj) { // if statement is called a "Type Guard"
+    // obj is here "Movie", title is defined now
     console.log(obj.title);
   } else {
-    // obj ist Person hier: name ist definiert
+    // obj is here "Person": name is now known
     console.log(obj.name);
   }
 }
@@ -2381,13 +2395,13 @@ printNameOrTitle({label: "Save"}); // ERR
         </section>
         <section>
           <h2>Type Guards</h2>
-          <p>Durch einen Type Guard können Typen "eingeengt" werden</p>
+          <p>Types can be "narrowed down" by a type guard</p>
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
 type Person = { name: string };
 type Movie = { title: string };
 
-// Wenn diese Funktion true zurueckgibt, nimmt Typescript an,
-// dass das übergebene Argument vom Typ Movie ist
+// If this function returns true, TypeScript assumes,
+// that the object given ("candidate") is a a Movie
 function isMovie(candidate: any): candidate is Movie {
   return ("title" in candidate);
 }
@@ -2406,8 +2420,8 @@ function printNameOrTitle(obj: Person | Movie) {
 type Person = { name: string };
 type Movie = { title: string };
 
-// Wenn diese Funktion zurueckkehrt (kein Error geworfen wird) nimmt Typescript an,
-// dass das übergebene Argument vom Typ Movie  ist
+// When this function returns (no error is thrown) Typescript assumes,
+// that the argument passed is of type Movie
 function assertIsMovie(candidate: any): asserts candidate is  Movie {
   if ("title" in candidate) {
     return;
@@ -2417,67 +2431,114 @@ function assertIsMovie(candidate: any): asserts candidate is  Movie {
 
 function printTitle(hopefullyAMovie: any) { 
   assertPersonIsMovie(hopefullyAMovie)
-  // hopefullyAMovie ist jetzt Movie
+  // hopefullyAMovie is Movie
   hopefullyAMovie.title; // OK
 }
     
           </code></pre>
         </section>
+
         <section>
-          <h2>String Literal Types</h2>
-          <p>Beispiel: String Aufzählungstyp</p>
+          <h2>Type compatibility</h2>
+          <em
+            >In TypeScript two Types are considered equal when they have the <b>same structure</b>
+            ("structural typing"). That differs from C#/Java.
+          </em>
           <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-// Beispiel:             
-type View = "POST_LIST" | "POST_EDITOR";
-
-const s:View = "POST_LIST"; // OK
-const t:View = "POST_LISTE" // FEHLER
-
-function setView(v: VIEW) {
-    if (v === "POST_LIST") { ... } // ok
-    if (v === "POST_LISTE") { ... } // error: immer false
-}
-
-setView("POST_LIST"); //OK
-setView("POST_LISTE"); // ERROR
-          </code></pre>
+  interface Book {
+    title: string
+  }
+  
+  interface Movie {
+    title: string
+  }
+  
+  const book:Book = { title: "React introduction" };
+  const movie:Movie = book; // OK, even Book !== Movie
+                 </code></pre>
         </section>
 
         <section>
-          <h2>Übung: Hello, TypeScript!</h2>
+          <h2>String Literal Types</h2>
+          <p>
+            Using a String Literal Type, you can specify with exact strings a type can have. That
+            allows you to build enum-like constructs.
+          </p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+
+type VIEW = "LIST" | "DETAIL" | "ERROR";
+
+const m:VIEW = "LIST"; // OK
+const n:VIEW = "NOT_FOUND"; // ERR: Type '"NOT_FOUND"' 
+                         // is not assignable to type 'VIEW'.
+
+function getView(m: VIEW) {
+  if (m === "NOT_FOUND") {
+     // ERR: This condition will always return 'false' since the 
+     // types 'VIEW' and '"NOT_FOUND"' have no overlap.       
+  } else if (m === "DETAIL") {
+      // OK
+  }
+}
+            </code></pre>
+        </section>
+
+        <section>
+          <h2>Mapped Types</h2>
+          <p>Using mapped types you can construct new types based on others:</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>              
+type Person = { name: string; lastname: string};
+
+const p:Person = {
+    name: "Klaus",
+    lastname: "mueller"
+}
+
+p.lastname = "Meier"; // OK
+
+// ReadonlyPerson ist ein "mapped type"
+type ReadonlyPerson = Readonly&lt;Person>;
+
+const p2:ReadonlyPerson = {
+    name: "Klaus",
+    lastname: "mueller"
+}
+
+p2.name = "Karl"; // Cannot assign to 'name' because it is a read-only property.
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Excercise: Hello, TypeScript!</h2>
           <h3>
-            <em>Mach dich mit den Grundzügen der Sprache TypeScript vertraut</em>
+            <em>Become familiar with the basics of the TypeScript language</em>
           </h3>
 
           <ol class="x-list">
-            <li>Öffne den TypeScript Playground im Browser (den Link gibts per Chat)</li>
-            <li>Link zu den Slides als Referenz gibt's ebenfalls im Chat</li>
+            <li>Open the TypeScript Playground in your browser (I'll post the link to the chat)</li>
+            <li>Link to the slides for reference is also in the chat</li>
             <li>
-              Bearbeite die Datei, so dass keine Compile-Fehler mehr vorhanden sind, TODOs siehe
-              dort
+              Edit the file so that there are no more compile errors, see TODOs there
             </li>
             <li>
-              Lösung in <code>blog-example/material/ts-intro/01_solution_hello_typescript.ts</code>
+              Solution in
+              <code>blog-example/material/ts-intro/01_solution_hello_typescript.ts</code>
             </li>
           </ol>
         </section>
 
         <section id="t-typescript-react">
-          <h2>React Anwendungen mit TypeScript</h2>
-          <em
-            >State und Properties einer Komponente können mit TypeScript Typen beschrieben weden</em
-          >
+          <h2>React Applications with TypeScript</h2>
+          <em>State and Properties of components can be described using TypeScript</em>
           <p class="fragment">
-            Achtung! TypeScript-Dateien, die JSX-Code enthalten, <b>müssen</b> mit
-            <code>.tsx</code> enden!
+            Attention! TypeScript-Files, that contain JSX <b>have to</b> end with <code>.tsx</code>!
           </p>
 
-          <p class="fragment">
-            👉 Lasst uns ausprobieren, wie das funktioniert! (<code>workspace-typescript</code>)
-          </p>
+          <p class="fragment">👉 Let's see how this works (<code>workspace-typescript</code>)</p>
         </section>
+
         <section>
-          <h2>Typsicherheit in Funktionskomponenten</h2>
+          <h2>Type-safety in function components</h2>
           <pre
             class="fragment"
           ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
@@ -2500,7 +2561,7 @@ type PostListProps = {
           <pre
             class="fragment"
           ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
-    // Mit Destructuring
+    // With Destructuring
     function BlogList({posts, onAddPost}: GreetingMasterProps) => {
       // ...
     }
@@ -2509,7 +2570,7 @@ type PostListProps = {
         </section>
 
         <section>
-          <h3>Typ-sichere Verwendung von Komponenten</h3>
+          <h3>Typ-safe usage of components</h3>
 
           <div class="fragment">
             <p>Code Completion</p>
@@ -2517,19 +2578,19 @@ type PostListProps = {
           </div>
 
           <div class="fragment">
-            <p>Unbekanntes Property</p>
+            <p>Unknown property</p>
             <img style="height: 200px;" src="slides/images/screenshot-ts-error-01.png" />
           </div>
 
           <div class="fragment">
-            <p>Fehlerhafte Verwendung eines Properties</p>
+            <p>Wrong usage of a property</p>
             <img style="height: 200px;" src="slides/images/screenshot-ts-error-02.png" />
           </div>
         </section>
 
         <section>
-          <h3>Typ-sicherheit in useState</h3>
-          <p>Der Typ von useState kann grundsätzlich von TypeScript hergeleitet werden</p>
+          <h3>Type-safety in useState</h3>
+          <p>The type of the state from useState can be inferred by TypeScript</p>
           <pre
             class="fragment"
           ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
@@ -2544,13 +2605,8 @@ function PostEdior(props: PostEditorProps) {
 }
             </code></pre>
           <div class="fragment">
-            <p>Du kannst alternativ den Typen auch explizit setzen</p>
-            <p class="fragment">
-              Zum Beispiel notwendig, wenn der State mehr als einen Typen aufnehmen kann
-            </p>
-            <pre
-              class="fragment"
-            ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+            <p>You can also specify it explicitly</p>
+            <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
 type VIEW = "LIST" | "ADD";
 
 function App() {
@@ -2569,46 +2625,42 @@ function App() {
         <section>
           <h2>React Events in TypeScript</h2>
           <p>
-            Events in React sind Instanzen von <code>React.SyntheticEvent</code>, die die nativen
-            DOM Events wrappen (und so "ähnlich" aussehen)
+            Events in React are all instances of <code>React.SyntheticEvent</code> which wrapps the
+            native DOM events
           </p>
           <p class="fragment">
-            In TypeScript gibt es für die konkreten Events eigene Typen (z.B. ChangeEvent,
-            MouseEvent)
+            The type for the events expects the type of the html element it is fired from (source of
+            the event) as a type argument.
           </p>
-          <p class="fragment">
-            Die Event-Typen erwarten einen Typ-Parameter, der auf den Typ des HTML Elements gesetzt
-            werden muss, das das Event auslöst
-          </p>
-          <p class="fragment">
-            TypeScript kennt dann die Eigenschaften des Events bei der Verarbeitung
-          </p>
+          <p class="fragment">TypeScript then knows the properties and functions of the event</p>
           <span class="fragment">
             <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
 function PostEditor(props) {
   const [title, setTitle] = React.useState("");
 
-  function handleChange(e: React.ChangeEvent&lt;HTMLInputElement>) {
+  function handleChange(e: React.SyntheticEvent&lt;HTMLInputElement>) {
     setTitle(e.currentTaget.value);
   }
 
   return &lt;input onChange={handleChange} value={title} />
 }              
           </code></pre>
-            <a
-              href="https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682"
-              target="_blank"
-            >
-              <code>target</code> vs
-              <code>currentTarget</code>
-            </a>
+            <p>
+              <a
+                href="https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682"
+                target="_blank"
+              >
+                <code>target</code> vs
+                <code>currentTarget</code>
+              </a>
+            </p>
           </span>
         </section>
 
         <section>
-          <h2>Übung: Typ-sichere React Komponenten</h2>
+          <h2>Exercise: Type-safe React components</h2>
           <h3>
-            <em>Füge die fehlenden Typ-Informationen zu der App-Anwendung hinzu</em>
+            <em>Add type informations to existing react components</em>
           </h3>
           <div style="font-size: 80%;">
             <div class="fragment">
@@ -2616,29 +2668,29 @@ function PostEditor(props) {
                 <b>WORKSPACE:</b>
               </p>
               <p>
-                Bitte benutze den Workspace <code><b>blog-example/workspace-typescript</b></code
-                >. <br />Dieser enthält die letzte Version unserer Anwendung, ist aber mit
-                TypeScript konfiguriert.
+                Please use the workspace <code><b>blog-example/workspace-typescript</b></code
+                >. <br />It contains the latest app version, but prepared for TypeScript.
               </p>
             </div>
             <div class="fragment">
               <p>
-                <b>VORBEREITUNG:</b>
+                <b>PREPARATION:</b>
               </p>
               <ol class="x-list">
-                <li>Stop deinen laufenden "npm run"-Frontend-Prozess (ctrl+c)</li>
+                <li>Stop your running "npm run" process (frontend) using ctrl+c</li>
                 <li>
-                  Führe <code><b>npm install</b></code> in
-                  <code>blog-example/workspace-typescript</code> aus
+                  Run <code><b>npm install</b></code> in
+                  <code>blog-example/workspace-typescript</code>
                 </li>
                 <li>
-                  Führe <code><b>npm start</b></code> in
-                  <code>blog-example/workspace-typescript</code> aus
+                  Run <code><b>npm start</b></code> in
+                  <code>blog-example/workspace-typescript</code>
                 </li>
               </ol>
             </div>
           </div>
         </section>
+
         <section>
           <h3>Übung 1: Typ Informationen hinzufügen</h3>
           <p>
@@ -2647,39 +2699,33 @@ function PostEditor(props) {
           </p>
           <ol style="font-size: 80%;" class="x-list">
             <li class="fragment">
-              Benenne <code><b>PostList.js</b></code> in <code>PostList.tsx</code> um und starte
-              <code>npm start</code> neu
+              Rename <code><b>PostList.js</b></code> to <code>PostList.tsx</code> and restart
+              <code>npm start</code>
             </li>
-            <li class="fragment">Stelle <code>PostList.tsx</code> auf TypeScript um</li>
+            <li class="fragment">Add missing type informations to <code>PostList.tsx</code></li>
             <li class="fragment">
-              Benenne <code><b>PostEditor.js</b></code> in <code>PostEditor.tsx</code> um und starte
-              <code>npm start</code> neu
+              Rename <code><b>PostEditor.js</b></code> to <code>PostEditor.tsx</code> and restart
+              <code>npm start</code>
             </li>
-            <li class="fragment">Stelle <code>PostEditor.tsx</code> auf TypeScript um</li>
-            <li class="fragment">Weitere Informationen kannst Du in den Dateien finden.</li>
-            <li class="fragment">Mögliche Lösung in <code>steps/5-typescript</code></li>
-            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
+            <li class="fragment">Add missing type informations to <code>PostEditor.tsx</code></li>
+            <li class="fragment">You can find more instructions inside the files</li>
+            <li class="fragment">Possible solution in <code>steps/5-typescript</code></li>
+            <li class="fragment">When you are done, please "raise your hand" in Teams 🙋‍♀️</li>
           </ol>
-          <h3 class="fragment">Optional: Neuer View</h3>
-          <p class="fragment">
-            <em>
-              Nach dem Speichern eines Blog Posts soll ein gänzlich neuer View angezeigt werden, der
-              dem Benutzer eine Meldung anzeigt, dass der Post gespeichert wurde.
-            </em>
-          </p>
-          <ol class="fragment" style="font-size: 80%;" class="x-list">
+          <h3 class="fragment"><b>Optional</b> excercise 2: Add new View mode in App</h3>
+          <ol style="font-size: 80%;" class="x-list">
             <li class="fragment">
-              Implementiere eine neue, einfache Komponente, die nur eine Bestätigungsmeldung
-              darstellt (z.B.: "Your post have been saved")
+              After saving a new Blog Post, a new view should be presented to the users (showing a
+              message like "Your post have been saved")
             </li>
             <li class="fragment">
-              Die Komponente soll einen Button enthalten, z.B. "OK", mit der der Benutzer bestätigen
-              kann, die Meldung gesehen zu haben.
+              In addition to the info message the new view should have an "OK"-Button
             </li>
             <li class="fragment">
-              Die neue Komponente soll nach dem Speichern des Posts angezeigt werden. Erst wenn der
-              Benutzer auf "OK" klickt, wird wieder die PostList angzeigt:<br />
-              <code>LIST --onAdd--> ADD --onSave--> FEEDBACK --onOk--> LIST</code>
+              When the user clicks the OK-Button the <code>PostList</code> should be displayed:
+              <br /><code class="fragment"
+                >LIST --onAdd--> EDIT --onSave--> FEEDBACK --onOk--> LIST</code
+              >
             </li>
           </ol>
         </section>
