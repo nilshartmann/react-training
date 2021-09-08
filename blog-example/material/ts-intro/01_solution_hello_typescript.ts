@@ -1,14 +1,14 @@
-// ignoriere die folgende Zeile, nur Workaround für diese Übung:
+// ignore the following line, only workaround for this exercise:
 export default undefined;
 
 // -----------------------------------------------------------------------------------------
-// Übung: TypeScript - Ergänze die fehlenden Typ-Informationen
+// Exercise: TypeScript - Fill in the missing type information
 //
-// +++ Ausführen im TypeScript Playground! +++
+// +++ Run in the TypeScript Playground! (Link via Chat) +++
 //
 // -----------------------------------------------------------------------------------------
-// Schritt 1: Ergänze alle notwendigen Typ-Information, so dass die Funktion und die beiden
-//            folgenden Funktionsaufrufe compilieren.
+// Step 1: Add all the necessary type information so that the function and the two
+// following function calls compile.
 // -----------------------------------------------------------------------------------------
 
 function sayHello(s: string, n?: number) {
@@ -23,12 +23,12 @@ sayHello("Klaus");
 sayHello("Susi", 42);
 
 // -----------------------------------------------------------------------------------------
-// Schritt 2: definiere den Typ "PrinterOptions", der den Funktionsparameter
-//   beschreibt (s. localPrinterOptions unten), so dass die "Printer"-Funktion,
-//   das localPrinterOptions-Object und der untenstehende
-//   Funktionsaufruf von "Printer" unten keine Compile-Fehler mehr haben
+// Step 2: define the type "PrinterOptions", which describes the function parameter
+//   (see localPrinterOptions below) so that the "Printer" function,
+//   the localPrinterOptions object, and the below
+//   function call of "Printer" below no longer have compile errors.
 
-//  (du kannst entweder 'type' oder 'interface' verwenden)
+//   (you can use either 'type' or 'interface')
 // -----------------------------------------------------------------------------------------
 function Printer(options: PrinterOptions) {
   console.log(`Printing on device ${options.device.toUpperCase()}`);
@@ -36,7 +36,7 @@ function Printer(options: PrinterOptions) {
   options.onPrintFinished(true);
 }
 
-// Definiere hier den Typ PrinterOptions (als 'type' oder 'interface')
+// Define here the type PrinterOptions (as 'type' or 'interface')
 interface PrinterOptions {
   device: string;
   onPrintFinished(result: boolean): void;
@@ -55,9 +55,9 @@ const printerOptions: PrinterOptions = {
 
 Printer(printerOptions);
 
-// -----------------------------------------------------------------------------------------
-// Schritt 3: Kannst Du den Parameter für die Funktion unten so hinschreiben,
-//   dass die Funktion nur "yes" oder "no" akzeptiert?
+/// -----------------------------------------------------------------------------------------
+// Step 3: Can you write the parameter for the function below,
+// that the function only accepts the strings "yes" or "no"?
 // -----------------------------------------------------------------------------------------
 function doYouLikeTypeScript(answer: "yes" | "no") {
   //
@@ -66,5 +66,5 @@ function doYouLikeTypeScript(answer: "yes" | "no") {
 doYouLikeTypeScript("yes");
 doYouLikeTypeScript("no");
 
-// Dieser Aufruf soll weiterhin nicht möglich sein und einen Compile-Fehler erzeugen!
+// This call should still not be possible and generate a compile error!
 doYouLikeTypeScript("maybe");
