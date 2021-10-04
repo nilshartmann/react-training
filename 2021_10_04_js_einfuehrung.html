@@ -203,14 +203,14 @@
           </p>
           <pre><code class="javascript">
 // let creates a variable
-let x = "Hallo"; // typeof x === string
+let x = "Hallo"; // typeof x === "string"
 </code></pre>
           <pre class="fragment"><code class="javascript">
 // dynamic typing (vs static typing in C#, java, ...)
-x = 7; // typeof x === number
-x = false; // typeof x === boolean
+x = 7; // typeof x === "number"
+x = false; // typeof x === "boolean"
 
-x = function() { return "Hallo" } // typeof x === function
+x = function() { return "Hallo" } // typeof x === "function"
 
 x.toUpperCase(); // Ouch 😱
     </code></pre>
@@ -295,11 +295,11 @@ if ("" == false) {
 
           <pre><code class="javascript">
             // typeof liefert den Typ einer Variable als String zurück
-            console.log(typeof 123); // number"
+            console.log(typeof 123); // "number"
           </code></pre>
 
           <pre class="fragment"><code class="javascript">
-              const check = true; // typeof check == "boolean"
+              const check = true; // typeof check === "boolean"
               if (check) {
                 console.log("jupp!");
               }
@@ -325,7 +325,7 @@ if ("" == false) {
 
               value = null;
               typeof value !== "undefined"
-              typeof value === "null"
+              typeof value === "???"
 
             </code></pre>
         </section>
@@ -500,7 +500,7 @@ printer(helloWorld);
           <pre class="fragment"><code class="javascript">
   // bei genau einem Ausdruck, können geschweifte Klammern weggelassen werden:
   //   Ergebnis des Ausdrucks dann der Rückabgewert der Funktion:
-  const greet => "Hello, " + msg;
+  const greet = msg => "Hello, " + msg;
 </code></pre>
           <pre class="fragment"><code class="javascript">
   // Verhalten wie "normale Funktion"
@@ -575,7 +575,7 @@ const person = {
   age: 32
 }
 
-console.log(typeof person); // object
+console.log(typeof person); // "object"
           </code></pre>
           <pre class="fragment"><code class="javascript">
             // firstname und age sind "properties" am person-Objekt

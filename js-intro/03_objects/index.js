@@ -35,6 +35,6 @@ const persons = [
 // this should be the result:
 // [
 //   { name: "Klaus", age: 32 },
-//   { name: "Susi", age: 35, city: "Freiburg" },
+//   { name: "Susi", age: 35, city: "Hamburg" },
 //   { name: "Walter", age: 45, address:  { city: "Hamburg", street: "Mainstreet" } }
 // ]
