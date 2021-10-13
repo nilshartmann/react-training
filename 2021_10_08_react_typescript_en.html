@@ -1,0 +1,4601 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>React Training</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <link rel="stylesheet" href="slides/styles.css" />
+    <script src="slides/export.js"></script>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-state="title">
+          <h2 class="title" style="font-size: 7rem;">
+            <b>React Training</b>
+          </h2>
+
+          <h4>
+            <span class="transparent-bg">
+              <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a> |
+              <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+            </span>
+          </h4>
+
+          <p style="margin-top: 4rem;"></p>
+          <div>
+            <h3><span class="transparent-bg">Preparation</span></h3>
+            <p>
+              <span class="transparent-bg"
+                >git clone https://github.com/nilshartmann/react-training</span
+              >
+            </p>
+            <p>
+              <span class="transparent-bg">or: git pull</span>
+            </p>
+          </div>
+          <p style="margin-top: 4rem;"></p>
+          <div>
+            <h3><span class="transparent-bg">Slides</span></h3>
+            <p>
+              <span class="transparent-bg"
+                >inside the workspace: 2021_10_08_react_typescript_en.html</span
+              >
+            </p>
+          </div>
+        </section>
+        <section>
+          <h2>Nils Hartmann</h2>
+          <p>
+            <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a> /
+            <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+          <p><em>Freelance software developer, consultant and trainer from Hamburg</em></p>
+
+          <div style="display: flex; justify-content: center;">
+            <div>
+              <p>Java</p>
+              <p>JavaScript, TypeScript</p>
+              <p>React</p>
+              <p>Single-Page-Applications</p>
+              <p>GraphQL</p>
+              <p style="margin-top: 20px;">
+                <a href="https://reacttraining.dev">Trainings and Workshops</a>
+              </p>
+            </div>
+            <div style="margin-left: 15px;">
+              <a href="https://reactbuch.de"
+                ><img
+                  style="max-height: 450px;"
+                  src="slides/images/react-buch-v2.jpg"
+                /><br />https://reactbuch.de</a
+              >
+              <br />
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================================= -->
+
+        <section>
+          <h2>Agenda</h2>
+          <ul style="font-size: 85%;">
+            <li>
+              <a href="#/t1">Part I: React Basics</a>
+            </li>
+            <li>
+              <a href="#/t2">Part II: React components (details)</a>
+            </li>
+            <li>
+              <a href="#/t3">Part III: React components: hierarchies and applications</a>
+            </li>
+            <li class="fragment" style="margin-top: 20px;">
+              <a href="#/t-server">Part IV: Reading and writing data from a server (http)</a>
+            </li>
+
+            <li class="fragment" style="margin-top: 20px;">
+              <a href="#/t-typescript">Part V: TypeScript</a>
+            </li>
+
+            <li class="fragment" style="margin-top: 20px;">
+              <a href="#/t-test">Part VI: Testing React applications (overview)</a>
+            </li>
+
+            <li class="fragment" style="margin-top: 40px;">
+              <a href="#/t-state">Part VII: External statemanagement with Redux (overview)</a>
+            </li>
+          </ul>
+        </section>
+
+        <section id="t1">
+          <h1>Part 1</h1>
+          <h2>React introduction</h2>
+        </section>
+
+        <section>
+          <h3>Example application</h3>
+          <a target="_blank" href="http://localhost:3000">
+            <img src="blog-example/blog-example.png" style="height: 650px;" />
+          </a>
+        </section>
+
+        <section>
+          <h3>Components in React</h3>
+          <p>
+            <em>Central concept in React: <b>Components</b></em>
+          </p>
+          <img style="height: 800px;" class="fragment" src="slides/images/soc.png" />
+        </section>
+
+        <section>
+          <h3>Components in React</h3>
+          <p style="font-size: smaller;">Our example in components</p>
+          <img src="blog-example/blog-example.png" style="height: 650px;" />
+        </section>
+
+        <section>
+          <h3>React components</h3>
+          <ul>
+            <li class="fragment">consist of <b>logic and UI</b> (no separate templates)</li>
+            <li class="fragment">are <b>declaratively</b> described</li>
+            <li class="fragment">are always <b>completely rendered</b> (no 2-way data binding)</li>
+            <li class="fragment">are aggregated into <b>whole applications</b></li>
+            <li class="fragment">
+              are implemented as <b>JS functions</b> (with "hooks" API).
+              <ul class="fragment" style="font-size: smaller;">
+                <li>(Before 2019, components were implemented as <b>ES6 classes</b>)</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Our first React component</h2>
+          <h3>Let's look at the most important concepts of a React component in code</h3>
+
+          <ul>
+            <li>Step-by-step (<code>blog-example/workspace</code>)</li>
+          </ul>
+        </section>
+
+        <section id="interaktiv-hellomessage">
+          <h3>Hello World React</h3>
+          <code>PostEditor.js</code>
+          <pre><code data-trim contenteditable>
+  import React from "react";
+  
+  export default function PostEditor() {
+    const [title, setTitle] = React.useState("");
+  
+    return (
+      &lt;div>
+        &lt;label>
+          Title
+          &lt;input onChange={event => setTitle(event.target.value)} value={title} />
+        &lt;/label>
+      &lt;/div>
+    );
+  }
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Integrating the application into the HTML page</h3>
+          <div class="fragment">
+            <p>
+              <code>index.html</code>
+            </p>
+            <pre><code data-trim contenteditable>
+  &lt;html>
+    &lt;-- ... -->
+    &lt;body>
+      <div id="root"></div>
+    &lt;/body>
+  &lt;/html>
+  </code></pre>
+          </div>
+          <div class="fragment">
+            <p>
+              <code>index.js</code>
+            </p>
+            <pre><code data-trim contenteditable class="javascript">
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  
+  import PostEditor from './PostEditor';
+  
+  ReactDOM.render(&lt;PostEditor />, 
+    document.getElementById('root')
+  );
+  </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>The training workspace</h3>
+          <ul class="x-list">
+            <li style="margin-bottom: 40px;">
+              <code>2021_10_08_react_typescript_en.html</code>: Our slides
+            </li>
+            <li class="fragment" style="margin-bottom: 40px;">
+              All code is inside the <code><b>blog-example</b></code> folder
+            </li>
+
+            <li class="fragment" style="margin-bottom: 40px;">
+              <code>blog-example/<b>workspace</b></code
+              >:Directory for your exercises <br />👉&nbsp;<b>Recommendation</b>: only open this
+              folder in IDE/Editor open
+            </li>
+            <li class="fragment">
+              <code>blog-example/<b>steps</b></code
+              >: Finished source code after each exercise
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Excercise #1: Hello-World</h2>
+          <h3>
+            <em>Getting familiar with tools, workspace and React</em>
+          </h3>
+        </section>
+        <section>
+          <h3>Step #1: start the tool chain</h3>
+          <p>All together, step-by-step:</p>
+          <ol class="fragment x-list" style="font-size: 85%;">
+            <li>
+              <code>cd blog-example/workspace</code>
+            </li>
+
+            <li class="fragment">
+              <code>npm start</code>
+            </li>
+
+            <li class="fragment">
+              The browser should open at
+              <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>
+              automatically
+            </li>
+
+            <li class="fragment">If you see "Hello, World" in the browser, all is well!</li>
+            <li class="fragment">Then please "raise your hand" in Teams 🙋‍♀️</li>
+          </ol>
+        </section>
+        <section>
+          <h3>Step #2: your first React component</h3>
+          <p>
+            <em
+              >One small step for the PostEditor component, one big step for you on your way
+              learning React!</em
+            >
+          </p>
+          <ul>
+            <li class="fragment">Replace the "static" code in <code>PostEditor.js</code></li>
+            <li class="fragment">The component should be called <b>PostEditor</b></li>
+            <li class="fragment">
+              It should have a state (<code>title</code>) and an input field for it
+            </li>
+            <li class="fragment">
+              For help, you can view the code from the
+              <a href="#interactive-hellomessage">previous slides</a>.
+            </li>
+            <li class="fragment">
+              You can also find a possible solution in
+              <code>blog-example/steps/1-hello-world</code>.
+            </li>
+
+            <!-- <li class="fragment">
+              <em>Optional: mache ein paar Experimente mit der Komponente, zum Beispiel:</em>
+              <ul>
+                <li>
+                  Kannst Du unter dem Eingabefeld den gerade eingegebenen Text ausgeben lassen, so
+                  dass dieser immer dem aktuellen Inhalt des Eingabefeldes entspricht?
+                </li>
+                <li>
+                  Wenn das Textfeld leer ist, soll ein Hinweis für den Benutzer ausgegeben werden
+                  ("Bitte Titel eingeben")
+                </li>
+              </ul>
+            </li> -->
+            <li class="fragment">When you're ready, please raise your hand in Teams 🙋‍♀️</li>
+          </ul>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h3>Tools: create-react-app</h3>
+          <a href="https://create-react-app.dev/" target="_blank">User guide</a>
+          <p>Bootstrap of new React application</p>
+          .
+          <p>Ready configuration of React with Webpack, Hot Reload, Babel and Linter</p>
+          , among others.
+          <p>Example: npx create-react-app PROJECTNAME</p>
+          <p>Or: npx create-react-app --typescript PROJECTNAME</p>
+        </section>
+        <section data-state="js-exkurs">
+          <h3>Tooling: Linter</h3>
+          <p><em>Static code analysis</em></p>
+          <ul>
+            <li class="fragment">Finds typical JavaScript programming errors</li>
+            <li class="fragment">
+              Ensures compliance with conventions (e.g. semicolon yes/no)
+            </li>
+            <li class="fragment">Can be integrated into the CI build and IDE</li>
+          </ul>
+
+          <div class="fragment">
+            <p><a href="https://eslint.org/">ESLint</a></p>
+
+            <img style="height: 400px;" src="slides/images/eslint.png" />
+          </div>
+        </section>
+
+        <section id="t2">
+          <h1>Part II</h1>
+          <h2>React components</h2>
+        </section>
+
+        <section>
+          <h3>React: JSX</h3>
+          <ul>
+            <li style="font-size: 80%;" class="fragment">
+              Is written like HTML, incl. attributes:
+              <pre><code class="xml" contenteditable data-trim>
+&lt;div>&lt;input type="text"/>&lt;/div>
+                    </code></pre>
+            </li>
+            <li style="font-size: 80%;" class="fragment">
+              Attention! <code>class</code> attribute is called <code>className</code>:
+              <pre><code class="xml" contenteditable data-trim>
+                        &lt;h1 className="title">...&lt;/h1>
+                    </code></pre>
+            </li>
+            <li style="font-size: 80%;" class="fragment">
+              Attributes that are not strings must be enclosed in {}:
+              <pre><code class="xml" contenteditable data-trim>
+&lt;Counter label="Count" count={7} showValues={true} />
+                    </code></pre>
+            </li>
+
+            <li style="font-size: 80%;" class="fragment">
+              CSS properties are passed as objects in Camel Case notation:
+              <pre><code class="xml" contenteditable data-trim>
+const styles = { marginLeft: '10px', border: '1px solid red' };
+&lt;h1 style={styles}>...&lt;/h1>
+                    </code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>React: JSX #2</h3>
+          <ul>
+            <li style="font-size: 80%;" class="fragment">
+              Fragments (do not render any element into the DOM themselves, only their child
+              elements):
+              <pre><code class="xml" contenteditable data-trim>
+function Choice() { 
+  return &lt;&gt;
+    &lt;li>Yes&lt;/li> 
+    &lt;li>No&lt;/li>
+  &lt;/>              
+}  
+                    </code></pre>
+            </li>
+            <li style="font-size: 80%;" class="fragment">
+              To avoid rendering at all, return null, false or boolean:
+              <pre><code class="xml" contenteditable data-trim>
+function ErrorMessage() {
+  const hasError = someCondition(); // returns true or false
+
+  return <div>
+    {hasError && "Error!"}
+    {hasError || "Everything fine"}
+  </div>
+}              
+                    </code></pre>
+            </li>
+
+            <li style="font-size: 80%;" class="fragment">
+              Comments
+              <pre><code class="xml" contenteditable data-trim>
+  function MyComponent() {
+    return <div>
+      { /* here inside the {} block this is javascript, therefore block comments allowed */ }
+    </div>;
+  }              
+                      </code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>State of a component and the useState hook (summary)</h3>
+          <ul class="fragement">
+            <li>Example: Content of an input field, data from the server, menu open or closed.</li>
+            <li class="fragment">
+              <b>Values</b> must be immutable (take care if you use objects or arrays in state)
+            </li>
+            <li class="fragment">Working with state via <b>useState</b> hook</li>
+            <li class="fragment">
+              useState returns array with two values: current state, and setter-function to change
+              state
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+function HelloWorld() {
+  const [title, setTitle] = React.useState("");
+
+  return &lt;input onChange={e => setTitle(e.target.value) value={title} />;
+}
+                  </code></pre>
+          <ul>
+            <li class="fragment">
+              Calling the setter <b>triggers re-rendering of the <i>entire</i> component</b>
+            </li>
+            <li class="fragment">
+              Multiple states can be created by using multiple useState calls
+            </li>
+            <li class="fragment"><b>State</b> is one of the central concepts of React</li>
+          </ul>
+        </section>
+
+        <!-- <section>
+          <h2>Übung 1b: Styling für den Post-Editor</h2>
+          <em><b>Füge dem Post-Editor etwas CSS hinzu</b></em>
+        </section>
+        <section>
+          <h3>Schritte</h3>
+          <ol class="x-list">
+            <li class="fragment">
+              Das Root-Element deines Formulars soll die CSS Klasse <code>Container</code> bekommen.
+              Dadurch sollte sich ihr Aussehen (leicht) verändern
+            </li>
+            <li class="fragment">
+              Wenn <b>kein Text</b> im Eingabe-Feld steht, soll eine Fehlermeldung ausgegeben werden
+              ("Please fill in the title" o.ä.)
+              <br />
+              Der Fehlertext sollte in fettem Rot ausgegeben werden (CSS-Eigenschaften:
+              <code>color: red</code> und <code>font-weight: bold</code>)
+            </li>
+            <li class="fragment">
+              Wenn <b>mindestens ein Zeichen</b> im Eingabe-Feld steht, soll eine "positive" Message
+              erscheinen ("You have filled the title correctly").
+              <br />
+              Diese positive Nachricht sollte in grün erscheinen (CSS-Eigenschaft:
+              <code>color: green</code>)
+            </li>
+            <li class="fragment">Mögliche Lösung in <code>steps/1b-editor-css</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
+          </ol>
+        </section> -->
+
+        <section>
+          <h3>React Hooks API</h3>
+          <em>With the React Hooks API, a component can "hook" itself into state and lifecycle.</em>
+          <ul>
+            <li class="fragment">
+              Hooks are "normal" functions, but must begin with <code>use</code> (useState,
+              useEffect, ...)
+            </li>
+            <li class="fragment">
+              Example: Importing and using hooks
+
+              <pre><code class="javascript" contenteditable data-trim>
+                import React from "react";
+
+                function HelloWorld() {
+                  const [title, setTitle] = React.useState("");
+                  // ...
+                }
+                                  </code></pre>
+              <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                                      import React, { useState } from "react";
+                      
+                                      function HelloWorld() {
+                                        const [title, setTitle] = useState("");
+                                        // ...
+                                      }
+                                                        </code></pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>React Hooks API</h3>
+          <em>There are some rules to follow when using hooks 👆</em>
+          <p style="font-size: 75%; margin-top: 0;">
+            <a href="https://reactjs.org/docs/hooks-rules.html"
+              >(https://reactjs.org/docs/hooks-rules.html)</a
+            >
+          </p>
+          <div class="fragment">
+            <p>Restrictions:</p>
+            <ul>
+              <li class="fragment">
+                Hooks can only be called in function components (and other hooks)
+              </li>
+              <li class="fragment">
+                Hooks must always be used in the same order and at top level
+                <ul>
+                  <li>Forbidden e.g. in loops, if-queries or in other functions</li>
+                </ul>
+              </li>
+              <li class="fragment">
+                There is a
+                <a href="https://www.npmjs.com/package/eslint-plugin-react-hooks">ESLint plug-in</a>
+                for the correct use of the hooks
+              </li>
+            </ul>
+          </div>
+          <p class="fragment">
+            <em
+              >The hook mechanism is internally based on the fact that React remembers the order of
+              the <code>useXyz</code> calls!</em
+            >
+          </p>
+        </section>
+        <section>
+          <h3>React Hooks</h3>
+
+          <em>Examples of correct and incorrect usage</em>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              // OK:
+              function HelloWorld() {
+                const [greeting, setGreeting] = React.useState("");
+                const [name, setName] = React.useState("");
+                // ...
+              }
+                                </code></pre>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                                    // OK:
+                                    function HelloWorld() {
+                                      const [greeting, setGreeting] = React.useState("");
+                                      const uppercaseGreeting = greeting.toUpperCase(); 
+                                      const [name, setName] = React.useState("");
+                                      // ...
+                                    }
+                                                      </code></pre>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                                    // FORBIDDEN:
+                                    function HelloWorld() {
+                                      const [title, setTitle] = React.useState("");
+
+                                      function onSaveClick() {
+                                        const [loading, setIsLoading] = React.useState(true);
+                                        // ...
+                                      }
+
+                                      // ...
+                                    }
+                                                      </code></pre>
+        </section>
+
+        <section>
+          <h2>Exercise: A post editor for our application</h2>
+          <em><b>Add new features to your component</b></em>
+        </section>
+        <section>
+          <h3>Steps</h3>
+          <ol class="x-list">
+            <li>
+              In addition to the "title", there should be another state and a textarea:
+              <code>body</code>. Use a <code>textarea</code> element (instead <code>input</code>).
+              thus you can work with <code>onChange</code> and <code>value</code> here too.
+            </li>
+            <!-- <li class="fragment">
+              Füge unter beiden Feldern eine Fehler-Meldung hinzu, wenn das jeweilige Feld leer ist
+              (z.B. "Please fill in Xyz")
+            </li> -->
+            <li class="fragment">
+              Add a "Clear" button that clears both input fields. The property on the button is
+              <code>onClick</code>.
+            </li>
+            <li class="fragment">Possible solution: <code>steps/2-editor</code></li>
+            <li class="fragment">When you are done, please "raise your hand" in Teams 🙋‍♀️</li>
+          </ol>
+        </section>
+
+        <section id="t3">
+          <h1>Part III</h1>
+          <h2>React: hierarchies and applications</h2>
+        </section>
+
+        <!-- - - - - - - - - - - - - - - - PROPS HIER ERST - - - - - - - - - - - - - - -  -->
+        <section>
+          <h3>React: Properties</h3>
+          <p>Live: Properties for initial values of the post editor</p>
+          <ul>
+            <li class="fragment">
+              <b>Properties</b> can be used to pass values and properties to a component from
+              <b>outside</b>.
+
+              <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            function PostEditor() {
+                // type, onChange and value are Properties!
+
+                return (
+                  &lt;input type="text" onChange={() => setTitle("...")} value={title}&lt;/h1>
+                );
+              }
+            }
+            </code></pre>
+            </li>
+            <li class="fragment"><b>Properties</b> must not be changed within the component!</li>
+            <li class="fragment">
+              For comparison: <b>State</b> is internal to the component (and can be modified).
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Properties ("Props") of a component</h3>
+          <ul>
+            <li>Components can define their own properties as desired</li>
+            <li class="fragment">
+              When the properties are specified when a component is used, the properties are
+              specified in the notation as usual in HTML with
+              <code>name=value</code> pairs
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+&lt;PostEditor initialTitle="Hello" initialBody="World" />
+ </code></pre>
+
+          <ul>
+            <li class="fragment">
+              ...all specified properties are "collected" and passed to the component in
+              <b>one</b> object as the 1st function parameter.
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            function PostEditor(props) {
+                // props: { initialTitle: "Hello", initialBody: "World" }
+                const [title, setTitle] = React.useState(props.title);
+                const [body, setBody] = React.useState(props.body);
+
+                return ...;
+              }
+            }
+            </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+// With destructuring
+function PostEditor({initialTitle, initialBody}) {
+   const [title, setTitle] = React.useState(title);
+   const [body, setBody] = React.useState(body);
+
+   return ...;
+  }
+}
+                </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Properties: Default values</h3>
+          <p>Properties are <b>optional</b>.</p>
+
+          <p class="fragment">
+            With the object destructuring operator, <b>default values</b> can be specified for
+            properties
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            function PostEditor({initialTitle = "New Blog Post", initialBody}) { 
+              const [title, setTitle] = React.useState(initialTitle);
+            }
+
+            // title is set to "New Blog Post" 
+            &lt;PostEditor initialBody="Lorem Ipsum" />
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <!-- <section>
+          <h3>Properties: propTypes</h3>
+          <p>
+            Mit
+            <a href="https://reactjs.org/docs/typechecking-with-proptypes.html">propTypes</a> können
+            Typen für die Properties beschrieben werden.
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            import PropTypes from 'prop-types';
+
+            PostEditor.propTypes = {
+              initialTitle: PropTypes.string,
+              initialBody: PropTypes.string.isRequired
+            }
+          </code></pre>
+
+          <p class="fragment">
+            Die Überprüfung findet <b>erst zur Laufzeit</b> statt und erzeugt "nur" eine Warnung auf
+            der Konsole.
+          </p>
+
+          <div class="fragment">
+            <p>
+              Empfehlung: lieber echten TypeChecker, z.B.
+              <a href="https://create-react-app.dev/docs/adding-typescript/">TypeScript</a>,
+              verwenden 🙏🙏🙏
+            </p>
+            <ul class="fragment">
+              <li>überprüft bereits zur Entwicklungszeit in der IDE bzw. im CI-Build</li>
+              <li>findet noch weitere Probleme, nicht nur Properties-bezogene Fehler</li>
+              <li>hilft auch bei Code-Completion etc.</li>
+            </ul>
+          </div>
+        </section> -->
+
+        <!-- ============================================================================= -->
+        <!-- <section>
+          <h3>Formular-Bibliotheken</h3>
+
+          <p>Vollständige Lösungen für Formulare inklusive Validierung:</p>
+          <ul>
+            <li><a href="https://react-hook-form.com/">React Hook Form</a></li>
+            <li><a href="https://formik.org/">Formik</a></li>
+          </ul>
+        </section> -->
+        <section>
+          <h3>Virtual DOM</h3>
+          <p>"Render" unfortunately has a double meaning!</p>
+          <img src="slides/images/vdom.png" style="height: 650px;" />
+        </section>
+        <section>
+          <h3>Virtual DOM</h3>
+          <p>Example: <code>blog-example/steps/2b-rendering</code></p>
+        </section>
+        <section>
+          <h2>Excercise: Properties for components</h2>
+          <em>A component for messages</em>
+        </section>
+        <section>
+          <h3>Steps</h3>
+          <ol class="xx-list">
+            <li>
+              Write a new component (for convenience, directly in PostEditor.js) which represents a
+              message: <b>Message</b>.
+            </li>
+            <li class="fragment">
+              The <b>Message</b> component should accept two properties:
+              <ul>
+                <li><code>msg</code>: a String with a message</li>
+                <li>
+                  <code>type</code>: either the String <code>"error"</code> or the String
+                  <code>"info"</code>
+                </li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Example use:
+              <pre><code class="javascript">
+                &lt;Message type="info" msg="Everything fine!" />
+                &lt;Message type="error" msg="Sorry, invalid input" /> 
+              </code></pre>
+            </li>
+            <li class="fragment">
+              The component shall display the passed message from <code>msg</code>: If type is set
+              to <code>error</code> (or no type is set), the <code>msg</code> be output as an error
+              in red font (CSS property <code>style={{color: "red"}}</code>).
+            </li>
+            <li class="fragment">
+              Use the component in the PostEditor: to output an error message below the form (e.g.
+              "Please fill out the form") if <code>title</code> or <code>body</code> are empty, or
+              an info message if the two fields are filled in ("You have made all the required
+              entries").
+            </li>
+
+            <li class="fragment">Possible solution: <code>steps/2a-editor-mit-props</code></li>
+            <li class="fragment">When you are done, please "raise your hand" in Teams 🙋‍♀️</li>
+          </ol>
+        </section>
+
+        <section data-state="js-exkurs">
+          <h2>React Devtools</h2>
+          <em>React Developer Tools for Chrome and Firefox</em>
+          <ul>
+            <li>
+              <a
+                href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en"
+                target="_blank"
+                >Chrome</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://addons.mozilla.org/en-US/firefox/addon/react-devtools/"
+                target="_blank"
+                >Firefox</a
+              >
+            </li>
+          </ul>
+
+          <p><img src="slides/images/screenshot-react-dev-tools.png" /></p>
+        </section>
+        <!-- <section>
+          <h3>Render Zyklus</h3>
+          <img src="slides/images/render-cycle.png" height="550px" />
+        </section> -->
+
+        <section>
+          <h3>A list for blog posts and an editor...</h3>
+          <code>blog-example/steps/3-hierarchy</code>
+        </section>
+
+        <section>
+          <h3>Lists</h3>
+          <p>JSX does not have its own constructs for lists</p>
+          <p class="fragment">
+            Usually one uses
+            <code>Array.map()</code> to convert a list of objects into a list of JSX elements.
+          </p>
+          <p class="fragment">
+            Each JSX element in the list requires a <em>list-wide unique <b>key</b></em>
+          </p>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+const posts = [
+  { id: 0, title: 'Hello World', body: 'Lorem ipsum' },
+  { id: 1, title: 'React in a Nutshell', body: 'Lets get started with React' }
+];
+
+function PostList(props) {
+  return props.posts.map(post => (
+    &lt;article key={post.id}>
+        &lt;h1>{post.title}&lt;/h1>
+        &lt;p>{post.body}&lt;/p>
+    &lt;/article>
+  ))
+}
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Component hierarchies</h2>
+        </section>
+
+        <section>
+          <h3>How does our application communicate?</h3>
+          <p>Our application has two views: Blog-List and Editor.</p>
+          <p>Which one should be visible?</p>
+          <p>How does data flow from the one view to the other?</p>
+        </section>
+
+        <section>
+          <h3>👉 We build an <b>app</b>: with blog list and post editor</h3>
+        </section>
+
+        <section>
+          <h3>Data flow in React application</h3>
+          <ol>
+            <li>
+              In React applications, components are composed in hierarchies to become applications
+              (an application is just a bunch of components)
+            </li>
+            <li class="fragment">
+              Inside the hierarchy communication is always in one direction only:
+              <b>Parent</b> components pass down <b>properties</b> to their <b>children</b>
+            </li>
+            <li class="fragment">
+              Using the properties data (blog post, currently logged in user, ...) can be passed
+              from "top" to "bottom". This can be done across more than one level in the hierarchy.
+              <p>
+                (A component can pass all or parts of the properties it receives itself to its
+                children)
+              </p>
+            </li>
+            <li class="fragment">
+              Using properties, <b>callback functions</b> can also be passed down
+            </li>
+            <li class="fragment">
+              A child component can invoke this function to send and event (with or without) data to
+              their parent component <br />We have seen this already with the onChange property on
+              the input-field)
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Smart and Dumb-Components #1</h3>
+
+          <p>
+            Reminder: in React we build components. Components consist of logic, state and UI
+            (HTML-Elements and Styling)
+          </p>
+          <p class="fragment">
+            In a well-known pattern components are spilt into "smart" (or "controller") and "dumb"
+            (or "presentation") components.
+          </p>
+          <p class="fragment">
+            Technically both components are identical, both are regular React components
+          </p>
+          <p class="fragment">
+            Only their <b>intended purpose</b> or role is defined differently...
+          </p>
+        </section>
+
+        <section>
+          <h3>Smart and Dumb components #2</h3>
+          <p><b>Smart components</b> contain logic and state, but (almost) no UI</p>
+          <p><b>Dumb components</b> only present/render the data</p>
+          <ol>
+            <li class="fragment">
+              Smart components <b>manage the state</b> and pass it into Dumb components. Dump
+              components <b>render the state</b>.
+            </li>
+            <li class="fragment">
+              Smart components pass callback functions as Event-Handler into the dumb components.
+            </li>
+            <li class="fragment">
+              When an event occures inside a dumb component, (for ex. button click or text input)
+              the dumb components invokes the callback function.
+            </li>
+            <li class="fragment">
+              The callback function is executed inside the context of the smart component (normal
+              closure behaviour) and thus can acess state etc from the smart component.
+            </li>
+            <li class="fragment">
+              Inside the event handler, state of the smart component can be changed. Chaning the
+              state leads to re-rendering of the smart component and all of its children (dumb)
+              components.
+              <br /><b>The app state remains consistent across all components in the hierarchy</b>
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <img src="slides/images/blogpost-app-hierarchy.png" />
+        </section>
+
+        <section>
+          <h3>Example</h3>
+
+          <p>
+            Our <b>smart component</b> holds a list of Blog Posts and deceides, which view is active
+            (Editor or List) ist
+          </p>
+          <p>
+            The smart components passes the list of blog posts to the BlogList component for
+            rendering
+          </p>
+          <p>
+            The smart components passed a callback function to BlogList and AddForm to get informed
+            about events/data changes
+          </p>
+
+          <pre><code>
+function App() {
+  const [posts, setPosts] = React.useState([]);
+  const [view, setView] = React.useState("list");
+
+  function savePost(newPost) {
+    // Add the new post to the state
+    setPosts([...posts, newPost]);
+
+    // switch back to list view
+    setView("list");
+  }
+
+  if (view === "list") {
+    return &lt;BlogList posts={posts} onAdd={() => setView("edit")} />
+  }
+
+  return &lt;PostEditor onSave={savePost} />
+
+}            
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Example #2</h3>
+
+          <p>
+            The BlogList is responsible for rendering the list of posts only. If the add button gets
+            pressed, the component invokes the callback function (received from the App component).
+          </p>
+          <p>The callback function changes the App state to make the Post Editor visible</p>
+
+          <pre><code>
+  function BlogList(props) {
+
+    return &lt;div>
+      // ... render the blog post list ...
+      &lt;button onClick={props.onAdd}>Add Blog Post&lt;/button>
+    &lt;/div>;
+  }            
+  </code></pre>
+        </section>
+
+        <section>
+          <h3>Example #3</h3>
+
+          <p>
+            The PostEditor component passes the new blog post (its internal state) to the callback
+            function, that it has received from the App component.
+          </p>
+          <pre><code>
+  function PostEditor(props) {
+    const [title, setTitle] = React.useState("");
+    const [body, setBody] = React.useState("");
+
+    function savePost() {
+      const newPost = {
+        title, body
+      }
+
+      // Inform the App component about the new blog post
+      props.onSave(newPost);
+    }
+
+    return &lt;div>
+      // ... Render form ...
+      &lt;button onClick={savePost}>Save Post&lt;/button>
+    &lt;/div>;
+  }            
+  </code></pre>
+        </section>
+
+        <section>
+          <h2>Excercise #3: Build a complete "application"</h2>
+          <p>
+            <em>
+              Integrate your existing <code>PostEditor</code> and a new
+              <code>PostList</code> component with the <code>App</code> component</em
+            >
+          </p>
+        </section>
+
+        <section>
+          <h3>Steps</h3>
+          <ol>
+            <li>
+              copy the material from <code>blog-example/material/3-hierarchy/src</code> in your src
+              folder
+              <span style="font-size: 85%;"
+                >(you can use your own <code>PostEditor</code> or use the one from
+                material/3-hierarchy)</span
+              >
+            </li>
+
+            <li>
+              Enhance the <code>App</code> component, so that is displays the
+              <code>PostEditor</code> if the user klicks the <code>Add</code> Button.
+              <p>- In <code>App.js</code> there is a TODO comment with further information</p>
+            </li>
+            <li>
+              In your <code>PostEditor</code> you need a Save button, that inkoves the callback
+              function, that <code>App</code> passed to it via properties (<code>onSave</code>).
+              <br />See todo in
+              <code>blog-example/material/3-hierarchy/src/PostEditor.js</code>
+            </li>
+            <li class="fragment">Possible solution: <code>steps/3-hierarchy</code></li>
+            <li class="fragment">When you are done, please "raise your hand" in Teams 🙋‍♀️</li>
+          </ol>
+        </section>
+
+        <!-- ANFANG KLASSEN -->
+        <section>
+          <h2>React: Components as ES6 classes</h2>
+          <ul>
+            <li class="fragment">
+              Example without Error Boundary: <code>?with-error-handler</code>:
+              blog-example/steps/3a-hierarchy-errorhandler
+            </li>
+            <li class="fragment">
+              Example with Error Boundary (development):
+              blog-example/steps/3a-hierarchy-errorhandler
+            </li>
+            <li class="fragment">
+              Example with Error Boundary (prod):
+              blog-example/steps/3a-hierarchy-errorhandler/build/
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Error Boundaries</h3>
+          <em
+            >When React renders a component and during rendering an error occures, the
+            <b>whole applications</b> is removed from the DOM by React</em
+          >
+          <p class="fragment">Error Boundaries are like <b>try-catch</b> but for components</p>
+          <ul>
+            <li class="fragment">
+              ...add them somewhere in your hierarchy, all errors underneath in your hierarchy are
+              caught
+            </li>
+            <li class="fragment">...in case of an error you can show a message to your users</li>
+            <li class="fragment">...are regular React components, but</li>
+            <li class="fragment">...have to be implementes as ES6 class components</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Components as classes</h3>
+
+          <p>Instead of <b>useState</b>: use this.state and this.setState()</p>
+          <p>Properties are available as instance variable <code>this.props</code></p>
+
+          <pre><code data-trim contenteditable>
+      import React from "react";
+      
+      export default class PostEditor extends React.Component {
+      
+        constructor(props) {
+          super(props);
+      
+          this.state = {
+            title: props.initialTitle,
+            body: props.initialBody
+          };
+        }
+      
+        render() {
+          return (
+            &lt;div>
+              &lt;input 
+                value={this.state.title} 
+                onChange=
+                  {event => this.setState({title: event.target.value})}
+              />
+              &lt;input 
+                    value={this.state.body} 
+                    onChange=
+                      {event => this.setState({body: event.target.value})}
+              />
+            &lt;/div>
+          );
+        }
+      }</code></pre>
+        </section>
+
+        <section>
+          <h3>React: Rendering</h3>
+          <span class="fragment">
+            <p>
+              <em>Every React component class needs a <code>render</code>-method:</em>
+            </p>
+
+            <ul>
+              <li>is run on first rendering and after each state change</li>
+            </ul>
+          </span>
+        </section>
+
+        <section>
+          <h3>Properties of a component</h3>
+          <ul class="fragment">
+            <li>Properties are passed via the constructor</li>
+            <li>
+              Access properties with
+              <code>this.props</code>
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              class Header extends React.Component {
+                constructor(props) {
+                  super(props);
+                }
+  
+                render() {
+                  return (
+                    &lt;h1 style={{color: this.props.titleColor}}>{this.props.title}&lt;/h1>
+                  );
+                }
+              }
+              </code></pre>
+
+          <ul class="fragment">
+            <li>Remember: component as function</li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                    function Header(props) {
+                        return (
+                          &lt;h1 style={{color: this.props.titleColor}}>{this.props.title}&lt;/h1>
+                        )
+                    }
+                    </code></pre>
+        </section>
+
+        <section>
+          <h3>State of a class component</h3>
+          <ul>
+            <li class="fragment">
+              <b>Initialize</b> in constructor using <code>this.state={}</code>
+            </li>
+            <li class="fragment"><b>Read</b> state with <code>this.state</code></li>
+            <li class="fragment">
+              <b>Set</b> state using
+              <code>this.setState()</code>
+              <ul class="fragment">
+                <li><b>Attention:</b> no "real" setter</li>
+                <li class="fragment">Merges old and new state (differs from useState)</li>
+                <li class="fragment">Runs asynchron</li>
+                <li class="fragment">
+                  <b>Leads to re-rending of the <i>whole</i> component (as with useState)</b>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Example: Error Boundary</h3>
+          <p class="fragment">
+            <b>getDerivedStateFromError</b> and <b>componentDidCatch</b> are invoked by React in
+            case of an error
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              class ErrorHandler extends React.Component {
+                constructor(props) {
+                  super(props);
+                  this.state = { error: null };
+                }
+              
+                static getDerivedStateFromError(error) {
+                  return { error: error.toString() };
+                }
+              
+                componentDidCatch(error, info) {
+                  console.error("uups... we caught an error", error, info);
+                }
+              
+                render() {
+                  if (this.state.error) {
+                    return (
+                      &lt;div>
+                        &lt;h1>An error occured!&lt;/h1>
+                        &lt;pre>{this.state.error}&lt;/pre>
+                        &lt;button onClick={() => this.setState({ error: null })}>Try again&lt;/button>
+                      &lt;/div>
+                    );
+                  }
+                  return this.props.children;
+                }
+              }
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Example: Error Boundary</h3>
+          <h4>Lifecycle</h4>
+
+          <div style="display: flex;">
+            <pre><code class="javascript" contenteditable data-trim>
+                  class ErrorHandler extends React.Component {
+                    constructor(props) {
+                      super(props);
+                      this.state = { error: null };
+                    }
+                  
+                    static getDerivedStateFromError(error) {
+                      return { error: error.toString() };
+                    }
+                  
+                    componentDidCatch(error, info) {
+                      console.error("uups... we caught an error", error, info);
+                    }
+                  
+                    render() {
+                      if (this.state.error) {
+                        return (
+                      &lt;div>
+                         &lt;h1>An error occured!&lt;/h1>
+                        &lt;pre>{this.state.error}&lt;/pre>
+                        &lt;button onClick={() => this.setState({ error: null })}>Try again&lt;/button>
+                      &lt;/div>
+                        );
+                      }
+                      return this.props.children;
+                    }
+                  }
+                </code></pre>
+
+            <ol>
+              <li class="fragment">
+                Component gets instantiated, constructor is called, state initialized (error = null)
+              </li>
+              <li class="fragment">
+                Component will be rendered. As <code>this.state.error</code> is not set, the
+                children will be rendered
+              </li>
+              <li class="fragment">An error occures somewhere in your tree</li>
+              <li class="fragment">
+                <code>componentDidCatch</code> is invoked (you can use it to log the error for
+                example)
+              </li>
+              <li class="fragment">
+                <code>getDerivedStateFromError</code> ist called and returns a new (partial) state
+                <br />(Other parts of the state are untouched)
+              </li>
+              <li class="fragment">
+                Component will be rendered again. As <code>this.state.error</code> is set now, the
+                error message is shown including the button
+              </li>
+              <li class="fragment">
+                After clicking the button, <code>this.state.error</code> will be set to null again
+              </li>
+              <li class="fragment">
+                Component will be rendered again (<code>setState</code>). As
+                <code>this.state.error</code> is null again, the children will be rendered again.
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <section>
+          <h3>Example: Error Boundary</h3>
+          <p>Usage</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                import React from "react";
+                import ReactDOM from "react-dom";
+                
+                import ErrorHandler from "./ErrorHandler";
+                import App from "./GreAppetingController";
+                
+                ReactDOM.render(
+                  &lt;ErrorHandler>
+                    &lt;App />
+                  &lt;/ErrorHandler>,
+                  document.getElementyById("root")
+                );
+              </code></pre>
+
+          <p class="fragment">
+            You can use as many error handlers as you want in your application
+          </p>
+          <p class="fragment">
+            Recommandation: use at least one on top level
+          </p>
+        </section>
+
+        <section id="t-server">
+          <h1>Part IV</h1>
+          <h1>Server Access</h1>
+          <em>Reading and writing data from a backend (REST/HTTP)</em>
+          <p><code>blog-example/steps/4-remote</code></p>
+        </section>
+
+        <section>
+          <h3>Challanges</h3>
+          <ol>
+            <li>How do we access a remote API?</li>
+            <li>How do we deal with asynchronous code in React?</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Server-Calls</h3>
+          <ul>
+            <li>React is not opinonated about how to do server calls</li>
+            <li class="fragment">
+              Often used in React applications: <b>fetch</b> API
+              <ul>
+                <li>Standard browser API for executing HTTP requests</li>
+                <li>
+                  <a href="http://caniuse.com/#search=fetch" target="_blank">wide support</a>
+                </li>
+                <li>
+                  Specification:
+                  <a href="https://fetch.spec.whatwg.org/" target="_blank"
+                    >https://fetch.spec.whatwg.org/</a
+                  >
+                </li>
+                <li>
+                  Polyfill for older browsers:
+                  <a href="https://github.com/github/fetch" target="_blank"
+                    >https://github.com/github/fetch</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="fragment x-list">
+            <li>
+              Popular alternative to fetch: <a href="https://github.com/axios/axios">Axios</a>
+            </li>
+            <li>
+              Axios API, but based on fetch:
+              <a href="https://github.com/developit/redaxios">Redaxios</a>
+            </li>
+            <li>
+              Complete data fetching solution using Hook API:
+              <a href="https://github.com/tannerlinsley/react-query" target="_blank">
+                React Query</a
+              >
+              or <a href="https://swr.vercel.app/">SWR</a>
+            </li>
+            <li>
+              Data Fetching for Redux Toolkit:
+              <a href="https://redux-toolkit.js.org/rtk-query/overview" target="_blank">
+                RTK Query</a
+              >
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Example: fetch</h3>
+          <p>Read data with HTTP GET using Promises</p>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+// For http GET simply specify the URL:
+
+fetch('http://localhost:7000/posts')
+  .then(response => response.json())
+  .then(json => /* ... */)
+  .catch(ex => console.error('request failed', ex));
+</code></pre>
+        </section>
+
+        <section data-state="es6-exkurs">
+          <h3>Background: Promises</h3>
+
+          <pre><code class="javascript" contenteditable>
+// Let's assume, "getNameAsync" is a function, that "sometime" in the future
+// return the string "Klaus"
+const promise = getNameAsync();
+  </code></pre>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable>promise.then(name => console.log(name));
+// Output "sometime" later: "Klaus"
+  </code></pre>
+        </section>
+
+        <section data-state="es6-exkurs">
+          <h3>Background: Promises</h3>
+          <p>Promises can be chained</p>
+          <pre><code class="javascript" contenteditable>
+
+const promise = getNameAsync()
+
+  // Called with the first value and returns new value
+  .then(name => getGreetingAsync(name)) 
+
+  // is called with the second value (from previous 'then')
+  .then(greeting => console.log(greeting));
+
+  // output "sometime": 
+  // "Hello, Klaus"
+
+  </code></pre>
+          <p class="fragment">
+            The <code>then</code> function <b>always</b> returns a Promise object!
+          </p>
+        </section>
+
+        <section data-state="es6-exkurs">
+          <h3>Errors will interrrupt the promise chain</h3>
+          <h4>With <code>catch</code> you can get informed about the error</h4>
+        </section>
+
+        <section data-state="es6-exkurs">
+          <h3>Catch in cases of an error</h3>
+          <pre><code class="javascript" contenteditable>
+  const promise = getNameAsync()
+    .then(name => {throw new Error("Unexpected Error") })
+    .then(greeting => console.log(greeting));
+    .catch(error => console.error(`Greeting failed: ${error}`))
+  
+    // Output: Greeting failed: Unexpected error
+    </code></pre>
+        </section>
+
+        <section>
+          <h3>Example: fetch (using async/await)</h3>
+          <p>Reading data (with HTTP GET)</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+// same example as before, but using async/await API instead of promises:
+try {
+  const response = await fetch('http://localhost:7000/posts')
+  const json = await response.json();
+  // ...
+} (catch ex) {
+  console.error('request failed', ex)
+}
+          </code></pre>
+        </section>
+
+        <section data-state="es6-exkurs">
+          <h2>async / await</h2>
+          <p>"Wrapper" around Promises</p>
+          <p>Allows asynchronous code to be written down "linearly"</p>
+        </section>
+        <section data-state="es6-exkurs">
+          <h3>async / await</h3>
+          <p><code>await</code> waits until a promise gets resolved</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+    function greet(name) { return new Promise(...); }
+    
+    // await can only be used in 'async'-functions:
+    async function sayWhat(name) {
+      const greeting = await greet(name);
+    
+      // greeting is a string!
+      console.log(greeting); // => Hello, ...
+    }
+                      </code></pre>
+        </section>
+        <section data-state="es6-exkurs">
+          <h3>async / await</h3>
+          <p><code>async</code> makes a "normal" function to an "async function"</p>
+          <p class="fragment">An <code>async</code> function <b>always</b> returns a Promise</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+  async function greet(name) {
+    return `Hello, ${name}`;
+  }
+  
+  const greeting = greet('Klaus');
+  
+  // greeting is a Promise!
+  console.log(greeting instanceof Promise); // => true
+  console.log(greeting) // => Promise {&lt;resolved>: "Hello, Klaus"}
+                  </code></pre>
+          <p class="fragment"><code>async</code> functions as arrow function:</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+  const greet = async (name) => `Hello, ${name}`;                
+    
+  const greeting = greet('Klaus');
+    
+  // greeting is a promise!
+  console.log(greeting instanceof Promise); // => true
+  console.log(greeting) // => Promise {&lt;resolved>: "Hello, Klaus"}
+                    </code></pre>
+        </section>
+
+        <section data-state="es6-exkurs">
+          <h3>async / await</h3>
+          <p>
+            Instead of chained <code>then</code> or <code>catch</code> functions, you can simply use
+            multiple <code>await</code> statements and catch errors using JS try/catch:
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+  // Return promises
+  async function loadUser(username) { . . . };
+  async function loadProfileDate(userId) { . . .};
+  
+  async function loadData() {
+    try {
+      const user = await loadUser('klaus');
+      const profile = await loadProfileData(user.userId);
+    } catch (e) {
+      console.error("Something failed")
+    }
+  }
+                      </code></pre>
+        </section>
+        <section>
+          <h3>Write data with HTTP POST</h3>
+          <div class="fragment">
+            <p>
+              <code>fetch</code> expects a second parameter containing an object with configuration:
+            </p>
+
+            <ul>
+              <li>
+                <code>method</code>: specifies the HTTP method to use (<code>PUT</code>,
+                <code>POST</code>, <code>DELETE</code>, ...)
+              </li>
+              <li>
+                <code>headers</code>: HTTP headers for the request (for example Authorization)
+              </li>
+              <li><code>body</code>: The request payload (as string)</li>
+            </ul>
+            <p>The return value is the same as we've seen with GET</p>
+          </div>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(payload)
+})
+// ... 
+    </code></pre>
+        </section>
+
+        <section>
+          <h3>fetch: Summary</h3>
+
+          <pre><code class="javascript" contenteditable data-trim>
+  try {
+    // 1. fetch returns a Promise, that will be resolved with a
+    // Response object when the answer from the server comes in
+    const response = await fetch('http://localhost:7000/posts');
+  
+    // 2. the Response object contains "meta data" about the Response
+    // (for ex. http status code) and functions the read the payload,
+    // for example from JSON:
+    const posts = await response.json();
+  
+    // btw: What do we do with the answer here in our React application?
+    // ???
+  } catch (err) {
+    // 4. In case something goes wrong, log error
+    console.error('request failed', err);
+  }
+  
+  </code></pre>
+          <p>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API docs</a>
+          </p>
+        </section>
+
+        <section>
+          <h3>When will we load the data (blog posts) for our application?</h3>
+        </section>
+
+        <section>
+          <h3>Loading (and saving) data</h3>
+          <p>👉Step-by-Step</p>
+          <p style="font-size: small;"><code>steps/3-hierarchy</code></p>
+        </section>
+
+        <section>
+          <h3>Fetch-on-Render</h3>
+          <p>We can trigger the server call when rendering our component</p>
+          <p>
+            Until the data is available (during the server call) we show a loading indicator to the
+            user
+          </p>
+        </section>
+
+        <section>
+          <h3>Side-effects</h3>
+          <p>
+            Server calls are <b>side-effects</b> (other examples: manipulating the DOM, opening a
+            WebSocket)
+          </p>
+          <p>Side-effeects are <b>forbidden</b> during the <em>render phase</em> of a component!</p>
+        </section>
+
+        <section>
+          <h3>useEffekt-Hook</h3>
+          <p>
+            <em
+              >With useEffect you can register an effect (function) that is run after rendering</em
+            >
+          </p>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            function App(props) {
+              React.useEffect( 
+                () => console.log("I will run after EACH render")
+              );
+            }
+          </code></pre>
+
+          <div class="fragment">
+            2. Parameter (array) determines, when the Hooks will run ("dependencies")
+
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+              function App(props) {
+                React.useEffect( 
+                  () => console.log("I will run only once after 1st rendering"),
+                  []
+                );
+              }
+            </code></pre>
+          </div>
+
+          <div class="fragment">
+            Only run after 1st rendering an when postId changes:
+
+            <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                function App(props) {
+                  React.useEffect(
+                    () => console.log("..."), 
+                    [props.postId]) 
+                  );
+                }
+              </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>useEffect Hook</h3>
+
+          <p>Two parameters:</p>
+          <ul>
+            <li class="fragment">
+              A callback function, that is called after the rendering
+            </li>
+            <li class="fragment">
+              An Array with <b>dependencies</b>:
+              <ul>
+                <li class="fragment">
+                  If you skip this argument, your function will executed after
+                  <b>each rendering</b>. Be careful about endless recursions
+                </li>
+                <li class="fragment">
+                  If the dependencies array is empty, the effect will run only once, after the first
+                  rendering of your component
+                </li>
+                <li class="fragment">
+                  If there are values in the array the effect will run after the 1st rendering and
+                  after any rendering when one of the values have been changed in between
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <p class="fragment">
+            To react to the removal of the component from the DOM (e.g. release resources), the
+            callback function can return another function, which is then executed. is executed:
+          </p>
+
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+                  function BlogPostView(props) {
+                    React.useEffect(
+                      () => {
+                        console.log("blogPostId has changed"); 
+                        return () => console.log("I have been removed") 
+                      },
+                      [props.blogPostId])
+                    );
+                  }
+                </code></pre>
+        </section>
+
+        <section>
+          <h3>Example: Initial loading of data</h3>
+
+          <div>
+            <p>
+              <code>useEffect</code> und (<code>useState</code>) will be used to load data after 1.
+              rendering
+            </p>
+            <pre><code class="javascript" contenteditable data-trim>
+                function App() {
+                  const [posts, setPosts] = React.useState([]);
+                
+                  React.useEffect(() => {
+                    fetch("http://localhost:7000/posts")
+                      .then(response => response.json())
+                      .then(json => setPosts(json));
+                  }, []);
+
+                  return {posts.map(p => (
+                    &lt;Post key={p.id} post={p} />
+                  ))}
+                }
+                
+                </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>Example: Initial loading of data #2</h3>
+
+          <p>Lifecycle of this example (App component):</p>
+          <ol>
+            <li class="fragment">
+              Component function App is executed (Component will be "rendered")
+            </li>
+            <li class="fragment">State is initialized with an empty array</li>
+            <li class="fragment">The effect (loading the data) is registered</li>
+            <li class="fragment">
+              UI-Code is returned by the function (in this case an empty lists, as no posts have
+              been loaded yet)
+            </li>
+            <li class="fragment">React creates the native DOM for the UI</li>
+            <li class="fragment">React runs the registered Effect, the Server-Call starts</li>
+            <li class="fragment">
+              Somewhen later: the server call returns, the received data are set into the state
+            </li>
+            <li class="fragment">
+              Updating the state leads to re-rendering of the App component. React invokes the
+              function again.
+            </li>
+            <li class="fragment">The App's state is now the array with the received data</li>
+            <li class="fragment">The effect won't run again (empty array as 2. parameter)</li>
+            <li class="fragment">
+              The component returns the UI for the populated list with blog posts
+            </li>
+          </ol>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>What is the problem with this code?</h3>
+
+          <pre><code class="javascript">
+    function BlogList() {
+      const [posts, setPosts] = React.useState([]);
+    
+      React.useEffect(
+        async () => {
+          const response = await fetch("...");
+          const loadedPosts = response.json();
+          setPosts(loadedPosts);
+        }, []
+      );
+    
+      return ...;
+    }
+    </code></pre>
+          <p class="fragment">
+            The callback function returns a Promise (resolves to "undefined")! The is not allowed,
+            because React expects a function (or undefined).
+          </p>
+        </section>
+
+        <section>
+          <h3>Saving of data</h3>
+          <p>For example after a user interaction:</p>
+          <p class="fragment">Inside an Event Handler it is allowed to use side effects!</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+function App(props) {
+  // load, as seen
+  React.useEffect( ... );
+
+  function addPost(post) {
+    fetch("http://localhost:7000/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(post)
+    })
+      .then(response => response.json())
+      .then(newPost => setPosts([newPost, ...posts]));
+  }
+
+
+  return
+    ...
+      &lt;AddPost onAdd={newPost => addPost(newPost)} />
+    ...
+}
+                </code></pre>
+        </section>
+
+        <section>
+          <h2>Exercise: Loading and Saving data on a server</h2>
+          <p>
+            <em
+              >Implement an enhanced version of the <code>App</code> component that is able to load
+              and store data using <code>fetch</code>.</em
+            >
+          </p>
+          <p>
+            The backend is already implemented. You can started it:
+          </p>
+          <pre><code>
+                  cd react-training/blog-example/backend-rest
+                  npm start
+                </code></pre>
+          <p>The server runs on port 7000</p>
+          <p>
+            You can test it in your browser (or wget, curl) with this URL:
+            <a href="http://localhost:7000/posts">http://localhost:7000/posts</a>
+          </p>
+        </section>
+
+        <section>
+          <h3>Steps</h3>
+          <ol class="x-list">
+            <li class="fragment">
+              Copy <code>blog-example/material/4-remote/App.js</code> into your src-Folder and add
+              the code for loading and saving the data.
+            </li>
+
+            <li class="fragment"><code>App.js</code> contains TODOs with further informations</li>
+            <li class="fragment">
+              Add a Loading Indicator:
+              <ul>
+                <li>
+                  When you add <code>?slow</code> to the URL in a <code>fetch</code> call, the
+                  server response is "slowed down" to simulate a slow network:
+                  <code>http://localhost:7000/posts?slow</code>
+                </li>
+                <li>
+                  Add a new state in the app component that records whether a server call (data
+                  load) is currently running.
+                </li>
+                <li>
+                  During the ongoing server call (loading data), show a message ("Please wait")
+                </li>
+              </ul>
+            </li>
+            <li class="fragment">Possible solution: <code>steps/4-remote</code></li>
+            <li class="fragment">When you are done, please "raise your hand" in Teams 🙋‍♀️</li>
+          </ol>
+        </section>
+
+        <!--
+
+
+  ============================ BIS HIER HER =================================
+
+-->
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Example: Loading Indicator</h3>
+          <p>How do we give feedback to the user that the data is loading?</p>
+        </section>
+
+        <section>
+          <h3>"Complex" state"</h3>
+          <p>
+            If a component holds multiple states that are not independent, you can also use an
+            object as the state:
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+function App() {
+  const [fetchState, setFetchState] = React.useState({
+    loading: false,
+    error: "",
+    posts: []
+  });
+
+  ...;
+}              
+            </code></pre>
+          <p class="fragment">
+            If you change the state, you must create a <b>new object</b>! The existing object must
+            not be changed!
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+    function App() {
+      const [fetchState, setFetchState] ...;
+
+      // OK:
+      setFetchState({
+        loading: true
+      })
+
+      // FALSCH:
+      fetchState.loading = true;
+      setFetchState(fetchState)
+    }              
+        
+  </code></pre>
+        </section>
+        <!-- <section>
+          <h3>Übung komplexer Zustand</h3>
+          <ol class="x-list">
+            <li class="fragment">
+              In deiner <code>App</code>-Komponente hast Du zwei Zustände: <code>posts</code> und
+              <code>loading</code>.
+            </li>
+            <li class="fragment">
+              Füge die beiden Zustände zu <em>einem</em> "komplexen" Zustand zusammen. Verwende also
+              ein Objekt im State.
+            </li>
+            <li class="fragment">
+              Achte darauf, dass der posts-Eintrag in dem Zustand niemals null oder undefined,
+              sondern immer mindestens ein leeres Array ist. (Auch beim Initialisiern dran denken!)
+            </li>
+            <li class="fragment">
+              Bitte denk immer dran, dass Du das State-Objekt nicht verändern darfst, sondern es
+              immer erneut erzeugen musst.
+            </li>
+            <li class="fragment">Mögliche Lösung in <code>steps/4-remote-with-loading</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
+          </ol>
+        </section> -->
+        <section>
+          <h3>Outlook: Custom Hooks</h3>
+
+          <em
+            >Own ("custom") hooks can be used to reuse code (that need to interact with React
+            APIs)</em
+          >
+
+          <p class="fragment">
+            Examples: Loading data, working with browser APIs or external libraries
+          </p>
+        </section>
+
+        <section>
+          <h3>Outlook: Custom Hooks</h3>
+
+          <ul class="x-list">
+            <li class="fragment">
+              ...must start with <code>use</code>
+              <ul>
+                <li>(otherwise the linter cannot check for possible errors!)</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              ...may only be called from other (custom) hooks and function components
+            </li>
+            <li class="fragment">
+              ...expect "normal" function parameters (not necessarily a properties object as with
+              components)
+            </li>
+            <li class="fragment">...allowed to use other (custom) hooks verwenden</li>
+            <li class="fragment">
+              ...any return value possible (might be JSX, but it's not a requirement)
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Example: a custom hook to load data</h3>
+
+          <pre><code class="javascript">
+import React from "react";
+
+export default function useApi(url, initialValue) {
+  const [fetchState, setFetchState] = React.useState({data: initialValue});
+
+  React.useEffect(
+    () => {
+      async function loadData() {
+        try {
+          setFetchState({loading: true, data: initialData})
+          const response = await fetch(url);
+          const json = await response.json();
+          setFetchState({data: json})
+        } catch (err) {
+          console.error("LOADING DATA FAILED:", err);
+          setFetchState({error: err.toString()})
+        } 
+      }
+      loadData();
+    },
+    // Make sure, this Hook only runs (after initial) when URL changes
+    [url]
+  );
+
+  return [fetchState.data, fetchState.isLoading];
+}
+</code></pre>
+        </section>
+
+        <section id="t-typescript">
+          <h1>Part V</h1>
+          <h2>React applications with TypeScript</h2>
+          <p>Example: code/blog-example/steps/5-typescript</p>
+        </section>
+
+        <section>
+          <h2>TypeScript</h2>
+          <ol>
+            <li>
+              <a href="#/t-typescript-grundlagen">TypeScript Basics</a>
+            </li>
+            <li>
+              <a href="#/t-typescript-react">React applications with TypeScript</a>
+            </li>
+          </ol>
+        </section>
+
+        <section id="t-typescript-grundlagen">
+          <h2>Background: TypeScript</h2>
+          <p>
+            <em>TypeScript is a superset of JavaScript that compiles to plain JavaScript </em>(
+            <a href="http://www.typescriptlang.org/" target="_blank"
+              >http://www.typescriptlang.org/</a
+            >)
+          </p>
+          <ul>
+            <li>Extends JavaScript by a type system</li>
+            <li>Every valid JavaScript code is also valid TypeScript code</li>
+            <li>TS compiler translates to JavaScript</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>👉TypeScript hands-on</h3>
+        </section>
+
+        <section>
+          <h3>TypeScript basics</h3>
+          <p>Type declarations are written after the identifier of a variable or argument</p>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // Variables can get type informations
+  let foo: string;
+  foo = 'yo';
+  // Error: number: This type is incompatible with string
+  foo = 10;
+                 </code></pre>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // Functions: parameters and return values can be described
+  function sayIt(what: string): string {
+    return `Saying: ${what}`;
+  }
+  
+  sayIt('Klaus'); // ok
+  sayIt(10); // error
+  </code></pre>
+
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // Arrow functions
+  const sayIt = (what: string): string => `Saying: ${what}`;
+  
+  sayIt('Moin');
+  sayIt(123); // Error: Argument of type '123' is not assignable
+              // to parameter of type 'string'.
+  </code></pre>
+        </section>
+
+        <section>
+          <h2>Built-in types</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // string
+  let city: string = 'Hamburg';
+  
+  // boolean
+  let isDone: boolean = false;
+  
+  // number
+  let theAnswer: number = 42;
+  
+  // array (note the [])
+  let cities: string[] = ['Hamburg', 'London'];
+  // alternative:
+  let languages: Array&lt;string> = ['JavaScript', 'TypeScript'];
+  
+  // void
+  function log(s: string): void { /* ... */ }
+              </code></pre>
+        </section>
+        <section>
+          <h2>Built-in types: "any" and "unknown"</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // any: can take all Types, type checking is effectively turned off
+  let theUnknown: any = 'Who cares';
+  theUnknown = 666; // ok
+  theUnknown = true; // ok
+  let a: number = theUnknown; // ok
+  function loadData(): any { return "" // ok }
+  let b:number = loadData(); // ok
+  
+              </code></pre>
+        </section>
+        <section>
+          <h2>Built-in types: "any" and "unknown"</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // unknown: can also take all types, but forces a type check before using the value
+  function loadData(): unknown { return "" // ok }
+  let b = loadData(); 
+  b.toUpperCase(); // ERROR
+  if (typeof b === "string") {
+    // b now is a string (typeof is a runtime operator!)
+    b.toUpperCase(); // OK
+  }
+              </code></pre>
+        </section>
+
+        <section>
+          <h2>Types can be inferred by TypeScript</h2>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  let city = 'Hamburg'; // city is a string
+  
+  city = 42;
+  // Fehler: [ts] Type '42' is not assignable to type 'string'.
+  </code></pre>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  // Function arguments must be specified explicitly
+  // (return type can be inferred)
+  
+  function sayIt(what: string) {
+    return `Saying: ${what}`;
+  }
+  
+  const said: string = sayIt('Hello TypeScript'); // ok
+  const saidItWrong: number = sayIt('Hello TypeScript'); // error!
+  
+  
+  </code></pre>
+        </section>
+
+        <section>
+          <h2>Turn off type checking</h2>
+          <p>
+            With <code>@ts-ignore</code> (as comment) the type checking in the next line will be
+            turned off:
+          </p>
+          <pre><code class="typescript line-numbers" contenteditable data-trim>
+  let city:string = "Hamburg";
+  
+  city = 20259; // error: [ts] Type '20259' is not assignable to type 'string'.
+  
+  // @ts-ignore
+  city = 20259; // ok                
+  </code></pre>
+          <p class="fragment">
+            Should be used with care! Only in "difficult" scenarios, for example when type
+            definitions of an external library are broken.
+          </p>
+        </section>
+
+        <section>
+          <h2>null and undefined</h2>
+          <div class="fragment">
+            <p>
+              <code>null</code> is an own type and must be explicitly specified
+              <em>(strictNullChecks</em>):
+            </p>
+            <pre><code class="typescript line-numbers" contenteditable data-trim>
+  let city:string = null; //Type 'null' is not assignable to type 'string'.
+  
+  let optionalCity:string|null = null; // OK
+              </code></pre>
+          </div>
+          <div class="fragment">
+            <p><code>undefined</code> also is an own type:</p>
+            <pre><code class="typescript line-numbers" contenteditable data-trim>
+    let city:string = undefined; //Type 'undefined' is not assignable to type 'string'.
+    
+    let optionalCity:string|undefined = undefined; // OK
+    let optionalCity:string|undefined|null = null; // OK
+                </code></pre>
+          </div>
+          <div class="fragment">
+            <p>
+              Optional parameters can be marked with ? (they than can also be undefined
+              <code>undefined</code>, a behaviour that can be changed in TS 4.4)
+            </p>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+  function greet(name: string, greeting?: string) {
+    console.log(`${greeting || 'Hello'}, {name}`);
+  }
+  
+  greet('Susi', 'Moin')// Moin, Susi
+  
+  // 2. Parameter ist optional:
+  greet('Klaus'); // Hello, Klaus
+  
+  greet('Peter', null); // Argument of type 'null' is not assignable
+                        // to parameter of type 'string | undefined'.
+              </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h2>Own types</h2>
+          <p>
+            With <code>type</code> and <code>interface</code> you can describe the shape/structure
+            of your own objects. Type and Interface are almost the same.
+          </p>
+
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+  // Komplexer Typ
+  interface Person {
+    name: string; // Pflicht
+    livesIn?: string; // Optional
+  }
+
+  // or 
+  type Person = { name: string; livesIn?: string; }
+  
+  const susi: Person = { // OK
+    name: 'Klaus',
+    livesIn: 'Hamburg'
+  };
+  const klaus: Person = { // OK (livesIn is optional)
+    name: 'Klaus'
+  }
+  
+  const helmut: Person = {} // Error: Property 'name' is missing
+  
+  const lukas: Person = {
+    name: 'Lukas',
+    profession: 'Train driver'
+  } // Error: 'profession' does not exist in type 'Person'.
+                 </code></pre>
+        </section>
+
+        <section>
+          <h2>Own types II</h2>
+          <p>You can also describe functions on your types</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+            // Complex Type
+            type Person {
+              name: string; // mandatory
+              greet(greeting: string): string;
+            }
+
+            const p:Person = {
+              name: "Klaus",
+              greet(greeting: string) { 
+                return `${greeting}, ${this.name}`
+              }
+            }
+            p.greet("Hello"); // OK
+            p.greet(123); // ERR: Argument of type '123' is not 
+                          // assignable to parameter of type 'string'.
+
+            const wrong:Person = {
+              name: "Susi", // OK
+              greet(greeting: number) { return "hello" } 
+                // ERR: Type '(greeting: number) => string' is not assignable to 
+                //      type '(greeting: string) => string'.
+                //      Types of parameters 'greeting' and 'greeting' are incompatible.
+                //      Type 'string' is not assignable to type 'number'.
+            }
+                           </code></pre>
+        </section>
+
+        <section>
+          <h2>Union Types</h2>
+          <p>Variables, parameters etc. can take more than one type:</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type Person = { name: string };
+type Movie = { title: string };
+
+function printNameOrTitle(obj: Person | Movie) { 
+
+  console.log(obj.title); // ERR: Property 'title' does not 
+                          // exist on type 'Person | Movie'
+ 
+  if ("title" in obj) { // if statement is called a "Type Guard"
+    // obj is here "Movie", title is defined now
+    console.log(obj.title);
+  } else {
+    // obj is here "Person": name is now known
+    console.log(obj.name);
+  }
+}
+
+printNameOrTitle({name: "Klaus"}); //OK
+printNameOrTitle({title: "Pulp Fiction"}); //OK
+printNameOrTitle({label: "Save"}); // ERR
+    
+          </code></pre>
+        </section>
+        <section>
+          <h2>Type Guards</h2>
+          <p>Types can be "narrowed down" by a type guard</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type Person = { name: string };
+type Movie = { title: string };
+
+// If this function returns true, TypeScript assumes,
+// that the object given ("candidate") is a a Movie
+function isMovie(candidate: any): candidate is Movie {
+  return ("title" in candidate);
+}
+
+function printNameOrTitle(obj: Person | Movie) { 
+  if (isMovie(obj)) {
+    // movie
+  }
+}
+    
+          </code></pre>
+        </section>
+        <section>
+          <h2>Type Assertions</h2>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type Person = { name: string };
+type Movie = { title: string };
+
+// When this function returns (no error is thrown) Typescript assumes,
+// that the argument passed is of type Movie
+function assertIsMovie(candidate: any): asserts candidate is  Movie {
+  if ("title" in candidate) {
+    return;
+  }
+  throw new Error("Candidate is not a movie!")
+}
+
+function printTitle(hopefullyAMovie: any) { 
+  assertPersonIsMovie(hopefullyAMovie)
+  // hopefullyAMovie is Movie
+  hopefullyAMovie.title; // OK
+}
+    
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Type compatibility</h2>
+          <em
+            >In TypeScript two Types are considered equal when they have the <b>same structure</b>
+            ("structural typing"). That differs from C#/Java.
+          </em>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+  interface Book {
+    title: string
+  }
+  
+  interface Movie {
+    title: string
+  }
+  
+  const book:Book = { title: "React introduction" };
+  const movie:Movie = book; // OK, even Book !== Movie
+                 </code></pre>
+        </section>
+
+        <section>
+          <h2>String Literal Types</h2>
+          <p>
+            Using a String Literal Type, you can specify with exact strings a type can have. That
+            allows you to build enum-like constructs.
+          </p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+
+type VIEW = "LIST" | "DETAIL" | "ERROR";
+
+const m:VIEW = "LIST"; // OK
+const n:VIEW = "NOT_FOUND"; // ERR: Type '"NOT_FOUND"' 
+                         // is not assignable to type 'VIEW'.
+
+function getView(m: VIEW) {
+  if (m === "NOT_FOUND") {
+     // ERR: This condition will always return 'false' since the 
+     // types 'VIEW' and '"NOT_FOUND"' have no overlap.       
+  } else if (m === "DETAIL") {
+      // OK
+  }
+}
+            </code></pre>
+        </section>
+
+        <section>
+          <h2>Mapped Types</h2>
+          <p>Using mapped types you can construct new types based on others:</p>
+          <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>              
+type Person = { name: string; lastname: string};
+
+const p:Person = {
+    name: "Klaus",
+    lastname: "mueller"
+}
+
+p.lastname = "Meier"; // OK
+
+// ReadonlyPerson ist ein "mapped type"
+type ReadonlyPerson = Readonly&lt;Person>;
+
+const p2:ReadonlyPerson = {
+    name: "Klaus",
+    lastname: "mueller"
+}
+
+p2.name = "Karl"; // Cannot assign to 'name' because it is a read-only property.
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Excercise: Hello, TypeScript!</h2>
+          <h3>
+            <em>Become familiar with the basics of the TypeScript language</em>
+          </h3>
+
+          <ol class="x-list">
+            <li>Open the TypeScript Playground in your browser (I'll post the link to the chat)</li>
+            <li>Link to the slides for reference is also in the chat</li>
+            <li>
+              Edit the file so that there are no more compile errors, see TODOs there
+            </li>
+            <li>
+              Solution in
+              <code>blog-example/material/ts-intro/01_solution_hello_typescript.ts</code>
+            </li>
+          </ol>
+        </section>
+
+        <section id="t-typescript-react">
+          <h2>React Applications with TypeScript</h2>
+          <em>State and Properties of components can be described using TypeScript</em>
+          <p class="fragment">
+            Attention! TypeScript-Files, that contain JSX <b>have to</b> end with <code>.tsx</code>!
+          </p>
+
+          <p class="fragment">👉 Let's see how this works (<code>workspace-typescript</code>)</p>
+        </section>
+
+        <section>
+          <h2>Type-safety in function components</h2>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type PostListProps = {
+  posts: BlogPost[];
+  onAddPost(): void;
+};
+            </code></pre>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+    function BlogList(props: PostListProps) {
+      props.posts.length // OK
+      
+      props.post // compile ERROR: Property 'post' does not exist on type 'PostListProps'.
+      props.onAddPost("huhu"); // compile ERROR: Expected 0 arguments, but got 1.
+    }
+    
+            </code></pre>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+    // With Destructuring
+    function BlogList({posts, onAddPost}: GreetingMasterProps) => {
+      // ...
+    }
+    
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Typ-safe usage of components</h3>
+
+          <div class="fragment">
+            <p>Code Completion</p>
+            <img style="height: 200px;" src="slides/images/screenshot-ts-code_completion.png" />
+          </div>
+
+          <div class="fragment">
+            <p>Unknown property</p>
+            <img style="height: 200px;" src="slides/images/screenshot-ts-error-01.png" />
+          </div>
+
+          <div class="fragment">
+            <p>Wrong usage of a property</p>
+            <img style="height: 200px;" src="slides/images/screenshot-ts-error-02.png" />
+          </div>
+        </section>
+
+        <section>
+          <h3>Type-safety in useState</h3>
+          <p>The type of the state from useState can be inferred by TypeScript</p>
+          <pre
+            class="fragment"
+          ><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type PostEditorProps = {  onSavePost(post: NewBlogPost): void; };
+function PostEdior(props: PostEditorProps) {
+  const [title, setTitle] = React.useState("");
+
+  // greeting is string, because initial value is a string
+  setGreeting("huhu"); // OK
+  setGreeting(666); // ERROR (wrong Type)
+  setGreeting(null); // ERROR (wrong Type)
+}
+            </code></pre>
+          <div class="fragment">
+            <p>You can also specify it explicitly</p>
+            <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+type VIEW = "LIST" | "ADD";
+
+function App() {
+  const [view, setView] = React.useState&lt;VIEW>("LIST");
+
+  // Mode ist either string "MODE_MASTER" or "MODE_DETAIL"
+  // setMode only accepts the string "MODE_MASTER" and "MODE_DETAIL" 
+
+  setMode("NOT_FOUND"); // compile error
+  setMode(null); // compile error
+}
+                            </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h2>React Events in TypeScript</h2>
+          <p>
+            Events in React are all instances of <code>React.SyntheticEvent</code> which wrapps the
+            native DOM events
+          </p>
+          <p class="fragment">
+            The type for the events expects the type of the html element it is fired from (source of
+            the event) as a type argument.
+          </p>
+          <p class="fragment">TypeScript then knows the properties and functions of the event</p>
+          <span class="fragment">
+            <pre><code data-trim contenteditable class="line-numbers typescript" data-leftpad>
+function PostEditor(props) {
+  const [title, setTitle] = React.useState("");
+
+  function handleChange(e: React.SyntheticEvent&lt;HTMLInputElement>) {
+    setTitle(e.currentTaget.value);
+  }
+
+  return &lt;input onChange={handleChange} value={title} />
+}              
+          </code></pre>
+            <p>
+              <a
+                href="https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682"
+                target="_blank"
+              >
+                <code>target</code> vs
+                <code>currentTarget</code>
+              </a>
+            </p>
+          </span>
+        </section>
+
+        <section>
+          <h2>Exercise: Type-safe React components</h2>
+          <h3>
+            <em>Add type informations to existing react components</em>
+          </h3>
+          <div style="font-size: 80%;">
+            <div class="fragment">
+              <p>
+                <b>WORKSPACE:</b>
+              </p>
+              <p>
+                Please use the workspace <code><b>blog-example/workspace-typescript</b></code
+                >. <br />It contains the latest app version, but prepared for TypeScript.
+              </p>
+            </div>
+            <div class="fragment">
+              <p>
+                <b>PREPARATION:</b>
+              </p>
+              <ol class="x-list">
+                <li>Stop your running "npm run" process (frontend) using ctrl+c</li>
+                <li>
+                  Run <code><b>npm install</b></code> in
+                  <code>blog-example/workspace-typescript</code>
+                </li>
+                <li>
+                  Run <code><b>npm start</b></code> in
+                  <code>blog-example/workspace-typescript</code>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Excercise 1: Add type informations</h3>
+          <p>
+            Add missing type informations in <code>PostList.js</code> and
+            <code>PostEditor.js</code>
+          </p>
+          <ol style="font-size: 80%;" class="x-list">
+            <li class="fragment">
+              Rename <code><b>PostList.js</b></code> to <code>PostList.tsx</code> and restart
+              <code>npm start</code>
+            </li>
+            <li class="fragment">Add missing type informations to <code>PostList.tsx</code></li>
+            <li class="fragment">
+              Rename <code><b>PostEditor.js</b></code> to <code>PostEditor.tsx</code> and restart
+              <code>npm start</code>
+            </li>
+            <li class="fragment">Add missing type informations to <code>PostEditor.tsx</code></li>
+            <li class="fragment">You can find more instructions inside the files</li>
+            <li class="fragment">Possible solution in <code>steps/5-typescript</code></li>
+            <li class="fragment">When you are done, please "raise your hand" in Teams 🙋‍♀️</li>
+          </ol>
+          <h3 class="fragment"><b>Optional</b> excercise 2: Add new View mode in App</h3>
+          <ol style="font-size: 80%;" class="x-list">
+            <li class="fragment">
+              After saving a new Blog Post, a new view should be presented to the users (showing a
+              message like "Your post have been saved")
+            </li>
+            <li class="fragment">
+              In addition to the info message the new view should have an "OK"-Button
+            </li>
+            <li class="fragment">
+              When the user clicks the OK-Button the <code>PostList</code> should be displayed:
+              <br /><code class="fragment"
+                >LIST --onAdd--> EDIT --onSave--> FEEDBACK --onOk--> LIST</code
+              >
+            </li>
+          </ol>
+        </section>
+
+        <section id="t-test">
+          <h1>Part VI</h1>
+          <h2>Testing React Applications</h2>
+        </section>
+
+        <section data-transition="slide none">
+          <h2>What do we test?</h2>
+          <ul>
+            <li class="fragment">
+              <b>UI-independent logic</b> (for example services, backend calls)
+            </li>
+            <li class="fragment">
+              <b>Rendering</b> (is the list of blog post correctly rendered? is the markup as we
+              want it?)
+            </li>
+            <li class="fragment">
+              <b>Interactions</b> (are my event handlers working and correctly set?)
+            </li>
+            <li class="fragment">
+              <b>Behaviour in the browser</b> (z.B. correct rendering, Browser-specific JavaScript,
+              pixel-perfect rendering and so on)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Jest</h1>
+          <p>
+            <em
+              >"Delightful JavaScript Testing" (
+              <a href="https://jestjs.io/" target="_blank">https://jestjs.io/</a>)</em
+            >
+          </p>
+          <p class="fragment">
+            Complete Test solution for React (and others):
+          </p>
+          <ul class="fragment">
+            <li>Test Runner</li>
+            <li>Specs/Assertions, Mocks</li>
+            <li>Code Coverage</li>
+            <li>"Snapshot testing"</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Jest</h4>
+          <h3>Example: A simple testcase</h3>
+          <pre><code class="javascript" contenteditable data-trim>// sum.js (or sum.ts)
+export const sum = (a,b) => a+b;
+        </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>// sum.test.js
+import {sum} from '../sum.js';
+
+test('sum of 2 and 2 is 4', () => {
+  expect(sum(2, 2)).toBe(4);
+});
+
+test('sum of 2 and 2 is not 3', () => {
+  expect(sum(2, 2)).not.toBe(3);
+});
+            </code></pre>
+        </section>
+        <section>
+          <h4>Jest</h4>
+          <h2>Testcases</h2>
+          <p>
+            <code>test</code> or
+            <code>it</code>
+          </p>
+          <pre><code data-trim contenteditable>test('it should work', () => {
+  expect(...).toBe(...);
+});</code></pre>
+          <pre><code data-trim contenteditable>it('it should also work', () => {
+  expect(...).toBe(...);
+});</code></pre>
+        </section>
+
+        <section>
+          <h4>Jest</h4>
+          <h2>Expectations and Matchers</h2>
+          <div class="fragment">
+            <p>
+              <code>expect()</code> returns an <em>Expectation</em> obects, that contains several
+              <em>Matcher</em> functions:
+            </p>
+            <pre><code data-trim contenteditable>expect(actual).toXyz(expected);
+// for example:
+expect("Hello Jest").toBe("Hello Jest"); // => ok
+        </code></pre>
+          </div>
+          <div class="fragment">
+            <p>Some matchers</p>
+
+            <pre><code data-trim contenteditable>// Compare identity
+expect(actual).toBe(expected);
+// Compare value:
+expect(actual).toEqual(expected);
+// true / false / null:
+expect(actual).toBeTruthy();
+expect(actual).toBeFalsy();
+expect(actual).toBeNull();
+// Length (Array oder String)
+expect(actual).toHaveLength(123);
+        </code></pre>
+          </div>
+          <p class="fragment">
+            <a href="https://jestjs.io/docs/en/expect">https://jestjs.io/docs/en/expect</a>
+          </p>
+        </section>
+
+        <section>
+          <h4>Jest</h4>
+          <h2>Mock Functions</h2>
+          <ul>
+            <li class="fragment">
+              <code>jest.fn()</code> creates a mock function
+              <pre><code data-trim contenteditable>// Returns undefined when executed
+const aMockFn = jest.fn();
+
+aMockFn("huhu"); // => undefined
+
+expect(aMockFn).toHaveBeenCalled());
+expect(aMockFn.toHaveBeenCalledWith("huhu"));
+                      </code></pre>
+            </li>
+
+            <li class="fragment">
+              Implementation of the mock function can be passed as parameter:
+              <pre><code data-trim contenteditable>
+        const aMockFn = jest.fn( param => `Hello, ${param}` );
+        
+        console.log(aMockFn('World'));
+        // => Hello, World
+                  </code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Testing React Components</h3>
+          <h2>Rendering-only</h2>
+        </section>
+
+        <section>
+          <h3>React Test Renderer</h3>
+          <p>
+            <a href="https://www.npmjs.com/package/react-test-renderer"
+              >https://www.npmjs.com/package/react-test-renderer</a
+            >
+          </p>
+          <p>Renders React components into JSON objects (without DOM):</p>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
+
+const component = renderer.create(
+  &lt;PostList posts={somePosts} />
+);
+
+console.log(component.toJSON());
+            </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+        { type: 'div',
+          props: {},
+          children:  [
+            { type: 'button', props: {}, children: [Object] },
+            { type: 'article', props: [Object], children: [Object] },
+            { type: 'article', props: [Object], children: [Object] }
+          ]
+        }
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>"Snapshot Testing" with Jest</h3>
+          <p>
+            <code>expect(obj).toMatchSnapshot()</code> compares a JSON-Object with a stored object
+            in a file:
+          </p>
+          <ul>
+            <li class="fragment">
+              At <b>first</b> execution: Snapshot-File will be created (
+              <a href="slides/images/jest-snapshot-file.png" target="_blank">Example</a>)
+              <ul>
+                <li class="fragment">Snapshot files will be stored in Git</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              In all <b>following</b> test executions: new snapshot will be created and compared
+              against saved snapshot.
+            </li>
+            <li class="fragment">
+              When Snapshots differ:
+              <ul>
+                <li>
+                  Error including diff (
+                  <a href="slides/images/jest-snapshot-diff.png" target="_blank">Example</a>)
+                </li>
+                <li>
+                  In "watch mode" the snapshot can be updated
+                  <img src="slides/images/jest-snapshot-update.png" />
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Snapshot Testing with Jest and React</h3>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
+        
+test('it should render correctly', () => {
+
+  const somePosts = [ . . . ];
+
+  const component = renderer.create(
+    &lt;PostList posts={somePosts} />
+  );
+
+  expect(component.toJSON()).toMatchSnapshot();
+});
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Testing React Components #2</h3>
+          <h2>Behaviour and interactions</h2>
+        </section>
+
+        <section>
+          <h3>react-testing-library</h3>
+          <p>
+            <em
+              >"Simple and complete React DOM testing utilities that encourage good testing
+              practices."
+            </em>
+          </p>
+
+          <p>
+            <a href="https://github.com/testing-library/react-testing-library" target="_blank"
+              >https://github.com/testing-library/react-testing-library</a
+            >)
+          </p>
+          <p>
+            Philosophy: tests are written from a user perspective. To find your elements you want to
+            test, you use properties the user also sees (like labels, etc)
+          </p>
+          <p class="fragment">👉 <code>workspace-test</code></p>
+        </section>
+        <section>
+          <h3>react-testing-library</h3>
+          <p>Example</p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            import { render, screen } from "@testing-library/react";
+            import userEvent from "@testing-library/user-event";
+
+            it("invokes callback on button click", () => {
+              const onAddPostFn = jest.fn();
+            
+              // Render
+              render(&lt;PostList onAddPost={onAddPostFn} posts={mockPosts} />);
+            
+              // search the button
+              const buttonElement = screen.getByRole("button", { name: "Add Post" });
+
+              // "click" the button
+              userEvent.click(buttonElement);
+            
+              // make sure it has been invoked
+              expect(onAddPostFn).toHaveBeenCalled();
+            });
+
+
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>The render function</h3>
+          <p>
+            The render function from the react-testing-library is used in the test to render a React
+            component (without a browser) in the test
+          </p>
+          <p>
+            Properties can be specified in the same way as in the applications.
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            import { render } from "@testing-library/react";
+
+              // Render a single component
+              render(&lt;PostList onAddPost={onAddPostFn} posts={mockPosts} />);
+          </code></pre>
+          <p class="fragment">
+            Remember to also create contexts if they are needed (React, Router, Redux etc.)!
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+
+              // Render with surrounding Redux Provider (or Router, your own Context etc.)
+              render(
+                &lt;Provider>
+                  &lt;PostList onAddPost={onAddPostFn} posts={mockPosts} />
+                &lt;/Provider>
+              );
+            </code></pre>
+        </section>
+        <section>
+          <h3>query functions</h3>
+          <p>
+            To check the rendered HTML elements from your component and interact with them, you must
+            first find them 🤓
+          </p>
+          <p>
+            On the global <b>screen</b> object of the testing lib, there are several functions
+            defined, that you can use to search for elements
+          </p>
+          <p>
+            The query functions have different <b>suffixes</b> that describe,
+            <b>by which criteria</b> you are searching (by label, by aria-role, ...)
+          </p>
+          <p>
+            The functions also each have a <b>prefix</b> (getBy, queryBy etc) which describes the
+            type of return value of the respective function (e.g. whether it throws an error or
+            returns zero if the requested element was not found).
+          </p>
+          <p>
+            More about query functions in the docs:
+            <a
+              target="_blank"
+              href="https://testing-library.com/docs/react-testing-library/cheatsheet#queries"
+              >React Testing Library Cheatsheet</a
+            >
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+  // EXAMPLES: 
+
+  // search for a button (assumption: there is EXACTLY ONE, otherwise the test fails)
+  const buttonElement = screen.getByRole("button", { name: "Add Post" });
+
+  // search for a button (gives zero or ONE button, otherwise throws an error)
+  const buttonElement = screen.queryByRole("button", { name: "Add Post" });
+
+  // search for a button (returns all found or an empty array)  
+  const buttonElement = screen.queryAllByRole("button", { name: "Add Post" });
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Inspecting and verifying elements</h3>
+          <p>
+            When you have found the element you are looking for, you can check it to see if it
+            matches your expectations (correct attributes set, and so on)
+          </p>
+          <p>
+            The library
+            <a href="https://github.com/testing-library/jest-dom" target="_blank">jest-dom</a> adds
+            DOM specific Mather functions to Jest.
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+  import { screen } from "@testing-library/react";
+
+  const buttonElement = screen.queryByRole("button", { name: "Add Post" });
+
+  // ensures that the element is present in the DOM (getBy-Query would perhaps make more sense here)
+  expect(buttonElement).toBeInTheDocument();
+
+  // ensure that an input field has an expected value (entered in the field)
+  expect(titleInput).toHaveValue("Moin moin");
+
+  // ensure that a button is disabled
+  expect(okButton).toBeDisabled();
+</code></pre>
+          <p class="fragment">
+            All matchers are documented on the GitHub page linked above
+          </p>
+        </section>
+        <section>
+          <h3>Interactions</h3>
+          <p>
+            You can interact with the elements by sending them events, just like a browser would do
+          </p>
+          <p>
+            There is another library,
+            <a href="https://github.com/testing-library/user-event" target="_blank">user-event</a>,
+            that helps you create the events
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            import userEvent from "@testing-library/user-event";
+            // Sends Change event to the input field
+            userEvent.type(titleInput, "New Title");
+
+            // Sends Click event to a button
+            userEvent.click(clearButton);
+          </code></pre>
+          <p class="fragment">All events are described on the GitHub page (link above).</p>
+
+          <p class="fragment">
+            Before sending an event, you <b>don't</b> have to check whether the element you want to
+            send the event to actually exists. The library gives a very detailed error if it is not
+            present
+          </p>
+        </section>
+        <section>
+          <h3>Testing fetch calls</h3>
+          <p>Challenges:</p>
+          <ul>
+            <li>Async code (not on related to fetch)</li>
+            <li>Server requests / server mocks</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Testing asynchronous code</h3>
+          <p>
+            Example: The <b>App</b> component fetches data, <em>only then</em> it renderes the
+            PostList. Loading the data (posts) is async.
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            it("should render posts read from backend", () => {
+              render(&lt;App />);
+            
+              // Assumption: there is exactly one article with the title "Learning React".
+              const articleOne = screen.findByRole("heading", { name: "Learning React" });
+
+              expect(articleOne).toBeInTheDocument(); // THIS WON'T WORK!
+            });
+          </code></pre>
+          <p class="fragment">
+            We can write a test as an async function and wait for an element with <b>await</b>.
+          </p>
+          <pre class="fragment"><code class="javascript">
+            // test function as async function (notice the 'async' keyword):
+            it("should render posts read from backend", async () => {
+              render(&lt;App />);
+            
+              // Notice await here:
+              const articleOne = await screen.findByRole("heading", { name: "Learning React" });
+
+              expect(articleOne).toBeInTheDocument(); // YIPPIE, WORKS
+            });
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Testing fetch</h3>
+          <p>As seen, we can test asynchronous code</p>
+          <p class="fragment">Do we want to have "real" server calls in our code that we test?</p>
+          <p class="fragment">
+            Possibly not, because with real fetch calls, we would also need a real, running and
+            working server in the test (might be different in end-to-end-tests)
+          </p>
+          <p class="fragment">Instead, we want to mock the "real" fetch</p>
+        </section>
+
+        <section>
+          <h3>Mocking fetch, option #1</h3>
+          <p>We can mock <b>complete modules</b> in Jest</p>
+          <p class="fragment">
+            We could put our fetch code in a separate module and then mock that
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // api.ts (fetch simplified!)
+            export function readPosts() {
+              return fetch("http://localhost:7000/posts").then(response => response.json());
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // App.tsx:
+
+            import { readPosts } from "./api";
+            function App() {
+              // ...
+              React.useEffect(() => {
+                // Use readPosts from api.ts here:
+                readPosts()
+                  .then(json => {
+                    setLoading(false);
+                    setPosts(json);
+                  })
+                  .catch(err => console.error("Loading data failed: " + err));
+              }, []);
+            }
+          </code></pre>
+        </section>
+        <section>
+          <h3>Mocking modules in Jest</h3>
+          <p>There are several variants. This is the simplest(?)</p>
+
+          <pre class="fragment"><code class="javascript">
+            // App.test.tsx
+
+            const mockPosts = [
+              { id: "1", title: "One Fetch Mock", body: "Lorem ipsum" },
+              { id: "2", title: "Second Post Fetch Mock", body: "Some more content" }
+            ];
+
+            jest.mock("../api", () => ({
+              readPosts: () => Promise.resolve(mockPosts)
+            }));
+
+            it("should render posts read from backend", async () => {
+              render(&lt;App />);
+            
+              // Still asnychronous code here (that's why await), but:
+              // no more running server needed
+              const articleOne = await screen.findByRole("heading", { name: "One" });
+              expect(articleOne).toBeInTheDocument();
+
+              expect(screen.getByText("Second Post")).toBeInTheDocument();
+            });
+          </code></pre>
+          <p class="fragment">
+            Example:
+            <code
+              >blog-example/steps/6a-testing-with-api-module/src/__tests__/App_module_mock.test.tsx</code
+            >
+          </p>
+        </section>
+        <section>
+          <h3>Option #2: mock "fetch" function</h3>
+          <p>There are several libraries for fetch mocks</p>
+          <p>
+            For me,
+            <a href="https://www.npmjs.com/package/jest-fetch-mock" target="_blank"
+              >jest-fetch-mock</a
+            >
+            works best
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // App.test.tsx
+            it("should render posts read from backend", async () => {
+              // set the result that the next fetch call should return
+              fetchMock.mockResponse(JSON.stringify(mockPosts));
+
+              render(&lt;App />);
+            
+              // Still asynchronous code, but no "real" fetch call anymore,
+              // the result given above is returned
+              const articleOne = await screen.findByRole("heading", { name: "One Fetch Mock" });
+
+              expect(articleOne).toBeInTheDocument();
+            });
+
+          </code></pre>
+          <p class="fragment">
+            Example:
+            <code
+              >blog-example/steps/6a-testing-with-api-module/src/__tests__/App_jest_mock.test.tsx</code
+            >
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Option #3: Mock Service Worker (MSW)</h3>
+
+          <p><a href="https://github.com/mswjs/msw" target="_blank">MSW</a></p>
+          <p>
+            MSW response real server calls using a
+            <a href="https://developer.mozilla.org/de/docs/Web/API/Service_Worker_API"
+              >Service Worker</a
+            >
+          </p>
+          <p>
+            fetch calls are executed, but answered by the service worker mock (and not by a server)
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // PostList.test.js
+            import { rest } from 'msw'
+            import { setupServer } from 'msw/node'
+            
+            const server = setupServer(
+              rest.get('/posts', (req, res, ctx) => {
+                return res(ctx.json( mockPosts ))
+              }),
+            )
+
+            test("it should render blog list", async () => {
+              render(&lt;PostList />);
+              // ...
+            })
+          </code></pre>
+        </section>
+
+        <!-- <section>
+          <h2>Übung: Ein Test für den PostEditor</h2>
+          <p>Schritte:</p>
+          <ol>
+            <li class="fragment">Arbeite in <code>blog-example/workspace-typescript</code></li>
+            <li class="fragment">
+              Starte in einem neuen Terminal <code>npm test</code> (der Prozess läuft "ewig")
+            </li>
+            <li class="fragment">
+              Es sollte einen fehlerhaften Test geben:
+              <b><code>PostEditor.test.tsx</code></b
+              >.
+            </li>
+            <li class="fragment">Warum? Weil der noch leer ist 😬!</li>
+            <li class="fragment">
+              Implementiere den fehlenden Test. In der Datei<b><code>PostEditor.test.tsx</code></b>
+              stehen TODOs dafür
+            </li>
+          </ol>
+          <p class="fragment">
+            Hinweis: wenn Du die Datei speicherst, werden die Tests automatisch neu ausgeführt
+            (solange Du
+            <code>npm test</code> noch laufen hast), ansonsten kannst Du "a" auf der Kommandozeile
+            drücken, zum erneuten Ausführen der Tests.
+          </p>
+          <p class="fragment">Mögliche Lösung in <code>steps/6-test</code></p>
+          <p class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</p>
+        </section> -->
+
+        <section>
+          <h2>Testing in the browser</h2>
+          <p>Often used:</p>
+          <ul>
+            <li class="fragment">
+              <a href="https://www.selenium.dev/">Selenium - The "classic"</a>
+            </li>
+            <li class="fragment">
+              <a href="https://devexpress.github.io/testcafe/" target="_blank">TestCafe</a> (mit
+              Support for a lot of browsers and cloud testing services
+              <a href="https://www.browserstack.com/" target="_blank">BrowserStack</a>
+            </li>
+            <li class="fragment"><a href="https://www.cypress.io/" target="_blank">Cypress</a></li>
+          </ul>
+          <p class="fragment">
+            In TestCafe and Cypress the tests are written in JavaScript/TypeScript, Selenium is
+            available for several languages
+          </p>
+        </section>
+
+        <section id="t-state">
+          <h1>Part VII</h1>
+          <h2>External statemanagement with Redux (and React Context API as comparison)</h2>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Globaler Zustand</h3>
+          <ul>
+            <li class="fragment">
+              One can divide state into <b>local state</b> and <b>global state</b>.
+            </li>
+            <li class="fragment">
+              <b>Local state</b> is state that is "more or less" available to only one component
+            </li>
+            <li class="fragment">
+              <b>Global state</b>, on the other hand, is responsible for the whole application or
+              large parts of it
+            </li>
+            <li class="fragment">The transitions are fluid, there is no fixed definition</li>
+            <li class="fragment">
+              Typical examples for global state: currently logged in user, color theme
+            </li>
+          </ul>
+        </section>
+
+        <!-- 
+        <section>
+          <h2>Eine typische React-Anwendung in Komponenten</h2>
+          <h3>Frage an Euch: was könnte es für Probleme geben?</h3>
+          <img
+            src="slides/images/typische-react-komponenten-hierarchie.png"
+            style="height: 650px;"
+          />
+        </section>
+
+        <section>
+          <h3>Problem 1: Über Komponenten verteilter Zustand</h3>
+          <img src="slides/images/verteilter-zustand.png" style="height: 650px;" />
+          <p>Wo muss ich nach Fehlern suchen? Wo ist die Logik?</p>
+        </section>
+
+        <section>
+          <h3>Problem 2: Getrennte Komponentenhierarchien</h3>
+          <img src="slides/images/zwei-komponenten-hierarchien.png" style="height: 650px;" />
+          <p>Geht entweder nicht oder "Gott-Komponente" entsteht</p>
+        </section>
+
+        <section>
+          <h3>Problem 3: Gemeinsamer ("globaler") Zustand</h3>
+          <img src="slides/images/gemeinsam-genutzter-state.png" style="height: 650px;" />
+          <p>Wie kommt Zustand von ganz oben nach ganz unten?</p>
+        </section>
+
+        <section>
+          <h3>Problem 4: UI und Logik vermischt</h3>
+          <img src="slides/images/ui-und-logic-vermischt.png" style="height: 650px;" />
+          <p>Wiederverwendung? React-unabhängigkeit? Testbarkeit?</p>
+        </section> -->
+
+        <!-- <section>
+          <h3>External Statemanagement</h3>
+          <div class="fragment">
+            <p>Habt ihr Ideen?</p>
+            <p>Wie können wir Zustand und/oder Logik aus den Komponenten befreien?</p>
+          </div>
+        </section> -->
+
+        <section id="t-context">
+          <h2>Context API</h2>
+          <p>Background: Context API</p>
+          <p>No statemanagemt, but a tool that can help with statemanagement</p>
+          <p>Overview: 👉 Miro</p>
+        </section>
+
+        <section>
+          <h2>In detail: Context API</h2>
+          <p>Example: <code>blog-example/steps/30-complete-app-with-hooks</code></p>
+        </section>
+
+        <section>
+          <h2>Context...</h2>
+          <p>
+            <em
+              >Allows information to be passed through component hierarchies without explicitly
+              specifying it as properties.</em
+            >
+          </p>
+
+          <ul>
+            <li class="fragment">
+              any number of contexts can be defined (one for user, one for theme)
+            </li>
+            <li class="fragment">consists of a <code>Provider</code> and <code>Consumer</code></li>
+            <li class="fragment">
+              <a href="https://reactjs.org/docs/context.html" target="_blank">Official docs</a>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Context Factory</h2>
+          <p>
+            <em>creates an object with <b>two components</b></em>
+          </p>
+          <ul>
+            <li class="fragment">
+              <code>Provider</code> provides an object with your data (the "value" of the context)
+            </li>
+            <li class="fragment">
+              <code>Consumer</code> is used by a component to access the context (using the hooks
+              API you would use useContext hook instead)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                      import react from "React";
+
+                      const AuthContext = React.createContext();
+
+                      // creates:
+                      // AuthContext.Provider 
+                      // AuthContext.Consumer
+                              </code></pre>
+        </section>
+
+        <section>
+          <h2>Context Provider</h2>
+          <p><em>A React component that provides a context</em></p>
+          <ul>
+            <li class="fragment">
+              Takes an object ("Context") with data and makes it available to consumer components
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                      const AuthContext = React.createContext();
+
+                      function AuthProvider() {
+                          const [ currentUser, setCurrentUser ] = React.useState(null);
+                          const contextValue = {
+                            // the current theme
+                            currentUser,
+                      
+                            // function to set new theme
+                            login: name => setCurrentUser(name),
+                            logout: () => setCurrentUser(null)
+                          };
+                      
+                          return &lt;AuthContext.Provider value={contextValue}>
+                            {props.children}
+                          &lt;/AuthContext.Provider>;
+                        }
+                      }                    
+</code></pre>
+        </section>
+
+        <section>
+          <h2>useContext-Hook</h2>
+          <p><em>Access values from the context</em></p>
+          <p>
+            In all components below the provider component, the context can be accessed with
+            useContext
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+function UserBadge() {
+  const { currentUser } = React.useContext(AuthContext);
+
+  return currentUser  ? &lt;h1>Welcome, {currentUser}&lt;h1> : null;
+}            
+          </code></pre>
+
+          <p class="fragment">Calling a function from the context</p>
+          <p class="fragment">...changes state in the provider</p>
+          <p class="fragment">...all consumers will be re-rendered, receiving the new value</p>
+          <pre class="fragment"><code class="javascript">
+function UserBadge() {
+  const { currentUser, logout } = React.useContext(AuthContext);
+
+  return currentUser  ? 
+    &lt;>&lt;h1>Welcome, {currentUser}&lt;h1>&lt;button onClick={logut}>Logout&lt;/button>&lt;/> 
+    : null;
+}                
+          </code></pre>
+        </section>
+
+        <section id="t-redux">
+          <h2>External statemanagement with Redux</h2>
+          <h3>Demo: Redux &amp; Redux Devtools</h3>
+          <p>👉 steps/5-redux</p>
+        </section>
+
+        <!-- <section>
+          <h2>Redux</h2>
+          <h3></h3>
+
+          <p class="todo">Mit Redux aus 2020_0922_react_state.html abgleichen</p>
+          <p class="todo">Mit 2020_react_advanced.html abgleichen, DA SIND AUCH ÜBUNGEN DRIN!</p>
+        </section> -->
+
+        <section>
+          <h3>Let's repeat...</h3>
+          <h2>Render Cycle in Pure React</h2>
+          <img src="slides/images/redux-01-react-cycle-no-redux.png" style="height: 650px;" />
+        </section>
+
+        <section>
+          <h2>Redux extracts responsibility from the component</h2>
+          <img src="slides/images/redux-02-extracting-responsibility.png" style="width: 900px;" />
+        </section>
+
+        <section>
+          <h2>Redux</h2>
+          <p>(npm start in advanced/workspace-redux)</p>
+        </section>
+
+        <section>
+          <h2>Overview of all Redux parts</h2>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+         ### Redux: Concepts
+
+            * **Store**: a kind of "database" that lies outside the component hierarchy. This is where the global state is housed. Components are informed about changes and can re-render themselves.
+            * **Actions**: Simple JavaScript objects that describe what happens in an application. Consist of a type and a functional payload.
+            * **Reducer** functions: Functions that house the logic to process the state. They receive an action and an (old) state, process the action and return new state.
+            * **Action Creator**: Factory functions that create action objects
+          </textarea>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Actions</h3>
+          <ul>
+            <li class="fragment">
+              Pure JavaScript objects that describe an action in the application
+            </li>
+            <li class="fragment">Normally consisting of <b>type</b> and <b>payload</b></li>
+            <li class="fragment">The <b>type</b> property is used to identify an action</li>
+            <li class="fragment"><b>Payload</b> contains the action-specific payload/data</li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+  clearDraftAction = {
+    type: "editor/clearDraft"; // no payload required
+  }
+
+  setDraftTitleAction = {
+    type: "editor/setDraftTtiel",
+    newTitle: "..."  // Action specific payload (here: new title of a blog post)
+  }
+</code></pre>
+        </section>
+        <section>
+          <h3>Reducer functions #1</h3>
+          <ul>
+            <li class="fragment">
+              ...receives a (previous) state and an <em>action</em> passed as a parameter
+            </li>
+            <li class="fragment">...processes the action</li>
+            <li class="fragment">...returns new state</li>
+            <li class="fragment">...must not run side effects ("pure function")</li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+          reducer(old_state, action) => new_state
+        </code></pre>
+
+          <p class="fragment">
+            <em
+              >Action/reducer concept can be used even withour Redux (useReducer hook from
+              React)</em
+            >
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Reducer functions #2</h3>
+          <ul>
+            <li class="fragment">
+              Receives the previous state and returns the new state (or the unchanged old state).
+            </li>
+            <li class="fragment">
+              Zustand is always immutable! Handling immutable state can be simplified using
+              <a href="https://github.com/immerjs/immer">"immer" library</a>
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function editorReducer(state = initalDraftPost, action) {
+              switch (action.type) {
+                case "editor/clearDraft":
+                  return initalDraftPost;
+                case "editor/setDraftBody":
+                  return { ...state, body: action.body };
+                case "editor/setDraftTitle":
+                  return { ...state, title: action.title };
+                default:
+                  return state;
+              }
+            }
+      </code></pre>
+        </section>
+
+        <section>
+          <h3>Redux: Store, reducer and actions</h3>
+          <ul>
+            <li class="fragment">
+              The store, i.e. the global state, is managed exclusively via reducer functions.
+            </li>
+            <li class="fragment">
+              Each reducer function manages a "partial state" of the global state. The reducers
+              cannot see each other and cannot access the other parts of the global state. A partial
+              state is also referred to as a "slice" (i.e. an application part)
+            </li>
+            <li class="fragment">
+              If you compare the store with a database, such a partial state would be something like
+              a table
+            </li>
+            <li class="fragment">
+              All reducer functions have to be registered in Redux on application startup
+            </li>
+            <li class="fragment">
+              This allows good decoupling: one part of the application informs about an action
+              ("User has logged in", "Theme has been changed") and all interested application parts
+              of the application can react to this
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Redux: dispatching actions</h3>
+          <ul>
+            <li class="fragment">Every action is sent to <b>all</b> reducer functions</li>
+            <li class="fragment">
+              To dispatch an action, there is a <code>dispatch</code> function. This function can be
+              received using <code>useDispatch</code> in your component.
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function PostEditor() {
+              const dispatch = useDispatch();
+
+              function handleTitleChange(newTitle) {
+                dispatch({ type: "editor/setDraftTitle", title });
+              }
+
+              // ...
+
+              &lt;input onChange={(e) => handleTitleChange(e.target.value) />
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Action creator...</h3>
+          <ul>
+            <li class="fragment">...are "factory functions", that creates action objects</li>
+            <li class="fragment">...are optional, but are used almost always</li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function setDraftTitle(newTitle) {
+              return { 
+                type: "editor/setDraftTitle", 
+                title 
+              };
+            }
+            }
+          </code></pre>
+
+          <ul>
+            <li class="fragment">Ensure that actions are constructed correctly</li>
+            <li class="fragment">Hiding internal action structures to the application code</li>
+            <li class="fragment">
+              Can transform or verify data before it's put into an action object
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Redux: accessing the global state</h3>
+          <ul>
+            <li class="fragment">
+              Components can select the data they need from the global state (store).
+            </li>
+            <li class="fragment">
+              The hierarchy level does not matter because the state is outside, "next to" the UI
+              components
+            </li>
+            <li class="fragment">
+              Only if the selected data in a component changes, the component will be re-rendered
+            </li>
+            <li class="fragment">
+              The <code>useSelector</code> hook of Redux expects a callback function that is called
+              as soon as <em>anything</em> has changed in the store.
+            </li>
+            <li class="fragment">The complete store is passed to this callback function</li>
+            <li class="fragment">
+              From the store, the component selects the relevant data and returns it to the
+              component.
+            </li>
+            <li class="fragment">
+              Only if the returned data has changed, the component is re-rendered.
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+              function PostEditor() {
+                const draftTitle = useSelector(state => state.editor.draftTitle);
+
+                //  ...
+              }
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useSelector - Details</h3>
+          <ul>
+            <li class="fragment">
+              To determine whether the selected data has changed, Redux checks for
+              <b>identity</b>!
+            </li>
+            <li class="fragment">
+              It is therefore recommended to select only individual values (not objects) from the
+              store. (make several useSelector calls). For objects you may have to to use the
+              <a href="https://react-redux.js.org/api/hooks#equality-comparisons-and-updates"
+                >shallowEqual function</a
+              >
+              function
+            </li>
+            <li class="fragment">
+              Of course, you can also return "derived" data, Redux only compares the value you value
+              you return, regardless of whether it comes "directly" from the store or was
+              "calculated" based on the store
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function AppHeader() {
+              // "derived" state
+              const hasDraftPost = useSelector(
+                state => state.editor.draftTitle !== "" || state.editor.draftBody !== ""
+              );
+            }
+
+            // given selector callback function
+            //    is executed after ANY change in the store
+            // AppHeader is only re-rendered
+            //    if selector's RETURN VALUE changed
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>The store</h3>
+          <p>A <em>single</em> store hols the <em>complete</em> state</p>
+          <p class="fragment">
+            The store is made available to all components via the wrapper component
+            <em>Provider</em>
+          </p>
+          <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { rootReducer } from './reducers';
+
+// http://redux.js.org/docs/api/createStore.html
+const store = createStore(
+  rootReducer // reducer
+);
+ReactDOM.render(
+&lt;Provider store={store}>
+    &lt;App />
+&lt;/Provider>,
+mountNode
+);
+    </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Redux Dev Tools</h3>
+
+          <p>
+            The Redux Dev Tools (browser extension) can be switched on or off in the application
+            when configuring the store
+          </p>
+
+          <ul>
+            <li>
+              <a
+                href="https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=de"
+                target="_blank"
+                >Chrome</a
+              >
+            </li>
+            <li>
+              <a href="https://addons.mozilla.org/de/firefox/addon/reduxdevtools/" target="_blank"
+                >Firefox</a
+              >
+            </li>
+          </ul>
+        </section>
+
+        <!-- <section>
+          <h2>Übung: Der PostEditor mit Redux</h2>
+          <p>Vorbereitung:</p>
+          <ol>
+            <li class="fragment">Workspace <code>blog-example/workspace-redux</code></li>
+            <li class="fragment">Bitte <code>npm install</code> hier ausführen</li>
+            <li class="fragment">
+              danach <code>npm start</code> ausführen (den laufenden Prozess bitte beenden)
+            </li>
+            <li class="fragment">Den Workspace in der IDE/Editor öffnen</li>
+            <li class="fragment">
+              Wenn die Anwendung läuft, bitte "Hand heben" in Zoom, dann geht's weiter mit der
+              eigentlichen Übung 🙋‍♀️
+            </li>
+          </ol>
+        </section>
+        <section>
+          <h2>Übung: Der PostEditor mit Redux</h2>
+          <p>
+            Der Workspace enthält zwei Verzeichnisse: <code>ui</code> für Komponenten und
+            <code>redux</code> für Logik. Diese Aufteilung ist <em>nicht empfehlenswert</em> in
+            "echten" Anwendungen (dort bitte nach Fachlichkeit aufteilen), macht uns hier aber das
+            Leben einfacher.
+          </p>
+
+          <p>Schritte:</p>
+          <ol>
+            <li class="fragment">
+              Implementiere in <code>editor-slice.js</code> die Action Creator-Funktionen (siehe
+              dort)
+            </li>
+            <li class="fragment">Vervollständige die reducer-Funktion</li>
+            <li class="fragment">
+              Migriere den (nicht funktionierenden) <code>PostEditor</code> so, dass der Draft Post
+              aus dem Redux State gelesen und aktualisiert wird (<code>useSelector</code> und
+              <code>useDispatch</code>)
+            </li>
+            <li class="fragment">
+              Vervollständige die <code>AppHeader</code>-Komponente, so dass diese den "Clear
+              Draft"-Button anzeigen und auslösen kann
+            </li>
+
+            <li class="fragment">
+              In den drei Dateien sind todos eingetragen.
+            </li>
+            <li class="fragment">Mögliche Lösung in <code>steps/5-redux</code></li>
+            <li class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</li>
+          </ol>
+        </section> -->
+        <section>
+          <h3>Redux</h3>
+          <h2>Asynchronous Actions</h2>
+          <p><em>Problem: async code, e.g. when loading data</em></p>
+          <ul>
+            <li class="fragment">
+              Where to put them?
+              <ul>
+                <li>Reducer must be side-effect free!</li>
+                <li>Actions are only plain JS objets (no logic)!</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Apart from asynchronous code, another problem: technical processes are usually more
+              complex than just one action.
+              <ul>
+                <li>
+                  Typical: Request start, Request running, Request successful/Request failed
+                </li>
+              </ul>
+            </li>
+            <li class="fragment">Redux itself doesn't have anything to solve this problems :-(</li>
+            <li class="fragment">
+              But there are external solutions: Thunk (de-facto standard?), Saga, Observable
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Redux</h3>
+          <h2>Async Actions</h2>
+          <em>All libraries (Thunk, Saga, Observable) share the same idea:</em>
+          <ul>
+            <li class="fragment">
+              Inside an <b>action creator</b> async (and side-effect) Code can be executed
+            </li>
+            <li class="fragment">
+              Inside an action creator, <b>even multiple actions</b> can be dispatched
+            </li>
+            <li class="fragment">
+              All libraries are connected to redux via <b>Redux Middlewares</b>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Middleware</h3>
+          <ul>
+            <li class="fragment">
+              A Middleware function receives all actions, before Redux dispatches them internally to
+              all reducer functions
+            </li>
+            <li class="fragment">
+              The middleware can accept, modify, reject and/or forward the action
+            </li>
+            <li class="fragment">
+              The middleware functions are specified when configuring the store
+            </li>
+            <li class="fragment">
+              Normaly you don't have to write you own middlewares, but using them from a library
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Async actions</h3>
+          <em>example (conceptually)</em>
+          <p>
+            Step 1: <b>Dispatching actions</b>: component code doesn't change. The action dispatched
+            ("loadPosts") seems to be a "normal" action...
+          </p>
+          <div class="fragment">
+            <pre><code>
+              import { loadPosts } from "./posts-slice";
+
+              function App() {
+                React.useEffect( 
+                  () => dispatch(loadPosts()),
+                  []
+                );
+
+                return ...;
+            }
+          </code></pre>
+          </div>
+        </section>
+        <section>
+          <h3>Async actions</h3>
+          <em>example (conceptually)</em>
+          <p>
+            Step 2: <b>Action creator</b>: The action creator now allows to dispatch multiple
+            actions and to run async/side effect code
+          </p>
+          <pre class="fragment"><code>
+              // asynchroner Action Creator (pseudo code)
+              function loadPosts() {
+
+                dispatchAction "REQUEST_START"
+
+                try {
+                  posts = await loadPostsWithFetch() // ASYNC !!!
+                  dispatchAction "REQUEST_SUCCESS"
+                  dispatchAction "SET_POSTS" posts
+                } catch (err) {
+                  dispatchAction "REQUEST_FAILURE" err
+                }
+              }
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Async actions</h3>
+          <em>example (conceptually)</em>
+          <p>
+            Step 3: <b>Reducer</b>: unchanged. Reducer functions only receive "normal" action
+            objects
+          </p>
+        </section>
+
+        <section>
+          <h2>Middlewares for async code</h2>
+          <ul>
+            <li>
+              <a href="https://github.com/reduxjs/redux-thunk">Redux Thunk</a> (official solution by
+              Redux team)
+            </li>
+
+            <li>Redux Saga</li>
+            <li>Redux Observable</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Redux Thunk</h2>
+          <ul>
+            <li class="fragment">
+              A Thunk Action Creator does not return an action object, but a
+              <b>callback function</b>. This function is passed from Redux to the middlewares.
+              (Redux passes on almost everything we give to the dispatch-function to the
+              middlewares)
+            </li>
+            <li class="fragment">
+              Inside that callback function is the async code.
+            </li>
+            <li class="fragment">
+              When the thunk middleware detects a function (and not an object), the middleware calls
+              that callback function, passing a <code>dispatch</code> and a
+              <code>getState</code> function
+            </li>
+            <li class="fragment">
+              With <code>dispatch</code>, the callback function can trigger various other "regular"
+              and "thunk" actions.
+            </li>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+            export function loadPosts() {
+              return (dispatch, getState) => {
+
+                dispatch(postsLoading());
+
+                fetch("http://localhost:7000/posts")
+                  .then(response => response.json())
+                  .then(json => {
+                    dispatch(postLoadingSucceeded(json));
+                  })
+                  .catch(err => {
+                    dispatch(postLoadingFailed(err));
+                  });
+              };
+            }    </code></pre>
+          </ul>
+          <!-- <p class="fragment">
+                <strong
+                  >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
+                  Operationen ausführen dürfen</strong
+                >
+              </p> -->
+        </section>
+        <section>
+          <h2>Redux Thunk</h2>
+          <p>Thunk Actions can be used not only for async code</p>
+          <ul>
+            <li class="fragment">
+              but also for use cases in which generally more than one action is to be dispatched
+            </li>
+            <li class="fragment">
+              It is allowed to execute arbitrary page effects, e.g. generate a uuid or access the
+              time. or access the time of day
+            </li>
+            <li class="fragment">
+              In contrast to the reducer, an action creator has access to the entire state and can,
+              for example can, for example, implement a cache function.
+            </li>
+            <pre class="fragment"><code class="typescript line-numbers" contenteditable data-trim>
+            export function loadPostsWithCache() {
+              return (dispatch, getState) => {
+
+                if (getState().posts.posts) {
+                  // Posts are loaded already => do not load again from server
+                  return;
+                }
+
+
+                dispatch(postsLoading());
+
+                // ...as seen: load posts from server
+              };
+            }    </code></pre>
+          </ul>
+          <!-- <p class="fragment">
+                <strong
+                  >Action-Creators sind die einzigen Teile einer Redux-Anwendung, die asynchrone
+                  Operationen ausführen dürfen</strong
+                >
+              </p> -->
+        </section>
+        <section>
+          <h2>Summary redux architecture</h2>
+          <img
+            src="slides/images/redux-03-resulting-redux-architecture.png"
+            style="max-height: 650px;"
+          />
+        </section>
+        <section>
+          <h3>Local state is still allowed!</h3>
+          <p>There are various places where state is stored!</p>
+          <ul>
+            <li class="fragment">Server and client</li>
+            <li class="fragment">Component local state</li>
+            <li class="fragment">Redux</li>
+            <li class="fragment">URL, Session or Local Storage</li>
+          </ul>
+          <p class="fragment">Always keep state as close as possible to where it is needed</p>
+          <div class="fragment">
+            <img src="slides/images/three-kinds-of-state.png" style="max-height: 650px;" />
+          </div>
+        </section>
+
+        <section>
+          <h3>Redux Toolkit</h3>
+          <p>
+            <em
+              >"The official, opinionated, batteries-included toolset for efficient Redux
+              development"</em
+            >
+          </p>
+          <ul>
+            <li><a href="https://redux-toolkit.js">https://redux-toolkit.js.org/</a></li>
+            <li>
+              Preconfigured Setup (including
+              <a href="https://github.com/immerjs/immer">immer</a> for reducer functions, and thunk
+              middleware for async actions)
+            </li>
+            <li>
+              Significantly simplifies working with Reducer, generates e.g. Action Creator for the
+              runtime
+            </li>
+            <li>Simplifies typical use cases such as API calls</li>
+            <li>
+              Outstanding TypeScript support!
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>createSlice</h3>
+          <ul>
+            <li class="fragment">
+              A "slice" represents a functional part of your application.
+            </li>
+            <li class="fragment">A slice is created with the function <code>createSlice</code></li>
+            <li class="fragment">This function expects a configuration object</li>
+            <li class="fragment">
+              The configuration objects sets the inital state
+            </li>
+            <li class="fragment">
+              Also the configuration objects contains the reducer functions
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            const hello = createSlice({
+              name: "hello",
+              initalState: { name: "world" },
+              reducers: {
+                greet(state, action) {
+                  // ...
+                }
+              }
+            })
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            const dispatch = useDispatch();
+
+            dispatch(hello.actions.greet({
+              name: "World"
+            }))
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>reducer</h3>
+          <ul>
+            <li class="fragment">
+              As seen, reducers are passed the slice state and the action
+            </li>
+            <li class="fragment">
+              The reducer functions are enclosed with <b>always</b>, so that the state inside is
+              <b>mutable</b>
+            </li>
+            <li class="fragment">
+              The state can therefore be edited directly or a completely new object can be returned.
+            </li>
+          </ul>
+          <pre class="fragment"><code class="javascript">
+            const hello = createSlice({
+              // ...
+              reducers: {
+                greet(state, action) {
+                  state.name = action.payload.name;
+                },
+                clear() {
+                  return { name: "" };
+                }
+              }
+            })
+          </code></pre>
+        </section>
+        <section>
+          <h3>reducer and action creator</h3>
+          <ul>
+            <li class="fragment">
+              For each reducer function an action creator is generated
+            </li>
+            <li class="fragment">
+              The action creator expects the action's payload as parameter (might be undefined)
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            const hello = createSlice({
+              // ...
+              reducers: {
+                
+                greet(state, action) { ... },
+                clear() { ... }
+                }
+              }
+            })   
+          
+            export const { greet, clear } = hello.actions;
+          
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            import { greet } from "./hello-slice";
+
+            // in der Komponente
+            dispatch(greet({name: "Klaus"}));
+
+            // ohne payload
+            dispatch(clear());
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Async actions with RTK</h3>
+          <ul>
+            <li class="fragment">
+              The Redux Thunk Middleware is part of Redux Toolkit
+            </li>
+            <li class="fragment">
+              However, asynchronous action creators cannot be defined as reducers, you write them
+              outside of of createSlice (as in Redux).
+            </li>
+            <li class="fragment">
+              With <a href="https://redux-toolkit.js.org/api/createAsyncThunk">createAsyncThunk</a>
+              you can write simplified thunk actions, that automatically dispatch lifecycle actions
+              (request started, request failed, ...)
+            </li>
+          </ul>
+        </section>
+        <!-- 
+        <section>
+          <h2>Übung: Redux Toolkit</h2>
+          <p><em>Portiere den editor-slice auf Redux Toolkit (createSlice)</em></p>
+          <p class="fragment">Vorbereitung:</p>
+          <ol>
+            <li class="fragment">
+              Kopiere die Datei <code>store.js</code> aus
+              <code>material/5-redux-toolkit/redux</code> in dein <code>src/redux</code>-Verzeichnis
+              (bestehende Datei überschreiben)
+            </li>
+            <li class="fragment">
+              Kopiere die Datei <code>editor-slice.js</code> aus
+              <code>material/5-redux-toolkit/redux</code> in dein <code>src/redux</code>-Verzeichnis
+              (deine Datei ggf. sichern)
+            </li>
+          </ol>
+          <p class="fragment">Schritte:</p>
+          <ol>
+            <li class="fragment">
+              In editor-slice.js stehen TODOs, du musst die reducer-Funktionen implementieren
+            </li>
+            <li class="fragment">
+              Der Rest der Anwendung sollte danach unverändert laufen. Deswegen achte auf die
+              korrekten Namen der reducer-Funktionen!
+            </li>
+          </ol>
+          <p class="fragment">Mögliche Lösung in <code>steps/5-redux-toolkit</code></p>
+          <p class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</p>
+        </section> -->
+
+        <section>
+          <h1>Outlook and further topics</h1>
+          <h2>Questions ?</h2>
+          <ul>
+            <li><a href="#/t-router">Router</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>That's all! 😊</h2>
+          <h3>Thanks a lot for your participation!</h3>
+          <h3>Good luck with React!</h3>
+          <p>
+            If you have question, don't hestitate to contact me:
+          </p>
+          <p>Mail: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a></p>
+          <p>
+            Web: <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a>
+          </p>
+          <p>
+            Twitter: <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+        </section>
+
+        <section id="t-router">
+          <h1>React Router</h1>
+          <h2>Client-side Routing</h2>
+
+          <p>Example: blog-example/steps/7a-router-with-typescript</p>
+        </section>
+        <section>
+          <h2>Why routing?</h2>
+          <span>
+            <p>
+              Map URLs to Components
+              <br />
+              <span style="font-size: 80%;"
+                >(Navigation through the application without server round-trips!)</span
+              >
+            </p>
+          </span>
+          <span>
+            <p>
+              URLs can contain state of the application
+              <br />
+              <span style="font-size: 80%;"
+                >What "Page" is visible (Blog List, Add Form or Blog Post)?</span
+              >
+              <br />
+              <span style="font-size: 80%;">Which blog post should be rendered (postId)</span>
+            </p>
+          </span>
+        </section>
+
+        <section>
+          <h2>React Router</h2>
+          <ul>
+            <li>
+              Current version 5.1:
+              <a href="https://reacttraining.com/react-router/" target="_blank">
+                https://reacttraining.com/react-router/</a
+              >
+            </li>
+            <li>Not part of React</li>
+            <li>but de-facto Standard</li>
+            <li>Since Version 5.1 with Hooks API (useParams, useLocation, useHistory)</li>
+          </ul>
+        </section>
+        <section>
+          <h3>The Router Object</h3>
+          <p class="fragment">
+            Top-Level object, that needs to be included at the top of the application's component
+            hierarchy
+          </p>
+          <p class="fragment">
+            Mulitple implementations that differ how they interact with URL and browser history:
+          </p>
+          <ul>
+            <li class="fragment">
+              <b>HashRouter</b>: adds the path after appended hash (#/post/1) <br />👉Example: check
+              network request after changing the URL
+            </li>
+            <li class="fragment">
+              <b>BrowserRouter</b>: puts the path directly in the URL (/post/1) <br />(You need to
+              configure your web server accordingly)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router} from "react-router-dom";
+      
+      const app = &lt;Router>&lt;App/>&lt;/Router>;
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Which component should be rendered for a path?</h3>
+          <p class="fragment">The <code>Route</code> object maps paths to components</p>
+          <ul>
+            <li class="fragment">
+              Can be used whereever you want to select a component based on a path
+              <ul>
+                <li>
+                  comparable with an "intelligent" <code>if</code> or <code>switch</code> statement
+                </li>
+                <li>can be used everywhere in your components</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Use the <code>path</code> attribute to specify the path that should match when the
+              component should be rendered
+            </li>
+            <li class="fragment">Specify the component as children of the Route component</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router, Route} from "react-router-dom";
+      
+      const app = &lt;Router>
+        &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
+        &lt;Route path="/add">&lt;AddPostPage onAdd={...} />&lt;/Route>
+        &lt;Route path="/" exact>&lt;BlogListPage />&lt;/Route>
+      &lt;/Router>;
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Background: Paths</h3>
+          <p>
+            In the Route component you specify a <b>path</b>, that is compared against the current
+            URL
+          </p>
+
+          <ul>
+            <li>
+              Paths by default are valid for parts of strings, but you can change the behaviour by
+              adding <code>exact</code>
+            </li>
+            <li>A Route without <code>path</code> matches always</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      // matches  / and /post
+      &lt;Route path="/">...&lt;/Route>
+      
+      // matches only /
+      &lt;Route path="/" exact>...&lt;/Route>
+      
+      // matches any URL:
+      &lt;Route>...&lt;/Route>
+      
+              </code></pre>
+        </section>
+        <section>
+          <h3>Background: Paths</h3>
+          <p>
+            A Path can contain variable segments:
+          </p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      &lt;Route path="/posts/:postId">&lt;BlogPostPage/>&lt;/Route>
+           </code> </pre>
+          <ul>
+            <li class="fragment">
+              Values of the variables can be read using the <code>useParams</code> hook in your
+              component:
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+                import { useParams } from "react-router";
+
+                function BlogPostPage() {
+                  const params = useParams();
+
+                  // params.postId contains the id from the URL
+                </code></pre>
+        </section>
+        <section>
+          <h3>Switch</h3>
+          <ul>
+            <li class="fragment">
+              If multiple path expression match, multiple components will be rendered (for example
+              "/" and "/post")
+            </li>
+            <li class="fragment">
+              <code>Switch</code> ensures that only the für component will be rendered (like regular
+              switch with a break after each case)
+            </li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import {HashRouter as Router, Route, Switch} from "react-router-dom";
+      
+      const app = (
+        &lt;Router>
+          &lt;Switch>
+            &lt;Route path="/post/:postId">&lt;BlogPostPage />&lt;/Route>
+            &lt;Route path="/" exact>&lt;BlogListPage/>&lt;/Route>
+      
+            // "No match": without path
+            &lt;Route>&lt;NotFoundPage/>&lt;/Route>
+      
+          &lt;/Switch>
+        &lt;/Router>
+      );
+      
+      ReactDOM.render(app, document.getElementById(...));
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Links</h3>
+          <p>
+            Using the <code>Link</code> or <code>NavLink</code> component you can create HTML links
+          </p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+            import {Link, NavLink} from "react-router-dom";
+            
+            &lt;Link to='/'>Show all Posts&lt;/Link>
+            
+            // Generates 'a' element contains 'highlight' CSS class, when it's the active route
+            &lt;NavLink to='/add' activeClassName="highlight">Add Post&lt;/NavLink>
+            
+                    </code></pre>
+          <ul class="fragment">
+            <li>Use <code>to</code> to specify the target path</li>
+            <li>Link creates an <code>a</code> HTML element</li>
+            <li>
+              "Local" URLs will be rendered according to the selected Router implementation (with
+              hash or without)
+            </li>
+            <li>
+              With <code>activeClassName</code> and <code>activeStyle</code> on
+              <code>NavLink</code> you can specify styles and classnames that get applied if the
+              current route is the same route as specified in "to" ("active" route)
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>The history-Objekt</h3>
+          <p>The <code>history</code> object can be used to interact with the Browser history</p>
+          <p>
+            You can jump to another location or get the current location from the browser
+          </p>
+          <p class="fragment">
+            The history object is available using the <code>useHistory</code> hook from React Router
+          </p>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+      import { useHistory } from "react-router";
+
+      function App() {
+        const history = useHistory();
+
+        function onAdd(newBlogPost) {
+           ...
+
+           // go to new URL
+           history.push("/"); 
+        }
+
+        return ...;
+      }
+              </code></pre>
+        </section>
+
+        <!-- <section>
+          <h2>Übung: Eine neue "Seite" für die Blog-Anwendung</h2>
+          <p>
+            <em
+              >Vervollständige die <code>PostPage</code>-Komponente, die einen einzelnen Blog-Post
+              anzeigt und konfiguriere dafür eine <code>Route</code> in der
+              <code>App</code>-Komponente
+            </em>
+          </p>
+          <ol class="x-list">
+            <li class="fragment">
+              Eventuell in <code>workspace-typescript</code> erneut
+              <code>npm install</code> ausführen
+            </li>
+            <li class="fragment">
+              Kopiere die Dateien aus
+              <code>blog-example/material/7a-router-with-typescript/src</code> in deinen src-Folder
+              (workspace-typescript).
+            </li>
+
+            <li class="fragment">
+              In <code>App.tsx</code> und <code>PostPage.tsx</code> sind TODOs enthalten.
+            </li>
+          </ol>
+        </section> -->
+      </div>
+    </div>
+
+    <script src="slides/reveal.js/lib/js/head.min.js"></script>
+    <script src="slides/reveal.js/js/reveal.js"></script>
+    <script src="slides/reveal.js/lib/jquery-2.2.4.js"></script>
+    <script src="slides/reveal-config.js"></script>
+  </body>
+</html>
