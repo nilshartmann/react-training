@@ -102,7 +102,7 @@
         <!-- ============================================================================= -->
         <section>
           <h3>Timetable</h3>
-          <p><b>Friday 15th, Monday 18th, Thursday 19th</b></p>
+          <p><b>Friday 15th</b>, Monday 18th, Tuesday 19th</p>
           <ul class="fragment">
             <li>
               9:00am to 12:30pm
@@ -292,14 +292,14 @@ if ("" == false) {
           </code></pre>
 
           <pre class="fragment"><code class="javascript">
-              const check = true; // (typeof check === "boolean")
+              const check = true; // typeof check === "boolean"
               if (check) {
                 console.log("jupp!");
               }
             </code></pre>
 
           <pre class="fragment"><code class="javascript">
-              const age = 32; // (typeof age === "number")
+              const age = 32; // typeof age === "number"
               if (age < 16) {
                 console.log("No Beer, sorry!")
               }
@@ -527,7 +527,7 @@ printer(helloWorld);
           <pre class="fragment"><code class="javascript">
   // for exactly one expression, curly brackets can be omitted,
   //   Result of the expression then becomes the return value of the function:
-  const greet => "Hello, " + msg;
+  const greet = msg => "Hello, " + msg;
 </code></pre>
           <pre class="fragment"><code class="javascript">
   // Invocation and behaviour as a "normal" function
@@ -550,20 +550,20 @@ printer(helloWorld);
 
           <pre class="fragment"><code class="javascript">
           // Extend an existing array with new entries
-          const abc = ["a", "b", "c"];
+          const letters = ["a", "b", "c"];
 
-          abc.push("d", "e"); // ["a", "b", "c", "d", "e"];
+          letters.push("d", "e"); // ["a", "b", "c", "d", "e"];
 
-          abc[4]; // e
-          abc.length // 5
+          letters[4]; // e
+          letters.length // 5
           </code></pre>
 
           <pre class="fragment"><code class="javascript">
 
           // Copy an existing array and extend the copy
           const numbers = [1, 2, 3];
-          const moreNumbers = three.concat(4, 5)
-          // three !== five
+          const moreNumbers = numbers.concat(4, 5)
+          // numbers !== moreNumbers
 
           </code></pre>
         </section>
