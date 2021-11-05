@@ -7,12 +7,13 @@
 Auf deinem Laptop/PC sollte installiert sein:
 
 - Git (zum installieren des Workspaces)
-- [NodeJS](https://nodejs.org/en/download/) LTS version, aktuell 14.6 (12.16.x sollte auch funktionieren) und darin enthaltene npm Version
+- [NodeJS](https://nodejs.org/en/download/) LTS version, aktuell 16.x (, 14.x und 12.16.x sollten aber auch funktionieren) und die darin enthaltene npm Version
 - Browser (am besten Firefox oder Chrome)
 - Eine IDE oder ein Texteditor. Wenn Du bereits einen "Lieblingseditor" verwendest, benutze diesen während des Trainings, damit Du nicht auch noch ein neues Tool lernen musst. Ansonsten funktionieren folgende Tools zum Beispiel:
   - [Visual Studio Code](https://code.visualstudio.com/)
   - [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) (Ultimate Edition, Evaluationsversion reicht aber)
   - [Webstorm](https://www.jetbrains.com/webstorm/download/) (Evaluationsversion reicht)
+- Für Schulungen, die wir über **Zoom** machen: bitte den Zoom **Client** installieren (und nicht die Web-Version von Zoom verwenden). Du benötigst aber _keinen_ Zoom-Account. 
 
 **Optional: Browser Erweiterungen für React**
 
@@ -35,7 +36,7 @@ Auf deinem Laptop/PC sollte installiert sein:
 git clone https://github.com/nilshartmann/react-training
 ```
 
-2. Testweise die benötigten npm-Pakete installieren:
+2. Die benötigten npm-Pakete installieren:
 
 ```
 cd blog-example/backend-rest
@@ -82,10 +83,6 @@ Achtung! Das Frontend läuft auf **Port 3000**, d.h. dieser Port muss verfügbar
 
 ![Running frontend](./running-workspace.png)
 
-# Öffnen des Workspaces in deinem Editor/deiner IDE
+**Das ist alles!**
 
-Um die Übungen zu machen, solltest Du nur das Verzeichnis `blog-example/workspace` in deinem Lieblingseditor oder deiner Lieblings-IDE öffnen. Bitte öffne **nicht** den **kompletten Workspace**.
-
-Du kannst dieses Verzeichnis (`blog-example/workspace`) bereits zu Beginn der Schulung öffnen. Wie die Übungen dann ablaufen, erkläre ich natürlich im Laufe der Schulung.
-
-Bei Fragen oder Problemen melde dich bitte bei mir.
+Bei Fragen oder Problemen melde dich gerne bei mir.
