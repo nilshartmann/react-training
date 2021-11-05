@@ -7,12 +7,13 @@
 Your laptop/PC should have installed:
 
 - Git (to install the workspace).
-- [NodeJS](https://nodejs.org/en/download/) LTS version, currently 14.6 (12.16.x should also work) and npm version included in it
+- [NodeJS](https://nodejs.org/en/download/) LTS version, currently 16.x (but 14.x and 12.16.x should also work) and npm version included in it
 - Browser (preferably Firefox or Chrome)
 - An IDE or text editor. If you already use a "favourite editor", use it during the training so you don't have to learn a new tool as well. Otherwise, the following tools will work for example:
   - [Visual Studio Code](https://code.visualstudio.com/)
   - [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) (Ultimate Edition, but evaluation version is sufficient)
   - [Webstorm](https://www.jetbrains.com/webstorm/download/) (evaluation version is sufficient)
+- For **Zoom**-based trainings: you should install the Zoom Client (in favor of the web client). You do _not_ need a Zoom account to participate. 
 
 **Optional: Browser Extensions for React**
 
@@ -20,7 +21,7 @@ Your laptop/PC should have installed:
 
 **During the training**
 
-- As we may need to install updates before and during the training, please make sure that internet access (of course, online training 🙃) is working on your computer during the training as well - but also **for git and npm** (consider proxies!).
+- As we may need to install updates before and during the training, please make sure that internet access (of course, online training 🙃) is working on your computer during the training as well - but also **for git and npm** (consider proxies, firewalls, VPNs!).
   - W-LAN is convenient, but especially for (long) streaming sessions, a wired network is more stable than W-LAN, so if in doubt, plug in the cable (and deactivate W-LAN) 😊
   - Information about setting up a proxy for npm can be found [for example here](http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/).
 - I am happy if you have your **camera on during the training** so that we can see each other 🎥. Please only turn on the microphone if you want to say or ask something (which you are of course allowed to do at any time!).
@@ -82,10 +83,6 @@ Attention: The frontend runs on **port 3000**, i.e. this port must be available.
 
 ![Running frontend](./running-workspace.png)
 
-# Open the workspace in your editor/IDE
-
-For the exercises, you should only open the directory 'blog-example/workspace' in your favourite editor or IDE. Please do **not** open the **complete workspace**.
-
-You can open this directory (`blog-example/workspace`) already at the beginning of the training. I will of course explain how the exercises work during the training.
+**That's all!**
 
 If you have any questions or problems, please contact me.
