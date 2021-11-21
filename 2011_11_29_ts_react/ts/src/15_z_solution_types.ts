@@ -1,0 +1,47 @@
+export default undefined;
+// -----------------------------------------------------------------------------------------
+// AUFGABE:
+// -----------------------------------------------------------------------------------------
+//
+// Erstelle den Typ "PrinterOptions", der den 'options'-Paramter der Printer-Funktion
+//   beschreibt. (Eine exemplarische Verwendung findest Du weiter unten).
+//   Wenn der Typ korrekt ist, sollten keine Compile-Fehler bei der Zuweisung der "localPrinterOptions"
+//   Variable mehr auftreten
+//   Du PrinterOptions als Interface oder Type Alias definieren.
+//
+//   Zusatz:
+//     - Füge PrinterOptions eine weitere optionale! Eigenschaft hinzu, z.B. "color"
+//       Gib diese Eigenschaft - falls gesetzt - in dem console.log-Statement in Printer
+//       mit aus
+// -----------------------------------------------------------------------------------------
+function Printer(options: PrinterOptions) {
+  console.log(`Printing on device ${options.device.toUpperCase()}`);
+
+  options.onPrintFinished(true);
+}
+
+interface PrinterOptions {
+  device: string;
+  onPrintFinished(result: boolean): void;
+}
+
+// Define here the type PrinterOptions (as 'type' or 'interface')
+
+const localPrinterOptions: PrinterOptions = {
+  device: "lpt1",
+  onPrintFinished(result) {
+    if (result === true) {
+      console.log("Finished success");
+    } else {
+      console.log("Printing failed");
+    }
+  },
+};
+
+Printer(localPrinterOptions);
+
+// Info:
+// Everyday types: https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
+// Object Types: https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#object-types
+// Type Aliase: https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-aliases
+// Interfaces: https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#interfaces

@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>TypeScript &amp; State</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="slides/styles.css" />
+    <script src="slides/export.js"></script>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-state="title">
+          <h2 class="title" style="font-size: 7rem;">
+            <b>React Workshop</b>
+          </h2>
+          <h3>
+            TypeScript &amp; React
+          </h3>
+
+          <h4>
+            <span class="transparent-bg">
+              <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a> |
+              <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+            </span>
+          </h4>
+
+          <p style="margin-top: 4rem;"></p>
+          <div>
+            <h3><span class="transparent-bg">Vorbereitung</span></h3>
+            <p>
+              <span class="transparent-bg"
+                >git clone https://github.com/nilshartmann/react-training</span
+              >
+            </p>
+          </div>
+          <p style="margin-top: 4rem;"></p>
+          <div>
+            <h3><span class="transparent-bg">Slides</span></h3>
+            <p>
+              <span class="transparent-bg"
+                >Lokal: 2021_11_29_typescript_react.html</span
+              >
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Nils Hartmann</h2>
+          <p>
+            <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a> /
+            <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+          <p><em>Freiberuflicher Software-Entwickler, Berater und Trainer aus Hamburg</em></p>
+
+          <div style="display: flex; justify-content: center;">
+            <div>
+              <p>Java</p>
+              <p>JavaScript, TypeScript</p>
+              <p>React</p>
+              <p>Single-Page-Applications</p>
+              <p>GraphQL</p>
+              <p style="margin-top: 20px;">
+                <a href="https://reacttraining.dev">Schulungen und Workshops</a>
+              </p>
+            </div>
+            <div style="margin-left: 15px;">
+              <a href="https://reactbuch.de"
+                ><img
+                  style="max-height: 450px;"
+                  src="slides/images/react-buch-v2.jpg"
+                /><br />https://reactbuch.de</a
+              >
+              <br />
+            </div>
+          </div>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Zeitplan Montag und Dienstag
+
+            * 09:00-12:30 
+            * 12:30-13:30 Pause 🍝
+            * 13:30-17:00 
+
+            * Kürzere Pausen zwischendurch ☕️ 🍪
+          </textarea>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Agenda</h3>
+          <ul>
+            <li><a href="#/typescript">TypeScript</a></li>
+            <li>
+              <a href="#/react-classes-vs-hooks">React Klassen API vs Hooks und Hooks im Detail</a>
+            </li>
+            <li>
+              <a href="#/data-libs"
+                >Arbeiten mit HTTP Endpunkten: React Bibliotheken zur Verwaltung von Daten
+                (Übersicht)</a
+              >
+            </li>
+         
+          </ul>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Workshop statt Schulung!
+
+            * Diese beiden Tagen werden auch von Eurer Beteiligung leben 🙋‍♀️🙋‍♂️🙋
+            * Bitte stellt Fragen, äußert Meinungen, berichtet aus Eurem täglichen arbeiten: wo läufts gut, wo schlecht...
+            * Die Agenda ist nur eine grobe Richtschnur
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Zum Einstieg...
+
+            * Bitte überlegt Euch ein, zwei oder auch mehr Sätze zum Thema "React/TypeScript in meiner täglichen Arbeit"
+            * Zum Beispiel: "mir ist gar nicht klar, wie ich dies-oder-jenes mache" oder "mich nervt an React immer wieder, dass...", "ich finde TypeScript prima", oder "was ist useReducer"
+            * Die Sätze schreibt ihr auf das gemeinsame Miro-Board (Link im Chat)
+            * Ihr seid dort anonym, wenn ihr wollt, könnt ihr hinter Eure Sätze auch Euren Namen schreiben (ist aber nicht wichtig)
+            * Das soll keine wisschenschaftliche Arbeit werden, sondern dient nur der Fokussierung und damit ich ungefährt eine Idee habe, wo ihr steht
+            * Wenn Euch im Laufe des Workshops noch was einfällt, schreibt es gerne einfach dazu
+            * Am Ende werfen da nochmal einen Blick drauf
+          </textarea>
+        </section>
+
+        <section data-markdown id="typescript">
+          <textarea data-template>
+            # TypeScript
+
+            * Komplett im Editor bzw. TS Playground
+            * Verzeichnis im Worksapce: `2011_11_29_ts_react/ts` 
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            # React
+          </textarea>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section id="react-classes-vs-hooks">
+          <h3>Klassen vs Hooks</h3>
+          <ul>
+            <li class="fragment"><em>Gemeinsamkeiten Klassen und Funktionskomponenten</em></li>
+            <li class="fragment">State: neu rendern</li>
+            <li class="fragment">Properties</li>
+            <li class="fragment">Komponente gibt UI zurück</li>
+            <li class="fragment">Lebenszyklus: render und commit-Phase</li>
+            <li class="fragment">Deklarativ</li>
+            <li class="fragment">Klassen und Funktionen können in einer App gemischt werden</li>
+            <li class="fragment">Klassen sind nicht deprecated</li>
+            <li class="fragment"><b>Neue/künftige</b> React Features u.U. nur für Funktionen</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Warum dann Funktionskomponenten?</h3>
+          <ul>
+            <li class="fragment">Einfacher (?) zu implementieren</li>
+            <li class="fragment">
+              "Klassen verwirren Menschen und Computer" (aus dem Blogpost zur Vorstellung der Hooks
+              API)
+            </li>
+            <li class="fragment">Besseres Tooling möglich (lt. Blogpost)</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Klassen API</h3>
+
+          <p>Eine Komponente...</p>
+
+          <pre class="fragment"><code class="javascript">
+              class Search extends React.Component {
+                state = {
+                  loading: false
+                };
+              
+                async componentDidMount() {
+                  if (!this.props.searchString) {
+                    return;
+                  }
+
+                  this.setState({
+                    loading: true
+                  });
+
+                  const result = await executeSearchApiCall(this.props.searchString);
+
+                  this.setState({
+                    result
+                  });
+                }
+              
+                render() {
+                  if (!this.state.result) {
+                    return null;
+                  }
+              
+                  if (this.state.loading) {
+                    return &lt;h2>Searching...&lt;/h2>;
+                  }
+              
+                  return (
+                    &lt;div>
+                    &lt;h2>Search Result:&lt;/h2>
+                    &lt;p>{this.state.result}&lt;/p>
+                    &lt;/div>
+                  );
+                }
+              }           
+             </code></pre>
+
+          <p class="fragment">Was passiert, bei dem folgenden Aufruf?</p>
+
+          <pre class="fragment"><code class="javascript">
+&lt;Search searchString="React" />               
+             </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Eine Komponente...</h3>
+          <p>Der State wird nicht korrekt gesetzt: setState führt zusammen!</p>
+
+          <pre class="fragment"><code class="javascript">
+    async componentDidMount() {
+      if (!this.props.searchString) {
+        return;
+      }
+      this.setState({
+        loading: true
+      });
+      const result = await executeSearchApiCall(this.props.searchString);
+
+      // loading weiterhin auf true!
+      this.setState({
+        result
+      });
+    }
+  </code></pre>
+          <p class="fragment">Das Verhalten von <code>setState</code> ist gewöhnungsbedürftig...</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Klassen API</h3>
+
+          <p>
+            Welche Probleme hat die folende Implementierung, jetzt mit korrektem Setzen des States?
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            class Search extends React.Component {
+              state = {
+                loading: false
+              };
+            
+              async componentDidMount() {
+                if (!this.props.searchString) {
+                  return;
+                }
+
+                this.setState({
+                  loading: true
+                });
+
+                const result = await executeSearchApiCall(this.props.searchString);
+
+                this.setState({
+                  loading: false,
+                  result
+                });
+              }
+            
+              render() {
+                if (!this.state.result) {
+                  return null;
+                }
+            
+                if (this.state.loading) {
+                  return &lt;h2>Searching...&lt;/h2>;
+                }
+            
+                return (
+                  &lt;div>
+                  &lt;h2>Search Result:&lt;/h2>
+                  &lt;p>{this.state.result}&lt;/p>
+                  &lt;/div>
+                );
+              }
+            }                
+          </code></pre>
+          <p class="fragment">Was passiert, wenn <b>searchString</b> sich ändert?</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Klassen API</h3>
+          <p>Jetzt mit componentDidUpdate...</p>
+
+          <pre class="fragment"><code class="javascript">
+async componentDidMount() {
+    if (!this.props.searchString) {
+      return;
+    }
+    this.setState({
+      loading: true
+    });
+    const result = await executeSearchApiCall(this.props.searchString);
+    this.setState({
+      result,
+      loading: false
+    });
+  }
+
+  async componentDidUpdate() {
+    if (!this.props.searchString) {
+      return;
+    }
+    this.setState({
+      loading: true
+    });
+    const result = await executeSearchApiCall(this.props.searchString);
+    this.setState({
+      result,
+      loading: false
+    });
+  }            
+          </code></pre>
+
+          <p class="fragment">Was ist jetzt schon wieder falsch? 🥺</p>
+          <p class="fragment">Endlosschleife! 😱</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Klassen API</h3>
+          <p>Reparierte Callback-Methoden: Wir müssen die Properties überprüfen!</p>
+
+          <pre class="fragment"><code class="javascript">
+              async componentDidMount() {
+                if (!this.props.searchString) {
+                  return;
+                }
+                this.setState({
+                  loading: true
+                });
+                const result = await executeSearchApiCall(this.props.searchString);
+                this.setState({
+                  result,
+                  loading: false
+                });
+              }
+            
+              async componentDidUpdate(prevProps: SearchProps) {
+                if (this.props.searchString === prevProps.searchString) {
+                  // do not update if nothing changed
+                  return;
+                }
+                if (!this.props.searchString) {
+                  return;
+                }
+                this.setState({
+                  loading: true
+                });
+                const result = await executeSearchApiCall(this.props.searchString);
+                this.setState({
+                  result,
+                  loading: false
+                });
+              }
+                        </code></pre>
+
+          <p class="fragment">Funktioniert 😊</p>
+          <p class="fragment">aber: viel redundanter Code 😞</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Klassen API</h3>
+
+          <p>Gemeinsame Logik auslagern</p>
+
+          <pre class="fragment"><code class="javascript">
+           class Search extends React.Component { 
+              async componentDidMount() {
+                this.search();
+              }
+            
+              async componentDidUpdate(prevProps: SearchProps) {
+                if (this.props.searchString === prevProps.searchString) {
+                  // do not update if nothing changed
+                  return;
+                }
+            
+                this.search();
+              }
+            
+              async search() {
+                if (!this.props.searchString) {
+                  return;
+                }
+                this.setState({
+                  loading: true
+                });
+                const result = await executeSearchApiCall(this.props.searchString);
+                this.setState({
+                  result,
+                  loading: false
+                });
+              }
+
+              // render...
+           }
+            </code></pre>
+
+          <p class="fragment">Ganz gut, aber:</p>
+          <p class="fragment">Fachlichkeit "Suchen" auf drei Methoden verteilt</p>
+          <p class="fragment">
+            Was würde passieren, wenn wir nicht nur suchen, sondern noch zweiten Use-Case haben, der
+            technisch ähnlich implementiert ist?
+          </p>
+          <p class="fragment">
+            Wie könnten wir den Such-Code verallgemeinern und mehreren Komponenten zur Verfügung
+            stellen?
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Klassen API: Lebenszyklus</h3>
+          <p>
+            Unsere Suche dauert sehr lange! Die Komponente wird vor erhalten des Ergebnisses
+            entfernt. Was passiert?
+          </p>
+          <img
+            class="fragment"
+            src="slides/images/cant-perform-update-on-unmounted-component.png"
+          />
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Klassen API: Lebenszyklus</h3>
+          <p>Wir müssen componentWillUnmount implementieren</p>
+
+          <pre class="fragment"><code class="javascript">
+            class Search extends React.Component {
+              state: SearchState = {
+                loading: false
+              };
+            
+              // track if component is still mounted
+              componentMounted = true;
+
+              componentWillUnmount() {
+                this.componentMounted = false;
+              }            
+            
+              async search() {
+                // as before
+                const result = await executeSearchApiCall(this.props.searchString);
+
+                // component might be unmounted now
+                if (!this.componentMounted) {
+                  console.log("Compontent already unmounted!");
+                  return;
+                }
+                this.setState({
+                  result,
+                  loading: false
+                });
+              }
+            
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Klassen API: Lebenszyklus</h3>
+          <p>
+            Was passiert eigentlich, wenn die Search-Komponente mit unterschiedlichen Properties,
+            zweimal hintereinader gerendert wird?
+          </p>
+          <p class="fragment">Es werden zwei Suchen gestartet...</p>
+          <p class="fragment">Was passiert, wenn die zweite schneller ist als die erste?</p>
+
+          <pre class="fragment"><code class="javascript">
+            class Search extends React.Component {
+
+              // ...
+            
+              async search() {
+                // ...
+                const result = await executeSearchApiCall(this.props.searchString);
+
+                if (!this.componentMounted) {
+                  return;
+                }
+                this.setState({
+                  result,
+                  loading: false
+                });
+              }
+            
+          </code></pre>
+          <p class="fragment">Die 1. Suche "überschreibt" das Ergebnis der 2.-Suche!</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Error Boundaries: hier sind Klassen ein Muss!</h3>
+          <p>
+            Error Boundaries fangen Fehler beim Rendern auf. Wie eine Art try-catch-Handler, aber
+            fürs Rendern
+          </p>
+          <p>
+            Um ein <a href="https://reactjs.org/docs/error-boundaries.html">Error Boundary</a> zu
+            implementieren, <b>müsst</b> ihr eine Klasse verwenden. Das geht mit Funktionen nicht!
+          </p>
+          <p>
+            Tipp: Ihr solltet in jedem Fall mind. ein Error Boundary um Eure ganze Anwendung legen,
+            um im Fall der Fälle zumindest eine freundliche Fehlermeldung auszugeben
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Funktionskomponenten</h3>
+          <ul>
+            <li class="fragment">Funktionskomponenten gibt es schon länger in React</li>
+            <li class="fragment">Früher auch Stateless Functional Components (SFC) genannt</li>
+            <li class="fragment">
+              Man hatte darin keine Möglichkeit State zu verwenden oder am Lebenszyklus zu
+              partizipieren
+            </li>
+            <li class="fragment">
+              Also man konnte eigentlich nur Properties entgegennehmen und etwas rendern
+            </li>
+            <li class="fragment">Warum war diese Art von Komponenten (trotzdem) nützlich? 🤔</li>
+            <li class="fragment">
+              Funktionskomponenten API plus Hooks API = vollwertiger Klassen API Ersatz
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Search-Komponente als Funktion</h3>
+          <p>👉 hooks_und_mehr/hooks_workspace</p>
+        </section>
+        <section>
+          <h3>Search-Komponente als Funktion</h3>
+
+          <pre class="fragment"><code class="javascript">
+              function Search({ searchString }) {
+                const [loading, setLoading] = React.useState(false);
+                const [result, setResult] = React.useState();
+              
+                React.useEffect(() => {
+                  let cancelled = false;
+                  async function search() {
+                    setLoading(true);
+                    const searchResult = await executeSearchApiCall(searchString);
+                    if (cancelled) {
+                      console.log("already cancelled");
+                      return;
+                    }
+                    setLoading(false);
+                    setResult(searchResult);
+                  }
+              
+                  search();
+              
+                  return () => {
+                    cancelled = true;
+                  };
+                }, [searchString]);
+              
+                if (loading) {
+                  return &lt;h2>Searching...&lt;/h2>;
+                }
+              
+                if (!result) {
+                  return null;
+                }
+              
+                return (
+                  &lt;div>
+                  &lt;h2>Search Result:&lt;/h2>
+                  &lt;p>{result}&lt;/p>
+                  &lt;/div>
+                );
+              }
+              
+            </code></pre>
+        </section>
+        <section>
+          <h3>Search-Komponente als Funktion</h3>
+
+          <ul>
+            <li class="fragment">
+              Fachlichkeit "Suche durchführen" ist an einer Stelle konzentriert (useEffect-Hook).
+              Wir könnten sie sogar mit einem Custom Hook rausziehen
+            </li>
+            <li class="fragment">
+              Lebenszyklus ist mehr oder weniger sauber abgebildet: Rückgabe-Wert ist die
+              "Aufräum-Funktion", wann der Hook ausgeführt wird, wird mit dem Dependency Array
+              beschrieben
+            </li>
+            <li class="fragment">
+              Wir haben hier zwei States, ob das in diesem Fall besser ist, sei dahin gestellt, denn
+              die beiden State-Einträge sind nicht unabhängig. Wir könnten aber ein Objekt verwenden
+            </li>
+            <li class="fragment">
+              Das Objekt wird mit der setter-Funktion dann komplett gesetzt und nicht
+              zusammengeführt (wie in setState), das ist möglicherweise erwartungskonformer
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Funktionskomponenten mit Hooks</h3>
+          <ul>
+            <li class="fragment">
+              Funktionskomponenten gibt es schon lange in React, aber erst mit der Hooks API (16.8)
+              wurden sie gleichwertig zu Klassenkomponenten
+            </li>
+            <li class="fragment">
+              Mit React Hooks kann sich eine Komponente in Zustand und Lebenszyklus "einhaken"
+            </li>
+            <li class="fragment">
+              Hooks machen Funktionskomponenten damit aus Feature-sicht gleichwertig mit
+              Klassenkomponenten
+            </li>
+            <li class="fragment">
+              Es gibt eingebaute Hooks (useState, useEffect etc.) und man kann eigene Hooks
+              schreiben ("Custom Hooks")
+            </li>
+            <li class="fragment">
+              <b
+                >Die Hooks API bzw. eigene Hooks erlauben es Euch, wiederverwenbaren Code zu
+                schreiben</b
+              >, den ihr in diversen Komponenten einsetzen könnt
+            </li>
+            <li class="fragment">
+              Ihr könnt Hooks auch in eigene Module auslagern und anderen Teams/Projekten zur
+              Verfügung stellen
+            </li>
+            <li class="fragment">
+              Hooks sind technisch normale Funktionen, ihr könnt Rückgabewert und Parameter völlig
+              frei wählen
+            </li>
+            <li class="fragment">
+              Hooks setzen das React Prinzip ähnlich wie Komponenten um: wenn in einem Hook etwas
+              geändert wird, wird der Hook und die verwendenden Komponente neu gerendert!
+            </li>
+            <li class="fragment">
+              Ich las mal den Satz: Hooks sind wie Komponenten nur ohne die Begrenzung auf Props als
+              Parameter und UI als Rückgabewert...
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Hook vs Komponente</h3>
+
+          <pre class="fragment"><code class="javascript">
+            // eine Komponente...
+            function Dialog(props) {
+              const { title, text } = props;
+              const [visible, setVisible] = React.useState(true);
+
+              if (!visible) { return null; }
+
+              return &lt;div className="Dialog">
+                &lt;h1>{title}&lt;h1>
+                &lt;p>{text}&lt;/p>
+                &lt;button onClick={() => setVisible(false)}>Close&lt;/button>
+            }
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            // ein hook...
+            function useDialog(props) {
+              const { title, text } = props;
+              const [visible, setVisible] = React.useState(true);
+
+              if (!visible) { return null; }
+
+              return &lt;div className="Dialog">
+                &lt;h1>{title}&lt;h1>
+                &lt;p>{text}&lt;/p>
+                &lt;button onClick={() => setVisible(false)}>Close&lt;/button>
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Hooks vs Komponente 2</h3>
+          <pre class="fragment"><code class="javascript">
+            // eine Komponente...
+            function InfoDialog(props) {
+              const { text } = props;
+
+              return &lt;Dialog title="info" text={text} />
+            }
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            // ein hook...
+            function useInfoDialog(props) {
+              // wie sieht der useInfoDialog aus, der den useDialog-Hook verwendet?
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h2>useEffect</h2>
+          <h3>im Detail</h3>
+          <p>
+            <em
+              >Im folgenden schauen wir uns den useEffect-Hook etwas genauer an. Dabei werden wir
+              aber auch Themen betrachten, die für React allgemein und andere Hooks relevant
+              sind</em
+            >
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useEffect: clean up-Funktion</h3>
+
+          <pre class="fragment"><code class="javascript">
+            React.useEffect(() => {
+              async function search() {
+                const searchResult = await executeSearchApiCall(searchString);
+                setLoading(false);
+              }
+          
+              search();
+          
+            }, [searchString]);
+          </code></pre>
+
+          <ul>
+            <li class="fragment">Warum können wir nicht den Effect selbst 'async' deklarieren?</li>
+            <li class="fragment">
+              Der Rückgabe-Wert des useEffect-Hooks muss eine Funktion (oder undefined) sein, aber
+              kein Promise!
+            </li>
+            <li class="fragment">
+              async verwandelt jeden Rückgabe-Typ (auch undefined!) in ein Promise
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useEffect: Ausführungszeitpunkt</h3>
+          <ul>
+            <li class="fragment">
+              Grundsätzlich: nach jedem Commit der Komponente (rendern ist abgeschlossen, Komponente
+              im DOM)
+            </li>
+            <li class="fragment">
+              Einschränkbar durch das <b>Dependency-Array</b>:
+              <ul>
+                <li class="fragment">Leeres Array: nur nach erstem Rendern</li>
+                <li class="fragment">
+                  Ansonsten, wenn sich einer der Werte im Array zwischen zwei Renderzyklen verändert
+                  hat
+                </li>
+                <li class="fragment">Werte werden per Referenz verglichen!</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useEffect: Ausführungszeitpunkt</h3>
+
+          <p>Lasst uns das überprüfen: wir bauen ein zweites Eingabefeld in die App-Komponente!</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Rendering</h3>
+          <p>Neue Anforderung: wir möchten das Suchergebnis formatiert zurückbekommen</p>
+          <p>
+            Wir übergeben eine Callback-Funktion ("resultFormatter"), mit der das Surch-Ergebnis vor
+            der Darstellung formatiert werden soll. Was müssen wir beim Verwenden beachten?
+          </p>
+
+          <p>👉 Workspace!</p>
+        </section>
+
+        <section>
+          <h3>Rendering</h3>
+          <p>
+            Wir übergeben eine Callback-Funktion ("resultFormatter"), mit der das Surch-Ergebnis vor
+            der Darstellung formatiert werden soll. Was müssen wir beim Verwenden beachten?
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+                function App() {
+                  function myFormatter(s) { return s.toUpperCase(); }
+
+                  return &lt;Search searchString={...} resultFormatter={myFormatter} />
+                }
+
+                function Search({ searchString, resultFormatter }) {
+                  const [loading, setLoading] = React.useState(false);
+                  const [result, setResult] = React.useState();
+                
+                  React.useEffect(() => {
+                    let cancelled = false;
+                    async function search() {
+                      setLoading(true);
+                      const searchResult = await executeSearchApiCall(searchString);
+                      if (cancelled) {
+                        console.log("already cancelled");
+                        return;
+                      }
+                      setLoading(false);
+    
+                      // Ergebnis formatieren
+                      const formattedResult = resultFormatter(searchResult);
+                      setResult(formattedResult);
+                    }
+                
+                    search();
+                
+                    return () => {
+                      cancelled = true;
+                    };
+                  }, [searchString, resultFormatter]);
+                
+                  if (!result) {
+                    return null;
+                  }
+                
+                 // ab hier unverändert: Loading oder Such-Ergebnis anzeigen
+                }
+                
+              </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Rendering</h3>
+          <ul>
+            <li class="fragment">
+              Wenn eine Komponente sich neu rendert, werden alle Funktionen darin neu "erzeugt", sie
+              sind also "neu"
+            </li>
+            <li class="fragment">
+              Wenn Funktionen im Dependency-Array angegeben werden, führt das dazu, dass der Effekt
+              neu ausgeführt wird
+            </li>
+            <li class="fragment">
+              Das kann richtig oder falsch sein. In unserem Beispiel wollen wir das <b>nicht</b>
+            </li>
+            <li class="fragment">
+              Wir müssen beim Aufrufer dafür sorgen, dass dieser eine "stabile" Funktion übergibt
+            </li>
+            <li class="fragment">
+              Mit <code>useCallback</code> können wir eine Funktion über mehrere Renderzyklen hinweg
+              stabil halten
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function App() {
+              const myFormatter = React.useCallback(function myFormatter(s) { return s.toUpperCase(); }, []);
+
+              return &lt;Search searchString={...} resultFormatter={myFormatter} />
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useCallback-Hook</h3>
+          <ul>
+            <li class="fragment">
+              Auch der useCallback-Hook hat als zweiten Parameter ein Dependency-Array, das
+              bestimmt, wie lange die Callback-Funktion gültig ist
+            </li>
+            <li class="fragment">
+              Im Gegensatz zu useEffect ist das Array hier <b>pflicht</b> und kann nicht weggelassen
+              werden
+            </li>
+            <li class="fragment">Warum gibt es das Array? Was müssen wir darein schreiben?</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Ein erweitertes Beispiel</h3>
+          <p>👉 Workspace: Der Formatter bekommt einen konfigurierbaren Prefix</p>
+        </section>
+
+        <section>
+          <h3>Hintergrund: Closures und Stale Data</h3>
+          <p>Folgendes (fehlerhaftes!!!) Beispiel:</p>
+
+          <pre class="fragment"><code class="javascript">
+            function App() {
+              const [search, setSearch] = React.useState("typescript");
+              const [prefix, setPrefix] = React.useState("");
+
+              const resultFormatter = React.useCallback(
+                 function prefixFormatter(s) {return prefix + s}
+              , []);
+
+              return &lt;div>
+                &lt;input value={change} onChange={...} />
+                &lt;input value={prefix} onChange={...} />
+                &lt;Search searchString={search} formatter={resultFormatter} />
+              &lt;div>
+            }
+          </code></pre>
+
+          <ol>
+            <li class="fragment">Search starts with value="typescript" and formatter</li>
+            <li class="fragment">User changes prefix (for example to "a")</li>
+            <li class="fragment">App re-renders</li>
+            <li class="fragment">
+              App invokes Search component with value="typescript" and formatter (same as before)
+            </li>
+            <li class="fragment">Search finishes, formatter is called</li>
+            <li class="fragment">What is prefix now in our formatter function?</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Hintergrund: Closures und Stale Data</h3>
+          <ul>
+            <li class="fragment">
+              In einer Closure werden die Daten aus dem umgebenen Kontext "eingefroren" mit dem
+              Stand, wenn die Closure erzeugt wird
+            </li>
+            <li class="fragment">
+              Die Formatter-Funktion wird also im fehlerhaften Beispiel <b>immer</b> den allerersten
+              prefix zurückliefern
+            </li>
+            <li class="fragment">
+              Wollen wir auf den Prefix zugreifen, müssen wir also eine neue formatter-Funktion
+              erzeugen, wenn sich der Prefix ändert:
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function App() {
+              const [search, setSearch] = React.useState("typescript");
+              const [prefix, setPrefix] = React.useState("");
+
+              const resultFormatter = React.useCallback(
+                 function prefixFormatter(s) {return prefix + s}
+              , [prefix]);
+
+              // ...
+          </code></pre>
+          <ul>
+            <li class="fragment">
+              Das hat (leider) zur Folge, dass nun die Search-Komponente eine neue Funktion erhält
+              und unsere Suche neue ausführt
+            </li>
+            <li class="fragment">Habt ihr andere Ideen, wie wir das Problem lösen könnten?</li>
+            <li class="fragment">
+              👆 Grundsätzlich gilt: <b>React vergleicht per Referenz</b>. Das gilt z.B. auch für
+              <code>useState</code>, <code>useMemo</code> und <code>React.memo</code>
+            </li>
+          </ul>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>A propos Such-Ergebnis formatieren...</h3>
+          <ul>
+            <li class="fragment">
+              Unabhängig vom technischen Problem: ist unsere Implementierung "gut"?
+            </li>
+            <li class="fragment">
+              Was könnten wir besser machen? Was wäre vielleicht mehr "React-like"?
+            </li>
+            <li class="fragment">
+              Insb: vielleicht soll der Formatter verändert werden, während der Request läuft und
+              nach Request-Ende dann für das Ergebnis verwendet werden?
+            </li>
+          </ul>
+          <ul>
+            <li class="fragment">
+              "Abgeleitete" Daten werden in der Regel in React nicht in den State gelegt
+            </li>
+            <li class="fragment">Man würde wahrscheinlich den formatter beim rendern verwenden</li>
+            <li class="fragment">
+              Vorteil: der formatter ist immer aktuell (beeinflusst aber den Request nicht)
+            </li>
+            <li class="fragment">
+              Keine Inkosistenzen (stellt euch vor, wir setzen den Result-State noch an einer
+              anderen Stelle...
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Eine Message-Komponente, die eine Nachricht darstellt, die von selbst nach x Sekunden
+            verschwindet
+          </p>
+          <p class="fragment">Wie können wir die bauen, wenn wir "setTimeout" verwenden?</p>
+          <p class="fragment">
+            Zur Erinnerung
+            <a
+              href="https://developer.mozilla.org/de/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout"
+              >setTimeout</a
+            >-JavaScript-Funktion:
+          </p>
+          <pre class="fragment"><code class="javascript">
+const timerId = setTimeout( 
+  () => console.log("Nach fünf Sekunden"), // 1. Paramter: Callback-Funktion
+  5000 // 2. Parameter: Timeout in ms
+);
+
+// Bei Bedarf, mit clearTimeout den Timer vorzeitig beenden:
+clearTimeout(timerId);
+            </code></pre>
+          <p class="fragment">Eure Ideen? Wollt ihr es selbst probieren oder zusammen?</p>
+        </section>
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Eine Message-Komponente, die eine Nachricht darstellt, die von selbst nach x Sekunden
+            verschwindet
+          </p>
+          <p class="fragment">Wie können wir die bauen, wenn wir "setTimeout" verwenden?</p>
+
+          <pre class="fragment"><code class="javascript">
+// Sehr naive Implementierung... Was fehlt hier?            
+function Message({ message }: MessageProps) {
+  const [msgVisible, setMsgVisible] = React.useState(true);
+
+  React.useEffect(() => {
+    setTimeout(() => setMsgVisible(false), 2500);
+  }, []);
+
+  if (!msgVisible) {
+    return null;
+  }
+
+  return &lt;h2>{message}&lt;/h2>;
+}
+
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Eine Message-Komponente, die eine Nachricht darstellt, die von selbst nach x Sekunden
+            verschwindet
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+// Mit Clean-Up-Funktion           
+
+function Message({ message }: MessageProps) {
+  const [msgVisible, setMsgVisible] = React.useState(true);
+
+  React.useEffect(() => {
+    const id = setTimeout(() => setMsgVisible(false), 2500);
+    return () => {
+      clearTimeout(id);
+    };
+  }, []);
+
+  if (!msgVisible) {
+    return null;
+  }
+
+  return &lt;h2>{message}&lt;/h2>;
+}
+
+
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Neue Anforderung: Per Button soll die Message für immer angezeigt werden können, der
+            timeout muss also abgebrochen werden
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+              function Message({ message }: MessageProps) {
+                const [msgVisible, setMsgVisible] = React.useState(true);
+              
+                React.useEffect(() => {
+                  const id = setTimeout(() => setMsgVisible(false), 2500);
+                  return () => {
+                    clearTimeout(id);
+                  };
+                }, []);
+
+                function handleOnClick() {
+                   // ????
+                }
+              
+                if (!msgVisible) {
+                  return null;
+                }
+              
+                return &lt;div>
+                &lt;button onClick={handleOnClick}>Show Message forever&lt;/button>
+                &lt;h2>{message}&lt;/h2>
+                &lt;/div>;
+              }
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <ul>
+            <li class="fragment">
+              In einer "Referenz", die wir mit dem useRef-Hook erzeugen, können wir Daten über
+              Renderzyklen erhalten
+            </li>
+            <li class="fragment">Diese Daten liegen unter <code>ref.current</code></li>
+            <li class="fragment">
+              Das ändern der Daten führt <b>nicht</b> zu einem neu rendern der Komponente!
+            </li>
+            <li class="fragment">
+              Vergleichbar mit einer Instanz-Variablen in einer Klassen Komponente
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Eine Message-Komponente, die eine Nachricht darstellt, die von selbst nach x Sekunden
+            verschwindet
+          </p>
+          <p>Zusatzaufgabe:</p>
+          <ol>
+            <li class="fragment">
+              Die Parent-Komponente rendert die Nachricht-Komponente und übergibt ihr nicht nur eine
+              Message, sondern auch die Dauer, wie lange diese Nachricht angezeigt werden soll, z.B.
+              <b>fünf Sekunden</b>
+            </li>
+            <li class="fragment">
+              Die Parent-Komponente rendert sich nach <b>vier Sekunden</b> erneut, und übergibt nun
+              dieselbe Message, aber mit einer anderen Dauer (z.B. <b>sechs Sekunden</b>)
+            </li>
+            <li class="fragment">
+              Die Message-Komponente soll die Dauer nun anpassen. Von <b>ersten</b> Rendern der
+              Message bis zum Verschwinden, sollen nicht mehr Zeit vergehen als die übergebene Dauer
+              (also im Beispiel: <b>zwei Sekunden</b> nach dem zweiten Aufruf) 🤯
+            </li>
+          </ol>
+          <p class="fragment">Puh... 😮 kriegen wir das gemeinsam hin?</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Stale Data #2 (im Event Handler)</h3>
+          <p>
+            Beispiel: Eine Komponente, mit der ich Nachrichten laden kann, die in eine Liste
+            eingefügt werden. Mit einem Knopf kann ich die Liste der geladenen Nachrichten wieder
+            leeren
+          </p>
+          <p class="fragment">👉 workspace/EventHandlerApp!</p>
+        </section>
+        <section>
+          <h3>Stale Data #2 (im Event Handler)</h3>
+          <p class="fragment">Was kann hier passieren?</p>
+
+          <pre class="fragment"><code class="javascript">
+            function EventHandlerApp() {
+              const [messages, setMessages] = React.useState([]);
+            
+              async function loadMore() {
+                const newMessage = await executeApiCall();
+                setMessages([newMessage, ...messages]);
+              }
+            
+              function clear() {
+                setMessages([]);
+              }
+            
+              return (
+                &lt;div>
+                  &lt;button onClick={loadMore}>Load more&lt;/button>
+                  &lt;button onClick={clear}>Clear&lt;/button>
+                  &lt;ul>
+                    {messages.map(msg => (
+                      &lt;li key={msg.key}>{msg.msg}&lt;/li>
+                    ))}
+                    &lt;/ul>
+                    &lt;/div>
+              );
+            }
+          </code></pre>
+          <p class="fragment">
+            Stale Data! Was passiert, wenn loadMore lange dauert, und in der Zwischenzeit clear
+            gedrückt wird?
+          </p>
+        </section>
+
+        <section>
+          <h3>Stale Data #2 (im Event Handler)</h3>
+
+          <p class="fragment">Asynchrones Verhalten und Stale Data im Event Handler</p>
+          <p class="fragment">Lösungen</p>
+
+          <p class="fragment">
+            Eine Option: setState-Callback-Funktion, um aktuellen Wert zu bekommen.
+          </p>
+          <p class="fragment">
+            Einer State setter-Funktion kann eine Callback-Funktion übergeben erden. Diese wird mit
+            dem jeweils aktuellen State aufgerufen und liefert neuen State zurück
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            const [messages, setMessages] = React.useState([]);
+            function loadMore() {
+              const newMessage = loadNewMessage();
+              setMessages( existingMessages => [newMessage, ...existingMessages]);
+            }
+          </code></pre>
+          <p class="fragment">
+            (Alternativ würde auch useReducer gehen, hier wird auch immer der aktuelle State
+            übergeben)
+          </p>
+
+          <p class="fragment">
+            Andere Ideen? Was müssten wir machen, wenn wir auf den State nur lesend zugreifen
+            wollen? Zum Beispiel: Vielleicht haben wir einen zweiten State, den wir benötigen in der
+            loadMore-Funktion, abhängig von diesem soll setMessages ausgeführt werden oder nicht
+          </p>
+          <p class="fragment">
+            https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Custom Hooks</h3>
+          <ul>
+            <li class="fragment">
+              Custom Hooks erlauben es, wiederverwenbaren Code zu schreiben und zu teilen
+            </li>
+            <li class="fragment">
+              Habt ihr Beispiele in euren bestehenden Anwendungen? Wo könnten Custom Hooks Sinn
+              machen und helfen?
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Custom Hook</h3>
+          <p>👉 Workspace, gemeinsam einen Custom Hook bauen</p>
+        </section>
+
+        <section>
+          <h3>Custom Hook</h3>
+          <p>Wollt ihr es auch selbst probieren? 🙋</p>
+          <p class="fragment">
+            Ihr könnt <code>hooks_worksapce/CustomHook.tsx</code> dafür verwenden
+          </p>
+          <p class="fragment">
+            Bitte in <code>hooks_worksapce/index.tsx</code> den Import und die Verwendung
+            entsprechend anpassen
+          </p>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>Ein Beispiel: Daten Laden mit eigenem Hook</p>
+
+          <pre class="fragment"><code class="javascript">
+            function useDataLoader(url, defaultData) {
+              const [loading, setLoading] = React.useState(false);
+              const [result, setResult] = React.useState(defaultData);
+            
+              React.useEffect(() => {
+                let cancelled = false;
+                async function search() {
+                  setLoading(true);
+                  const searchResult = await executeApiCall(url);
+                  if (cancelled) {
+                    return;
+                  }
+                  setLoading(false);
+                  setResult(searchResult);
+                }
+            
+                search();
+            
+                return () => {
+                  cancelled = true;
+                };
+              }, [url]);
+            
+              return {
+                loading,
+                result
+              };
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>Diskussion: Rückgabe-Wert: Array oder Object?</p>
+
+          <pre class="fragment"><code class="javascript">
+            function UserList() {
+              // Hook liefert Objekt zurück, Object Destructuring
+              const {data, loading} = useDataLoader("/api/users");
+
+              return ...;
+            }
+
+            function UserList() {
+              // Hook liefert Array zurück => Array Destructuring
+              const [data, loading] = useDataLoader("/api/users");
+
+              return ...;
+            }
+          </code></pre>
+        </section>
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>Diskussion: Rückgabe-Wert: Array oder Object?</p>
+
+          <p>Ein etwas komplexerer Fall...</p>
+          <pre class="fragment"><code class="javascript">
+              function UserWithComments() {
+                // hmmm...?
+                const {data, loading} = useDataLoader("/api/users");
+                const {data, loading} = useDataLoader("/api/comments");
+
+                // data und loading doppelt :-/
+            }
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              function UserWithComments() {
+                // aha!
+                const [users, usersLoading] = useDataLoader("/api/users");
+                const [comments, commentsLoading] = useDataLoader("/api/comments");
+              }
+            </code></pre>
+
+          <p class="fragment">Was könnte hier problematisch sein?</p>
+
+          <pre class="fragment"><code class="javascript">
+              function Users() {
+                // hmmm...?
+                const [data, loading, error, refetch] = useDataLoader("/api/users");
+            }
+            </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+              function Users() {
+                // aha!
+                const {data, loading, refetch, error, loading} = useDataLoader("/api/users");
+            }
+            </code></pre>
+
+          <p class="fragment">Und noch eins, benötigt wird nur data und refetch:</p>
+
+          <pre class="fragment"><code class="javascript">
+                function Users() {
+                  // Funktioniert, aber...?
+                  const [data, , , refetch] = useDataLoader("/api/users");
+              }
+              </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                function Users() {
+                  // aha!
+                  const {data, refetch} = useDataLoader("/api/users");
+              }
+              </code></pre>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>
+            <em
+              >Ein erweiterter fetch-Hook: ich möchte in meiner Komponente einen "reload"-Button,
+              der die Daten erneut lädt (also nicht nur "on render")</em
+            >
+          </p>
+          <ul>
+            <li class="fragment">Wie machen wir das?</li>
+            <li class="fragment">Ändern wir die Komponente oder auch den Hook?</li>
+            <li class="fragment">Wie könnte der Rückgabe-Wert des Hooks aussehen?</li>
+            <li class="fragment">Wollt ihr es selbst probieren? Übung? 🙋</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>
+            <b
+              >Übung:
+              <em
+                >Ein erweiterter fetch-Hook: ich möchte in meiner Komponente einen "reload"-Button,
+                der die Daten erneut lädt (also nicht nur "on render")</em
+              ></b
+            >
+          </p>
+          <ul>
+            <li class="fragment">
+              Als Start-Punkt könnt ihr <code>hooks_und_mehr/hooks/10_custom_hook</code> verwenden
+            </li>
+            <li class="fragment">
+              Daraus die Datei <code>CustomHookApp.tsx</code> in den Worksapce
+              (<code>hooks_workspace</code>) kopieren und in <code>index.tsx</code> import
+              entsprechend anpassen (s. TODO)
+            </li>
+            <li class="fragment">Die App-Komponente soll dann einen Reload-Button bekommen</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>
+            Problem: (alle) Hooks dürfen nur am Anfang stehen und müssen in selber Reihenfolge
+            gerendert werden
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            function BlogPost({postId}) {
+              const blogPost = useBlogLoader(postId); // ok
+
+              return ...;
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            function BlogPost({postId}) {
+              if (postId !== null) {
+                // DAS geht nicht:
+              const blogPost = postId != null ? useBlogLoader(postId) : null; // 😱😱😱
+              
+              return ...;
+            }
+          </code></pre>
+          <p class="fragment">Was machen wir hier? Ideen? 🙋</p>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>
+            Problem: (alle) Hooks dürfen nur am Anfang stehen und müssen in selber Reihenfolge
+            gerendert werden
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // Option 1: useBlogLoader liefert eine Funktion zurück,
+            //           die das eigentliche Laden durchführt
+            function BlogPost({postId}) {
+              const loadBlog = useBlogLoader();
+              
+              const blogPost = postId !== null ? loadBlog(postId):null; // ok
+
+              return ...;
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // Option 2: useBlogLoader kann mit null umgehen
+            function BlogPost({postId}) {
+              const blogPost = useBlogLoader(null); // ok
+
+              return ...;
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // Option 3: useBlogLoader bekommt 'skip' option
+            //           (wird z.B. in den folgenden Fetch-Bibliotheken so gemacht,
+            //           weil die ohnehin viele Konfigurationsparameter haben)
+            function BlogPost({postId}) {
+              const blogPost = useBlogLoader(postId, { skip: postId === null}); // ok
+
+              return ...;
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+          <p>
+            Problem: (alle) Hooks dürfen nur am Anfang stehen und müssen in selber Reihenfolge
+            gerendert werden
+          </p>
+
+          <p>Warum ist das eigentlich so?</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section id="data-libs">
+          <h2>Data Libraries für React</h2>
+        </section>
+
+        <!-- <ul>
+           
+            <li class="fragment">
+              Anforderungen: Daten laden, Caching samt korrektem Invalidieren..., Requests sollen
+              nicht bei jedem Rendern ausgeführt werden, globales(!) Caching: Daten sollen über
+              Komponetengrenzen und -wechsel erhalten bleiben, Fehlerbehandlung bzw. Abbildung
+              Request-Lebenszyklus...
+            </li>
+            <li class="fragment">
+              
+            </li>
+            <li class="fragment">
+              
+            </li>
+            <li class="fragment">SWT, React Query und RTK Query, alle React-spezifisch</li>
+            <li class="fragment">
+              Die Idee ist bei allen ähnlich und vermutlich von Apollo inspiriert: per Hooks API
+              wird der Lebenszyklus eines Requests abgebildet.
+            </li>
+            <li class="fragment">Je nach Request Status unterscheidet sich der Rückgabewert</li>
+            <li class="fragment">
+              Die gelesenen Daten werden global gecached, deswegen Provider-Kompponente (bzw. Redux
+              bei RTK) notwendig
+            </li>
+          </ul>
+        </section> -->
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Basis Libraries
+
+            * fetch: Browser Standard API, Low-Level, keinerlei Abstraktionen, quasi HTTP "pur"
+            * [axios](https://github.com/axios/axios) bzw. [redaxios](https://github.com/developit/redaxios): Quasi-standard (aber kein Browser API). 
+            * Etwas höhere Abstraktion als fetch: HTTP Fehlercodes werden auf Exceptions gemappt, Payload automatisch von/nach
+            JSON konvertiert)
+            * axios benutzt "Ajax", Redaxios selbe API aber basiert auf fetch (sehr kleine lib)
+            * alle React-unabhängig!
+
+            
+          
+            
+          </textarea>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Beispiel: axios</h3>
+          <pre class="fragment"><code class="javascript">
+            try {
+              const newPost = await axios.post('/blogpost', {
+                title: 'Learning React',
+                body: 'Lorem ipsum'
+              });
+            } catch (e) {
+              // ...
+            }
+          </code></pre>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Data Libraries für React
+
+            * Was könnten Anforderungen an eine React-spezifische Bibliothek sein?
+            * 👉 Architektur in Miro oder Excalidraw diskutieren
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Data Libraries für React: Anforderungen
+
+            * Daten laden/schreiben, HTTP GET, POST, PUT, DELETE, ...
+            * Caching samt korrektem Invalidieren...
+            * Requests sollen nicht bei jedem Rendern ausgeführt werden
+            * globales(!) Caching: Daten sollen über Komponetengrenzen und -wechsel erhalten bleiben
+            * Re-fetching?
+            * Fehlerbehandlung
+            * Request-Lebenszyklus: Läuft mein Request noch? (Wie) wurde er beendet? 
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Data Libraries für React: Typische Vertreter
+
+            * [SWR](https://swr.vercel.app/) und [React Query](https://react-query.tanstack.com/)
+            * Neu für Redux (Beta!): [Redux Toolkit Query](https://rtk-query-docs.netlify.app/)
+            * Erste(?) Lib dieser Art: [Apollo](https://www.apollographql.com/docs/react/) (für GraphQL)
+            * Idee bei allen ähnlich: es gibt einen Custom-Hook, der Daten lädt/schreibt, man bekommt Request Status/Daten zurück, Ergebnisse werden gecached
+            * Man braucht einen Context (bzw. Redux), mit dem gecached wird
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Beispiel: SWR
+
+            * Workspace `hooks_und_mehr/data-libs`
+          </textarea>
+        </section>
+
+        <section id="styling">
+          <h2>Styling</h2>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section data-markdown>
+          <textarea data-template>
+            ### Styling: Herausforderungen
+
+            * App soll einheitlich aussehen
+            * CSS Code soll versteh- und wartbar bleiben
+            * App soll (nicht) durch Styles von außen verändert werden (z.B. wenn als Widget auf einer anderen Seite eingebettet)
+            * Mehr ?
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Styling Optionen
+
+            * Präprozessor ja/nein (Sass, Less)
+            * CSS Modules
+            * CSS-in-JS (Styled Components)
+            * (WebComponents)
+          </textarea>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Styling: Grundsätzliches</h3>
+          <ul>
+            <li class="fragment">
+              React Anwendungen werden in der Regel per CSS (-Klassen) gestylt
+            </li>
+            <li class="fragment">Die Frage ist nur, wo kommen die CSS-Dateien her?</li>
+            <li class="fragment">
+              Variante 1: (externes) CSS, bindet ihr in Eurer HTML-Datei ein (oder ist schon
+              eingebunden)
+            </li>
+            <li class="fragment">
+              Variante 2: ihr importiert eine (oder mehrere) CSS-Dateien in Eurer Anwendung
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            // index.tsx
+            import styles from "./styles.css"
+          </code></pre>
+
+          <ul>
+            <li class="fragment">
+              Das
+              <a href="https://create-react-app.dev/docs/adding-a-stylesheet"
+                >React Build Tooling</a
+              >
+              baut aus den importierten Styling-Dateien eine minifizerte Datei und bettet sie in
+              Eure HTML-Seite ein
+            </li>
+          </ul>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Preprozessoren Sass/Less
+
+            * Ein Preprozessor hilft beim Schreiben von CSS
+            * Es gibt zum Beispiel Funktionen/Makros, Berechnungen, Inkludes 
+            * Ihr könnt Sass und Less auch für CSS Modules verwenden
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Option: CSS Custom Properties
+
+            * Man kann in CSS eigene [Variablen](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) definieren
+            * Damit lässt sich viel redundanter Code vermeiden, der gleichzeit anpassbar ist (z.B. für Themeing)
+            * Daher in vielen Fällen möglicherweise Ersatz für Sass/Less
+            * Achtung: CSS Custom Properties werden nicht vom IE unterstützt!
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### CSS Modules
+            
+            * [PostCSS](https://postcss.org/): Ein Tool, dass CSS-Code umschreibt
+            * Damit kann man ganz viel machen, unter anderem "[Module](https://github.com/css-modules/css-modules)"
+            * Die Idee dahinter: ihr teilt Euren CSS-Code auf mehrere Dateien auf (wie Komponenten in React)
+            * Jede dieser Dateien bekommt mit PostCSS im Build einen eigenen Namensraum
+            * Alle CSS Klassen, die ihr in einer Datei definiert, haben dann zur Laufzeit ein eigens Prefix
+            * Die CSS-Dateien können auch mit Sass/Less geschrieben werden
+            * Support für CSS Modules ist in React eingebaut (bzw. in den [react-scripts](https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/))
+          </textarea>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>CSS Modules</h3>
+          <p><em>Problem: ihr kennt die CSS Klassennamen nicht mehr zur Build-Zeit! </em></p>
+          <pre class="fragment"><code class="javascript">
+            // Main.css
+            .Main {
+              width: 100%;
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // Main heißt die CSS Klasse nicht zur Laufzeit :-(
+            function Main() {
+              return &lt;div className="Main">
+                 ...
+              &lt;/Main>
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // ihr könnt CSS Dateien importieren!
+            import * as styles from "./Main.module.css"
+
+            // styles is jetzt ein Objekt, das als Key die Namen aus der CSS-Datei
+            // und als Wert die Lautzeit Klassennamen enthält
+            function Main() {
+              return &lt;div className={styles.Main}>
+                 ...
+              &lt;/Main>
+            }
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Styling Option: CSS-in-JS</h3>
+          <ul>
+            <li class="fragment">
+              Eine Idee für CSS mit React wird <b>CSS-in-JS</b> genannt. Dabei schreibt ihr den
+              CSS-Code direkt in Eurer JavaScript-Anwendung und zwar auch in JavaScript
+            </li>
+            <li class="fragment">
+              Bekannt für diesen Ansatz ist
+              <a href="https://styled-components.com/">Styled Components</a>
+            </li>
+            <li class="fragment">
+              Aus Euren in JavaScript geschrieben Styles erzeugt die Bibliothek
+              <code>style</code>-Elemente mit CSS-Klassen. Die Styles werden also nicht "inline" auf
+              die Elemente angewandt, sondern weiterhin durch (zur Laufzeit) generierte
+              CSS-Klassennamen
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Styling: Styled Components</h3>
+
+          <ul>
+            <li class="fragment">
+              Bei dieser Variante erzeugt man eine neue, gestylte, Komponente aus einer bestehenden
+              Komponente oder einem HTML-Element.
+            </li>
+            <li class="fragment">
+              Das eigenet sich besonders gut für wiederverwendbare Basis-Komponenten
+            </li>
+            <!-- <li class="fragment">Dabei kann man auch auf die Properties der Komponente zugreifen, und CSS-Eigenschaften in Abhängigkeit davon setzen!</li> -->
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+  const Input = styled.input`
+    font-size: 2rem;
+    border: 2px solid black
+  `;
+            </code></pre>
+          <pre class="fragment"><code class="javascript">
+  // Verwendung wie eine "normale" Komponente
+  &lt;Input value={...} onChange={...} />            
+                        </code></pre>
+
+          <ul>
+            <li class="fragment">
+              Dabei kann man auch auf die Properties der Komponente zugreifen, und CSS-Eigenschaften
+              in Abhängigkeit davon setzen!
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+                          const Input = styled.input`
+                            font-size: ${props => props.large ? "2rem" : "1rem"};
+                            border: 2px solid black;
+                          `;                          
+
+                          &lt;Input large={true} value={...} onChange={...} />  
+
+                        </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Styling: Styled Components</h3>
+          <ul>
+            <li class="fragment">Das funktioniert auch mit eigenen Komponenten</li>
+            <li class="fragment">Dazu werden diese ebenfalls mit <code>styled</code> ummantelt</li>
+            <li class="fragment">
+              Styled Components erzeugt dann eine Wrapper Komponente, und übergibt euch ein
+              <code>className</code>-Property, das den generierten Klassennamen enthält
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+function UnstyledMain({className}) {
+  return &lt;div className={className}>
+    &lt;h1>Hello!&lt;/h1>
+    &lt;/div>
+}
+
+export default function Main = styled(Main)`
+  padding: 2rem;
+  background-color: white;
+`
+}            
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h2>Geschafft! 😊</h2>
+          <h3>Vielen Dank für Eure Teilnahme!</h3>
+          <h3>Happy Statemanagement 🍻</h3>
+          <p>
+            Wenn ihr noch Fragen habt, könnt ihr mich erreichen:
+          </p>
+          <p>Mail: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a></p>
+          <p>
+            Web: <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a>
+          </p>
+          <p>
+            Twitter: <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+        </section>
+        <section>
+          <img src="slides/images/Deckblatt-und-Schlussblatt_devmedia_Trainings.png" />
+        </section>
+      </div>
+    </div>
+
+    <script src="slides/reveal.js/lib/js/head.min.js"></script>
+    <script src="slides/reveal.js/js/reveal.js"></script>
+    <script src="slides/reveal.js/lib/jquery-2.2.4.js"></script>
+    <script src="slides/reveal-config.js"></script>
+    <script>
+      const isLocal =
+        window.location.hostname.indexOf("localhost") !== -1 ||
+        window.location.hostname.indexOf("127.0.0.1") !== -1 ||
+        window.location.href.startsWith("file:///");
+      Reveal.addEventListener("ready", function (event) {
+        $("li").addClass("fragment");
+
+        // make all links open in new tab
+        $("a").attr("target", "_blank");
+
+        if (isLocal) {
+          // only applies to presentation version
+          Reveal.configure({ controls: false });
+        } else {
+          // only applies to public version
+          $(".fragment").removeClass("fragment");
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "files.exclude": {
+    "node_modules/": true,
+    "dist/**/*.map":true,
+    "slides/": true,
+    ".material/": true,
+    ".git*": true,
+    "*.prettier*": true
+  },
+    "editor.snippetSuggestions":"none",
+    "editor.fontLigatures": false,
+    "editor.cursorStyle": "line",
+    "breadcrumbs.enabled": false,
+    "editor.showUnused": false,
+    "tslint.enable": false,
+    "editor.occurrencesHighlight": false,
+    "editor.selectionHighlight": false
+  
+  }
