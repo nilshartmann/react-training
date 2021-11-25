@@ -113,8 +113,9 @@
           <h2>Grundsätzliches</h2>
           <p><b>Jederzeit:</b> Fragen und Diskussionen!</p>
           <p class="fragment">Motto: Es gibt keine dummen Fragen!</p>
-          <p class="fragment">Bemerkbar machen per Audio, Chat oder Zoom "Reaktion"
-            <p class="fragment"><img width="30%" src="slides/images/zoom-reaktionen.png" /></p>
+          <p class="fragment">
+            Bemerkbar machen per Audio, Chat oder Zoom Reaktion "Hand erheben"
+            <div class="fragment"><img width="30%" src="slides/images/zoom-reaktionen.png" /></div>
           </p>
           <p class="fragment">Bonuspunkte für eingeschaltetes Video 🥰</p>
           <p class="fragment">
@@ -3076,29 +3077,32 @@ function App(props) {
               ist, die Blog Posts mit <code>fetch</code> zu laden und zu speichern.</em
             >
           </p>
-          <p>
-            Das backend ist bereits fertig. Ihr könnt es starten mit:
-          </p>
-          <pre><code>
+          <div class="fragment">
+            <p>
+              Das backend ist bereits fertig. Ihr könnt es starten mit:
+            </p>
+            <pre><code>
                   cd react-training/blog-example/backend-rest
                   npm start
                 </code></pre>
-          <p>Der Server läuft auf Port 7000</p>
-          <p>
-            Ihr könnt das Backend mit folgender URL testen (Browser, wget, curl, ...):
-            <a href="http://localhost:7000/posts">http://localhost:7000/posts</a>
-          </p>
+            <p>Der Server läuft auf Port 7000</p>
+            <p>
+              Ihr könnt das Backend mit folgender URL testen (Browser, wget, curl, ...):
+              <a href="http://localhost:7000/posts">http://localhost:7000/posts</a>
+            </p>
+          </div>
         </section>
+
+        <!-- ============================================================================= -->
 
         <section>
           <h3>Schritte</h3>
           <ol class="x-list">
             <li class="fragment">
-              Kopiere <code>blog-example/material/4-remote/App.js</code> in deinen src-Folder und
-              füge dort den Code zum Laden und Speichern hinzu.
+              Füge in <code>App.js</code> den Code zum <b>Laden</b> und <b>Speichern</b> eines
+              Blog-Posts hinzu.
             </li>
 
-            <li class="fragment">In <code>App.js</code> sind TODOs enthalten.</li>
             <li class="fragment">
               Füge einen Loading Indicator hinzu
               <ul>
@@ -4254,6 +4258,17 @@ test('it should render correctly', () => {
             aus, wenn das Element nicht vorhanden ist
           </p>
         </section>
+        <section>
+          <h3>Testen von fetch-Aufrufen</h3>
+          <p>Herausforderungen:</p>
+          <ul>
+            <li>Asynchroner Code (nicht beschränkt auf fetch)</li>
+            <li>Server Zugriffe/Server Mocks</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Behandlung von asynchronem code</h3>
+        </section>
 
         <section>
           <h3>Testen von asynchronem Code</h3>
@@ -4288,6 +4303,181 @@ test('it should render correctly', () => {
             });
           </code></pre>
         </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Testen von fetch</h3>
+          <p>Wie gesehen, können wir asynchronen Code testen</p>
+          <p class="fragment">Wollen wir fetch-Aufrufe in unserem Code haben, den wir testen?</p>
+          <p class="fragment">
+            Möglicherweise nicht, weil wir bei echten fetch-Aufrufen auch einen echten, laufenden
+            und funktionierenden Server im Test bräuchten
+          </p>
+          <p class="fragment">Stattdessen wollen wir das "echte" fetch mocken</p>
+        </section>
+
+        <section>
+          <h3>Fetch mocken, Ansatz #1</h3>
+          <p>Wir können <b>komplette Module</b> in Jest mocken</p>
+          <p class="fragment">
+            Wir könnten unseren fetch-Code in ein eigenes Modul schieben und das dann mocken
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // api.ts (fetch vereinfacht!)
+            export function readPosts() {
+              return fetch("http://localhost:7000/posts").then(response => response.json());
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // App.tsx:
+
+            import { readPosts } from "./api";
+            function App() {
+              // ...
+              React.useEffect(() => {
+                // Verwenden von readPosts hier:
+                readPosts()
+                  .then(json => {
+                    setLoading(false);
+                    setPosts(json);
+                  })
+                  .catch(err => console.error("Loading data failed: " + err));
+              }, []);
+            }
+          </code></pre>
+        </section>
+        <section>
+          <h3>Mocken von Modulen in Jest</h3>
+          <p>Es gibt mehrere Varianten. Das hier die einfachste(?)</p>
+
+          <pre class="fragment"><code class="javascript">
+            // App.test.tsx
+
+            const mockPosts = [
+              { id: "1", title: "One Fetch Mock", body: "Lorem ipsum" },
+              { id: "2", title: "Second Post Fetch Mock", body: "Some more content" }
+            ];
+
+            jest.mock("../api", () => ({
+              readPosts: () => Promise.resolve(mockPosts)
+            }));
+
+            it("should render posts read from backend", async () => {
+              render(&lt;App />);
+            
+              // Hier immer noch asnychroner Code (deswegen await), aber:
+              // kein laufender Server mehr benötigt
+              const articleOne = await screen.findByRole("heading", { name: "One" });
+              expect(articleOne).toBeInTheDocument();
+
+              expect(screen.getByText("Second Post")).toBeInTheDocument();
+            });
+          </code></pre>
+          <p class="fragment">
+            Beispiel:
+            <code
+              >blog-example/steps/6a-testing-with-api-module/src/__tests__/App_module_mock.test.tsx</code
+            >
+          </p>
+        </section>
+        <section>
+          <h3>Ansatz #2: fetch API mocken</h3>
+          <p>Es gibt mehrere Bibliothken mit fetch-Mocks</p>
+          <p>
+            Für mich funktioniert
+            <a href="https://www.npmjs.com/package/jest-fetch-mock" target="_blank"
+              >jest-fetch-mock</a
+            >
+            am Besten
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // App.test.tsx
+            it("should render posts read from backend", async () => {
+              // setzen des Ergebnisses, das der nächste fetch-Aufruf zurückliefern soll
+              fetchMock.mockResponse(JSON.stringify(mockPosts));
+
+              render(&lt;App />);
+            
+              // Immer noch asynchroner Code, aber kein "echter" fetch-Aufruf mehr,
+              // zurückgegeben wird das oben angegebene Ergebnis
+              const articleOne = await screen.findByRole("heading", { name: "One Fetch Mock" });
+
+              expect(articleOne).toBeInTheDocument();
+            });
+
+          </code></pre>
+          <p class="fragment">
+            Beispiel:
+            <code
+              >blog-example/steps/6a-testing-with-api-module/src/__tests__/App_jest_mock.test.tsx</code
+            >
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Ansatz #3: Mock Service Worker (MSW)</h3>
+
+          <p><a href="https://github.com/mswjs/msw" target="_blank">MSW</a></p>
+          <p>
+            MSW mockt echte Server-Aufrufe mit einem
+            <a href="https://developer.mozilla.org/de/docs/Web/API/Service_Worker_API"
+              >Service Worker</a
+            >
+          </p>
+          <p>
+            fetch-Aufrufe werden "richtig" ausgeführt, aber beantwortet von dem Service Worker Mock
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // PostList.test.js
+            import { rest } from 'msw'
+            import { setupServer } from 'msw/node'
+            
+            const server = setupServer(
+              rest.get('/posts', (req, res, ctx) => {
+                return res(ctx.json( mockPosts ))
+              }),
+            )
+
+            test("it should render blog list", async () => {
+              render(&lt;PostList />);
+              // ...
+            })
+          </code></pre>
+        </section>
+
+        <!-- <section>
+          <h2>Übung: Ein Test für den PostEditor</h2>
+          <p>Schritte:</p>
+          <ol>
+            <li class="fragment">Arbeite in <code>blog-example/workspace-typescript</code></li>
+            <li class="fragment">
+              Starte in einem neuen Terminal <code>npm test</code> (der Prozess läuft "ewig")
+            </li>
+            <li class="fragment">
+              Es sollte einen fehlerhaften Test geben:
+              <b><code>PostEditor.test.tsx</code></b
+              >.
+            </li>
+            <li class="fragment">Warum? Weil der noch leer ist 😬!</li>
+            <li class="fragment">
+              Implementiere den fehlenden Test. In der Datei<b><code>PostEditor.test.tsx</code></b>
+              stehen TODOs dafür
+            </li>
+          </ol>
+          <p class="fragment">
+            Hinweis: wenn Du die Datei speicherst, werden die Tests automatisch neu ausgeführt
+            (solange Du
+            <code>npm test</code> noch laufen hast), ansonsten kannst Du "a" auf der Kommandozeile
+            drücken, zum erneuten Ausführen der Tests.
+          </p>
+          <p class="fragment">Mögliche Lösung in <code>steps/6-test</code></p>
+          <p class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</p>
+        </section> -->
 
         <section>
           <h2>Browser Tests</h2>
