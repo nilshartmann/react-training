@@ -190,7 +190,8 @@
         <!-- ============================================================================= -->
         <section>
           <h3>Möglichkeiten zur Strukturierung einer Komponente</h3>
-          <p class="fragment"></p>
+
+          <p class="fragment">Beispiel: Extraktion in Variable</p>
 
           <pre class="fragment"><code class="javascript">
 function Input() {
@@ -224,7 +225,7 @@ function Input() {
         </section>
         <section>
           <h3>Möglichkeiten zur Strukturierung einer Komponente #2</h3>
-          <p class="fragment"></p>
+          <p class="fragment">Beispiel: Extraktion in innere Funktion</p>
 
           <pre class="fragment"><code class="javascript">
 function Input({minLength}) {
@@ -486,6 +487,8 @@ export function YellowBox({children}) {
 
           <p class="fragment">"Teil-Abstraktion" durch Komponentenkomposition?</p>
 
+          <p class="fragment">Beispiel: Eine Fehlermeldung in einer Input-Komponente</p>
+
           <pre class="fragment"><code class="javascript">
 function Input({errorMessage}) {
   const [text, setText] = useState("");
@@ -497,7 +500,9 @@ function Input({errorMessage}) {
 }            
           </code></pre>
 
+          <p class="fragment">...und nun noch eine Farbe für die Fehlermeldung</p>
           <pre class="fragment"><code class="javascript">
+
             function Input({errorMessage, errorMessageColor}) {
               const [text, setText] = useState("");
             
@@ -507,6 +512,8 @@ function Input({errorMessage}) {
               &lt;/div>
             }            
                       </code></pre>
+
+          <p class="fragment">Besser?</p>
 
           <pre class="fragment"><code class="javascript">
                         function Input({errorComponent}) {
@@ -523,16 +530,7 @@ function Input({errorMessage}) {
                           &lt;div className="Red Error">Error!&lt;div>
                         }&lt;/>
                                   </code></pre>
-        </section>
-
-        <section>
-          <h3>DRY vs. Wrong Abstraction: Praxis</h3>
-          <p>An den Verwender denken!</p>
-
-          <p>
-            Mit gut definierten Properties für Verwender möglicherweise einfacher, als
-            spezialisierte Komponenten?
-          </p>
+          <p>Dazu später mehr!</p>
         </section>
 
         <!-- ============================================================================= -->
@@ -764,7 +762,8 @@ function Input({errorMessage}) {
             Was, wenn der Verwender nochmehr Einfluss bekommen soll?
           </p>
           <p class="fragment">
-            Weitere Properties (in anderen Frameworks wird sowas auch "Slot" genannt)
+            Möglichkeit: Weitere Properties hinzufügen (in anderen Frameworks wird sowas auch "Slot"
+            genannt)
           </p>
 
           <pre class="fragment"><code class="javascript">
@@ -912,7 +911,7 @@ function DataLoader({url, children}) {
         <section>
           <h3>Grenzen von Render Properties</h3>
 
-          <p>Wo kommen die Render-Props möglicherweise an ihre Grenzen?</p>
+          <p>1. Wo kommen die Render-Props möglicherweise an ihre Grenzen?</p>
 
           <p class="fragment">Code könnte bei geschachtelten Render-Props unübersichtlich werden</p>
 
@@ -923,10 +922,6 @@ function DataLoader({url, children}) {
             } 
             />
          </code></pre>
-
-          <p class="fragment">
-            Was, wenn wir die Hierarchie noch erweitern?
-          </p>
         </section>
 
         <!-- ============================================================================= -->
@@ -934,7 +929,7 @@ function DataLoader({url, children}) {
           <h3>Component Composition</h3>
 
           <p class="fragment">
-            Was, wenn wir die Hierarchie noch erweitern?
+            Was, wenn wir die Hierarchie noch erweitern wollen?
           </p>
 
           <pre class="fragment"><code class="javascript">
@@ -945,7 +940,7 @@ function DataLoader({url, children}) {
           
           // Verwendung
           &lt;Form>
-            &lt;Input renderErrorComponent={ error => } &lt;div className="Red Error">Error!&lt;div>} />
+            &lt;Input renderErrorComponent={ error =>  &lt;div className="Red Error">Error!&lt;div>} />
             &lt;DatePicker />
             &lt;SubmitButton>Absenden&lt;SubmitButton>
             &lt;button onClick={???}>Clear&lt;button/>
@@ -953,7 +948,7 @@ function DataLoader({url, children}) {
                     </code></pre>
           <p class="fragment">
             Zustand zentral in der Form: woher kennen die Unterkomponenten den Zustand? SubmitButton
-            soll nur aktiv sein, wenn alle Felder ausgefüllt sind
+            z.B. soll nur aktiv sein, wenn alle Felder ausgefüllt sind
           </p>
           <p class="fragment">Wie kann der Clear-Button den Zustand zurücksetzen?</p>
         </section>
@@ -1075,8 +1070,7 @@ function ClearButton() {
         <section>
           <h3>Context: was wird eigentlich gerendert? 🤔</h3>
 
-          TODO BEISPIEL: Form rendert ihre Kinder selbst vs Form rendert übergebenes Kind BEISPIEL:
-          Context rendert nur Konsumenten, aber alle (auch solche, die nur Teile verwenden)
+          <p>👉 03_component_composition/01_form_example</p>
         </section>
 
         <!-- ============================================================================= -->
@@ -1199,6 +1193,15 @@ function ClearButton() {
         * Sämtliche Änderungen daran passieren innerhalb der Komponente
         * Mit einer reducer-Funktion kann die Verwaltung des Zustandes aus der Komponente herausgelöst werden
         * Warum sollte man das tun? Ideen? 🤔
+      </textarea
+          >
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+        ### useReducer
+
+        👉 03_form_example_mit_useReducer
       </textarea
           >
         </section>

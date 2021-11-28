@@ -72,7 +72,7 @@ function Input({ name }: InputProps) {
         value={formState[name] || ""}
         onChange={e => onFieldChange(name, e.target.value)}
       />
-      (Renderings {inputCounter[name]})
+      {/* (Renderings {inputCounter[name]}) */}
     </label>
   );
 }
