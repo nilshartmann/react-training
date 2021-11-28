@@ -1,7 +1,5 @@
-import { request } from "http";
-import * as React from "react";
+import React from "react";
 import useSWR, { SWRConfig } from "swr";
-
 const globalSwrConfig = {
   fetcher: demoFetch
 };

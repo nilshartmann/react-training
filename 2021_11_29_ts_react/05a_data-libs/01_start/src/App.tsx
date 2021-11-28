@@ -1,9 +1,12 @@
 import * as React from "react";
-import { SWRConfig } from "swr";
+import useSWR, { SWRConfig } from "swr";
 
 const globalSwrConfig = {
   fetcher: demoFetch
 };
+
+// /api/user
+// /api/post
 
 export default function Setup() {
   return (
@@ -90,7 +93,7 @@ function newEntity(url: string): Response {
 /** Simulates fetch API */
 let requestNo = 6;
 function demoFetch(url: string): Promise<Response> {
-  const myRequest = requestNo++;
+  requestNo++;
   return new Promise(resolve => {
     setTimeout(() => resolve(newEntity(url)), 1000);
   });
