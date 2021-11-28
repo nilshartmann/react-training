@@ -62,7 +62,7 @@ try {
 // Error-Handler, Variante 2: any
 try {
   onMessage("", loggingMessageHandler);
-} catch (err: any) {
+} catch (err) {
   // Praktisch: keine Prüfung notwendig, aber...
   //  ...haben wir hier wirklich einen InvalidMessageError?
   console.log(err.invalidMessage);
@@ -90,6 +90,6 @@ const simpleMessages2: SimpleMessage[] = messages.filter(isSimpleMessage);
 
 // Infos:
 // Unknown Type: https://www.typescriptlang.org/docs/handbook/2/functions.html#unknown
-// Type Predicats: https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
+// Type Predicates: https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
 // Assertion Functions: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions
 // Beispiel Type Guards: https://www.typescriptlang.org/play?q=29#example/type-guards

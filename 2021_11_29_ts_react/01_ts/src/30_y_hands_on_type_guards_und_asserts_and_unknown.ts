@@ -73,12 +73,10 @@ try {
 //    Compile-Fehler gibt?
 const messages: Message[] = [];
 
-const simpleMessages = messages.filter(
-  (message) => typeof message !== "string"
-);
+const simpleMessages = messages.filter(message => typeof message !== "string");
 
 // Infos:
 // Unknown Type: https://www.typescriptlang.org/docs/handbook/2/functions.html#unknown
-// Type Predicats: https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
+// Type Predicates: https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
 // Assertion Functions: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions
 // Beispiel Type Guards: https://www.typescriptlang.org/play?q=29#example/type-guards

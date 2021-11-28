@@ -16,5 +16,9 @@ function greet(greeting: string) {
 //
 // STEP 2b: how can we create a factory function that returns the english locale?
 //
+// Huch, was werden hier denn für Typen abgeleitet? 🤔🤔🤔
+// const x = "Hallo";
+// let y = "Hallo";
+
 // Discussion: Type Widening and Type Narrowing
 // Discussion: Exact Types

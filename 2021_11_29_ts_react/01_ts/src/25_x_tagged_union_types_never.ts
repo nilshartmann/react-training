@@ -40,3 +40,4 @@ function invalidTranslation(msg: never) {
 
 // Info (tagged union types werden auch "discriminating unions" genannt):
 // https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions
+// Never Type: https://www.typescriptlang.org/docs/handbook/2/narrowing.html#the-never-type
