@@ -96,10 +96,12 @@
         <!-- ============================================================================= -->
         <section>
           <h3>Agenda</h3>
-          <ul>
+          <ol>
             <li class="fragment"><a href="#/typescript">TypeScript</a></li>
             <li class="fragment"><a href="#/t-projektstruktur">Projektstruktur</a></li>
-            <li class="fragment"><a href="#/t-component-composition">Component Composition</a></li>
+            <li class="fragment">
+              <a href="#/t-component-composition">Component Composition, Context, useReducer</a>
+            </li>
             <li class="fragment"><a href="#/t-use-effect">Data Fetching mit useEffect</a></li>
             <li class="fragment">
               <a href="#/data-libs">React Bibliotheken für Data Fetching (Übersicht)</a>
@@ -107,7 +109,8 @@
             <li class="fragment">
               <a href="#/t-test">Testen von Anwendungen</a>
             </li>
-          </ul>
+            <li>Server-seitiges Rendern und React Server Components</li>
+          </ol>
         </section>
 
         <section data-markdown>
@@ -150,9 +153,11 @@
     ## Strukturierung von React-Anwendungen
 
     ## ~~Best Practices~~
+    ## eher: _Möglichkeiten_
   </textarea
           >
         </section>
+
         <!-- ============================================================================= -->
         <section id="t-projektstruktur">
           <h3>Projektstruktur</h3>
@@ -179,10 +184,81 @@
               Das ist ein Grundprinzip von React (z.B. auch: keine Trennung zwischen Template und
               Logik/Model in einer Komponente)
             </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Möglichkeiten zur Strukturierung einer Komponente</h3>
+          <p class="fragment"></p>
+
+          <pre class="fragment"><code class="javascript">
+function Input() {
+  const [text, setText] = useState();
+
+  return &lt;div>
+    &lt;input value={text} onChange={...} />
+    {text ? 
+      &lt;p>Vielen Dank für Ihre Eingabe&lt;/p> : &lt;p>Bitte füllen Sie das Feld aus&lt;/p>
+    }
+    &lt;/div>
+}    
+          </code></pre>
+          <div class="fragment">
+            <pre><code class="javascript">
+            function Input() {
+              const [text, setText] = useState();
+
+              const msg = text ? 
+                &lt;p>Vielen Dank für Ihre Eingabe&lt;/p> 
+                  : &lt;p>Bitte füllen Sie das Feld aus&lt;/p>
+            
+              return &lt;div>
+                &lt;input value={text} onChange={...} />
+                {msg}
+                &lt;/div>
+            }    
+                      </code></pre>
+            <p>Was spricht dafür? Was spricht dagegen?</p>
+          </div>
+        </section>
+        <section>
+          <h3>Möglichkeiten zur Strukturierung einer Komponente #2</h3>
+          <p class="fragment"></p>
+
+          <pre class="fragment"><code class="javascript">
+function Input({minLength}) {
+  const [text, setText] = useState();
+
+  function getMessage() {
+    if (text.length < minLength) {
+      return &lt;p className="err">Geben Sie mehr Zeichen ein&lt;/p>
+    }
+    if (text.toUpperCase() === text) {
+      return &lt;p className="warn">Sie sollten Groß- und Kleinbuchstaben verwenden&lt;/p>
+    }
+
+    return &lt;p>Prima, alles in Ordnung!&lt;/p>;
+  }
+
+  return &lt;div>
+    &lt;input value={text} onChange={...} />
+    {getErrorMessage()}
+    &lt;/div>
+}    
+          </code></pre>
+          <div class="fragment">
+            <p>Warum nicht als Variable wie in Beispiel #1?</p>
+            <p>Warum getMessage (nicht) als eigene Komponente?</p>
+          </div>
+        </section>
+        <section>
+          <h3>Strukturieren von Komponenten</h3>
+          <ul>
             <li class="fragment">
               Man kann z.B. mehrere Komponenten in eine Datei tun, aber nur eine Komponente
               öffentlich exportieren. Dann sind die anderen Komponenten Implementierungsdetails.
-              Wenn man daran was ändern muss, muss man aber nicht in diversen Dateien suchen
+              Wenn man daran was ändern muss, muss man nicht in diversen Dateien suchen
 
               <pre class="fragment"><code class="javascript">
           function BlogTitle() { ... }
@@ -196,6 +272,23 @@
         </code></pre>
             </li>
           </ul>
+          <p class="fragment">🤔 Was machen wir, wenn wir BlogTitle testen möchten?</p>
+          <p class="fragment">
+            Wollen wir das überhaupt, oder ist das nicht ein Implementierungsdetail?
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            function BlogTitle() { ... }
+
+            export default function BlogPost() { ... }
+
+            export { BlogTitle as BlogTitle_for_test }
+          </code></pre>
+          <p class="fragment">
+            Alternative/Ergänzung: Imports mit
+            <a href="https://eslint.org/docs/rules/no-restricted-imports">no-restricted-imports</a>
+            ESLint Plug-in einschränken
+          </p>
         </section>
 
         <!-- ============================================================================= -->
@@ -311,6 +404,135 @@
       // (mit absolutem Pfad)
       import { Button } from "blog";
     </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>DRY vs. Wrong Abstraction</h3>
+
+          <p>Zwei Meinungen</p>
+
+          <p class="fragment">
+            prefer duplication over the wrong abstraction (<a
+              href="https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction"
+              >Sandi Metz</a
+            >)
+          </p>
+          <p class="fragment">prefer abstraction over the wrong duplication 😈(Nils)</p>
+
+          <p class="fragment">
+            DRY hatte lange Zeit einen Beigeschmack, es gibt reichlich Tools, die Code
+            Wiederholungen als Problem kennzeichnen (z.B.
+            <a href="https://www.jetbrains.com/help/idea/analyzing-duplicates.html">IntelliJ</a>
+            oder
+            <a href="https://livebook.manning.com/book/sonarqube-in-action/chapter-4/">Sonarqube</a>
+          </p>
+          <p class="fragment">
+            Abstraktion schafft Abhängigkeit, deswegen nicht mehr "reine Leere" (s. auch
+            Microservice-Architekturen)
+          </p>
+        </section>
+        <section>
+          <h3>DRY vs. Wrong Abstraction: Praxis</h3>
+          <p class="fragment">
+            Möglichst if-Kaskaden oder "abhängige" Properties vermeiden (wenn "a" gesetzt ist, muss
+            auch "b", aber darf nicht "c" gesetzt sein)
+          </p>
+          <p class="fragment">Möglichst nicht von vornherein abstrahieren</p>
+
+          <p class="fragment">
+            Vielleicht ist es ein Unterschied, wo ihr "wiederholt" oder "abstrahiert"?
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+// boxes.js            
+export function RedBox({children}) {
+  return &lt;div className="Box red">{children}&lt;/div>
+}  
+
+export function BlueBox({children}) {
+  return &lt;div className="Box blue">{children}&lt;/div>
+}
+
+export function YellowBox({children}) {
+  return &lt;div className="Box yellow">{children}&lt;/div>
+}            
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            // src/components/redbox.js            
+export function RedBox({children}) {
+  return &lt;div className="Box red">{children}&lt;/div>
+}  
+
+// src/util/bluebox.js
+export function BlueBox({children}) {
+  return &lt;div className="Box blue">{children}&lt;/div>
+}
+
+// src/features/inbox/yellobox.js
+export function YellowBox({children}) {
+  return &lt;div className="Box yellow">{children}&lt;/div>
+}  
+</code></pre>
+          <p class="fragment">
+            bei Anpassungen: eine/wenige Dateien an einer/wenigen Stellen betroffen oder ganze
+            Code-Basis?
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>DRY vs. Wrong Abstraction: Praxis</h3>
+
+          <p class="fragment">"Teil-Abstraktion" durch Komponentenkomposition?</p>
+
+          <pre class="fragment"><code class="javascript">
+function Input({errorMessage}) {
+  const [text, setText] = useState("");
+
+  return &lt;div>
+    &lt;input ... />
+    &lt;text.length === 0 && errorMessage}
+  &lt;/div>
+}            
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            function Input({errorMessage, errorMessageColor}) {
+              const [text, setText] = useState("");
+            
+              return &lt;div>
+                &lt;input ... />
+                &lt;text.length === 0 && &lt;div className="errorMessageColor">{errorMessage}&lt;/div>
+              &lt;/div>
+            }            
+                      </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                        function Input({errorComponent}) {
+                          const [text, setText] = useState("");
+                        
+                          return &lt;div>
+                            &lt;input ... />
+                            &lt;text.length === 0 && errorComponent />
+                          &lt;/div>
+                        }
+                        
+                        // Verwendung
+                        &lt;Input errorComponent={
+                          &lt;div className="Red Error">Error!&lt;div>
+                        }&lt;/>
+                                  </code></pre>
+        </section>
+
+        <section>
+          <h3>DRY vs. Wrong Abstraction: Praxis</h3>
+          <p>An den Verwender denken!</p>
+
+          <p>
+            Mit gut definierten Properties für Verwender möglicherweise einfacher, als
+            spezialisierte Komponenten?
+          </p>
         </section>
 
         <!-- ============================================================================= -->
@@ -517,17 +739,447 @@
           </textarea>
         </section>
 
+        <section>
+          <h3>Component Composition</h3>
+
+          <p>Unser Beispiel von vorhin</p>
+          <pre class="fragment"><code class="javascript">
+                        function Input({errorComponent}) {
+                          const [text, setText] = useState("");
+                        
+                          return &lt;div>
+                            &lt;input ... />
+                            &lt;text.length === 0 && errorComponent />
+                          &lt;/div>
+                        }
+                        
+                        // Verwendung
+                        &lt;Input errorComponent={
+                          &lt;div className="Red Error">Error!&lt;div>
+                        }  
+                        &lt;/>
+                                  </code></pre>
+
+          <p class="fragment">
+            Was, wenn der Verwender nochmehr Einfluss bekommen soll?
+          </p>
+          <p class="fragment">
+            Weitere Properties (in anderen Frameworks wird sowas auch "Slot" genannt)
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            function Input({errorComponent, label, inputHint}) {
+              const [text, setText] = useState("");
+              const [inputHintVisible, setInputHintVisible] = useState(false);
+            
+              return &lt;div>
+                {label}
+                {inputHintVisible && inputHint}
+                &lt;input ... />
+                &lt;text.length === 0 && errorComponent />
+              &lt;/div>
+            }
+            // Verwendung
+            &lt;Input
+              label={&lt;h3>Geburtsort&lt;h3>}
+              inputHint={&lt;p>Bitte geben Sie hier Ihre fünfstellige Postleitzahl ein&lt;p>}
+              errorComponent={&lt;div className="Red Error">Ihre Eingabe ist ungültig!&lt;div>}
+            &lt;/Input>
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Component Composition</h3>
+
+          <p>Warum (nicht) so?</p>
+
+          <pre class="fragment"><code class="javascript">
+            function Input({children}) {
+              const [text, setText] = useState("");
+              const [inputHintVisible, setInputHintVisible] = useState(false);
+            
+              return &lt;div>
+                &lt;input ... />
+                {children}
+              &lt;/div>
+            }
+          </code></pre>
+
+          <p class="fragment">
+            Children ist auch ein "normales" Property, das eine JSX-Komponente aufnehmen kann
+          </p>
+          <p class="fragment">
+            Hier ist es aber zu unflexibel, da wir die "Einzelteile" individuell behandeln wollen:
+            wo werden sie platziert? wann sind sie überhaupt sichtbar?
+          </p>
+        </section>
+
+        <section>
+          <h3>Component Composition</h3>
+
+          <p>Unser Beispiel von vorhin (zurück zur errorComponent)</p>
+          <pre class="fragment"><code class="javascript">
+                        function Input({errorComponent}) {
+                          const [text, setText] = useState("");
+                        
+                          return &lt;div>
+                            &lt;input ... />
+                            &lt;text.length === 0 && errorComponent />
+                          &lt;/div>
+                        }
+                        
+                        // Verwendung
+                        &lt;Input
+                          errorComponent={&lt;div className="Red Error">Error!&lt;div>}
+                        &lt;/Input>
+                                  </code></pre>
+
+          <p class="fragment">
+            Was, wenn der Verwender je nach Text eine Meldung ausgeben möchte? Woher kommt der Text
+            🤔
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // Verwendung
+            &lt;Input>
+              // Hier brauchen wir den Text aus der Input-Komponente....
+              errorComponent={&lt;div className="Red Error">Ihre Eingabe TEXT ist falsch!&lt;div>}
+            &lt;/Input>
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Component Composition: Render Props</h3>
+
+          <p>Ein "Render Prop", ist ein "normales" Property, das eine Callback-Funktion enthält</p>
+          <p>
+            Die Funktion liefert keine Werte/Daten, sondern UI zurück (wie eine React-Komponent)
+          </p>
+          <p>
+            Die Oberkomponente kann auf diese Weise mit der Unterkomponente bzw. dem Verwender
+            kommunizieren
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+                        function Input({renderErrorComponent}) {
+                          const [text, setText] = useState("");
+                        
+                          return &lt;div>
+                            &lt;input ... />
+                            {renderErrorComponent(text)}
+                          &lt;/div>
+                        }
+                        
+                        // Verwendung
+                        &lt;Input renderErrorComponent={
+                          error =&gt; error ? &lt;div className="Red Error">Error!&lt;div> : null
+                        } />
+                                  </code></pre>
+          <p class="fragment">
+            Typische Konvention: Namen der Render-Properties fangen mit "render" an
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Component Composition</h3>
+          <p>Besonderheit: Function as Children</p>
+          <p class="fragment">Auch das children-Property kann eine Funktion sein!</p>
+
+          <pre class="fragment"><code class="javascript">
+function DataLoader({url, children}) {
+  const data = loadDataFromUrl(url); // dummy code!
+
+  if (!data) {
+    return &lt;p>Data still loading!&lt;/p>
+  }
+
+  return children(data)  // Children ist eine Funktion!
+}
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+// Verwender
+&lt;DataLoader>
+  { data => &lt;article>&lt;h1>{data.title}&lt;/h1>&lt;p>{data.body}&lt;/p> }            
+  &lt;/DataLoader>
+</code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Grenzen von Render Properties</h3>
+
+          <p>Wo kommen die Render-Props möglicherweise an ihre Grenzen?</p>
+
+          <p class="fragment">Code könnte bei geschachtelten Render-Props unübersichtlich werden</p>
+
+          <pre class="fragment"><code class="javascript">
+          &lt;DataLoader renderData=
+            { user => &lt;Input initial={user.name} 
+              renderError={text => ...} /> 
+            } 
+            />
+         </code></pre>
+
+          <p class="fragment">
+            Was, wenn wir die Hierarchie noch erweitern?
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Component Composition</h3>
+
+          <p class="fragment">
+            Was, wenn wir die Hierarchie noch erweitern?
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+          function Form(...) {  }
+          function Input(...) { }
+          function DatePicker(...) { ... }
+          function SubmitButton(...) { ... }
+          
+          // Verwendung
+          &lt;Form>
+            &lt;Input renderErrorComponent={ error => } &lt;div className="Red Error">Error!&lt;div>} />
+            &lt;DatePicker />
+            &lt;SubmitButton>Absenden&lt;SubmitButton>
+            &lt;button onClick={???}>Clear&lt;button/>
+          &lt;/Form>
+                    </code></pre>
+          <p class="fragment">
+            Zustand zentral in der Form: woher kennen die Unterkomponenten den Zustand? SubmitButton
+            soll nur aktiv sein, wenn alle Felder ausgefüllt sind
+          </p>
+          <p class="fragment">Wie kann der Clear-Button den Zustand zurücksetzen?</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Component Composition: Context</h3>
+          <p class="fragment">👉 Miro!</p>
+        </section>
+
         <section data-markdown>
           <textarea data-template>
-            - Formular und Eingabefelder
+        ### React Context
 
-            - Context
-              - Nachteil: Komponente setzt bestimmte Umgebung voraus
-            - children
-            - Render-Properties
-            - Function as Children
-            - Custom Hooks
+        * Der **React Context** ist eine Möglichkeit, globalen Zustand Komponenten zur Verfügung zu stellen, ohne ihn über Properties durchreichen zu müssen
+        * Es gibt dabei eine **Provider** Komponente, die ein beliebiges Objekt, den Kontext, allen unterhalb liegenden Komponenten zur Verfügung stellt
+        * Das Objekt kann Daten und (Callback-)Funktionen enthalten
+        * Das Prinzip ist ähnlich wie wir es schon gesehen haben, nur dass diese Daten nicht explizit per Properties von einer Ebene zur nächsten weitergerreicht werden müssen.
+        Stattdessen findet das Durchreichen transparent statt
+        * Du kannst beliebig viele Kontexte in deiner Anwendung verwenden. Dann hast Du entsprechend mehr Provider-Komponenten.
+      </textarea
+          >
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Context: Factory</h3>
+          <ul>
+            <li class="fragment">Der Provider stellt ein beliebiges Objekt zur Verfügung</li>
+            <li class="fragment">
+              Dafür muss ein Context-Objekt mit <code>React.createContext</code> erzeugt werden.
+              Dieses Objekt enthält die Provider- und die Consumer-Komponente
+            </li>
+            <li class="fragment">(Consumer-Komponente ist mit Hooks API irrelevant)</li>
+          </ul>
+
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+        import react from "React";
+
+        const FormContext = React.createContext();
+
+        // erzeugt:
+        // ThemeContext.Provider 
+        // ThemeContext.Consumer (irrelevant mit Hooks API)
+                </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Context: Provider</h3>
+          <ul>
+            <li class="fragment">
+              Die mit <code>createContext</code> erzeugte Provider Komponente erhält ein Objekt als
+              Properties, das sie allen unterhalb liegenden Komponenten (<code>children</code>) zur
+              Verfügung stellt.
+            </li>
+            <li class="fragment">Die Verwendung ist wie eine "normale" Komponente</li>
+            <li class="fragment">
+              Üblicherweise baut man sich eine Komponente darum, die dann auch die Daten hält, die
+              über den Context zur Verfügung gestellt werden sollen
+            </li>
+            <li class="fragment">Auch hierbei handelt es sich um eine "normale" Komponente:</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+        const FormContext = React.createContext();
+
+        function FormContextProvider(props) {
+          const [formData, setFormData] = React.useState();
+
+
+          return &lt;FormContext.Provider value={{
+           data: formData,
+           clearForm() { setFormData( {} )}
+          }}>
+          {props.children}
+        &lt;/FormContext.Provider>;
+      }
+</code></pre>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Context: Consumer</h3>
+          <p><em>Zugriff auf die Werte aus dem Context</em></p>
+          <ul>
+            <li class="fragment">
+              In allen Komponenten unterhalb der Provider Komponente, kann mit
+              <code>useContext</code> auf das bereitgestellte Objekt zugegriffen werden
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+function Input({name}) {
+const { formData } = React.useContext(FormContext);
+
+return &lt;input value={formData[name]}... />&lt;/div>
+}            
+    </code></pre>
+          <pre class="fragment"><code class="javascript">
+      function Error({name}) {
+      const { formData } = React.useContext(FormContext);
+      
+      return formData[name] && &lt;div className="red">Error!&lt;/div>
+      }            
+          </code></pre>
+          <p class="fragment">
+            Wenn der Kontext sich ändert, werden alle Konsumenten automatisch neu gerendert
+          </p>
+          <pre class="fragment"><code class="javascript">
+function ClearButton() {
+  const { clearForm } = React.useContext(themeContext);
+  return &lt;div>
+    &lt;button onClick={() => clearForm()}>Clear&lt;/button>
+    &lt;/div>
+}                
+    </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Context: was wird eigentlich gerendert? 🤔</h3>
+
+          TODO BEISPIEL: Form rendert ihre Kinder selbst vs Form rendert übergebenes Kind BEISPIEL:
+          Context rendert nur Konsumenten, aber alle (auch solche, die nur Teile verwenden)
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Custom Hook für Context-Zugriff</h3>
+
+          <ul>
+            <li class="fragment">
+              Du kannst einen Custom Hook für den Zugriff auf deinen Kontext bauen
+            </li>
+            <li class="fragment">
+              Dann ist die Technologie (Context) gekapselt und Du hast eine "fachliche" API
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            // FormContext.tsx
+            export function useFormContext() {
+              return React.useContext(FormContext);
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // Input.tsx
+            function Input(props) {
+              const { formData } = useFormContext();
+              
+              // ...
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Verwendung der Form Komponente #1</h3>
+          <pre class="fragment"><code class="javascript">
+            function Form(...) {  }
+            function Input(...) { }
+            function DatePicker(...) { ... }
+            function SubmitButton(...) { ... }
+            
+            // Verwendung
+            &lt;Form>
+              &lt;Input name="lastname" />
+              &lt;Error name="lastname" />
+
+              &lt;DatePicker name="birthday" />
+              &lt;SubmitButton>Absenden&lt;SubmitButton>
+              &lt;button onClick={???}>Clear&lt;button/>
+            &lt;/Form>
+                      </code></pre>
+        </section>
+
+        <section>
+          <h3>Verwendung der Form Komponente #2</h3>
+          <p>Wie könnten wir folgendes Pattern vereinfachen? (Und: wollen wir das?)</p>
+          <pre class="fragment"><code class="javascript">
+            // Verwendung
+            &lt;Form>
+              &lt;Input name="lastname" />
+              &lt;Error name="lastname" />
+
+              &lt;Input name="firstname" />
+              &lt;Error name="firstname" />
+
+              &lt;Input name="city" />
+              &lt;Error name="city" />
+
+              &lt;SubmitButton>Absenden&lt;SubmitButton>
+              &lt;button onClick={???}>Clear&lt;button/>
+            &lt;/Form>
+                      </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Wieviele Contexte sollte man verwenden?</h3>
+
+          <p class="fragment">Antwort vom Spotify Web Player:</p>
+          <img class="fragment" src="slides/images/context-in-spotify.jpg" />
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Mögliche Übung: React Context
+
+            * In der Datei `ThemeContext.tsx` findest Du bereits einen Rumpf für einen Theme-Context
+            * Verfollständige diesen, so dass er eine Farbe und eine setter-Funktion zum Ändern der Farbe bekommt
+            * Passe deine TextInput-Komponente oder ein anderes Input-Feld so an, dass es als Hintergrundfarbe die Farbe aus dem Context verwendet (Property: `style={{backgroundColor: ...}}`)
+            * Implementiere eine neue Komponente `ThemeChooser`, die die setter-Funktion aus dem Context benutzt, um eine andere Farbe einzustellen. Die Komponente kann sehr trivial sein, z.B. 
+            nur ein oder zwei Buttons, um zwischen zwei Farben hin- und herzuschalten
+
           </textarea>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Probleme mit Kontext?</h3>
+
+          <p class="fragment">"Implizite" Kommunikation zwischen Komponenten</p>
+          <p class="fragment">
+            Komponenten setzen bestimmte Umgebung voraus - die nicht unbedingt ersichtlich ist
+          </p>
         </section>
 
         <section data-markdown>
@@ -543,7 +1195,7 @@
           <textarea data-template>
         ### Verwaltung und Änderung von Zustand
 
-        * Wir halten den Zustand lokal in einer Komponente
+        * Wir halten den Zustand lokal in einer Komponente (z.B. Form)
         * Sämtliche Änderungen daran passieren innerhalb der Komponente
         * Mit einer reducer-Funktion kann die Verwaltung des Zustandes aus der Komponente herausgelöst werden
         * Warum sollte man das tun? Ideen? 🤔
@@ -588,13 +1240,14 @@
           </ul>
 
           <pre class="fragment"><code class="javascript">
-        const apiRequestStartedAction = {
-          type: "requestStarted"; // kein Payload erforderlich
+        const formClearedAction = {
+          type: "formCleared"; // kein Payload erforderlich
         }
 
-        const apiRequestFinishedAction = {
-          type: "requesFinished",
-          dataReceived: data  // Action-spezifischer Payload (hier: geladene Daten)
+        const fieldChangedAction = {
+          type: "fieldChanged",
+          fieldName: "lastname", // Action-spezifischer Payload
+          value: "Mueller"
         }
       </code></pre>
         </section>
@@ -613,20 +1266,21 @@
           </ul>
 
           <pre class="fragment"><code class="javascript">
-function apiReducer(state, action) {
+function formReducer(state, action) {
   switch (action.type) {
-    case "requestStarted": {
-      // vorherigen Zustand teilweise übernehmen
-      return { ...state, status: "loading" };
+    case "formClearedAction": {
+      return {  }; // neuer Zustand
     }
 
-    case "requestFinished": {
-      // komplett neuen Zustand zurückliefern
-      return { status: "finished", data: action.dataReceived };
+    case "fieldChangedAction": {
+      return {
+        ...state,
+        [action.fieldName]: action.value
+      }
     }
-
-    return state; // alle anderen Actions: Zustand unverändert zurück
   }
+
+  throw new Error("Invalid Action!")
 }            
       </code></pre>
         </section>
@@ -657,226 +1311,81 @@ function apiReducer(state, action) {
           </ul>
 
           <pre class="fragment"><code class="javascript">
-        function App() {
-          const [apiState, dispatch] = React.useReducer(apiReducer, { status: "loading" });
+        function Form() {
+          const [formState, dispatch] = React.useReducer(formReducer, {  });
 
-          function loadData() {
-            dispatch({ type: "requestStarted "});
-            // ...Daten laden...
-            dispatch({ type: "requestFinished", dataReceived: "..."});
-          }
-
-          // ...
-
+          return &lt;div>
+            &lt;input value={formState["firstname"]} onChange={
+              () => dispatch({ type: "fieldChangedAction", fieldName: "firstname", value: e.target.value }
+            } />
+            
+            &lt;button onClick={ () => dispatch({type: "formClearedAction"})}>Clear&lt;/button>
+            &lt;/div>
         }
       </code></pre>
         </section>
 
-        <section data-markdown>
-          <textarea data-template>
-        ### Mögliche Übung: Reducer-Funktion
-
-        _Baue eine Komponente, die Daten mit `fetch` lädt._
-        
-          * Du kannst den Endpunkt `/api/user` mit HTTP GET aufrufen, da kommt eine Mock-Antwort (ein valides User-Objekt). Auf der nächsten Slide findest Du
-          ein Beispiel dazu, falls dir `fetch` nicht mehr geläufig ist.
-          * Der Zustand in der Komponente wird in einem Reducer verwaltet.
-          * Der Zustand soll mindestens die beiden API-Status "started" und "finished" unterstützen. Im `finished`-Status soll der Zustand außerdem die geladenen Daten halten.
-          * Du brauchst also auch zwei Actions
-          * Während die Daten geladen werden, zeige eine "Bitte warten Sie"-Meldung an
-          * Wenn die Daten geladen sind, zeige die Komponente mit dem User-Editor an. Diese Komponente sollte nun das User-Objekt als Property entgegennehmen.
-          * Sollte die Komponente das User-Objekt direkt verändern? Oder wäre eine Kopie schlauer? 
-      </textarea
-          >
-        </section>
-
         <!-- ============================================================================= -->
         <section>
-          <h3>Beispiel: fetch</h3>
+          <h3>useReducer und Context</h3>
 
-          <pre><code class="javascript">
-        function App() {
-          React.useEffect(() => {
-            // todo: Action auslösen
-            fetch("/api/user")
-              .then(response => response.json())
-              .then(data => {
-                // todo: Action auslösen
-                // "data" ist ein gültiges User-Objekt
-              });
-          }, []);
-  
-          ...
-        }
-          
-      </code></pre>
-        </section>
-
-        <section data-markdown>
-          <textarea data-template>
-            NOCHMAL REINSCHAUEN: 2021_04_28_wdc_devsession.html
-          </textarea>
-        </section>
-
-        <section data-markdown>
-          <textarea data-template>
-        ### Nächster Schritt: Globaler Zustand
-
-        * Man kann Zustand in **lokalen Zustand** und **globalen Zustand** einteilen
-        * **Lokaler Zustand** ist Zustand, der "mehr oder weniger" einer Komponente zur Verfügung steht
-        * **Globaler Zustand** hingegen ist für die ganze Anwendung oder große Teile davon zuständig
-        * Die Übergänge sind fließend, es gibt keine fixe Definition
-
-        * Beispiele für globalen Zustand: angemeldeter Benutzer, Theme
-        * Es spricht nichts dagegen, globalen Zustand, mit useState/useReducer zu verwalten, aber...
-        * Du musst ihn mit unter weit nach unten reichen
-        * oder andersrum: er muss sehr weit oben aufgehängt sein, um z.B. für verschiedene Ansichten zur Verfügung zu stehen, oder Ansichtswechsel zu "überleben"
-      </textarea
-          >
-        </section>
-
-        <section data-markdown>
-          <textarea data-template>
-        ### React Context
-
-        * Der **React Context** ist eine Möglichkeit, globalen Zustand Komponenten zur Verfügung zu stellen, ohne ihn über Properties durchreichen zu müssen
-        * Es gibt dabei eine **Provider** Komponente, die ein beliebiges Objekt, den Kontext, allen unterhalb liegenden Komponenten zur Verfügung stellt
-        * Das Objekt kann Daten und (Callback-)Funktionen enthalten
-        * Das Prinzip ist ähnlich wie wir es schon gesehen haben, nur dass diese Daten nicht explizit per Properties von einer Ebene zur nächsten weitergerreicht werden müssen.
-        Stattdessen findet das Durchreichen transparent statt
-        * Du kannst beliebig viele Kontexte in deiner Anwendung verwenden. Dann hast Du entsprechend mehr Provider-Komponenten.
-      </textarea
-          >
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Context: Factory</h3>
-          <ul>
-            <li class="fragment">Der Provider stellt ein beliebiges Objekt zur Verfügung</li>
-            <li class="fragment">
-              Dafür muss ein Context-Objekt mit <code>React.createContext</code> erzeugt werden.
-              Dieses Objekt enthält die Provider- und die Consumer-Komponente
-            </li>
-            <li class="fragment">(Consumer-Komponente ist mit Hooks API irrelevant)</li>
-          </ul>
-
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-        import react from "React";
-
-        const ThemeContext = React.createContext();
-
-        // erzeugt:
-        // ThemeContext.Provider 
-        // ThemeContext.Consumer (irrelevant mit Hooks API)
-                </code></pre>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Context: Provider</h3>
-          <ul>
-            <li class="fragment">
-              Die mit <code>createContext</code> erzeugte Provider Komponente erhält ein Objekt als
-              Properties, das sie allen unterhalb liegenden Komponenten (<code>children</code>) zur
-              Verfügung stellt.
-            </li>
-            <li class="fragment">Die Verwendung ist wie eine "normale" Komponente</li>
-            <li class="fragment">
-              Üblicherweise baut man sich eine Komponente darum, die dann auch die Daten hält, die
-              über den Context zur Verfügung gestellt werden sollen
-            </li>
-            <li class="fragment">Auch hierbei handelt es sich um eine "normale" Komponente:</li>
-          </ul>
-          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
-        const ThemeContext = React.createContext();
-
-        function ThemeContextProvider(props) {
-          const [themeName, setThemeName] = React.useState();
-
-
-          return &lt;ThemeContext.Provider value={{
-            currentTheme: themeName,
-            setCurrentTheme: setThemeName 
-          }}>
-          {props.children}
-        &lt;/AuthContext.Provider>;
-      }
-</code></pre>
-        </section>
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Context: Consumer</h3>
-          <p><em>Zugriff auf die Werte aus dem Context</em></p>
-          <ul>
-            <li class="fragment">
-              In allen Komponenten unterhalb der Provider Komponente, kann mit
-              <code>useContext</code> auf das bereitgestellte Objekt zugegriffen werden
-            </li>
-          </ul>
-
-          <pre class="fragment"><code class="javascript">
-function TextInput() {
-const { themeName } = React.useContext(ThemeContext);
-
-return &lt;div className={`theme-${themeName}`}>&lt;input ... />&lt;/div>
-}            
-    </code></pre>
-          <p class="fragment">
-            Wenn der Kontext sich ändert, werden alle Konsumer automatisch neu gerendert
+          <p>
+            Die mit dem reducer verwalteten Daten können wir mit dem Context zur Verfügung stellen
           </p>
+
           <pre class="fragment"><code class="javascript">
-function ThemeChooser() {
-  const { setThemeName } = React.useContext(themeContext);
-  return &lt;div>
-    &lt;button onClick={() => setThemeName("dark")}>Dark Theme&lt;/button>
-    &lt;button onClick={() => setThemeName("light")}>Light Theme&lt;/button>
-    &lt;/div>
-}                
-    </code></pre>
+            function Form() {
+              const [formState, dispatch] = React.useReducer(formReducer, {  });
+    
+              return &lt;FormContext.Provider value={{formState, dispatch}}>
+                {children}
+                &lt;FormContext./Provider>
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            function Input() {
+              const {formState, dispatch} = useFormContext();
+    
+              return &lt;div>
+              &lt;input value={formState["firstname"]} onChange={
+                () => dispatch({ type: "fieldChangedAction", fieldName: "firstname", value: e.target.value }
+              } />
+            }
+          </code></pre>
         </section>
 
         <!-- ============================================================================= -->
         <section>
-          <h3>Custom Hook für Context-Zugriff</h3>
+          <h3>Spezialisierte API anbieten</h3>
 
-          <ul>
-            <li class="fragment">
-              Du kannst einen Custom Hook für den Zugriff auf deinen Kontext bauen
-            </li>
-            <li class="fragment">
-              Dann ist die Technologie (Context) gekapselt und Du hast eine "fachliche" API
-            </li>
-          </ul>
+          <p>
+            Vereinfacht die Verwendung und abstrahiert das technische Implementierungsdetail
+            "Reducer"
+          </p>
 
           <pre class="fragment"><code class="javascript">
-            // ThemeContext.tsx
-            export function useTheme() {
-              return React.useContext(ThemeContext);
-            }
-          </code></pre>
-
-          <pre class="fragment"><code class="javascript">
-            // ThemeContext.tsx
-            function TextInput(props) {
-              const { themeName } = useTheme();
-              
-              // ...
+            function Form() {
+              const [formState, dispatch] = React.useReducer(formReducer, {  });
+    
+              return &lt;FormContext.Provider value={
+                {formState, 
+                  clearForm() { dispatch(...) },
+                  updateField(fieldName, value) { dispatch(...) }
+              }>
+                {children}
+                &lt;FormContext./Provider>
             }
           </code></pre>
         </section>
 
-        <section data-markdown>
-          <textarea data-template>
-            ### Mögliche Übung: React Context
+        <section>
+          <h3>useReducer: Anwendungsfälle</h3>
 
-            * In der Datei `ThemeContext.tsx` findest Du bereits einen Rumpf für einen Theme-Context
-            * Verfollständige diesen, so dass er eine Farbe und eine setter-Funktion zum Ändern der Farbe bekommt
-            * Passe deine TextInput-Komponente oder ein anderes Input-Feld so an, dass es als Hintergrundfarbe die Farbe aus dem Context verwendet (Property: `style={{backgroundColor: ...}}`)
-            * Implementiere eine neue Komponente `ThemeChooser`, die die setter-Funktion aus dem Context benutzt, um eine andere Farbe einzustellen. Die Komponente kann sehr trivial sein, z.B. 
-            nur ein oder zwei Buttons, um zwischen zwei Farben hin- und herzuschalten
-
-          </textarea>
+          <p>
+            Habt ihr Ideen, für welche von Euren Anwendungsfällen useReducer (nicht) geeignet wäre
+            und warum?
+          </p>
         </section>
 
         <section id="t-redux">
@@ -899,6 +1408,24 @@ function ThemeChooser() {
           </textarea>
         </section>
 
+        <section data-markdown>
+          <textarea data-template>
+        ### Mögliche Übung: Reducer-Funktion
+
+        _Baue eine Komponente, die Daten mit `fetch` lädt._
+        
+          * Du kannst den Endpunkt `/api/user` mit HTTP GET aufrufen, da kommt eine Mock-Antwort (ein valides User-Objekt). Auf der nächsten Slide findest Du
+          ein Beispiel dazu, falls dir `fetch` nicht mehr geläufig ist.
+          * Der Zustand in der Komponente wird in einem Reducer verwaltet.
+          * Der Zustand soll mindestens die beiden API-Status "started" und "finished" unterstützen. Im `finished`-Status soll der Zustand außerdem die geladenen Daten halten.
+          * Du brauchst also auch zwei Actions
+          * Während die Daten geladen werden, zeige eine "Bitte warten Sie"-Meldung an
+          * Wenn die Daten geladen sind, zeige die Komponente mit dem User-Editor an. Diese Komponente sollte nun das User-Objekt als Property entgegennehmen.
+          * Sollte die Komponente das User-Objekt direkt verändern? Oder wäre eine Kopie schlauer? 
+      </textarea
+          >
+        </section>
+
         <section data-markdown id="t-use-effect">
           <textarea data-template>
             # DataFetching mit useEffect
@@ -918,7 +1445,7 @@ function ThemeChooser() {
         </section>
 
         <section>
-          <h3>Search-Komponente als Funktion</h3>
+          <h3>Beispiel: eine Search-Komponente</h3>
 
           <pre class="fragment"><code class="javascript">
               function Search({ searchString }) {
@@ -926,23 +1453,14 @@ function ThemeChooser() {
                 const [result, setResult] = React.useState();
               
                 React.useEffect(() => {
-                  let cancelled = false;
                   async function search() {
                     setLoading(true);
                     const searchResult = await executeSearchApiCall(searchString);
-                    if (cancelled) {
-                      console.log("already cancelled");
-                      return;
-                    }
                     setLoading(false);
                     setResult(searchResult);
                   }
               
                   search();
-              
-                  return () => {
-                    cancelled = true;
-                  };
                 }, [searchString]);
               
                 if (loading) {
@@ -989,6 +1507,53 @@ function ThemeChooser() {
               async verwandelt jeden Rückgabe-Typ (auch undefined!) in ein Promise
             </li>
           </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Beispiel: cleanUp-Funktion</h3>
+          <pre class="fragment"><code class="javascript">
+            function Search({ searchString }) {
+              const [loading, setLoading] = React.useState(false);
+              const [result, setResult] = React.useState();
+            
+              React.useEffect(() => {
+                let cancelled = false;
+                async function search() {
+                  setLoading(true);
+                  const searchResult = await executeSearchApiCall(searchString);
+                  if (cancelled) {
+                    console.log("already cancelled");
+                    return;
+                  }
+                  setLoading(false);
+                  setResult(searchResult);
+                }
+            
+                search();
+            
+                return () => {
+                  cancelled = true;
+                };
+              }, [searchString]);
+            
+              if (loading) {
+                return &lt;h2>Searching...&lt;/h2>;
+              }
+            
+              if (!result) {
+                return null;
+              }
+            
+              return (
+                &lt;div>
+                &lt;h2>Search Result:&lt;/h2>
+                &lt;p>{result}&lt;/p>
+                &lt;/div>
+              );
+            }
+            
+          </code></pre>
         </section>
 
         <!-- ============================================================================= -->
@@ -1211,35 +1776,6 @@ function ThemeChooser() {
             </li>
           </ul>
         </section>
-        <!-- ============================================================================= -->
-        <section>
-          <h3>A propos Such-Ergebnis formatieren...</h3>
-          <ul>
-            <li class="fragment">
-              Unabhängig vom technischen Problem: ist unsere Implementierung "gut"?
-            </li>
-            <li class="fragment">
-              Was könnten wir besser machen? Was wäre vielleicht mehr "React-like"?
-            </li>
-            <li class="fragment">
-              Insb: vielleicht soll der Formatter verändert werden, während der Request läuft und
-              nach Request-Ende dann für das Ergebnis verwendet werden?
-            </li>
-          </ul>
-          <ul>
-            <li class="fragment">
-              "Abgeleitete" Daten werden in der Regel in React nicht in den State gelegt
-            </li>
-            <li class="fragment">Man würde wahrscheinlich den formatter beim rendern verwenden</li>
-            <li class="fragment">
-              Vorteil: der formatter ist immer aktuell (beeinflusst aber den Request nicht)
-            </li>
-            <li class="fragment">
-              Keine Inkosistenzen (stellt euch vor, wir setzen den Result-State noch an einer
-              anderen Stelle...
-            </li>
-          </ul>
-        </section>
 
         <!-- ============================================================================= -->
         <section>
@@ -1378,114 +1914,6 @@ function Message({ message }: MessageProps) {
           </ul>
         </section>
 
-        <section>
-          <h3>Mehr zu Hooks</h3>
-          <p>
-            Eine Message-Komponente, die eine Nachricht darstellt, die von selbst nach x Sekunden
-            verschwindet
-          </p>
-          <p>Zusatzaufgabe:</p>
-          <ol>
-            <li class="fragment">
-              Die Parent-Komponente rendert die Nachricht-Komponente und übergibt ihr nicht nur eine
-              Message, sondern auch die Dauer, wie lange diese Nachricht angezeigt werden soll, z.B.
-              <b>fünf Sekunden</b>
-            </li>
-            <li class="fragment">
-              Die Parent-Komponente rendert sich nach <b>vier Sekunden</b> erneut, und übergibt nun
-              dieselbe Message, aber mit einer anderen Dauer (z.B. <b>sechs Sekunden</b>)
-            </li>
-            <li class="fragment">
-              Die Message-Komponente soll die Dauer nun anpassen. Von <b>ersten</b> Rendern der
-              Message bis zum Verschwinden, sollen nicht mehr Zeit vergehen als die übergebene Dauer
-              (also im Beispiel: <b>zwei Sekunden</b> nach dem zweiten Aufruf) 🤯
-            </li>
-          </ol>
-          <p class="fragment">Puh... 😮 kriegen wir das gemeinsam hin?</p>
-        </section>
-
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Stale Data #2 (im Event Handler)</h3>
-          <p>
-            Beispiel: Eine Komponente, mit der ich Nachrichten laden kann, die in eine Liste
-            eingefügt werden. Mit einem Knopf kann ich die Liste der geladenen Nachrichten wieder
-            leeren
-          </p>
-          <p class="fragment">👉 workspace/EventHandlerApp!</p>
-        </section>
-        <section>
-          <h3>Stale Data #2 (im Event Handler)</h3>
-          <p class="fragment">Was kann hier passieren?</p>
-
-          <pre class="fragment"><code class="javascript">
-            function EventHandlerApp() {
-              const [messages, setMessages] = React.useState([]);
-            
-              async function loadMore() {
-                const newMessage = await executeApiCall();
-                setMessages([newMessage, ...messages]);
-              }
-            
-              function clear() {
-                setMessages([]);
-              }
-            
-              return (
-                &lt;div>
-                  &lt;button onClick={loadMore}>Load more&lt;/button>
-                  &lt;button onClick={clear}>Clear&lt;/button>
-                  &lt;ul>
-                    {messages.map(msg => (
-                      &lt;li key={msg.key}>{msg.msg}&lt;/li>
-                    ))}
-                    &lt;/ul>
-                    &lt;/div>
-              );
-            }
-          </code></pre>
-          <p class="fragment">
-            Stale Data! Was passiert, wenn loadMore lange dauert, und in der Zwischenzeit clear
-            gedrückt wird?
-          </p>
-        </section>
-
-        <section>
-          <h3>Stale Data #2 (im Event Handler)</h3>
-
-          <p class="fragment">Asynchrones Verhalten und Stale Data im Event Handler</p>
-          <p class="fragment">Lösungen</p>
-
-          <p class="fragment">
-            Eine Option: setState-Callback-Funktion, um aktuellen Wert zu bekommen.
-          </p>
-          <p class="fragment">
-            Einer State setter-Funktion kann eine Callback-Funktion übergeben erden. Diese wird mit
-            dem jeweils aktuellen State aufgerufen und liefert neuen State zurück
-          </p>
-
-          <pre class="fragment"><code class="javascript">
-            const [messages, setMessages] = React.useState([]);
-            function loadMore() {
-              const newMessage = loadNewMessage();
-              setMessages( existingMessages => [newMessage, ...existingMessages]);
-            }
-          </code></pre>
-          <p class="fragment">
-            (Alternativ würde auch useReducer gehen, hier wird auch immer der aktuelle State
-            übergeben)
-          </p>
-
-          <p class="fragment">
-            Andere Ideen? Was müssten wir machen, wenn wir auf den State nur lesend zugreifen
-            wollen? Zum Beispiel: Vielleicht haben wir einen zweiten State, den wir benötigen in der
-            loadMore-Funktion, abhängig von diesem soll setMessages ausgeführt werden oder nicht
-          </p>
-          <p class="fragment">
-            https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function
-          </p>
-        </section>
-
         <!-- ============================================================================= -->
 
         <!-- ============================================================================= -->
@@ -1535,39 +1963,12 @@ function Message({ message }: MessageProps) {
           </textarea>
         </section>
 
-        <!-- ============================================================================= -->
-        <section>
-          <h3>Beispiel: axios</h3>
-          <pre class="fragment"><code class="javascript">
-            try {
-              const newPost = await axios.post('/blogpost', {
-                title: 'Learning React',
-                body: 'Lorem ipsum'
-              });
-            } catch (e) {
-              // ...
-            }
-          </code></pre>
-        </section>
-
-        <section data-markdown>
-          <textarea data-template>
-            ### axios
-
-            - Viel Convenience:
-              - automatische Konvertierung in/von JSON
-              - Content-Type wird automatisch gesetzt
-              - Alle Fehler werden als Error geworfen (auch 4xx)
-              - 
-          </textarea>
-        </section>
-
         <section data-markdown>
           <textarea data-template>
             ### Data Libraries für React
 
             * Was könnten Anforderungen an eine React-spezifische Bibliothek sein?
-            * 👉 Architektur in Miro oder Excalidraw diskutieren
+            * 👉 Architektur in Miro 
           </textarea>
         </section>
 
