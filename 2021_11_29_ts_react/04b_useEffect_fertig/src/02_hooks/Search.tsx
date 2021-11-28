@@ -23,9 +23,9 @@ export default function Search({ searchString }: SearchProps) {
 
     search();
 
-    // return () => {
-    //   cancelled = true;
-    // };
+    return () => {
+      cancelled = true;
+    };
   }, [searchString]);
 
   if (loading) {
@@ -51,7 +51,7 @@ function executeSearchApiCall(searchString: string): Promise<string> {
   }
   const myRequest = requestNo++;
   return new Promise(resolve => {
-    const duration = searchString.endsWith("a") ? 2000 : 500;
+    const duration = searchString.startsWith("a") ? 2000 : 500;
     setTimeout(
       () => resolve(`I found ${searchString} from Hook in request ${myRequest}`),
       duration
