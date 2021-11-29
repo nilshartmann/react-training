@@ -20,7 +20,7 @@ function say(action: SayHello | SayGoodbye) {
   //
   //   1. wenn die Funktion mit einem 'SayHello'-Objekt aufgerufen wird, gib dessen 'msg' zurück
   //
-  //   2. wenn mit einem der SayGoodMorning aufgerufen wird, rufe darauf goodbye() auf
+  //   2. wenn die Funktion mit einem SayGoodbye-Objekt aufgerufen wird, rufe darauf goodbye() auf
   //      und gib den Rückgabewert von 'goodbye' zurück
   //
   //   In allen anderen Fällen wirf einen Error (throw new Error("Boom")), ABER:
