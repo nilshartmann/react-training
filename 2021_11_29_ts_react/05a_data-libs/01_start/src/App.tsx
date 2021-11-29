@@ -38,14 +38,16 @@ function App() {
   );
 }
 
-// ---- 3 components that will show data: ---------------
-//  User and Post: only one visible at a time
-//  Sidebar: always visible
+function useUser() {
+  // User laden
+  // daten, isLoading (!error && !data), hasError (!!error) und refresh (revalidate) zurückgeben
+}
 
 function User() {
   return (
     <div className="Container">
       <h2>User</h2>
+      <button>Refresh</button>
     </div>
   );
 }

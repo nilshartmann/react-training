@@ -411,22 +411,23 @@ function Input({minLength}) {
         <section>
           <h3>DRY vs. Wrong Abstraction</h3>
 
-          <p>Zwei Meinungen</p>
+          <p>Zwei Meinungen...</p>
 
           <p class="fragment">
-            prefer duplication over the wrong abstraction (<a
+            <em>prefer duplication over the wrong abstraction</em> (<a
               href="https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction"
               >Sandi Metz</a
             >)
           </p>
-          <p class="fragment">prefer abstraction over the wrong duplication 😈(Nils)</p>
+          <p class="fragment"><em>prefer abstraction over the wrong duplication</em> 😈(Nils)</p>
 
           <p class="fragment">
             DRY hatte lange Zeit einen Beigeschmack, es gibt reichlich Tools, die Code
             Wiederholungen als Problem kennzeichnen (z.B.
             <a href="https://www.jetbrains.com/help/idea/analyzing-duplicates.html">IntelliJ</a>
             oder
-            <a href="https://livebook.manning.com/book/sonarqube-in-action/chapter-4/">Sonarqube</a>
+            <a href="https://livebook.manning.com/book/sonarqube-in-action/chapter-4/">Sonarqube</a
+            >)
           </p>
           <p class="fragment">
             Abstraktion schafft Abhängigkeit, deswegen nicht mehr "reine Leere" (s. auch
@@ -759,7 +760,7 @@ function Input({errorMessage}) {
                                   </code></pre>
 
           <p class="fragment">
-            Was, wenn der Verwender nochmehr Einfluss bekommen soll?
+            Was, wenn der Verwender noch mehr Einfluss bekommen soll?
           </p>
           <p class="fragment">
             Möglichkeit: Weitere Properties hinzufügen (in anderen Frameworks wird sowas auch "Slot"
@@ -1201,7 +1202,7 @@ function ClearButton() {
           <textarea data-template>
         ### useReducer
 
-        👉 03_form_example_mit_useReducer
+        👉 03_component_composition/03_form_example_mit_useReducer
       </textarea
           >
         </section>
@@ -1382,6 +1383,40 @@ function formReducer(state, action) {
           </code></pre>
         </section>
 
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Alternative? Update-Funktion in useState</h3>
+
+          <ul>
+            <li class="fragment">
+              Wenn es darum geht, Logik (z.B. zum Testen), auszulagern, kann die update-Funktion
+              eine Option sein
+            </li>
+            <li class="fragment">
+              Anstatt eines neuen Wertes können wir <code>useState</code> auch eine Funktion
+              übergeben
+            </li>
+            <li class="fragment">
+              Diese Funktion erhält den alten Zustand und liefert neuen zurück. Wie reducer-Funktion
+              nur ohne Action...
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+function update(s: state, e) {
+  return {
+    ...s, 
+    [n]: v
+  }
+}            
+function Input() {
+  const [text, setText] = React.useState("");
+
+  return &lt;input value={} onChange={e => setState( s => update(e) )}
+}            
+          </code></pre>
+        </section>
+
         <section>
           <h3>useReducer: Anwendungsfälle</h3>
 
@@ -1389,6 +1424,13 @@ function formReducer(state, action) {
             Habt ihr Ideen, für welche von Euren Anwendungsfällen useReducer (nicht) geeignet wäre
             und warum?
           </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: ???</h3>
+
+          <p>Nur, wenn uns ein sinnvoller Anwendungsfall einfällt</p>
         </section>
 
         <section id="t-redux">
@@ -1411,24 +1453,6 @@ function formReducer(state, action) {
           </textarea>
         </section>
 
-        <section data-markdown>
-          <textarea data-template>
-        ### Mögliche Übung: Reducer-Funktion
-
-        _Baue eine Komponente, die Daten mit `fetch` lädt._
-        
-          * Du kannst den Endpunkt `/api/user` mit HTTP GET aufrufen, da kommt eine Mock-Antwort (ein valides User-Objekt). Auf der nächsten Slide findest Du
-          ein Beispiel dazu, falls dir `fetch` nicht mehr geläufig ist.
-          * Der Zustand in der Komponente wird in einem Reducer verwaltet.
-          * Der Zustand soll mindestens die beiden API-Status "started" und "finished" unterstützen. Im `finished`-Status soll der Zustand außerdem die geladenen Daten halten.
-          * Du brauchst also auch zwei Actions
-          * Während die Daten geladen werden, zeige eine "Bitte warten Sie"-Meldung an
-          * Wenn die Daten geladen sind, zeige die Komponente mit dem User-Editor an. Diese Komponente sollte nun das User-Objekt als Property entgegennehmen.
-          * Sollte die Komponente das User-Objekt direkt verändern? Oder wäre eine Kopie schlauer? 
-      </textarea
-          >
-        </section>
-
         <section data-markdown id="t-use-effect">
           <textarea data-template>
             # DataFetching mit useEffect
@@ -1445,6 +1469,8 @@ function formReducer(state, action) {
               sind</em
             >
           </p>
+
+          <p>👉 04_useEffect</p>
         </section>
 
         <section>
@@ -1971,7 +1997,6 @@ function Message({ message }: MessageProps) {
             ### Data Libraries für React
 
             * Was könnten Anforderungen an eine React-spezifische Bibliothek sein?
-            * 👉 Architektur in Miro 
           </textarea>
         </section>
 
@@ -2017,7 +2042,8 @@ function Message({ message }: MessageProps) {
         <section>
           <h3>Testen von React Anwendungen</h3>
 
-          <p>Wer von Euch hat schon Tests geschrieben? 🙋🏻‍♀️</p>
+          <p class="fragment">Wer von Euch hat schon Tests geschrieben? 🙋🏻‍♀️</p>
+          <p class="fragment">...und wer von Euch würde es nochmal tun 😉?</p>
         </section>
 
         <section>
@@ -2165,7 +2191,7 @@ expect(aMockFn.toHaveBeenCalledWith("huhu"));
           <h3>Übung: Jest</h3>
           <ul>
             <li class="fragment">
-              Wir arbeiten im Verzeichnis <code>blog-example/workspace-test</code>
+              Wir arbeiten im Verzeichnis <code>2021_11_29_ts_react/06_test</code>
             </li>
             <li class="fragment">
               Dort findest Du eine React-Anwendung, für die wir Tests entwickeln werden
