@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
+import { unchangedTextChangeRange } from "typescript";
 
 type IFormContext = {
   formState: Record<string, string>;
@@ -6,15 +7,11 @@ type IFormContext = {
   onFieldChange(fieldname: string, value: string): void;
 };
 
-const FormContext = React.createContext<IFormContext>({
+const defaultFormContext: IFormContext = {
   formState: {},
   onClearForm() {},
   onFieldChange() {}
-});
-
-function useFormContext() {
-  return useContext(FormContext);
-}
+};
 
 type FormProps = {
   children: React.ReactNode;
@@ -34,63 +31,34 @@ function Form({ children }: FormProps) {
     });
   }
 
-  return (
-    <FormContext.Provider
-      value={{
-        formState,
-        onClearForm,
-        onFieldChange
-      }}
-    >
-      {children}
-    </FormContext.Provider>
-  );
-}
-
-let dummyCount = 0;
-function Dummy() {
-  console.log("Rendering Dummy", ++dummyCount);
-
-  return <p>Dummy Renderings: {dummyCount}</p>;
+  return <div>{children}</div>;
 }
 
 type InputProps = {
   name: string;
 };
 
-let inputCounter: Record<string, number> = {};
-
 function Input({ name }: InputProps) {
-  // let count = inputCounter[name] || 0;
-  // inputCounter[name] = count + 1;
-  const { formState, onFieldChange } = useFormContext();
+  const value = "";
+  const onChange = () => {};
+
   return (
     <label>
       {name}
-      <input
-        type="text"
-        value={formState[name] || ""}
-        onChange={e => onFieldChange(name, e.target.value)}
-      />
-      {/* (Renderings {inputCounter[name]}) */}
+      <input type="text" value={value} onChange={onChange} />
     </label>
   );
 }
-
-// Hinzufügen:
-//  1. Dummy in Form
-//  2. FieldSet und Footer
-//  3. ClearButton hinzufügen => was passiert bei onClick?
-//  3. Container (mit State!) um FieldSet
-//     -> klicken: was passiert
-//  4. useState in App -> was passiert
 
 function App() {
   return (
     <div style={{ border: "1px solid grey", padding: "0.5rem" }}>
       <Form>
-        <Input name="firstname" />
-        <Input name="lastname" />
+        <FieldSet>
+          <Input name="firstname" />
+          <Input name="lastname" />
+        </FieldSet>
+        <ClearButton />
       </Form>
     </div>
   );
@@ -100,41 +68,12 @@ type FieldSetProps = {
   children: React.ReactNode;
 };
 
-let fieldSetCount = 0;
 function FieldSet({ children }: FieldSetProps) {
-  console.log("FIELD SET", fieldSetCount);
-  return (
-    <div>
-      {/* <p>FieldSet {fieldSetCount++}</p> */}
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 }
 
-let footerCount = 0;
-function Footer() {
-  return <div>Footer {footerCount++}</div>;
-}
-
-let clearButtonCount = 0;
 function ClearButton() {
-  clearButtonCount++;
-  const { onClearForm } = useFormContext();
-  return <button onClick={onClearForm}>Clear ({clearButtonCount})</button>;
-}
-
-type ContainerProps = {
-  children: React.ReactNode;
-};
-function Container({ children }: ContainerProps) {
-  const [a, setA] = React.useState(0);
-
-  return (
-    <>
-      <button onClick={() => setA(a + 1)}>Increase {a}</button>
-      <div style={{ border: "1px solid grey", padding: "0.5rem" }}>{children}</div>
-    </>
-  );
+  return <button>Clear</button>;
 }
 
 export default App;
