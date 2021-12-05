@@ -100,7 +100,7 @@
             <li class="fragment"><a href="#/typescript">TypeScript</a></li>
             <li class="fragment"><a href="#/t-projektstruktur">Projektstruktur</a></li>
             <li class="fragment">
-              <a href="#/t-component-composition">Component Composition, Context (useReducer)</a>
+              <a href="#/t-component-composition">Component Composition und React Context</a>
             </li>
             <li class="fragment"><a href="#/t-use-effect">Data Fetching mit useEffect</a></li>
             <li class="fragment">
@@ -2056,6 +2056,14 @@ function Message({ message }: MessageProps) {
         </section>
 
         <section>
+          <h3>Beispiel-Anwendung</h3>
+
+          <p class="fragment">
+            👉 <code>2021_12_06_ts_react/06_test/03_test_workspace_fertig</code>
+          </p>
+        </section>
+
+        <section>
           <h1>Jest</h1>
           <p>
             <em
@@ -2197,10 +2205,10 @@ expect(aMockFn.toHaveBeenCalledWith("huhu"));
 
         <!-- ============================================================================= -->
         <section>
-          <h3>Übung: Jest</h3>
+          <h3>Übung (optional): Einstieg in Jest</h3>
           <ul>
             <li class="fragment">
-              Wir arbeiten im Verzeichnis <code>2021_11_29_ts_react/06_test</code>
+              Wir arbeiten im Verzeichnis <code>2021_12_06_ts_react/06_test/02_test_workspace</code>
             </li>
             <li class="fragment">
               Dort findest Du eine React-Anwendung, für die wir Tests entwickeln werden
@@ -2215,7 +2223,7 @@ expect(aMockFn.toHaveBeenCalledWith("huhu"));
         <!-- ============================================================================= -->
 
         <section>
-          <h3>Übung: Jest</h3>
+          <h3>Übung (optional): Einstieg in Jest</h3>
 
           <p>Hintergrund: die <code>createPost</code>-Funktion</p>
 
@@ -2265,7 +2273,7 @@ expect(aMockFn.toHaveBeenCalledWith("huhu"));
 
         <!-- ============================================================================= -->
         <section>
-          <h3>Übung: Jest</h3>
+          <h3>Übung (optional): Einstieg in Jest</h3>
           <p><em>Implementiere Testfälle für die createPost-Funktion</em></p>
           <ol>
             <li class="fragment">
@@ -2596,7 +2604,7 @@ test('...', () => {
 
         <!-- ============================================================================= -->
         <section>
-          <h3>Übung: Starten der Anwedung</h3>
+          <h3>Übung: Starten der Anwendung</h3>
 
           <p>
             <em
@@ -2608,13 +2616,13 @@ test('...', () => {
           <ol>
             <li class="fragment">
               Schritt 1: REST-Backend, dazu bitte ein Terminal/eine Shell im Verzeichnis
-              <code>blog-example/backend-rest</code> öffnen
+              <code>2021_12_06_ts_react/06_test/01_backend-rest </code> öffnen
             </li>
             <li class="fragment"><code>npm install</code> ausführen</li>
             <li class="fragment"><code>npm start</code> ausführen</li>
             <li class="fragment">
               Schritt 2: React-Anwendung, dazu bitte ein Terminal/eine Shell im Verzeichnis
-              <code>blog-example/workspace-test</code> öffnen
+              <code>2021_12_06_ts_react/06_test/02_test_workspace </code> öffnen
             </li>
             <li class="fragment"><code>npm install</code> ausführen</li>
             <li class="fragment"><code>npm start</code> ausführen</li>
@@ -2623,6 +2631,23 @@ test('...', () => {
               <a href="http://localhost:3000">http://localhost:3000</a> laufen
             </li>
           </ol>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: Rendern von Komponenten und Überprüfen von Elementen</h3>
+          <ul>
+            <li class="fragment">
+              Wir arbeiten im Verzeichnis <code>2021_12_06_ts_react/06_test/02_test_workspace</code>
+            </li>
+            <li class="fragment">
+              Dort findest Du eine React-Anwendung, für die wir Tests entwickeln werden
+            </li>
+            <li class="fragment">
+              Die Tests kannst Du ausführen mit <code>npm test</code> auf der Kommandozeile. Sobald
+              Du Änderungen im Workspace machst und speicherst, werden die Tests erneut ausgeführt
+            </li>
+          </ul>
         </section>
 
         <!-- ============================================================================= -->
@@ -2639,8 +2664,8 @@ test('...', () => {
               beschränken.
             </li>
             <li class="fragment">
-              class="fragment">Im Verzeichnis <code>_solutions</code> findest Du jeweils mögliche
-              Lösungen zu den Übungen
+              class="fragment">Im Verzeichnis <code>02_test_workspace_fertig</code> findest Du
+              jeweils mögliche Lösungen zu den Übungen
             </li>
           </ol>
         </section>
