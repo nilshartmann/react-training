@@ -1,0 +1,41 @@
+
+// 1. Was passiert bei Überholern?
+// 2. Zusätzlicher State in App => username (dep. array)
+// 3. Formatter und Checkbox -> wann wird gerendert? was passiert, wenn User-Feld verändert wird?
+//     -> Callback!
+// 4. Formatter mit Prefix
+//     -> Callback
+//
+//
+//  TEIL 2: timeout-Funktion mit Button zum Canceln
+//
+//
+
+type SearchProps = {
+  searchString: string;
+  resultFormatter?: null | ((s: string) => string);
+};
+
+
+
+  const [format, setFormat] = React.useState(false);
+
+    function toUpperCaseResultFormatter(
+    s: string
+  ) {
+    return s.toUpperCase();
+  }
+
+    <label>
+        <input type="checkbox" checked={format} onChange={e => setFormat(e.target.checked)} />
+        Format Search Result
+      </label>
+
+         <Search searchString={phrase} resultFormatter={format ? prefixFormatter : null} />
+
+         ///////////////////////////////////////////////
+
+   
+    function prefixFormatter(s: string) {
+      return prefix + " " + s;
+    }

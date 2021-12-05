@@ -1,0 +1,3006 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>TypeScript &amp; State</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="slides/styles.css" />
+    <script src="slides/export.js"></script>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-state="title">
+          <h2 class="title" style="font-size: 7rem;">
+            <b>React Workshop</b>
+          </h2>
+          <h3>
+            🧑‍🎄 TypeScript &amp; React 🎅
+          </h3>
+
+          <h4>
+            <span class="transparent-bg">
+              <a href="http://nilshartmann.net" target="_blank">Nils Hartmann</a> |
+              <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+            </span>
+          </h4>
+
+          <p style="margin-top: 4rem;"></p>
+          <div>
+            <h3><span class="transparent-bg">Vorbereitung</span></h3>
+            <p>
+              <span class="transparent-bg"
+                >git clone https://github.com/nilshartmann/react-training</span
+              >
+            </p>
+          </div>
+          <p style="margin-top: 4rem;"></p>
+          <div>
+            <h3><span class="transparent-bg">Slides</span></h3>
+            <p>
+              <span class="transparent-bg">Lokal: 2021_12_06_typescript_react.html</span>
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Nils Hartmann</h2>
+          <p>
+            <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a> /
+            <a href="http://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+          <p><em>Freiberuflicher Software-Entwickler, Berater und Trainer aus Hamburg</em></p>
+
+          <div style="display: flex; justify-content: center;">
+            <div>
+              <p>Java</p>
+              <p>JavaScript, TypeScript</p>
+              <p>React</p>
+              <p>Single-Page-Applications</p>
+              <p>GraphQL</p>
+              <p style="margin-top: 20px;">
+                <a href="https://reacttraining.dev">Schulungen und Workshops</a>
+              </p>
+            </div>
+            <div style="margin-left: 15px;">
+              <a href="https://reactbuch.de"
+                ><img
+                  style="max-height: 450px;"
+                  src="slides/images/react-buch-v2.jpg"
+                /><br />https://reactbuch.de</a
+              >
+              <br />
+            </div>
+          </div>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Zeitplan Montag und Dienstag
+
+            * 09:00-12:30 
+            * 12:30-13:30 Pause 🍝
+            * 13:30-17:00 
+
+            * Kürzere Pausen zwischendurch ☕️ 🍪
+          </textarea>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Agenda</h3>
+          <ol>
+            <li class="fragment"><a href="#/typescript">TypeScript</a></li>
+            <li class="fragment"><a href="#/t-projektstruktur">Projektstruktur</a></li>
+            <li class="fragment">
+              <a href="#/t-component-composition">Component Composition, Context (useReducer)</a>
+            </li>
+            <li class="fragment"><a href="#/t-use-effect">Data Fetching mit useEffect</a></li>
+            <li class="fragment">
+              <a href="#/data-libs">React Bibliotheken für Data Fetching (Übersicht)</a>
+            </li>
+            <li class="fragment">
+              <a href="#/t-test">Testen von Anwendungen</a>
+            </li>
+          </ol>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Workshop statt Schulung!
+
+            * Diese beiden Tagen werden auch von Eurer Beteiligung leben 🙋‍♀️🙋‍♂️🙋
+            * Bitte stellt Fragen, äußert Meinungen, berichtet aus Eurem täglichen arbeiten: wo läufts gut, wo schlecht...
+            * Die Agenda ist nur eine grobe Richtschnur
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Zum Einstieg...
+
+            * Bitte überlegt Euch ein, zwei oder auch mehr Sätze zum Thema "React/TypeScript in meiner täglichen Arbeit"
+            * Zum Beispiel: "mir ist gar nicht klar, wie ich dies-oder-jenes mache" oder "mich nervt an React immer wieder, dass...", "ich finde TypeScript prima", oder "was ist useReducer", "ich finde Tests schreiben doof", "was sind 'Tests' 🤔 ? "
+            * Die Sätze schreibt ihr auf das gemeinsame Miro-Board (Link im Chat)
+            * Ihr seid dort anonym, wenn ihr wollt, könnt ihr hinter Eure Sätze auch Euren Namen schreiben (ist aber nicht wichtig)
+            * Das soll keine wisschenschaftliche Arbeit werden, sondern dient nur der Fokussierung und damit ich ungefährt eine Idee habe, wo ihr steht
+            * Wenn Euch im Laufe des Workshops noch was einfällt, schreibt es gerne einfach dazu
+            * Am Ende werfen da nochmal einen Blick drauf
+          </textarea>
+        </section>
+
+        <section data-markdown id="typescript">
+          <textarea data-template>
+            # TypeScript
+
+            * Komplett im Editor bzw. TS Playground
+            * Verzeichnis im Worksapce: `2011_11_29_ts_react/ts` 
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+    # React
+
+    ## Strukturierung von React-Anwendungen
+
+    ## ~~Best Practices~~
+    ## eher: _Möglichkeiten_
+  </textarea
+          >
+        </section>
+
+        <!-- ============================================================================= -->
+        <section id="t-projektstruktur">
+          <h3>Projektstruktur</h3>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Projekt-Struktur</h3>
+          <p><a href="https://react-file-structure.surge.sh/">React File Structure</a></p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Grundsätzliches Prinzip: Colocation</h3>
+
+          <ul>
+            <li class="fragment">
+              Colocation bedeutet, Dinge die zusammengehören, sind auch zusammen
+            </li>
+            <li class="fragment">
+              Das betrifft Source-Code, Tests, CSS etc.
+            </li>
+            <li class="fragment">
+              Das ist ein Grundprinzip von React (z.B. auch: keine Trennung zwischen Template und
+              Logik/Model in einer Komponente)
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Möglichkeiten zur Strukturierung einer Komponente</h3>
+
+          <p class="fragment">Beispiel: Extraktion in Variable</p>
+
+          <pre class="fragment"><code class="javascript">
+function Input() {
+  const [text, setText] = useState();
+
+  return &lt;div>
+    &lt;input value={text} onChange={...} />
+    {text ? 
+      &lt;p>Vielen Dank für Ihre Eingabe&lt;/p> : &lt;p>Bitte füllen Sie das Feld aus&lt;/p>
+    }
+    &lt;/div>
+}    
+          </code></pre>
+          <div class="fragment">
+            <pre><code class="javascript">
+            function Input() {
+              const [text, setText] = useState();
+
+              const msg = text ? 
+                &lt;p>Vielen Dank für Ihre Eingabe&lt;/p> 
+                  : &lt;p>Bitte füllen Sie das Feld aus&lt;/p>
+            
+              return &lt;div>
+                &lt;input value={text} onChange={...} />
+                {msg}
+                &lt;/div>
+            }    
+                      </code></pre>
+            <p>Was spricht dafür? Was spricht dagegen?</p>
+          </div>
+        </section>
+        <section>
+          <h3>Möglichkeiten zur Strukturierung einer Komponente #2</h3>
+          <p class="fragment">Beispiel: Extraktion in innere Funktion</p>
+
+          <pre class="fragment"><code class="javascript">
+function Input({minLength}) {
+  const [text, setText] = useState();
+
+  function getMessage() {
+    if (text.length < minLength) {
+      return &lt;p className="err">Geben Sie mehr Zeichen ein&lt;/p>
+    }
+    if (text.toUpperCase() === text) {
+      return &lt;p className="warn">Sie sollten Groß- und Kleinbuchstaben verwenden&lt;/p>
+    }
+
+    return &lt;p>Prima, alles in Ordnung!&lt;/p>;
+  }
+
+  return &lt;div>
+    &lt;input value={text} onChange={...} />
+    {getErrorMessage()}
+    &lt;/div>
+}    
+          </code></pre>
+          <div class="fragment">
+            <p>Warum nicht als Variable wie in Beispiel #1?</p>
+            <p>Warum getMessage (nicht) als eigene Komponente?</p>
+          </div>
+        </section>
+        <section>
+          <h3>Strukturieren von Komponenten</h3>
+          <ul>
+            <li class="fragment">
+              Man kann z.B. mehrere Komponenten in eine Datei tun, aber nur eine Komponente
+              öffentlich exportieren. Dann sind die anderen Komponenten Implementierungsdetails.
+              Wenn man daran was ändern muss, muss man nicht in diversen Dateien suchen
+
+              <pre class="fragment"><code class="javascript">
+          function BlogTitle() { ... }
+
+          export default function BlogPost() {
+            return &lt;article>
+              &lt;BlogTitle />
+              ...
+            &lt;/article>  
+          }
+        </code></pre>
+            </li>
+          </ul>
+          <p class="fragment">🤔 Was machen wir, wenn wir BlogTitle testen möchten?</p>
+          <p class="fragment">
+            Wollen wir das überhaupt, oder ist das nicht ein Implementierungsdetail?
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            function BlogTitle() { ... }
+
+            export default function BlogPost() { ... }
+
+            export { BlogTitle as BlogTitle_for_test }
+          </code></pre>
+          <p class="fragment">
+            Alternative/Ergänzung: Imports mit
+            <a href="https://eslint.org/docs/rules/no-restricted-imports">no-restricted-imports</a>
+            ESLint Plug-in einschränken
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Projekt-Struktur: Verzeichnisse</h3>
+
+          <ul>
+            <li class="fragment">
+              Im Zweifel: eher ein Verzeichnis/eine Verzeichnis-Ebene weniger, als mehr (das ist
+              zumindest in Java mit Packages anders)
+            </li>
+            <li class="fragment">
+              In Verzeichnissen nach Fachlichkeit gruppieren (z.B. "blog", "user", "security")
+            </li>
+            <li class="fragment">
+              Ggf. ein Verzeichnis "components" oder "ui", in dem übergreifenden Komponenten
+              abgelegt werden
+            </li>
+            <li class="fragment">
+              Ein "Fach-Verzeichnis", enthält wiederrum alles, was zu der Fachlichkeit gehört
+              (Komponenten, Hooks, TS Types etc.)
+            </li>
+            <li class="fragment">
+              Ein "Fach-Verzeichnis" wäre prinzipiell ein Kandidat zur Extraktion in eine Bibliothek
+            </li>
+          </ul>
+
+          <img src="slides/images/verzeichnisstruktur.png" />
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Verzeichnisse: absolute Importe</h3>
+
+          <ul>
+            <li class="fragment">
+              Ihr könnt in der <code>tsconfig.json</code>-Datei einen "Base-Pfad"
+              (<code>baseUrl</code>) einstellen, z.B. auf <code>src/</code>
+            </li>
+            <li class="fragment">
+              Alle Verzeichnisse und Dateien darunter können dann "absolut" importiert werden. Ihr
+              spart Euch also ggf. lange Verzeichnis Angaben beim importieren:
+
+              <pre class="fragment"><code class="javascript">
+          // src/blog/BlogPage.tsx
+          import Button from "components/Button";
+
+          // src/user/PasswordForm.tsx
+          import Button from "components/Button";
+        </code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>index.tsx als "Fassade"</h3>
+
+          <ul>
+            <li class="fragment">
+              Jeder fachliche Teil in Eurer Anwendung ist in einem eigenen Verzeichnis
+            </li>
+            <li class="fragment">
+              Jedes Verzeichnis hat eine index.tsx-Datei, die die öffentlichen Teile exportiert
+            </li>
+            <li class="fragment">
+              Damit ist festgelegt, welche Teile sichtbar sind für andere und welche nicht
+            </li>
+
+            <li class="fragment">
+              Beim importieren reicht es als Quelle ("from ...") den Verzeichnisnamen anzugeben!
+            </li>
+
+            <li class="fragment">
+              Achtung: Code-Splitting bzw. dynamische Importe funktionieren nur mit Default Exports
+            </li>
+            <li class="fragment">
+              Achtung: Kann man erzwingen, dass man nur aus index.tsx importiert? Vielleicht mit
+              <a
+                href="https://github.com/import-js/eslint-plugin-import/blob/master/docs/rules/no-internal-modules.md"
+                >ES Lint Rule</a
+              >?
+            </li>
+            <li class="fragment">
+              Hat auch den Vorteil, dass ihr innerhalb des Verzeichnisses umorganisieren könnt, und
+              nur die index.ts(x)-Datei entsprechend anpassen müsst
+            </li>
+            <li class="fragment">
+              Möglicher Nachteil: man hat sehr viele <code>index.ts</code>-Dateien, was die
+              Navigation im Editor evtl. erschwert ("Open file" zeigt diverse Ergebnisse). "Tipp":
+              nicht Datei öffnen, sondern "Symbol" (z.B. Funktion oder Klasse). VS Code: Ctrl+T bzw.
+              "#" in Command Palette. IntelliJ: Navigate -&gt; Symbol.
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+      // blog/index.ts
+      export default BlogPage from './BlogPage';
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+      // src/index.tsx
+      import BlogPage from "./blog";
+    </code></pre>
+
+          <p class="fragment">Beispiel: Komponenten</p>
+          <pre class="fragment"><code class="javascript">
+      // components/index.ts
+      export Button from './Button';
+      export Header from './Header';
+</code></pre>
+          <pre class="fragment"><code class="javascript">
+      // src/blog/BlogPage.tsx
+      // (mit absolutem Pfad)
+      import { Button } from "blog";
+    </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>DRY vs. Wrong Abstraction</h3>
+
+          <p>Zwei Meinungen...</p>
+
+          <p class="fragment">
+            <em>prefer duplication over the wrong abstraction</em> (<a
+              href="https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction"
+              >Sandi Metz</a
+            >)
+          </p>
+          <p class="fragment"><em>prefer abstraction over the wrong duplication</em> 😈(Nils)</p>
+
+          <p class="fragment">
+            DRY hatte lange Zeit einen Beigeschmack, es gibt reichlich Tools, die Code
+            Wiederholungen als Problem kennzeichnen (z.B.
+            <a href="https://www.jetbrains.com/help/idea/analyzing-duplicates.html">IntelliJ</a>
+            oder
+            <a href="https://livebook.manning.com/book/sonarqube-in-action/chapter-4/">Sonarqube</a
+            >)
+          </p>
+          <p class="fragment">
+            Abstraktion schafft Abhängigkeit, deswegen nicht mehr "reine Leere" (s. auch
+            Microservice-Architekturen)
+          </p>
+        </section>
+        <section>
+          <h3>DRY vs. Wrong Abstraction: Praxis</h3>
+          <p class="fragment">
+            Möglichst if-Kaskaden oder "abhängige" Properties vermeiden (wenn "a" gesetzt ist, muss
+            auch "b", aber darf nicht "c" gesetzt sein)
+          </p>
+          <p class="fragment">Möglichst nicht von vornherein abstrahieren</p>
+
+          <p class="fragment">
+            Vielleicht ist es ein Unterschied, wo ihr "wiederholt" oder "abstrahiert"?
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+// boxes.js            
+export function RedBox({children}) {
+  return &lt;div className="Box red">{children}&lt;/div>
+}  
+
+export function BlueBox({children}) {
+  return &lt;div className="Box blue">{children}&lt;/div>
+}
+
+export function YellowBox({children}) {
+  return &lt;div className="Box yellow">{children}&lt;/div>
+}            
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            // src/components/redbox.js            
+export function RedBox({children}) {
+  return &lt;div className="Box red">{children}&lt;/div>
+}  
+
+// src/util/bluebox.js
+export function BlueBox({children}) {
+  return &lt;div className="Box blue">{children}&lt;/div>
+}
+
+// src/features/inbox/yellobox.js
+export function YellowBox({children}) {
+  return &lt;div className="Box yellow">{children}&lt;/div>
+}  
+</code></pre>
+          <p class="fragment">
+            bei Anpassungen: eine/wenige Dateien an einer/wenigen Stellen betroffen oder ganze
+            Code-Basis?
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>DRY vs. Wrong Abstraction: Praxis</h3>
+
+          <p class="fragment">"Teil-Abstraktion" durch Komponentenkomposition?</p>
+
+          <p class="fragment">Beispiel: Eine Fehlermeldung in einer Input-Komponente</p>
+
+          <pre class="fragment"><code class="javascript">
+function Input({errorMessage}) {
+  const [text, setText] = useState("");
+
+  return &lt;div>
+    &lt;input ... />
+    &lt;text.length === 0 && errorMessage}
+  &lt;/div>
+}            
+          </code></pre>
+
+          <p class="fragment">...und nun noch eine Farbe für die Fehlermeldung</p>
+          <pre class="fragment"><code class="javascript">
+
+            function Input({errorMessage, errorMessageColor}) {
+              const [text, setText] = useState("");
+            
+              return &lt;div>
+                &lt;input ... />
+                &lt;text.length === 0 && &lt;div className="errorMessageColor">{errorMessage}&lt;/div>
+              &lt;/div>
+            }            
+                      </code></pre>
+
+          <p class="fragment">Besser?</p>
+
+          <pre class="fragment"><code class="javascript">
+                        function Input({errorComponent}) {
+                          const [text, setText] = useState("");
+                        
+                          return &lt;div>
+                            &lt;input ... />
+                            &lt;text.length === 0 && errorComponent />
+                          &lt;/div>
+                        }
+                        
+                        // Verwendung
+                        &lt;Input errorComponent={
+                          &lt;div className="Red Error">Error!&lt;div>
+                        }&lt;/>
+                                  </code></pre>
+          <p>Dazu später mehr!</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section id="t-libs">
+          <h3>(Komponenten-)Bibliotheken</h3>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Bibliotheken: Herausforderungen</h3>
+
+          <ul>
+            <li class="fragment">Code muss compiliert werden (Babel und/oder TypeScript)</li>
+            <li class="fragment">Code muss gebundelt werden (Webpack, Rollup, Parcel)</li>
+            <li class="fragment">
+              Bibliothek muss anderen zur Verfügung gestellt werden (npm Registry)
+            </li>
+            <li class="fragment">
+              Bereitstellen von Sourcen (TypeScript, CSS) für Verwender der Bibliothek zum Debugen
+            </li>
+            <li class="fragment">Workflow: wie könnt ihr die Bibliothek testen/ausprobieren?</li>
+            <li class="fragment">
+              Workflow: wie könnt ihr die Änderungen in den verwendenden Anwendungen testen bzw.
+              dort einbinden
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Ausgangssituation</h3>
+          <ul>
+            <li class="fragment">
+              Der Code, der als Bibliothek zur Verfügung gestellt werden soll, liegt in einem
+              eigenen Projekt vor
+            </li>
+            <li class="fragment">
+              Das kann ein eigenes Repository sein, oder ein Verzeichnis in einem bestehenden
+              Repository
+            </li>
+            <li class="fragment">Er ist aber nicht Bestandteil einer bestehenden App</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Bibliotheken: npm Module</h3>
+          <ul>
+            <li class="fragment">
+              npm-Module können in einer npm-Registry veröffentlicht werden
+              <ul>
+                <li class="fragment">
+                  öffentliche
+                  <a href="https://docs.npmjs.com/cli/v7/using-npm/registry">NPM Registry </a>
+                </li>
+                <li class="fragment">
+                  <a href="https://github.com/features/packages">GitHub Packages</a>
+                </li>
+                <li class="fragment">
+                  <a href="https://help.sonatype.com/repomanager3/formats/npm-registry">Nexus</a>
+                </li>
+                <li class="fragment">
+                  <a href="https://www.jfrog.com/confluence/display/JFROG/npm+Registry"
+                    >Artifactory</a
+                  >
+                </li>
+                <li class="fragment">
+                  <a href="https://verdaccio.org/">Verdaccio</a> (leichtgewichtige
+                  Open-Source-Lösung)
+                </li>
+                <li class="fragment">
+                  <a href="https://www.pluralsight.com/guides/install-npm-packages-from-gitgithub"
+                    >Direkt aus Git(Hub)</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Veröffentlichen bedeutet im Wesentlichen, das ein Verzeichnis mit Dateien und eine
+              package.json-Datei in ein Respository hochgeladen wird
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Naiver Ansatz: Source-Dateien veröffentlichen</h3>
+
+          <ul>
+            <li class="fragment">
+              Ihr stellt einfach Euer React-Projekt als npm-Modul zur Verfügung
+            </li>
+            <li class="fragment">
+              Die Verwender müssen sich dann um das compilieren und bundlen kümmern
+            </li>
+            <li class="fragment">
+              Insb. für das compilieren ist es evtl. notwendig beim Verwenden die Konfiguration
+              anzupassen, da Dateien im <code>node_modules</code>-Ordner nicht compiliert werden
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Typischer Ansatz: "Fertigen" Code publizieren</h3>
+          <ul>
+            <li class="fragment">
+              Ihr setzt ein Projekt für die Lib auf, in dem ihr auch Compiler- und Bundler
+              konfiguriert
+            </li>
+            <li class="fragment">
+              Für Bibliotheken wird oftmals <a href="https://rollupjs.org/guide/en/">Rollup</a> oder
+              <a href="https://parceljs.org/">Parcel</a> verwendet.
+              <a href="https://webpack.js.org/guides/author-libraries/">Webpack</a> geht natürlich
+              auch, mit den anderen Ansätzen aber evtl. leichter
+            </li>
+            <li class="fragment">Der compilierte und gebundlete Code wird dann publiziert</li>
+            <li class="fragment">
+              Ihr müsst entscheiden, ob ihr als Ziel ES-Modulsystem oder CommonJS verwendet (oder
+              beides). Für interne Bibliotheken reicht vermutlich ES-Modulsystem
+            </li>
+            <li class="fragment">
+              Falls ihr Sass oder LESS oder CSS Modules verwendet, müsst ihr das im Build natürlich
+              auch nach CSS übersetzen
+            </li>
+            <li class="fragment">
+              Ihr könnt im Build Source-Maps (für JS, TS und CSS) erzeugen, damit ihr beim Verwenden
+              debuggen könnt
+            </li>
+            <li class="fragment">
+              Achtung! Einbinden der Source-Maps erfordert bei TS leider einen extra
+              <a href="https://webpack.js.org/loaders/source-map-loader/">SourceMap Loader</a> in
+              Webpack, der in der aktuellen create-react-app-Version leider nicht konfiguriert ist.
+              Der entsprechende
+              <a href="https://github.com/facebook/create-react-app/pull/8227"
+                >PR ist aber gemerged</a
+              >
+              und müsste in der nächsten Version von create-react-app vorhanden sein 🙏
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Workflow</h3>
+          <ul>
+            <li class="fragment">Ihr entwickelt die Bibliothek in ihrem Repository</li>
+            <li class="fragment">
+              Testen könnt ihr die Komponenten z.B. in dem ihr
+              <a href="https://storybook.js.org/">Storybook</a> verwendet. Damit könnt ihr auch
+              dokumentieren
+            </li>
+            <li class="fragment">Neue Releases könnt ihr mit <code>npm publish</code> erstellen</li>
+            <li class="fragment">
+              Die verwendenden Anwendungen können mit <code>npm install</code> die neue Version
+              installieren
+            </li>
+            <li class="fragment">(Statt npm geht natürlich auch yarn)</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Workflow: Optimierung</h3>
+
+          <ul>
+            <li class="fragment">
+              Mit <a href="https://classic.yarnpkg.com/en/docs/cli/link/">yarn link</a> könnt ihr
+              die Bibliothek testweise in einer lokalen Anwendung einbinden, ohne sie vorher
+              publizieren zu müssen (kürzere Turn-around-Zeiten). Leider etwas instabil der Ansatz
+            </li>
+            <li class="fragment">
+              Mono-Repo-Ansatz 1: alle Bibliotheken und alle Anwendungen kommen in ein
+              Git-Repository (auf oberster Ebene dann verschiedene Verzeichnisse für jede
+              Bibliothek, jede Anwendung)
+              <ul>
+                <li class="fragment">
+                  Die Anwendungen können sofort mit allen Änderungen der Bibliothek getestet werden
+                </li>
+                <li class="fragment">
+                  Falls es API-Änderungen an der Bibiothek gibt, können diese in den Anwendungen
+                  gleich erfolgen und alles auf einmal committed werden
+                </li>
+                <li class="fragment">
+                  Tools: <a href="https://lerna.js.org/">Lerna</a> oder
+                  <a href="https://classic.yarnpkg.com/en/docs/workspaces/">Yarn workspaces</a>
+                </li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Mono-Repo-Ansatz 2: selbe Idee, aber mit
+              <a href="https://nx.dev/latest/react/structure/creating-libraries">NX</a> umgesetzt
+              (mit explizitem Support für
+              <a href="https://nx.dev/latest/react/react/library">React Bibliotheken</a>). Das ist
+              die all-inklusive-Lösung, aber mit einer Menge an eigenen Konzepten und Ideen.
+            </li>
+          </ul>
+        </section>
+        <!-- ============================================================================= -->
+
+        <section data-markdown id="t-component-composition">
+          <textarea data-template>
+            # Component Composition
+          </textarea>
+        </section>
+
+        <section>
+          <h3>Component Composition</h3>
+
+          <p>Unser Beispiel von vorhin</p>
+          <pre class="fragment"><code class="javascript">
+                        function Input({errorComponent}) {
+                          const [text, setText] = useState("");
+                        
+                          return &lt;div>
+                            &lt;input ... />
+                            &lt;text.length === 0 && errorComponent />
+                          &lt;/div>
+                        }
+                        
+                        // Verwendung
+                        &lt;Input errorComponent={
+                          &lt;div className="Red Error">Error!&lt;div>
+                        }  
+                        &lt;/>
+                                  </code></pre>
+
+          <p class="fragment">
+            Was, wenn der Verwender noch mehr Einfluss bekommen soll?
+          </p>
+          <p class="fragment">
+            Möglichkeit: Weitere Properties hinzufügen (in anderen Frameworks wird sowas auch "Slot"
+            genannt)
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            function Input({errorComponent, label, inputHint}) {
+              const [text, setText] = useState("");
+              const [inputHintVisible, setInputHintVisible] = useState(false);
+            
+              return &lt;div>
+                {label}
+                {inputHintVisible && inputHint}
+                &lt;input ... />
+                &lt;text.length === 0 && errorComponent />
+              &lt;/div>
+            }
+            // Verwendung
+            &lt;Input
+              label={&lt;h3>Geburtsort&lt;h3>}
+              inputHint={&lt;p>Bitte geben Sie hier Ihre fünfstellige Postleitzahl ein&lt;p>}
+              errorComponent={&lt;div className="Red Error">Ihre Eingabe ist ungültig!&lt;div>}
+            &lt;/Input>
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Component Composition</h3>
+
+          <p>Warum (nicht) so?</p>
+
+          <pre class="fragment"><code class="javascript">
+            function Input({children}) {
+              const [text, setText] = useState("");
+              const [inputHintVisible, setInputHintVisible] = useState(false);
+            
+              return &lt;div>
+                &lt;input ... />
+                {children}
+              &lt;/div>
+            }
+          </code></pre>
+
+          <p class="fragment">
+            Children ist auch ein "normales" Property, das eine JSX-Komponente aufnehmen kann
+          </p>
+          <p class="fragment">
+            Hier ist es aber zu unflexibel, da wir die "Einzelteile" individuell behandeln wollen:
+            wo werden sie platziert? wann sind sie überhaupt sichtbar?
+          </p>
+        </section>
+
+        <section>
+          <h3>Component Composition</h3>
+
+          <p>Unser Beispiel von vorhin (zurück zur errorComponent)</p>
+          <pre class="fragment"><code class="javascript">
+                        function Input({errorComponent}) {
+                          const [text, setText] = useState("");
+                        
+                          return &lt;div>
+                            &lt;input ... />
+                            &lt;text.length === 0 && errorComponent />
+                          &lt;/div>
+                        }
+                        
+                        // Verwendung
+                        &lt;Input
+                          errorComponent={&lt;div className="Red Error">Error!&lt;div>}
+                        &lt;/Input>
+                                  </code></pre>
+
+          <p class="fragment">
+            Was, wenn der Verwender je nach Text eine Meldung ausgeben möchte? Woher kommt der Text
+            🤔
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // Verwendung
+            &lt;Input>
+              // Hier brauchen wir den Text aus der Input-Komponente....
+              errorComponent={&lt;div className="Red Error">Ihre Eingabe TEXT ist falsch!&lt;div>}
+            &lt;/Input>
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Component Composition: Render Props</h3>
+
+          <p>Ein "Render Prop", ist ein "normales" Property, das eine Callback-Funktion enthält</p>
+          <p>
+            Die Funktion liefert keine Werte/Daten, sondern UI zurück (wie eine React-Komponent)
+          </p>
+          <p>
+            Die Oberkomponente kann auf diese Weise mit der Unterkomponente bzw. dem Verwender
+            kommunizieren
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+                        function Input({renderErrorComponent}) {
+                          const [text, setText] = useState("");
+                        
+                          return &lt;div>
+                            &lt;input ... />
+                            {renderErrorComponent(text)}
+                          &lt;/div>
+                        }
+                        
+                        // Verwendung
+                        &lt;Input renderErrorComponent={
+                          error =&gt; error ? &lt;div className="Red Error">Error!&lt;div> : null
+                        } />
+                                  </code></pre>
+          <p class="fragment">
+            Typische Konvention: Namen der Render-Properties fangen mit "render" an
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Component Composition</h3>
+          <p>Besonderheit: Function as Children</p>
+          <p class="fragment">Auch das children-Property kann eine Funktion sein!</p>
+
+          <pre class="fragment"><code class="javascript">
+function DataLoader({url, children}) {
+  const data = loadDataFromUrl(url); // dummy code!
+
+  if (!data) {
+    return &lt;p>Data still loading!&lt;/p>
+  }
+
+  return children(data)  // Children ist eine Funktion!
+}
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+// Verwender
+&lt;DataLoader>
+  { data => &lt;article>&lt;h1>{data.title}&lt;/h1>&lt;p>{data.body}&lt;/p> }            
+  &lt;/DataLoader>
+</code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Grenzen von Render Properties</h3>
+
+          <p>1. Wo kommen die Render-Props möglicherweise an ihre Grenzen?</p>
+
+          <p class="fragment">Code könnte bei geschachtelten Render-Props unübersichtlich werden</p>
+
+          <pre class="fragment"><code class="javascript">
+          &lt;DataLoader renderData=
+            { user => &lt;Input initial={user.name} 
+              renderError={text => ...} /> 
+            } 
+            />
+         </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Component Composition</h3>
+
+          <p class="fragment">
+            Was, wenn wir die Hierarchie noch erweitern wollen?
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+          function Form(...) {  }
+          function Input(...) { }
+          function DatePicker(...) { ... }
+          function SubmitButton(...) { ... }
+          
+          // Verwendung
+          &lt;Form>
+            &lt;Input renderErrorComponent={ error =>  &lt;div className="Red Error">Error!&lt;div>} />
+            &lt;DatePicker />
+            &lt;SubmitButton>Absenden&lt;SubmitButton>
+            &lt;button onClick={???}>Clear&lt;button/>
+          &lt;/Form>
+                    </code></pre>
+          <p class="fragment">
+            Zustand zentral in der Form: woher kennen die Unterkomponenten den Zustand? SubmitButton
+            z.B. soll nur aktiv sein, wenn alle Felder ausgefüllt sind
+          </p>
+          <p class="fragment">Wie kann der Clear-Button den Zustand zurücksetzen?</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Component Composition: Context</h3>
+          <p class="fragment">👉 Miro!</p>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+        ### React Context
+
+        * Der **React Context** ist eine Möglichkeit, globalen Zustand Komponenten zur Verfügung zu stellen, ohne ihn über Properties durchreichen zu müssen
+        * Es gibt dabei eine **Provider** Komponente, die ein beliebiges Objekt, den Kontext, allen unterhalb liegenden Komponenten zur Verfügung stellt
+        * Das Objekt kann Daten und (Callback-)Funktionen enthalten
+        * Das Prinzip ist ähnlich wie wir es schon gesehen haben, nur dass diese Daten nicht explizit per Properties von einer Ebene zur nächsten weitergerreicht werden müssen.
+        Stattdessen findet das Durchreichen transparent statt
+        * Du kannst beliebig viele Kontexte in deiner Anwendung verwenden. Dann hast Du entsprechend mehr Provider-Komponenten.
+      </textarea
+          >
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Context: Factory</h3>
+          <ul>
+            <li class="fragment">Der Provider stellt ein beliebiges Objekt zur Verfügung</li>
+            <li class="fragment">
+              Dafür muss ein Context-Objekt mit <code>React.createContext</code> erzeugt werden.
+              Dieses Objekt enthält die Provider- und die Consumer-Komponente
+            </li>
+            <li class="fragment">(Consumer-Komponente ist mit Hooks API irrelevant)</li>
+          </ul>
+
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+        import react from "React";
+
+        const FormContext = React.createContext();
+
+        // erzeugt:
+        // ThemeContext.Provider 
+        // ThemeContext.Consumer (irrelevant mit Hooks API)
+                </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Context: Provider</h3>
+          <ul>
+            <li class="fragment">
+              Die mit <code>createContext</code> erzeugte Provider Komponente erhält ein Objekt als
+              Properties, das sie allen unterhalb liegenden Komponenten (<code>children</code>) zur
+              Verfügung stellt.
+            </li>
+            <li class="fragment">Die Verwendung ist wie eine "normale" Komponente</li>
+            <li class="fragment">
+              Üblicherweise baut man sich eine Komponente darum, die dann auch die Daten hält, die
+              über den Context zur Verfügung gestellt werden sollen
+            </li>
+            <li class="fragment">Auch hierbei handelt es sich um eine "normale" Komponente:</li>
+          </ul>
+          <pre class="fragment"><code data-trim contenteditable class="line-numbers" data-leftpad>
+        const FormContext = React.createContext();
+
+        function FormContextProvider(props) {
+          const [formData, setFormData] = React.useState();
+
+
+          return &lt;FormContext.Provider value={{
+           data: formData,
+           clearForm() { setFormData( {} )}
+          }}>
+          {props.children}
+        &lt;/FormContext.Provider>;
+      }
+</code></pre>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Context: Consumer</h3>
+          <p><em>Zugriff auf die Werte aus dem Context</em></p>
+          <ul>
+            <li class="fragment">
+              In allen Komponenten unterhalb der Provider Komponente, kann mit
+              <code>useContext</code> auf das bereitgestellte Objekt zugegriffen werden
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+function Input({name}) {
+const { formData } = React.useContext(FormContext);
+
+return &lt;input value={formData[name]}... />&lt;/div>
+}            
+    </code></pre>
+          <pre class="fragment"><code class="javascript">
+      function Error({name}) {
+      const { formData } = React.useContext(FormContext);
+      
+      return formData[name] && &lt;div className="red">Error!&lt;/div>
+      }            
+          </code></pre>
+          <p class="fragment">
+            Wenn der Kontext sich ändert, werden alle Konsumenten automatisch neu gerendert
+          </p>
+          <pre class="fragment"><code class="javascript">
+function ClearButton() {
+  const { clearForm } = React.useContext(themeContext);
+  return &lt;div>
+    &lt;button onClick={() => clearForm()}>Clear&lt;/button>
+    &lt;/div>
+}                
+    </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Custom Hook für Context-Zugriff</h3>
+
+          <ul>
+            <li class="fragment">
+              Du kannst einen Custom Hook für den Zugriff auf deinen Kontext bauen
+            </li>
+            <li class="fragment">
+              Dann ist die Technologie (Context) gekapselt und Du hast eine "fachliche" API
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            // FormContext.tsx
+            export function useFormContext() {
+              return React.useContext(FormContext);
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // Input.tsx
+            function Input(props) {
+              const { formData } = useFormContext();
+              
+              // ...
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Verwendung der Form Komponente #1</h3>
+          <pre class="fragment"><code class="javascript">
+            function Form(...) {  }
+            function Input(...) { }
+            function DatePicker(...) { ... }
+            function SubmitButton(...) { ... }
+            
+            // Verwendung
+            &lt;Form>
+              &lt;Input name="lastname" />
+              &lt;Error name="lastname" />
+
+              &lt;DatePicker name="birthday" />
+              &lt;SubmitButton>Absenden&lt;SubmitButton>
+              &lt;button onClick={???}>Clear&lt;button/>
+            &lt;/Form>
+                      </code></pre>
+        </section>
+
+        <section>
+          <h3>Verwendung der Form Komponente #2</h3>
+          <p>Wie könnten wir folgendes Pattern vereinfachen? (Und: wollen wir das?)</p>
+          <pre class="fragment"><code class="javascript">
+            // Verwendung
+            &lt;Form>
+              &lt;Input name="lastname" />
+              &lt;Error name="lastname" />
+
+              &lt;Input name="firstname" />
+              &lt;Error name="firstname" />
+
+              &lt;Input name="city" />
+              &lt;Error name="city" />
+
+              &lt;SubmitButton>Absenden&lt;SubmitButton>
+              &lt;button onClick={???}>Clear&lt;button/>
+            &lt;/Form>
+                      </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Wieviele Contexte sollte man verwenden?</h3>
+
+          <p class="fragment">Antwort vom Spotify Web Player:</p>
+          <img class="fragment" src="slides/images/context-in-spotify.jpg" />
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Mögliche Übung: React Context
+
+            * In der Datei `ThemeContext.tsx` findest Du bereits einen Rumpf für einen Theme-Context
+            * Verfollständige diesen, so dass er eine Farbe und eine setter-Funktion zum Ändern der Farbe bekommt
+            * Passe deine TextInput-Komponente oder ein anderes Input-Feld so an, dass es als Hintergrundfarbe die Farbe aus dem Context verwendet (Property: `style={{backgroundColor: ...}}`)
+            * Implementiere eine neue Komponente `ThemeChooser`, die die setter-Funktion aus dem Context benutzt, um eine andere Farbe einzustellen. Die Komponente kann sehr trivial sein, z.B. 
+            nur ein oder zwei Buttons, um zwischen zwei Farben hin- und herzuschalten
+
+            * TODO: Zähler-Komponente direkt als Children einbinden und schauen, was passiert
+
+          </textarea>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Context: was wird eigentlich gerendert? 🤔</h3>
+
+          <p>👉 03_component_composition/01_form_example</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Probleme mit Kontext?</h3>
+
+          <p class="fragment">"Implizite" Kommunikation zwischen Komponenten</p>
+          <p class="fragment">
+            Komponenten setzen bestimmte Umgebung voraus - die nicht unbedingt ersichtlich ist
+          </p>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+        ### Verwaltung von komplexem Zustand
+
+        ## Reducer-Funktionen und useReducer-Hook
+      </textarea
+          >
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+        ### Verwaltung und Änderung von Zustand
+
+        * Wir halten den Zustand lokal in einer Komponente (z.B. Form)
+        * Sämtliche Änderungen daran passieren innerhalb der Komponente
+        * Mit einer reducer-Funktion kann die Verwaltung des Zustandes aus der Komponente herausgelöst werden
+        * Warum sollte man das tun? Ideen? 🤔
+      </textarea
+          >
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+        ### useReducer
+
+        👉 03_component_composition/03_form_example_mit_useReducer
+      </textarea
+          >
+        </section>
+
+        <section>
+          <h3>useReducer-Hook</h3>
+          <p>Hintergrund: Eine reducer-Funktion...</p>
+          <ul>
+            <li class="fragment">
+              ...erhält einen (vorherigen) Zustand und eine Action als Parameter übergeben
+            </li>
+            <li class="fragment">
+              <b>Actions</b> sind anwendungsspezifische, beliebige JavaScript-Objekte
+            </li>
+            <li class="fragment">...verarbeitet die Action</li>
+            <li class="fragment">...liefert dann den neuen, aktualisierten Zustand zurück</li>
+            <li class="fragment">...muss Seiteneffekt frei sein ("pure function")</li>
+          </ul>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+          reducer(old_state, action) => new_state
+        </code></pre>
+
+          <p class="fragment">
+            <em
+              >Reducer sind zentrales Konzept von Redux, kommen aber auch in anderen Bereichen vor
+              (z.B. <code>Array.reduce</code>)</em
+            >
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Actions</h3>
+          <ul>
+            <li class="fragment">Pure JavaScript-Objekte</li>
+            <li class="fragment">Haben üblicherweise <b>type</b> und <b>payload</b></li>
+            <li class="fragment">Über das <b>type</b>-Property können sie identifiziert werden</li>
+            <li class="fragment">Der <b>Payload</b> enthält Action-spezifische Daten</li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+        const formClearedAction = {
+          type: "formCleared"; // kein Payload erforderlich
+        }
+
+        const fieldChangedAction = {
+          type: "fieldChanged",
+          fieldName: "lastname", // Action-spezifischer Payload
+          value: "Mueller"
+        }
+      </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Die reducer-Funktion</h3>
+          <ul>
+            <li class="fragment">
+              Bekommt den vorherigen Zustand übergeben und liefert neuen Zustand zurück (oder den
+              unveränderten alten)
+            </li>
+            <li class="fragment">
+              Zustand ist immutable! Kann mit <code>immer</code> kombiniert werden
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+function formReducer(state, action) {
+  switch (action.type) {
+    case "formClearedAction": {
+      return {  }; // neuer Zustand
+    }
+
+    case "fieldChangedAction": {
+      return {
+        ...state,
+        [action.fieldName]: action.value
+      }
+    }
+  }
+
+  throw new Error("Invalid Action!")
+}            
+      </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useReducer-Hook</h3>
+          <ul>
+            <li class="fragment">
+              Mit dem <b>useReducer</b>-Hook wird die reducer-Funktion in der Komponente registriert
+            </li>
+            <li class="fragment">
+              Der Hook bekommt die reducer-Funktion übergeben und den initialen Zustand (ähnlich wie
+              useState)
+            </li>
+            <li class="fragment">
+              Der Hook liefert ein Array zurück mit zwei Einträgen: dem aktuellen Zustand und der
+              <b>dispatch</b>-Funktion. Auch hier ähnlich wie bei useState: Zustand und Funktion zum
+              Ändern des Zustandes
+            </li>
+            <li class="fragment">
+              Mit der dispatch-Funktion können Actions an den Reducer gesendet werden
+            </li>
+            <li class="fragment">
+              Der reducer aktualisiert verarbeitet die Action, liefert neuen Zustand zurück,
+              Komponente wird neu gerendert (wie bei useState)
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+        function Form() {
+          const [formState, dispatch] = React.useReducer(formReducer, {  });
+
+          return &lt;div>
+            &lt;input value={formState["firstname"]} onChange={
+              () => dispatch({ type: "fieldChangedAction", fieldName: "firstname", value: e.target.value }
+            } />
+            
+            &lt;button onClick={ () => dispatch({type: "formClearedAction"})}>Clear&lt;/button>
+            &lt;/div>
+        }
+      </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useReducer und Context</h3>
+
+          <p>
+            Die mit dem reducer verwalteten Daten können wir mit dem Context zur Verfügung stellen
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            function Form() {
+              const [formState, dispatch] = React.useReducer(formReducer, {  });
+    
+              return &lt;FormContext.Provider value={{formState, dispatch}}>
+                {children}
+                &lt;FormContext./Provider>
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            function Input() {
+              const {formState, dispatch} = useFormContext();
+    
+              return &lt;div>
+              &lt;input value={formState["firstname"]} onChange={
+                () => dispatch({ type: "fieldChangedAction", fieldName: "firstname", value: e.target.value }
+              } />
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Spezialisierte API anbieten</h3>
+
+          <p>
+            Vereinfacht die Verwendung und abstrahiert das technische Implementierungsdetail
+            "Reducer"
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            function Form() {
+              const [formState, dispatch] = React.useReducer(formReducer, {  });
+    
+              return &lt;FormContext.Provider value={
+                {formState, 
+                  clearForm() { dispatch(...) },
+                  updateField(fieldName, value) { dispatch(...) }
+              }>
+                {children}
+                &lt;FormContext./Provider>
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Alternative? Update-Funktion in useState</h3>
+
+          <ul>
+            <li class="fragment">
+              Wenn es darum geht, Logik (z.B. zum Testen), auszulagern, kann die update-Funktion
+              eine Option sein
+            </li>
+            <li class="fragment">
+              Anstatt eines neuen Wertes können wir <code>useState</code> auch eine Funktion
+              übergeben
+            </li>
+            <li class="fragment">
+              Diese Funktion erhält den alten Zustand und liefert neuen zurück. Wie reducer-Funktion
+              nur ohne Action...
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+function update(s: state, e) {
+  return {
+    ...s, 
+    [n]: v
+  }
+}            
+function Input() {
+  const [text, setText] = React.useState("");
+
+  return &lt;input value={} onChange={e => setState( s => update(e) )}
+}            
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>useReducer: Anwendungsfälle</h3>
+
+          <p>
+            Habt ihr Ideen, für welche von Euren Anwendungsfällen useReducer (nicht) geeignet wäre
+            und warum?
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: ???</h3>
+
+          <p>Nur, wenn uns ein sinnvoller Anwendungsfall einfällt</p>
+        </section>
+
+        <section id="t-redux">
+          <h3>Ausblick: External Statemanagement</h3>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Externes Statemanagement
+
+            * **Externes** Statemanagement bedeutet, dass der Zustand aus deinen Komponenten herauswandert
+            * Wird haben das exemplarisch bereits bei `useReducer` gesehen
+            * Mit externem Statemanagement wird in der Regel **globaler Zustand** verwaltet
+            * Es gibt mehrere Bibliotheken, die beiden bekanntesten sind:
+              * [Redux](https://redux.js.org/)
+              * [MobX](https://mobx.js.org/README.html)
+            * Beide sind zunächst React-unabhängig und für mehrere Webframeworks verfügbar
+            * D.h. die Logik, die Du damit entwickelst kannst Du prinzipiell auch mit anderen Webframeworks nutzen
+            * Weitere Vertreter: [Recoil](https://recoiljs.org/) ebenfalls von Facebook, [OvermindJS](https://overmindjs.org/), von Codesandbox
+          </textarea>
+        </section>
+
+        <section data-markdown id="t-use-effect">
+          <textarea data-template>
+            # DataFetching mit useEffect
+          </textarea>
+        </section>
+
+        <section>
+          <h2>useEffect</h2>
+          <h3>im Detail</h3>
+          <p>
+            <em
+              >Im folgenden schauen wir uns den useEffect-Hook etwas genauer an. Dabei werden wir
+              aber auch Themen betrachten, die für React allgemein und andere Hooks relevant
+              sind</em
+            >
+          </p>
+
+          <p>👉 04_useEffect</p>
+        </section>
+
+        <section>
+          <h3>Beispiel: eine Search-Komponente</h3>
+
+          <pre class="fragment"><code class="javascript">
+              function Search({ searchString }) {
+                const [loading, setLoading] = React.useState(false);
+                const [result, setResult] = React.useState();
+              
+                React.useEffect(() => {
+                  async function search() {
+                    setLoading(true);
+                    const searchResult = await executeSearchApiCall(searchString);
+                    setLoading(false);
+                    setResult(searchResult);
+                  }
+              
+                  search();
+                }, [searchString]);
+              
+                if (loading) {
+                  return &lt;h2>Searching...&lt;/h2>;
+                }
+              
+                if (!result) {
+                  return null;
+                }
+              
+                return (
+                  &lt;div>
+                  &lt;h2>Search Result:&lt;/h2>
+                  &lt;p>{result}&lt;/p>
+                  &lt;/div>
+                );
+              }
+              
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>useEffect: clean up-Funktion</h3>
+
+          <pre class="fragment"><code class="javascript">
+            React.useEffect(() => {
+              async function search() {
+                const searchResult = await executeSearchApiCall(searchString);
+                setLoading(false);
+              }
+          
+              search();
+          
+            }, [searchString]);
+          </code></pre>
+
+          <ul>
+            <li class="fragment">Warum können wir nicht den Effect selbst 'async' deklarieren?</li>
+            <li class="fragment">
+              Der Rückgabe-Wert des useEffect-Hooks muss eine Funktion (oder undefined) sein, aber
+              kein Promise!
+            </li>
+            <li class="fragment">
+              async verwandelt jeden Rückgabe-Typ (auch undefined!) in ein Promise
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Beispiel: cleanUp-Funktion</h3>
+          <pre class="fragment"><code class="javascript">
+            function Search({ searchString }) {
+              const [loading, setLoading] = React.useState(false);
+              const [result, setResult] = React.useState();
+            
+              React.useEffect(() => {
+                let cancelled = false;
+                async function search() {
+                  setLoading(true);
+                  const searchResult = await executeSearchApiCall(searchString);
+                  if (cancelled) {
+                    console.log("already cancelled");
+                    return;
+                  }
+                  setLoading(false);
+                  setResult(searchResult);
+                }
+            
+                search();
+            
+                return () => {
+                  cancelled = true;
+                };
+              }, [searchString]);
+            
+              if (loading) {
+                return &lt;h2>Searching...&lt;/h2>;
+              }
+            
+              if (!result) {
+                return null;
+              }
+            
+              return (
+                &lt;div>
+                &lt;h2>Search Result:&lt;/h2>
+                &lt;p>{result}&lt;/p>
+                &lt;/div>
+              );
+            }
+            
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useEffect: Ausführungszeitpunkt</h3>
+          <ul>
+            <li class="fragment">
+              Grundsätzlich: nach jedem Commit der Komponente (rendern ist abgeschlossen, Komponente
+              im DOM)
+            </li>
+            <li class="fragment">
+              Einschränkbar durch das <b>Dependency-Array</b>:
+              <ul>
+                <li class="fragment">Leeres Array: nur nach erstem Rendern</li>
+                <li class="fragment">
+                  Ansonsten, wenn sich einer der Werte im Array zwischen zwei Renderzyklen verändert
+                  hat
+                </li>
+                <li class="fragment">Werte werden per Referenz verglichen!</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useEffect: Ausführungszeitpunkt</h3>
+
+          <p>Lasst uns das überprüfen: wir bauen ein zweites Eingabefeld in die App-Komponente!</p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Rendering</h3>
+          <p>Neue Anforderung: wir möchten das Suchergebnis formatiert zurückbekommen</p>
+          <p>
+            Wir übergeben eine Callback-Funktion ("resultFormatter"), mit der das Surch-Ergebnis vor
+            der Darstellung formatiert werden soll. Was müssen wir beim Verwenden beachten?
+          </p>
+
+          <p>👉 Workspace!</p>
+        </section>
+
+        <section>
+          <h3>Rendering</h3>
+          <p>
+            Wir übergeben eine Callback-Funktion ("resultFormatter"), mit der das Surch-Ergebnis vor
+            der Darstellung formatiert werden soll. Was müssen wir beim Verwenden beachten?
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+                function App() {
+                  function myFormatter(s) { return s.toUpperCase(); }
+
+                  return &lt;Search searchString={...} resultFormatter={myFormatter} />
+                }
+
+                function Search({ searchString, resultFormatter }) {
+                  const [loading, setLoading] = React.useState(false);
+                  const [result, setResult] = React.useState();
+                
+                  React.useEffect(() => {
+                    let cancelled = false;
+                    async function search() {
+                      setLoading(true);
+                      const searchResult = await executeSearchApiCall(searchString);
+                      if (cancelled) {
+                        console.log("already cancelled");
+                        return;
+                      }
+                      setLoading(false);
+    
+                      // Ergebnis formatieren
+                      const formattedResult = resultFormatter(searchResult);
+                      setResult(formattedResult);
+                    }
+                
+                    search();
+                
+                    return () => {
+                      cancelled = true;
+                    };
+                  }, [searchString, resultFormatter]);
+                
+                  if (!result) {
+                    return null;
+                  }
+                
+                 // ab hier unverändert: Loading oder Such-Ergebnis anzeigen
+                }
+                
+              </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Rendering</h3>
+          <ul>
+            <li class="fragment">
+              Wenn eine Komponente sich neu rendert, werden alle Funktionen darin neu "erzeugt", sie
+              sind also "neu"
+            </li>
+            <li class="fragment">
+              Wenn Funktionen im Dependency-Array angegeben werden, führt das dazu, dass der Effekt
+              neu ausgeführt wird
+            </li>
+            <li class="fragment">
+              Das kann richtig oder falsch sein. In unserem Beispiel wollen wir das <b>nicht</b>
+            </li>
+            <li class="fragment">
+              Wir müssen beim Aufrufer dafür sorgen, dass dieser eine "stabile" Funktion übergibt
+            </li>
+            <li class="fragment">
+              Mit <code>useCallback</code> können wir eine Funktion über mehrere Renderzyklen hinweg
+              stabil halten
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function App() {
+              const myFormatter = React.useCallback(function myFormatter(s) { return s.toUpperCase(); }, []);
+
+              return &lt;Search searchString={...} resultFormatter={myFormatter} />
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>useCallback-Hook</h3>
+          <ul>
+            <li class="fragment">
+              Auch der useCallback-Hook hat als zweiten Parameter ein Dependency-Array, das
+              bestimmt, wie lange die Callback-Funktion gültig ist
+            </li>
+            <li class="fragment">
+              Im Gegensatz zu useEffect ist das Array hier <b>pflicht</b> und kann nicht weggelassen
+              werden
+            </li>
+            <li class="fragment">Warum gibt es das Array? Was müssen wir darein schreiben?</li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Ein erweitertes Beispiel</h3>
+          <p>👉 Workspace: Der Formatter bekommt einen konfigurierbaren Prefix</p>
+        </section>
+
+        <section>
+          <h3>Hintergrund: Closures und Stale Data</h3>
+          <p>Folgendes (fehlerhaftes!!!) Beispiel:</p>
+
+          <pre class="fragment"><code class="javascript">
+            function App() {
+              const [search, setSearch] = React.useState("typescript");
+              const [prefix, setPrefix] = React.useState("");
+
+              const resultFormatter = React.useCallback(
+                 function prefixFormatter(s) {return prefix + s}
+              , []);
+
+              return &lt;div>
+                &lt;input value={change} onChange={...} />
+                &lt;input value={prefix} onChange={...} />
+                &lt;Search searchString={search} formatter={resultFormatter} />
+              &lt;div>
+            }
+          </code></pre>
+
+          <ol>
+            <li class="fragment">Search starts with value="typescript" and formatter</li>
+            <li class="fragment">User changes prefix (for example to "a")</li>
+            <li class="fragment">App re-renders</li>
+            <li class="fragment">
+              App invokes Search component with value="typescript" and formatter (same as before)
+            </li>
+            <li class="fragment">Search finishes, formatter is called</li>
+            <li class="fragment">What is prefix now in our formatter function?</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Hintergrund: Closures und Stale Data</h3>
+          <ul>
+            <li class="fragment">
+              In einer Closure werden die Daten aus dem umgebenen Kontext "eingefroren" mit dem
+              Stand, wenn die Closure erzeugt wird
+            </li>
+            <li class="fragment">
+              Die Formatter-Funktion wird also im fehlerhaften Beispiel <b>immer</b> den allerersten
+              prefix zurückliefern
+            </li>
+            <li class="fragment">
+              Wollen wir auf den Prefix zugreifen, müssen wir also eine neue formatter-Funktion
+              erzeugen, wenn sich der Prefix ändert:
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function App() {
+              const [search, setSearch] = React.useState("typescript");
+              const [prefix, setPrefix] = React.useState("");
+
+              const resultFormatter = React.useCallback(
+                 function prefixFormatter(s) {return prefix + s}
+              , [prefix]);
+
+              // ...
+          </code></pre>
+          <ul>
+            <li class="fragment">
+              Das hat (leider) zur Folge, dass nun die Search-Komponente eine neue Funktion erhält
+              und unsere Suche neue ausführt
+            </li>
+            <li class="fragment">Habt ihr andere Ideen, wie wir das Problem lösen könnten?</li>
+            <li class="fragment">
+              👆 Grundsätzlich gilt: <b>React vergleicht per Referenz</b>. Das gilt z.B. auch für
+              <code>useState</code>, <code>useMemo</code> und <code>React.memo</code>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Eine Message-Komponente, die eine Nachricht darstellt, die von selbst nach x Sekunden
+            verschwindet
+          </p>
+          <p class="fragment">Wie können wir die bauen, wenn wir "setTimeout" verwenden?</p>
+          <p class="fragment">
+            Zur Erinnerung
+            <a
+              href="https://developer.mozilla.org/de/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout"
+              >setTimeout</a
+            >-JavaScript-Funktion:
+          </p>
+          <pre class="fragment"><code class="javascript">
+const timerId = setTimeout( 
+  () => console.log("Nach fünf Sekunden"), // 1. Paramter: Callback-Funktion
+  5000 // 2. Parameter: Timeout in ms
+);
+
+// Bei Bedarf, mit clearTimeout den Timer vorzeitig beenden:
+clearTimeout(timerId);
+            </code></pre>
+          <p class="fragment">Eure Ideen? Wollt ihr es selbst probieren oder zusammen?</p>
+        </section>
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Eine Message-Komponente, die eine Nachricht darstellt, die von selbst nach x Sekunden
+            verschwindet
+          </p>
+          <p class="fragment">Wie können wir die bauen, wenn wir "setTimeout" verwenden?</p>
+
+          <pre class="fragment"><code class="javascript">
+// Sehr naive Implementierung... Was fehlt hier?            
+function Message({ message }: MessageProps) {
+  const [msgVisible, setMsgVisible] = React.useState(true);
+
+  React.useEffect(() => {
+    setTimeout(() => setMsgVisible(false), 2500);
+  }, []);
+
+  if (!msgVisible) {
+    return null;
+  }
+
+  return &lt;h2>{message}&lt;/h2>;
+}
+
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Eine Message-Komponente, die eine Nachricht darstellt, die von selbst nach x Sekunden
+            verschwindet
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+// Mit Clean-Up-Funktion           
+
+function Message({ message }: MessageProps) {
+  const [msgVisible, setMsgVisible] = React.useState(true);
+
+  React.useEffect(() => {
+    const id = setTimeout(() => setMsgVisible(false), 2500);
+    return () => {
+      clearTimeout(id);
+    };
+  }, []);
+
+  if (!msgVisible) {
+    return null;
+  }
+
+  return &lt;h2>{message}&lt;/h2>;
+}
+
+
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <p>
+            Neue Anforderung: Per Button soll die Message für immer angezeigt werden können, der
+            timeout muss also abgebrochen werden
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+              function Message({ message }: MessageProps) {
+                const [msgVisible, setMsgVisible] = React.useState(true);
+              
+                React.useEffect(() => {
+                  const id = setTimeout(() => setMsgVisible(false), 2500);
+                  return () => {
+                    clearTimeout(id);
+                  };
+                }, []);
+
+                function handleOnClick() {
+                   // ????
+                }
+              
+                if (!msgVisible) {
+                  return null;
+                }
+              
+                return &lt;div>
+                &lt;button onClick={handleOnClick}>Show Message forever&lt;/button>
+                &lt;h2>{message}&lt;/h2>
+                &lt;/div>;
+              }
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Mehr zu Hooks</h3>
+          <ul>
+            <li class="fragment">
+              In einer "Referenz", die wir mit dem useRef-Hook erzeugen, können wir Daten über
+              Renderzyklen erhalten
+            </li>
+            <li class="fragment">Diese Daten liegen unter <code>ref.current</code></li>
+            <li class="fragment">
+              Das ändern der Daten führt <b>nicht</b> zu einem neu rendern der Komponente!
+            </li>
+            <li class="fragment">
+              Vergleichbar mit einer Instanz-Variablen in einer Klassen Komponente
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+
+        <!-- ============================================================================= -->
+        <section id="data-libs">
+          <h2>Data Libraries für React</h2>
+        </section>
+
+        <!-- <ul>
+           
+            <li class="fragment">
+              Anforderungen: Daten laden, Caching samt korrektem Invalidieren..., Requests sollen
+              nicht bei jedem Rendern ausgeführt werden, globales(!) Caching: Daten sollen über
+              Komponetengrenzen und -wechsel erhalten bleiben, Fehlerbehandlung bzw. Abbildung
+              Request-Lebenszyklus...
+            </li>
+            <li class="fragment">
+              
+            </li>
+            <li class="fragment">
+              
+            </li>
+            <li class="fragment">SWT, React Query und RTK Query, alle React-spezifisch</li>
+            <li class="fragment">
+              Die Idee ist bei allen ähnlich und vermutlich von Apollo inspiriert: per Hooks API
+              wird der Lebenszyklus eines Requests abgebildet.
+            </li>
+            <li class="fragment">Je nach Request Status unterscheidet sich der Rückgabewert</li>
+            <li class="fragment">
+              Die gelesenen Daten werden global gecached, deswegen Provider-Kompponente (bzw. Redux
+              bei RTK) notwendig
+            </li>
+          </ul>
+        </section> -->
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Basis Libraries
+
+            * fetch: Browser Standard API, Low-Level, keinerlei Abstraktionen, quasi HTTP "pur"
+            * [axios](https://github.com/axios/axios) bzw. [redaxios](https://github.com/developit/redaxios): Quasi-standard (aber kein Browser API). 
+            * Etwas höhere Abstraktion als fetch: HTTP Fehlercodes werden auf Exceptions gemappt, Payload automatisch von/nach
+            JSON konvertiert)
+            * axios benutzt "Ajax", Redaxios selbe API aber basiert auf fetch (sehr kleine lib)
+            * alle React-unabhängig!
+          
+            
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Data Libraries für React
+
+            * Was könnten Anforderungen an eine React-spezifische Bibliothek sein?
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Data Libraries für React: Anforderungen
+
+            * Daten laden/schreiben, HTTP GET, POST, PUT, DELETE, ...
+            * Caching samt korrektem Invalidieren...
+            * Requests sollen nicht bei jedem Rendern ausgeführt werden
+            * globales(!) Caching: Daten sollen über Komponetengrenzen und -wechsel erhalten bleiben
+            * Re-fetching?
+            * Fehlerbehandlung
+            * Request-Lebenszyklus: Läuft mein Request noch? (Wie) wurde er beendet? 
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Data Libraries für React: Typische Vertreter
+
+            * [SWR](https://swr.vercel.app/) und [React Query](https://react-query.tanstack.com/)
+            * Neu für Redux (Beta!): [Redux Toolkit Query](https://rtk-query-docs.netlify.app/)
+            * Erste(?) Lib dieser Art: [Apollo](https://www.apollographql.com/docs/react/) (für GraphQL)
+            * Idee bei allen ähnlich: es gibt einen Custom-Hook, der Daten lädt/schreibt, man bekommt Request Status/Daten zurück, Ergebnisse werden gecached
+            * Man braucht einen Context (bzw. Redux), mit dem gecached wird
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Beispiel: SWR
+
+            * Workspace `05a/data-libs`
+          </textarea>
+        </section>
+
+        <section id="t-test">
+          <h2>Testen von React Anwendungen</h2>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Testen von React Anwendungen</h3>
+
+          <p class="fragment">Wer von Euch hat schon Tests geschrieben? 🙋🏻‍♀️</p>
+          <p class="fragment">...und wer von Euch würde es nochmal tun 😉?</p>
+        </section>
+
+        <section>
+          <h1>Jest</h1>
+          <p>
+            <em
+              >"Delightful JavaScript Testing" (
+              <a href="https://jestjs.io/" target="_blank">https://jestjs.io/</a>)</em
+            >
+          </p>
+          <p class="fragment">
+            Vollständige Testlösung für React (und andere):
+          </p>
+          <ul class="fragment">
+            <li class="fragment">Test Runner</li>
+            <li class="fragment">Specs/Assertions, Mocks</li>
+            <li class="fragment">Code Coverage</li>
+            <li class="fragment">"Snapshot testing"</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Jest</h4>
+          <h3>Beispiel: Ein einfacher Testfall</h3>
+          <pre><code class="javascript" contenteditable data-trim>// sum.js (or sum.ts)
+export const sum = (a,b) => a+b;
+        </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>// sum.test.js
+import {sum} from '../sum.js';
+
+test('sum of 2 and 2 is 4', () => {
+  expect(sum(2, 2)).toBe(4);
+});
+
+test('sum of 2 and 2 is not 3', () => {
+  expect(sum(2, 2)).not.toBe(3);
+});
+            </code></pre>
+        </section>
+        <section>
+          <h4>Jest</h4>
+          <h2>Testcases</h2>
+          <p>
+            <code>test</code> oder
+            <code>it</code>
+          </p>
+          <pre><code data-trim contenteditable>test('it should work', () => {
+  expect(...).toBe(...);
+});</code></pre>
+          <pre><code data-trim contenteditable>it('it should also work', () => {
+  expect(...).toBe(...);
+});</code></pre>
+        </section>
+
+        <section>
+          <h4>Jest</h4>
+          <h2>"Expectations" und "Matchers"</h2>
+          <div class="fragment">
+            <p>
+              <code>expect()</code> liefert ein <em>Expectation</em> Objekt zurück, das verschiede
+              <em>Matcher</em> Funktionen bereitstellt:
+            </p>
+            <pre><code data-trim contenteditable>expect(actual).toXyz(expected);
+// for example:
+expect("Hello Jest").toBe("Hello Jest"); // => ok
+        </code></pre>
+          </div>
+          <div class="fragment">
+            <p>Beispiele für Matchers</p>
+
+            <pre><code data-trim contenteditable>// Compare identity
+expect(actual).toBe(expected);
+// Compare value:
+expect(actual).toEqual(expected);
+// true / false / null:
+expect(actual).toBeTruthy();
+expect(actual).toBeFalsy();
+expect(actual).toBeNull();
+// Length (Array oder String)
+expect(actual).toHaveLength(123);
+        </code></pre>
+          </div>
+          <p class="fragment">
+            <a href="https://jestjs.io/docs/en/expect">https://jestjs.io/docs/en/expect</a>
+          </p>
+        </section>
+
+        <section>
+          <h4>Jest</h4>
+          <h2>Mock Funktionen</h2>
+          <ul>
+            <li class="fragment">
+              <code>jest.fn()</code> erzeugt eine Mock-Funktion
+              <pre><code data-trim contenteditable>// Gibt undefined zurück, wenn die Mock-Funktion ausgeführt wird
+const aMockFn = jest.fn();
+
+const x = aMockFn("huhu"); // => undefined
+expect(x).toBeUndefined();
+
+expect(aMockFn).toHaveBeenCalled());
+expect(aMockFn.toHaveBeenCalledWith("huhu"));
+                      </code></pre>
+            </li>
+
+            <li class="fragment">
+              Implementierung der Mock-Funktion kann als Parameter übergeben:
+              <pre><code data-trim contenteditable>
+        const aMockFn = jest.fn( param => `Hello, ${param}` );
+        
+        console.log(aMockFn('World'));
+        // => Hello, World
+                  </code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Ausführen von Tests</h3>
+          <ul>
+            <li class="fragment">
+              Mit <code>npm test</code> werden alle Tests ausgeführt:
+              <ul>
+                <li class="fragment">
+                  In allen <code>__tests__</code>-Verzeichnissen (<b>alle!</b> Dateien darin werden
+                  als Test-Datei interpretiert...)
+                </li>
+                <li class="fragment">Alle <code>*.test.*</code>-Dateien</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Test-Dateien werden üblicherweise in dasselbe Verzeichnis gelegt, in dem auch die zu
+              testende Datei liegt oder in ein "__tests__"-Unterverzeichnis direkt darunter
+            </li>
+            <li class="fragment">
+              Mehr Info:
+              <a href="https://create-react-app.dev/docs/running-tests/#filename-conventions"
+                >CRA Doku</a
+              >
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: Jest</h3>
+          <ul>
+            <li class="fragment">
+              Wir arbeiten im Verzeichnis <code>2021_11_29_ts_react/06_test</code>
+            </li>
+            <li class="fragment">
+              Dort findest Du eine React-Anwendung, für die wir Tests entwickeln werden
+            </li>
+            <li class="fragment">
+              Die Tests kannst Du ausführen mit <code>npm test</code> auf der Kommandozeile. Sobald
+              Du Änderungen im Workspace machst und speicherst, werden die Tests erneut ausgeführt
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+
+        <section>
+          <h3>Übung: Jest</h3>
+
+          <p>Hintergrund: die <code>createPost</code>-Funktion</p>
+
+          <p class="fragment">
+            Die Funktion <code>createPost</code> erstellt aus einem <code>title</code> und
+            <code>body</code>
+            ein Blog-Post-Objekt:
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            const post = createPost("Intro to Jest", "You will learn Jest here");
+            // post:
+            //  {
+            //    title: "Intro to Jest",
+            //    body: "You will learn Jest here"
+            //  }  
+          </code></pre>
+
+          <p class="fragment">
+            Wenn als einziger Parameter <code>null</code> übergeben wird, liefert die Funktion null
+            zurück:
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            const post = createPost(null);
+            // post === null
+          </code></pre>
+
+          <p class="fragment">
+            Zusätzlich kann der Funktion eine "Slug-Generator"-Funktion übergeben werden. Diese
+            Callback-Funktion wird von createPost verwendet, um eine Slug (für eine URL) zu
+            erzeugen. Dafür wird der Callback-Funktion der Post-Titel übergeben. Die Funktion
+            liefert dann einen Slug zurück, der auch ins Post-Objekt aufgenommen wird:
+          </p>
+          <pre class="fragment"><code class="javascript">
+           const post = createPost("Intro to Jest", "You will learn Jest here", 
+                                   title => "/" + title.toLowerCase()
+                                  );
+            // post:
+            //  {
+            //    title: "Intro to Jest",
+            //    body: "You will learn Jest here",
+            //    slug: "/intro to jest"
+            //  }  
+            </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: Jest</h3>
+          <p><em>Implementiere Testfälle für die createPost-Funktion</em></p>
+          <ol>
+            <li class="fragment">
+              Stelle sicher, dass beim Aufrufen mit zwei String-Parametern das korrekte Post-Objekt
+              erzeugt wird
+            </li>
+            <li class="fragment">
+              Stelle sicher, dass beim Aufruf mit einem Parameter (<code>null</code>) auch
+              <code>null</code> zurück geliefert wird
+            </li>
+            <li class="fragment">
+              Schreibe eine Mock-Funktion für den Slug-Generator und rufe createPost damit auf.
+              <ol>
+                <li class="fragment">Stelle sicher, dass der Slug im Post-Objekt enthalten ist</li>
+                <li class="fragment">
+                  Stelle sicher, dass deine Generator-(Mock-)Funktion mit dem übergebenen Post-Titel
+                  aufgerufen wurde
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Testen von React Komponenten</h3>
+          <h2>Nur rendern</h2>
+        </section>
+
+        <section>
+          <h3>React Test Renderer</h3>
+          <p>
+            <a href="https://www.npmjs.com/package/react-test-renderer"
+              >https://www.npmjs.com/package/react-test-renderer</a
+            >
+          </p>
+          <p>Rendert React Komponenten in JSON Objekte (ohne DOM):</p>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
+
+const component = renderer.create(
+  &lt;PostList posts={somePosts} />
+);
+
+console.log(component.toJSON());
+            </code></pre>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+        { type: 'div',
+          props: {},
+          children:  [
+            { type: 'button', props: {}, children: [Object] },
+            { type: 'article', props: [Object], children: [Object] },
+            { type: 'article', props: [Object], children: [Object] }
+          ]
+        }
+            </code></pre>
+        </section>
+        <section>
+          <h3>"Snapshot Testing" mit Jest</h3>
+          <p>
+            <code>expect(obj).toMatchSnapshot()</code> vergleicht ein erzeugtes JSON-Objekt mit
+            einem gespeicherten JSON-Objekt aus einer Datei:
+          </p>
+          <ul>
+            <li class="fragment">
+              Bei der <b>ersten</b> Ausführung: Snapshot-Datei wird angelegt (
+              <a href="slides/images/jest-snapshot-file.png" target="_blank">Beispiel</a>)
+              <ul>
+                <li class="fragment">Die Snapshot-Datei wird nun in Git eingecheckt</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              In den <b>folgenden</b> Test Ausführungen: ein neuer Snapshot wird jeweils erzeugt und
+              mit dem <b>gespeicherten</b> Snapshot verglichen
+            </li>
+            <li class="fragment">
+              Wenn die Snapshots nicht identisch sind:
+              <ul>
+                <li class="fragment">
+                  Fehler mit Unterschieden (
+                  <a href="slides/images/jest-snapshot-diff.png" target="_blank">Beispiel</a>)
+                </li>
+                <li class="fragment">
+                  Im "watch mode" von Jest kann der Snapshot aktualisiert werden
+                  <img src="slides/images/jest-snapshot-update.png" />
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Snapshot Tests mit Jest und React</h3>
+          <pre
+            class="fragment"
+          ><code class="javascript" contenteditable data-trim>import renderer from 'react-test-renderer';
+        
+test('it should render correctly', () => {
+
+  const somePosts = [ . . . ];
+
+  const component = renderer.create(
+    &lt;PostList posts={somePosts} />
+  );
+
+  expect(component.toJSON()).toMatchSnapshot();
+});
+            </code></pre>
+        </section>
+
+        <section>
+          <h3>Testing React Components #2</h3>
+          <h2>Interaktionen</h2>
+        </section>
+
+        <section>
+          <h3>react-testing-library</h3>
+          <p>
+            <em
+              >"Simple and complete React DOM testing utilities that encourage good testing
+              practices."
+            </em>
+          </p>
+
+          <p>
+            <a href="https://github.com/testing-library/react-testing-library" target="_blank"
+              >https://github.com/testing-library/react-testing-library</a
+            >)
+          </p>
+          <p>
+            Philosophie: Tests werden aus User-Perspektive geschrieben. Das bedeutet, um die zu
+            testenden Elemente zu finden, suchst Du nach Eigenschaften, nach denen auch ein User
+            suchen würde (z.B. Labels, Placeholder etc.)
+          </p>
+          <p class="fragment">👉 <code>workspace-typescript</code></p>
+        </section>
+
+        <section>
+          <h3>Die render-Funktion</h3>
+          <p>
+            Die render-Function aus der react-testing-library wird im Test verwendet, um eine React
+            Komponente (ohne Browser) zu rendern
+          </p>
+          <p>
+            Genauso wie in der Anwendungen können Properties angegeben werden
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+            import { render } from "@testing-library/react";
+
+              // Render a single component
+              render(&lt;PostList onAddPost={onAddPostFn} posts={mockPosts} />);
+          </code></pre>
+          <p class="fragment">
+            Dran denken, ggf. Contexte ebenfalls zu erzeugen, falls diese benötigt werden (React
+            Router, Redux etc)!
+          </p>
+          <pre class="fragment"><code class="javascript" contenteditable data-trim>
+
+              // Render with surrounding Redux Provider (or Router, your own Context etc.)
+              render(
+                &lt;Provider>
+                  &lt;PostList onAddPost={onAddPostFn} posts={mockPosts} />
+                &lt;/Provider>
+              );
+            </code></pre>
+        </section>
+        <section>
+          <h3>query Funktionen</h3>
+          <p>
+            Um die gerenderten HTML-Elemente aus deiner Komponente zu überprüfen und mit ihnen zu
+            interagieren, musst Du sie ersteinmal finden 🤓
+          </p>
+          <p>
+            Auf dem globalen <b>screen</b> Objekt der Testing-Lib sind verschiedene Funktionen
+            definiert, mit denen Du nach Elementen suchen kannst
+          </p>
+          <p>
+            Die query-Funktionen haben unterschiedliche <b>Suffixe</b>, die beschreiben,
+            <b>nach welchem Kriterium</b> Du suchst (nach Label, nach aria-role, ...)
+          </p>
+          <p>
+            Die Funktionen haben außerdem jeweils einen <b>Präfix</b> (getBy, queryBy etc) der
+            beschreibt, die Art des Rückgabewerts der jeweilgen Funktion (z.B. ob sie einen Error
+            wirft oder null zurückgibt, wenn das angefragte Element nicht gefunden wurde)
+          </p>
+          <p>
+            Mehr zu den query-Funktionen:
+            <a
+              target="_blank"
+              href="https://testing-library.com/docs/react-testing-library/cheatsheet#queries"
+              >React Testing Library Cheatsheet</a
+            >
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+  // BEISPIELE: 
+
+  // suche nach einem Button (Annahme: es gibt GENAU EINEN, ansonsten schlägt der Test fehl)
+  const buttonElement = screen.getByRole("button", { name: "Add Post" });
+
+  // suche nach einem Button (gibt null oder EINEN Button, wirft ansonst einen Fehler)
+  const buttonElement = screen.queryByRole("button", { name: "Add Post" });
+
+  // suche nach einem Button (gibt alle gefunden zurück oder ein leeres Array)  
+  const buttonElement = screen.queryAllByRole("button", { name: "Add Post" });
+</code></pre>
+        </section>
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Hintergrund: aria-Rollen</h3>
+          <ul>
+            <li class="fragment">
+              Um barrierefreie Websites zu bauen, müssen Screenreader und andere
+              Assitenz-Technologien in der Lage sein, die Struktur Eurer Anwendung zu verstehen,
+              z.B. damit sie einem Benutzer beim Vorlesen mitteilen können, ob ein bestimmtes
+              Element ein Button oder ein Inhaltsverzeichnis etc. ist
+            </li>
+            <li class="fragment">
+              In HTML5 sind u.a. dafür eine ganze Reihe "semantischer" Elemente hinzugekommen (z.B.
+              header, nav, footer, main, ...)
+            </li>
+            <li class="fragment">
+              Mit
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques"
+                >ARIA Rollen</a
+              >
+              könnt ihr auch an anderen Elementen festlegen, welche Bedeutung ein Element hat
+            </li>
+            <li class="fragment">
+              Die HTML-Elemente haben Standard-Rollen, die aber mit <code>role</code> verändert
+              werden können
+            </li>
+            <li class="fragment">
+              Die Rollen könnt ihr im Browser mit den entsprechenden Entwicklungstools ansehen
+            </li>
+            <li class="fragment">
+              In der react-testing-library könnt ihr mit den <code>byRole</code> Query-Funktionen
+              Elemente an Hand ihrer Aria-Rollen suchen. Damit könnt ihr (zumindest in der Theorie)
+              sicherstellen, dass Eure Anwendung barrierefrei ist (bzw. diesen Teil der
+              Barrierefreiheit erfüllt)
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Überprüfen von Elementen</h3>
+          <p>
+            Wenn Du dein gesuchtes Elemente gefunden hast, kannst Du es überprüfen, ob es deinen
+            Erwartungen entspricht (korrekte Attribute gesetzt etc.)
+          </p>
+          <p>
+            Die Bibliothek
+            <a href="https://github.com/testing-library/jest-dom" target="_blank">jest-dom</a> fügt
+            dazu DOM-spezifiche Matcher für Jest hinzu.
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+  import { screen } from "@testing-library/react";
+
+  const buttonElement = screen.queryByRole("button", { name: "Add Post" });
+
+  // stellt sicher, dass das Element im DOM vorhanden ist (getBy-Query würde hier vielleicht mehr Sinn machen)
+  expect(buttonElement).toBeInTheDocument();
+
+  // sicherstellen, dass ein Eingabefeld einen erwarteten Wert hat
+  expect(titleInput).toHaveValue("Moin moin");
+
+  // sicherstellen, dass ein Button disabled ist
+  expect(okButton).toBeDisabled();
+</code></pre>
+          <p class="fragment">
+            Alle Matcher sind auf der oben verlinkten GitHub Seite dokumentiert
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Playground: Browser-Plugin</h3>
+          <p>
+            Es gibt Browser-Plugins für Chrome und Firefox, mit denen Du Queries ausprobieren
+            kannst:
+          </p>
+          <ul>
+            <li class="fragment">
+              <a href="https://addons.mozilla.org/de/firefox/addon/testing-playground/">Firefox</a>
+            </li>
+            <li class="fragment">
+              <a
+                href="https://chrome.google.com/webstore/detail/testing-playground/hejbmebodbijjdhflfknehhcgaklhano"
+                >Chrome</a
+              >
+            </li>
+          </ul>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Debugging</h3>
+
+          <p>Du kannst den gerenderten DOM mit <code>prettyDOM</code> ausgeben:</p>
+
+          <pre class="fragment"><code class="javascript">
+import { prettyDOM, render } from "@testing-library/react";
+
+test('...', () => {
+  render(&lt;MyComponent />);
+
+  console.log(prettyDOM());
+});
+
+  </code></pre>
+
+          <p class="fragment">
+            Du kannst alle aria-Rollen eines Elementes mit <code>logRoles</code> ausgeben:
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+import { logRoles, render } from "@testing-library/react";
+
+test('...', () => {
+  const result = render(&lt;MyComponent />);
+
+  logRoles(result.baseElement);
+
+});     
+   </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: Starten der Anwedung</h3>
+
+          <p>
+            <em
+              >Wir brauchen zum Testen keine laufende Anwendung, wir starten sie aber gemeinsam,
+              damit ihr sie ausprobieren könnt, und wisst, was ihr überhaupt testet</em
+            >
+          </p>
+
+          <ol>
+            <li class="fragment">
+              Schritt 1: REST-Backend, dazu bitte ein Terminal/eine Shell im Verzeichnis
+              <code>blog-example/backend-rest</code> öffnen
+            </li>
+            <li class="fragment"><code>npm install</code> ausführen</li>
+            <li class="fragment"><code>npm start</code> ausführen</li>
+            <li class="fragment">
+              Schritt 2: React-Anwendung, dazu bitte ein Terminal/eine Shell im Verzeichnis
+              <code>blog-example/workspace-test</code> öffnen
+            </li>
+            <li class="fragment"><code>npm install</code> ausführen</li>
+            <li class="fragment"><code>npm start</code> ausführen</li>
+            <li class="fragment">
+              Die Anwendung sollte jetzt auf
+              <a href="http://localhost:3000">http://localhost:3000</a> laufen
+            </li>
+          </ol>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: Rendern von Komponenten und Überprüfen von Elementen</h3>
+
+          <p><em>Schreibe Tests für die PostList-Komponente</em></p>
+          <ol>
+            <li class="fragment">
+              In der Datei <code>__tests__/PostList.test.ts</code> stehen TODOs für Testfälle
+            </li>
+            <li class="fragment">
+              Mit <code>npm test PostList</code> kannst Du die Ausführung der Tests auf diese Datei
+              beschränken.
+            </li>
+            <li class="fragment">
+              class="fragment">Im Verzeichnis <code>_solutions</code> findest Du jeweils mögliche
+              Lösungen zu den Übungen
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Interaktionen</h3>
+          <p>
+            Du kannst mit den Elementen interagieren, in dem Du ihnen Events sendest, genau wie es
+            ein Browser tun würde
+          </p>
+          <p>
+            Es gibt eine weitere Bibliothek,
+            <a href="https://github.com/testing-library/user-event" target="_blank"> user-event</a>,
+            die dir dabei hilft, die Events zu erzeugen.
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            import userEvent from "@testing-library/user-event";
+            // Simuliert die Eingabe in ein Textfeld
+            userEvent.type(titleInput, "New Title");
+
+            // Simuliert den Klick auf einen Button
+            userEvent.click(clearButton);
+          </code></pre>
+          <p class="fragment">
+            Alle Events sind in der
+            <a href="https://testing-library.com/docs/ecosystem-user-event/">Dokumentation</a>
+            beschrieben (Link oben)
+          </p>
+
+          <p class="fragment">
+            Vor dem Versenden eines Events musst Du <b>nicht</b> überprüfen, ob das Element, dem Du
+            das Event senden willst, vorhanden ist. Die Bibliothek gibt sehr sprechende Fehler aus,
+            wenn das Element nicht vorhanden ist
+          </p>
+        </section>
+
+        <section>
+          <h3>Übung: Rendern von Komponenten und Überprüfen von Elementen</h3>
+
+          <p><em>Schreibe Tests für die PostEditor-Komponente</em></p>
+          <ol>
+            <li class="fragment">
+              In der Datei <code>__tests__/PostEditor.test.ts</code> stehen TODOs für Testfälle
+            </li>
+            <li class="fragment">
+              Mit <code>npm test PostEditor</code> kannst Du die Ausführung der Tests auf diese
+              Datei beschränken.
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Testen von fetch-Aufrufen</h3>
+          <p>Herausforderungen:</p>
+          <ul>
+            <li class="fragment">Asynchroner Code (nicht beschränkt auf fetch)</li>
+            <li class="fragment">Server Zugriffe/Server Mocks</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Behandlung von asynchronem code</h3>
+        </section>
+
+        <section>
+          <h3>Testen von asynchronem Code</h3>
+          <p>
+            Beispiel: Die <b>App</b> Komponente lädt Daten, <em>erst dann</em> stellt sie die
+            PostList dar. Das Laden der Posts ist asynchron.
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            it("should render posts read from backend", () => {
+              render(&lt;App />);
+            
+              // Annahme: es gibt einen Artikel mit dem Title "Learning React"
+              const articleOne = screen.findByRole("heading", { name: "Learning React" });
+
+              expect(articleOne).toBeInTheDocument(); // THIS WON'T WORK!
+            });
+          </code></pre>
+          <p class="fragment">
+            Wir können einen Test als async-funktion schreiben und darin mit <b>await</b> auf ein
+            Element warten
+          </p>
+          <pre class="fragment"><code class="javascript">
+            // Test-Funktion als async-Funktion (beachte 'async'):
+            it("should render posts read from backend", async () => {
+              render(&lt;App />);
+            
+              // Beachte await hier:
+              const articleOne = await screen.findByRole("heading", { name: "Learning React" });
+
+              expect(articleOne).toBeInTheDocument(); // YIPPIE, WORKS
+            });
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Testen von fetch</h3>
+          <p>Wie gesehen, können wir asynchronen Code testen</p>
+          <p class="fragment">Wollen wir fetch-Aufrufe in unserem Code haben, den wir testen?</p>
+          <p class="fragment">
+            Möglicherweise nicht, weil wir bei echten fetch-Aufrufen auch einen echten, laufenden
+            und funktionierenden Server im Test bräuchten
+          </p>
+          <p class="fragment">Stattdessen wollen wir das "echte" fetch mocken</p>
+        </section>
+
+        <section>
+          <h3>Ansatz #1: fetch API mocken</h3>
+          <p>Es gibt mehrere Bibliothken mit fetch-Mocks</p>
+          <p>
+            Für mich funktioniert
+            <a href="https://www.npmjs.com/package/jest-fetch-mock" target="_blank"
+              >jest-fetch-mock</a
+            >
+            am Besten
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // App.test.tsx
+            it("should render posts read from backend", async () => {
+              // setzen des Ergebnisses, das der nächste fetch-Aufruf zurückliefern soll
+              fetchMock.mockResponse(JSON.stringify(mockPosts));
+
+              render(&lt;App />);
+            
+              // Immer noch asynchroner Code, aber kein "echter" fetch-Aufruf mehr,
+              // zurückgegeben wird das oben angegebene Ergebnis
+              const articleOne = await screen.findByRole("heading", { name: "One Fetch Mock" });
+
+              expect(articleOne).toBeInTheDocument();
+            });
+
+          </code></pre>
+          <p class="fragment">
+            Beispiel:
+            <code
+              >blog-example/steps/6a-testing-with-api-module/src/__tests__/App_jest_mock.test.tsx</code
+            >
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Ansatz #2: Mock Service Worker (MSW)</h3>
+
+          <p><a href="https://github.com/mswjs/msw" target="_blank">MSW</a></p>
+          <p>
+            MSW mockt echte Server-Aufrufe mit einem
+            <a href="https://developer.mozilla.org/de/docs/Web/API/Service_Worker_API"
+              >Service Worker</a
+            >
+          </p>
+          <p>
+            fetch-Aufrufe werden "richtig" ausgeführt, aber beantwortet von dem Service Worker Mock
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // PostList.test.js
+            import { rest } from 'msw'
+            import { setupServer } from 'msw/node'
+            
+            const server = setupServer(
+              rest.get('/posts', (req, res, ctx) => {
+                return res(ctx.json( mockPosts ))
+              }),
+            )
+
+            test("it should render blog list", async () => {
+              render(&lt;PostList />);
+              // ...
+            })
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: FetchMock</h3>
+
+          <p>
+            <em
+              >Schreibe einen Test, um die App-Komponente zu testen und mocke dabei die
+              fetch-Funktion</em
+            >
+          </p>
+
+          <ol>
+            <li class="fragment">
+              Die Test-Datei ist <code>App.test</code>, darin sind TODOs enthalten
+            </li>
+            <li class="fragment"><code>npm test App.test</code>, um den Test auszuführen</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Fetch mocken, Ansatz #3</h3>
+          <p>Wir können <b>komplette Module</b> in Jest mocken</p>
+          <p class="fragment">
+            Wir könnten unseren fetch-Code in ein eigenes Modul schieben und das dann mocken
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            // api.ts (fetch vereinfacht!)
+            export function readPosts() {
+              return fetch("http://localhost:7000/posts").then(response => response.json());
+            }
+          </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+            // App.tsx:
+
+            import { readPosts } from "./api";
+            function App() {
+              // ...
+              React.useEffect(() => {
+                // Verwenden von readPosts hier:
+                readPosts()
+                  .then(json => {
+                    setLoading(false);
+                    setPosts(json);
+                  })
+                  .catch(err => console.error("Loading data failed: " + err));
+              }, []);
+            }
+          </code></pre>
+        </section>
+        <section>
+          <h3>Mocken von Modulen in Jest</h3>
+          <p>Es gibt mehrere Varianten. Das hier die einfachste(?)</p>
+
+          <pre class="fragment"><code class="javascript">
+            // App.test.tsx
+
+            const mockPosts = [
+              { id: "1", title: "One Fetch Mock", body: "Lorem ipsum" },
+              { id: "2", title: "Second Post Fetch Mock", body: "Some more content" }
+            ];
+
+            jest.mock("../api", () => ({
+              readPosts: () => Promise.resolve(mockPosts)
+            }));
+
+            it("should render posts read from backend", async () => {
+              render(&lt;App />);
+            
+              // Hier immer noch asnychroner Code (deswegen await), aber:
+              // kein laufender Server mehr benötigt
+              const articleOne = await screen.findByRole("heading", { name: "One" });
+              expect(articleOne).toBeInTheDocument();
+
+              expect(screen.getByText("Second Post")).toBeInTheDocument();
+            });
+          </code></pre>
+          <p class="fragment">
+            Beispiel:
+            <code
+              >blog-example/steps/6a-testing-with-api-module/src/__tests__/App_module_mock.test.tsx</code
+            >
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Übung: Module mit Jest mocken</h3>
+
+          <p><em>Schreibe ein gemocktes Modul für das Laden von Blog-Posts</em></p>
+
+          <ol>
+            <li class="fragment">
+              Die Test-Datei ist <code>App-with-mock.test</code>, darin sind TODOs enthalten
+            </li>
+            <li class="fragment"><code>npm test App-with-mock</code>, um den Test auszuführen</li>
+          </ol>
+        </section>
+
+        <!-- <section>
+          <h2>Übung: Ein Test für den PostEditor</h2>
+          <p>Schritte:</p>
+          <ol>
+            <li class="fragment">Arbeite in <code>blog-example/workspace-typescript</code></li>
+            <li class="fragment">
+              Starte in einem neuen Terminal <code>npm test</code> (der Prozess läuft "ewig")
+            </li>
+            <li class="fragment">
+              Es sollte einen fehlerhaften Test geben:
+              <b><code>PostEditor.test.tsx</code></b
+              >.
+            </li>
+            <li class="fragment">Warum? Weil der noch leer ist 😬!</li>
+            <li class="fragment">
+              Implementiere den fehlenden Test. In der Datei<b><code>PostEditor.test.tsx</code></b>
+              stehen TODOs dafür
+            </li>
+          </ol>
+          <p class="fragment">
+            Hinweis: wenn Du die Datei speicherst, werden die Tests automatisch neu ausgeführt
+            (solange Du
+            <code>npm test</code> noch laufen hast), ansonsten kannst Du "a" auf der Kommandozeile
+            drücken, zum erneuten Ausführen der Tests.
+          </p>
+          <p class="fragment">Mögliche Lösung in <code>steps/6-test</code></p>
+          <p class="fragment">Wenn Du fertig bist, bitte "Hand heben" in Zoom 🙋‍♀️</p>
+        </section> -->
+
+        <section>
+          <h2>Browser Tests</h2>
+          <p>Häufig eingesetzt:</p>
+          <ul>
+            <li class="fragment">
+              <a href="https://www.selenium.dev/">Selenium - The "classic"</a>
+            </li>
+            <li class="fragment">
+              <a href="https://devexpress.github.io/testcafe/" target="_blank">TestCafe</a> (mit
+              Support für sehr viele Browser, u.a. auch Cloud-Service
+              <a href="https://www.browserstack.com/" target="_blank">BrowserStack</a>
+            </li>
+            <li class="fragment"><a href="https://www.cypress.io/" target="_blank">Cypress</a></li>
+          </ul>
+          <p class="fragment">
+            In TestCafe und Cypress werden die Tests in JavaScript/TypeScript geschrieben, Selenium
+            gibt's für mehrere Sprachen
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h2>Geschafft! 😊</h2>
+          <h3>Vielen Dank für Eure Teilnahme!</h3>
+          <p>
+            Wenn ihr noch Fragen habt, könnt ihr mich erreichen:
+          </p>
+          <p>Mail: <a href="mailto:nils@nilshartmann.net">nils@nilshartmann.net</a></p>
+          <p>
+            Web: <a href="https://nilshartmann.net" target="_blank">https://nilshartmann.net</a>
+          </p>
+          <p>
+            Twitter: <a href="https://twitter.com/nilshartmann" target="_blank">@nilshartmann</a>
+          </p>
+        </section>
+      </div>
+    </div>
+
+    <script src="slides/reveal.js/lib/js/head.min.js"></script>
+    <script src="slides/reveal.js/js/reveal.js"></script>
+    <script src="slides/reveal.js/lib/jquery-2.2.4.js"></script>
+    <script src="slides/reveal-config.js"></script>
+    <script>
+      const isLocal =
+        window.location.hostname.indexOf("localhost") !== -1 ||
+        window.location.hostname.indexOf("127.0.0.1") !== -1 ||
+        window.location.href.startsWith("file:///");
+      Reveal.addEventListener("ready", function (event) {
+        $("li").addClass("fragment");
+
+        // make all links open in new tab
+        $("a").attr("target", "_blank");
+
+        if (isLocal) {
+          // only applies to presentation version
+          Reveal.configure({ controls: false });
+        } else {
+          // only applies to public version
+          $(".fragment").removeClass("fragment");
+        }
+      });
+    </script>
+  </body>
+</html>
