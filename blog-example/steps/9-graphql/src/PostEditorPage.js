@@ -47,5 +47,5 @@ export default function PostEditorPage() {
     return <SuccessConfirmation />;
   }
 
-  return <PostEditor onSavePost={savePost} />;
+  return <PostEditor onSavePost={savePost} error={errorMessage} />;
 }

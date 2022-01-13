@@ -65,6 +65,10 @@ const resolvers = {
 
       const userId = user ? user.id : "U1";
 
+      if (postData.title.length < 3) {
+        return { error: "Title of Blog Post must have at least 3 chars" };
+      }
+
       const savedPost = datastore.insertPost(userId, postData);
 
       return { blogPost: savedPost };

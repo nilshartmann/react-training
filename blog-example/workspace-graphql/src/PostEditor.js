@@ -1,21 +1,16 @@
 import React from "react";
-import { NewBlogPost } from "./types";
 
-type PostEditorProps = {
-  onSavePost(post: NewBlogPost): void;
-  error?: string | null | undefined;
-};
-
-export default function PostEditor(props: PostEditorProps) {
+export default function PostEditor({ error, onSavePost }) {
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
+
+  const clearDisabled = !title && !body;
+  const saveButtonDisabled = !title || !body;
 
   function clear() {
     setTitle("");
     setBody("");
   }
-
-  const saveButtonDisabled = !title || !body;
 
   return (
     <div className="Container">
@@ -31,13 +26,15 @@ export default function PostEditor(props: PostEditorProps) {
         <textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
       </label>
 
-      {props.error && <p>{props.error}</p>}
+      {error ? <Message msg={error.toString()}></Message> : null}
 
-      <button onClick={clear}>Clear</button>
+      <button disabled={clearDisabled} onClick={clear}>
+        Clear
+      </button>
       <button
         disabled={saveButtonDisabled}
         onClick={() => {
-          props.onSavePost({
+          onSavePost({
             title,
             body
           });
@@ -47,4 +44,10 @@ export default function PostEditor(props: PostEditorProps) {
       </button>
     </div>
   );
+}
+
+function Message({ msg, type = "error" }) {
+  const style = type === "error" ? { color: "red", fontWeight: "bold" } : { color: "green" };
+
+  return <p style={style}>{msg}</p>;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function PostEditor(props) {
+export default function PostEditor({ error, onSavePost }) {
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
 
@@ -20,21 +20,13 @@ export default function PostEditor(props) {
         Title
         <input value={title} onChange={e => setTitle(e.currentTarget.value)} />
       </label>
-      {title ? (
-        <Message type="info" msg="Title correctly filled"></Message>
-      ) : (
-        <Message type="error" msg="Please enter a title"></Message>
-      )}
 
       <label>
         Body
         <textarea value={body} onChange={e => setBody(e.currentTarget.value)} />
       </label>
-      {body ? (
-        <Message type="info" msg="Body correctly filled"></Message>
-      ) : (
-        <Message msg="Please enter a body"></Message>
-      )}
+
+      {error ? <Message msg={error.toString()}></Message> : null}
 
       <button disabled={clearDisabled} onClick={clear}>
         Clear
@@ -42,7 +34,7 @@ export default function PostEditor(props) {
       <button
         disabled={saveButtonDisabled}
         onClick={() => {
-          props.onSavePost({
+          onSavePost({
             title,
             body
           });
