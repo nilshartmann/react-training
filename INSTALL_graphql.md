@@ -1,35 +1,31 @@
-# Vorbereitungen für die React Schulung
+# Vorbereitungen für die React Online Schulung
 
 ## Voraussetzungen
 
-**Teilnehmer Laptops/PCs**
+**Für dein Laptop/PC**
 
-Auf den Teilnehmer Laptops/PCs sollte installiert sein:
+Auf deinem Laptop/PC sollte installiert sein:
 
 - Git (zum installieren des Workspaces)
-- [NodeJS](https://nodejs.org/en/download/) (LTS version 12.16.x) und npm Version 6.14.x (ist in der NodeJS Distribution enthalten)
+- [NodeJS](https://nodejs.org/en/download/) LTS version, aktuell 16.x (, 14.x und 12.16.x sollten aber auch funktionieren) und die darin enthaltene npm Version
 - Browser (am besten Firefox oder Chrome)
-- Eine IDE oder ein Texteditor, zum Beispiel:
+- Eine IDE oder ein Texteditor. Wenn Du bereits einen "Lieblingseditor" verwendest, benutze diesen während des Trainings, damit Du nicht auch noch ein neues Tool lernen musst. Ansonsten funktionieren folgende Tools zum Beispiel:
   - [Visual Studio Code](https://code.visualstudio.com/)
   - [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) (Ultimate Edition, Evaluationsversion reicht aber)
   - [Webstorm](https://www.jetbrains.com/webstorm/download/) (Evaluationsversion reicht)
-
-Die Laptops sollten _auch während des Trainings_ Internet-Zugang haben (s.u.)
-
-Wenn die Teilnehmer bereits ihren "Lieblingseditor" verwenden, sollen sie diesen gerne verwenden, dann müssen sie während des Trainings nicht auch noch einen neuen Editor erlernen.
+- Für Schulungen, die wir über **Zoom** machen: bitte den Zoom **Client** installieren (und nicht die Web-Version von Zoom verwenden). Du benötigst aber _keinen_ Zoom-Account.
 
 **Optional: Browser Erweiterungen für React**
 
 - Für das Arbeiten mit React empfehle ich, die [React Developer Tools](https://github.com/facebook/react/tree/master/packages/react-devtools) zu installieren. Es gibt sie für [Chrome](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjE14vhq-rmAhVGblAKHbgOC1sQFjAAegQICRAK&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Freact-developer-tools%2Ffmkadmapgofadopljbjfkapdkoienihi&usg=AOvVaw3YJDg7kXgeeChgKN88s0Sx) und [Firefox](https://addons.mozilla.org/de/firefox/addon/react-devtools/)
+- Wenn ihr mit dem Apollo GraphQL Client arbeitet, lohnt es sich, die [Apollo Client Dev Tools](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#apollo-client-devtools)-Erweiterung im für [Chrome](https://chrome.google.com/webstore/detail/apollo-client-devtools/jdkknkkbebbapilgoeccciglkfbmbnfm) bzw. [Firefox](https://addons.mozilla.org/de/firefox/addon/apollo-developer-tools/) zu installieren
 
-- Für das Arbeiten mit **Apollo GraphQL** gibt es die [Apollo Client Tools](https://www.apollographql.com/docs/react/development-testing/developer-tooling/#apollo-client-devtools), eine Erweiterung für
-  [Chrome](https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm) und [Firefox](https://addons.mozilla.org/en-US/firefox/addon/apollo-developer-tools/)
+**Während des Trainings**
 
-**Ausstattung im Schulungsraum**
-
-- Zum Anschluss meines Notebooks benötige ich einen **HDMI-Eingang am Beamer**. Falls der Beamer einen anderen Anschluss hat, gebt mir bitte vorher Bescheid, damit wir eine Lösung finden.
-
-- Zusätzlich zum Beamer sollte ein Whiteboard und/oder ein Flipchart im Schulungsraum vorhanden sein.
+- Da wir vor und während des Trainings ggf. noch Aktualisierungen installieren müssen, bitte sicherstellen, dass auch während des Trainings auf deinem Computer der Internet-Zugang (logisch, online-Schulung 🙃) funktioniert - aber auch **für git und npm** (Proxies beachten!)
+  - Informationen zum Einrichten eines Proxies für npm findest Du bei Bedarf [zum Beispiel hier](http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/).
+- **Ich freue mich, wenn Du während des Trainings deine Kamera an hast**, damit wir uns sehen können 🎥. Mikrofon hingegen bitte nur anmachen, wenn Du etwas sagen oder fragen möchtest (was Du natürlich jederzeit darfst!)
+- W-LAN ist bequem, aber gerade bei (langen) Streamings ist ein Kabel-gebundenes Netzwerk stabiler als W-LAN, also im Zweifel lieber das Kabel einstecken (und W-LAN deaktivieren) 😊
 
 # Installation und Vorbereitung des Workspaces für die Schulung
 
@@ -41,7 +37,7 @@ Wenn die Teilnehmer bereits ihren "Lieblingseditor" verwenden, sollen sie diesen
 git clone https://github.com/nilshartmann/react-training
 ```
 
-2. Testweise die benötigten npm-Pakete installieren:
+2. Die benötigten npm-Pakete installieren:
 
 ```
 cd blog-example/backend-graphql
@@ -53,7 +49,7 @@ npm install
 cd blog-example/workspace
 npm install
 
-cd blog-example/workspace-typescript
+cd blog-example/workspace-graphql
 npm install
 ```
 
@@ -75,14 +71,14 @@ Achtung! Das Backend läuft auf **Port 7000**, d.h. dieser Port muss verfügbar 
 
 ## Schritt 3: Testen, ob das GraphQL Backend funktioniert
 
-1. Im Verzeichnis **blog-example/backend-graphql** des Repositories das Backend starten:
+1. Im Verzeichnis **blog-example/backend-graphql** des Repositories das GraphQL Backend starten:
 
 ```
 cd blog-example/backend-graphql
 npm start
 ```
 
-Achtung! Das Backend läuft auf **Port 4000**, d.h. dieser Port muss verfügbar sein.
+Achtung! Das GraphQL-Backend läuft auf **Port 4000**, d.h. dieser Port muss verfügbar sein.
 
 2. Backend testen
 
@@ -107,12 +103,8 @@ Achtung! Das Frontend läuft auf **Port 3000**, d.h. dieser Port muss verfügbar
 
 2. Wenn das Frontend gestartet ist, zum testen einmal die Anwendung im Browser aufrufen: [http://localhost:3000](http://localhost:3000). Dort sollte "Hello, World" erscheinen, dann ist der Workspace einsatzbereit.
 
-![Running frontsend](./running-workspace.png)
+![Running frontend](./running-workspace.png)
 
-## Internet-Zugang
+**Das ist alles!**
 
-Da wir vor und während des Trainings ggf. noch Aktualisierungen installieren müssen, bitte sicherstellen, dass auch während des Trainings **auf den Computern der Teilnehmer der Internet-Zugang (insb. git und npm) besteht und funktioniert!**
-
-Informationen zum Einrichten eines Proxies für npm könnt ihr u.a. [hier finden](http://wil.boayue.com/blog/2013/06/14/using-npm-behind-a-proxy/).
-
-Bei Fragen oder Problemen meldet Euch bitte bei mir.
+Bei Fragen oder Problemen melde dich gerne bei mir.
