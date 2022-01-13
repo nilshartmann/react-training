@@ -1,5 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PostEditor from "./PostEditor";
 
 const AddBlogPostMuation = gql`
