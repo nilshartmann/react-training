@@ -1,27 +1,44 @@
 import React from "react";
 import Post from "./Post";
 import { useParams, Link } from "react-router-dom";
+import { gql, useQuery } from "@apollo/client";
+
+const PostPageQuery = gql`
+  query PostPageQuery($postId: ID!) {
+    post(postId: $postId) {
+      id
+      title
+      date
+      body
+      user {
+        name
+      }
+    }
+  }
+`;
 
 export default function PostPage() {
   const { postId } = useParams();
-  const [post, setPost] = React.useState(null);
 
-  React.useEffect(() => {
-    fetch(`http://localhost:7000/posts/${postId}`)
-      .then(response => response.json())
-      .then(json => {
-        setPost(json);
-      })
-      .catch(err => console.error("Loading data failed: " + err));
-  }, [postId]);
+  const { loading, error, data } = useQuery(PostPageQuery, {
+    variables: {
+      postId
+    }
+  });
+  if (loading) {
+    return <h1>Loading, please wait...</h1>;
+  }
 
-  if (post) {
+  if (error) {
+    return <h1>GraphQL Failed: {error.toString()}</h1>;
+  }
+  if (data.post) {
     return (
       <>
         <Link className="Button" to="/">
           Home
         </Link>
-        <Post post={post} />
+        <Post post={data.post} />
       </>
     );
   }

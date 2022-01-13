@@ -1,20 +1,39 @@
 import React from "react";
 import PostList from "./PostList";
+import { gql, useQuery } from "@apollo/client";
+
+const PostListPageQuery = gql`
+  query PostListPage {
+    posts {
+      title
+      teaser
+      id
+    }
+  }
+`;
 
 export default function PostListPage(props) {
-  const [posts, setPosts] = React.useState([]);
-  React.useEffect(() => {
-    fetch("http://localhost:7000/posts?short")
-      .then(response => response.json())
-      .then(json => {
-        setPosts(json);
-      })
-      .catch(err => console.error("Loading data failed: " + err));
-  }, []);
+  const { loading, data, error } = useQuery(PostListPageQuery);
 
-  if (!posts.length) {
+  // const [posts, setPosts] = React.useState([]);
+
+  // React.useEffect(() => {
+  //   fetch("http://localhost:7000/posts?short")
+  //     .then(response => response.json())
+  //     .then(json => {
+  //       setPosts(json);
+  //     })
+  //     .catch(err => console.error("Loading data failed: " + err));
+  // }, []);
+
+  if (loading) {
     return <h1>Loading, please wait...</h1>;
   }
 
-  return <PostList onAdd={props.onAdd} posts={posts} />;
+  if (error) {
+    console.error(error);
+    return <h1>Error! Loading failed!</h1>;
+  }
+
+  return <PostList onAdd={props.onAdd} posts={data.posts} />;
 }

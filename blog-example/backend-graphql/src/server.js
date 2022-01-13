@@ -5,6 +5,8 @@ const datastore = require("./datastore");
 
 const pubsub = new PubSub();
 
+const checkAuth = false;
+
 /** IN REAL LIVE YOU WILL NEVER STORE JWT_SECRET IN YOUR CODE! */
 const JWT_SECRET = "hurzelpurzel";
 
@@ -57,11 +59,13 @@ const resolvers = {
     },
 
     createBlogPost(_, { postData }, { user }) {
-      if (!user) {
+      if (checkAuth && !user) {
         return { error: "You must be logged in to save new blog post!" };
       }
 
-      const savedPost = datastore.insertPost(user.id, postData);
+      const userId = user ? user.id : "U1";
+
+      const savedPost = datastore.insertPost(userId, postData);
 
       return { blogPost: savedPost };
     },
