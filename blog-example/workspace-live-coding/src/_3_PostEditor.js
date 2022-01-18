@@ -61,9 +61,7 @@ function Message({ msg, type = "error" }) {
 //  POST LIST
 // ======================================================================================================
 
-export function PostList(props) {
-  const posts = props.posts;
-
+export function PostList({ posts }) {
   return (
     <>
       <button>Add Post</button>

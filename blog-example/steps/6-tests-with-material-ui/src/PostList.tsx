@@ -18,13 +18,12 @@ const useStyles = makeStyles({
   }
 });
 
-export default function PostList(props: PostListProps) {
+export default function PostList({ posts, onAddPost }: PostListProps) {
   const postStyles = useStyles();
-  const posts = props.posts;
 
   return (
     <>
-      <Fab color="primary" aria-label="Add Post" onClick={props.onAddPost}>
+      <Fab color="primary" aria-label="Add Post" onClick={onAddPost}>
         <AddIcon />
       </Fab>
       {posts.map(p => (

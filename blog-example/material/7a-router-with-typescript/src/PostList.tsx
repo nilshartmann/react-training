@@ -11,9 +11,7 @@ type PostListProps = {
   posts: BlogPost[];
 };
 
-export default function PostList(props: PostListProps) {
-  const posts = props.posts;
-
+export default function PostList({ posts }: PostListProps) {
   return (
     <>
       <Link className="Button" to="/add">

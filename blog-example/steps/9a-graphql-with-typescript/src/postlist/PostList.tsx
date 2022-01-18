@@ -11,15 +11,13 @@ type PostListProps = {
   posts: PostListQuery_posts[];
 };
 
-export default function PostList(props: PostListProps) {
-  const posts = props.posts;
-
+export default function PostList({ posts }: PostListProps) {
   return (
     <>
       <Link className="Button" to="/add">
         Add Post
       </Link>
-      {posts.map((p) => (
+      {posts.map(p => (
         <Link key={p.id} to={`/post/${p.id}`}>
           <article className="Container">
             <p className="Date">{formattedDate(p.date)}</p>

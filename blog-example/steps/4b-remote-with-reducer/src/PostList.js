@@ -5,12 +5,10 @@ function formattedDate(date) {
   return moment(date).format("DD.MM.YYYY");
 }
 
-export default function PostList(props) {
-  const posts = props.posts;
-
+export default function PostList({ posts, onAddPost }) {
   return (
     <>
-      <button onClick={props.onAddPost}>Add Post</button>
+      <button onClick={onAddPost}>Add Post</button>
       {posts.map(p => (
         <article key={p.id} className="Container">
           <p className="Date">{formattedDate(p.date)}</p>

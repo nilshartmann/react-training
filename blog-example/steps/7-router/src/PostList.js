@@ -6,9 +6,7 @@ function formattedDate(date) {
   return moment(date).format("DD.MM.YYYY");
 }
 
-export default function PostList(props) {
-  const posts = props.posts;
-
+export default function PostList({ posts }) {
   return (
     <>
       <Link className="Button" to="/add">

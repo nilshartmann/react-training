@@ -11,12 +11,10 @@ type PostListProps = {
   onAddPost(): void;
 };
 
-export default function PostList(props: PostListProps) {
-  const posts = props.posts;
-
+export default function PostList({ onAddPost, posts }: PostListProps) {
   return (
     <>
-      <button onClick={props.onAddPost}>Add Post</button>
+      <button onClick={onAddPost}>Add Post</button>
       {posts.map(p => (
         <article key={p.id} className="Container">
           <p className="Date">{formattedDate(p.date)}</p>
