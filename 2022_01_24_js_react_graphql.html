@@ -105,6 +105,7 @@
               <a href="#/react-intro">React und Apollo GraphQL Client</a>
             </li>
             <li class="fragment">Jeweils 9:00 bis 17:00 Uhr</li>
+            <li class="fragment">Jeweils 12:30 bis 13:30 Mittagspause 🍕</li>
             <li class="fragment">Kürzere Pausen zwischendurch ☕️ 😴</li>
           </ul>
         </section>
@@ -1208,15 +1209,26 @@ const olderPersons = persons.map( p => {
 
           <p>Nicht alle Browser unterstützen Module nativ</p>
           <p>
-            Es gibt in JS faktisch mehr als ein Modulsystem (zum Beispiel CommonJS aus Node.JS)
+            Es gibt in JS faktisch mehr als ein Modulsystem (zum Beispiel
+            <a href="https://nodejs.org/docs/latest/api/modules.html#modules-commonjs-modules"
+              >CommonJS</a
+            >
+            aus Node.JS)
           </p>
 
           <p>
-            Mit einem Bundler (z.B.
-            <a href="http://webpack.github.io/">Webpack</a> oder
-            <a href="https://rollup.js.org">Rollup</a>) werden die Module im Build "aufgelöst" und
+            Mit einem <b>Bundler</b> werden die Module im Build "aufgelöst" und im einfachsten Fall
             in <b>eine</b> Datei geschrieben
           </p>
+          <p class="fragment">
+            Prominente Bundler: <a href="http://webpack.github.io/">Webpack</a> und
+            <a href="https://rollup.js.org">Rollup</a>
+          </p>
+        </section>
+
+        <section>
+          <h2>Webpack und Babel</h2>
+          <img src="slides/images/webpack-und-babel.png" style="height: 600px;" />
           <p class="fragment">
             Das passiert auch im React Build-Tooling, ihr müsst euch nicht drum kümmern!
           </p>
@@ -1361,6 +1373,25 @@ const olderPersons = persons.map( p => {
           </ul>
         </section>
 
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Dokumentation</h3>
+
+          <ul class="xx-list">
+            <li class="fragment">
+              Aktuelle Doku (Klassen API-basiert):
+              <a href="https://reactjs.org/">https://reactjs.org/</a>
+            </li>
+            <li class="fragment">
+              Neue Doku (noch Beta, aber Hooks API-basiert):
+              <a href="https://beta.reactjs.org/">https://beta.reactjs.org/</a>
+            </li>
+          </ul>
+          <p class="fragment">
+            Wichtig: "nur" die neu Doku-Seite ist beta, die Hooks API ist stabil
+          </p>
+        </section>
+
         <section>
           <h2>Unsere erste React-Komponente</h2>
           <h3>Sehen wir uns die wichtigsten Konzepte einer React-Komponente im Code an</h3>
@@ -1427,7 +1458,7 @@ const olderPersons = persons.map( p => {
           <h3>Der Trainingsworkspace</h3>
           <ul class="x-list">
             <li style="margin-bottom: 40px;">
-              <code>2021_11_15_js_react_typescript.html</code>: Die Slides
+              <code>2022_01_24_js_react_graphql.html</code>: Die Slides
             </li>
             <li class="fragment" style="margin-bottom: 40px;">
               Der Code ist im <code><b>blog-example</b></code> Verzeichnis
@@ -1522,6 +1553,26 @@ const olderPersons = persons.map( p => {
           <p>Fertige Konfiguration von React u.a. mit Webpack, Hot Reload, Babel und Linter</p>
           <p>Beispiel: npx create-react-app PROJEKTNAME</p>
         </section>
+        <section data-state="js-exkurs">
+          <h2>Webpack Development Server</h2>
+          <p>Zum Ausführen der Anwendung während der Entwicklung wird ein Webserver benötigt</p>
+          <p class="fragment">
+            create-react-app hat den
+            <a href="https://webpack.js.org/configuration/dev-server/">Webpack DevServer</a>
+            integriert
+          </p>
+          <ul>
+            <li class="fragment">
+              ...führt Webpack auf Basis der Projekt Webpack Konfiguration automatisch bei jedem
+              Speichern aus
+            </li>
+            <li class="fragment">...erzeugt Ausgabe in Memory (Performance)</li>
+            <li class="fragment">
+              ...Hot Reloading: Automatische Aktualisierung nach Code Änderung
+            </li>
+          </ul>
+        </section>
+
         <section data-state="js-exkurs">
           <h3>Tooling: Linter</h3>
           <p><em>Statische Codeanalyse</em></p>
@@ -2660,8 +2711,15 @@ function App() {
               oder <a href="https://swr.vercel.app/">SWR</a>
             </li>
             <li>
-              Data Fetching für Redux Toolkit (Alpha!):
-              <a href="https://rtk-query-docs.netlify.app/" target="_blank"> RTK Query</a>
+              Data Fetching für Redux Toolkit:
+              <a href="https://redux-toolkit.js.org/rtk-query/overview" target="_blank"
+                >RTK Query</a
+              >
+            </li>
+            <li>
+              und natürlich GraphQL, z.B.
+              <a href="https://www.apollographql.com/docs/react/">Apollo</a> oder
+              <a href="https://formidable.com/open-source/urql/">Urql</a>
             </li>
           </ul>
         </section>
@@ -2698,7 +2756,7 @@ const promise = getNameAsync();
           <h3>Hintergrund: Promises</h3>
           <p>Promises können verkettet werden</p>
           <pre><code class="javascript" contenteditable>
-
+// Annahme: 'getNameAsync' liefert "irgendwann" den String "Klaus" zurück
 const promise = getNameAsync()
 
   // Wird mit dem ersten Wert aufgerufen und gibt neuen Wert zurück
@@ -3791,7 +3849,12 @@ function PostEditorPage() {
                 >Polling (alle x ms)</a
               >
             </li>
-            <li class="fragment"><a href="https://www.apollographql.com/docs/react/data/subscriptions/#subscribing-to-updates-for-a-query">Mit einer "<b>subscribe to more</b>"-Subscription</li>
+            <li class="fragment">
+              Mit einer "<b>subscribe to more</b>"-<a
+                href="https://www.apollographql.com/docs/react/data/subscriptions/#subscribing-to-updates-for-a-query"
+                >Subscription</a
+              >
+            </li>
             <li class="fragment">
               Mit der
               <a
