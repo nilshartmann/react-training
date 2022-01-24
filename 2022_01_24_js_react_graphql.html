@@ -385,7 +385,7 @@ function printer(getMessageFn) {
 // "inline" Funktion
 printer(function() { return "Hello, World"} );
 
-function helloWorld() { return  "Hello, World" };
+function helloWorld() { return  "Hello, World" };
 printer(helloWorld);
 
 </code></pre>
@@ -400,25 +400,67 @@ printer(helloWorld);
           </code></pre>
 
           <p class="fragment">
-            Default-Parameter (danach dürfen keine nicht-Default-Parameter kommen)
+            Der Default-Parameter greift immer, wenn für den Parameter
+            <code>undefined</code> übergeben wurde:
+          </p>
+
+          <pre class="fragment"><code class="javascript">
+            add(1); // entspricht: add(1,1)
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            add(1,undefined); // entspricht: add(1,1)
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            add(1,2); // entspricht: add(1,2);
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            add(1, null); // entspricht; add(1, null);
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            add(); // entspricht: add(undefined, 1);
+          </code></pre>
+
+          <p class="fragment">
+            Mehrere Default-Parameter: danach dürfen keine nicht-Default-Parameter kommen!
           </p>
 
           <pre class="fragment"><code class="javascript">
             function add(value, inc = 1) { ... } // ok
             function add(value = 0, inc = 1) { ... }  // ok
+
             function add(value = 0, inc) { ... } // FEHLER
           </code></pre>
+        </section>
+        <section>
+          <h3>Rest-Parameter</h3>
 
-          <p class="fragment">Rest-Parameter nehmen alle verbleibenen, übergebenen Parameter auf</p>
+          <p class="fragment">
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters"
+              >Rest-Parameter</a
+            >
+            nehmen alle verbleibenen, übergebenen Parameter auf
+          </p>
 
           <pre class="fragment"><code class="javascript">
-            function say(...words) { // words ist ein Array mit allen Parametern } 
-            say("One", "Two");
+            function greet(phrase, ...names) { 
+              // ...
+            }
+
+            greet("Hello", "World", "Peter", "Susi");
+
+            // phrase ist "Hello",
+            // names ist ein Array mit "World", "Peter", "Susi"
           </code></pre>
 
           <pre class="fragment"><code class="javascript">
-            function greet(phrase, ...names) { ... }
-            greet("Hello", "World", "Peter", "Susi"); // names ist ein Array mit drei Einträgen
+            function say(...words) { 
+              // ...
+            } 
+
+            say("One", "Two");
+
+            // words ist ein Array mit allen Parametern ("One", "Two")
           </code></pre>
         </section>
 
@@ -547,22 +589,26 @@ printer(helloWorld);
 
         <section>
           <h3>JavaScript: Arrays</h3>
+          <pre><code class="javascript">
+            const fruits = ["apple", "orange"];
+          </code></pre>
           <pre class="fragment"><code class="javascript">
-          // Iterieren
-
-          for (const x of six) {
-            console.log(x);
-          }
-          // 1, 2, 3, 4, 5, 6
-
-          six.forEach(v => console.log(v));
-          // 1, 2, 3, 4, 5, 6
-        </code></pre>
+            // Iterieren
+            for (const f of fruits) {
+              console.log(f);
+            }
+            // "apple"
+            // "orange"
+  
+            fruits.forEach(f => console.log(f));
+            // "apple"
+            // "orange"
+          </code></pre>
           <pre class="fragment"><code class="javascript">
           // Transformieren ("map") eines Arrays
 
-          const multiplied = six.map(v => v * 2);
-          // [2, 4, 6, 8, 10, 12]
+          const bigFruits = fruits.map(v => v.toUpperCase());
+          // ["APPLE", "ORANGE"]
           </code></pre>
         </section>
 
@@ -669,7 +715,7 @@ const what = "first name";
 person[what]; // Klaus
 person[what] = "Susi";
 
-person.firstname; // Susi
+person["first name"]; // Susi
           </code></pre>
         </section>
 
@@ -743,19 +789,34 @@ person.sayHello();  Hello, undefined 🤪
           </p>
 
           <pre><code class="javascript">
+            // Ein Objekt...
               const person = {
                 firstname: "Susi",
                 lastname: "Meier",
                 age: 32
               };
+            </code></pre>
+          <pre class="fragment"><code class="javascript">
+              // Zugriff auf Properties (herkömmlich)
+
+              const firstname = person.firstname; // Susi
+              const age = person.age; // 32
+              const hobby = person.hobby; // undefined
+            </code></pre>
+          <pre class="fragment"><code class="javascript">
+              // Zugriff auf Properties (Destrukturierung)
 
               const { firstname, age, hobby } = person;
+
               console.log(firstname); // Susi
               console.log(age); // 32
               console.log(hobby); // undefined
             </code></pre>
+        </section>
+        <section>
+          <h3>Destructuring #2</h3>
 
-          <p class="fragment">Dabei kannst Du <em>Default Werte</em> vergeben:</p>
+          <p class="fragment"><em>Default Werte</em>:</p>
 
           <pre class="fragment"><code class="javascript">
               const person = {
@@ -768,7 +829,7 @@ person.sayHello();  Hello, undefined 🤪
             </code></pre>
         </section>
         <section>
-          <h3>Destructuring #2</h3>
+          <h3>Destructuring #3</h3>
           <p>Funktionsparameter, die ein Objekt sind, können destrukturiert werden:</p>
 
           <pre><code class="javascript">
@@ -834,15 +895,23 @@ person.sayHello();  Hello, undefined 🤪
           </p>
 
           <pre class="fragment"><code class="javascript">
-            const susi = { firstname: "Susi", age: 32 }
+            const person = { firstname: "Susi", age: 32 }
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            // Kopie erzeugen (herkömmlich)
+            const copy = { firstname: person.firstname, age: person.age } 
 
-            // (Flache) Kopie erzeugen
-            const copy = { ...person } 
+            // copy: { firstname: "Susi", age: 32}
+          </code></pre>
+          <pre class="fragment"><code class="javascript">
+            // Kopie erzeugen (Spread operator)
+            const copy = { ...person };
+
             // copy: { firstname: "Susi", age: 32}
 
             copy.age = 33;
 
-            susi.age; // 32
+            person.age; // 32
           </code></pre>
 
           <pre class="fragment"><code class="javascript">
@@ -925,20 +994,19 @@ const olderPersons = persons.map( p => {
         </section>
         <!-- ============================================================================= -->
         <section>
-          <section>
-            <h3>Truthy und falsy</h3>
-            <p>
-              <b><a href="https://developer.mozilla.org/de/docs/Glossary/Falsy">falsy</a></b> ist
-              ein Wert, der <b>false</b> wird, wenn er (implizit oder explizit) in ein Boolean
-              konvertiert wird
-            </p>
-            <p>
-              <b><a href="https://developer.mozilla.org/de/docs/Glossary/Truthy">truthy</a></b> ist
-              ein Wert, der <b>true</b> wird, wenn er (implizit oder explizit) in ein Boolean
-              konvertiert wird (das sind alle Werte, die nicht falsy sind)
-            </p>
+          <h3>Truthy und falsy</h3>
+          <p>
+            <b><a href="https://developer.mozilla.org/de/docs/Glossary/Falsy">falsy</a></b> ist ein
+            Wert, der <b>false</b> wird, wenn er (implizit oder explizit) in ein Boolean konvertiert
+            wird
+          </p>
+          <p>
+            <b><a href="https://developer.mozilla.org/de/docs/Glossary/Truthy">truthy</a></b> ist
+            ein Wert, der <b>true</b> wird, wenn er (implizit oder explizit) in ein Boolean
+            konvertiert wird (das sind alle Werte, die nicht falsy sind)
+          </p>
 
-            <pre><code class="javascript">
+          <pre><code class="javascript">
             if (true) { console.log("I'm true") } // I'm true
 
             if ("hello") { console.log("I'm true") } // I'm true
@@ -948,24 +1016,48 @@ const olderPersons = persons.map( p => {
             if (undefined) { console.log("I'm falsy") } // 
           </code></pre>
 
-            <p class="fragment">Was ist mit diesen?</p>
+          <p class="fragment">Was ist mit diesen?</p>
 
-            <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
             if (0) { console.log("will this be shown?"); } // 🤔
           </code></pre>
 
-            <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
             if ("") { console.log("will this be shown?"); } // 🤔
           </code></pre>
 
-            <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
             if ([]) { console.log("will this be shown?"); } // 🤔
           </code></pre>
 
-            <pre class="fragment"><code class="javascript">
+          <pre class="fragment"><code class="javascript">
             if ({}) { console.log("will this be shown?"); } // 🤔
           </code></pre>
-          </section>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Truthy und falsy #2</h3>
+
+          <p>Insbesondere mit <code>0</code> und Leerstring aufpassen:</p>
+
+          <pre class="fragment"><code class="javascript">
+                function add(a, b) {
+                  if (!a || !b) {
+                    throw new Error("Invalid Argument!");
+                  }
+
+                  return a + b;
+                }
+              </code></pre>
+          <pre class="fragment"><code class="javascript">
+                add(2, 1);  // 3 👍
+                add(1, null); // "Invalid Argument" 👍
+              </code></pre>
+
+          <pre class="fragment"><code class="javascript">
+                add(1, 0); // "Invalid Argument" 🤦
+              </code></pre>
         </section>
 
         <!-- =============================================================================
