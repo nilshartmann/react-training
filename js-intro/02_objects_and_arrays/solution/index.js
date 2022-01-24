@@ -22,7 +22,7 @@ printPersons(persons);
 // SCHRITT 4: (statt "printPersonsAdvanced" kannst Du deine printPersons-Funktion erweitern):
 function printPersonsAdvanced(persons, formatName) {
   persons.forEach(p => {
-    const name = formatName ? formatName(p.name) : p.name;
+    const name = typeof formatName === "function" ? formatName(p.name) : p.name;
     console.log(`Person heisst ${name} und ist ${p.age} Jahre alt`);
   });
 }
