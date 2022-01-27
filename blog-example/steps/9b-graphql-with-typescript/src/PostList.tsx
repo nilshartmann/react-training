@@ -2,11 +2,20 @@ import React from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
-function formattedDate(date) {
+function formattedDate(date: string) {
   return moment(date).format("DD.MM.YYYY");
 }
+type PostTeaser = {
+  id: string;
+  date: string;
+  title: string;
+  teaser?: string | null;
+};
+type PostListProps = {
+  posts: PostTeaser[];
+};
 
-export default function PostList({ posts }) {
+export default function PostList({ posts }: PostListProps) {
   return (
     <>
       <Link className="Button" to="/add">

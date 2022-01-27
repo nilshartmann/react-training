@@ -1,0 +1,15 @@
+mutation AddBlogPost($postData: NewBlogPost!) {
+  newPost: createBlogPost(postData: $postData) {
+    error
+    blogPost {
+      id
+      title
+      date
+      body
+      user {
+        id
+        name
+      }
+    }
+  }
+}

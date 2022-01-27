@@ -5,6 +5,7 @@ import { gql, useQuery } from "@apollo/client";
 const PostListPageQuery = gql`
   query PostListPage {
     posts {
+      date
       title
       teaser
       id

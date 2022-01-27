@@ -1734,7 +1734,7 @@ function Choice() {
                     </code></pre>
             </li>
             <li style="font-size: 80%;" class="fragment">
-              null, false oder boolean, um nichts zu rendern:
+              null oder boolean (false oder true), um nichts zu rendern:
               <pre><code class="xml" contenteditable data-trim>
 function ErrorMessage() {
   const hasError = someCondition(); // returns true or false
@@ -3256,6 +3256,10 @@ function App(props) {
               Füge in <code>App.js</code> den Code zum <b>Laden</b> und <b>Speichern</b> eines
               Blog-Posts hinzu.
             </li>
+            <li class="fragment">
+              Beim <b>Laden</b> der Daten mit fetch, bitte <b>Promise API</b> verwenden und
+              <b>nicht <code>async/await</code></b> API!
+            </li>
 
             <li class="fragment">
               Füge einen Loading Indicator hinzu
@@ -3426,72 +3430,6 @@ export default function useApi(url, initialValue) {
           <h3>Die Blog Anwendung mit GraphQL</h3>
 
           <p>👉 Beispiel: steps/8-graphql</p>
-        </section>
-
-        <section>
-          <h3>Exercise #1: Let's get started with GraphQL queries</h3>
-
-          <div class="fragment">
-            <p>Start the GraphQL backend:</p>
-            <ol>
-              <li>
-                Go into <code><b>blog-example/backend-graphql</b></code>
-              </li>
-              <li><code>npm install</code></li>
-              <li><code>npm start</code></li>
-            </ol>
-          </div>
-
-          <div class="fragment">
-            <p>
-              Open the GraphQL Playground at
-              <a href="http://localhost:4000">http://localhost:4000</a>
-            </p>
-          </div>
-          <p class="fragment">Run some queries:</p>
-          <ol class="fragment">
-            <li>Request the IDs of all Blog Post</li>
-            <li>
-              Request a single Blog Post using its ID. Query its <b>title</b>, its <b>likes</b> and
-              the name of it's author (<b>user</b>)
-            </li>
-            <li>
-              Add a Like to the blog post (via mutation). Read the new number of likes from the
-              response
-            </li>
-          </ol>
-          <p class="fragment">
-            Hint: Inside the playground you get completion and docs on the right side
-          </p>
-        </section>
-
-        <section>
-          <h3>GraphQL Client mit React aber ohne Apollo (oder anderen GraphQL Client)</h3>
-          <pre><code class="javascript">
-import React from "react";
-
-function BlogListPage() {
-  const [posts, setPosts] = React.useState([]);
-
-  React.useEffect( () => {
-    fetch("/graphql", {
-      method: "POST",
-      body: JSON.stringify({
-        query:  "{ posts { id title } }"
-      })
-    })
-    .then(res => res.json())
-    .then(json => setPosts(res.data))
-    }, [])
-
-  if (!posts) { return "Please wait" }
-
-  return &lt;PostList posts={posts} />;
-}
-  </code></pre>
-          <p>Würde diese Komponente funktionieren?</p>
-          <p>Welche Probleme gibt es möglicherweise?</p>
-          <p>Was fehlt vielleicht?</p>
         </section>
 
         <section>
@@ -3819,10 +3757,10 @@ function PostPage() {
               Version der Anwendung nur der Titel)
             </li>
             <li class="fragment">Wenn Du fertig bist, bitte Hand heben 🙋</li>
-            <li class="fragment">
+            <!-- <li class="fragment">
               Zusatz: Öffne dann den Netzwerk-Tab im Browser und prüfe, wann Netzwerk-Requests
               durchgeführt werden, wenn Du dir nacheinander mehrere Blog-Artikel anzeigen lässt
-            </li>
+            </li> -->
           </ol>
         </section>
 
@@ -3917,7 +3855,7 @@ function PostEditorPage() {
 
           <ol class="x-list">
             <li>In <code>PostEditorPage.js</code> stehen TODOs</li>
-            <li>Wenn Du fertig bist, bitte Hand heben 🤦‍♀️</li>
+            <li>Wenn Du fertig bist, bitte Hand heben 🙋</li>
           </ol>
         </section>
 
@@ -4170,6 +4108,27 @@ return ...;
 }
 </code></pre>
         </section>
+
+        <section>
+          <h1>Ausblick: TypeScript</h1>
+        </section>
+        <section>
+          <h3>TypeScript</h3>
+          <ul>
+            <li class="fragment">
+              ...basiert auf JavaScript (jeder gültige JS Code ist gültiger TS Code)
+            </li>
+            <li class="fragment">...fügt statische Typ-Informationen zu JavaScript hinzu</li>
+            <li class="fragment">
+              ...die Typ-Informationen können optional sein und werden von TypeScript automatisch
+              ermittelt
+            </li>
+            <li class="fragment">
+              ...existiert nur zur Build-Zeit, nach dem Build "normaler" JavaScript-Code
+            </li>
+          </ul>
+        </section>
+
         <!-- ============================== GRAPHL ENDE ============================================================= -->
 
         <section id="t-test">

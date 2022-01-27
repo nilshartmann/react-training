@@ -1,0 +1,8 @@
+query PostListPage {
+  posts {
+    date
+    title
+    teaser
+    id
+  }
+}

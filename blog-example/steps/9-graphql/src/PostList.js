@@ -17,6 +17,7 @@ export default function PostList({ posts }) {
           <article className="Container">
             <p className="Date">{formattedDate(p.date)}</p>
             <h1>{p.title}</h1>
+            <p>{p.teaser}</p>
           </article>
         </Link>
       ))}
