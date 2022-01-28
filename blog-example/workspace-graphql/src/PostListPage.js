@@ -5,6 +5,9 @@ import { gql, useQuery } from "@apollo/client";
 const PostListPageQuery = gql`
   # TODO 1: Schreibe hier einen GraphQL-Query, der die Posts vom Backend liest
   #  Wir benötigen jeweils title, teaser und id
+  #
+  # Zum ausprobieren deines Queries kannst Du den Apollo Playground verwenden:
+  #  http://localhost:4000
 `;
 
 export default function PostListPage(props) {

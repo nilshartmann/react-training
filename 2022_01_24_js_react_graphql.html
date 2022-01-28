@@ -3433,6 +3433,118 @@ export default function useApi(url, initialValue) {
         </section>
 
         <section>
+          <h3>Hintergrund:</h3>
+          <h2>React Router</h2>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>React Router</h3>
+          <ul>
+            <li class="fragment">
+              Das GraphQL-Beispiel ist mit dem
+              <a href="https://reactrouter.com/">React Router</a> gebaut
+            </li>
+            <li class="fragment">
+              Das Beispiel verwendet noch die <a href="https://v5.reactrouter.com/">Version 5.x</a>
+            </li>
+            <li class="fragment">Der React Router ist kein "offizielles" React Projekt</li>
+            <li class="fragment">Ihr könnt damit URLs auf Komponenten abbilden ("routen")</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>React Router</h3>
+          <ul>
+            <li class="fragment">
+              Mit der <code>Switch</code> und
+              <a href="https://v5.reactrouter.com/web/api/Route"><code>Route</code></a
+              >-Komponente könnt ihr festlegen, welche Komponente für einen Pfad dargestellt werden
+              kann
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function App() {
+              return (
+                &lt;Switch>
+
+                  &lt;Route exact path="/">
+                    &lt;PostListPage />
+                  &lt;/Route>
+            
+                  &lt;Route path="/add">
+                    &lt;PostEditorPage />
+                  &lt;/Route>
+
+                  &lt;Route>
+                    &lt;NotFoundPage />
+                  &lt;/Route>
+                
+                &lt;/Switch>
+              );
+            }
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>React Router</h3>
+          <ul>
+            <li class="fragment">Ihr könnt Parameter/Argumente in Pfaden verwenden</li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+            function App() {
+              return (
+                &lt;Switch>
+
+                  &lt;Route path="/post/:postId">
+                    &lt;PostPage />
+                  &lt;/Route>
+
+
+                &lt;/Switch> 
+              );
+            }
+          </code></pre>
+
+          <ul>
+            <li class="fragment">
+              Innerhalb Eurer Komponente könnte ihr mit
+              <a href="https://v5.reactrouter.com/web/api/Hooks/useparams"
+                ><code>useParams</code>
+              </a>
+              auf den Wert aus der URL zugreifen
+            </li>
+          </ul>
+
+          <pre class="fragment"><code class="javascript">
+function PostPage() {
+  const { postId } = useParams();
+
+  // URL: '/post/7' -> postId: '7'
+}            
+          </code></pre>
+        </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>React Router</h3>
+
+          <p>
+            <a
+              href="https://nilshartmann.github.io/react-training/2021_07_13_react_typescript.html#/t-router"
+            >
+              Mehr Informationen</a
+            >
+            zum React Router (Version 5.x)
+          </p>
+        </section>
+
+        <!-- ============================================================================= -->
+
+        <section>
           <h3>Apollo Client</h3>
           <p>
             <a href="https://www.apollographql.com/docs/react/"
@@ -3445,6 +3557,28 @@ export default function useApi(url, initialValue) {
             Anwendung sicherzustellen
           </p>
         </section>
+
+        <!-- ============================================================================= -->
+        <section>
+          <h3>Apollo Client DevTools</h3>
+
+          <p>Browser-Erweiterung, stellt z.B. den Inhalt des Caches dar</p>
+
+          <ul>
+            <li>
+              <a
+                href="https://chrome.google.com/webstore/detail/apollo-client-devtools/jdkknkkbebbapilgoeccciglkfbmbnfm"
+                >Chrome</a
+              >
+            </li>
+            <li>
+              <a href="https://addons.mozilla.org/de/firefox/addon/apollo-developer-tools/"
+                >Firefox</a
+              >
+            </li>
+          </ul>
+        </section>
+
         <section>
           <h3>Apollo Client</h3>
           <p>
@@ -4127,6 +4261,12 @@ return ...;
               ...existiert nur zur Build-Zeit, nach dem Build "normaler" JavaScript-Code
             </li>
           </ul>
+        </section>
+
+        <section>
+          <h3>Beispiel</h3>
+          <p>👉 blog-example/workspace-typescript</p>
+          <p>👉 blog-example/steps/9b-graphql-with-typescript</p>
         </section>
 
         <!-- ============================== GRAPHL ENDE ============================================================= -->
