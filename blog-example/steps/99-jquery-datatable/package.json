@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "5.16.1",
-    "@testing-library/react": "12.1.2",
-    "@testing-library/user-event": "13.5.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.0",
+    "@testing-library/user-event": "^7.2.1",
     "@types/datatables.net": "^1.10.19",
     "@types/datatables.net-colreorder": "^1.4.1",
     "@types/jest": "^24.0.25",
@@ -17,10 +17,9 @@
     "datatables.net": "^1.10.21",
     "jquery": "^3.5.1",
     "moment": "^2.24.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-scripts": "5.0.0",
-    "react-test-renderer": "17.0.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "3.3.0",
     "typescript": "^3.7.4"
   },
   "scripts": {
