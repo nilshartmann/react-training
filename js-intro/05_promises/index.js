@@ -1,40 +1,53 @@
 // Übung: Promises
 
-// getGreetingFromApi liefert ein Objekt für einen Gruß für den Namen zurück,
+// loadGreetingFromServer liefert ein Objekt mit einen Gruß für den Namen zurück,
 // oder einen Fehler wenn kein name angegeben wurde.
-// Im Erfolgsfall wird ein Promise zurückgegeben, das zum folgenden
+//  Diese Funktion ist "fertig", die musst Du nur verwenden.
+//
+// Im Erfolgsfall liefert die Funktion ein Promise zurückgegeben, das zum folgenden
 // Objekt aufgelöst wird { phrase: ..., name: ... }
 
-// 1. Vervollständige showGreeting (s.u.)
-// 2. rufe zum Testen showGreeting einmal mit einem Namen auf
-//    showGreeting("World")
-//      => Es sollte erscheinen auf der Konsole: "Hello World"
-// 3. rufe zum Testen showGreeting einmal ohne Namen auf
-//     showGreeting();
-//      => Es sollte erscheinen auf der Konsole: "Must specify name"
+// 1. Vervollständige getGreetingAsString (s.u.)
+// 2. Vervollständige die Aufrufe von getGreetingAsString (s.u.)
 
-function getGreetingFromApi(name) {
-  if (!name) {
-    return Promise.reject("Must specify name");
-  }
-  return Promise.resolve({
-    phrase: "Hello",
-    name
+function loadGreetingFromServer(name) {
+  // Diese Funktion steht exemplarisch für eine asynchrone Funktion,
+  // die z.B. eine Bibliothek zur Verfügung stellt.
+  // In der Regel wirst Du Promises selbst nicht erzeugen müssen,
+  // sondern nur mit Promise-Objekten arbeiten, die Du von einer Funktion
+  // zurückgeliefert bekommst
+  return new Promise((resolve, reject) => {
+    const timeout = name ? 500 : 250;
+
+    setTimeout(() => {
+      if (!name) {
+        return reject("Must specify name");
+      }
+      return resolve({
+        phrase: "Hello",
+        name
+      });
+    }, timeout);
   });
 }
 
-function showGreeting(name) {
-  getGreetingFromApi(name)
-    .then(object => `${object.phrase} ${object.name}`)
-    .then(greeting => console.log(greeting))
-    .catch(error => console.error(error));
-
-  // Das Ergebnis von getGreetingFromApi ist ein Promise, das zu einem Objekt aufgelöst wird
-  // ({ phrase: ..., name: ... })
-  // Verwende zwei then-Funktionen, um das Objekt (1.) in einen String zu verwandeln
-  //  und (2.) diesen String dann in auf der Konsole auszugeben
-  // Im Fehlerfalle gibt den Fehler auf der Konsole aus
+function getGreetingAsString(name) {
+  // Implementiere diese Funktion
+  // Die Funktion soll loadGreetingFromServer mit 'name' aufrufen und
+  //   - im Erfolgsfall einen String zurückliefern, in dem die Daten des von
+  //     loadGreetingFromServer zurückgelieferte Greeting-Objekts enthalten sind
+  //   - im Fehlerfall einen String zurückliefern mit einer Fehlermeldung
+  //
+  // Du kannst Promise-Ketten oder async/await API verwenden
 }
 
-showGreeting("Susi");
-showGreeting(null);
+// Führe getGreetingAsString aus und gib das Ergebnis auf der Konsole aus
+//   - Im ersten Fall ("Susi") sollte eine Meldung mit dem Gruß erscheinen
+//   - Im zweiten Fall ("null") sollte eine Fehlermeldung erscheinen
+//
+// Zusatz-Aufgabe:
+//  - kannst Du sicherstellen, dass die Ausgabe für Susi *immer* vor der Ausgabe
+//    von "null" auf der Konsole erscheint?
+
+getGreetingAsString("Susi");
+getGreetingAsString(null);
