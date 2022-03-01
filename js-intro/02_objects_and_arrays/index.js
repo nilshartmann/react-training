@@ -1,12 +1,12 @@
 console.log("Please edit index.js");
 
-// 1. implement the function "createPerson", which takes two parameters: name and age
+// 1. implement the function "createPerson" from below, that takes two parameters: name and age
 //
 //    The function should return a person object consisting of these two properties,
 //      the object shall have a 'name' and an 'age' property.
 //      The default value for age in the returned object should be 18.
 //
-// 2. implement the function "printPersons" which takes one parameter: persons
+// 2. implement the function "printPersons" from below which takes one parameter: persons
 //    a) persons should be an array of person objects (from step 1)
 //
 //    b) The function should print all persons from the array persons "nicely" as a formatted string
