@@ -35,8 +35,7 @@ app.use((_, res, next) => {
 
 app.use((req, _res, next) => {
   if (req.query.slow !== undefined || slowEnabled) {
-    // can't remember why I do this kind of math, but it seems to work 😱
-    const timeout = req.query.slow !== undefined ? 750 : (Math.floor(Math.random() * 4) + 2) * 200;
+    const timeout = 1200;
     console.log(`Slow down ${timeout}ms`);
     setTimeout(next, timeout);
   } else {
