@@ -1,4 +1,3 @@
-import { request } from "http";
 import * as React from "react";
 import useSWR, { SWRConfig } from "swr";
 
@@ -69,16 +68,16 @@ function App() {
 
   return (
     <>
-      <div className="Container">
+      <header className="Container">
         <button onClick={toggleView}>Open {view === "user" ? "Post" : "User"} View</button>
-      </div>
-      <div className="Container Flex">
+      </header>
+      <main className="Flex">
         <div className="Main">
           {view === "user" && <User />}
           {view === "post" && <Post />}
         </div>
         <Sidebar />
-      </div>
+      </main>
     </>
   );
 }
@@ -92,23 +91,26 @@ type Response = {
 
 function newEntity(url: string): Response {
   if (url.endsWith("/user")) {
+    userRequestNo++;
     return {
       entity: "user",
-      id: `user_${requestNo}`,
-      content: `This is a user, read from request ${requestNo} at ${new Date().toLocaleTimeString()}`
+      id: `user_${userRequestNo}`,
+      content: `This is a user, read from request ${userRequestNo} at ${new Date().toLocaleTimeString()}`
     };
   }
+
+  blogRequestNo++;
   return {
     entity: "post",
-    id: `post_${requestNo}`,
-    content: `This is a Blog Post, read from request ${requestNo} at ${new Date().toLocaleTimeString()}`
+    id: `post_${blogRequestNo}`,
+    content: `This is a Blog Post, read from request ${blogRequestNo} at ${new Date().toLocaleTimeString()}`
   };
 }
 
 /** Simulates fetch API */
-let requestNo = 6;
+let userRequestNo = 0;
+let blogRequestNo = 0;
 function demoFetch(url: string): Promise<Response> {
-  const myRequest = requestNo++;
   return new Promise(resolve => {
     setTimeout(() => resolve(newEntity(url)), 1000);
   });
